@@ -9,5 +9,12 @@ import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 
-ReactDOM.render(<Router><App /></Router>, document.getElementById('root'));
-registerServiceWorker();
+
+const anchor = document.createElement('div');
+anchor.id = 'extension-root';
+document.body.insertBefore(anchor, document.body.childNodes[0]);
+
+
+
+
+ReactDOM.render(<Router><App /></Router>, document.getElementById('extension-root'));
