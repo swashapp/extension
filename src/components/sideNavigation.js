@@ -11,12 +11,7 @@ class SideNavigation extends React.Component {
                 {/*<img alt="MDB React Logo" className="img-fluid" src={logo}/>*/}
             </a>
             <MDBListGroup className="list-group-flush">
-                <NavLink exact={true} to="/" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="chart-pie" className="mr-3"/>
-                        Dashboard
-                    </MDBListGroupItem>
-                </NavLink>
+                
                 <NavLink exact={true} to="/Profile1" activeClassName="activeClass">
                     <MDBListGroupItem>
                         <MDBIcon icon="user-cog" className="mr-3"/>
@@ -41,31 +36,15 @@ class SideNavigation extends React.Component {
                         {/*Instagram*/}
                     {/*</MDBListGroupItem>*/}
                 {/*</NavLink>*/}
-                <NavLink to="/Facebook" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="facebook" fab className="mr-3"/>
-                        Facebook
-                    </MDBListGroupItem>
-                </NavLink>
-                <NavLink to="/Youtube" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="youtube" fab className="mr-3"/>
-                        Youtube
-                    </MDBListGroupItem>
-                </NavLink><NavLink to="/Amazon" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="amazon" fab className="mr-3"/>
-                        Amazon
-                    </MDBListGroupItem>
-                </NavLink>
-                {this.props.resource.map((ob,id)=>
+                
+                {/*{this.props.resource.map((ob,id)=>
                     <NavLink key={id} to={"/apis/"+ob.name} activeClassName="activeClass">
                         <MDBListGroupItem>
                             <MDBIcon icon="amazon" fab className="mr-3"/>
                             {ob.name}
                         </MDBListGroupItem>
                     </NavLink>
-                )}
+                )}*/}
                 {/*<NavLink to="/LinkedIn" activeClassName="activeClass">*/}
                     {/*<MDBListGroupItem>*/}
                         {/*<MDBIcon icon="linkedin-in" fab className="mr-3"/>*/}
@@ -76,12 +55,39 @@ class SideNavigation extends React.Component {
                         {/*<MDBIcon icon="pinterest" fab className="mr-3"/>*/}
                         {/*Pinterest*/}
                     {/*</MDBListGroupItem>*/}
-                {/*</NavLink><NavLink to="/Github" activeClassName="activeClass">*/}
-                    {/*<MDBListGroupItem>*/}
-                        {/*<MDBIcon icon="github" fab className="mr-3"/>*/}
-                        {/*Github*/}
-                    {/*</MDBListGroupItem>*/}
                 {/*</NavLink>*/}
+                <NavLink to="/Filters" activeClassName="activeClass">
+                    <MDBListGroupItem>
+                        <MDBIcon fas icon="filter"  className="mr-3"/>
+                        
+                        Filters
+                    </MDBListGroupItem>
+                </NavLink>
+                <NavLink to="/Modules" activeClassName="activeClass">
+                    <MDBListGroupItem>
+                        <MDBIcon icon="plug" fas className="mr-3"/>
+                        Modules
+                    </MDBListGroupItem>
+                </NavLink>
+                <NavLink to="/Marketplace" activeClassName="activeClass">
+                    <MDBListGroupItem>
+                        <MDBIcon icon="cart-plus" fas className="mr-3"/>
+                        Marketplace
+                    </MDBListGroupItem>
+                </NavLink>
+                <NavLink to="/Manual" activeClassName="activeClass">
+                    <MDBListGroupItem>
+                        <MDBIcon icon="book" fas className="mr-3"/>
+                        Manual
+                    </MDBListGroupItem>
+                </NavLink>
+                <NavLink to="/About" activeClassName="activeClass">
+                    <MDBListGroupItem>
+                        <MDBIcon icon="question" fas className="mr-3"/>
+                        About
+                    </MDBListGroupItem>
+                </NavLink>
+                
             </MDBListGroup>
         </div>
 

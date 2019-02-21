@@ -6,10 +6,10 @@ import NewProfile from './pages/NewProfile';
 import TablesPage from './pages/TablesPage';
 import MapsPage from './pages/MapsPage';
 import NotFoundPage from './pages/NotFoundPage';
-import Google from './newpages/Google';
-import Facebook from './newpages/Facebook';
-import Amazon from './newpages/Amazon';
-import YouTube from './newpages/YouTube';
+import Modules from './newpages/Modules';
+import Filters from './newpages/Filters';
+
+
 import GeneralApiPage from './newpages/GeneralApiPage';
 
 class Routes extends React.Component {
@@ -22,12 +22,14 @@ class Routes extends React.Component {
         <Route path='/profile1' component={NewProfile} />
         <Route path='/tables' component={TablesPage} />
         <Route path='/maps' component={MapsPage} />
-        <Route path='/Google' component={Google} />
-        <Route path='/Facebook' component={Facebook} />
-        <Route path='/Amazon' component={Amazon} />
-        <Route path='/YouTube' component={YouTube} />
         <Route path='/apis/'  render={()=>
-            <GeneralApiPage resource={this.props.resource}/>
+        <GeneralApiPage resource={this.props.resource}/>
+        } />
+        <Route path='/modules/'  render={()=>
+        <Modules resource={this.props.resource}/>
+        } />
+        <Route path='/filters/'  render={()=>
+        <Filters resource={this.props.resource}/>
         } />
         <Route path='/404' component={NotFoundPage} />
       </Switch>
