@@ -34,8 +34,10 @@ class GeneralApiPage extends React.Component {
         let href = window.location.href.substring(window.location.href.indexOf('/apis/') + 6);
         let resourse;
         for (let u in this.props.resource) {
-            if (href === this.props.resource[u].name)
+            if (href === this.props.resource[u].name) {
                 resourse = this.props.resource[u];
+				break;
+			}
         }
         ;
         if(resourse){
@@ -45,12 +47,12 @@ class GeneralApiPage extends React.Component {
             let content = [];
             if(resourse.content)
                 for (let y in resourse.content){
-                    content.push({title:resourse.content[y].name,description:resourse.content[y].description,is_enabled:resourse.content[y].is_enabled,title:resourse.name})
+                    content.push({title:resourse.content[y].name,description:resourse.content[y].description,is_enabled:resourse.content[y].is_enabled})
         }
         let browsing = [];
         if(resourse.browsing){
             for (let y in resourse.browsing){
-                browsing.push({title:resourse.browsing[y].name,description:resourse.browsing[y].description,is_enabled:resourse.browsing[y].is_enabled,title:resourse.name})
+                browsing.push({title:resourse.browsing[y].name,description:resourse.browsing[y].description,is_enabled:resourse.browsing[y].is_enabled})
             }
             console.log('sadasd',resourse.style)
             if(!resourse.style){
@@ -196,6 +198,7 @@ class GeneralApiPage extends React.Component {
         const savePrivacyLevel = ()=>{
             let object = {};
             object[this.state.page] = {'privacyLevel':this.state.activeNav,enabled:document.getElementById('enabled-switch').checked}
+			
             window.helper.save(object)
         }
         const saveContent = ()=>{

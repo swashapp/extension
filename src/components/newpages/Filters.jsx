@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch ,withRouter} from 'react-router-dom';
-
 import {
     MDBCol,
     MDBSwitch,
@@ -31,24 +30,26 @@ class Filters extends React.Component {
 
     componentDidMount() {
         let resources =[];
-                if(this.props.resource[0]&& !this.state.resources[0]){
-                    for(let i in this.props.resource){
-                        resources.push({title:this.props.resource[i].name,icon:''})
-                    }
-                    this.setState({resources:resources})
-                }
-             
-                let filters = window.helper.loadFilters();
-                let newFilters = [];
-                for(let x in filters){
-                 newFilters.push({
-                    'Exception': filters[x].value,
-                    'Type':filters[x].type,
-                    'Delete':<MDBBtn onClick={()=>this.deleteRecords(filters[x].value)} color="red" size="sm"><i class="fa fa-trash" aria-hidden="true"></i>
-</MDBBtn>
-                })
-                }
-                this.setState({filters : newFilters})
+		if(this.props.resource[0]&& !this.state.resources[0]){
+			for(let i in this.props.resource){
+				resources.push({title:this.props.resource[i].name,icon:''})
+			}
+			this.setState({resources:resources})
+		}
+		let that = this;
+		async function loader() {
+			let filters = await window.helper.loadFilters();
+			let newFilters = [];
+			for(let x in filters){
+				 newFilters.push({
+					'Exception': filters[x].value,
+					'Type':filters[x].type,
+					'Delete':<MDBBtn onClick={()=>this.deleteRecords(filters[x].value)} color="red" size="sm"><i class="fa fa-trash" aria-hidden="true"></i></MDBBtn>
+				})
+			}
+			that.setState({filters : newFilters})
+		}
+		loader();
     };
 
     componentDidUpdate() {
@@ -129,23 +130,16 @@ class Filters extends React.Component {
                 'Delete':<MDBBtn onClick={()=>this.deleteRecords(s)} color="red" size="sm"><i class="fa fa-trash" aria-hidden="true"></i>
 </MDBBtn>
             };
-            this.state.filters.push(f1)
-            let filter = window.helper.loadFilters();
-            filter.push(f)
-            window.helper.saveFilters(filter);
-            setTimeout(()=>{
-let filters = window.helper.loadFilters();
-                let newFilters = [];
-                for(let x in filters){
-                 newFilters.push({
-                    'Exception': filters[x].value,
-                    'Type':filters[x].type,
-                    'Delete':<MDBBtn onClick={()=>this.deleteRecords(filters[x].value)} color="red" size="sm"><i class="fa fa-trash" aria-hidden="true"></i></MDBBtn>
-                })
-                }
-                this.setState({filters : newFilters})                
-            },100)
-            toggle('addModal')
+            window.helper.loadFilters().then(filter => {
+				filter.push(f);
+				window.helper.saveFilters(filter);
+				}).then(() => {
+					window.helper.loadFilters();
+				}).then(() => {					
+					this.state.filters.push(f1)
+					toggle('addModal')
+				});            
+            
         };
         return ( <MDBContainer><MDBRow className="justify-content-left">
         <MDBContainer>

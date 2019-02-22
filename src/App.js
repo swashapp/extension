@@ -9,13 +9,20 @@ class App extends Component {
           this.state ={resource : []}
       }
       componentDidMount(){
-        let f = window.helper.load().modules;
-        let list = [];
-        for(let x in f){
-            list.push(f[x])
-            console.log(f[x])
-        }
-        this.setState({resource:list})
+		  console.log("react componentDidMount");
+		let that = this;
+		async function loader() {
+			let x = await window.helper.load();
+			let f = x.modules;
+			let list = [];
+			for(let x in f){
+				list.push(f[x])
+				console.log(f[x])
+			}
+			that.setState({resource:list})
+		}
+		loader();
+               
       }
   render() {
       
