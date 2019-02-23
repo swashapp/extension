@@ -199,7 +199,7 @@ class GeneralApiPage extends React.Component {
             let object = {};
             object[this.state.page] = {'privacyLevel':this.state.activeNav,enabled:document.getElementById('enabled-switch').checked}
 			
-            window.helper.save(object)
+            window.helper.saveModuleSettings(this.state.title, "*", object)
         }
         const saveContent = ()=>{
            let uz = {};
@@ -207,7 +207,7 @@ class GeneralApiPage extends React.Component {
                 let f = document.getElementById('content'+y).checked;
                 uz[this.state.content[y].title] = f                
             }
-            window.helper.save(uz)
+            window.helper.saveModuleSettings(this.state.title, "content", uz)
         }
         const saveBrowsing = ()=>{
             console.log('browsing')
@@ -216,7 +216,7 @@ class GeneralApiPage extends React.Component {
                 let f = document.getElementById('browsing'+y).checked;
                 uz[this.state.browsing[y].title] = f                
             }
-            window.helper.save(uz)
+            window.helper.saveModuleSettings(this.state.title, "browsing", uz)            
         }
         return (
             <div id="general-api-wrapper">
