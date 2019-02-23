@@ -197,17 +197,23 @@ class GeneralApiPage extends React.Component {
         };
         const savePrivacyLevel = ()=>{
             let object = {};
-            object[this.state.page] = {'privacyLevel':this.state.activeNav,enabled:document.getElementById('enabled-switch').checked}
-			
-            window.helper.saveModuleSettings(this.state.title, "*", object)
+            object[this.state.page] = {'privacy_level':this.state.activeNav,is_enabled:document.getElementById('enabled-switch').checked}			
+            window.helper.saveModuleSettings(this.state.title, "*", object);
+			this.state.resource.privacy_level =  object[this.state.page].privacy_level
+			this.state.resource.is_enabled =   object[this.state.page].is_enabled;
         }
         const saveContent = ()=>{
            let uz = {};
             for(let y in this.state.content){
                 let f = document.getElementById('content'+y).checked;
-                uz[this.state.content[y].title] = f                
+                uz[this.state.content[y].title] = f;
+				
             }
-            window.helper.saveModuleSettings(this.state.title, "content", uz)
+			for(let x in this.state.resource.content) {
+				this.state.resource.content[x].is_enabled = uz[this.state.resource.content[x].name];
+			}
+            window.helper.saveModuleSettings(this.state.title, "content", uz);
+			
         }
         const saveBrowsing = ()=>{
             console.log('browsing')
@@ -216,6 +222,10 @@ class GeneralApiPage extends React.Component {
                 let f = document.getElementById('browsing'+y).checked;
                 uz[this.state.browsing[y].title] = f                
             }
+			for(let x in this.state.resource.browsing) {
+				this.state.resource.browsing[x].is_enabled = uz[this.state.resource.browsing[x].name];
+			}
+
             window.helper.saveModuleSettings(this.state.title, "browsing", uz)            
         }
         return (
@@ -351,9 +361,7 @@ class GeneralApiPage extends React.Component {
 
                                             {this.state.browsing.map((ob,id)=>
                                                 <div className="col-md-4 col-lg-3">
-                                                    <MDBInput defaultChecked={ob.is_enabled} label={ob.title} filled type="checkbox" id={'browsing'+id}>
-
-                                                    </MDBInput>
+														<MDBInput label={ob.title} checked={ob.is_enabled} filled type="checkbox" id={'browsing'+id}></MDBInput>                                                    
                                                 
                                             </div>)}
                                                                                             </div>
@@ -420,7 +428,8 @@ class GeneralApiPage extends React.Component {
                                                 <MDBCardTitle>User Info</MDBCardTitle>
                                                  <MDBRow className="justify-content-left">
                                                 {this.state.content.map((ob,id)=><MDBCol md="4" lg="3">
-                                                <MDBInput label={ob.title} defaultChecked={ob.is_enabled} filled type="checkbox" id={'content'+id}/></MDBCol>
+														<MDBInput label={ob.title} checked={ob.is_enabled} filled type="checkbox" id={'content'+id}/>
+													</MDBCol>
                                                 )}
                                                  </MDBRow>
 
