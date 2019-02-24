@@ -361,7 +361,7 @@ class GeneralApiPage extends React.Component {
 
                                             {this.state.browsing.map((ob,id)=>
                                                 <div className="col-md-4 col-lg-3">
-														<MDBInput label={ob.title} checked={ob.is_enabled} filled type="checkbox" id={'browsing'+id}></MDBInput>                                                    
+														<MDBInput label={ob.title} filled checked={ob.is_enabled}  type="checkbox" id={'browsing'+id}></MDBInput>                                                    
                                                 
                                             </div>)}
                                                                                             </div>
@@ -428,7 +428,7 @@ class GeneralApiPage extends React.Component {
                                                 <MDBCardTitle>User Info</MDBCardTitle>
                                                  <MDBRow className="justify-content-left">
                                                 {this.state.content.map((ob,id)=><MDBCol md="4" lg="3">
-														<MDBInput label={ob.title} checked={ob.is_enabled} filled type="checkbox" id={'content'+id}/>
+														<MDBInput label={ob.title} filled checked={ob.is_enabled}  type="checkbox" id={'content'+id}/>
 													</MDBCol>
                                                 )}
                                                  </MDBRow>
