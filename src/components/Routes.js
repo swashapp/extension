@@ -16,12 +16,9 @@ class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route path='/' exact component={DashboardPage} />
-        <Route path='/dashboard' component={DashboardPage} />
-        <Route path='/profile' component={ProfilePage} />
-        <Route path='/profile1' component={NewProfile} />
-        <Route path='/tables' component={TablesPage} />
-        <Route path='/maps' component={MapsPage} />
+        <Route path='/' exact component={NewProfile} />
+        <Route path='/dashboard' component={NewProfile} />
+        <Route path='/profile' component={NewProfile} />
         <Route path='/apis/'  render={()=>
         <GeneralApiPage resource={this.props.resource}/>
         } />

@@ -12,7 +12,7 @@ class SideNavigation extends React.Component {
             </a>
             <MDBListGroup className="list-group-flush">
                 
-                <NavLink exact={true} to="/Profile1" activeClassName="activeClass">
+                <NavLink exact={true} to="/Profile" activeClassName="activeClass">
                     <MDBListGroupItem>
                         <MDBIcon icon="user-cog" className="mr-3"/>
                         Profile

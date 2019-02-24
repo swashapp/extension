@@ -27,8 +27,7 @@ class App extends Component {
   render() {
       
     return (
-        <div className="flexible-content">
-          <TopNavigation />
+        <div className="flexible-content">          
           <SideNavigation  resource={this.state.resource}/>
           <main id="content" className="p-5">
             <Routes resource={this.state.resource}/>
