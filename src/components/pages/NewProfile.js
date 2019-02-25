@@ -15,10 +15,27 @@ import {
 } from 'mdbreact';
 import src1 from '../../assets/img-1.jpg';
 
-const ProfilePage = () => {
-    
+class ProfilePage extends React.Component {
+    constructor(){
+        super();
+        this.state = {};
+    }
+    componentDidMount(){
+        this.loadSettings()
+    }
+    loadSettings(){
+        
+        console.log('load settings this')
+        window.helper.load().then(db => {
+            document.getElementById('push').checked = db.configs.pushStatus;;
+            this.setState({email:db.profile.email,walletId:db.profile.walletId})
+            });
+    }
+    render(){
+    var settings = {        
+    }
     const saveSettings = ()=>{
-        console.log('settings')        
+        console.log('save settings')        
         let pushStatus = document.getElementById('push').checked;
         let email = document.getElementById('email').value;
         let wallet = document.getElementById('wallet').value;
@@ -29,12 +46,28 @@ const ProfilePage = () => {
         window.helper.saveProfile(data);
         window.helper.saveConfigs({pushStatus: pushStatus});
     }
-
     
+    const loadSettings = ()=>{
+        console.log('load settings')
+        window.helper.load().then(db => {
+            document.getElementById('push').checked = db.configs.pushStatus;;
+            document.getElementById('email').value = db.profile.email;
+            document.getElementById('wallet').value = db.profile.walletId;
+            });
+    }
+    const changeInput = (e)=>{
+        console.log('e',e.target,e.target.value,e.target.id)
+        if(e.target.id === 'wallet'){
+            this.setState({walletId:e.target.value})
+        }
+        if(e.target.id === 'email'){
+            this.setState({email:e.target.value})
+        }
+    }
     return (
         <React.Fragment>
+            
             <MDBRow className="justify-content-center">
-
                 <MDBCol md="12" lg="12">
                     <section className="text-center pb-3">
                         <MDBRow className="d-flex justify-content-left">
@@ -80,8 +113,8 @@ const ProfilePage = () => {
                                         </MDBCardTitle>
                                         {/*<MDBCardText>Some quick example text to build on the card title and make up the*/}
                                             {/*bulk of the card's content.</MDBCardText>*/}
-                                        <MDBInput label="Wallet Id" icon="user" id="wallet"/>
-                                        <MDBInput label="Email Address" icon="envelope" id="email"/>
+                                        <MDBInput onChange={changeInput} value={this.state.walletId} label="Wallet Id" icon="user" id="wallet" />
+                                        <MDBInput value={changeInput} value={this.state.email} label="Email Address" icon="envelope" id="email"/>
                                         <p className={'input-p'}>Optional : If you Provide Email , It may Increase Your Income</p>
                                         <div className={'input-title'}>
                                             <h5 style={{display:'inline-flex',color: '#757575'}}>Push Messages:      
@@ -119,6 +152,6 @@ const ProfilePage = () => {
             </MDBRow>
         </React.Fragment>
     );
-}
+}}
 
 export default ProfilePage;

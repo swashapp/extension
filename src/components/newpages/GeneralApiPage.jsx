@@ -26,10 +26,11 @@ class GeneralApiPage extends React.Component {
     state = {
         modal1: false,addModal:false,
         modal2: false, activeNav: 0, resource: false,
-        modal3: false, connected: false
+        modal3: false, connected: false,x:false
     };
 
     componentDidMount() {
+        console.log('did mount')
         if(this.props.resource[0]){
         let href = window.location.href.substring(window.location.href.indexOf('/apis/') + 6);
         let resourse;
@@ -43,8 +44,9 @@ class GeneralApiPage extends React.Component {
         if(resourse){
             document.getElementById('enabled-switch').checked = resourse.is_enabled;
         }
+        let content = [];
         if(resourse){
-            let content = [];
+            
             if(resourse.content)
                 for (let y in resourse.content){
                     content.push({title:resourse.content[y].name,description:resourse.content[y].description,is_enabled:resourse.content[y].is_enabled})
@@ -54,16 +56,28 @@ class GeneralApiPage extends React.Component {
             for (let y in resourse.browsing){
                 browsing.push({title:resourse.browsing[y].name,description:resourse.browsing[y].description,is_enabled:resourse.browsing[y].is_enabled})
             }
-            console.log('sadasd',resourse.style)
-            if(!resourse.style){
+            
+        }
+        let apiCall = [];
+        if(!resourse.style){
                 this.generateCss('red')
             }
              else{
                  this.generateCss('#'+resourse.style.mainColor)
              }
-            this.setState({resource: resourse, page: href,activeNav:resourse.privacy_level,content:content,browsing:browsing,title:resourse.name,icon:resourse.icons[0]})
-        }}
+            if(resourse.apiCall){
+                for (let y in resourse.apiCall){
+                    console.log('resourse.apiCall[y]',resourse.apiCall[y].name)
+                    apiCall.push({title:resourse.apiCall[y].name,description:resourse.apiCall[y].description,is_enabled:resourse.apiCall[y].is_enabled})
+            }}
+            console.log('setting state ',apiCall)
+                this.setState({resource: resourse, page: href,activeNav:resourse.privacy_level,content:content,browsing:browsing,apiCall:apiCall,title:resourse.name,icon:resourse.icons[0]})
+
+        }
+        
+
         else{
+            this.setState({x:!this.state.x})
            // this.setState({resource: resourse, page: href})
         }
         //this.setState({resource: resourse, page: href})
@@ -71,6 +85,7 @@ class GeneralApiPage extends React.Component {
     };
 
     componentDidUpdate() {
+        console.log('did update')
         if(this.props.resource[0]){
         let resourse;
         let href = window.location.href.substring(window.location.href.indexOf('/apis/') + 6);
@@ -91,12 +106,21 @@ class GeneralApiPage extends React.Component {
                     console.log('resourse.content[y]',resourse.browsing[y].name)
                     browsing.push({title:resourse.browsing[y].name,description:resourse.browsing[y].description,is_enabled:resourse.browsing[y].is_enabled})
             }}
+            
+            let apiCall = [];
+            if(resourse.apiCall){
+                for (let y in resourse.apiCall){
+                    console.log('resourse.apiCall[y]',resourse.apiCall[y].name)
+                    apiCall.push({title:resourse.apiCall[y].name,description:resourse.apiCall[y].description,is_enabled:resourse.apiCall[y].is_enabled})
+            }}
+                        console.log('setting state ',apiCall)
+
             setTimeout(()=>{
                 this.generateCss('#'+resourse.style.mainColor)
                 console.log("{resource: resourse, page: href,activeNav:resourse.privacy_level,content:content,browsing:browsing}",{resource: resourse, page: href,activeNav:resourse.privacy_level,content:content,browsing:browsing})
-                this.setState({resource: resourse, page: href,activeNav:resourse.privacy_level,content:content,browsing:browsing,title:resourse.name,icon:resourse.icons[0]})
+                this.setState({resource: resourse, page: href,activeNav:resourse.privacy_level,content:content,browsing:browsing,apiCall:apiCall,title:resourse.name,icon:resourse.icons[0]})
             document.getElementById('enabled-switch').checked = resourse.is_enabled;
-            this.setState({resource: resourse, page: href,is_enabled:resourse.is_enabled,activeNav:resourse.privacy_level,title:resourse.name,icon:resourse.icons[0]})},250)
+            this.setState({resource: resourse, page: href,is_enabled:resourse.is_enabled,activeNav:resourse.privacy_level,title:resourse.name,apiCall:apiCall,icon:resourse.icons[0]})},250)
             
         }
         }
@@ -227,6 +251,48 @@ class GeneralApiPage extends React.Component {
 			}
 
             window.helper.saveModuleSettings(this.state.title, "browsing", uz)            
+        }
+         const saveApiCall = ()=>{
+            console.log('apiCall')
+            let uz = {};
+            for(let y in this.state.apiCall){
+                let f = document.getElementById('apiCall'+y).checked;
+                uz[this.state.apiCall[y].title] = f                
+            }
+			for(let x in this.state.resource.apiCall) {
+				this.state.resource.apiCall[x].is_enabled = uz[this.state.resource.apiCall[x].name];
+			}
+
+            window.helper.saveModuleSettings(this.state.title, "apiCall", uz)            
+        }
+        const changeCheckBox = (e)=>{
+            console.log('e',e.target,e.target.checked,e.id);
+            if(e.target.id.indexOf('content')!==-1){
+                let id = e.target.id.substring(7);
+                console.log('id',id)
+                let content = this.state.content;
+                content[id].is_enabled =  e.target.checked
+                this.setState({content:content})
+            }
+            if(e.target.id.indexOf('apiCall')!==-1){
+                let id = e.target.id.substring(7);
+                                console.log('id',id)
+
+                let apiCall = this.state.apiCall;
+                apiCall[id].is_enabled =  e.target.checked
+                this.setState({apiCall:apiCall})
+            }
+            if(e.target.id.indexOf('browsing')!==-1){
+                let id = e.target.id.substring(8);
+                                console.log('id',id)
+
+                let browsing = this.state.browsing;
+                                console.log('browsing',browsing)
+
+                browsing[id].is_enabled =  e.target.checked
+                this.setState({browsing:browsing})
+            }
+
         }
         return (
             <div id="general-api-wrapper">
@@ -361,7 +427,7 @@ class GeneralApiPage extends React.Component {
 
                                             {this.state.browsing.map((ob,id)=>
                                                 <div className="col-md-4 col-lg-3">
-														<MDBInput label={ob.title} filled checked={ob.is_enabled}  type="checkbox" id={'browsing'+id}></MDBInput>                                                    
+														<MDBInput label={ob.title} filled checked={ob.is_enabled} onChange={changeCheckBox} type="checkbox" id={'browsing'+id}></MDBInput>                                                    
                                                 
                                             </div>)}
                                                                                             </div>
@@ -396,14 +462,14 @@ class GeneralApiPage extends React.Component {
                                     <MDBRow className="justify-content-left">
                                         <MDBCol md="12" lg="12">
                                             <MDBCardBody>
-                                                <MDBCardTitle>User Info</MDBCardTitle>
-                                                <MDBInput label="User Clicks" filled type="checkbox" id="uf1"/>
-                                                <MDBInput label="User Reviewed Items" filled type="checkbox" id="uf2"/>
-                                                <MDBInput label="Items Added to Cart" filled type="checkbox" id="uf3"/>
-                                                <MDBInput label="Items Ready to Buy Now" filled type="checkbox"
-                                                          id="uf4"/>
-                                                <MDBInput label="Items Added to User's Wish List" filled type="checkbox"
-                                                          id="uf5"/>
+                                                <div className={'row'}>
+
+                                            {this.state.apiCall.map((ob,id)=>
+                                                <div className="col-md-4 col-lg-3">
+														<MDBInput label={ob.title} onChange={changeCheckBox} filled checked={ob.is_enabled}  type="checkbox" id={'apiCall'+id}></MDBInput>                                                    
+                                                
+                                            </div>)}
+                                                                                            </div>
 
                                             </MDBCardBody>
                                         </MDBCol>
@@ -424,11 +490,10 @@ class GeneralApiPage extends React.Component {
                                 <React.Fragment>
                                     <MDBRow className="justify-content-left">
                                         <MDBCol md="12" lg="12">
-                                            <MDBCardBody>
-                                                <MDBCardTitle>User Info</MDBCardTitle>
+                                            <MDBCardBody>                                                
                                                  <MDBRow className="justify-content-left">
                                                 {this.state.content.map((ob,id)=><MDBCol md="4" lg="3">
-														<MDBInput label={ob.title} filled checked={ob.is_enabled}  type="checkbox" id={'content'+id}/>
+														<MDBInput label={ob.title} filled onChange={changeCheckBox} checked={ob.is_enabled}  type="checkbox" id={'content'+id}/>
 													</MDBCol>
                                                 )}
                                                  </MDBRow>
