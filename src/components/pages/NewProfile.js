@@ -16,6 +16,21 @@ import {
 import src1 from '../../assets/img-1.jpg';
 
 const ProfilePage = () => {
+    
+    const saveSettings = ()=>{
+        console.log('settings')        
+        let pushStatus = document.getElementById('push').checked;
+        let email = document.getElementById('email').value;
+        let wallet = document.getElementById('wallet').value;
+        let data = {            
+            email: email,
+            walletId: wallet
+        }
+        window.helper.saveProfile(data);
+        window.helper.saveConfigs({pushStatus: pushStatus});
+    }
+
+    
     return (
         <React.Fragment>
             <MDBRow className="justify-content-center">
@@ -65,24 +80,32 @@ const ProfilePage = () => {
                                         </MDBCardTitle>
                                         {/*<MDBCardText>Some quick example text to build on the card title and make up the*/}
                                             {/*bulk of the card's content.</MDBCardText>*/}
-                                        <MDBInput label="Wallet Id " icon="user" />
-                                        <MDBInput label="Email Address" icon="envelope" />
+                                        <MDBInput label="Wallet Id" icon="user" id="wallet"/>
+                                        <MDBInput label="Email Address" icon="envelope" id="email"/>
                                         <p className={'input-p'}>Optional : If you Provide Email , It may Increase Your Income</p>
                                         <div className={'input-title'}>
-                                            <h5 style={{display:'inline-flex',color: '#757575'}}>Push Messages : </h5>
-                                            <React.Fragment>
-                                                <input className={'switch'} type={'checkbox'}/>
-                                                <div>
-                                                    <div></div>
+                                            <h5 style={{display:'inline-flex',color: '#757575'}}>Push Messages:      
+                                             <React.Fragment>                                                
+                                                <div className='row'>                                                                              
+                                                    <div className="col-md-6">
+                                                        <input id='push' className='switch' type='checkbox'/>
+                                                        <div className='switch-wrap'>
+                                                            <p className="enabled"></p>
+                                                            <p className="disabled"></p>
+                                                            <div className='enable-circle'></div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </React.Fragment>
+                                            </h5>
+                                           
                                         </div>
                                         <p className={'input-p'}>Optional : If you Enable Push , It may Increase Your Income</p>
 
                                     </MDBCardBody>
 
                                     <MDBCardFooter className="links-light profile-card-footer">
-                                         <strong >Save Changes</strong>
+                                        <MDBBtn onClick={saveSettings}  color="blue">Save Changes</MDBBtn>                                         
                                     </MDBCardFooter>
                                 </MDBCard>
                                 </div>

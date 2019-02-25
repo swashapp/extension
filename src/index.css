@@ -48,7 +48,7 @@ main {
     }
 
     input[type="checkbox"].switch:checked + div {
-        background-color: #57BB00;
+        background-color: #1976d2 !important;
     }
     .general-api-logo{
             max-width: 150px;
