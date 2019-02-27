@@ -451,6 +451,7 @@ class GeneralApiPage extends React.Component {
                         <MDBCol md="12" lg="12">
                             <MDBCard className="d-flex mb-2">
                                 <MDBCardBody>
+                                    <MDBCardTitle>API Call</MDBCardTitle>
                                     {this.state.connected === false ?
                                         <MDBBtn color="indigo"><i className="fab fa-facebook mr-3"/>Connect to
                                             {' ' + this.state.resource.name}</MDBBtn> : ''
@@ -485,12 +486,13 @@ class GeneralApiPage extends React.Component {
                         <MDBCol md="12" lg="12">
                             <MDBCard className="d-flex mb-2">
                                 <MDBCardBody>
-
+                                            <MDBCardTitle>Content Data</MDBCardTitle>                                            
                                 </MDBCardBody>
                                 <React.Fragment>
                                     <MDBRow className="justify-content-left">
                                         <MDBCol md="12" lg="12">
-                                            <MDBCardBody>                                                
+                                            <MDBCardBody>                 
+
                                                  <MDBRow className="justify-content-left">
                                                 {this.state.content.map((ob,id)=><MDBCol md="4" lg="3">
 														<MDBInput label={ob.title} filled onChange={changeCheckBox} checked={ob.is_enabled}  type="checkbox" id={'content'+id}/>
