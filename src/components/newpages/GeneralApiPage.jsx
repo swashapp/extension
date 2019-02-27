@@ -49,12 +49,12 @@ class GeneralApiPage extends React.Component {
             
             if(resourse.content)
                 for (let y in resourse.content){
-                    content.push({title:resourse.content[y].name,description:resourse.content[y].description,is_enabled:resourse.content[y].is_enabled})
+                    content.push({title:resourse.content[y].title,description:resourse.content[y].description,is_enabled:resourse.content[y].is_enabled})
         }
         let browsing = [];
         if(resourse.browsing){
             for (let y in resourse.browsing){
-                browsing.push({title:resourse.browsing[y].name,description:resourse.browsing[y].description,is_enabled:resourse.browsing[y].is_enabled})
+                browsing.push({title:resourse.browsing[y].title,description:resourse.browsing[y].description,is_enabled:resourse.browsing[y].is_enabled})
             }
             
         }
@@ -68,10 +68,10 @@ class GeneralApiPage extends React.Component {
             if(resourse.apiCall){
                 for (let y in resourse.apiCall){
                     console.log('resourse.apiCall[y]',resourse.apiCall[y].name)
-                    apiCall.push({title:resourse.apiCall[y].name,description:resourse.apiCall[y].description,is_enabled:resourse.apiCall[y].is_enabled})
+                    apiCall.push({title:resourse.apiCall[y].title,description:resourse.apiCall[y].description,is_enabled:resourse.apiCall[y].is_enabled})
             }}
             console.log('setting state ',apiCall)
-                this.setState({resource: resourse, page: href,activeNav:resourse.privacy_level,content:content,browsing:browsing,apiCall:apiCall,title:resourse.name,icon:resourse.icons[0]})
+                this.setState({resource: resourse, page: href,activeNav:resourse.privacy_level,content:content,browsing:browsing,apiCall:apiCall,title:resourse.title,icon:resourse.icons[0]})
 
         }
         
@@ -98,29 +98,29 @@ class GeneralApiPage extends React.Component {
             let content = [];
             if(resourse.content){
                 for (let y in resourse.content){
-                    content.push({title:resourse.content[y].name,description:resourse.content[y].description,is_enabled:resourse.content[y].is_enabled})
+                    content.push({title:resourse.content[y].title,description:resourse.content[y].description,is_enabled:resourse.content[y].is_enabled})
             }}
             let browsing = [];
             if(resourse.browsing){
                 for (let y in resourse.browsing){
                     console.log('resourse.content[y]',resourse.browsing[y].name)
-                    browsing.push({title:resourse.browsing[y].name,description:resourse.browsing[y].description,is_enabled:resourse.browsing[y].is_enabled})
+                    browsing.push({title:resourse.browsing[y].title,description:resourse.browsing[y].description,is_enabled:resourse.browsing[y].is_enabled})
             }}
             
             let apiCall = [];
             if(resourse.apiCall){
                 for (let y in resourse.apiCall){
                     console.log('resourse.apiCall[y]',resourse.apiCall[y].name)
-                    apiCall.push({title:resourse.apiCall[y].name,description:resourse.apiCall[y].description,is_enabled:resourse.apiCall[y].is_enabled})
+                    apiCall.push({title:resourse.apiCall[y].title,description:resourse.apiCall[y].description,is_enabled:resourse.apiCall[y].is_enabled})
             }}
                         console.log('setting state ',apiCall)
 
             setTimeout(()=>{
                 this.generateCss('#'+resourse.style.mainColor)
                 console.log("{resource: resourse, page: href,activeNav:resourse.privacy_level,content:content,browsing:browsing}",{resource: resourse, page: href,activeNav:resourse.privacy_level,content:content,browsing:browsing})
-                this.setState({resource: resourse, page: href,activeNav:resourse.privacy_level,content:content,browsing:browsing,apiCall:apiCall,title:resourse.name,icon:resourse.icons[0]})
+                this.setState({resource: resourse, page: href,activeNav:resourse.privacy_level,content:content,browsing:browsing,apiCall:apiCall,title:resourse.title,icon:resourse.icons[0]})
             document.getElementById('enabled-switch').checked = resourse.is_enabled;
-            this.setState({resource: resourse, page: href,is_enabled:resourse.is_enabled,activeNav:resourse.privacy_level,title:resourse.name,apiCall:apiCall,icon:resourse.icons[0]})},250)
+            this.setState({resource: resourse, page: href,is_enabled:resourse.is_enabled,activeNav:resourse.privacy_level,title:resourse.title,apiCall:apiCall,icon:resourse.icons[0]})},250)
             
         }
         }
