@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 import {
     MDBCol,
@@ -24,136 +24,195 @@ import NavBar from '../microcomponents/NavBar'
 
 class GeneralApiPage extends React.Component {
     state = {
-        modal1: false,addModal:false,
+        modal1: false, addModal: false,
         modal2: false, activeNav: 0, resource: false,
-        modal3: false, connected: false,x:false
+        modal3: false, connected: false, x: false
     };
 
     componentDidMount() {
         console.log('did mount')
-        if(this.props.resource[0]){
-        let href = window.location.href.substring(window.location.href.indexOf('/apis/') + 6);
-        let resourse;
-        for (let u in this.props.resource) {
-            if (href === this.props.resource[u].name) {
-                resourse = this.props.resource[u];
-				break;
-			}
-        }
-        ;
-        if(resourse){
-            document.getElementById('enabled-switch').checked = resourse.is_enabled;
-        }
-        let content = [];
-        if(resourse){
-            
-            if(resourse.content)
-                for (let y in resourse.content){
-                    content.push({title:resourse.content[y].title,description:resourse.content[y].description,is_enabled:resourse.content[y].is_enabled})
-        }
-        let browsing = [];
-        if(resourse.browsing){
-            for (let y in resourse.browsing){
-                browsing.push({title:resourse.browsing[y].title,description:resourse.browsing[y].description,is_enabled:resourse.browsing[y].is_enabled})
+        if (this.props.resource[0]) {
+            let href = window.location.href.substring(window.location.href.indexOf('/apis/') + 6);
+            let resourse;
+            for (let u in this.props.resource) {
+                if (href === this.props.resource[u].name) {
+                    resourse = this.props.resource[u];
+                    break;
+                }
             }
-            
-        }
-        let apiCall = [];
-        if(!resourse.style){
-                this.generateCss('red')
+            ;
+            if (resourse) {
+                document.getElementById('enabled-switch').checked = resourse.is_enabled;
             }
-             else{
-                 this.generateCss('#'+resourse.style.mainColor)
-             }
-            if(resourse.apiCall){
-                for (let y in resourse.apiCall){
-                    console.log('resourse.apiCall[y]',resourse.apiCall[y].name)
-                    apiCall.push({title:resourse.apiCall[y].title,description:resourse.apiCall[y].description,is_enabled:resourse.apiCall[y].is_enabled})
-            }}
-            console.log('setting state ',apiCall)
-                this.setState({resource: resourse, page: href,activeNav:resourse.privacy_level,content:content,browsing:browsing,apiCall:apiCall,title:resourse.title,icon:resourse.icons[0]})
+            let content = [];
+            if (resourse) {
 
-        }
-        
+                if (resourse.content)
+                    for (let y in resourse.content) {
+                        content.push({
+                            title: resourse.content[y].title,
+                            description: resourse.content[y].description,
+                            is_enabled: resourse.content[y].is_enabled
+                        })
+                    }
+                let browsing = [];
+                if (resourse.browsing) {
+                    for (let y in resourse.browsing) {
+                        browsing.push({
+                            title: resourse.browsing[y].title,
+                            description: resourse.browsing[y].description,
+                            is_enabled: resourse.browsing[y].is_enabled
+                        })
+                    }
 
-        else{
-            this.setState({x:!this.state.x})
-           // this.setState({resource: resourse, page: href})
-        }
-        //this.setState({resource: resourse, page: href})
+                }
+                let apiCall = [];
+                if (!resourse.style) {
+                    this.generateCss('red')
+                } else {
+                    this.generateCss('#' + resourse.style.mainColor)
+                }
+                if (resourse.apiCall) {
+                    for (let y in resourse.apiCall) {
+                        console.log('resourse.apiCall[y]', resourse.apiCall[y].name)
+                        apiCall.push({
+                            title: resourse.apiCall[y].title,
+                            description: resourse.apiCall[y].description,
+                            is_enabled: resourse.apiCall[y].is_enabled
+                        })
+                    }
+                }
+                console.log('setting state ', apiCall)
+                this.setState({
+                    resource: resourse,is_enabled:resourse.is_enabled,
+                    page: href,url:resourse.URL[0],description:resourse.description,
+                    activeNav: resourse.privacy_level,
+                    content: content,
+                    browsing: browsing,
+                    apiCall: apiCall,
+                    title: resourse.title||resourse.name,
+                    icon: resourse.icons[0]
+                })
+
+            } else {
+                this.setState({x: !this.state.x})
+                // this.setState({resource: resourse, page: href})
+            }
+            //this.setState({resource: resourse, page: href})
         }
     };
 
     componentDidUpdate() {
         console.log('did update')
-        if(this.props.resource[0]){
-        let resourse;
-        let href = window.location.href.substring(window.location.href.indexOf('/apis/') + 6);
-        if (this.state.page !== href) {
-            this.setState({page :href,content:[],browsing:[],title:'',})
-            for (let u in this.props.resource) {
-                if (href === this.props.resource[u].name)
-                    resourse = this.props.resource[u];
-            };
-            let content = [];
-            if(resourse.content){
-                for (let y in resourse.content){
-                    content.push({title:resourse.content[y].title,description:resourse.content[y].description,is_enabled:resourse.content[y].is_enabled})
-            }}
-            let browsing = [];
-            if(resourse.browsing){
-                for (let y in resourse.browsing){
-                    console.log('resourse.content[y]',resourse.browsing[y].name)
-                    browsing.push({title:resourse.browsing[y].title,description:resourse.browsing[y].description,is_enabled:resourse.browsing[y].is_enabled})
-            }}
-            
-            let apiCall = [];
-            if(resourse.apiCall){
-                for (let y in resourse.apiCall){
-                    console.log('resourse.apiCall[y]',resourse.apiCall[y].name)
-                    apiCall.push({title:resourse.apiCall[y].title,description:resourse.apiCall[y].description,is_enabled:resourse.apiCall[y].is_enabled})
-            }}
-                        console.log('setting state ',apiCall)
+        if (this.props.resource[0]) {
+            let resourse;
+            let href = window.location.href.substring(window.location.href.indexOf('/apis/') + 6);
+            if (this.state.page !== href) {
+                this.setState({page: href, content: [], browsing: [], title: '',})
+                for (let u in this.props.resource) {
+                    if (href === this.props.resource[u].name)
+                        resourse = this.props.resource[u];
+                }
+                ;
+                let content = [];
+                if (resourse.content) {
+                    for (let y in resourse.content) {
+                        content.push({
+                            title: resourse.content[y].title,
+                            description: resourse.content[y].description,
+                            is_enabled: resourse.content[y].is_enabled
+                        })
+                    }
+                }
+                let browsing = [];
+                if (resourse.browsing) {
+                    for (let y in resourse.browsing) {
+                        console.log('resourse.content[y]', resourse.browsing[y].name)
+                        browsing.push({
+                            title: resourse.browsing[y].title,
+                            description: resourse.browsing[y].description,
+                            is_enabled: resourse.browsing[y].is_enabled
+                        })
+                    }
+                }
 
-            setTimeout(()=>{
-                this.generateCss('#'+resourse.style.mainColor)
-                console.log("{resource: resourse, page: href,activeNav:resourse.privacy_level,content:content,browsing:browsing}",{resource: resourse, page: href,activeNav:resourse.privacy_level,content:content,browsing:browsing})
-                this.setState({resource: resourse, page: href,activeNav:resourse.privacy_level,content:content,browsing:browsing,apiCall:apiCall,title:resourse.title,icon:resourse.icons[0]})
-            document.getElementById('enabled-switch').checked = resourse.is_enabled;
-            this.setState({resource: resourse, page: href,is_enabled:resourse.is_enabled,activeNav:resourse.privacy_level,title:resourse.title,apiCall:apiCall,icon:resourse.icons[0]})},250)
-            
-        }
+                let apiCall = [];
+                if (resourse.apiCall) {
+                    for (let y in resourse.apiCall) {
+                        console.log('resourse.apiCall[y]', resourse.apiCall[y].name)
+                        apiCall.push({
+                            title: resourse.apiCall[y].title,
+                            description: resourse.apiCall[y].description,
+                            is_enabled: resourse.apiCall[y].is_enabled
+                        })
+                    }
+                }
+                console.log('setting state ', apiCall)
+
+                setTimeout(() => {
+                    this.generateCss('#' + resourse.style.mainColor)
+                    console.log("{resource: resourse, page: href,activeNav:resourse.privacy_level,content:content,browsing:browsing}", {
+                        resource: resourse,
+                        page: href,
+                        activeNav: resourse.privacy_level,
+                        content: content,
+                        browsing: browsing
+                    })
+                    this.setState({
+                        resource: resourse,
+                        page: href,url:resourse.URL[0],
+                        activeNav: resourse.privacy_level,
+                        content: content,description:resourse.description,
+                        browsing: browsing,is_enabled:resourse.is_enabled,
+                        apiCall: apiCall,
+                        title: resourse.title||resourse.name,
+                        icon: resourse.icons[0]
+                    })
+                    document.getElementById('enabled-switch').checked = resourse.is_enabled;
+                    this.setState({
+                        resource: resourse,
+                        page: href,url:resourse.URL[0],description:resourse.description,
+                        is_enabled: resourse.is_enabled,
+                        activeNav: resourse.privacy_level,
+                        title: resourse.title||resourse.name,
+                        apiCall: apiCall,
+                        icon: resourse.icons[0]
+                    })
+                }, 250)
+
+            }
         }
     }
-    generateCss (style){
-        console.log('stylestylestyle ',style)
-        if(!style){
+
+    generateCss(style) {
+        console.log('stylestylestyle ', style)
+        if (!style) {
             style = 'red'
         }
-        console.log('style ',style)
+        console.log('style ', style)
         let i = `
         #general-api-wrapper .btn-secondary{
-        background: `+style+`!important;
+        background: ` + style + `!important;
         }
         #general-api-wrapper .nav-h.ok{
-                 box-shadow:0 0 7px 2px `+style+`!important;
- background: `+style+`!important;
+                 box-shadow:0 0 7px 2px ` + style + `!important;
+ background: ` + style + `!important;
  }
         #general-api-wrapper .nav-bar-line.active{
-                border-bottom: 3px solid `+style+`;
+                border-bottom: 3px solid ` + style + `;
         }
         #general-api-wrapper .nav-selected{
-            border: 5px solid `+style+`;
+            border: 5px solid ` + style + `;
         }
         #general-api-wrapper input[type="checkbox"].switch:checked + div{
-                background-color: `+style+`!important;
+                background-color: ` + style + `!important;
         }
 #general-api-wrapper .form-check-input[type=checkbox].filled-in:checked+label:after, label.btn input[type=checkbox].filled-in:checked+label:after {
   top: 0;
   width: 20px;
   height: 20px;
   border: 2px solid #000;
-  background-color: `+style+`;
+  background-color: ` + style + `;
   z-index: 0;
 }
 
@@ -161,6 +220,7 @@ class GeneralApiPage extends React.Component {
         console.log('xxxxxxxxxx')
         document.getElementById('theme').innerHTML = i
     };
+
     toggle = (x) => {
         if (x === '1')
             this.setState({
@@ -181,7 +241,7 @@ class GeneralApiPage extends React.Component {
     };
 
     render() {
-        const addModal = ()=>{
+        const addModal = () => {
 
         };
         let table1 = {
@@ -195,11 +255,11 @@ class GeneralApiPage extends React.Component {
                     'label': 'Value',
                     'field': 'Exception',
                     'sort': 'asc'
-                },{
+                }, {
                     'label': 'Type',
                     'field': 'Exception',
                     'sort': 'asc'
-                },{
+                }, {
                     'label': 'Delete',
                     'field': 'Exception',
                     'sort': 'asc'
@@ -209,102 +269,139 @@ class GeneralApiPage extends React.Component {
                 {
                     'Name': 'Test',
                     'Exception': 'SignUp',
-                    'Type':'Url',
-                    'Delete':<MDBBtn color="red" size="sm">X</MDBBtn>
+                    'Type': 'Url',
+                    'Delete': <MDBBtn color="red" size="sm">X</MDBBtn>
                 },
             ]
         };
         const handleClick = (id) => {
             this.setState({activeNav: id})
-        };const SaveException = (id) => {
+        };
+        const SaveException = (id) => {
 
         };
-        const savePrivacyLevel = ()=>{
+        const savePrivacyLevel = () => {
             let object = {};
-            object[this.state.page] = {'privacy_level':this.state.activeNav,is_enabled:document.getElementById('enabled-switch').checked}			
-            window.helper.saveModuleSettings(this.state.title, "*", object);
-			this.state.resource.privacy_level =  object[this.state.page].privacy_level
-			this.state.resource.is_enabled =   object[this.state.page].is_enabled;
-        }
-        const saveContent = ()=>{
-           let uz = {};
-            for(let y in this.state.content){
-                let f = document.getElementById('content'+y).checked;
-                uz[this.state.content[y].title] = f;
-				
+            object[this.state.page] = {
+                'privacy_level': this.state.activeNav,
+                is_enabled: document.getElementById('enabled-switch').checked
             }
-			for(let x in this.state.resource.content) {
-				this.state.resource.content[x].is_enabled = uz[this.state.resource.content[x].name];
-			}
-            window.helper.saveModuleSettings(this.state.title, "content", uz);
-			
+            window.helper.saveModuleSettings(this.state.title, "*", object);
+            this.state.resource.privacy_level = object[this.state.page].privacy_level
+            this.state.resource.is_enabled = object[this.state.page].is_enabled;
         }
-        const saveBrowsing = ()=>{
+        const saveContent = () => {
+            let uz = {};
+            for (let y in this.state.content) {
+                let f = document.getElementById('content' + y).checked;
+                uz[this.state.content[y].title] = f;
+
+            }
+            for (let x in this.state.resource.content) {
+                this.state.resource.content[x].is_enabled = uz[this.state.resource.content[x].name];
+            }
+            window.helper.saveModuleSettings(this.state.title, "content", uz);
+
+        }
+        const saveBrowsing = () => {
             console.log('browsing')
             let uz = {};
-            for(let y in this.state.browsing){
-                let f = document.getElementById('browsing'+y).checked;
-                uz[this.state.browsing[y].title] = f                
+            for (let y in this.state.browsing) {
+                let f = document.getElementById('browsing' + y).checked;
+                uz[this.state.browsing[y].title] = f
             }
-			for(let x in this.state.resource.browsing) {
-				this.state.resource.browsing[x].is_enabled = uz[this.state.resource.browsing[x].name];
-			}
+            for (let x in this.state.resource.browsing) {
+                this.state.resource.browsing[x].is_enabled = uz[this.state.resource.browsing[x].name];
+            }
 
-            window.helper.saveModuleSettings(this.state.title, "browsing", uz)            
+            window.helper.saveModuleSettings(this.state.title, "browsing", uz)
         }
-         const saveApiCall = ()=>{
+        const saveApiCall = () => {
             console.log('apiCall')
             let uz = {};
-            for(let y in this.state.apiCall){
-                let f = document.getElementById('apiCall'+y).checked;
-                uz[this.state.apiCall[y].title] = f                
+            for (let y in this.state.apiCall) {
+                let f = document.getElementById('apiCall' + y).checked;
+                uz[this.state.apiCall[y].title] = f
             }
-			for(let x in this.state.resource.apiCall) {
-				this.state.resource.apiCall[x].is_enabled = uz[this.state.resource.apiCall[x].name];
-			}
+            for (let x in this.state.resource.apiCall) {
+                this.state.resource.apiCall[x].is_enabled = uz[this.state.resource.apiCall[x].name];
+            }
 
-            window.helper.saveModuleSettings(this.state.title, "apiCall", uz)            
+            window.helper.saveModuleSettings(this.state.title, "apiCall", uz)
         }
-        const changeCheckBox = (e)=>{
-            console.log('e',e.target,e.target.checked,e.id);
-            if(e.target.id.indexOf('content')!==-1){
+        const changeCheckBox = (e) => {
+            console.log('e', e.target, e.target.checked, e.id);
+            if (e.target.id.indexOf('content') !== -1) {
                 let id = e.target.id.substring(7);
-                console.log('id',id)
+                console.log('id', id)
                 let content = this.state.content;
-                content[id].is_enabled =  e.target.checked
-                this.setState({content:content})
+                content[id].is_enabled = e.target.checked
+                this.setState({content: content})
             }
-            if(e.target.id.indexOf('apiCall')!==-1){
+            if (e.target.id.indexOf('apiCall') !== -1) {
                 let id = e.target.id.substring(7);
-                                console.log('id',id)
+                console.log('id', id)
 
                 let apiCall = this.state.apiCall;
-                apiCall[id].is_enabled =  e.target.checked
-                this.setState({apiCall:apiCall})
+                apiCall[id].is_enabled = e.target.checked
+                this.setState({apiCall: apiCall})
             }
-            if(e.target.id.indexOf('browsing')!==-1){
+            if (e.target.id.indexOf('browsing') !== -1) {
                 let id = e.target.id.substring(8);
-                                console.log('id',id)
+                console.log('id', id)
 
                 let browsing = this.state.browsing;
-                                console.log('browsing',browsing)
+                console.log('browsing', browsing)
 
-                browsing[id].is_enabled =  e.target.checked
-                this.setState({browsing:browsing})
+                browsing[id].is_enabled = e.target.checked
+                this.setState({browsing: browsing})
             }
 
-        }
+        };
+        const switchChange = ()=>{
+            console.log('switch changed',this.state.is_enabled,document.getElementById('enabled-switch').checked)
+            this.setState({is_enabled:!this.state.is_enabled})
+        };
+        const saveAll = ()=>{
+          console.log('save allll')
+        };
         return (
             <div id="general-api-wrapper">
-            <div id='xx' className='col-md-2'>
-                                <MDBCard className="d-flex mb-2">
-                                <MDBCardBody>
-                                <div className={'back-bt'} onClick={()=>this.props.history.push('/modules')}>
-                                    {'< Back'} 
+                <div className={'save-bt-fix'}><i onClick={saveAll} className={'fa fa-save'}/></div>
+                <div id='xx' className='col-md-12'>
+                    <MDBCard className="d-flex mb-2">
+                        <MDBCardBody>
+                            <div className={'container-fluid'}>
+                                <div className="row">
+                                    <div className="col-md-1 back-bt"
+                                         onClick={() => this.props.history.push('/modules')}>
+                                        {'< Back'}
+                                    </div>
+                                    <div className="col-md-9 back-bt module-title" id={'api-name'}>
+                                        {this.state.title}
+                                    </div>
+                                    <div className="col-md-2 back-bt">
+                                        <div className='row'>
+
+                                            <div className="col-md-6">Status :</div>
+                                            <div className="col-md-6">
+                                                <input onChange={switchChange} id='enabled-switch' className='switch' type='checkbox'/>
+                                                <div className='switch-wrap'>
+                                                    <p className="enabled"></p>
+                                                    <p className="disabled"></p>
+                                                    <div className='enable-circle'></div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
                                 </div>
-                                </MDBCardBody>
-                                  </MDBCard>
-        </div>
+
+                            </div>
+                        </MDBCardBody>
+                    </MDBCard>
+                </div>
                 <MDBContainer>
                     <MDBModal size="lg" isOpen={this.state.modal1} toggle={() => this.toggle('1')}>
                         <MDBModalHeader toggle={() => this.toggle('1')}>Visited Urls</MDBModalHeader>
@@ -358,10 +455,10 @@ class GeneralApiPage extends React.Component {
                                 error="wrong"
                                 success="right"
                             /><MDBInput
-                                label="Value"
-                                error="wrong"
-                                success="right"
-                            />
+                            label="Value"
+                            error="wrong"
+                            success="right"
+                        />
                             <select className="browser-default custom-select">
                                 <option>Type of Exception</option>
                                 <option value="1">Url</option>
@@ -376,63 +473,80 @@ class GeneralApiPage extends React.Component {
                 </MDBContainer>
                 <MDBRow className="justify-content-left">
                     <MDBCol md="12" lg="12">
-                       <img className='general-api-logo' src={'data:image/png;base64,'+this.state.icon}/>
+                        <img className='general-api-logo' src={'data:image/png;base64,' + this.state.icon}/>
 
-                        <MDBCard className="d-flex mb-2">
+                        <MDBCard className="d-flex mb-2" style={{    minHeight: '220px'}}>
                             <MDBCol md="6" lg="6">
 
-                            <MDBCardBody>
-                            <h2 style={{fontWeight:'600',padding:' 5px 0 30px 0'}}>{this.state.title}</h2>
-                            <div className='row'>
-                            
-                            <div className="col-md-6">Status : </div>
-                            <div className="col-md-6">
-                    <input id='enabled-switch' className='switch' type='checkbox'/>
-                    <div className='switch-wrap'>
-                        <p className="enabled"></p>
-                        <p className="disabled"></p>
-                        <div className='enable-circle'></div>
-                    </div>                            </div>
+                                <MDBCardBody>
+                                    {/*<h2 style={{fontWeight: '600', padding: ' 5px 0 30px 0'}}>{this.state.title}</h2>*/}
 
-                </div>
-                                <div className={'n-v-w'}>
-                                    <NavBar handleClick={handleClick} navs={['', '', '', '', '']}
-                                            activeNav={this.state.activeNav}/>
-                                </div>
-                                <p className="input-p">Blah Blah Blah</p>
-                                {/*<div className="my-3">*/}
-                                {/*<label htmlFor="customRange1">Privacy Level</label>*/}
-                                {/*<input type="range" className="custom-range" id="customRange1"/>*/}
-                                {/*</div>*/}
-                            </MDBCardBody>
+                                    <p className="input-p">
+                                        {this.state.description}
+                                    </p>
+                                    <h4 className="input-p">
+                                        {this.state.url}
+                                    </h4>
+                                    {/*<div className="my-3">*/}
+                                    {/*<label htmlFor="customRange1">Privacy Level</label>*/}
+                                    {/*<input type="range" className="custom-range" id="customRange1"/>*/}
+                                    {/*</div>*/}
+                                </MDBCardBody>
                             </MDBCol>
-                            
-                             <MDBBtn onClick={()=>{savePrivacyLevel()}} color="secondary">Confirm</MDBBtn>
 
-                            </MDBCard>
-                            
+                            {/*<MDBBtn onClick={()=>{savePrivacyLevel()}} color="secondary">Confirm</MDBBtn>*/}
+
+                        </MDBCard>
+
                     </MDBCol>
-                    
+
                 </MDBRow>
-                {this.state.resource ?  this.state.browsing&&this.state.resource["functions"].includes('browsing') ?
+
+                <MDBRow className="justify-content-left">
+                    <MDBCol md="12" lg="12">
+
+                        <MDBCard className={"d-flex mb-2 "+(this.state.is_enabled?'':'disabled-card')} >
+
+                            <MDBCol md="6" lg="6">
+
+                                <MDBCardBody>
+                                    <MDBCardTitle>Privacy Level</MDBCardTitle>
+
+                                    {/*<h2 style={{fontWeight: '600', padding: ' 5px 0 30px 0'}}>{this.state.title}</h2>*/}
+                                    <div className={'n-v-w'}>
+                                        <NavBar handleClick={handleClick} navs={['', '', '', '', '']}
+                                                activeNav={this.state.activeNav}/>
+                                    </div>
+                                </MDBCardBody>
+                            </MDBCol>
+
+                            {/*<MDBBtn onClick={()=>{savePrivacyLevel()}} color="secondary">Confirm</MDBBtn>*/}
+
+                        </MDBCard>
+
+                    </MDBCol>
+
+                </MDBRow>
+                {this.state.resource ? this.state.browsing && this.state.resource["functions"].includes('browsing') ?
 
                     <MDBRow className="justify-content-left">
                         <MDBCol md="12" lg="12">
-                            <MDBCard className="d-flex mb-2 ">
+                            <MDBCard className={"d-flex mb-2 "+(this.state.is_enabled?'':'disabled-card')}>
                                 <div className="row">
                                     <div className="col-md-12">
                                         <MDBCardBody>
                                             <MDBCardTitle>Browsing Data</MDBCardTitle>
-                                                                                        <div className={'row'}>
+                                            <div className={'row'}>
 
-                                            {this.state.browsing.map((ob,id)=>
-                                                <div className="col-md-4 col-lg-3">
-														<MDBInput label={ob.title} filled checked={ob.is_enabled} onChange={changeCheckBox} type="checkbox" id={'browsing'+id}></MDBInput>                                                    
-                                                
-                                            </div>)}
-                                                                                            </div>
+                                                {this.state.browsing.map((ob, id) =>
+                                                    <div className="col-md-2 col-lg-4">
+                                                        <MDBInput label={ob.title} filled checked={ob.is_enabled}
+                                                                  onChange={changeCheckBox} type="checkbox"
+                                                                  id={'browsing' + id}/>
 
-                                            
+                                                    </div>)}
+                                            </div>
+
 
                                         </MDBCardBody>
                                     </div>
@@ -440,7 +554,7 @@ class GeneralApiPage extends React.Component {
 
                                     </div>
                                 </div>
-                                                                    <MDBBtn onClick={saveBrowsing} color="secondary">Confirm</MDBBtn>
+                                {/*<MDBBtn onClick={saveBrowsing} color="secondary">Confirm</MDBBtn>*/}
 
                             </MDBCard>
                         </MDBCol>
@@ -449,7 +563,7 @@ class GeneralApiPage extends React.Component {
                 {this.state.resource && this.state.resource["functions"].includes('apiCall') ?
                     <MDBRow className="justify-content-left">
                         <MDBCol md="12" lg="12">
-                            <MDBCard className="d-flex mb-2">
+                            <MDBCard className={"d-flex mb-2 "+(this.state.is_enabled?'':'disabled-card')}>
                                 <MDBCardBody>
                                     <MDBCardTitle>API Call</MDBCardTitle>
                                     {this.state.connected === false ?
@@ -462,15 +576,17 @@ class GeneralApiPage extends React.Component {
                                 <React.Fragment>
                                     <MDBRow className="justify-content-left">
                                         <MDBCol md="12" lg="12">
-                                            <MDBCardBody>
+                                            <MDBCardBody >
                                                 <div className={'row'}>
 
-                                            {this.state.apiCall.map((ob,id)=>
-                                                <div className="col-md-4 col-lg-3">
-														<MDBInput label={ob.title} onChange={changeCheckBox} filled checked={ob.is_enabled}  type="checkbox" id={'apiCall'+id}></MDBInput>                                                    
-                                                
-                                            </div>)}
-                                                                                            </div>
+                                                    {this.state.apiCall.map((ob, id) =>
+                                                        <div className="col-md-2 col-lg-4">
+                                                            <MDBInput label={ob.title} onChange={changeCheckBox} filled
+                                                                      checked={ob.is_enabled} type="checkbox"
+                                                                      id={'apiCall' + id}></MDBInput>
+
+                                                        </div>)}
+                                                </div>
 
                                             </MDBCardBody>
                                         </MDBCol>
@@ -484,27 +600,29 @@ class GeneralApiPage extends React.Component {
                 {this.state.resource && this.state.content && this.state.resource["functions"].includes('content') ?
                     <MDBRow className="justify-content-left">
                         <MDBCol md="12" lg="12">
-                            <MDBCard className="d-flex mb-2">
+                            <MDBCard className={"d-flex mb-2 "+(this.state.is_enabled?'':'disabled-card')}>
                                 <MDBCardBody>
-                                            <MDBCardTitle>Content Data</MDBCardTitle>                                            
+                                    <MDBCardTitle>Content Data</MDBCardTitle>
                                 </MDBCardBody>
                                 <React.Fragment>
                                     <MDBRow className="justify-content-left">
                                         <MDBCol md="12" lg="12">
-                                            <MDBCardBody>                 
+                                            <MDBCardBody>
 
-                                                 <MDBRow className="justify-content-left">
-                                                {this.state.content.map((ob,id)=><MDBCol md="4" lg="3">
-														<MDBInput label={ob.title} filled onChange={changeCheckBox} checked={ob.is_enabled}  type="checkbox" id={'content'+id}/>
-													</MDBCol>
-                                                )}
-                                                 </MDBRow>
+                                                <MDBRow className="justify-content-left">
+                                                    {this.state.content.map((ob, id) => <MDBCol md="2" lg="4">
+                                                            <MDBInput label={ob.title} filled onChange={changeCheckBox}
+                                                                      checked={ob.is_enabled} type="checkbox"
+                                                                      id={'content' + id}/>
+                                                        </MDBCol>
+                                                    )}
+                                                </MDBRow>
 
                                             </MDBCardBody>
                                         </MDBCol>
 
                                     </MDBRow>
-                                    <MDBBtn onClick={saveContent} color="secondary">Confirm</MDBBtn>
+                                    {/*<MDBBtn onClick={saveContent} color="secondary">Confirm</MDBBtn>*/}
                                 </React.Fragment>
                             </MDBCard>
                         </MDBCol>

@@ -26,10 +26,10 @@ class ProfilePage extends React.Component {
     loadSettings(){
         
         console.log('load settings this')
-        window.helper.load().then(db => {
-            document.getElementById('push').checked = db.configs.pushStatus;;
-            this.setState({email:db.profile.email,walletId:db.profile.walletId})
-            });
+        //window.helper.load().then(db => {
+        //     document.getElementById('push').checked = db.configs.pushStatus;;
+        //     this.setState({email:db.profile.email,walletId:db.profile.walletId})
+        //     });
     }
     render(){
     var settings = {        
@@ -42,10 +42,10 @@ class ProfilePage extends React.Component {
         let data = {            
             email: email,
             walletId: wallet
-        }
+        };
         window.helper.saveProfile(data);
         window.helper.saveConfigs({pushStatus: pushStatus});
-    }
+    };
     
     const loadSettings = ()=>{
         console.log('load settings')
@@ -105,7 +105,10 @@ class ProfilePage extends React.Component {
                                 <MDBCard className="d-flex mb-5">
 
                                     <MDBView>
-                                       Change Profile Details
+                                        <div className={'mg-tp-5'}>
+                                            Change Profile Details
+                                        </div>
+
                                     </MDBView>
 
                                     <MDBCardBody>
@@ -117,9 +120,14 @@ class ProfilePage extends React.Component {
                                         <MDBInput value={changeInput} value={this.state.email} label="Email Address" icon="envelope" id="email"/>
                                         <p className={'input-p'}>Optional : If you Provide Email , It may Increase Your Income</p>
                                         <div className={'input-title'}>
+                                            <div className='row'>
+                                                <div className="col-md-6">
+
                                             <h5 style={{display:'inline-flex',color: '#757575'}}>Push Messages:      
-                                             <React.Fragment>                                                
-                                                <div className='row'>                                                                              
+
+                                            </h5>
+                                                </div>
+
                                                     <div className="col-md-6">
                                                         <input id='push' className='switch' type='checkbox'/>
                                                         <div className='switch-wrap'>
@@ -129,9 +137,6 @@ class ProfilePage extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </React.Fragment>
-                                            </h5>
-                                           
                                         </div>
                                         <p className={'input-p'}>Optional : If you Enable Push , It may Increase Your Income</p>
 

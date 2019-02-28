@@ -44,7 +44,7 @@ class Filters extends React.Component {
 				 newFilters.push({
 					'Exception': filters[x].value,
 					'Type':filters[x].type,
-					'Delete':<MDBBtn onClick={()=>this.deleteRecords(filters[x].value)} color="red" size="sm"><i class="fa fa-trash" aria-hidden="true"></i></MDBBtn>
+					'Delete':<MDBBtn onClick={()=>{that.deleteRecords(filters[x].value)}} color="red" size="sm"><i class="fa fa-trash" aria-hidden="true"/></MDBBtn>
 				})
 			}
 			that.setState({filters : newFilters})
@@ -84,15 +84,18 @@ class Filters extends React.Component {
                 {
                     'label': 'Value',
                     'field': 'Exception',
-                    'sort': 'asc'
+                    'sort': 'asc',
+                    'minimal': 'lg'
                 },{
                     'label': 'Type',
                     'field': 'Exception',
-                    'sort': 'asc'
+                    'sort': 'asc',
+                    'minimal': 'sm'
                 },{
                     'label': 'Delete',
                     'field': 'Exception',
-                    'sort': 'asc'
+                    'sort': 'asc',
+                    'minimal': 'sm'
                 },
             ],
             rows: [

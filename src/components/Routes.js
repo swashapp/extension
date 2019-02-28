@@ -8,6 +8,7 @@ import MapsPage from './pages/MapsPage';
 import NotFoundPage from './pages/NotFoundPage';
 import Modules from './newpages/Modules';
 import Filters from './newpages/Filters';
+import Manuals from './newpages/Manuals';
 
 
 import GeneralApiPage from './newpages/GeneralApiPage';
@@ -27,6 +28,8 @@ class Routes extends React.Component {
         } />
         <Route path='/filters/'  render={()=>
         <Filters resource={this.props.resource}/>
+        } /><Route path='/Manual/'  render={()=>
+        <Manuals resource={this.props.resource}/>
         } />
         <Route path='/404' component={NotFoundPage} />
       </Switch>

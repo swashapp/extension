@@ -11,6 +11,7 @@ class App extends Component {
       componentDidMount(){
 		  console.log("react componentDidMount");
 		let that = this;
+		
 		async function loader() {
 			let x = await window.helper.load();
 			let f = x.modules;
@@ -21,7 +22,12 @@ class App extends Component {
 			}
 			that.setState({resource:list})
 		}
-		loader();
+          try{
+              loader();
+          }
+          catch (e) {
+              
+          }
                
       }
   render() {
