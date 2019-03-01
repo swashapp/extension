@@ -73,6 +73,7 @@ class Filters extends React.Component {
          
             
         }
+        console.log('sss',storageArray)
         window.helper.save(storageArray)
         this.setState({filters:newArray});
         
@@ -121,6 +122,7 @@ class Filters extends React.Component {
             });
     };
         const addFilter = ()=>{
+            let that = this;
             let f = {
                 value : document.getElementById('value').value,
                 type  : document.getElementById('option').value
@@ -130,7 +132,7 @@ class Filters extends React.Component {
             let f1 = {
                 value : document.getElementById('value').value,
                 type  : document.getElementById('option').value,
-                'Delete':<MDBBtn onClick={()=>this.deleteRecords(s)} color="red" size="sm"><i class="fa fa-trash" aria-hidden="true"></i>
+                'Delete':<MDBBtn onClick={()=>that.deleteRecords(s)} color="red" size="sm"><i class="fa fa-trash" aria-hidden="true"></i>
 </MDBBtn>
             };
             window.helper.loadFilters().then(filter => {
@@ -156,7 +158,6 @@ class Filters extends React.Component {
                                 success="right"
                             />
                             <select id='option' className="browser-default custom-select">
-                                <option value='-1'>Type of Filter</option>
                                 <option value="exact">Exact</option>
                                 <option value="regex">Regular Expression</option>
                                 <option value="wildcard">Wild Card</option>

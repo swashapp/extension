@@ -824,13 +824,18 @@ body {
   transition: opacity .4s !important;
   background: green;
 }
-
+.back-bt .fa{
+    font-size: 20px;
+    padding-top: 5px;}
 .nav-h i {
   font-size: 20px;
   padding-top: 5px;
   color: #7d6369;
 }
+.general-api-logo-2{
+    width:35px;
 
+}
 .nav-h .fa-wallet {
   padding: 7px 3px;
 }
