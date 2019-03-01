@@ -219,6 +219,10 @@ class GeneralApiPage extends React.Component {
         #general-api-wrapper input[type="checkbox"].switch:checked + div{
                 background-color: ` + style + `!important;
         }
+        .btn-indigo {
+    background-color:` + style + ` !important;
+    color: #fff !important;
+}
 #general-api-wrapper .form-check-input[type=checkbox].filled-in:checked+label:after, label.btn input[type=checkbox].filled-in:checked+label:after {
   top: 0;
   width: 20px;
@@ -388,14 +392,14 @@ class GeneralApiPage extends React.Component {
                         <MDBCardBody>
                             <div className={'container-fluid'}>
                                 <div className="row">
-                                    <div className="col-md-1 back-bt"
+                                    <div className="col-md-2 back-bt"
                                          onClick={() => this.props.history.push('/modules')}>
-                                        {'< Back'}
+                                        <i className='fa fa-arrow-left'/>
                                     </div>
-                                    <div className="col-md-9 back-bt module-title" id={'api-name'}>
-                                        {this.state.name}
+                                    <div className="col-md-7 back-bt module-title" id={'api-name'}>
+                                        {this.state.title}
                                     </div>
-                                    <div className="col-md-2 back-bt">
+                                    <div className="col-md-3 back-bt">
                                         <div className='row'>
 
                                             <div className="col-md-6">Status :</div>
@@ -582,10 +586,12 @@ class GeneralApiPage extends React.Component {
                                 <MDBCardBody>
                                     <MDBCardTitle>API Call</MDBCardTitle>
                                     {this.state.connected === false ?
-                                        <MDBBtn color="indigo"><i className="fab fa-facebook mr-3"/>Connect to
+                                        <MDBBtn color="indigo">                        <img className='general-api-logo-2' src={'data:image/png;base64,' + this.state.icon}/>
+Connect to
                                             {' ' + this.state.resource.name}</MDBBtn> : ''
                                     } {this.state.connected === 'connecting' ?
-                                    <MDBBtn color="indigo"><i className="fab fa-facebook mr-3"/>Connecting</MDBBtn> : ''
+                                    <MDBBtn color="indigo">                        <img className='general-api-logo-2' src={'data:image/png;base64,' + this.state.icon}/>
+Connecting</MDBBtn> : ''
                                 }
                                 </MDBCardBody>
                                 <React.Fragment>
@@ -607,7 +613,7 @@ class GeneralApiPage extends React.Component {
                                         </MDBCol>
 
                                     </MDBRow>
-                                    <MDBBtn color="secondary">Confirm</MDBBtn>
+                                    {/*<MDBBtn color="secondary">Confirm</MDBBtn>*/}
                                 </React.Fragment>
                             </MDBCard>
                         </MDBCol>
