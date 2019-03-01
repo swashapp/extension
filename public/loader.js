@@ -497,6 +497,6 @@ return {
         load: load,
         save: save,
         loadFilters: loadFilters,
-		saveFilters: saveFilters
+		saveFilters: saveFilters,
     };
 }());

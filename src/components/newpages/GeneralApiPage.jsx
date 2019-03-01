@@ -296,53 +296,52 @@ class GeneralApiPage extends React.Component {
         const SaveException = (id) => {
 
         };
-        const savePrivacyLevel = () => {
-            let object = {
-                'privacy_level': this.state.activeNav,
-                is_enabled: document.getElementById('enabled-switch').checked
-            }
-            window.helper.saveModuleSettings(this.state.name, "*", object);
-            this.state.resource.privacy_level = object.privacy_level
-            this.state.resource.is_enabled = object.is_enabled;
+        const savePrivacyLevel = (settings) => {
+			settings.privacy_level = this.state.activeNav;
+			settings.is_enabled = document.getElementById('enabled-switch').checked;
+            this.state.resource.privacy_level = settings.privacy_level
+            this.state.resource.is_enabled = settings.is_enabled
         }
-        const saveContent = () => {
+        const saveContent = (settings) => {
             let uz = {};
+			settings.content = {};
             for (let y in this.state.content) {
                 let f = document.getElementById('content' + y).checked;
                 uz[this.state.content[y].name] = f;
+				let name = this.state.content[y].name;
+				settings.content[this.state.content[y].name] = f;
 
             }
             for (let x in this.state.resource.content) {
                 this.state.resource.content[x].is_enabled = uz[this.state.resource.content[x].name];
-            }
-            window.helper.saveModuleSettings(this.state.name, "content", uz);
+            }			
 
         }
-        const saveBrowsing = () => {
+        const saveBrowsing = (settings) => {
             console.log('browsing')
+			settings.browsing = {};
             let uz = {};
             for (let y in this.state.browsing) {
                 let f = document.getElementById('browsing' + y).checked;
-                uz[this.state.browsing[y].name] = f
+                uz[this.state.browsing[y].name] = f;
+				settings.browsing[this.state.browsing[y].name] = f;
             }
             for (let x in this.state.resource.browsing) {
                 this.state.resource.browsing[x].is_enabled = uz[this.state.resource.browsing[x].name];
             }
-
-            window.helper.saveModuleSettings(this.state.name, "browsing", uz)
         }
-        const saveApiCall = () => {
+        const saveApiCall = (settings) => {
             console.log('apiCall')
+			settings.apiCall = {};
             let uz = {};
             for (let y in this.state.apiCall) {
                 let f = document.getElementById('apiCall' + y).checked;
-                uz[this.state.apiCall[y].name] = f
+                uz[this.state.apiCall[y].name] = f;
+				settings.apiCall[this.state.apiCall[y].name] = f;
             }
             for (let x in this.state.resource.apiCall) {
                 this.state.resource.apiCall[x].is_enabled = uz[this.state.resource.apiCall[x].name];
             }
-
-            window.helper.saveModuleSettings(this.state.name, "apiCall", uz)
         }
         const changeCheckBox = (e) => {
             console.log('e', e.target, e.target.checked, e.id);
@@ -378,10 +377,13 @@ class GeneralApiPage extends React.Component {
             this.setState({is_enabled:!this.state.is_enabled})
         };
         const saveAll = ()=>{
-			savePrivacyLevel()
-			saveApiCall()
-			saveContent()
-			saveBrowsing()
+			var settings = {};
+			savePrivacyLevel(settings)
+			saveApiCall(settings)
+			saveContent(settings)
+			saveBrowsing(settings)		
+			let moduleName = this.state.name;
+			window.helper.config_module(moduleName, settings);
 			console.log('save allll')
         };
         return (
