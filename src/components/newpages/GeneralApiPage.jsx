@@ -93,12 +93,14 @@ class GeneralApiPage extends React.Component {
 					url:resourse.URL[0],
 					description:resourse.description,
                     activeNav: resourse.privacy_level,
+					connected: resourse.access_token?true:false,
                     content: content,
                     browsing: browsing,
                     apiCall: apiCall,
                     title: resourse.title,
 					name: resourse.name,
-                    icon: resourse.icons[0]
+                    icon: resourse.icons[0],
+					
                 })
 
             } else {
@@ -165,6 +167,7 @@ class GeneralApiPage extends React.Component {
                         resource: resourse,
                         page: href,
                         activeNav: resourse.privacy_level,
+						connected: resourse.access_token?true:false,						
                         content: content,
                         browsing: browsing
                     })
@@ -172,6 +175,7 @@ class GeneralApiPage extends React.Component {
                         resource: resourse,
                         page: href,url:resourse.URL[0],
                         activeNav: resourse.privacy_level,
+						connected: resourse.access_token?true:false,						
                         content: content,description:resourse.description,
                         browsing: browsing,is_enabled:resourse.is_enabled,
                         apiCall: apiCall,
@@ -185,6 +189,7 @@ class GeneralApiPage extends React.Component {
                         page: href,url:resourse.URL[0],description:resourse.description,
                         is_enabled: resourse.is_enabled,
                         activeNav: resourse.privacy_level,
+						connected: resourse.access_token?true:false,						
                         title: resourse.title,
 						name: resourse.name,
                         apiCall: apiCall,
@@ -386,6 +391,24 @@ class GeneralApiPage extends React.Component {
 			window.helper.config_module(moduleName, settings);
 			console.log('save allll')
         };
+		const connect = ()=>{
+			window.helper.startAuth(this.state.name).then(x => {
+				let moduleName = this.state.name;
+				window.helper.isConnected(moduleName).then(connected => {
+					this.state.connected = connected;
+				});
+			});
+		}
+		const disconnect = ()=>{
+			window.helper.removeAuth(this.state.name).then(x => {
+				let moduleName = this.state.name;
+				window.helper.isConnected(moduleName).then(connected => {
+					this.state.connected = connected;
+				});
+			});
+		}
+
+		
         return (
             <div id="general-api-wrapper">
                 <div className={'save-bt-fix'}><i onClick={saveAll} className={'fa fa-save'}/></div>
@@ -399,7 +422,7 @@ class GeneralApiPage extends React.Component {
                                         <i className='fa fa-arrow-left'/>
                                     </div>
                                     <div className="col-md-7 back-bt module-title" id={'api-name'}>
-                                        {this.state.title}
+                                        {this.state.name}
                                     </div>
                                     <div className="col-md-3 back-bt">
                                         <div className='row'>
@@ -588,12 +611,12 @@ class GeneralApiPage extends React.Component {
                                 <MDBCardBody>
                                     <MDBCardTitle>API Call</MDBCardTitle>
                                     {this.state.connected === false ?
-                                        <MDBBtn color="indigo">                        <img className='general-api-logo-2' src={'data:image/png;base64,' + this.state.icon}/>
-Connect to
+                                        <MDBBtn onClick={connect} color="indigo">                        <img className='general-api-logo-2' src={'data:image/png;base64,' + this.state.icon}/>
+ Connect to
                                             {' ' + this.state.resource.name}</MDBBtn> : ''
-                                    } {this.state.connected === 'connecting' ?
-                                    <MDBBtn color="indigo">                        <img className='general-api-logo-2' src={'data:image/png;base64,' + this.state.icon}/>
-Connecting</MDBBtn> : ''
+                                    } {this.state.connected === true ?
+                                    <MDBBtn onClick={disconnect} color="indigo">                        <img className='general-api-logo-2' src={'data:image/png;base64,' + this.state.icon}/>
+Connected</MDBBtn> : ''
                                 }
                                 </MDBCardBody>
                                 <React.Fragment>
