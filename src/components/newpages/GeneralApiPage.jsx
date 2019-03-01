@@ -50,6 +50,7 @@ class GeneralApiPage extends React.Component {
                 if (resourse.content)
                     for (let y in resourse.content) {
                         content.push({
+							name: resourse.content[y].name,
                             title: resourse.content[y].title,
                             description: resourse.content[y].description,
                             is_enabled: resourse.content[y].is_enabled
@@ -59,6 +60,7 @@ class GeneralApiPage extends React.Component {
                 if (resourse.browsing) {
                     for (let y in resourse.browsing) {
                         browsing.push({
+							name: resourse.browsing[y].name,
                             title: resourse.browsing[y].title,
                             description: resourse.browsing[y].description,
                             is_enabled: resourse.browsing[y].is_enabled
@@ -76,6 +78,7 @@ class GeneralApiPage extends React.Component {
                     for (let y in resourse.apiCall) {
                         console.log('resourse.apiCall[y]', resourse.apiCall[y].name)
                         apiCall.push({
+                            name: resourse.apiCall[y].name,							
                             title: resourse.apiCall[y].title,
                             description: resourse.apiCall[y].description,
                             is_enabled: resourse.apiCall[y].is_enabled
@@ -84,13 +87,17 @@ class GeneralApiPage extends React.Component {
                 }
                 console.log('setting state ', apiCall)
                 this.setState({
-                    resource: resourse,is_enabled:resourse.is_enabled,
-                    page: href,url:resourse.URL[0],description:resourse.description,
+                    resource: resourse,
+					is_enabled:resourse.is_enabled,
+                    page: href,
+					url:resourse.URL[0],
+					description:resourse.description,
                     activeNav: resourse.privacy_level,
                     content: content,
                     browsing: browsing,
                     apiCall: apiCall,
-                    title: resourse.title||resourse.name,
+                    title: resourse.title,
+					name: resourse.name,
                     icon: resourse.icons[0]
                 })
 
@@ -108,7 +115,7 @@ class GeneralApiPage extends React.Component {
             let resourse;
             let href = window.location.href.substring(window.location.href.indexOf('/apis/') + 6);
             if (this.state.page !== href) {
-                this.setState({page: href, content: [], browsing: [], title: '',})
+                this.setState({page: href, content: [], browsing: [], apiCall: [], title: '', name: ''})
                 for (let u in this.props.resource) {
                     if (href === this.props.resource[u].name)
                         resourse = this.props.resource[u];
@@ -118,7 +125,8 @@ class GeneralApiPage extends React.Component {
                 if (resourse.content) {
                     for (let y in resourse.content) {
                         content.push({
-                            title: resourse.content[y].title,
+                            name: resourse.content[y].name,
+							title: resourse.content[y].title,
                             description: resourse.content[y].description,
                             is_enabled: resourse.content[y].is_enabled
                         })
@@ -129,6 +137,7 @@ class GeneralApiPage extends React.Component {
                     for (let y in resourse.browsing) {
                         console.log('resourse.content[y]', resourse.browsing[y].name)
                         browsing.push({
+                            name: resourse.browsing[y].name,							
                             title: resourse.browsing[y].title,
                             description: resourse.browsing[y].description,
                             is_enabled: resourse.browsing[y].is_enabled
@@ -141,6 +150,7 @@ class GeneralApiPage extends React.Component {
                     for (let y in resourse.apiCall) {
                         console.log('resourse.apiCall[y]', resourse.apiCall[y].name)
                         apiCall.push({
+                            name: resourse.browsing[y].name,							
                             title: resourse.apiCall[y].title,
                             description: resourse.apiCall[y].description,
                             is_enabled: resourse.apiCall[y].is_enabled
@@ -165,7 +175,8 @@ class GeneralApiPage extends React.Component {
                         content: content,description:resourse.description,
                         browsing: browsing,is_enabled:resourse.is_enabled,
                         apiCall: apiCall,
-                        title: resourse.title||resourse.name,
+                        title: resourse.title,
+						name: resourse.name,
                         icon: resourse.icons[0]
                     })
                     document.getElementById('enabled-switch').checked = resourse.is_enabled;
@@ -174,7 +185,8 @@ class GeneralApiPage extends React.Component {
                         page: href,url:resourse.URL[0],description:resourse.description,
                         is_enabled: resourse.is_enabled,
                         activeNav: resourse.privacy_level,
-                        title: resourse.title||resourse.name,
+                        title: resourse.title,
+						name: resourse.name,
                         apiCall: apiCall,
                         icon: resourse.icons[0]
                     })
@@ -281,26 +293,25 @@ class GeneralApiPage extends React.Component {
 
         };
         const savePrivacyLevel = () => {
-            let object = {};
-            object[this.state.page] = {
+            let object = {
                 'privacy_level': this.state.activeNav,
                 is_enabled: document.getElementById('enabled-switch').checked
             }
-            window.helper.saveModuleSettings(this.state.title, "*", object);
-            this.state.resource.privacy_level = object[this.state.page].privacy_level
-            this.state.resource.is_enabled = object[this.state.page].is_enabled;
+            window.helper.saveModuleSettings(this.state.name, "*", object);
+            this.state.resource.privacy_level = object.privacy_level
+            this.state.resource.is_enabled = object.is_enabled;
         }
         const saveContent = () => {
             let uz = {};
             for (let y in this.state.content) {
                 let f = document.getElementById('content' + y).checked;
-                uz[this.state.content[y].title] = f;
+                uz[this.state.content[y].name] = f;
 
             }
             for (let x in this.state.resource.content) {
                 this.state.resource.content[x].is_enabled = uz[this.state.resource.content[x].name];
             }
-            window.helper.saveModuleSettings(this.state.title, "content", uz);
+            window.helper.saveModuleSettings(this.state.name, "content", uz);
 
         }
         const saveBrowsing = () => {
@@ -308,26 +319,26 @@ class GeneralApiPage extends React.Component {
             let uz = {};
             for (let y in this.state.browsing) {
                 let f = document.getElementById('browsing' + y).checked;
-                uz[this.state.browsing[y].title] = f
+                uz[this.state.browsing[y].name] = f
             }
             for (let x in this.state.resource.browsing) {
                 this.state.resource.browsing[x].is_enabled = uz[this.state.resource.browsing[x].name];
             }
 
-            window.helper.saveModuleSettings(this.state.title, "browsing", uz)
+            window.helper.saveModuleSettings(this.state.name, "browsing", uz)
         }
         const saveApiCall = () => {
             console.log('apiCall')
             let uz = {};
             for (let y in this.state.apiCall) {
                 let f = document.getElementById('apiCall' + y).checked;
-                uz[this.state.apiCall[y].title] = f
+                uz[this.state.apiCall[y].name] = f
             }
             for (let x in this.state.resource.apiCall) {
                 this.state.resource.apiCall[x].is_enabled = uz[this.state.resource.apiCall[x].name];
             }
 
-            window.helper.saveModuleSettings(this.state.title, "apiCall", uz)
+            window.helper.saveModuleSettings(this.state.name, "apiCall", uz)
         }
         const changeCheckBox = (e) => {
             console.log('e', e.target, e.target.checked, e.id);
@@ -363,7 +374,11 @@ class GeneralApiPage extends React.Component {
             this.setState({is_enabled:!this.state.is_enabled})
         };
         const saveAll = ()=>{
-          console.log('save allll')
+			savePrivacyLevel()
+			saveApiCall()
+			saveContent()
+			saveBrowsing()
+			console.log('save allll')
         };
         return (
             <div id="general-api-wrapper">
@@ -378,7 +393,7 @@ class GeneralApiPage extends React.Component {
                                         {'< Back'}
                                     </div>
                                     <div className="col-md-9 back-bt module-title" id={'api-name'}>
-                                        {this.state.title}
+                                        {this.state.name}
                                     </div>
                                     <div className="col-md-2 back-bt">
                                         <div className='row'>
@@ -632,5 +647,4 @@ class GeneralApiPage extends React.Component {
         )
     }
 }
-
 export default withRouter(GeneralApiPage);
