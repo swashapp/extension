@@ -45,6 +45,10 @@ class ProfilePage extends React.Component {
         };
         window.helper.saveProfile(data);
         window.helper.saveConfigs({pushStatus: pushStatus});
+        if(pushStatus)
+            window.helper.subscribe();
+        else
+            window.helper.unsubscribe();
     };
     
     const loadSettings = ()=>{
