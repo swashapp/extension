@@ -28,7 +28,12 @@ class GeneralApiPage extends React.Component {
         modal2: false, activeNav: 0, resource: false,
         modal3: false, connected: false, x: false
     };
-
+    componentWillUnmount(){
+        try{
+            clearInterval(this.state.intervalId)
+        }
+        catch(e){}
+    }
     componentDidMount() {
         console.log('did mount')
         if (this.props.resource[0]) {
@@ -394,9 +399,14 @@ class GeneralApiPage extends React.Component {
 		const connect = ()=>{
 			window.helper.startAuth(this.state.name).then(x => {
 				let moduleName = this.state.name;
-				window.helper.isConnected(moduleName).then(connected => {
-					this.state.connected = connected;
-				});
+                let f  = setInterval(()=>{window.helper.isConnected(moduleName).then(connected => {
+					this.setState({connected:connected})
+				});},2500);
+                try{window.clearInterval(this.state.intervalId);}
+                catch(e){}
+                
+                this.setState({intervalId:f,connected:'connecting'})
+				
 			});
 		}
 		const disconnect = ()=>{
@@ -616,6 +626,10 @@ class GeneralApiPage extends React.Component {
                                             {' ' + this.state.resource.name}</MDBBtn> : ''
                                     } {this.state.connected === true ?
                                     <MDBBtn onClick={disconnect} color="indigo">                        <img className='general-api-logo-2' src={'data:image/png;base64,' + this.state.icon}/>
+Connected</MDBBtn> : ''
+                                }
+                                {this.state.connected === 'connecting' ?
+                                    <MDBBtn onClick={disconnect} color="red">                        <img className='general-api-logo-2' src={'data:image/png;base64,' + this.state.icon}/>
 Connected</MDBBtn> : ''
                                 }
                                 </MDBCardBody>

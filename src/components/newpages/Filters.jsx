@@ -42,7 +42,7 @@ class Filters extends React.Component {
 			let newFilters = [];
 			for(let x in filters){
 				 newFilters.push({
-					'Exception': filters[x].value,
+					'value': filters[x].value,
 					'Type':filters[x].type,
 					'Delete':<MDBBtn onClick={()=>{that.deleteRecords(filters[x].value)}} color="red" size="sm"><i class="fa fa-trash" aria-hidden="true"/></MDBBtn>
 				})
@@ -62,12 +62,15 @@ class Filters extends React.Component {
                 }
     }
     deleteRecords(id){
+        console.log('deleteRecordsdeleteRecordsdeleteRecords',id)
         let newArray = [];
         let storageArray = [];
+        console.log('filters',this.state.filters)
         for(let i in this.state.filters){
-            if(this.state.filters[i].Exception !== id){
+           
+            if(this.state.filters[i].value !== id){
                 newArray.push(this.state.filters[i]);
-                                storageArray.push({type:this.state.filters[i].Type,value:this.state.filters[i].Exception})
+                                storageArray.push({type:this.state.filters[i].Type,value:this.state.filters[i].value})
 
             }
          
@@ -84,7 +87,7 @@ class Filters extends React.Component {
                
                 {
                     'label': 'Value',
-                    'field': 'Exception',
+                    'field': 'value',
                     'sort': 'asc',
                     'minimal': 'lg'
                 },{
@@ -128,20 +131,37 @@ class Filters extends React.Component {
                 type  : document.getElementById('option').value
             };
             let s =  document.getElementById('value').value;
-           
+            console.log('deletes ss',s)
             let f1 = {
                 value : document.getElementById('value').value,
                 type  : document.getElementById('option').value,
                 'Delete':<MDBBtn onClick={()=>that.deleteRecords(s)} color="red" size="sm"><i class="fa fa-trash" aria-hidden="true"></i>
 </MDBBtn>
             };
+            let allow = true;
             window.helper.loadFilters().then(filter => {
-				filter.push(f);
+                console.log('ssssssss',filter,f,f.value)
+                for(let i in filter){
+                    console.log('ifilter',filter[i].value , f.value,filter[i].value === f.value)
+                    if(filter[i].value === f.value){
+                        allow = false ;                        
+                    }
+                }
+                if(allow){
+                   
+                  filter.push(f);
 				window.helper.saveFilters(filter);
+				}else{
+                    alert('duplicate')
+                }
+             
 				}).then(() => {
 					window.helper.loadFilters();
-				}).then(() => {					
-					this.state.filters.push(f1)
+				}).then(() => {		
+if(allow){
+    this.state.filters.push(f1)
+}                
+					
 					toggle('addModal')
 				});            
             
