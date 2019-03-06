@@ -77,7 +77,7 @@ class Filters extends React.Component {
             
         }
         console.log('sss',storageArray)
-        window.helper.save(storageArray)
+        window.helper.saveFilters(storageArray)        
         this.setState({filters:newArray});
         
     }

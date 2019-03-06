@@ -1,199 +1,76 @@
-export const ManualResource = ` <a href="http://fvcproductions.com"><img src="https://avatars1.githubusercontent.com/u/4284691?v=3&s=200" title="FVCproductions" alt="FVCproductions"></a>
-
-<!-- [![FVCproductions](https://avatars1.githubusercontent.com/u/4284691?v=3&s=200)](http://fvcproductions.com) -->
-
-***INSERT GRAPHIC HERE (include hyperlink in image)***
-
-# Repository Title Goes Here
-
-> Subtitle or Short Description Goes Here
-
-> ideally one sentence
-
-> include terms/tags that can be searched
-
-**Badges will go here**
-
-- build status
-- issues (waffle.io maybe)
-- devDependencies
-- npm package
-- coverage
-- slack
-- downloads
-- gitter chat
-- license
-- etc.
-
-[![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger) [![Dependency Status](http://img.shields.io/gemnasium/badges/badgerbadgerbadger.svg?style=flat-square)](https://gemnasium.com/badges/badgerbadgerbadger) [![Coverage Status](http://img.shields.io/coveralls/badges/badgerbadgerbadger.svg?style=flat-square)](https://coveralls.io/r/badges/badgerbadgerbadger) [![Code Climate](http://img.shields.io/codeclimate/github/badges/badgerbadgerbadger.svg?style=flat-square)](https://codeclimate.com/github/badges/badgerbadgerbadger) [![Github Issues](http://githubbadges.herokuapp.com/badges/badgerbadgerbadger/issues.svg?style=flat-square)](https://github.com/badges/badgerbadgerbadger/issues) [![Pending Pull-Requests](http://githubbadges.herokuapp.com/badges/badgerbadgerbadger/pulls.svg?style=flat-square)](https://github.com/badges/badgerbadgerbadger/pulls) [![Gem Version](http://img.shields.io/gem/v/badgerbadgerbadger.svg?style=flat-square)](https://rubygems.org/gems/badgerbadgerbadger) [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org) [![Badges](http://img.shields.io/:badges-9/9-ff6799.svg?style=flat-square)](https://github.com/badges/badgerbadgerbadger)
-
-- For more on these wonderful ~~badgers~~ badges, refer to <a href="http://badges.github.io/badgerbadgerbadger/" target="_blank"> badgerbadgerbadger</a>.
-
-***INSERT ANOTHER GRAPHIC HERE***
-
-[![INSERT YOUR GRAPHIC HERE](http://i.imgur.com/dt8AUb6.png)]()
-
-- Most people will glance at your README, *maybe* star it, and leave
-- Ergo, people should understand instantly what your project is about based on your repo
-
-> Tips
-
-- HAVE WHITE SPACE
-- MAKE IT PRETTY
-- GIFS ARE REALLY COOL
-
-> GIF Tools
-
-- Use <a href="http://recordit.co/" target="_blank">**Recordit**</a> to create quicks screencasts of your desktop and export them as GIFs.
-- For terminal sessions, there's <a href="https://github.com/chjj/ttystudio" target="_blank">**ttystudio**</a> which also supports exporting GIFs.
-
-**Recordit**
-
-![Recordit GIF](http://g.recordit.co/iLN6A0vSD8.gif)
-
-**ttystudio**
-
-![ttystudio GIF](https://raw.githubusercontent.com/chjj/ttystudio/master/img/example.gif)
-
----
-
-## Table of Contents (Optional)
-
-> If you're  README  has a lot of info, section headers might be nice.
-
-- [Installation](#installation)
-- [Features](#features)
-- [Contributing](#contributing)
-- [Team](#team)
-- [FAQ](#faq)
-- [Support](#support)
-- [License](#license)
-
-
----
-
-## Example (Optional)
-
-   javascript
-// code away!
-
-let generateProject = project => {
-  let code = [];
-  for (let js = 0; js < project.length; js++) {
-    code.push(js);
-  }
-};
-   
-
----
-
-## Installation
-
-- All the  code  required to get started
-- Images of what it should look like
-
-### Clone
-
-- Clone this repo to your local machine using  https://github.com/fvcproductions/SOMEREPO 
-
-### Setup
-
-- If you want more syntax highlighting, format your code like this:
-
-> update and install this package first
-
-   shell
-$ brew update
-$ brew install fvcproductions
-   
-
-> now install npm and bower packages
-
-   shell
-$ npm install
-$ bower install
-   
-
-- For all the possible languages that support syntax highlithing on GitHub (which is basically all of them), refer <a href="https://github.com/github/linguist/blob/master/lib/linguist/languages.yml" target="_blank">here</a>.
-
----
-
-## Features
-## Usage (Optional)
-## Documentation (Optional)
-## Tests (Optional)
-
-- Going into more detail on code and technologies used
-- I utilized this nifty <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown Cheatsheet</a> for this sample  README .
-
----
-
-## Contributing
-
-> To get started...
-
-### Step 1
-
-- **Option 1**
-    - 🍴 Fork this repo!
-
-- **Option 2**
-    - 👯 Clone this repo to your local machine using  https://github.com/joanaz/HireDot2.git 
-
-### Step 2
-
-- **HACK AWAY!** 🔨🔨🔨
-
-### Step 3
-
-- 🔃 Create a new pull request using <a href="https://github.com/joanaz/HireDot2/compare/" target="_blank"> https://github.com/joanaz/HireDot2/compare/ </a>.
-
----
-
-## Team
-
-> Or Contributors/People
-
-| <a href="http://fvcproductions.com" target="_blank">**FVCproductions**</a> | <a href="http://fvcproductions.com" target="_blank">**FVCproductions**</a> | <a href="http://fvcproductions.com" target="_blank">**FVCproductions**</a> |
-| :---: |:---:| :---:|
-| [![FVCproductions](https://avatars1.githubusercontent.com/u/4284691?v=3&s=200)](http://fvcproductions.com)    | [![FVCproductions](https://avatars1.githubusercontent.com/u/4284691?v=3&s=200)](http://fvcproductions.com) | [![FVCproductions](https://avatars1.githubusercontent.com/u/4284691?v=3&s=200)](http://fvcproductions.com)  |
-| <a href="http://github.com/fvcproductions" target="_blank"> github.com/fvcproductions </a> | <a href="http://github.com/fvcproductions" target="_blank"> github.com/fvcproductions </a> | <a href="http://github.com/fvcproductions" target="_blank"> github.com/fvcproductions </a> |
-
-- You can just grab their GitHub profile image URL
-- You should probably resize their picture using  ?s=200  at the end of the image URL.
-
----
-
-## FAQ
-
-- **How do I do *specifically* so and so?**
-    - No problem! Just do this.
-
----
-
-## Support
-
-Reach out to me at one of the following places!
-
-- Website at <a href="http://fvcproductions.com" target="_blank"> fvcproductions.com </a>
-- Twitter at <a href="http://twitter.com/fvcproductions" target="_blank"> @fvcproductions </a>
-- Insert more social links here.
-
----
-
-## Donations (Optional)
-
-- You could include a <a href="https://cdn.rawgit.com/gratipay/gratipay-badge/2.3.0/dist/gratipay.png" target="_blank">Gratipay</a> link as well.
-
-[![Support via Gratipay](https://cdn.rawgit.com/gratipay/gratipay-badge/2.3.0/dist/gratipay.png)](https://gratipay.com/fvcproductions/)
-
-
----
-s
-## License
-
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
-
-- **[MIT license](http://opensource.org/licenses/mit-license.php)**
-- Copyright 2015 © <a href="http://fvcproductions.com" target="_blank">FVCproductions</a>.`
+export const ManualResource = [`
+##  What is Surf-Streamr
+Surf-Streamr is a browser extension that can capture user browsing activities and listen to events on the web pages. Actually, Surf-Streamr is not just a browser extension and It can call APIs on behalf of the user and send this data to streamr to monetize it.
+`,`##  Surf-Streamr modules
+Surf-Streamr is a modular extension and currently, it provides 5 important modules: Search engine module, Facebook, Amazon, Twitter, and youtube modules.
+### Search Engines
+search engine module supports 6 top search engines: Google, Bing, Yahoo, AOL, Ask, Baidu. In this module, the user can choose whether his searching queries could be streams to Streamr or not.
+### Facebook
+The Facebook module is more complicated. This module can capture the user's data in three ways. firstly through a web request listener, secondly an injected javascript to facebook pages and thirdly through Facebook APIs. This module can capture the user's visited facebook pages. the user searches on Facebook. User books, videos, televisions, pages, and Other his interests can be captured using Facebook APIs. 
+### Amazon
+Amazon is another interesting module that captures the user's visited pages and searches on Amazon. Moreover, all user's link clicks items added to cart, items ready to buy and items added to wishlist can be captured by this module.
+### Twitter
+User's post tweet and searches, follow and unfollow actions, mute and unmute actions, likes, and retweets can be captured by twitter module.
+### Youtube
+The last module we've implemented for Surf-Streamr is youtube module. In this module, the user can choose to sell his information about watched videoes, subscriptions, channels, playlists and his activities.
+`,`##  Design Challenges
+implementing such a product was not as simple as we thought at the beginning of the development. There were some challenges that we faced during the design phase.
+
+the most important challenge was about user privacy. Along with user concert about privacy, complying with standards like GDPR is a challenge for our product.
+
+Another challenge was about information disclosure. As you know some web applications put their security parameters in URL parameters or URL path-name. So if the user chooses to send such a URL to Streamr it would be a security breach and some malicious data buyers may use this information to compromise user. 
+
+As we would like to provide user's privacy, we shouldn't send any identity-related data to Streamr. some data buyers may like to communicate to the user after performing an analysis on the user's data. Creating a communication channel in which provide user's privacy is another challenge we faced during the design phase.
+
+most of the data capturing mechanism in our product depend on the way that the target web site has been designed and any changes in their site will affect our product. So by considering the limitation of browser extensions, designing the product in a way that it would update itself automatically, was another challenge. 
+
+One other most important challenges for this project were data authenticity and integrity. distinguishing a fake generated data from real user's data is very difficult and in some scenarios, it may be impossible.
+
+To tackle these challenges, we came up with some mechanisms that can be improved with the help of Streamr team and community.
+`,`##  Privacy model
+We designed a simple privacy model as you see in the table shown below.
+
+| | No Privacy | Low Privacy | Medium Privacy | High Privacy | Very High Privacy|
+|:--------:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|
+|URL|No changes|Remove params value|Mask path name|x|Remove path name|
+|Time|No changes|Remove minutes|Remove hours|Remove days|x|
+|TimeString|No changes|Remove minutes|Remove hours|Remove days|x|
+|Text|No changes|Mask user info in a given text|Remove user info from the text|Remove texts that has user info|x|
+|Id|No changes|Global masking|Per module masking|x|Nullify|
+|UserInfo|No changes|Global masking|Per module masking|x|Nullify|
+|UserAttr|No changes|Global masking|Per module masking|x|Nullify|
+
+The first column of the table shows types that we identified so far and the first row of the table shows privacy levels that we have defined for our product. 
+At the lowest level, we assuring no privacy. 
+In Low Privacy Level we nullify all parameters in URLs, reduce time precision by removing minutes from time and mask user info in all texts. 
+In Medium Privacy Level, we Mask URL path names, reduce time precision by removing hours from time and for texts we remove user information from texts.
+In Medium High Level, we remove URL path names, remove days from the time and remove all texts that have user's information.
+`,`##  Information Disclosure
+to prevent information disclosure we designed a filtering mechanism that uses a regular expression, wildcard, and exact matching method to filter all data that contain blacklist patterns.
+`,`##  Two way Communication
+as we said before, data buyer may like to have a way to communicate with data owner without user privacy violation. we provide two mechanisms for this purpose. a simple mechanism is using an email address that does not reveal user identity. 
+The second mechanism that we have implemented is a push mechanism. In this mechanism, we generate a push-id for every user of community product and the user can share its push-id with data buyers by enabling push mechanism. We created a separate stream for push mechanism. data buyers can push data to this stream. Every instance of our community product that its push mechanism is enabled can receive its corresponding messages. 
+`,`##  Surf-Streamr engine
+The picture shown in this slide, summarize our idea about Surf-Streamr engine. 
+
+![](engin.png)
+
+At the lowest layer, each module gathers a specific type of data and pass it to the User Consent Policy layer. The second layer checks whether this data comply with user consent policy. if data complies forward it to the upper layer. In third layer data filters refine data and pass only data that are not in blacklist filters. In the upper layer User, Privacy Level applies to data and based on the privacy level that has been chosen by the user, the only data that comply with the policy level will be passed to the Streamr.
+`,`##  What makes us different?
+If we want to compare the way we collect data and the way giant data collectors, collect data, we can mention these cases:
+Firstly, unlike giant data collectors, we ask the user to approve every data we would send to Streamr.
+then, By using Surf-Streamr, the user gets paid for every data he provides to sell, but giant data collector never shares revenue of selling data.
+next, Surf-Streamr never reveals user identity unless he gives permission for this, but user identity is known for the giant data collector.
+also, we are not limited to data regarding a specific business and we can collect a combination of user's data that none of these companies have all these data together.
+As we are on the user side, we can collect some other interesting data that giant data collectors have not to access.
+
+| Giant data collectors | Surf-Streamr |
+| --------------------------------- | --------------------------------- |
+|User is not asked to provide a consent|We ask user to approve every data we want to send|
+|User will not get paid for his own data|User get paid for  every data he provides to sell|
+|User identity is known for giant data collectors|We never reveal user identity unless he gives permission for this|
+|Every data collector has user data regarding their business|We collect a combination of user data|
+|Data collectors can just collect user data that has been sent to them|We are in the user side and we can collect more data|
+
+`]
  
