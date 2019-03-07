@@ -18,8 +18,8 @@ import src1 from '../../assets/img-1.jpg';
 
 
 class ProfilePage extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
 			privacyData: []
 		};
@@ -29,20 +29,39 @@ class ProfilePage extends React.Component {
         this.loadSettings()
     }
 
-    loadSettings() {		
+    loadSettings() {
+        // ADD LOADER HERE
+        // this.setState({privacyData:window.loader.loadSettings})
         //window.helper.load().then(db => {
         //     document.getElementById('push').checked = db.configs.pushStatus;;
         //     this.setState({email:db.profile.email,walletId:db.profile.walletId})
         //     });
     }
+    deleteRecordsX(id){
+        console.log('deleteRecordsdeleteRecordsdeleteRecords',id)
+        let newArray = [];
+        let storageArray = [];
+        console.log('filters',this.state.privacyData)
+        for(let i in this.state.privacyData){
 
+            if(this.state.privacyData[i].value !== id){
+                newArray.push(this.state.privacyData[i]);
+                storageArray.push({value:this.state.privacyData[i].value})
+
+            }
+        }
+        console.log('sss',storageArray)
+        // window.helper.saveFilters(storageArray)  /// SAVE PRIVACY (DELETED ONE ITEM)
+        this.setState({privacyData:newArray});
+
+    }
     render() {
         const settings = {};
         const saveSettings = () => {
             console.log('save settings')
             let pushStatus = document.getElementById('push').checked;
             let email = document.getElementById('email').value;
-            let wallet = document.getElementById('wallet').valuevaluevaluevaluevalue;
+            let wallet = document.getElementById('wallet').value;
             let data = {
                 email: email,
                 walletId: wallet
@@ -102,18 +121,20 @@ class ProfilePage extends React.Component {
                     addModal: !this.state.addModal
                 });
         };
+
         const addPrivacyData = () => {
-            let that = this;
+            let thatZ = this;
             let f = {
                 value: document.getElementById('value').value,
             };
             let s = document.getElementById('value').value;
             let f1 = {
                 value: document.getElementById('value').value,                
-                'Delete': <MDBBtn onClick={() => that.deleteRecords(s)} color="red" size="sm"><i class="fa fa-trash"
-                                                                                                 aria-hidden="true"></i>
+                'Delete': <MDBBtn onClick={() => this.deleteRecordsX(s)} color="red" size="sm"><i className="fa fa-trash"
+                                                                                                 aria-hidden="true"/>
                 </MDBBtn>
             };
+
             let allow = true;
             window.helper.loadPrivacyData().then(pData => {
                 console.log('ssssssss', pData, f, f.value)
@@ -126,20 +147,14 @@ class ProfilePage extends React.Component {
                 if (allow) {
                     pData.push(f);
                     window.helper.savePrivacyData(pData);
+                    let i = this.state.privacyData
+                    i.push(f1)
+                    this.setState({privacyData:i})
                 } else {
                     alert('duplicate')
                 }
-
-            }).then(() => {
-                window.helper.loadPrivacyData();
-            }).then(() => {
-                if (allow) {
-                    this.state.privacyData.push(f1)
-                }
-
                 toggle('addModal')
-            });
-
+            })
         };
         return (
             <React.Fragment>
@@ -164,7 +179,7 @@ class ProfilePage extends React.Component {
                     <MDBCol md="12" lg="12">
                         <section className="text-center pb-3">
                             <MDBRow className="d-flex justify-content-left">
-                                <MDBCol lg="12" xl="12" className="mb-3">
+                                <MDBCol lg="6" xl="6" className="mb-3">
                                     <div className={'justify-content-left'}>
                                         <MDBCard className="d-flex mb-5">
                                             <MDBView>
@@ -215,35 +230,36 @@ class ProfilePage extends React.Component {
                                     </div>
 
                                 </MDBCol>
+                                <MDBCol md="6" lg="6">
+                                    <MDBCard className="d-flex mb-3">
+                                        <MDBCol md="12" lg="12">
+                                            <MDBCardBody>
+                                                <MDBView>
+                                                    <div className={'mg-tp-5'}>
+                                                        User Privacy Data
+                                                    </div>
+                                                </MDBView>
+                                                <MDBTable id={'sssfj'} btn fixed bordered>
+                                                    <MDBTableHead columns={table2.columns}/>
+                                                    <MDBTableBody rows={this.state.privacyData}/>
+                                                </MDBTable>
+                                                <MDBRow>
+                                                    <MDBBtn onClick={() => toggle('addModal')} color="blue"><i class="fa fa-plus"
+                                                                                                               aria-hidden="true"></i>
+                                                    </MDBBtn>
+                                                </MDBRow>
 
+                                            </MDBCardBody>
+                                        </MDBCol></MDBCard>
+                                </MDBCol>
                             </MDBRow>
 
                         </section>
                     </MDBCol>
+
                 </MDBRow>
                 <MDBRow>
-                    <MDBCol md="12" lg="12">
-                        <MDBCard className="d-flex mb-3">
-                            <MDBCol md="12" lg="12">
-                                <MDBCardBody>
-                                    <MDBView>
-                                        <div className={'mg-tp-5'}>
-                                            User Privacy Data
-                                        </div>
-                                    </MDBView>
-                                    <MDBTable btn fixed bordered>
-                                        <MDBTableHead columns={table2.columns}/>
-                                        <MDBTableBody rows={this.state.privacyData}/>
-                                    </MDBTable>
-                                    <MDBRow>
-                                        <MDBBtn onClick={() => toggle('addModal')} color="blue"><i class="fa fa-plus"
-                                                                                                   aria-hidden="true"></i>
-                                        </MDBBtn>
-                                    </MDBRow>
 
-                                </MDBCardBody>
-                            </MDBCol></MDBCard>
-                    </MDBCol>
 
                 </MDBRow>
             </React.Fragment>
