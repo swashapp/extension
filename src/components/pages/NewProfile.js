@@ -73,6 +73,7 @@ class ProfilePage extends React.Component {
 
             ]
         };
+<<<<<<< HEAD
         const loadSettings = () => {
             window.helper.load().then(db => {
                 document.getElementById('push').checked = db.configs.pushStatus;
@@ -132,6 +133,45 @@ class ProfilePage extends React.Component {
                     }
                 }
                 if (allow) {
+=======
+        window.helper.saveProfile(data);
+        window.helper.saveConfigs({pushStatus: pushStatus});
+        if(pushStatus)
+            window.helper.subscribe();
+        else
+            window.helper.unsubscribe();
+    };
+    
+    const loadSettings = ()=>{
+        console.log('load settings')
+        window.helper.load().then(db => {
+            document.getElementById('push').checked = db.configs.pushStatus;;
+            document.getElementById('email').value = db.profile.email;
+            document.getElementById('wallet').value = db.profile.walletId;
+            });
+    }
+    const changeInput = (e)=>{
+        console.log('e',e.target,e.target.value,e.target.id)
+        if(e.target.id === 'wallet'){
+            this.setState({walletId:e.target.value})
+        }
+        if(e.target.id === 'email'){
+            this.setState({email:e.target.value})
+        }
+    }
+    return (
+        <React.Fragment>
+            
+            <MDBRow className="justify-content-center">
+                <MDBCol md="12" lg="12">
+                    <section className="text-center pb-3">
+                        <MDBRow className="d-flex justify-content-left">
+                            
+                            <MDBCol lg="12" xl="12" className="mb-3">
+                                <div className={'justify-content-left'}>
+
+                                <MDBCard className="d-flex mb-5">
+>>>>>>> 68b0a9a587d5083aa572cfa533d959cc7912b494
 
                     filter.push(f);
                     window.helper.saveFilters(filter);

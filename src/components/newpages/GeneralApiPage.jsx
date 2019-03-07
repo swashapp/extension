@@ -387,15 +387,22 @@ class GeneralApiPage extends React.Component {
             this.setState({is_enabled:!this.state.is_enabled})
         };
         const saveAll = ()=>{
+<<<<<<< HEAD
             this.setState({
                 modal1: !this.state.modal1
             })        };
         const saveAllConfirm = ()=>{
+=======
+>>>>>>> 68b0a9a587d5083aa572cfa533d959cc7912b494
 			var settings = {};
 			savePrivacyLevel(settings)
 			saveApiCall(settings)
 			saveContent(settings)
+<<<<<<< HEAD
 			saveBrowsing(settings)
+=======
+			saveBrowsing(settings)		
+>>>>>>> 68b0a9a587d5083aa572cfa533d959cc7912b494
 			let moduleName = this.state.name;
 			window.helper.config_module(moduleName, settings);
 			console.log('save allll')

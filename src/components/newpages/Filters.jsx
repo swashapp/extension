@@ -131,6 +131,10 @@ class Filters extends React.Component {
                 type  : document.getElementById('option').value
             };
             let s =  document.getElementById('value').value;
+<<<<<<< HEAD
+=======
+            console.log('deletes ss',s)
+>>>>>>> 68b0a9a587d5083aa572cfa533d959cc7912b494
             let f1 = {
                 value : document.getElementById('value').value,
                 type  : document.getElementById('option').value,
