@@ -20,16 +20,16 @@ import src1 from '../../assets/img-1.jpg';
 class ProfilePage extends React.Component {
     constructor() {
         super();
-        this.state = {};
+        this.state = {
+			privacyData: []
+		};
     }
 
     componentDidMount() {
         this.loadSettings()
     }
 
-    loadSettings() {
-
-        console.log('load settings this')
+    loadSettings() {		
         //window.helper.load().then(db => {
         //     document.getElementById('push').checked = db.configs.pushStatus;;
         //     this.setState({email:db.profile.email,walletId:db.profile.walletId})
@@ -42,7 +42,7 @@ class ProfilePage extends React.Component {
             console.log('save settings')
             let pushStatus = document.getElementById('push').checked;
             let email = document.getElementById('email').value;
-            let wallet = document.getElementById('wallet').value;
+            let wallet = document.getElementById('wallet').valuevaluevaluevaluevalue;
             let data = {
                 email: email,
                 walletId: wallet
@@ -73,14 +73,7 @@ class ProfilePage extends React.Component {
 
             ]
         };
-<<<<<<< HEAD
         const loadSettings = () => {
-            window.helper.load().then(db => {
-                document.getElementById('push').checked = db.configs.pushStatus;
-                ;
-                document.getElementById('email').value = db.profile.email;
-                document.getElementById('wallet').value = db.profile.walletId;
-            });
         };
         const changeInput = (e) => {
             console.log('e', e.target, e.target.value, e.target.id)
@@ -109,81 +102,39 @@ class ProfilePage extends React.Component {
                     addModal: !this.state.addModal
                 });
         };
-        const addFilter = () => {
+        const addPrivacyData = () => {
             let that = this;
             let f = {
                 value: document.getElementById('value').value,
-                type: document.getElementById('option').value
             };
             let s = document.getElementById('value').value;
             let f1 = {
-                value: document.getElementById('value').value,
-                type: document.getElementById('option').value,
+                value: document.getElementById('value').value,                
                 'Delete': <MDBBtn onClick={() => that.deleteRecords(s)} color="red" size="sm"><i class="fa fa-trash"
                                                                                                  aria-hidden="true"></i>
                 </MDBBtn>
             };
             let allow = true;
-            window.helper.loadFilters().then(filter => {
-                console.log('ssssssss', filter, f, f.value)
-                for (let i in filter) {
-                    console.log('ifilter', filter[i].value, f.value, filter[i].value === f.value)
-                    if (filter[i].value === f.value) {
+            window.helper.loadPrivacyData().then(pData => {
+                console.log('ssssssss', pData, f, f.value)
+                for (let i in pData) {
+                    console.log('ipData', pData[i].value, f.value, pData[i].value === f.value)
+                    if (pData[i].value === f.value) {
                         allow = false;
                     }
                 }
                 if (allow) {
-=======
-        window.helper.saveProfile(data);
-        window.helper.saveConfigs({pushStatus: pushStatus});
-        if(pushStatus)
-            window.helper.subscribe();
-        else
-            window.helper.unsubscribe();
-    };
-    
-    const loadSettings = ()=>{
-        console.log('load settings')
-        window.helper.load().then(db => {
-            document.getElementById('push').checked = db.configs.pushStatus;;
-            document.getElementById('email').value = db.profile.email;
-            document.getElementById('wallet').value = db.profile.walletId;
-            });
-    }
-    const changeInput = (e)=>{
-        console.log('e',e.target,e.target.value,e.target.id)
-        if(e.target.id === 'wallet'){
-            this.setState({walletId:e.target.value})
-        }
-        if(e.target.id === 'email'){
-            this.setState({email:e.target.value})
-        }
-    }
-    return (
-        <React.Fragment>
-            
-            <MDBRow className="justify-content-center">
-                <MDBCol md="12" lg="12">
-                    <section className="text-center pb-3">
-                        <MDBRow className="d-flex justify-content-left">
-                            
-                            <MDBCol lg="12" xl="12" className="mb-3">
-                                <div className={'justify-content-left'}>
-
-                                <MDBCard className="d-flex mb-5">
->>>>>>> 68b0a9a587d5083aa572cfa533d959cc7912b494
-
-                    filter.push(f);
-                    window.helper.saveFilters(filter);
+                    pData.push(f);
+                    window.helper.savePrivacyData(pData);
                 } else {
                     alert('duplicate')
                 }
 
             }).then(() => {
-                window.helper.loadFilters();
+                window.helper.loadPrivacyData();
             }).then(() => {
                 if (allow) {
-                    this.state.filters.push(f1)
+                    this.state.privacyData.push(f1)
                 }
 
                 toggle('addModal')
@@ -205,7 +156,7 @@ class ProfilePage extends React.Component {
 
                         </MDBModalBody>
                         <MDBModalFooter>
-                            <MDBBtn onClick={addFilter} color="blue">Save</MDBBtn>
+                            <MDBBtn onClick={addPrivacyData} color="blue">Save</MDBBtn>
                         </MDBModalFooter>
                     </MDBModal>
                 </MDBContainer>
@@ -276,13 +227,13 @@ class ProfilePage extends React.Component {
                             <MDBCol md="12" lg="12">
                                 <MDBCardBody>
                                     <MDBView>
-                                        <div >
+                                        <div className={'mg-tp-5'}>
                                             User Privacy Data
                                         </div>
                                     </MDBView>
                                     <MDBTable btn fixed bordered>
                                         <MDBTableHead columns={table2.columns}/>
-                                        <MDBTableBody rows={this.state.filters}/>
+                                        <MDBTableBody rows={this.state.privacyData}/>
                                     </MDBTable>
                                     <MDBRow>
                                         <MDBBtn onClick={() => toggle('addModal')} color="blue"><i class="fa fa-plus"

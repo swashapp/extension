@@ -1,19 +1,35 @@
 export const ManualResource = [`
-##  What is Surf-Streamr
+###  What is Surf-Streamr
 Surf-Streamr is a browser extension that can capture user browsing activities and listen to events on the web pages. Actually, Surf-Streamr is not just a browser extension and It can call APIs on behalf of the user and send this data to streamr to monetize it.
-`,`##  Surf-Streamr modules
+`,`###  Surf-Streamr modules
 Surf-Streamr is a modular extension and currently, it provides 5 important modules: Search engine module, Facebook, Amazon, Twitter, and youtube modules.
-### Search Engines
+
+----
+#### Search Engines
 search engine module supports 6 top search engines: Google, Bing, Yahoo, AOL, Ask, Baidu. In this module, the user can choose whether his searching queries could be streams to Streamr or not.
-### Facebook
+![](./images/search.png)
+
+----
+#### Facebook
 The Facebook module is more complicated. This module can capture the user's data in three ways. firstly through a web request listener, secondly an injected javascript to facebook pages and thirdly through Facebook APIs. This module can capture the user's visited facebook pages. the user searches on Facebook. User books, videos, televisions, pages, and Other his interests can be captured using Facebook APIs. 
-### Amazon
+![](./images/facebook.png)
+
+----
+#### Amazon
 Amazon is another interesting module that captures the user's visited pages and searches on Amazon. Moreover, all user's link clicks items added to cart, items ready to buy and items added to wishlist can be captured by this module.
-### Twitter
+![](./images/amazon.png)
+
+----
+#### Twitter
 User's post tweet and searches, follow and unfollow actions, mute and unmute actions, likes, and retweets can be captured by twitter module.
-### Youtube
+![](./images/twitter.png)
+
+----
+#### Youtube
 The last module we've implemented for Surf-Streamr is youtube module. In this module, the user can choose to sell his information about watched videoes, subscriptions, channels, playlists and his activities.
-`,`##  Design Challenges
+![](./images/youtube.png)
+
+`,`###  Design Challenges
 implementing such a product was not as simple as we thought at the beginning of the development. There were some challenges that we faced during the design phase.
 
 the most important challenge was about user privacy. Along with user concert about privacy, complying with standards like GDPR is a challenge for our product.
@@ -27,7 +43,7 @@ most of the data capturing mechanism in our product depend on the way that the t
 One other most important challenges for this project were data authenticity and integrity. distinguishing a fake generated data from real user's data is very difficult and in some scenarios, it may be impossible.
 
 To tackle these challenges, we came up with some mechanisms that can be improved with the help of Streamr team and community.
-`,`##  Privacy model
+`,`###  Privacy model
 We designed a simple privacy model as you see in the table shown below.
 
 | | No Privacy | Low Privacy | Medium Privacy | High Privacy | Very High Privacy|
@@ -45,18 +61,18 @@ At the lowest level, we assuring no privacy.
 In Low Privacy Level we nullify all parameters in URLs, reduce time precision by removing minutes from time and mask user info in all texts. 
 In Medium Privacy Level, we Mask URL path names, reduce time precision by removing hours from time and for texts we remove user information from texts.
 In Medium High Level, we remove URL path names, remove days from the time and remove all texts that have user's information.
-`,`##  Information Disclosure
+`,`###  Information Disclosure
 to prevent information disclosure we designed a filtering mechanism that uses a regular expression, wildcard, and exact matching method to filter all data that contain blacklist patterns.
-`,`##  Two way Communication
+`,`###  Two way Communication
 as we said before, data buyer may like to have a way to communicate with data owner without user privacy violation. we provide two mechanisms for this purpose. a simple mechanism is using an email address that does not reveal user identity. 
 The second mechanism that we have implemented is a push mechanism. In this mechanism, we generate a push-id for every user of community product and the user can share its push-id with data buyers by enabling push mechanism. We created a separate stream for push mechanism. data buyers can push data to this stream. Every instance of our community product that its push mechanism is enabled can receive its corresponding messages. 
-`,`##  Surf-Streamr engine
+`,`###  Surf-Streamr engine
 The picture shown in this slide, summarize our idea about Surf-Streamr engine. 
 
-![](engin.png)
+![](./images/engin.png)
 
 At the lowest layer, each module gathers a specific type of data and pass it to the User Consent Policy layer. The second layer checks whether this data comply with user consent policy. if data complies forward it to the upper layer. In third layer data filters refine data and pass only data that are not in blacklist filters. In the upper layer User, Privacy Level applies to data and based on the privacy level that has been chosen by the user, the only data that comply with the policy level will be passed to the Streamr.
-`,`##  What makes us different?
+`,`###  What makes us different?
 If we want to compare the way we collect data and the way giant data collectors, collect data, we can mention these cases:
 Firstly, unlike giant data collectors, we ask the user to approve every data we would send to Streamr.
 then, By using Surf-Streamr, the user gets paid for every data he provides to sell, but giant data collector never shares revenue of selling data.

@@ -39,16 +39,15 @@ class Manuals extends React.Component {
     render() {
 
         return (
+			 
             <MDBContainer>
                 <MDBRow id={'manual-row'} className="justify-content-left">
 
                     <MDBCol md="12" lg="12">
                         {this.state.manual[0]?this.state.manual.map((ob, id) => <MDBCard  key={id} className="d-flex mb-2">
-                            <MDBCol id={id} md="12" lg="12">
+                            <MDBCol id={id} md="12" lg="12" className={'full-expand'}>
 
                                 <MDBCardBody>
-                                    <i className={'fa fa-arrow-down manual-page-arrow'}
-                                       onClick={() => document.getElementById(id).classList.contains('full-expand') ? document.getElementById(id).classList.remove('full-expand'):document.getElementById(id).classList.add('full-expand')}/>
                                     <ReactMarkdown source={ob}/>
 
                                 </MDBCardBody>
