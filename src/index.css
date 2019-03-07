@@ -839,7 +839,10 @@ body {
 .nav-h .fa-wallet {
   padding: 7px 3px;
 }
+#sssfj .btn.btn-sm{
+    padding: 0.5rem 1rem;
 
+}
 .nav-h .fa-tasks {
   padding: 7px 3px;
 }
