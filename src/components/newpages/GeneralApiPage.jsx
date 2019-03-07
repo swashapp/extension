@@ -28,7 +28,12 @@ class GeneralApiPage extends React.Component {
         modal2: false, activeNav: 0, resource: false,
         modal3: false, connected: false, x: false
     };
-
+    componentWillUnmount(){
+        try{
+            clearInterval(this.state.intervalId)
+        }
+        catch(e){}
+    }
     componentDidMount() {
         console.log('did mount')
         if (this.props.resource[0]) {
@@ -50,6 +55,7 @@ class GeneralApiPage extends React.Component {
                 if (resourse.content)
                     for (let y in resourse.content) {
                         content.push({
+							name: resourse.content[y].name,
                             title: resourse.content[y].title,
                             description: resourse.content[y].description,
                             is_enabled: resourse.content[y].is_enabled
@@ -59,6 +65,7 @@ class GeneralApiPage extends React.Component {
                 if (resourse.browsing) {
                     for (let y in resourse.browsing) {
                         browsing.push({
+							name: resourse.browsing[y].name,
                             title: resourse.browsing[y].title,
                             description: resourse.browsing[y].description,
                             is_enabled: resourse.browsing[y].is_enabled
@@ -76,6 +83,7 @@ class GeneralApiPage extends React.Component {
                     for (let y in resourse.apiCall) {
                         console.log('resourse.apiCall[y]', resourse.apiCall[y].name)
                         apiCall.push({
+                            name: resourse.apiCall[y].name,							
                             title: resourse.apiCall[y].title,
                             description: resourse.apiCall[y].description,
                             is_enabled: resourse.apiCall[y].is_enabled
@@ -84,14 +92,20 @@ class GeneralApiPage extends React.Component {
                 }
                 console.log('setting state ', apiCall)
                 this.setState({
-                    resource: resourse,is_enabled:resourse.is_enabled,
-                    page: href,url:resourse.URL[0],description:resourse.description,
+                    resource: resourse,
+					is_enabled:resourse.is_enabled,
+                    page: href,
+					url:resourse.URL[0],
+					description:resourse.description,
                     activeNav: resourse.privacy_level,
+					connected: resourse.access_token?true:false,
                     content: content,
                     browsing: browsing,
                     apiCall: apiCall,
-                    title: resourse.title||resourse.name,
-                    icon: resourse.icons[0]
+                    title: resourse.title,
+					name: resourse.name,
+                    icon: resourse.icons[0],
+					
                 })
 
             } else {
@@ -108,7 +122,7 @@ class GeneralApiPage extends React.Component {
             let resourse;
             let href = window.location.href.substring(window.location.href.indexOf('/apis/') + 6);
             if (this.state.page !== href) {
-                this.setState({page: href, content: [], browsing: [], title: '',})
+                this.setState({page: href, content: [], browsing: [], apiCall: [], title: '', name: ''})
                 for (let u in this.props.resource) {
                     if (href === this.props.resource[u].name)
                         resourse = this.props.resource[u];
@@ -118,7 +132,8 @@ class GeneralApiPage extends React.Component {
                 if (resourse.content) {
                     for (let y in resourse.content) {
                         content.push({
-                            title: resourse.content[y].title,
+                            name: resourse.content[y].name,
+							title: resourse.content[y].title,
                             description: resourse.content[y].description,
                             is_enabled: resourse.content[y].is_enabled
                         })
@@ -129,6 +144,7 @@ class GeneralApiPage extends React.Component {
                     for (let y in resourse.browsing) {
                         console.log('resourse.content[y]', resourse.browsing[y].name)
                         browsing.push({
+                            name: resourse.browsing[y].name,							
                             title: resourse.browsing[y].title,
                             description: resourse.browsing[y].description,
                             is_enabled: resourse.browsing[y].is_enabled
@@ -141,6 +157,7 @@ class GeneralApiPage extends React.Component {
                     for (let y in resourse.apiCall) {
                         console.log('resourse.apiCall[y]', resourse.apiCall[y].name)
                         apiCall.push({
+                            name: resourse.browsing[y].name,							
                             title: resourse.apiCall[y].title,
                             description: resourse.apiCall[y].description,
                             is_enabled: resourse.apiCall[y].is_enabled
@@ -155,6 +172,7 @@ class GeneralApiPage extends React.Component {
                         resource: resourse,
                         page: href,
                         activeNav: resourse.privacy_level,
+						connected: resourse.access_token?true:false,						
                         content: content,
                         browsing: browsing
                     })
@@ -162,10 +180,12 @@ class GeneralApiPage extends React.Component {
                         resource: resourse,
                         page: href,url:resourse.URL[0],
                         activeNav: resourse.privacy_level,
+						connected: resourse.access_token?true:false,						
                         content: content,description:resourse.description,
                         browsing: browsing,is_enabled:resourse.is_enabled,
                         apiCall: apiCall,
-                        title: resourse.title||resourse.name,
+                        title: resourse.title,
+						name: resourse.name,
                         icon: resourse.icons[0]
                     })
                     document.getElementById('enabled-switch').checked = resourse.is_enabled;
@@ -174,7 +194,9 @@ class GeneralApiPage extends React.Component {
                         page: href,url:resourse.URL[0],description:resourse.description,
                         is_enabled: resourse.is_enabled,
                         activeNav: resourse.privacy_level,
-                        title: resourse.title||resourse.name,
+						connected: resourse.access_token?true:false,						
+                        title: resourse.title,
+						name: resourse.name,
                         apiCall: apiCall,
                         icon: resourse.icons[0]
                     })
@@ -207,6 +229,10 @@ class GeneralApiPage extends React.Component {
         #general-api-wrapper input[type="checkbox"].switch:checked + div{
                 background-color: ` + style + `!important;
         }
+        .btn-indigo {
+    background-color:` + style + ` !important;
+    color: #fff !important;
+}
 #general-api-wrapper .form-check-input[type=checkbox].filled-in:checked+label:after, label.btn input[type=checkbox].filled-in:checked+label:after {
   top: 0;
   width: 20px;
@@ -280,54 +306,52 @@ class GeneralApiPage extends React.Component {
         const SaveException = (id) => {
 
         };
-        const savePrivacyLevel = () => {
-            let object = {};
-            object[this.state.page] = {
-                'privacy_level': this.state.activeNav,
-                is_enabled: document.getElementById('enabled-switch').checked
-            }
-            window.helper.saveModuleSettings(this.state.title, "*", object);
-            this.state.resource.privacy_level = object[this.state.page].privacy_level
-            this.state.resource.is_enabled = object[this.state.page].is_enabled;
+        const savePrivacyLevel = (settings) => {
+			settings.privacy_level = this.state.activeNav;
+			settings.is_enabled = document.getElementById('enabled-switch').checked;
+            this.state.resource.privacy_level = settings.privacy_level
+            this.state.resource.is_enabled = settings.is_enabled
         }
-        const saveContent = () => {
+        const saveContent = (settings) => {
             let uz = {};
+			settings.content = {};
             for (let y in this.state.content) {
                 let f = document.getElementById('content' + y).checked;
-                uz[this.state.content[y].title] = f;
+                uz[this.state.content[y].name] = f;
+				let name = this.state.content[y].name;
+				settings.content[this.state.content[y].name] = f;
 
             }
             for (let x in this.state.resource.content) {
                 this.state.resource.content[x].is_enabled = uz[this.state.resource.content[x].name];
-            }
-            window.helper.saveModuleSettings(this.state.title, "content", uz);
+            }			
 
         }
-        const saveBrowsing = () => {
+        const saveBrowsing = (settings) => {
             console.log('browsing')
+			settings.browsing = {};
             let uz = {};
             for (let y in this.state.browsing) {
                 let f = document.getElementById('browsing' + y).checked;
-                uz[this.state.browsing[y].title] = f
+                uz[this.state.browsing[y].name] = f;
+				settings.browsing[this.state.browsing[y].name] = f;
             }
             for (let x in this.state.resource.browsing) {
                 this.state.resource.browsing[x].is_enabled = uz[this.state.resource.browsing[x].name];
             }
-
-            window.helper.saveModuleSettings(this.state.title, "browsing", uz)
         }
-        const saveApiCall = () => {
+        const saveApiCall = (settings) => {
             console.log('apiCall')
+			settings.apiCall = {};
             let uz = {};
             for (let y in this.state.apiCall) {
                 let f = document.getElementById('apiCall' + y).checked;
-                uz[this.state.apiCall[y].title] = f
+                uz[this.state.apiCall[y].name] = f;
+				settings.apiCall[this.state.apiCall[y].name] = f;
             }
             for (let x in this.state.resource.apiCall) {
                 this.state.resource.apiCall[x].is_enabled = uz[this.state.resource.apiCall[x].name];
             }
-
-            window.helper.saveModuleSettings(this.state.title, "apiCall", uz)
         }
         const changeCheckBox = (e) => {
             console.log('e', e.target, e.target.checked, e.id);
@@ -363,8 +387,42 @@ class GeneralApiPage extends React.Component {
             this.setState({is_enabled:!this.state.is_enabled})
         };
         const saveAll = ()=>{
-          console.log('save allll')
+            this.setState({
+                modal1: !this.state.modal1
+            })        };
+        const saveAllConfirm = ()=>{
+			var settings = {};
+			savePrivacyLevel(settings)
+			saveApiCall(settings)
+			saveContent(settings)
+			saveBrowsing(settings)
+			let moduleName = this.state.name;
+			window.helper.config_module(moduleName, settings);
+			console.log('save allll')
         };
+		const connect = ()=>{
+			window.helper.startAuth(this.state.name).then(x => {
+				let moduleName = this.state.name;
+                let f  = setInterval(()=>{window.helper.isConnected(moduleName).then(connected => {
+					this.setState({connected:connected})
+				});},2500);
+                try{window.clearInterval(this.state.intervalId);}
+                catch(e){}
+                
+                this.setState({intervalId:f,connected:'connecting'})
+				
+			});
+		}
+		const disconnect = ()=>{
+			window.helper.removeAuth(this.state.name).then(x => {
+				let moduleName = this.state.name;
+				window.helper.isConnected(moduleName).then(connected => {
+					this.state.connected = connected;
+				});
+			});
+		}
+
+		
         return (
             <div id="general-api-wrapper">
                 <div className={'save-bt-fix'}><i onClick={saveAll} className={'fa fa-save'}/></div>
@@ -373,14 +431,14 @@ class GeneralApiPage extends React.Component {
                         <MDBCardBody>
                             <div className={'container-fluid'}>
                                 <div className="row">
-                                    <div className="col-md-1 back-bt"
+                                    <div className="col-md-2 back-bt"
                                          onClick={() => this.props.history.push('/modules')}>
-                                        {'< Back'}
+                                        <i className='fa fa-arrow-left'/>
                                     </div>
-                                    <div className="col-md-9 back-bt module-title" id={'api-name'}>
-                                        {this.state.title}
+                                    <div className="col-md-7 back-bt module-title" id={'api-name'}>
+                                        {this.state.name}
                                     </div>
-                                    <div className="col-md-2 back-bt">
+                                    <div className="col-md-3 back-bt">
                                         <div className='row'>
 
                                             <div className="col-md-6">Status :</div>
@@ -404,16 +462,13 @@ class GeneralApiPage extends React.Component {
                 </div>
                 <MDBContainer>
                     <MDBModal size="lg" isOpen={this.state.modal1} toggle={() => this.toggle('1')}>
-                        <MDBModalHeader toggle={() => this.toggle('1')}>Visited Urls</MDBModalHeader>
+                        <MDBModalHeader toggle={() => this.toggle('1')}>Save Configurations</MDBModalHeader>
                         <MDBModalBody>
-                            <MDBTable btn fixed bordered>
-                                <MDBTableHead columns={table1.columns}/>
-                                <MDBTableBody rows={table1.rows}/>
-                            </MDBTable>
+                            <h5>By clicking on "Confirm" Your changes will take effect immediately.</h5>
                         </MDBModalBody>
                         <MDBModalFooter>
                             <MDBBtn color="secondary" onClick={() => this.toggle('1')}>Close</MDBBtn>
-                            <MDBBtn onClick={() => this.toggle('addModal')} color="secondary">+</MDBBtn>
+                            <MDBBtn onClick={saveAllConfirm} color="secondary">Confirm Changes</MDBBtn>
                         </MDBModalFooter>
                     </MDBModal>
                 </MDBContainer>
@@ -567,10 +622,16 @@ class GeneralApiPage extends React.Component {
                                 <MDBCardBody>
                                     <MDBCardTitle>API Call</MDBCardTitle>
                                     {this.state.connected === false ?
-                                        <MDBBtn color="indigo"><i className="fab fa-facebook mr-3"/>Connect to
+                                        <MDBBtn onClick={connect} color="indigo">                        <img className='general-api-logo-2' src={'data:image/png;base64,' + this.state.icon}/>
+ Connect to
                                             {' ' + this.state.resource.name}</MDBBtn> : ''
-                                    } {this.state.connected === 'connecting' ?
-                                    <MDBBtn color="indigo"><i className="fab fa-facebook mr-3"/>Connecting</MDBBtn> : ''
+                                    } {this.state.connected === true ?
+                                    <MDBBtn onClick={disconnect} color="indigo">                        <img className='general-api-logo-2' src={'data:image/png;base64,' + this.state.icon}/>
+Connected</MDBBtn> : ''
+                                }
+                                {this.state.connected === 'connecting' ?
+                                    <MDBBtn onClick={disconnect} color="red">                        <img className='general-api-logo-2' src={'data:image/png;base64,' + this.state.icon}/>
+Connected</MDBBtn> : ''
                                 }
                                 </MDBCardBody>
                                 <React.Fragment>
@@ -592,7 +653,7 @@ class GeneralApiPage extends React.Component {
                                         </MDBCol>
 
                                     </MDBRow>
-                                    <MDBBtn color="secondary">Confirm</MDBBtn>
+                                    {/*<MDBBtn color="secondary">Confirm</MDBBtn>*/}
                                 </React.Fragment>
                             </MDBCard>
                         </MDBCol>
@@ -632,5 +693,4 @@ class GeneralApiPage extends React.Component {
         )
     }
 }
-
 export default withRouter(GeneralApiPage);

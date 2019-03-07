@@ -9,6 +9,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import Modules from './newpages/Modules';
 import Filters from './newpages/Filters';
 import Manuals from './newpages/Manuals';
+import Messages from './newpages/Messages';
 
 
 import GeneralApiPage from './newpages/GeneralApiPage';
@@ -30,6 +31,8 @@ class Routes extends React.Component {
         <Filters resource={this.props.resource}/>
         } /><Route path='/Manual/'  render={()=>
         <Manuals resource={this.props.resource}/>
+        } /><Route path='/Messages/'  render={()=>
+        <Messages resource={this.props.resource}/>
         } />
         <Route path='/404' component={NotFoundPage} />
       </Switch>

@@ -13,7 +13,7 @@ const resource = {
 			"path": "/amazon",
 			"functions": [
 				"browsing",
-				"content"
+				"content","apiCall"
 			],
 			"URL": [
 				"https://www.amazon.com/"
@@ -497,6 +497,6 @@ return {
         load: load,
         save: save,
         loadFilters: loadFilters,
-		saveFilters: saveFilters
+		saveFilters: saveFilters,
     };
 }());

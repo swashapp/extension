@@ -33,8 +33,10 @@ class Modules extends React.Component {
         let resources = [];
         if (this.props.resource[0] && !this.state.resources[0]) {
             for (let i in this.props.resource) {
-                resources.push({title: this.props.resource[i].name, icons: this.props.resource[i].icons})
+                console.log('x',this.props.resource[i])
+                resources.push({title: this.props.resource[i].name, icons: this.props.resource[i].icons,is_enabled:this.props.resource[i].is_enabled})
             }
+            console.log(resources)
             this.setState({resources: resources})
         }
     };
@@ -43,8 +45,10 @@ class Modules extends React.Component {
         let resources = [];
         if (this.props.resource[0] && !this.state.resources[0]) {
             for (let i in this.props.resource) {
-                resources.push({title: this.props.resource[i].name, icons: this.props.resource[i].icons})
+                resources.push({title: this.props.resource[i].name, icons: this.props.resource[i].icons,is_enabled:this.props.resource[i].is_enabled})
             }
+            console.log(resources)
+
             this.setState({resources: resources})
         }
     }
@@ -54,9 +58,9 @@ class Modules extends React.Component {
             this.props.history.push('/apis/' + title)
         };
         return (<MDBRow id='modules-row' className="justify-content-left">
-            {this.state.resources.map((ob, id) => <MDBCol md="4" lg="3">
-                    <MDBCard onClick={() => redirect(ob.title)} className="d-flex mb-2">
-                        <MDBCardBody>
+            {this.state.resources.map((ob, id) => <MDBCol key={id} md="4" lg="3">
+                    <MDBCard onClick={() => redirect(ob.title)} className={"d-flex mb-2 "}>
+                        <MDBCardBody className={(ob.is_enabled?'':'disabled-module')}>
                             <div className='module-wr module-logo-wr'><img src={'data:image/png;base64,' + ob.icons[0]}/>
                             </div>
                             <div className='module-wr'> {ob.title}</div>

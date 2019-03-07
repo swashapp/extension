@@ -74,6 +74,11 @@ class SideNavigation extends React.Component {
                         <MDBIcon icon="cart-plus" fas className="mr-3"/>
                         Marketplace
                     </MDBListGroupItem>
+                </NavLink><NavLink to="/Messages" activeClassName="activeClass">
+                    <MDBListGroupItem>
+                        <MDBIcon icon="envelope" fas className="mr-3"/>
+                        Messages
+                    </MDBListGroupItem>
                 </NavLink>
                 <NavLink to="/Manual" activeClassName="activeClass">
                     <MDBListGroupItem>

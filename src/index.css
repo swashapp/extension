@@ -824,13 +824,18 @@ body {
   transition: opacity .4s !important;
   background: green;
 }
-
+.back-bt .fa{
+    font-size: 20px;
+    padding-top: 5px;}
 .nav-h i {
   font-size: 20px;
   padding-top: 5px;
   color: #7d6369;
 }
+.general-api-logo-2{
+    width:35px;
 
+}
 .nav-h .fa-wallet {
   padding: 7px 3px;
 }
@@ -986,4 +991,32 @@ enabled{
 #content {
     margin-left: 270px;
     min-height: calc(100vh);
+}
+table.table th, table.table td{
+    padding: 5px!important;
+}
+.disabled-module{
+    background-color: gray;
+}
+#manual-row td ,#manual-row th{
+    padding: 5px;
+    text-align: center;
+    border: 1px solid ;
+}#manual-row th{
+    font-weight: 700;
+  }
+#manual-row table{
+    margin: auto;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}#manual-row h1 ,#manual-row h2 ,#manual-row h3,#manual-row h4 ,#manual-row h5 ,#manual-row h6{
+    margin-bottom: .8rem;
+
+
+}
+.message-icon{
+    max-width: 30px;
+    max-height: 40px;
+
 }
