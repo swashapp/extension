@@ -40,10 +40,14 @@ class ProfilePage extends React.Component {
 			document.getElementById('push').checked = db.configs.pushStatus;
 			;
 			document.getElementById('email').value = db.profile.email;
+			document.getElementById('email').setAttribute('valuex','1') ;
+			document.getElementById('wallet').setAttribute('valuex','1') ;
+
 			document.getElementById('wallet').value = db.profile.walletId;
 			let that = this;
+			let f = [];
 			for(let pData of db.privacyData) {
-				this.state.privacyData.push(
+				f.push(
 					{
 						value: pData.value,
 						Delete: <MDBBtn onClick={() => this.deleteRecordsX(pData.value)} color="red" size="sm"><i className="fa fa-trash"
@@ -52,8 +56,9 @@ class ProfilePage extends React.Component {
 					}
 				)
 			}
-			this.state.privacyData = db.privacyData;
-		});	
+			// this.state.privacyData = db.privacyData;
+            this.setState({privacyData:f})
+		});
     }
     deleteRecordsX(id){
         console.log('deleteRecordsdeleteRecordsdeleteRecords',id)
@@ -147,7 +152,7 @@ class ProfilePage extends React.Component {
             };
             let s = document.getElementById('value').value;
             let f1 = {
-                value: document.getElementById('value').value,                
+                value: document.getElementById('value').value,
                 'Delete': <MDBBtn onClick={() => this.deleteRecordsX(s)} color="red" size="sm"><i className="fa fa-trash"
                                                                                                  aria-hidden="true"/>
                 </MDBBtn>
@@ -193,7 +198,7 @@ class ProfilePage extends React.Component {
                         </MDBModalFooter>
                     </MDBModal>
                 </MDBContainer>
-                <MDBRow className="justify-content-center">
+                <MDBRow id={'profile'} className="justify-content-center">
                     <MDBCol md="12" lg="12">
                         <section className="text-center pb-3">
                             <MDBRow className="d-flex justify-content-left">

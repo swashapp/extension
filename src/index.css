@@ -836,6 +836,10 @@ body {
     width:35px;
 
 }
+#profile .card{
+    height: 405px;
+    overflow: auto;
+}
 .nav-h .fa-wallet {
   padding: 7px 3px;
 }
