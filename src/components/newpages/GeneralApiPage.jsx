@@ -397,7 +397,11 @@ class GeneralApiPage extends React.Component {
 			saveContent(settings)
 			saveBrowsing(settings)
 			let moduleName = this.state.name;
-			window.helper.config_module(moduleName, settings);
+			window.helper.config_module(moduleName, settings).then(()=>{
+				this.setState({
+					modal1: !this.state.modal1
+				})
+			});			
 			console.log('save allll')
         };
 		const connect = ()=>{
