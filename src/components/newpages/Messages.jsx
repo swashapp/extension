@@ -27,7 +27,7 @@ class Messages extends React.Component {
     state = {
         messages: []
     };
-
+	
     componentDidMount() {
         //Load Messages
 		let that = this;
@@ -36,26 +36,48 @@ class Messages extends React.Component {
 			let modules = await window.helper.loadModules();
 			let messages = [];
 			for(let msgId in retMessages){
-				let msg = retMessages[msgId];
+				let host = "Undetermined"
+				let msg = retMessages[msgId];				
+				try {
+					host = (new URL(msg.origin)).host;					
+				}
+				catch(err) {
+					
+				}				
+				delete msg.origin
 				 messages.push({
-                    msg: JSON.stringify(msg, null, 10),
+                    msg: msg,
+					msgId: msgId,
                     icon: modules[msg.header.module].icons[0],
-                    link: msg.origin,
+                    link: host,
                     title: msg.header.module
                 })
 			}
 			that.setState({messages : messages})
 		}
 		loader();
+		this.interval = setInterval(loader, 1000);		
     };
 
     componentDidUpdate() {
 
     }
+	
+	componentWillUnmount() {
+	  clearInterval(this.interval);
+	}	
 
     render() {
         const deleteMsg = (message)=>{
-            console.log('delting msg ',message)
+            console.log('delting msg ',message)			
+			var messages = this.state.messages.filter(function(msg, index, arr){
+				return msg.msgId != message.msgId;
+			});
+			//clearTimeout(message.msgId);
+			let that = this;
+			window.helper.cancelSending(message.msgId).then(() => {
+				that.setState({messages : messages})
+			});
         };
         return (
             <MDBContainer>
@@ -101,7 +123,7 @@ class Message extends React.Component {
                 {this.props.message.link}
             </div>
 
-            <p>{this.props.message.msg}</p>
+            <p><pre>{JSON.stringify(this.props.message.msg, null, 4)}</pre></p>
         </div>
     }
 }

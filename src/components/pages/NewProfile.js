@@ -21,7 +21,9 @@ class ProfilePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-			privacyData: []
+			privacyData: [],
+			email: "",
+			walletId: ""
 		};
     }
 
@@ -38,12 +40,11 @@ class ProfilePage extends React.Component {
         //     });
 		window.helper.load().then(db => {
 			document.getElementById('push').checked = db.configs.pushStatus;
-			;
-			document.getElementById('email').value = db.profile.email;
+			document.getElementById('delay').checked = db.configs.delayedMessage;
 			document.getElementById('email').setAttribute('valuex','1') ;
 			document.getElementById('wallet').setAttribute('valuex','1') ;
-
-			document.getElementById('wallet').value = db.profile.walletId;
+			let email = db.profile.email;
+			let walletId = db.profile.walletId;
 			let that = this;
 			let f = [];
 			for(let pData of db.privacyData) {
@@ -57,7 +58,7 @@ class ProfilePage extends React.Component {
 				)
 			}
 			// this.state.privacyData = db.privacyData;
-            this.setState({privacyData:f})
+            this.setState({privacyData:f, email:email, walletId:walletId})
 		});
     }
     deleteRecordsX(id){
@@ -74,7 +75,7 @@ class ProfilePage extends React.Component {
             }
         }
         console.log('sss',storageArray)
-        // window.helper.saveFilters(storageArray)  /// SAVE PRIVACY (DELETED ONE ITEM)
+        window.helper.savePrivacyData(storageArray)
         this.setState({privacyData:newArray});
 
     }
@@ -83,6 +84,7 @@ class ProfilePage extends React.Component {
         const saveSettings = () => {
             console.log('save settings')
             let pushStatus = document.getElementById('push').checked;
+			let delayedMessage = document.getElementById('delay').checked;
             let email = document.getElementById('email').value;
             let wallet = document.getElementById('wallet').value;
             let data = {
@@ -90,7 +92,7 @@ class ProfilePage extends React.Component {
                 walletId: wallet
             };
             window.helper.saveProfile(data);
-            window.helper.saveConfigs({pushStatus: pushStatus});
+            window.helper.saveConfigs({pushStatus: pushStatus, delayedMessage: delayedMessage});
             if (pushStatus)
                 window.helper.subscribe();
             else
@@ -219,8 +221,6 @@ class ProfilePage extends React.Component {
                                                           label="Wallet Id" icon="user" id="wallet"/>
                                                 <MDBInput value={changeInput} value={this.state.email}
                                                           label="Email Address" icon="envelope" id="email"/>
-                                                <p className={'input-p'}>Optional : If you Provide Email , It may
-                                                    Increase Your Income</p>
                                                 <div className={'input-title'}>
                                                     <div className='row'>
                                                         <div className="col-md-6">
@@ -241,9 +241,29 @@ class ProfilePage extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <p className={'input-p'}>Optional : If you Enable Push , It may Increase
-                                                    Your Income</p>
+												<br />
+												<br />
+					                            <div className={'input-title'}>
+                                                    <div className='row'>
+                                                        <div className="col-md-6">
 
+                                                            <h5 style={{display: 'inline-flex', color: '#757575'}}>Delay 
+                                                                Sending:
+
+                                                            </h5>
+                                                        </div>
+
+                                                        <div className="col-md-6">
+                                                            <input id='delay' className='switch' type='checkbox'/>
+                                                            <div className='switch-wrap'>
+                                                                <p className="enabled"></p>
+                                                                <p className="disabled"></p>
+                                                                <div className='enable-circle'></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                       
                                             </MDBCardBody>
 
                                             <MDBCardFooter className="links-light profile-card-footer">
