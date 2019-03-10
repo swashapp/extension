@@ -69,15 +69,13 @@ class Messages extends React.Component {
 
     render() {
         const deleteMsg = (message)=>{
-            console.log('delting msg ',message)			
+            console.log('deleting msg ',message)			
 			var messages = this.state.messages.filter(function(msg, index, arr){
 				return msg.msgId != message.msgId;
 			});
-			//clearTimeout(message.msgId);
-			let that = this;
-			window.helper.cancelSending(message.msgId).then(() => {
-				that.setState({messages : messages})
-			});
+			//clearTimeout(message.msgId);			
+			window.helper.cancelSending(message.msgId);
+			this.setState({messages : messages});
         };
         return (
             <MDBContainer>
