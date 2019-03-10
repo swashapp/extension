@@ -29,10 +29,12 @@ class GeneralApiPage extends React.Component {
         modal3: false, connected: false, x: false
     };
     componentWillUnmount(){
-        try{
+        try {
             clearInterval(this.state.intervalId)
         }
-        catch(e){}
+        catch(e){
+			
+		}
     }
     componentDidMount() {
         console.log('did mount')
@@ -89,6 +91,10 @@ class GeneralApiPage extends React.Component {
                             is_enabled: resourse.apiCall[y].is_enabled
                         })
                     }
+					let f  = setInterval(()=>{window.helper.isConnected(resourse.name).then(connected => {
+						this.setState({connected:connected})
+					});},1000);
+					this.setState({intervalId: f});
                 }
                 console.log('setting state ', apiCall)
                 this.setState({
@@ -406,15 +412,8 @@ class GeneralApiPage extends React.Component {
         };
 		const connect = ()=>{
 			window.helper.startAuth(this.state.name).then(x => {
-				let moduleName = this.state.name;
-                let f  = setInterval(()=>{window.helper.isConnected(moduleName).then(connected => {
-					this.setState({connected:connected})
-				});},2500);
-                try{window.clearInterval(this.state.intervalId);}
-                catch(e){}
-                
-                this.setState({intervalId:f,connected:'connecting'})
-				
+				let moduleName = this.state.name;                                               
+                this.setState({connected:'connecting'})				
 			});
 		}
 		const disconnect = ()=>{
