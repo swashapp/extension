@@ -48,13 +48,13 @@ We designed a simple privacy model as you see in the table shown below.
 
 | | No Privacy | Low Privacy | Medium Privacy | High Privacy | Very High Privacy|
 |:--------:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|
-|URL|No changes|Remove params value|Mask path name|x|Remove path name|
-|Time|No changes|Remove minutes|Remove hours|Remove days|x|
-|TimeString|No changes|Remove minutes|Remove hours|Remove days|x|
-|Text|No changes|Mask user info in a given text|Remove user info from the text|Remove texts that has user info|x|
-|Id|No changes|Global masking|Per module masking|x|Nullify|
-|UserInfo|No changes|Global masking|Per module masking|x|Nullify|
-|UserAttr|No changes|Global masking|Per module masking|x|Nullify|
+|URL|No changes|Remove params value|Global Masking path name|Per module masking path name|Remove path name|
+|Time|No changes|Remove minutes|Remove hours|Remove days of month|Remove months|
+|TimeString|No changes|Remove minutes|Remove hours|Remove days of month|Remove months|
+|Text|No changes|Mask user info in a given text|Replace user info with star|Remove user info from the text|Remove texts that has user info|
+|Id|No changes|hash|Global masking|Per module masking|Nullify|
+|UserInfo|No changes|hash|Global masking|Per module masking|Nullify|
+|UserAttr|No changes|hash|Global masking|Per module masking|Nullify|
 
 The first column of the table shows types that we identified so far and the first row of the table shows privacy levels that we have defined for our product. 
 At the lowest level, we assuring no privacy. 
