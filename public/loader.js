@@ -485,7 +485,10 @@ var helper = (function() {
         return filters
     }
     function load(){
-        return resource
+		var promise1 = new Promise(function(resolve, reject) {
+			resolve(resource);
+		});
+        return promise1;
     }
     function save(data){
         console.log(data)

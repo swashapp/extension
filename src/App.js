@@ -4,14 +4,18 @@ import TopNavigation from './components/topNavigation';
 import SideNavigation from './components/sideNavigation';
 import Footer from './components/Footer';
 class App extends Component {
-  constructor(){
-          super();
-          this.state ={resource : []}
-      }
-      componentDidMount(){
+	constructor(){
+	  super();
+	  this.state ={resource : []};
+	  this.reload = this.reload.bind(this);
+	}
+	reload() {
+		this.componentDidMount();
+	}
+	componentDidMount(){
 		  console.log("react componentDidMount");
 		let that = this;
-		
+
 		async function loader() {
 			let x = await window.helper.load();
 			let f = x.modules;
@@ -22,26 +26,26 @@ class App extends Component {
 			}
 			that.setState({resource:list})
 		}
-          try{
-              loader();
-          }
-          catch (e) {
-              
-          }
-               
-      }
-  render() {
-      
-    return (
-        <div className="flexible-content">          
-          <SideNavigation  resource={this.state.resource}/>
-          <main id="content" className="p-5">
-            <Routes resource={this.state.resource}/>
-          </main>
-          {/*<Footer />*/}
-        </div>
-    );
-  }
+		  try{
+			  loader();
+		  }
+		  catch (e) {
+			  
+		  }
+			   
+	}
+	render() {
+		  
+		return (
+			<div className="flexible-content">          
+			  <SideNavigation  resource={this.state.resource}/>
+			  <main id="content" className="p-5">
+				<Routes resource={this.state.resource} reload={this.reload}/>
+			  </main>
+			  {/*<Footer />*/}
+			</div>
+		);
+	}
 }
 
 export default App;
