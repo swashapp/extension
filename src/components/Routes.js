@@ -4,7 +4,6 @@ import DashboardPage from './pages/DashboardPage';
 import ProfilePage from './pages/ProfilePage';
 import NewProfile from './pages/NewProfile';
 import TablesPage from './pages/TablesPage';
-import MapsPage from './pages/MapsPage';
 import NotFoundPage from './pages/NotFoundPage';
 import Modules from './newpages/Modules';
 import Filters from './newpages/Filters';
@@ -20,9 +19,7 @@ class Routes extends React.Component {
     return (
       <Switch>
         <Route path='/' exact component={NewProfile} />
-		<Route path='/Marketplace' render={()=>
-			<Marketplace reload={this.props.reload}/>
-			} />
+		<Route path='/Marketplace' render={()=><Marketplace reload={this.props.reload}/>} />
         <Route path='/dashboard' component={NewProfile} />
         <Route path='/profile' component={NewProfile} />
         <Route path='/apis/'  render={()=>
