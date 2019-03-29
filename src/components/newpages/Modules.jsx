@@ -92,7 +92,9 @@ class Modules extends React.Component {
 										{(ob.is_verified)?<img src={verifiedIcon} height="20" width="20" />:''
 										}
 									</div>
-									:<div style = {{paddingTop : 20 }}/>}
+									:<div>
+										<div height="20" width="20" style={{paddingTop:24.5}} />
+									</div>}
 								</MDBCol>
 						</MDBRow>
                         <MDBCardBody onClick={() => redirect(ob.title)} className={(ob.is_enabled?'':'disabled-module')}>
