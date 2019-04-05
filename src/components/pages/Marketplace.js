@@ -126,6 +126,16 @@ class Marketplace extends React.Component {
 						"browsing",
 						"survey"
 					],
+					"viewGroups": [						
+						{
+							"name": "Debug",
+							"title": "Debug and Error Logs"
+						},
+						{
+							"name": "Survey",
+							"title": "Surveys"
+						}
+					],
 					"is_enabled": true,
 					"type": "marketplace",
 					"is_verified": true,
@@ -146,8 +156,7 @@ class Marketplace extends React.Component {
 							"https://*.streamr.com/*"
 						]
 					},
-					"browsing_extraInfoSpec": [
-						"blocking"
+					"browsing_extraInfoSpec": [						
 					],
 					"browsing": [
 						{
@@ -155,6 +164,7 @@ class Marketplace extends React.Component {
 							"title": "Page Not Found",
 							"hook": "response",
 							"description": "",
+							"viewGroup": "Debug",
 							"pattern": [
 								{
 									"statusCode": 404
@@ -167,6 +177,7 @@ class Marketplace extends React.Component {
 							"title": "Internal Server Error",
 							"hook": "response",
 							"description": "",
+							"viewGroup": "Debug",
 							"pattern": [
 								{
 									"statusCode": 500
@@ -183,6 +194,7 @@ class Marketplace extends React.Component {
 							"name": "Errors",
 							"description": "",
 							"title": "Errors",
+							"viewGroup": "Debug",
 							"type": "event",
 							"is_enabled": true,
 							"events": [
@@ -228,6 +240,7 @@ class Marketplace extends React.Component {
 							"name": "ConsoleErrors",
 							"description": "",
 							"title": "Console Errors",
+							"viewGroup": "Debug",
 							"type": "log",
 							"is_enabled": true
 						},
@@ -235,6 +248,7 @@ class Marketplace extends React.Component {
 							"name": "ConsoleWarns",
 							"description": "",
 							"title": "Console Warnings",
+							"viewGroup": "Debug",
 							"type": "log",
 							"is_enabled": true
 						},
@@ -242,6 +256,7 @@ class Marketplace extends React.Component {
 							"name": "ConsoleLogs",
 							"description": "",
 							"title": "Console Logs",
+							"viewGroup": "Debug",
 							"type": "log",
 							"is_enabled": true
 						}
@@ -249,10 +264,11 @@ class Marketplace extends React.Component {
 					"survey_matches": [
 						"*://*.streamr.com/*"
 					],
-					"survey": {
+					"survey": [{
 						"name": "UX Survey",
 						"title": "UX Survey",
 						"is_enabled": true,
+						"viewGroup": "Survey",
 						"pages": [
 							{
 								"name": "Profession",
@@ -408,7 +424,7 @@ class Marketplace extends React.Component {
 								]
 							}
 						]
-					},
+					}],
 				}
 			},
 			{

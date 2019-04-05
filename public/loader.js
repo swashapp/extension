@@ -15,7 +15,17 @@ const resource = {
 				"browsing",
 				"content","apiCall"
 			],
-			"type": "native",
+			"viewGroups": [
+				{
+					"name": "UX",
+					"title": "User Experience"
+				},
+				{
+					"name": "API",
+					"title": "Facebook API"
+				}
+			],
+			"type": "builtin",
 			"is_verified": false,
 			"URL": [
 				"https://www.amazon.com/"
@@ -41,6 +51,7 @@ const resource = {
 				{
 					"name": "search1",
 					"method": "GET","is_enabled":true,
+					"viewGroup": "UX",
 					"url_pattern": "^https://www.amazon.com/s/.*",
 					"pattern_type": "regex",
 					"param": [
@@ -59,6 +70,7 @@ const resource = {
 				{
 					"name": "search2",
 					"method": "GET",
+					"viewGroup": "UX",
 					"url_pattern": "^https://www.amazon.com/s/.*",
 					"pattern_type": "regex",
 					"param": [
@@ -77,6 +89,7 @@ const resource = {
 				{
 					"name": "search3",
 					"method": "GET",
+					"viewGroup": "UX",
 					"url_pattern": "^https://www.amazon.com/s?.*",
 					"pattern_type": "regex",
 					"param": [
@@ -94,11 +107,13 @@ const resource = {
 				},
 				{
 					"name": "inspectVisit",
-					"target_listener": "inspectVisit"
+					"target_listener": "inspectVisit",
+					"viewGroup": "UX",
 				},
 				{
 					"name": "inspectReferrer",
-					"target_listener": "inspectReferrer"
+					"target_listener": "inspectReferrer",
+					"viewGroup": "UX",
 				}
 			],
 			"content_matches": [
@@ -109,6 +124,7 @@ const resource = {
 					"name": "links",
 					"description": "",
 					"title": "",
+					"viewGroup": "UX",
 					"events": [
 						{
 							"selector": "a",
@@ -137,6 +153,7 @@ const resource = {
 					"name": "selectItem1",
 					"description": "",
 					"title": "",
+					"viewGroup": "UX",
 					"events": [
 						{
 							"selector": "",
@@ -165,6 +182,7 @@ const resource = {
 					"name": "selectItem2",
 					"description": "",
 					"title": "",
+					"viewGroup": "UX",
 					"events": [
 						{
 							"selector": "#add-to-cart-button",
@@ -197,6 +215,7 @@ const resource = {
 					"name": "selectItem3",
 					"description": "",
 					"title": "",
+					"viewGroup": "UX",
 					"events": [
 						{
 							"selector": "#add-to-wishlist-button-submit",
@@ -229,6 +248,7 @@ const resource = {
 					"name": "selectItem",
 					"description": "",
 					"title": "",
+					"viewGroup": "UX",
 					"events": [
 						{
 							"selector": "#buy-now-button",
@@ -273,6 +293,12 @@ const resource = {
 			"functions": [
 				"browsing"
 			],
+			"viewGroups": [
+				{
+					"name": "UX",
+					"title": "User Experience"
+				}
+			],
 			"privacy_level": 3,
 			"is_enabled": true,
 			"type": "marketplace",
@@ -302,6 +328,7 @@ const resource = {
 					"title": "",
 					"description": "",
 					"method": "GET",
+					"viewGroup": "UX",
 					"filter": {
 						"urls": [
 							"*://www.bing.com/*"
@@ -327,6 +354,7 @@ const resource = {
 					"title": "",
 					"description": "",
 					"method": "GET",
+					"viewGroup": "UX",
 					"filter": {
 						"urls": [
 							"*://www.bing.com/*"
@@ -352,6 +380,7 @@ const resource = {
 					"title": "",
 					"description": "",
 					"method": "GET",
+					"viewGroup": "UX",
 					"filter": {
 						"urls": [
 							"*://*.yahoo.com/*"
@@ -378,6 +407,7 @@ const resource = {
 					"title": "",
 					"description": "",
 					"method": "GET",
+					"viewGroup": "UX",
 					"filter": {
 						"urls": [
 							"*://www.google.com/search?*"
@@ -404,6 +434,7 @@ const resource = {
 					"title": "",
 					"description": "",
 					"method": "GET",
+					"viewGroup": "UX",
 					"filter": {
 						"urls": [
 							"*://search.aol.com/aol/*"
@@ -429,6 +460,7 @@ const resource = {
 					"title": "",
 					"description": "",
 					"method": "GET",
+					"viewGroup": "UX",
 					"filter": {
 						"urls": [
 							"*://www.ask.com/*"
@@ -454,6 +486,7 @@ const resource = {
 					"title": "",
 					"description": "",
 					"method": "GET",
+					"viewGroup": "UX",
 					"filter": {
 						"urls": [
 							"*://*.baidu.com/*"

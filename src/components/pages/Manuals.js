@@ -1,5 +1,5 @@
 import React from 'react';
-import {ManualResource} from './ManualsDocs.jsx'
+import {ManualResource} from './ManualsDocs.js'
 import {Route, Switch, withRouter} from 'react-router-dom';
 import {
     MDBCol,
