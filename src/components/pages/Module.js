@@ -220,16 +220,12 @@ class Module extends React.Component {
 			savePrivacyLevel(settings)
 			saveViews(settings)
 			let moduleName = this.state.name;
-			/*window.helper.config_module(moduleName, settings).then(()=>{
+			window.helper.config_module(moduleName, settings).then(()=>{
 				this.setState({
 					modal1: !this.state.modal1
 				})
-			});*/		
-
-			this.setState({
-					modal1: !this.state.modal1
-				})
-				
+			});		
+			
 			console.log('save allll')
         };
 		const connect = ()=>{
