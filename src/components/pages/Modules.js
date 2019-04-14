@@ -128,7 +128,7 @@ class Modules extends React.Component {
 											</MDBCol>
 									</MDBRow>
 									<MDBCardBody onClick={() => redirect(ob.name)} className={(ob.is_enabled?'':'disabled-module')}>
-										<div className='module-wr module-logo-wr'><img src={'data:image/png;base64,' + ob.icons[0]}/>
+										<div className='module-wr module-logo-wr'><img src={ob.icons[0]}/>
 										</div>
 										<div className='module-wr'> {ob.name}</div>
 									</MDBCardBody>

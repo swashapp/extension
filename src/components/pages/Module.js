@@ -295,7 +295,7 @@ class Module extends React.Component {
                 </MDBContainer>
                 <MDBRow className="justify-content-left">
                     <MDBCol md="12" lg="12">
-                        <img className='general-api-logo' src={'data:image/png;base64,' + this.state.icon}/>
+                        <img className='general-api-logo' src={this.state.icon}/>
 
                         <MDBCard className="d-flex mb-2" style={{    minHeight: '220px'}}>
                             <MDBCol md="6" lg="6">
@@ -356,15 +356,15 @@ class Module extends React.Component {
                                 <MDBCardBody>
                                     <MDBCardTitle>{this.state.views[key].title}</MDBCardTitle>
                                     {key=="API" && this.state.connected === false ?
-                                        <MDBBtn onClick={connect} color="indigo">                        <img className='general-api-logo-2' src={'data:image/png;base64,' + this.state.icon}/>
+                                        <MDBBtn onClick={connect} color="indigo">                        <img className='general-api-logo-2' src={this.state.icon}/>
  Connect to
                                             {' ' + this.state.module.name}</MDBBtn> : ''
                                     } {key=="API" && this.state.connected === true ?
-                                    <MDBBtn onClick={disconnect} color="indigo">                        <img className='general-api-logo-2' src={'data:image/png;base64,' + this.state.icon}/>
+                                    <MDBBtn onClick={disconnect} color="indigo">                        <img className='general-api-logo-2' src={this.state.icon}/>
 Connected</MDBBtn> : ''
                                 }
                                 {key=="API" && this.state.connected === 'connecting' ?
-                                    <MDBBtn onClick={disconnect} color="red">                        <img className='general-api-logo-2' src={'data:image/png;base64,' + this.state.icon}/>
+                                    <MDBBtn onClick={disconnect} color="red">                        <img className='general-api-logo-2' src={this.state.icon}/>
 Connected</MDBBtn> : ''
                                 }
                                 </MDBCardBody>
