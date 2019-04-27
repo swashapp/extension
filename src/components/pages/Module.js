@@ -376,9 +376,13 @@ Connected</MDBBtn> : ''
 
                                                     {this.state.views[key].items.map((ob, id) =>
                                                         <div className="col-md-2 col-lg-4">
-                                                            <MDBInput label={ob.title} onChange={changeCheckBox} filled
-                                                                      checked={ob.is_enabled} type="checkbox"
-                                                                      id={this.state.views[key].name + "-" + id}></MDBInput>
+															<div style={{ display: "flex" }}>
+															<MDBTooltip	placement="top" color="green" tooltipContent={ob.description}>
+																<MDBInput label={ob.title} onChange={changeCheckBox} filled
+																		  checked={ob.is_enabled} type="checkbox"
+																		  id={this.state.views[key].name + "-" + id}></MDBInput>
+															</MDBTooltip>
+															</div>
 
                                                         </div>)}
                                                 </div>
