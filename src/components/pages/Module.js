@@ -18,7 +18,11 @@ import {
     MDBTableBody,
     MDBModalBody,
     MDBModalHeader,
-    MDBModalFooter
+    MDBModalFooter,
+	MDBPopover, 
+	MDBPopoverBody, 
+	MDBPopoverHeader,
+	MDBIcon
 } from "mdbreact";
 import NavBar from '../microcomponents/NavBar'
 
@@ -327,16 +331,26 @@ class Module extends React.Component {
                 <MDBRow className="justify-content-left">
                     <MDBCol md="12" lg="12">
 
-                        <MDBCard className={"d-flex mb-2 "+(this.state.is_enabled?'':'disabled-card')} >
-
+                        <MDBCard className={"d-flex mb-2 "+(this.state.is_enabled?'':'disabled-card')} >										
                             <MDBCol md="6" lg="6">
-
                                 <MDBCardBody>
-                                    <MDBCardTitle>Privacy Level</MDBCardTitle>
+                                    <MDBCardTitle>Privacy Level
+										<MDBPopover placement="top" popover clickable>
+											<MDBBtn size="sm">
+												<i class="far fa-question-circle"></i>
+											</MDBBtn>
+											<div>
+												<MDBPopoverHeader>High Privacy Level</MDBPopoverHeader>
+												<MDBPopoverBody>
+												  test
+												</MDBPopoverBody>
+											</div>
+										</MDBPopover>
+									</MDBCardTitle>
 
                                     {/*<h2 style={{fontWeight: '600', padding: ' 5px 0 30px 0'}}>{this.state.title}</h2>*/}
                                     <div className={'n-v-w'}>
-                                        <NavBar handleClick={handleClick} navs={['', '', '', '', '']}
+                                        <NavBar handleClick={handleClick} navs={['Lowest', 'Low', 'Medium', 'High', 'Highest']}
                                                 activeNav={this.state.activeNav}/>
                                     </div>
                                 </MDBCardBody>
@@ -377,10 +391,15 @@ Connected</MDBBtn> : ''
                                                     {this.state.views[key].items.map((ob, id) =>
                                                         <div className="col-md-2 col-lg-4">
 															<div style={{ display: "flex" }}>
-															<MDBTooltip	placement="top" color="green" tooltipContent={ob.description}>
-																<MDBInput label={ob.title} onChange={changeCheckBox} filled
-																		  checked={ob.is_enabled} type="checkbox"
-																		  id={this.state.views[key].name + "-" + id}></MDBInput>
+															<MDBTooltip	placement="top" domElement>
+																<div>
+																	<MDBInput label={ob.title} onChange={changeCheckBox} filled
+																			  checked={ob.is_enabled} type="checkbox"
+																			  id={this.state.views[key].name + "-" + id}></MDBInput>
+																</div>
+																<div>
+																	{ob.description}
+																</div>
 															</MDBTooltip>
 															</div>
 
