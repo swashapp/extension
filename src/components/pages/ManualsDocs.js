@@ -46,7 +46,7 @@ To tackle these challenges, we came up with some mechanisms that can be improved
 `,`###  Privacy model
 We designed a simple privacy model as you see in the table shown below.
 
-| | No Privacy | Low Privacy | Medium Privacy | High Privacy | Very High Privacy|
+| Data Type | No Privacy | Low Privacy | Medium Privacy | High Privacy | Very High Privacy|
 |:--------:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|
 |URL|No changes|Remove params value|Global Masking path name|Per module masking path name|Remove path name|
 |Time|No changes|Remove minutes|Remove hours|Remove days of month|Remove months|

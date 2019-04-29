@@ -27,10 +27,54 @@ import {
 import NavBar from '../microcomponents/NavBar'
 
 class Module extends React.Component {
+    mSalt = "523c2eda-6a8b-11e9-a923-1681be663d3e";
+    salt = "59017e28-6a8b-11e9-a923-1681be663d3e";
+    privacyData = ["surfStreamr"];
+    message = {
+        header: {
+             privacyLevel: 0
+        },
+        data: {
+            out: {
+                url:"https://www.test.com/path1/path1-1/sample?var1=val1&var2=val2",
+                time: "1556528945964",
+                timeString:"Mon Apr 29 2019 13:29:49 GMT+0430 (Iran Daylight Time)",
+                text: "This is a simple Text That contains <b>SurfStreamr</b> as a personal data",
+                id: "324242342",
+                userInfo: "John Doe",
+                userAttr: "male"
+            },
+            schems: [
+                    {jpath:"$.url", type: "url"},
+                    {jpath:"$.time", type: "time"},
+                    {jpath:"$.timeString", type: "timeString"},
+                    {jpath:"$.text", type: "text"},
+                    {jpath:"$.id", type: "id"},
+                    {jpath:"$.userInfo", type: "userInfo"},
+                    {jpath:"$.userAttr", type: "userAttr"},
+                ]
+        }
+    }
     state = {
         modal1: false,
-        modal2: false, activeNav: 0, resource: false,
-        modal3: false, connected: false, x: false
+        modal2: false,
+        activeNav: 0,
+        resource: false,
+        modal3: false,
+        connected: false,
+        x: false,
+        activeNav2: 0,
+        pMessage: {
+            data: {
+                url:"https://www.test.com/path1/path1-1/sample?var1=val1&var2=val2",
+                time: "1556528945964",
+                timeString:"Mon Apr 29 2019 13:29:49 GMT+0430 (Iran Daylight Time)",
+                text: "This is a simple Text That contains <b>SurfStreamr</b> as a personal data",
+                id: "324242342",
+                userInfo: "John Doe",
+                userAttr: "male"
+            }
+        }
     };
     componentWillUnmount(){
         try {
@@ -103,6 +147,18 @@ class Module extends React.Component {
 				url:module.URL[0],
 				description:module.description,
 				activeNav: module.privacy_level,
+                activeNav2: 0,
+                pMessage: {
+                    data: {
+                        url:"https://www.test.com/path1/path1-1/sample?var1=val1&var2=val2",
+                        time: "1556528945964",
+                        timeString:"Mon Apr 29 2019 13:29:49 GMT+0430 (Iran Daylight Time)",
+                        text: "This is a simple Text That contains <b>SurfStreamr</b> as a personal data",
+                        id: "324242342",
+                        userInfo: "John Doe",
+                        userAttr: "male"
+                    }
+                },
 				connected: module.access_token?true:false,
 				views: views,
 				title: module.title,
@@ -177,6 +233,13 @@ class Module extends React.Component {
     render() {
         const handleClick = (id) => {
             this.setState({activeNav: id})
+        };
+        
+         const handleClick2 = (id) => {
+            this.message.header.privacyLevel = id;
+            window.helper.enforcePolicy(this.message, this.mSalt, this.salt, this.privacyData).then((message)  => {
+                this.setState({pMessage: message, activeNav: id});            
+            })
         };
 
         const savePrivacyLevel = (settings) => {
@@ -332,17 +395,71 @@ class Module extends React.Component {
                     <MDBCol md="12" lg="12">
 
                         <MDBCard className={"d-flex mb-2 "+(this.state.is_enabled?'':'disabled-card')} >										
-                            <MDBCol md="6" lg="6">
                                 <MDBCardBody>
                                     <MDBCardTitle>Privacy Level
-										<MDBPopover placement="top" popover clickable>
-											<MDBBtn size="sm">
-												<i class="far fa-question-circle"></i>
+										<MDBPopover placement="buttom" popover clickable>
+											<MDBBtn size="sm" className="btn-primary-outline bg-transparent" color="white ">
+												<i class="far fa-question-circle fa-2x"></i>
 											</MDBBtn>
 											<div>
-												<MDBPopoverHeader>High Privacy Level</MDBPopoverHeader>
+												<MDBPopoverHeader>Privacy Enforcement Guide</MDBPopoverHeader>
 												<MDBPopoverBody>
-												  test
+                                                    <p>
+                                                        Before each message be sent to Streamr Marketplace a privacy enforcement mechanism will transform data. The mechanism works based on data type and privacy level. To show you how the privacy mechanism transform each data type, we provided some sample data types. Just move the navigation bar to see what happens to each data type.
+                                                    </p>
+                                                    <div className={'n-v-w'}>
+                                                        <NavBar handleClick={handleClick2} navs={['Lowest', 'Low', 'Medium', 'High', 'Highest']}
+                                                                activeNav={this.state.activeNav2}/>
+                                                    </div>
+                                                    <br/>
+                                                    <br/>
+												    <MDBTable>
+                                                      <MDBTableHead>
+                                                        <tr>
+                                                          <th>Type</th>
+                                                          <th>Data Before Privacy Enforcement</th>
+                                                          <th>Data After Privacy Enforcement</th>
+                                                        </tr>
+                                                      </MDBTableHead>
+                                                      <MDBTableBody>
+                                                        <tr>
+                                                          <td><b>URL</b></td>
+                                                          <td>{this.message.data.out.url}</td>
+                                                          <td>{this.state.pMessage.data.url}</td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>Time</td>
+                                                          <td>{this.message.data.out.time}</td>
+                                                          <td>{this.state.pMessage.data.time}</td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>TimeString</td>
+                                                          <td>{this.message.data.out.timeString}</td>
+                                                          <td>{this.state.pMessage.data.timeString}</td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>Text</td>
+                                                          <td>{this.message.data.out.text}</td>
+                                                          <td>{this.state.pMessage.data.text}</td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>Id</td>
+                                                          <td>{this.message.data.out.id}</td>
+                                                          <td>{this.state.pMessage.data.id}</td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>UserInfo</td>
+                                                          <td>{this.message.data.out.userInfo}</td>
+                                                          <td>{this.state.pMessage.data.userInfo}</td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>UserAttr</td>
+                                                          <td>{this.message.data.out.userAttr}</td>
+                                                          <td>{this.state.pMessage.data.userAttr}</td>
+                                                        </tr>
+                                                        
+                                                      </MDBTableBody>
+                                                    </MDBTable>
 												</MDBPopoverBody>
 											</div>
 										</MDBPopover>
@@ -354,7 +471,6 @@ class Module extends React.Component {
                                                 activeNav={this.state.activeNav}/>
                                     </div>
                                 </MDBCardBody>
-                            </MDBCol>
 
                             {/*<MDBBtn onClick={()=>{savePrivacyLevel()}} color="secondary">Confirm</MDBBtn>*/}
 

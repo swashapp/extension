@@ -1025,5 +1025,13 @@ table.table th, table.table td{
 .message-icon{
     max-width: 30px;
     max-height: 40px;
+}
 
+.card-title .btn.btn-sm {
+    padding: 0;
+    box-shadow: 0 0 0 0;
+}
+
+.card-title .popover{
+    max-width: 100%; /* Max Width of the popover (depending on the container!) */
 }
