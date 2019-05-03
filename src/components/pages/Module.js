@@ -58,9 +58,9 @@ class Module extends React.Component {
     state = {
         modal1: false,
         modal2: false,
+		modal3: false,
         activeNav: 0,
         resource: false,
-        modal3: false,
         connected: false,
 		filter_editable: false,
 		browsing_filter: [],
@@ -441,6 +441,189 @@ class Module extends React.Component {
                         </MDBModalBody>
                     </MDBModal>
                 </MDBContainer>
+				
+				<MDBContainer>
+                    <MDBModal size="lg" isOpen={this.state.modal3} toggle={() => this.toggle('3')}>
+                        <MDBModalHeader toggle={() => this.toggle('3')}>Matching URLs Guide</MDBModalHeader>
+                        <MDBModalBody>											
+							<p>
+								All match patterns are specified as strings. Apart from the special &lt;all_urls&gt; pattern, match patterns consist of three parts: <i>scheme</i>, <i>host</i>, and <i>path</i>. The scheme and host are separated by ://.
+									<br/>
+									[scheme]://[host][path]
+							</p>														
+							<h2>Examples</h2>
+							<MDBTable>
+								<MDBTableHead>
+									<tr>
+									<th>Pattern</th>
+									<th>Description</th>
+									<th>Example Matches</th>
+									</tr>
+								</MDBTableHead>
+								<MDBTableBody>
+									<tr>
+										<td class="text-highlight">
+											&lt;all_urls&gt;
+										</td>
+										<td>
+											Match all URLs.
+										</td>
+										<td>
+											http://example.org/
+											<br/>
+											https://a.org/some/path/
+										</td>
+									</tr>
+									<tr>
+										<td class="text-highlight">
+											*://*/*
+										</td>
+										<td>
+											Match all HTTP, HTTPS URLs.
+										</td>
+										<td>
+											http://example.org/
+											<br/>
+											https://a.org/some/path/
+										</td>
+									</tr>
+									<tr>
+										<td class="text-highlight">
+											*://*.streamr.com/*
+										</td>
+										<td>
+											Match all HTTP, HTTPS URLs that are hosted at "streamr.com" or one of its subdomains.
+										</td>
+										<td>
+											http://streamr.com
+											<br/>
+											https://marketplace.streamr.com
+											<br/>
+											https://streamr.com/help/api
+										</td>
+									</tr>
+									<tr>
+										<td class="text-highlight">
+											*://streamr.com/
+										</td>
+										<td>
+											Match all HTTP, HTTPS and WebSocket URLs that are hosted at exactly "streamr.com/".											
+										</td>
+										<td>
+											http://streamr.com/
+											https://streamr.com/
+										</td>
+									</tr>
+									<tr>
+										<td class="text-highlight">
+											https://*/path
+										</td>
+										<td>
+											Match HTTPS URLs on any host, whose path is "path".
+										</td>
+										<td>
+											https://streamr.com/path
+											<br/>
+											https://marketplace.streamr.com/path
+										</td>
+									</tr>
+									<tr>
+										<td class="text-highlight">
+											https://streamr.com/*
+										</td>
+										<td>
+											Match HTTPS URLs only at "streamr.com", with any URL path and URL query string.
+										</td>
+										<td>
+											https://streamr.com/
+											<br/>
+											https://streamr.com/path
+											<br/>
+											https://streamr.com/path/to/doc?foo=1
+										</td>
+									</tr>
+									<tr>
+										<td class="text-highlight">
+											https://streamr.com/*/b/*/
+										</td>
+										<td>
+											Match HTTPS URLs hosted on "streamr.com", whose path contains a component "b" somewhere in the middle. Will match URLs with query strings, if the string ends in a /.
+										</td>
+										<td>
+											https://streamr.com/a/b/c/
+											<br/>
+											https://streamr.com/d/b/f/
+											<br/>
+											https://streamr.com/a/b/c/d/
+										</td>
+									</tr>
+								</MDBTableBody>
+                            </MDBTable>
+							
+							<h2>Invalid match patterns</h2>
+							<MDBTable>
+								<MDBTableHead>
+									<tr>
+									<th>Invalid pattern</th>
+									<th>Reason</th>
+									</tr>
+								</MDBTableHead>
+								<MDBTableBody>
+									<tr>
+										<td class="text-highlight">
+											https://streamr.com
+										</td>
+										<td>
+											No path.
+										</td>
+									</tr>
+									<tr>
+										<td class="text-highlight">
+											https://streamr.*.com/
+										</td>
+										<td>
+											"*" in host must be at the start.
+										</td>
+									</tr>
+									<tr>
+										<td class="text-highlight">
+											https://*reamer.com/
+										</td>
+										<td>
+											"*" in host must be the only character or be followed by ".".
+										</td>
+									</tr>
+									<tr>
+										<td class="text-highlight">
+											http*://streamr.com/
+										</td>
+										<td>
+											 	"*" in scheme must be the only character.
+										</td>
+									</tr>
+									<tr>
+										<td class="text-highlight">
+											https://streamr.com:80/
+										</td>
+										<td>
+											Host must not include a port number.
+										</td>
+									</tr>
+									<tr>
+										<td class="text-highlight">
+											*://*
+										</td>
+										<td>
+											Empty path: this should be "*://*/*".
+										</td>
+									</tr>									
+								</MDBTableBody>
+                            </MDBTable>
+
+                        </MDBModalBody>
+                    </MDBModal>
+                </MDBContainer>
+				
                 <MDBRow className="justify-content-left">
                     <MDBCol md="12" lg="12">
                         <img className='general-api-logo' src={this.state.icon}/>
@@ -450,7 +633,11 @@ class Module extends React.Component {
 
                                 <MDBCardBody>
 									{this.state.filter_editable?<>									
-										<MDBCardTitle>Matching URls</MDBCardTitle>
+										<MDBCardTitle>Matching URls
+											<MDBBtn size="sm" onClick={() => this.toggle('3')} className="btn-primary-outline bg-transparent" color="white ">
+												<i class="far fa-question-circle fa-2x"></i>
+											</MDBBtn>
+										</MDBCardTitle>
 										<div className="input-group">
 											<div className="input-group-prepend">
 												<span className="input-group-text" id="basic-addon">
