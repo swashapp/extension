@@ -1,4 +1,7 @@
 import React from 'react'
+import 'react-widgets/dist/css/react-widgets.css';
+import NumberPicker from 'react-widgets/lib/NumberPicker'
+import simpleNumberLocalizer from 'react-widgets-simple-number';
 import {
     MDBCard,
     MDBCol,
@@ -16,6 +19,7 @@ import {
 } from 'mdbreact';
 import src1 from '../../assets/img-1.jpg';
 
+simpleNumberLocalizer();
 
 class ProfilePage extends React.Component {
     constructor(props) {
@@ -23,7 +27,8 @@ class ProfilePage extends React.Component {
         this.state = {
 			privacyData: [],
 			email: "",
-			walletId: ""
+			walletId: "",
+			delay: 0
 		};
     }
 
@@ -39,8 +44,7 @@ class ProfilePage extends React.Component {
         //     this.setState({email:db.profile.email,walletId:db.profile.walletId})
         //     });
 		window.helper.load().then(db => {
-			document.getElementById('push').checked = db.configs.pushStatus;
-			document.getElementById('delay').checked = db.configs.delayedMessage;
+			//document.getElementById('push').checked = db.configs.pushStatus;
 			document.getElementById('email').setAttribute('valuex','1') ;
 			document.getElementById('wallet').setAttribute('valuex','1') ;
 			let email = db.profile.email;
@@ -58,7 +62,7 @@ class ProfilePage extends React.Component {
 				)
 			}
 			// this.state.privacyData = db.privacyData;
-            this.setState({privacyData:f, email:email, walletId:walletId})
+            this.setState({privacyData:f, email:email, walletId:walletId, delay:db.configs.delay})
 		});
     }
     deleteRecordsX(id){
@@ -79,12 +83,15 @@ class ProfilePage extends React.Component {
         this.setState({privacyData:newArray});
 
     }
+	handleChange(delay) {
+		this.setState({delay: delay});
+	}
     render() {
         const settings = {};
         const saveSettings = () => {
             console.log('save settings')
-            let pushStatus = document.getElementById('push').checked;
-			let delayedMessage = document.getElementById('delay').checked;
+            let pushStatus = false; //document.getElementById('push').checked;
+			let delay = this.state.delay;
             let email = document.getElementById('email').value;
             let wallet = document.getElementById('wallet').value;
             let data = {
@@ -92,7 +99,7 @@ class ProfilePage extends React.Component {
                 walletId: wallet
             };
             window.helper.saveProfile(data);
-            window.helper.saveConfigs({pushStatus: pushStatus, delayedMessage: delayedMessage});
+            window.helper.saveConfigs({pushStatus: pushStatus, delay: delay});
             if (pushStatus)
                 window.helper.subscribe();
             else
@@ -221,9 +228,9 @@ class ProfilePage extends React.Component {
                                                           label="Wallet Id" icon="user" id="wallet"/>
                                                 <MDBInput value={changeInput} value={this.state.email}
                                                           label="Email Address" icon="envelope" id="email"/>
-                                                <div className={'input-title'}>
+												{/*<div className={'input-title'}>
                                                     <div className='row'>
-                                                        <div className="col-md-6">
+                                                        <div className="col-md-8">
 
                                                             <h5 style={{display: 'inline-flex', color: '#757575'}}>Push
                                                                 Messages:
@@ -231,7 +238,7 @@ class ProfilePage extends React.Component {
                                                             </h5>
                                                         </div>
 
-                                                        <div className="col-md-6">
+                                                        <div className="col-md-4">
                                                             <input id='push' className='switch' type='checkbox'/>
                                                             <div className='switch-wrap'>
                                                                 <p className="enabled"></p>
@@ -241,25 +248,21 @@ class ProfilePage extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
+												*/}
 												<br />
 												<br />
 					                            <div className={'input-title'}>
                                                     <div className='row'>
-                                                        <div className="col-md-6">
+                                                        <div className="col-md-7">
 
                                                             <h5 style={{display: 'inline-flex', color: '#757575'}}>Delay 
-                                                                Sending:
+                                                                Sending(Minutes):
 
                                                             </h5>
                                                         </div>
 
-                                                        <div className="col-md-6">
-                                                            <input id='delay' className='switch' type='checkbox'/>
-                                                            <div className='switch-wrap'>
-                                                                <p className="enabled"></p>
-                                                                <p className="disabled"></p>
-                                                                <div className='enable-circle'></div>
-                                                            </div>
+                                                        <div className="col-md-4">														
+															<NumberPicker value={this.state.delay} onChange={value => this.setState({ delay: value })} min={0}/>
                                                         </div>
                                                     </div>
                                                 </div>

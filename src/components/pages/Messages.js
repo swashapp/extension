@@ -1,6 +1,9 @@
 import React from 'react';
 import {ManualResource} from './ManualsDocs.js'
 import {Route, Switch, withRouter} from 'react-router-dom';
+import CircularProgressbar from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
 import {
     MDBCol,
     MDBSwitch,
@@ -27,17 +30,21 @@ class Messages extends React.Component {
     state = {
         messages: []
     };
-	
     componentDidMount() {
         //Load Messages
 		let that = this;
 		async function loader() {
 			let retMessages = await window.helper.loadMessages();
-			let modules = await window.helper.loadModules();
+			let db = await window.helper.load();
+			let modules = db.modules;
+			let delay = db.configs.delay*60000;
+			let currentTime = Number((new Date()).getTime());
 			let messages = [];
 			for(let msgId in retMessages){
 				let host = "Undetermined"
-				let msg = retMessages[msgId];				
+				let msg = retMessages[msgId].message;
+				let percentage = Math.round((currentTime - retMessages[msgId].createTime)*100/delay);
+				percentage = (percentage > 100)?100:percentage;
 				try {
 					host = (new URL(msg.origin)).host;					
 				}
@@ -46,8 +53,10 @@ class Messages extends React.Component {
 				}				
 				delete msg.origin
 				 messages.push({
+					percentage: percentage,
+					currentTime: currentTime,
                     msg: msg,
-					msgId: msgId,
+					msgId: retMessages[msgId].id,
                     icon: modules[msg.header.module].icons[0],
                     link: host,
                     title: msg.header.module
@@ -108,8 +117,11 @@ class Message extends React.Component {
             <div className={'col-md-1'}>
                 <i onClick={()=>this.props.deleteMsg(this.props.message)} className="fa fa-times-circle" style={{color:'red',fontSize:'20px',marginTop:'10px',cursor:'pointer'}}/>
             </div>
-            <div className={'col-md-1'}>
-                <img className={'message-icon'} src={'data:image/png;base64,'+this.props.message.icon} alt=""/>
+			<div className={'col-md-1 mb-2'}>
+				<CircularProgressbar percentage={this.props.message.percentage} text={`${this.props.message.percentage}%`} />
+			</div>
+            <div className='col-md-1'>
+                <img className={'message-icon'} src={this.props.message.icon} alt=""/>
 
             </div>
             <div className={'col-md-3'}>
@@ -117,7 +129,7 @@ class Message extends React.Component {
                     {this.props.message.title}
                 </h4>
             </div>
-            <div style={{marginTop:'5px'}} className={'col-md-7'}>
+            <div className='col-md-6'>
                 {this.props.message.link}
             </div>
 

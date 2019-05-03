@@ -62,6 +62,8 @@ class Module extends React.Component {
         resource: false,
         modal3: false,
         connected: false,
+		filter_editable: false,
+		browsing_filter: [],
         x: false,
         activeNav2: 0,
         pMessage: {
@@ -148,6 +150,7 @@ class Module extends React.Component {
 				description:module.description,
 				activeNav: module.privacy_level,
                 activeNav2: 0,
+				filter_editable: module.filter_editable,				
                 pMessage: {
                     data: {
                         url:"https://www.test.com/path1/path1-1/sample?var1=val1&var2=val2",
@@ -287,12 +290,22 @@ class Module extends React.Component {
             }
 			this.setState({views: views, module: this.state.module});
         }
+		const saveMatchingUrls = (settings) => {
+			if(this.state.filter_editable) {
+				let urlsString = document.getElementById("matchingUrls").value;
+				let urls = urlsString.split("\n").map((ob,id) => ob.trim(" \r"));
+				settings.browsing_filter = {};
+				settings.browsing_filter.urls = urls;
+			}
+		}
         const saveAllConfirm = ()=>{
 			var settings = {};
+			saveMatchingUrls(settings);
 			savePrivacyLevel(settings)
 			saveViews(settings)
 			let moduleName = this.state.name;
 			window.helper.config_module(moduleName, settings).then(()=>{
+				this.props.reload();
 				this.setState({
 					modal1: !this.state.modal1
 				})
@@ -436,7 +449,18 @@ class Module extends React.Component {
                             <MDBCol md="6" lg="6">
 
                                 <MDBCardBody>
-                                    {/*<h2 style={{fontWeight: '600', padding: ' 5px 0 30px 0'}}>{this.state.title}</h2>*/}
+									{this.state.filter_editable?<>									
+										<MDBCardTitle>Matching URls</MDBCardTitle>
+										<div className="input-group">
+											<div className="input-group-prepend">
+												<span className="input-group-text" id="basic-addon">
+													<i className="fas fa-pencil-alt prefix"></i>
+												</span>
+											</div>
+											<textarea className="form-control" id="matchingUrls" defaultValue={this.state.module.browsing_filter.urls.join("\n")} rows="5"></textarea>
+										</div>
+										</>
+									:''}
 
                                     <p className="input-p">
                                         {this.state.description}
@@ -444,15 +468,8 @@ class Module extends React.Component {
                                     <h4 className="input-p">
                                         {this.state.url}
                                     </h4>
-                                    {/*<div className="my-3">*/}
-                                    {/*<label htmlFor="customRange1">Privacy Level</label>*/}
-                                    {/*<input type="range" className="custom-range" id="customRange1"/>*/}
-                                    {/*</div>*/}
                                 </MDBCardBody>
                             </MDBCol>
-
-                            {/*<MDBBtn onClick={()=>{savePrivacyLevel()}} color="secondary">Confirm</MDBBtn>*/}
-
                         </MDBCard>
 
                     </MDBCol>

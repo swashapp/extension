@@ -20,7 +20,7 @@ class Routes extends React.Component {
         <Route path='/dashboard' component={Profile} />
         <Route path='/profile' component={Profile} />
         <Route path='/apis/'  render={()=>
-			<Module resource={this.props.resource}/>
+			<Module resource={this.props.resource} reload={this.props.reload}/>
 			} />
         <Route path='/modules/'  render={()=>
 			<Modules resource={this.props.resource} reload={this.props.reload}/>
