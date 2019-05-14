@@ -18,44 +18,6 @@ class SideNavigation extends React.Component {
                         Profile
                     </MDBListGroupItem>
                 </NavLink>
-                {/*<NavLink to="/Google" activeClassName="activeClass">*/}
-                    {/*<MDBListGroupItem>*/}
-                        {/*<MDBIcon fab icon="google-plus-g" className="mr-3"/>*/}
-                        {/*Google*/}
-                    {/*</MDBListGroupItem>*/}
-                {/*</NavLink>*/}
-                {/*<NavLink to="/Twitter" activeClassName="activeClass">*/}
-                    {/*<MDBListGroupItem>*/}
-                        {/*<MDBIcon fab icon="twitter" className="mr-3"/>*/}
-                        {/*Twitter*/}
-                    {/*</MDBListGroupItem>*/}
-                {/*</NavLink>*/}
-                {/*<NavLink to="/Instagram" activeClassName="activeClass">*/}
-                    {/*<MDBListGroupItem>*/}
-                        {/*<MDBIcon fab icon="instagram" className="mr-3"/>*/}
-                        {/*Instagram*/}
-                    {/*</MDBListGroupItem>*/}
-                {/*</NavLink>*/}
-                
-                {/*{this.props.resource.map((ob,id)=>
-                    <NavLink key={id} to={"/apis/"+ob.name} activeClassName="activeClass">
-                        <MDBListGroupItem>
-                            <MDBIcon icon="amazon" fab className="mr-3"/>
-                            {ob.name}
-                        </MDBListGroupItem>
-                    </NavLink>
-                )}*/}
-                {/*<NavLink to="/LinkedIn" activeClassName="activeClass">*/}
-                    {/*<MDBListGroupItem>*/}
-                        {/*<MDBIcon icon="linkedin-in" fab className="mr-3"/>*/}
-                        {/*LinkedIn*/}
-                    {/*</MDBListGroupItem>*/}
-                {/*</NavLink><NavLink to="/Pinterest" activeClassName="activeClass">*/}
-                    {/*<MDBListGroupItem>*/}
-                        {/*<MDBIcon icon="pinterest" fab className="mr-3"/>*/}
-                        {/*Pinterest*/}
-                    {/*</MDBListGroupItem>*/}
-                {/*</NavLink>*/}
                 <NavLink to="/Filters" activeClassName="activeClass">
                     <MDBListGroupItem>
                         <MDBIcon fas icon="filter"  className="mr-3"/>

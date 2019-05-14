@@ -995,10 +995,7 @@ enabled{
   background-color: #ff9900;
   z-index: 0;
 }
-#content {
-    margin-left: 270px;
-    min-height: calc(100vh);
-}
+
 table.table th, table.table td{
     padding: 5px!important;
 }
