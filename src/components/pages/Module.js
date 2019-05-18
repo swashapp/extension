@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import {withRouter} from 'react-router-dom';
-import CircularProgressbar from 'react-circular-progressbar';
+import ReactCountdownClock from 'react-countdown-clock';
 import {
     MDBCol,
     MDBSwitch,
@@ -491,36 +491,51 @@ class Module extends React.Component {
 							</MDBCollapse>
 							
 							<MDBCollapse id="identityPrivacyCollapse" isOpen={this.state.collapseID}>
-								<MDBTable>								
-									<MDBTableHead>
-										<tr>
-										<th>Modules</th>
-										<th>Your Identity</th>
-										<th>Refresh At</th>
-										</tr>
-									</MDBTableHead>
-									<MDBTableBody>
-										{this.sampleModuleIds.map((obj, id) =>
-											<tr>                                                                                        
-												<td class="text-highlight">{obj.name}</td>
-												<td>{obj.newId.id}</td>
-												<td>{(function() {
-                                                    switch(obj.newId.expireTime) {
-                                                        case -1:
-                                                            return "Never Refresh"
-                                                        case 0:
-                                                            return "For Every New Data Collected Refresh"
-                                                        default:
-                                                            let duration = (obj.newId.expireTime - (new Date()).getTime())/1000;
-                                                            
-                                                            return <CircularProgressbar percentage={100} text={`${duration/duration}%`} />                                                        
-                                                    }
-                                                })()
-                                                }</td>
-											</tr>											
-										)}
-									</MDBTableBody>
-								</MDBTable>
+								<MDBRow>
+									<MDBCol className="md-8">
+										<MDBTable>								
+											<MDBTableHead>
+												<tr>
+												<th>Modules</th>
+												<th>Your Identity</th>
+												</tr>
+											</MDBTableHead>
+											<MDBTableBody>
+												{this.sampleModuleIds.map((obj, id) =>
+													<tr>                                                                                        
+														<td class="text-highlight">{obj.name}</td>
+														<td>{obj.newId.id}</td>														
+													</tr>											
+												)}
+											</MDBTableBody>
+										</MDBTable>
+									</MDBCol>
+									<MDBCol className="md-4 mt-3 ml-2">
+										{(function(that) {															
+															let duration = 0;
+															switch(that.sampleModuleIds[0].newId.expireTime) {
+																case -1:																	
+																	break;
+																case 0:
+																	duration = 0.1;
+																	break;
+																default:
+																	duration = (that.sampleModuleIds[0].newId.expireTime - (new Date()).getTime())/1000																	
+															}
+															return 	<>																		
+																		<ReactCountdownClock seconds={duration}
+																					 color="#585252"
+																					 alpha={0.9}
+																					 size={200}
+																					 paused={duration==0?true:false}
+																					 pausedText="Never Refresh"
+																					 fontSize="25px"
+																					onComplete={()=>handleClick2(that.state.activeNav2)} />
+																	</>
+											})(this)
+										}
+									</MDBCol>
+								</MDBRow>
 							</MDBCollapse>
 							
                         </MDBModalBody>
