@@ -215,7 +215,7 @@ table .th-sm{
 
 #content{
   margin-left: 270px;
-  min-height: calc(100vh - 66px);
+  min-height: calc(100vh);
 }
 
 

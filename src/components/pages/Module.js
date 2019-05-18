@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import {withRouter} from 'react-router-dom';
 
 import {
@@ -22,14 +22,29 @@ import {
 	MDBPopover, 
 	MDBPopoverBody, 
 	MDBPopoverHeader,
-	MDBIcon
+	MDBIcon,
+	MDBNavbar,
+	MDBNavbarBrand,
+	MDBNavbarNav,
+	MDBNavItem,
+	MDBNavLink,
+	MDBCollapse 
 } from "mdbreact";
 import NavBar from '../microcomponents/NavBar'
 
 class Module extends React.Component {
     mSalt = "523c2eda-6a8b-11e9-a923-1681be663d3e";
     salt = "59017e28-6a8b-11e9-a923-1681be663d3e";
+	sampleId = "c1edf5cf-25ad-44bf-884a-f0b8416da28d";
     privacyData = [{value:"SurfStreamr"}];
+	sampleModuleIds = [
+		{name:'Amazon', id: "c7f3abdc-8c97-4dcf-8abf-5fb0aee23814"},
+		{name:'Facebook', id: "5ef37a90-cdcf-4e69-8785-e61656522980"},
+		{name:'Search', id: "289b244a-8612-4ef7-8194-7299d2b37afe"},
+		{name:'Surfing', id: "079304c0-d81e-409f-8480-15eff0343b8c"},
+		{name:'Twitter', id: "47361fe5-9563-46f8-81d4-da7dc914c2ea"},
+		{name:'Youtube', id: "eee3037a-d6a8-4ae0-8955-eca0d67460c5"}
+	]
     message = {
         header: {
              privacyLevel: 0
@@ -37,8 +52,8 @@ class Module extends React.Component {
         data: {
             out: {
                 url:"https://www.test.com/path1/path1-1/sample?var1=val1&var2=val2",
-                time: "1556528945964",
-                timeString:"Mon Apr 29 2019 13:29:49 GMT+0430 (Iran Daylight Time)",
+                time: (new Date()).getTime(),
+                timeString:(new Date()).toString(),
                 text: "This is a simple Text That contains <b>SurfStreamr</b> as a personal data",
                 id: "324242342",
                 userInfo: "John Doe",
@@ -56,6 +71,7 @@ class Module extends React.Component {
         }
     }
     state = {
+		collapseID: "dataPrivacyCollapse",
         modal1: false,
         modal2: false,
 		modal3: false,
@@ -69,8 +85,8 @@ class Module extends React.Component {
         pMessage: {
             data: {
                 url:"https://www.test.com/path1/path1-1/sample?var1=val1&var2=val2",
-                time: "1556528945964",
-                timeString:"Mon Apr 29 2019 13:29:49 GMT+0430 (Iran Daylight Time)",
+                time: (new Date()).getTime(),
+                timeString: (new Date()).toString(),
                 text: "This is a simple Text That contains <b>SurfStreamr</b> as a personal data",
                 id: "324242342",
                 userInfo: "John Doe",
@@ -222,7 +238,7 @@ class Module extends React.Component {
         console.log('xxxxxxxxxx')
         document.getElementById('theme').innerHTML = i
     };
-
+		
     toggle = (x) => {
         if (x === '1')
             this.setState({
@@ -243,7 +259,7 @@ class Module extends React.Component {
             this.setState({activeNav: id})
         };
         
-         const handleClick2 = (id) => {
+        const handleClick2 = (id) => {
             this.message.header.privacyLevel = id;
             window.helper.enforcePolicy(this.message, this.mSalt, this.salt, this.privacyData).then((message)  => {
                 this.setState({pMessage: message, activeNav2: id});            
@@ -386,58 +402,111 @@ class Module extends React.Component {
 							<p>
 								Before each message be sent to Streamr Marketplace a privacy enforcement mechanism will transform data. The mechanism works based on data type and privacy level. To show you how the privacy mechanism transform each data type, we provided some sample data types. Just move the navigation bar to see what happens to each data type.
 							</p>
-							<div className={'n-v-w'}>
+							<div className={'n-v-w mb-3'}>
 								<NavBar handleClick={handleClick2} navs={['Lowest', 'Low', 'Medium', 'High', 'Highest']}
 								activeNav={this.state.activeNav2}/>
 							</div>
-							<br/>
-							<br/>
-							<MDBTable>
-								<MDBTableHead>
-									<tr>
-									<th>Data Type</th>
-									<th>Data Before Privacy Enforcement</th>
-									<th>Data After Privacy Enforcement</th>
-									</tr>
-								</MDBTableHead>
-								<MDBTableBody>
-									<tr>
-										<td class="text-highlight">URL</td>
-										<td>{this.message.data.out.url}</td>
-										<td>{this.state.pMessage.data.url}</td>
-									</tr>
-									<tr>
-										<td class="text-highlight">Time</td>
-										<td>{this.message.data.out.time}</td>
-										<td>{this.state.pMessage.data.time}</td>
-									</tr>
-									<tr>
-										<td class="text-highlight">TimeString</td>
-										<td>{this.message.data.out.timeString}</td>
-										<td>{this.state.pMessage.data.timeString}</td>
-									</tr>
-									<tr>
-										<td class="text-highlight">Text</td>
-										<td dangerouslySetInnerHTML={{__html: this.message.data.out.text}}></td>
-										<td dangerouslySetInnerHTML={{__html: this.state.pMessage.data.text}}></td>
-									</tr>
-									<tr>
-										<td class="text-highlight">Id</td>
-										<td>{this.message.data.out.id}</td>
-										<td>{this.state.pMessage.data.id}</td>
-									</tr>
-									<tr>
-										<td class="text-highlight">UserInfo</td>
-										<td>{this.message.data.out.userInfo}</td>
-										<td>{this.state.pMessage.data.userInfo}</td>
-									</tr>
-									<tr>
-										<td class="text-highlight">UserAttr</td>
-										<td>{this.message.data.out.userAttr}</td>
-										<td>{this.state.pMessage.data.userAttr}</td>
-									</tr>
-								</MDBTableBody>
-                            </MDBTable>
+							
+							
+							<MDBNavbar color="white" expand="md" className="mb-3">
+								<MDBNavbarBrand>
+									<strong className="black-text">Privacy Model</strong>
+								</MDBNavbarBrand>
+								  <MDBNavbarNav left>
+									<MDBNavItem active>
+									  <MDBNavLink to="#!" onClick={() => this.setState({collapseID: "dataPrivacyCollapse"})}>Data Privacy</MDBNavLink>
+									</MDBNavItem>
+									<MDBNavItem>
+									  <MDBNavLink to="#!" onClick={() => this.setState({collapseID: "identityPrivacyCollapse"})}>Identity Privacy</MDBNavLink>
+									</MDBNavItem>																
+								  </MDBNavbarNav>								  
+							  </MDBNavbar>
+
+							<MDBCollapse id="dataPrivacyCollapse" isOpen={this.state.collapseID}>
+								<MDBTable>
+								
+									<MDBTableHead>
+										<tr>
+										<th>Data Type</th>
+										<th>Data Before Privacy Enforcement</th>
+										<th>Data After Privacy Enforcement</th>
+										</tr>
+									</MDBTableHead>
+									<MDBTableBody>
+										<tr>
+											<td class="text-highlight">URL</td>
+											<td>{this.message.data.out.url}</td>
+											<td>{this.state.pMessage.data.url}</td>
+										</tr>
+										<tr>
+											<td class="text-highlight">Time</td>
+											<td>{this.message.data.out.time}</td>
+											<td>{this.state.pMessage.data.time}</td>
+										</tr>
+										<tr>
+											<td class="text-highlight">TimeString</td>
+											<td>{this.message.data.out.timeString}</td>
+											<td>{this.state.pMessage.data.timeString}</td>
+										</tr>
+										<tr>
+											<td class="text-highlight">Text</td>
+											<td dangerouslySetInnerHTML={{__html: this.message.data.out.text}}></td>
+											<td dangerouslySetInnerHTML={{__html: this.state.pMessage.data.text}}></td>
+										</tr>
+										<tr>
+											<td class="text-highlight">Id</td>
+											<td>{this.message.data.out.id}</td>
+											<td>{this.state.pMessage.data.id}</td>
+										</tr>
+										<tr>
+											<td class="text-highlight">UserInfo</td>
+											<td>{this.message.data.out.userInfo}</td>
+											<td>{this.state.pMessage.data.userInfo}</td>
+										</tr>
+										<tr>
+											<td class="text-highlight">UserAttr</td>
+											<td>{this.message.data.out.userAttr}</td>
+											<td>{this.state.pMessage.data.userAttr}</td>
+										</tr>
+									</MDBTableBody>
+								</MDBTable>
+							</MDBCollapse>
+							
+							<MDBCollapse id="identityPrivacyCollapse" isOpen={this.state.collapseID}>
+								<MDBTable>								
+									<MDBTableHead>
+										<tr>
+										<th>Modules</th>
+										<th>Your Identity</th>
+										<th>Regenerate at(second)</th>
+										</tr>
+									</MDBTableHead>
+									<MDBTableBody>
+										{this.sampleModuleIds.map((obj, id) => 
+											<tr>
+												<td class="text-highlight">{obj.name}</td>
+												<td>{window.helper.identityPrivacy(this.sampleId, obj.id, this.state.activeNav2).id}</td>
+												<td>{() =>
+													{
+														let exp = window.helper.identityPrivacy(this.sampleId, obj.id, this.state.activeNav2).expireTime
+														switch(exp) {
+															case -1:
+																return <span>Never</span>
+																break;
+															case 0:
+																return <span>For every newly data collected</span>
+																break;
+															default:
+																return exp															
+														}
+													}
+												}</td>
+											</tr>											
+										)}
+									</MDBTableBody>
+								</MDBTable>
+							</MDBCollapse>
+							
                         </MDBModalBody>
                     </MDBModal>
                 </MDBContainer>
