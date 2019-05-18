@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import {withRouter} from 'react-router-dom';
-
+import CircularProgressbar from 'react-circular-progressbar';
 import {
     MDBCol,
     MDBSwitch,
@@ -36,24 +36,25 @@ class Module extends React.Component {
     mSalt = "523c2eda-6a8b-11e9-a923-1681be663d3e";
     salt = "59017e28-6a8b-11e9-a923-1681be663d3e";
 	sampleId = "c1edf5cf-25ad-44bf-884a-f0b8416da28d";
+    currentDate = new Date();
     privacyData = [{value:"SurfStreamr"}];
 	sampleModuleIds = [
-		{name:'Amazon', id: "c7f3abdc-8c97-4dcf-8abf-5fb0aee23814"},
-		{name:'Facebook', id: "5ef37a90-cdcf-4e69-8785-e61656522980"},
-		{name:'Search', id: "289b244a-8612-4ef7-8194-7299d2b37afe"},
-		{name:'Surfing', id: "079304c0-d81e-409f-8480-15eff0343b8c"},
-		{name:'Twitter', id: "47361fe5-9563-46f8-81d4-da7dc914c2ea"},
-		{name:'Youtube', id: "eee3037a-d6a8-4ae0-8955-eca0d67460c5"}
+		{name:'Amazon', id: "c7f3abdc-8c97-4dcf-8abf-5fb0aee23814", newId:{id: "", expireTime: ""}},
+		{name:'Facebook', id: "5ef37a90-cdcf-4e69-8785-e61656522980", newId:{id: "", expireTime: ""}},
+		{name:'Search', id: "289b244a-8612-4ef7-8194-7299d2b37afe", newId:{id: "", expireTime: ""}},
+		{name:'Surfing', id: "079304c0-d81e-409f-8480-15eff0343b8c", newId:{id: "", expireTime: ""}},
+		{name:'Twitter', id: "47361fe5-9563-46f8-81d4-da7dc914c2ea", newId:{id: "", expireTime: ""}},
+		{name:'Youtube', id: "eee3037a-d6a8-4ae0-8955-eca0d67460c5", newId:{id: "", expireTime: ""}}
 	]
-    message = {
+    sampleMessage = {
         header: {
              privacyLevel: 0
         },
         data: {
             out: {
                 url:"https://www.test.com/path1/path1-1/sample?var1=val1&var2=val2",
-                time: (new Date()).getTime(),
-                timeString:(new Date()).toString(),
+                time: this.currentDate.getTime(),
+                timeString: this.currentDate.toString(),
                 text: "This is a simple Text That contains <b>SurfStreamr</b> as a personal data",
                 id: "324242342",
                 userInfo: "John Doe",
@@ -85,14 +86,15 @@ class Module extends React.Component {
         pMessage: {
             data: {
                 url:"https://www.test.com/path1/path1-1/sample?var1=val1&var2=val2",
-                time: (new Date()).getTime(),
-                timeString: (new Date()).toString(),
+                time: this.currentDate.getTime(),
+                timeString: this.currentDate.toString(),
                 text: "This is a simple Text That contains <b>SurfStreamr</b> as a personal data",
                 id: "324242342",
                 userInfo: "John Doe",
                 userAttr: "male"
             }
-        }
+        },
+        
     };
     componentWillUnmount(){
         try {
@@ -170,8 +172,8 @@ class Module extends React.Component {
                 pMessage: {
                     data: {
                         url:"https://www.test.com/path1/path1-1/sample?var1=val1&var2=val2",
-                        time: "1556528945964",
-                        timeString:"Mon Apr 29 2019 13:29:49 GMT+0430 (Iran Daylight Time)",
+                        time: this.currentDate.getTime(),
+                        timeString: this.currentDate.toString(),
                         text: "This is a simple Text That contains <b>SurfStreamr</b> as a personal data",
                         id: "324242342",
                         userInfo: "John Doe",
@@ -260,12 +262,19 @@ class Module extends React.Component {
         };
         
         const handleClick2 = (id) => {
-            this.message.header.privacyLevel = id;
-            window.helper.enforcePolicy(this.message, this.mSalt, this.salt, this.privacyData).then((message)  => {
-                this.setState({pMessage: message, activeNav2: id});            
+            this.sampleMessage.header.privacyLevel = id;
+            identityPrivacyEnforcement(id).then(() => {
+                window.helper.enforcePolicy(this.sampleMessage, this.mSalt, this.salt, this.privacyData).then((message)  => {
+                    this.setState({pMessage: message, activeNav2: id});            
+                })
             })
         };
-
+        
+        const identityPrivacyEnforcement = async (id) => {
+            for(let module of this.sampleModuleIds) {
+                module.newId = await window.helper.identityPrivacy(this.sampleId, module.id, id);
+            }            
+        }
         const savePrivacyLevel = (settings) => {
 			settings.privacy_level = this.state.activeNav;
 			settings.is_enabled = document.getElementById('enabled-switch').checked;
@@ -413,11 +422,20 @@ class Module extends React.Component {
 									<strong className="black-text">Privacy Model</strong>
 								</MDBNavbarBrand>
 								  <MDBNavbarNav left>
-									<MDBNavItem active>
-									  <MDBNavLink to="#!" onClick={() => this.setState({collapseID: "dataPrivacyCollapse"})}>Data Privacy</MDBNavLink>
+									<MDBNavItem id="dataPrivacyNav" active>
+									  <MDBNavLink to="#!" onClick={() => {
+                                          document.querySelector("#identityPrivacyNav").classList.remove("active");
+                                          document.querySelector("#dataPrivacyNav").classList.add("active");
+                                          this.setState({collapseID: "dataPrivacyCollapse"})
+                                          }}>Data Privacy</MDBNavLink>
 									</MDBNavItem>
-									<MDBNavItem>
-									  <MDBNavLink to="#!" onClick={() => this.setState({collapseID: "identityPrivacyCollapse"})}>Identity Privacy</MDBNavLink>
+									<MDBNavItem id="identityPrivacyNav">
+									  <MDBNavLink to="#!" onClick={() => {
+                                          document.querySelector("#identityPrivacyNav").classList.add("active");
+                                          document.querySelector("#dataPrivacyNav").classList.remove("active");
+                                          identityPrivacyEnforcement(this.state.activeNav2).then(() => 
+                                          this.setState({collapseID: "identityPrivacyCollapse"}))                                          
+                                          }}>Identity Privacy</MDBNavLink>
 									</MDBNavItem>																
 								  </MDBNavbarNav>								  
 							  </MDBNavbar>
@@ -435,37 +453,37 @@ class Module extends React.Component {
 									<MDBTableBody>
 										<tr>
 											<td class="text-highlight">URL</td>
-											<td>{this.message.data.out.url}</td>
+											<td>{this.sampleMessage.data.out.url}</td>
 											<td>{this.state.pMessage.data.url}</td>
 										</tr>
 										<tr>
 											<td class="text-highlight">Time</td>
-											<td>{this.message.data.out.time}</td>
+											<td>{this.sampleMessage.data.out.time}</td>
 											<td>{this.state.pMessage.data.time}</td>
 										</tr>
 										<tr>
 											<td class="text-highlight">TimeString</td>
-											<td>{this.message.data.out.timeString}</td>
+											<td>{this.sampleMessage.data.out.timeString}</td>
 											<td>{this.state.pMessage.data.timeString}</td>
 										</tr>
 										<tr>
 											<td class="text-highlight">Text</td>
-											<td dangerouslySetInnerHTML={{__html: this.message.data.out.text}}></td>
+											<td dangerouslySetInnerHTML={{__html: this.sampleMessage.data.out.text}}></td>
 											<td dangerouslySetInnerHTML={{__html: this.state.pMessage.data.text}}></td>
 										</tr>
 										<tr>
 											<td class="text-highlight">Id</td>
-											<td>{this.message.data.out.id}</td>
+											<td>{this.sampleMessage.data.out.id}</td>
 											<td>{this.state.pMessage.data.id}</td>
 										</tr>
 										<tr>
 											<td class="text-highlight">UserInfo</td>
-											<td>{this.message.data.out.userInfo}</td>
+											<td>{this.sampleMessage.data.out.userInfo}</td>
 											<td>{this.state.pMessage.data.userInfo}</td>
 										</tr>
 										<tr>
 											<td class="text-highlight">UserAttr</td>
-											<td>{this.message.data.out.userAttr}</td>
+											<td>{this.sampleMessage.data.out.userAttr}</td>
 											<td>{this.state.pMessage.data.userAttr}</td>
 										</tr>
 									</MDBTableBody>
@@ -478,29 +496,27 @@ class Module extends React.Component {
 										<tr>
 										<th>Modules</th>
 										<th>Your Identity</th>
-										<th>Regenerate at(second)</th>
+										<th>Refresh At</th>
 										</tr>
 									</MDBTableHead>
 									<MDBTableBody>
-										{this.sampleModuleIds.map((obj, id) => 
-											<tr>
+										{this.sampleModuleIds.map((obj, id) =>
+											<tr>                                                                                        
 												<td class="text-highlight">{obj.name}</td>
-												<td>{window.helper.identityPrivacy(this.sampleId, obj.id, this.state.activeNav2).id}</td>
-												<td>{() =>
-													{
-														let exp = window.helper.identityPrivacy(this.sampleId, obj.id, this.state.activeNav2).expireTime
-														switch(exp) {
-															case -1:
-																return <span>Never</span>
-																break;
-															case 0:
-																return <span>For every newly data collected</span>
-																break;
-															default:
-																return exp															
-														}
-													}
-												}</td>
+												<td>{obj.newId.id}</td>
+												<td>{(function() {
+                                                    switch(obj.newId.expireTime) {
+                                                        case -1:
+                                                            return "Never Refresh"
+                                                        case 0:
+                                                            return "For Every New Data Collected Refresh"
+                                                        default:
+                                                            let duration = (obj.newId.expireTime - (new Date()).getTime())/1000;
+                                                            
+                                                            return <CircularProgressbar percentage={100} text={`${duration/duration}%`} />                                                        
+                                                    }
+                                                })()
+                                                }</td>
 											</tr>											
 										)}
 									</MDBTableBody>
