@@ -234,7 +234,7 @@ class Module extends React.Component {
     background-color: ` + style + `;
 }
 .text-highlight {
-	color: ` + style + `;
+	color: #585252;
 }
         `
         console.log('xxxxxxxxxx')
@@ -492,7 +492,7 @@ class Module extends React.Component {
 							
 							<MDBCollapse id="identityPrivacyCollapse" isOpen={this.state.collapseID}>
 								<MDBRow>
-									<MDBCol className="md-8">
+									<MDBCol className="col-md-6">
 										<MDBTable>								
 											<MDBTableHead>
 												<tr>
@@ -509,32 +509,60 @@ class Module extends React.Component {
 												)}
 											</MDBTableBody>
 										</MDBTable>
-									</MDBCol>
-									<MDBCol className="md-4 mt-3 ml-2">
-										{(function(that) {															
-															let duration = 0;
-															switch(that.sampleModuleIds[0].newId.expireTime) {
-																case -1:																	
-																	break;
-																case 0:
-																	duration = 0.1;
-																	break;
-																default:
-																	duration = (that.sampleModuleIds[0].newId.expireTime - (new Date()).getTime())/1000																	
-															}
-															return 	<>																		
-																		<ReactCountdownClock seconds={duration}
-																					 color="#585252"
-																					 alpha={0.9}
-																					 size={200}
-																					 paused={duration==0?true:false}
-																					 pausedText="Never Refresh"
-																					 fontSize="25px"
-																					onComplete={()=>handleClick2(that.state.activeNav2)} />
-																	</>
-											})(this)
-										}
-									</MDBCol>
+									</MDBCol>									
+									{(function(that) {															
+														let duration = 0;
+														let txt1 = ""
+														let txt2 = ""
+														switch(that.state.activeNav2) {
+															case 0:	
+																txt1 = "It is fixed for all data collected by a module"
+																txt2 = "It is fixed for all modules"
+																break;
+															case 1:
+																txt1 = "It is fixed for all data collected by a module"
+																txt2 = "It is unique per modules"
+																break;
+															case 2: 
+																txt1 = "It is fixed for all data collected by a module in a day"
+																txt2 = "There is no correlation between your identities in different modules"
+																duration = (that.sampleModuleIds[0].newId.expireTime - (new Date()).getTime())/1000
+																break;
+															case 3:
+																txt1 = "It is fixed for all data collected by a module in an hour"
+																txt2 = "There is no correlation between your identities in different modules"
+																duration = (that.sampleModuleIds[0].newId.expireTime - (new Date()).getTime())/1000
+																break;
+															case 4:
+																txt1 = "It will be refreshed for every data collection action"
+																txt2 = "There is no correlation between your identities in different modules"
+																duration = 1;
+																break;
+															default:
+																																																		
+														}
+														return 	<>
+															<MDBCol className="col-md-2 mt-3 ml-2">
+																<ReactCountdownClock seconds={duration}
+																			 key={Math.random()}
+																			 color="#585252"
+																			 alpha={0.9}
+																			 size={200}
+																			 paused={duration==0?true:false}
+																			 pausedText="Never Refresh"
+																			 fontSize="25px"
+																			onComplete={()=>handleClick2(that.state.activeNav2)} />
+															</MDBCol>
+															<MDBCol className="col-md-3 mt-3 ml-2">																				
+																<ul class="fa-ul">
+																  <li><i class="fa-li fa fa-check-square"></i>Your Identity Is A Unique Random String</li>
+																  <li><i class="fa-li fa fa-check-square"></i>{txt1}</li>
+																  <li><i class="fa-li fa fa-check-square"></i>{txt2}</li>																					  
+																</ul>
+															</MDBCol>
+														</>
+										})(this)
+									}									
 								</MDBRow>
 							</MDBCollapse>
 							
