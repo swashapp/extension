@@ -1062,3 +1062,9 @@ table.table th, table.table td{
 	font-weight:600;
 	color: #585252;
 }
+
+
+#profile .view{
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}

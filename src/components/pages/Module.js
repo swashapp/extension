@@ -55,7 +55,7 @@ class Module extends React.Component {
                 url:"https://www.test.com/path1/path1-1/sample?var1=val1&var2=val2",
                 time: this.currentDate.getTime(),
                 timeString: this.currentDate.toString(),
-                text: "This is a simple Text That contains <b>SurfStreamr</b> as a personal data",
+                text: "This is a simple text that contains <b>SurfStreamr</b> as a personal data",
                 id: "324242342",
                 userInfo: "John Doe",
                 userAttr: "male"
@@ -88,7 +88,7 @@ class Module extends React.Component {
                 url:"https://www.test.com/path1/path1-1/sample?var1=val1&var2=val2",
                 time: this.currentDate.getTime(),
                 timeString: this.currentDate.toString(),
-                text: "This is a simple Text That contains <b>SurfStreamr</b> as a personal data",
+                text: "This is a simple text that contains <b>SurfStreamr</b> as a personal data",
                 id: "324242342",
                 userInfo: "John Doe",
                 userAttr: "male"
@@ -106,7 +106,6 @@ class Module extends React.Component {
     }
     componentDidMount() {
         if (this.props.resource[0]) {
-			console.log(this.props.resource)
             let href = window.location.href.substring(window.location.href.indexOf('/apis/') + 6);
             let module;
 			let views = {};
@@ -174,7 +173,7 @@ class Module extends React.Component {
                         url:"https://www.test.com/path1/path1-1/sample?var1=val1&var2=val2",
                         time: this.currentDate.getTime(),
                         timeString: this.currentDate.toString(),
-                        text: "This is a simple Text That contains <b>SurfStreamr</b> as a personal data",
+                        text: "This is a simple text that contains <b>SurfStreamr</b> as a personal data",
                         id: "324242342",
                         userInfo: "John Doe",
                         userAttr: "male"
@@ -196,11 +195,9 @@ class Module extends React.Component {
     }
 
     generateCss(style) {
-        console.log('stylestylestyle ', style)
         if (!style) {
             style = 'red'
         }
-        console.log('style ', style)
         let i = `
         #general-api-wrapper .btn-secondary{
         background: ` + style + `!important;
@@ -237,7 +234,6 @@ class Module extends React.Component {
 	color: #585252;
 }
         `
-        console.log('xxxxxxxxxx')
         document.getElementById('theme').innerHTML = i
     };
 		
@@ -289,7 +285,6 @@ class Module extends React.Component {
 			this.setState({views: views});
         };
         const switchChange = ()=>{
-            console.log('switch changed',this.state.is_enabled,document.getElementById('enabled-switch').checked)
             this.setState({is_enabled:!this.state.is_enabled})
         };
         const saveAll = ()=>{
@@ -334,9 +329,7 @@ class Module extends React.Component {
 				this.setState({
 					modal1: !this.state.modal1
 				})
-			});		
-			
-			console.log('save allll')
+			});					
         };
 		const connect = ()=>{
 			window.helper.startAuth(this.state.name).then(x => {
@@ -409,7 +402,7 @@ class Module extends React.Component {
                         <MDBModalHeader toggle={() => this.toggle('2')}>Privacy Enforcement Guide</MDBModalHeader>
                         <MDBModalBody>											
 							<p>
-								Before each message be sent to Streamr Marketplace a privacy enforcement mechanism will transform data. The mechanism works based on data type and privacy level. To show you how the privacy mechanism transform each data type, we provided some sample data types. Just move the navigation bar to see what happens to each data type.
+								Before each message is sent to Streamr Marketplace, a privacy enforcement mechanism will transform data. The mechanism works based on data type and privacy level. To show you how the privacy mechanism transforms each data type, we have provided some sample data types. Just move the navigation bar to see what happens to each data type.
 							</p>
 							<div className={'n-v-w mb-3'}>
 								<NavBar handleClick={handleClick2} navs={['Lowest', 'Low', 'Medium', 'High', 'Highest']}
@@ -555,7 +548,7 @@ class Module extends React.Component {
 															</MDBCol>
 															<MDBCol className="col-md-3 mt-3 ml-2">																				
 																<ul class="fa-ul">
-																  <li><i class="fa-li fa fa-check-square"></i>Your Identity Is A Unique Random String</li>
+																  <li><i class="fa-li fa fa-check-square"></i>Your identity is a unique random string</li>
 																  <li><i class="fa-li fa fa-check-square"></i>{txt1}</li>
 																  <li><i class="fa-li fa fa-check-square"></i>{txt2}</li>																					  
 																</ul>

@@ -27,7 +27,6 @@ class Manuals extends React.Component {
     state = {manual: []};
 
     componentDidMount() {
-        console.log('s',ManualResource)
         this.setState({manual:ManualResource})
         
     };

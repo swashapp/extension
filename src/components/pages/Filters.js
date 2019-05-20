@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch ,withRouter} from 'react-router-dom';
+import remove from '../../assets/close-50.png'
 import {
     MDBCol,
     MDBSwitch,
@@ -44,7 +45,7 @@ class Filters extends React.Component {
 				 newFilters.push({
 					'value': filters[x].value,
 					'Type':filters[x].type,
-					'Delete':<MDBBtn onClick={()=>{that.deleteRecords(filters[x].value)}} color="red" size="sm"><i class="fa fa-trash" aria-hidden="true"/></MDBBtn>
+					'Delete':<img src={remove} onClick={()=>{that.deleteRecords(filters[x].value)}} height="30" width="30"/>
 				})
 			}
 			that.setState({filters : newFilters})
@@ -62,10 +63,8 @@ class Filters extends React.Component {
                 }
     }
     deleteRecords(id){
-        console.log('deleteRecordsdeleteRecordsdeleteRecords',id)
         let newArray = [];
         let storageArray = [];
-        console.log('filters',this.state.filters)
         for(let i in this.state.filters){
            
             if(this.state.filters[i].value !== id){
@@ -76,7 +75,6 @@ class Filters extends React.Component {
          
             
         }
-        console.log('sss',storageArray)
         window.helper.saveFilters(storageArray)        
         this.setState({filters:newArray});
         
@@ -134,14 +132,11 @@ class Filters extends React.Component {
             let f1 = {
                 value : document.getElementById('value').value,
                 type  : document.getElementById('option').value,
-                'Delete':<MDBBtn onClick={()=>that.deleteRecords(s)} color="red" size="sm"><i class="fa fa-trash" aria-hidden="true"></i>
-</MDBBtn>
+                'Delete':<img src={remove} onClick={()=>that.deleteRecords(s)} height="30" width="30"/>                
             };
             let allow = true;
             window.helper.loadFilters().then(filter => {
-                console.log('ssssssss',filter,f,f.value)
                 for(let i in filter){
-                    console.log('ifilter',filter[i].value , f.value,filter[i].value === f.value)
                     if(filter[i].value === f.value){
                         allow = false ;                        
                     }
@@ -191,7 +186,7 @@ if(allow){
                    <MDBCard className="d-flex mb-2">
                             <MDBCol md="12" lg="12">
                             <MDBCardBody>
-                            <MDBTable btn fixed bordered>
+                            <MDBTable btn fixed>
                                 <MDBTableHead columns={table1.columns}/>
                                 <MDBTableBody rows={this.state.filters}/>
                             </MDBTable>

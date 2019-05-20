@@ -53,7 +53,6 @@ class Modules extends React.Component {
             for (let i in this.props.resource) {
 				this.state.isHovering[this.props.resource[i].name] = false;
             }
-            console.log(resources)
             this.setState({resources: this.props.resource})
         }
     };
@@ -70,7 +69,6 @@ class Modules extends React.Component {
 					type:this.props.resource[i].type
 				})
             }
-            console.log(resources)
 
             this.setState({resources: resources})
         }

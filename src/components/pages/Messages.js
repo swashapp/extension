@@ -78,7 +78,6 @@ class Messages extends React.Component {
 
     render() {
         const deleteMsg = (message)=>{
-            console.log('deleting msg ',message)			
 			var messages = this.state.messages.filter(function(msg, index, arr){
 				return msg.msgId != message.msgId;
 			});

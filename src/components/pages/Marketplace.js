@@ -1,5 +1,6 @@
 ﻿import React, { Fragment } from "react";
 import { Route, Switch ,withRouter} from 'react-router-dom';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 import {
     MDBCol,
     MDBSwitch,
@@ -99,9 +100,14 @@ class Marketplace extends React.Component {
 				if(document.getElementById(id).checked)
 					resModules[modules[moduleId].name] = modules[moduleId]					
 			}
+            if(Object.keys(resModules).length == 0) {
+                NotificationManager.warning('No new module to add', 'Add Module');
+                return;
+            }                
 			window.helper.saveModule(resModules).then(x => {
-				window.helper.restart();
+				window.helper.reload();
 				this.props.reload();
+                NotificationManager.success('New module is added successfully', 'Add Module');
 			});
 		};
 		const search = (e) => {
@@ -124,33 +130,36 @@ class Marketplace extends React.Component {
 			this.setState({rows:this.generateRows(this.state.modules)});
 		}
 		return (
-		<MDBRow>
-			<MDBCol md="12">
-				<MDBCard className="mt-5">
-					<MDBView className="gradient-card-header blue darken-1">
-						<h4 className="h4-responsive text-white">Search New Module</h4>
-					</MDBView>
-					<MDBCardBody>
-						<MDBCol md="10">					
-							<div className="input-group-prepend">
-								<span  id="basic-text1">
-									<MDBIcon icon="search" />
-								</span>
-								<input id="search" onKeyPress={search} className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search" />					
-							</div>
-						</MDBCol>
-						<br/>
-						<MDBTable btn fixed>
-						  <MDBTableHead columns={data_icons.columns} />
-						  <MDBTableBody rows={data_icons.rows} />
-						</MDBTable>
-						<Fragment>
-						  <MDBBtn active onClick={saveToModules} color="primary">Save To Modules</MDBBtn>
-						</Fragment>
-					</MDBCardBody>
-				</MDBCard>
-			</MDBCol>
-		</MDBRow>
+        <div>
+            <MDBRow>
+                <MDBCol md="12">
+                    <MDBCard className="mt-5">
+                        <MDBView className="gradient-card-header blue darken-1">
+                            <h4 className="h4-responsive text-white">Search New Module</h4>
+                        </MDBView>
+                        <MDBCardBody>
+                            <MDBCol md="10">					
+                                <div className="input-group-prepend">
+                                    <span  id="basic-text1">
+                                        <MDBIcon icon="search" />
+                                    </span>
+                                    <input id="search" onKeyPress={search} className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search" />					
+                                </div>
+                            </MDBCol>
+                            <br/>
+                            <MDBTable btn fixed>
+                              <MDBTableHead columns={data_icons.columns} />
+                              <MDBTableBody rows={data_icons.rows} />
+                            </MDBTable>
+                            <Fragment>
+                              <MDBBtn active onClick={saveToModules} color="primary">Save To Modules</MDBBtn>
+                            </Fragment>
+                        </MDBCardBody>
+                    </MDBCard>
+                </MDBCol>
+            </MDBRow>
+            <NotificationContainer/>
+        </div>
 	  );
   }
 }

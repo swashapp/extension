@@ -1,7 +1,10 @@
 import React from 'react'
 import 'react-widgets/dist/css/react-widgets.css';
+import 'react-notifications/lib/notifications.css';
 import NumberPicker from 'react-widgets/lib/NumberPicker'
 import simpleNumberLocalizer from 'react-widgets-simple-number';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import remove from '../../assets/close-50.png'
 import {
     MDBCard,
     MDBCol,
@@ -35,14 +38,8 @@ class ProfilePage extends React.Component {
     componentDidMount() {
         this.loadSettings()
     }
-
+      
     loadSettings() {
-        // ADD LOADER HERE
-        // this.setState({privacyData:window.loader.loadSettings})
-        //window.helper.load().then(db => {
-        //     document.getElementById('push').checked = db.configs.pushStatus;;
-        //     this.setState({email:db.profile.email,walletId:db.profile.walletId})
-        //     });
 		window.helper.load().then(db => {
 			//document.getElementById('push').checked = db.configs.pushStatus;
 			document.getElementById('email').setAttribute('valuex','1') ;
@@ -55,9 +52,7 @@ class ProfilePage extends React.Component {
 				f.push(
 					{
 						value: pData.value,
-						Delete: <MDBBtn onClick={() => this.deleteRecordsX(pData.value)} color="red" size="sm"><i className="fa fa-trash"
-																										 aria-hidden="true"/>
-						</MDBBtn>
+                        Delete: <img src={remove} onClick={() => this.deleteRecordsX(pData.value)} height="30" width="30"/>						
 					}
 				)
 			}
@@ -66,10 +61,8 @@ class ProfilePage extends React.Component {
 		});
     }
     deleteRecordsX(id){
-        console.log('deleteRecordsdeleteRecordsdeleteRecords',id)
         let newArray = [];
         let storageArray = [];
-        console.log('filters',this.state.privacyData)
         for(let i in this.state.privacyData){
 
             if(this.state.privacyData[i].value !== id){
@@ -78,7 +71,6 @@ class ProfilePage extends React.Component {
 
             }
         }
-        console.log('sss',storageArray)
         window.helper.savePrivacyData(storageArray)
         this.setState({privacyData:newArray});
 
@@ -89,7 +81,6 @@ class ProfilePage extends React.Component {
     render() {
         const settings = {};
         const saveSettings = () => {
-            console.log('save settings')
             let pushStatus = false; //document.getElementById('push').checked;
 			let delay = this.state.delay;
             let email = document.getElementById('email').value;
@@ -98,12 +89,15 @@ class ProfilePage extends React.Component {
                 email: email,
                 walletId: wallet
             };
-            window.helper.saveProfile(data);
-            window.helper.saveConfigs({pushStatus: pushStatus, delay: delay});
-            if (pushStatus)
-                window.helper.subscribe();
-            else
-                window.helper.unsubscribe();
+            window.helper.saveProfile(data).then(() => {
+                window.helper.saveConfigs({pushStatus: pushStatus, delay: delay}).then(() => {
+                    if (pushStatus)
+                        window.helper.subscribe();
+                    else
+                        window.helper.unsubscribe();
+                    NotificationManager.success('Configuration is updated successfully', 'Update Configuration');
+                })
+            })
         };
         let table2 = {
             columns: [
@@ -127,7 +121,6 @@ class ProfilePage extends React.Component {
         const loadSettings = () => {
         };
         const changeInput = (e) => {
-            console.log('e', e.target, e.target.value, e.target.id)
             if (e.target.id === 'wallet') {
                 this.setState({walletId: e.target.value})
             }
@@ -162,16 +155,12 @@ class ProfilePage extends React.Component {
             let s = document.getElementById('value').value;
             let f1 = {
                 value: document.getElementById('value').value,
-                'Delete': <MDBBtn onClick={() => this.deleteRecordsX(s)} color="red" size="sm"><i className="fa fa-trash"
-                                                                                                 aria-hidden="true"/>
-                </MDBBtn>
+                'Delete': <img src={remove} onClick={() => this.deleteRecordsX(s)} height="30" width="30"/>
             };
 
             let allow = true;
             window.helper.loadPrivacyData().then(pData => {
-                console.log('ssssssss', pData, f, f.value)
                 for (let i in pData) {
-                    console.log('ipData', pData[i].value, f.value, pData[i].value === f.value)
                     if (pData[i].value === f.value) {
                         allow = false;
                     }
@@ -189,126 +178,127 @@ class ProfilePage extends React.Component {
             })
         };
         return (
-            <React.Fragment>
-                <MDBContainer>
-                    <MDBModal size="md" isOpen={this.state.addModal} toggle={() => toggle('1')}>
+            <div id="profile">
+                <React.Fragment>
+                    <MDBContainer>
+                        <MDBModal size="md" isOpen={this.state.addModal} toggle={() => toggle('1')}>
 
-                        <MDBModalHeader toggle={() => toggle('addModal')}>Add User Privacy Data</MDBModalHeader>
-                        <MDBModalBody>
-                            <MDBInput id={'value'}
-                                      label="Value"
-                                      error="wrong"
-                                      success="right"
-                            />
+                            <MDBModalHeader toggle={() => toggle('addModal')}>Add User Privacy Data</MDBModalHeader>
+                            <MDBModalBody>
+                                <MDBInput id={'value'}
+                                          label="Value"
+                                          error="wrong"
+                                          success="right"
+                                />
 
-                        </MDBModalBody>
-                        <MDBModalFooter>
-                            <MDBBtn onClick={addPrivacyData} color="blue">Save</MDBBtn>
-                        </MDBModalFooter>
-                    </MDBModal>
-                </MDBContainer>
-                <MDBRow id={'profile'} className="justify-content-center">
-                    <MDBCol md="12" lg="12">
-                        <section className="text-center pb-3">
-                            <MDBRow className="d-flex justify-content-left">
-                                <MDBCol lg="6" xl="6" className="mb-3">
-                                    <div className={'justify-content-left'}>
-                                        <MDBCard className="d-flex mb-5">
-                                            <MDBView>
-                                                <div className={'mg-tp-5'}>
-                                                    Change Profile Details
-                                                </div>
-                                            </MDBView>
-                                            <MDBCardBody>
-                                                <MDBCardTitle className="font-bold mb-3">
-                                                </MDBCardTitle>
-                                                {/*<MDBCardText>Some quick example text to build on the card title and make up the*/}
-                                                {/*bulk of the card's content.</MDBCardText>*/}
-                                                <MDBInput onChange={changeInput} value={this.state.walletId}
-                                                          label="Wallet Id" icon="user" id="wallet"/>
-                                                <MDBInput value={changeInput} value={this.state.email}
-                                                          label="Email Address" icon="envelope" id="email"/>
-												{/*<div className={'input-title'}>
-                                                    <div className='row'>
-                                                        <div className="col-md-8">
+                            </MDBModalBody>
+                            <MDBModalFooter>
+                                <MDBBtn onClick={addPrivacyData} color="blue">Save</MDBBtn>
+                            </MDBModalFooter>
+                        </MDBModal>
+                    </MDBContainer>
+                    <MDBRow id={'profile'} className="justify-content-center">                    
+                        <MDBCol md="12" lg="12">
+                            <section className="text-center pb-3">
+                                <MDBRow className="d-flex justify-content-left">
+                                    <MDBCol lg="6" xl="6" className="mb-3">
+                                        <div className={'justify-content-left'}>
+                                            <MDBCard className="d-flex mb-5">
+                                                <MDBView>
+                                                    <div className={'mg-tp-5'}>
+                                                        Change Profile Details
+                                                    </div>
+                                                </MDBView>
+                                                <MDBCardBody>
+                                                    <MDBCardTitle className="font-bold mb-3">
+                                                    </MDBCardTitle>                                                    
+                                                    <MDBInput onChange={changeInput} value={this.state.walletId}
+                                                              label="Wallet Id" icon="user" id="wallet"/>
+                                                    <MDBInput value={changeInput} value={this.state.email}
+                                                              label="Email Address" icon="envelope" id="email"/>
+                                                    {/*<div className={'input-title'}>
+                                                        <div className='row'>
+                                                            <div className="col-md-8">
 
-                                                            <h5 style={{display: 'inline-flex', color: '#757575'}}>Push
-                                                                Messages:
+                                                                <h5 style={{display: 'inline-flex', color: '#757575'}}>Push
+                                                                    Messages:
 
-                                                            </h5>
-                                                        </div>
+                                                                </h5>
+                                                            </div>
 
-                                                        <div className="col-md-4">
-                                                            <input id='push' className='switch' type='checkbox'/>
-                                                            <div className='switch-wrap'>
-                                                                <p className="enabled"></p>
-                                                                <p className="disabled"></p>
-                                                                <div className='enable-circle'></div>
+                                                            <div className="col-md-4">
+                                                                <input id='push' className='switch' type='checkbox'/>
+                                                                <div className='switch-wrap'>
+                                                                    <p className="enabled"></p>
+                                                                    <p className="disabled"></p>
+                                                                    <div className='enable-circle'></div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-												*/}
-												<br />
-												<br />
-					                            <div className={'input-title'}>
-                                                    <div className='row'>
-                                                        <div className="col-md-7">
+                                                    */}
+                                                    <br />
+                                                    <br />
+                                                    <div className={'input-title'}>
+                                                        <div className='row'>
+                                                            <div className="col-md-7">
 
-                                                            <h5 style={{display: 'inline-flex', color: '#757575'}}>Delay 
-                                                                Sending(Minutes):
+                                                                <h5 style={{display: 'inline-flex', color: '#757575'}}>Delay 
+                                                                    Sending(Minutes):
 
-                                                            </h5>
-                                                        </div>
+                                                                </h5>
+                                                            </div>
 
-                                                        <div className="col-md-4">														
-															<NumberPicker value={this.state.delay} onChange={value => this.setState({ delay: value })} min={0}/>
+                                                            <div className="col-md-4">														
+                                                                <NumberPicker value={this.state.delay} onChange={value => this.setState({ delay: value })} min={0}/>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                       
-                                            </MDBCardBody>
+                           
+                                                </MDBCardBody>
 
-                                            <MDBCardFooter className="links-light profile-card-footer">
-                                                <MDBBtn onClick={saveSettings} color="blue">Save Changes</MDBBtn>
-                                            </MDBCardFooter>
-                                        </MDBCard>
-                                    </div>
+                                                <MDBCardFooter className="links-light profile-card-footer">
+                                                    <MDBBtn onClick={saveSettings} color="blue">Save Changes</MDBBtn>
+                                                </MDBCardFooter>
+                                            </MDBCard>
+                                        </div>
 
-                                </MDBCol>
-                                <MDBCol md="6" lg="6">
-                                    <MDBCard className="d-flex mb-3">
-                                        <MDBCol md="12" lg="12">
-                                            <MDBCardBody>
+                                    </MDBCol>
+                                    <MDBCol md="6" lg="6">
+                                        <div className={'justify-content-left'}>
+                                            <MDBCard className="d-flex mb-3">                                                
                                                 <MDBView>
                                                     <div className={'mg-tp-5'}>
                                                         User Privacy Data
                                                     </div>
                                                 </MDBView>
-                                                <MDBTable id={'sssfj'} btn fixed bordered>
-                                                    <MDBTableHead columns={table2.columns}/>
-                                                    <MDBTableBody rows={this.state.privacyData}/>
-                                                </MDBTable>
-                                                <MDBRow>
-                                                    <MDBBtn onClick={() => toggle('addModal')} color="blue"><i class="fa fa-plus"
-                                                                                                               aria-hidden="true"></i>
-                                                    </MDBBtn>
-                                                </MDBRow>
+                                                <MDBCardBody>
+                                                    <MDBTable btn fixed>
+                                                        <MDBTableHead columns={table2.columns}/>
+                                                        <MDBTableBody rows={this.state.privacyData}/>
+                                                    </MDBTable>
+                                                    <MDBRow>
+                                                        <MDBBtn onClick={() => toggle('addModal')} color="blue"><i class="fa fa-plus"
+                                                                                                                   aria-hidden="true"></i>
+                                                        </MDBBtn>
+                                                    </MDBRow>
+                                                </MDBCardBody>                                                
+                                            </MDBCard>
+                                        </div>
+                                    </MDBCol>
+                                </MDBRow>
 
-                                            </MDBCardBody>
-                                        </MDBCol></MDBCard>
-                                </MDBCol>
-                            </MDBRow>
+                            </section>
+                        </MDBCol>
 
-                        </section>
-                    </MDBCol>
-
-                </MDBRow>
-                <MDBRow>
+                    </MDBRow>
+                    <MDBRow>
 
 
-                </MDBRow>
-            </React.Fragment>
+                    </MDBRow>
+                </React.Fragment>
+                <NotificationContainer/>
+            </div>
         );
     }
 }
