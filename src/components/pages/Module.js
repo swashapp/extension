@@ -1,6 +1,9 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import ReactCountdownClock from 'react-countdown-clock';
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
+import "../../statics/css/react-contextmenu.css"
 import {
     MDBCol,
     MDBSwitch,
@@ -227,9 +230,13 @@ class Module extends React.Component {
   background-color: ` + style + `;
   z-index: 0;
 }
-.fa-save, .fa-save:hover{
+.save-bt-fix .fa-save, .save-bt-fix .fa-save:hover{
     background-color: ` + style + `;
 }
+.save-bt-fix .fa-caret-left, .save-bt-fix .fa-caret-left:hover{
+    color: ` + style + `;
+}
+
 .text-highlight {
 	color: #585252;
 }
@@ -345,11 +352,37 @@ class Module extends React.Component {
 				});
 			});
 		}
-
+		
+		
+		const handleContextMenuClick = (e, data) => {
+			console.log(e);
+			let views = this.state.views;
+			if(data.all) {
+				for (let viewName in views) {
+					{
+						for (let itemId in views[viewName].items) {
+							views[viewName].items[itemId].is_enabled = data.check;
+							this.state.module[views[viewName].items[itemId].func][views[viewName].items[itemId].index].is_enabled = data.check;
+						}
+					}				
+				}
+				this.setState({views: views, module: this.state.module});				
+			}
+			else {
+				let viewName = data.attributes.name;
+				for (let itemId in views[viewName].items) {
+					views[viewName].items[itemId].is_enabled = data.check;
+					this.state.module[views[viewName].items[itemId].func][views[viewName].items[itemId].index].is_enabled = data.check;
+				}
+				this.setState({views: views, module: this.state.module});				
+			}
+       }
 		
         return (
             <div id="general-api-wrapper">
-                <div className={'save-bt-fix'}><i onClick={saveAll} className={'fa fa-save'}/></div>
+                <div className={'save-bt-fix'}>											
+					<i onClick={saveAll} className={'fa fa-save'}/>
+				</div>
                 <div id='xx' className='col-md-12'>
                     <MDBCard className="d-flex mb-2">
                         <MDBCardBody>
@@ -809,7 +842,10 @@ class Module extends React.Component {
                     </MDBCol>
 
                 </MDBRow>
+				
+
                 {this.state.views? Object.keys(this.state.views).map((key,index) =>
+					<ContextMenuTrigger id="checkAllContextMenu" collect={(x) => {return(x)}} attributes={{name:key}}>
                     <MDBRow className="justify-content-left">
                         <MDBCol md="12" lg="12">
                             <MDBCard className={"d-flex mb-2 "+(this.state.is_enabled?'':'disabled-card')}>
@@ -859,8 +895,23 @@ Connected</MDBBtn> : ''
                                 </React.Fragment>
                             </MDBCard>
                         </MDBCol>
-                    </MDBRow>):''}
-
+                    </MDBRow>
+					</ContextMenuTrigger>):''}							
+				<ContextMenu id="checkAllContextMenu">
+					<MenuItem data={{check: true, all: true}} onClick={handleContextMenuClick}>
+					  Check all
+					</MenuItem>
+					<MenuItem data={{check: false, all: true}} onClick={handleContextMenuClick}>
+					  Uncheck all
+					</MenuItem>
+					<MenuItem divider />
+					<MenuItem data={{check: true, all: false}} onClick={handleContextMenuClick}>
+					  Check this group
+					</MenuItem>
+					<MenuItem data={{check: false, all: false}} onClick={handleContextMenuClick}>
+					  Uncheck this group
+					</MenuItem>
+				</ContextMenu>
             </div>
         )
     }

@@ -970,23 +970,37 @@ enabled{
         max-height: 999999px!important;
         transition: max-height .4s;
     }
-    .fa-save{
-        font-size: 36px;
-        position: fixed;
-        right: 25px;
-        cursor: pointer;
-        bottom: 25px;
+	.save-bt-fix{
         z-index: 99999999999;
-        color: white;
+        position: fixed;		
+        right: 25px;
+        bottom: 25px;
+	}
+    .save-bt-fix .fa-save{
         padding: 15px;
+        font-size: 36px;
+        cursor: pointer;
+        color: white;
         background: #585252;
         transition: .4s background-color;
         border-radius: 100%;
-    }.fa-save:hover{
-
+    }.save-bt-fix .fa-save:hover{
         background: #585252;
-
     }
+	.save-bt-fix .fa-caret-left{
+        padding: 15px 1px 15px 0px;
+        font-size: 36px;
+        cursor: pointer;
+        color: #585252;
+	}
+	.checkall{
+		box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+		background-color: #fff;		
+		border: 1px solid #ebebeb;
+		padding: .5rem .75rem;
+		border-radius: .25rem;
+		float: left
+	}
 .form-check-input[type=checkbox].filled-in:checked+label:after, label.btn input[type=checkbox].filled-in:checked+label:after {
   top: 0;
   width: 20px;
