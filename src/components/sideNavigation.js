@@ -18,17 +18,17 @@ class SideNavigation extends React.Component {
                         Profile
                     </MDBListGroupItem>
                 </NavLink>
-                <NavLink to="/Filters" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon fas icon="filter"  className="mr-3"/>
-                        
-                        Filters
-                    </MDBListGroupItem>
-                </NavLink>
                 <NavLink to="/Modules" activeClassName="activeClass">
                     <MDBListGroupItem>
                         <MDBIcon icon="plug" fas className="mr-3"/>
                         Modules
+                    </MDBListGroupItem>
+                </NavLink>
+                <NavLink to="/Filters" activeClassName="activeClass">
+                    <MDBListGroupItem>
+                        <MDBIcon fas icon="filter"  className="mr-3"/>
+                        
+                        Advanced Filters
                     </MDBListGroupItem>
                 </NavLink>
                 <NavLink to="/Marketplace" activeClassName="activeClass">

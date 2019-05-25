@@ -354,8 +354,7 @@ class Module extends React.Component {
 		}
 		
 		
-		const handleContextMenuClick = (e, data) => {
-			console.log(e);
+		const handleContextMenuClick = (e, data) => {			
 			let views = this.state.views;
 			if(data.all) {
 				for (let viewName in views) {
@@ -605,7 +604,7 @@ class Module extends React.Component {
 									<br/>
 									[scheme]://[host][path]
 							</p>														
-							<h2>Examples</h2>
+							<h5>Examples</h5>
 							<MDBTable>
 								<MDBTableHead>
 									<tr>
@@ -714,7 +713,7 @@ class Module extends React.Component {
 								</MDBTableBody>
                             </MDBTable>
 							
-							<h2>Invalid match patterns</h2>
+							<h5>Invalid match patterns</h5>
 							<MDBTable>
 								<MDBTableHead>
 									<tr>

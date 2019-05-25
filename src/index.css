@@ -109,7 +109,6 @@ main {
     }
 .mg-tp-5{
     margin: 7px 20px;
-    font-weight: 700;
     font-size: 18px;
     text-align: left;
 }
@@ -1078,7 +1077,7 @@ table.table th, table.table td{
 }
 
 
-#profile .view{
+#profile .view, .view.customHeader{
     background-color: rgba(0,0,0,.03);
     border-bottom: 1px solid rgba(0,0,0,.125);
 }

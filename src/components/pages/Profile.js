@@ -27,8 +27,7 @@ simpleNumberLocalizer();
 class ProfilePage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-			privacyData: [],
+        this.state = {			
 			email: "",
 			walletId: "",
 			delay: 0
@@ -46,38 +45,14 @@ class ProfilePage extends React.Component {
 			document.getElementById('wallet').setAttribute('valuex','1') ;
 			let email = db.profile.email;
 			let walletId = db.profile.walletId;
-			let that = this;
-			let f = [];
-			for(let pData of db.privacyData) {
-				f.push(
-					{
-						value: pData.value,
-                        Delete: <img src={remove} onClick={() => this.deleteRecordsX(pData.value)} height="30" width="30"/>						
-					}
-				)
-			}
-			// this.state.privacyData = db.privacyData;
-            this.setState({privacyData:f, email:email, walletId:walletId, delay:db.configs.delay})
+			let that = this;			
+            this.setState({email:email, walletId:walletId, delay:db.configs.delay})
 		});
-    }
-    deleteRecordsX(id){
-        let newArray = [];
-        let storageArray = [];
-        for(let i in this.state.privacyData){
-
-            if(this.state.privacyData[i].value !== id){
-                newArray.push(this.state.privacyData[i]);
-                storageArray.push({value:this.state.privacyData[i].value})
-
-            }
-        }
-        window.helper.savePrivacyData(storageArray)
-        this.setState({privacyData:newArray});
-
     }
 	handleChange(delay) {
 		this.setState({delay: delay});
 	}
+    
     render() {
         const settings = {};
         const saveSettings = () => {
@@ -99,27 +74,8 @@ class ProfilePage extends React.Component {
                 })
             })
         };
-        let table2 = {
-            columns: [
-
-                {
-                    'label': 'Value',
-                    'field': 'value',
-                    'sort': 'asc',
-                    'minimal': 'lg'
-                },{
-                    'label': 'Delete',
-                    'field': 'Exception',
-                    'sort': 'asc',
-                    'minimal': 'sm'
-                },
-            ],
-            rows: [
-
-            ]
-        };
-        const loadSettings = () => {
-        };
+       
+       
         const changeInput = (e) => {
             if (e.target.id === 'wallet') {
                 this.setState({walletId: e.target.value})
@@ -147,66 +103,21 @@ class ProfilePage extends React.Component {
                 });
         };
 
-        const addPrivacyData = () => {
-            let thatZ = this;
-            let f = {
-                value: document.getElementById('value').value,
-            };
-            let s = document.getElementById('value').value;
-            let f1 = {
-                value: document.getElementById('value').value,
-                'Delete': <img src={remove} onClick={() => this.deleteRecordsX(s)} height="30" width="30"/>
-            };
-
-            let allow = true;
-            window.helper.loadPrivacyData().then(pData => {
-                for (let i in pData) {
-                    if (pData[i].value === f.value) {
-                        allow = false;
-                    }
-                }
-                if (allow) {
-                    pData.push(f);
-                    window.helper.savePrivacyData(pData);
-                    let i = this.state.privacyData
-                    i.push(f1)
-                    this.setState({privacyData:i})
-                } else {
-                    alert('duplicate')
-                }
-                toggle('addModal')
-            })
-        };
+        
         return (
             <div id="profile">
                 <React.Fragment>
-                    <MDBContainer>
-                        <MDBModal size="md" isOpen={this.state.addModal} toggle={() => toggle('1')}>
-
-                            <MDBModalHeader toggle={() => toggle('addModal')}>Add User Privacy Data</MDBModalHeader>
-                            <MDBModalBody>
-                                <MDBInput id={'value'}
-                                          label="Value"
-                                          error="wrong"
-                                          success="right"
-                                />
-
-                            </MDBModalBody>
-                            <MDBModalFooter>
-                                <MDBBtn onClick={addPrivacyData} color="blue">Save</MDBBtn>
-                            </MDBModalFooter>
-                        </MDBModal>
-                    </MDBContainer>
+                    
                     <MDBRow id={'profile'} className="justify-content-center">                    
                         <MDBCol md="12" lg="12">
                             <section className="text-center pb-3">
                                 <MDBRow className="d-flex justify-content-left">
-                                    <MDBCol lg="6" xl="6" className="mb-3">
+                                    <MDBCol lg="6" xl="6" className="mb-3 offset-md-3">
                                         <div className={'justify-content-left'}>
                                             <MDBCard className="d-flex mb-5">
                                                 <MDBView>
                                                     <div className={'mg-tp-5'}>
-                                                        Change Profile Details
+                                                        User Profile
                                                     </div>
                                                 </MDBView>
                                                 <MDBCardBody>
@@ -263,29 +174,7 @@ class ProfilePage extends React.Component {
                                             </MDBCard>
                                         </div>
 
-                                    </MDBCol>
-                                    <MDBCol md="6" lg="6">
-                                        <div className={'justify-content-left'}>
-                                            <MDBCard className="d-flex mb-3">                                                
-                                                <MDBView>
-                                                    <div className={'mg-tp-5'}>
-                                                        User Privacy Data
-                                                    </div>
-                                                </MDBView>
-                                                <MDBCardBody>
-                                                    <MDBTable btn fixed>
-                                                        <MDBTableHead columns={table2.columns}/>
-                                                        <MDBTableBody rows={this.state.privacyData}/>
-                                                    </MDBTable>
-                                                    <MDBRow>
-                                                        <MDBBtn onClick={() => toggle('addModal')} color="blue"><i class="fa fa-plus"
-                                                                                                                   aria-hidden="true"></i>
-                                                        </MDBBtn>
-                                                    </MDBRow>
-                                                </MDBCardBody>                                                
-                                            </MDBCard>
-                                        </div>
-                                    </MDBCol>
+                                    </MDBCol>                                    
                                 </MDBRow>
 
                             </section>
