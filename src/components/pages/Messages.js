@@ -1,5 +1,4 @@
 import React from 'react';
-import {ManualResource} from './ManualsDocs.js'
 import {Route, Switch, withRouter} from 'react-router-dom';
 import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -91,16 +90,17 @@ class Messages extends React.Component {
 
                     <MDBCol md="12" lg="12">
 
-                        {this.state.messages[0] ? this.state.messages.map((ob, id) => <MDBCard key={id}
-                                                                                               className="d-flex mb-2">
-                            <MDBCol id={id} md="12" lg="12">
+                        {this.state.messages[0] ? this.state.messages.map((ob, id) => 
+							<MDBCard key={id} className="d-flex mb-2">
+								<MDBCol id={id} md="12" lg="12">
 
-                                <MDBCardBody>
-                                    <i className={'fa fa-arrow-down manual-page-arrow'}
-                                       onClick={() => document.getElementById(id).classList.contains('full-expand') ? document.getElementById(id).classList.remove('full-expand') : document.getElementById(id).classList.add('full-expand')}/>
-                                    <Message deleteMsg={deleteMsg} message={ob}/>
-                                </MDBCardBody>
-                            </MDBCol></MDBCard>
+									<MDBCardBody>
+										<i className={'fa fa-arrow-down manual-page-arrow'}
+										   onClick={() => document.getElementById(id).classList.contains('full-expand') ? document.getElementById(id).classList.remove('full-expand') : document.getElementById(id).classList.add('full-expand')}/>
+										<Message deleteMsg={deleteMsg} message={ob}/>
+									</MDBCardBody>
+								</MDBCol>
+							</MDBCard>
                         ) : ''}
 
                     </MDBCol>
@@ -112,28 +112,32 @@ class Messages extends React.Component {
 class Message extends React.Component {
     render() {
 
-        return <div className={'row'}>
-            <div className={'col-md-1'}>
-                <i onClick={()=>this.props.deleteMsg(this.props.message)} className="fa fa-times-circle" style={{color:'red',fontSize:'20px',marginTop:'10px',cursor:'pointer'}}/>
-            </div>
-			<div className={'col-md-1 mb-2'}>
-				<CircularProgressbar percentage={this.props.message.percentage} text={`${this.props.message.percentage}%`} />
+        return (
+		<div>
+			<div className={'row d-flex justify-content-center'}>
+				<div className={'col-md-1'}>
+					<i onClick={()=>this.props.deleteMsg(this.props.message)} className="fa fa-times-circle" style={{color:'red',fontSize:'20px',marginTop:'10px',cursor:'pointer'}}/>
+				</div>
+				<div className={'col-md-1 mb-2'}>
+					<CircularProgressbar percentage={this.props.message.percentage} text={`${this.props.message.percentage}%`} />
+				</div>
+				<div className='col-md-1'>
+					<img className={'message-icon'} src={this.props.message.icon} alt=""/>
+
+				</div>
+				<div className={'col-md-3'}>
+					<h4 style={{padding: '0px 10px 20px'}}>
+						{this.props.message.title}
+					</h4>
+				</div>
+				<div className='col-md-6'>
+					{this.props.message.link}
+				</div>
 			</div>
-            <div className='col-md-1'>
-                <img className={'message-icon'} src={this.props.message.icon} alt=""/>
-
-            </div>
-            <div className={'col-md-3'}>
-                <h4 style={{padding: '0px 10px 20px'}}>
-                    {this.props.message.title}
-                </h4>
-            </div>
-            <div className='col-md-6'>
-                {this.props.message.link}
-            </div>
-
-            <p><pre>{JSON.stringify(this.props.message.msg, null, 4)}</pre></p>
-        </div>
+			<div className={'row'}>
+				<p><pre>{JSON.stringify(this.props.message.msg, null, 4)}</pre></p>
+			</div>
+		</div>)
     }
 }
 

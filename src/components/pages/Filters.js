@@ -75,8 +75,9 @@ class Filters extends React.Component {
 			for(let x in filters){
 				 newFilters.push({
 					'value': filters[x].value,
-					'Type':filters[x].type,
-					'Delete':filters[x].internal?'':<img src={remove} onClick={()=>{that.deleteFilterRecord(filters[x].value)}} height="30" width="30"/>
+					'type':filters[x].type,
+					'internal': filters[x].type,
+					'delete':filters[x].internal?'':<img src={remove} style={{cursor: 'pointer'}} onClick={()=>{that.deleteFilterRecord(filters[x].value)}} height="20" width="20"/>
 				})
 			}
 
@@ -85,7 +86,7 @@ class Filters extends React.Component {
 			for(let x in masks){
 				 newMasks.push({
 					'value': masks[x].value,
-					'Delete':<img src={remove} onClick={()=>{that.deleteMaskRecord(masks[x].value)}} height="30" width="30"/>                    
+					'delete':<img src={remove} style={{cursor: 'pointer'}} onClick={()=>{that.deleteMaskRecord(masks[x].value)}} height="20" width="20"/>                    
 				})
 			}
             
@@ -110,14 +111,11 @@ class Filters extends React.Component {
            
             if(this.state.filters[i].value !== id){
                 newArray.push(this.state.filters[i]);
-                                storageArray.push({type:this.state.filters[i].Type,value:this.state.filters[i].value})
-
-            }
-         
-            
+                storageArray.push({type: this.state.filters[i].type, value: this.state.filters[i].value, internal: this.state.filters[i].internal})
+            }                    
         }
         window.helper.saveFilters(storageArray)        
-        this.setState({filters:newArray});        
+        this.setState({filters: newArray});        
     }
     
     deleteMaskRecord(id){
@@ -205,7 +203,8 @@ class Filters extends React.Component {
             let f1 = {
                 value : f.value,
                 type  : f.type,
-                'Delete':<img src={remove} onClick={()=>that.deleteFilterRecord(f.value)} height="30" width="30"/>                
+				internal: false,
+                'delete':<img src={remove} style={{cursor: 'pointer'}} onClick={()=>that.deleteFilterRecord(f.value)} height="20" width="20"/>                
             };
             let allow = true;
             window.helper.loadFilters().then(filter => {
@@ -239,7 +238,7 @@ class Filters extends React.Component {
             };            
             let f1 = {
                 value: f.value,
-                'Delete': <img src={remove} onClick={() => that.deleteMaskRecord(f.value)} height="30" width="30"/>
+                'delete': <img src={remove} style={{cursor: 'pointer'}} onClick={() => that.deleteMaskRecord(f.value)} height="20" width="20"/>
             };
 
             let allow = true;
@@ -464,7 +463,7 @@ class Filters extends React.Component {
                                 <MDBCardBody>
                                     <MDBTable btn fixed>
                                         <MDBTableHead columns={filtersTable.columns}/>
-                                        <MDBTableBody rows={this.state.filters}/>
+                                        <MDBTableBody rows={this.state.filters.map((f, index) => ({value: f.value, type: f.type, delete: f.delete}))}/>
                                     </MDBTable>
                                     <MDBRow>
                                         <MDBBtn onClick={() => toggle('filter')} color="blue"><i class="fa fa-plus" aria-hidden="true"></i>

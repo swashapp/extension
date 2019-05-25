@@ -952,7 +952,7 @@ enabled{
     pointer-events: all!important;
 }
     #manual-row .card .col-md-12.col-lg-12{
-        max-height: 73px;
+        max-height: 5rem;
         overflow: hidden;
         transition: .5s;
     }
