@@ -115,12 +115,12 @@ main {
 table.table thead th{
     border-top: none;
     font-weight: 700;
-    text-align: center;
+    text-align: left;
     color: white;
     background-color: #585252;
 }
 table.table.btn-table td{
-    text-align: center;
+    text-align: left;
 }
 table .th-sm{
     width: 20%;
@@ -1077,7 +1077,7 @@ table.table th, table.table td{
 }
 
 
-#profile .view, .view.customHeader{
+#profile .view, #about .view, .view.view-custom-header{
     background-color: rgba(0,0,0,.03);
     border-bottom: 1px solid rgba(0,0,0,.125);
 }

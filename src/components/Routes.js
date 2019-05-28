@@ -7,6 +7,7 @@ import Filters from './pages/Filters';
 import Manuals from './pages/Manuals';
 import Messages from './pages/Messages';
 import Marketplace from './pages/Marketplace';
+import About from './pages/About';
 
 
 import Module from './pages/Module';
@@ -33,6 +34,9 @@ class Routes extends React.Component {
 			} />
 		<Route path='/Messages/'  render={()=>
 			<Messages resource={this.props.resource}/>
+			} />
+		<Route path='/About/'  render={()=>
+			<About resource={this.props.resource}/>
 			} />
         <Route path='/404' component={NotFoundPage} />
       </Switch>

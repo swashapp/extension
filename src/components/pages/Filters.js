@@ -338,9 +338,9 @@ class Filters extends React.Component {
                                             Match Google drive, docs, and accounts sub-domains
                                         </td>
                                         <td>
-                                            http://accounts.google.com/
+                                            https://accounts.google.com/
                                             <br/>
-                                            http://drive.google.com/
+                                            https://drive.google.com/
                                             <br/>
                                             https://docs.google.com/
                                         </td>
@@ -450,36 +450,11 @@ class Filters extends React.Component {
                 </MDBModal>                
                 
                 
-                <MDBRow className="justify-content-left mb-5">
-                    <MDBCol md="10" lg="10" className="offset-md-1">
-                        <MDBCard className="d-flex mb-2">
-                            <MDBView className="customHeader">
-                                <div className={'mg-tp-5'}>
-                                    URLs to exclude                                    
-                                    <i class="far fa-question-circle fa-x ml-1" onClick={() => toggle('filterGuide')} style={{cursor: 'pointer'}}></i>
-                                </div>
-                            </MDBView>
-                            <MDBCol md="12" lg="12">
-                                <MDBCardBody>
-                                    <MDBTable btn fixed>
-                                        <MDBTableHead columns={filtersTable.columns}/>
-                                        <MDBTableBody rows={this.state.filters.map((f, index) => ({value: f.value, type: f.type, delete: f.delete}))}/>
-                                    </MDBTable>
-                                    <MDBRow>
-                                        <MDBBtn onClick={() => toggle('filter')} color="blue"><i class="fa fa-plus" aria-hidden="true"></i>
-                                        </MDBBtn>
-                                    </MDBRow>                                                  
-                                </MDBCardBody>
-                            </MDBCol>
-                        </MDBCard>
-                    </MDBCol>
-                </MDBRow>
                 
-                
-                <MDBRow className="justify-content-left">
+                <MDBRow className="justify-content-left mb-2">
                     <MDBCol md="10" lg="10" className="offset-md-1">
                         <MDBCard className="d-flex mb-2">                            
-                            <MDBView className="customHeader">
+                            <MDBView className="view-custom-header">
                                 <div className={'mg-tp-5'}>
                                     Text masking
                                     <i class="far fa-question-circle fa-x ml-1"  onClick={() => toggle('maskGuide')} style={{cursor: 'pointer'}}></i>
@@ -487,8 +462,8 @@ class Filters extends React.Component {
                             </MDBView>
                             <MDBCol md="12" lg="12">
                                 <MDBCardBody>
-                                    <MDBTable btn fixed>
-                                        <MDBTableHead columns={masksTable.columns}/>
+                                    <MDBTable fixed>
+										<MDBTableHead columns={masksTable.columns}/>										
                                         <MDBTableBody rows={this.state.masks}/>
                                     </MDBTable>
                                     <MDBRow>
@@ -501,7 +476,31 @@ class Filters extends React.Component {
                     </MDBCol>
                 </MDBRow>
                 
-                
+                <MDBRow className="justify-content-left">
+                    <MDBCol md="10" lg="10" className="offset-md-1">
+                        <MDBCard className="d-flex mb-2">
+                            <MDBView className="view-custom-header">
+                                <div className={'mg-tp-5'}>
+                                    URLs to exclude                                    
+                                    <i class="far fa-question-circle fa-x ml-1" onClick={() => toggle('filterGuide')} style={{cursor: 'pointer'}}></i>
+                                </div>
+                            </MDBView>
+                            <MDBCol md="12" lg="12">
+                                <MDBCardBody>
+                                    <MDBTable fixed>
+										<MDBTableHead columns={filtersTable.columns}/>
+                                        <MDBTableBody rows={this.state.filters.map((f, index) => ({value: f.value, type: f.type, delete: f.delete}))}/>
+                                    </MDBTable>
+                                    <MDBRow>
+                                        <MDBBtn onClick={() => toggle('filter')} color="blue"><i class="fa fa-plus" aria-hidden="true"></i>
+                                        </MDBBtn>
+                                    </MDBRow>                                                  
+                                </MDBCardBody>
+                            </MDBCol>
+                        </MDBCard>
+                    </MDBCol>
+                </MDBRow>
+				
         </MDBRow>)
     }
 }
