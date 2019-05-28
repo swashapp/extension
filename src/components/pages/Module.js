@@ -360,20 +360,18 @@ class Module extends React.Component {
 				for (let viewName in views) {
 					{
 						for (let itemId in views[viewName].items) {
-							views[viewName].items[itemId].is_enabled = data.check;
-							this.state.module[views[viewName].items[itemId].func][views[viewName].items[itemId].index].is_enabled = data.check;
+							views[viewName].items[itemId].is_enabled = data.check;							
 						}
 					}				
 				}
-				this.setState({views: views, module: this.state.module});				
+				this.setState({views: views});				
 			}
 			else {
 				let viewName = data.attributes.name;
 				for (let itemId in views[viewName].items) {
-					views[viewName].items[itemId].is_enabled = data.check;
-					this.state.module[views[viewName].items[itemId].func][views[viewName].items[itemId].index].is_enabled = data.check;
+					views[viewName].items[itemId].is_enabled = data.check;					
 				}
-				this.setState({views: views, module: this.state.module});				
+				this.setState({views: views});				
 			}
        }
 		
@@ -851,7 +849,7 @@ class Module extends React.Component {
                                 <MDBCardBody>
                                     <MDBCardTitle>{this.state.views[key].title}</MDBCardTitle>
                                     {key=="API" && this.state.connected === false ?
-                                        <MDBBtn onClick={connect} color="indigo">                        <img className='general-api-logo-2' src={this.state.icon}/>
+                                        <MDBBtn onClick={connect} className={this.state.module.is_enabled?'' : 'disabled'} color="indigo">                        <img className='general-api-logo-2' src={this.state.icon}/>
  Connect to
                                             {' ' + this.state.module.name}</MDBBtn> : ''
                                     } {key=="API" && this.state.connected === true ?
