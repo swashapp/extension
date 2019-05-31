@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
+import {Prompt} from 'react-router-dom'
 import ReactCountdownClock from 'react-countdown-clock';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import "../../statics/css/react-contextmenu.css"
@@ -36,6 +37,8 @@ import {
 import NavBar from '../microcomponents/NavBar'
 
 class Module extends React.Component {
+	nextLocation = "";
+	discardUnsavedChanges = false;
     mSalt = "523c2eda-6a8b-11e9-a923-1681be663d3e";
     salt = "59017e28-6a8b-11e9-a923-1681be663d3e";
 	sampleId = "c1edf5cf-25ad-44bf-884a-f0b8416da28d";
@@ -76,6 +79,7 @@ class Module extends React.Component {
     }
     state = {
 		collapseID: "dataPrivacyCollapse",
+		modal0: false,
         modal1: false,
         modal2: false,
 		modal3: false,
@@ -101,7 +105,7 @@ class Module extends React.Component {
     };
     componentWillUnmount(){
         try {
-            clearInterval(this.state.intervalId)
+            clearInterval(this.state.intervalId);
         }
         catch(e){
 			
@@ -119,10 +123,7 @@ class Module extends React.Component {
                 }
             }
             if (module) {
-                document.getElementById('enabled-switch').checked = module.is_enabled;
-            }
-			if(module)
-			{
+                document.getElementById('enabled-switch').checked = module.is_enabled;            
 				for(let view of module.viewGroups) {
 					views[view.name] = {
 						name: view.name,
@@ -187,16 +188,86 @@ class Module extends React.Component {
 				title: module.title,
 				name: module.name,
 				icon: module.icons[0],				
-			})
+			})			
 
 		} else {
 			this.setState({x: !this.state.x})
 		}
     };
 
-    componentDidUpdate() {
+    componentDidUpdate() {		
     }
 
+	getLastSettings(settings) {
+		settings.privacy_level = this.state.module.privacy_level;
+		settings.is_enabled = this.state.module.is_enabled;
+		if(this.state.module.filter_editable) {
+			settings.browsing_filter = {};
+			settings.browsing_filter.urls = this.state.module.browsing_filter.urls;
+		}
+		for(let func of this.state.module.functions) {
+			settings[func] = {};
+		}
+		let views = this.state.views
+		for (let viewName in views) {
+			{
+				for (let itemId in views[viewName].items) {
+					let f = this.state.module[views[viewName].items[itemId].func][views[viewName].items[itemId].index].is_enabled;
+					settings[views[viewName].items[itemId].func][views[viewName].items[itemId].name] = f;
+				}
+			}				
+		}
+	}
+	
+	getSettings(settings) {
+		settings.privacy_level = this.state.activeNav;
+		settings.is_enabled = document.getElementById('enabled-switch').checked;
+		if(this.state.filter_editable) {
+			let urlsString = document.getElementById("matchingUrls").value;
+			let urls = urlsString.split("\n").map((ob,id) => ob.trim(" \r"));
+			settings.browsing_filter = {};
+			settings.browsing_filter.urls = urls;
+		}
+		for(let func of this.state.module.functions) {
+			settings[func] = {}
+		}			
+		let views = this.state.views
+		for (let viewName in views) {
+			{
+				for (let itemId in views[viewName].items) {
+					let f = document.getElementById(viewName + "-" + itemId).checked;
+					settings[views[viewName].items[itemId].func][views[viewName].items[itemId].name] = f;
+				}
+			}				
+		}
+	}
+	
+	isEqual(obj1, obj2) {
+		let str1 = JSON.stringify(obj1);
+		let str2 = JSON.stringify(obj2);
+		if(str1 != str2)
+			return false;
+		return true;
+	};
+
+	
+	handleUnsavedChanges = (nextLocation) => {
+		this.nextLocation = nextLocation;
+		let currentSettings = {}
+		this.getSettings(currentSettings)
+		let lastSettings = {}
+		this.getLastSettings(lastSettings)
+		if(this.discardUnsavedChanges) {
+			return true;
+		}
+		if(!this.isEqual(currentSettings, lastSettings)) {
+			this.toggle('0');
+			return false;
+		}
+		return true;
+	}
+	
+	
     generateCss(style) {
         if (!style) {
             style = 'red'
@@ -245,6 +316,10 @@ class Module extends React.Component {
     };
 		
     toggle = (x) => {
+		if (x === '0')
+            this.setState({
+                modal0: !this.state.modal0
+            });
         if (x === '1')
             this.setState({
                 modal1: !this.state.modal1
@@ -259,7 +334,9 @@ class Module extends React.Component {
             });
     };
 
+	
     render() {
+		
         const handleClick = (id) => {
             this.setState({activeNav: id})
         };
@@ -278,12 +355,7 @@ class Module extends React.Component {
                 module.newId = await window.helper.identityPrivacy(this.sampleId, module.id, id);
             }            
         }
-        const savePrivacyLevel = (settings) => {
-			settings.privacy_level = this.state.activeNav;
-			settings.is_enabled = document.getElementById('enabled-switch').checked;
-            this.state.module.privacy_level = settings.privacy_level
-            this.state.module.is_enabled = settings.is_enabled
-        }
+
         const changeCheckBox = (e) => {
 			let viewName = e.target.id.split("-")[0];
 			let id = e.target.id.split("-")[1];
@@ -300,41 +372,17 @@ class Module extends React.Component {
             })        
 		};
 		
-        const saveViews = (settings) => {
-			for(let func of this.state.module.functions) {
-				settings[func] = {}
-			}			
-			let views = this.state.views
-            for (let viewName in views) {
-				{
-					for (let itemId in views[viewName].items) {
-						let f = document.getElementById(viewName + "-" + itemId).checked;
-						settings[views[viewName].items[itemId].func][views[viewName].items[itemId].name] = f;
-						views[viewName].items[itemId].is_enabled = f;
-						this.state.module[views[viewName].items[itemId].func][views[viewName].items[itemId].index].is_enabled = f;
-					}
-				}				
-            }
-			this.setState({views: views, module: this.state.module});
-        }
-		const saveMatchingUrls = (settings) => {
-			if(this.state.filter_editable) {
-				let urlsString = document.getElementById("matchingUrls").value;
-				let urls = urlsString.split("\n").map((ob,id) => ob.trim(" \r"));
-				settings.browsing_filter = {};
-				settings.browsing_filter.urls = urls;
-			}
-		}
-        const saveAllConfirm = ()=>{
+        const saveAllConfirm = (tId)=>{
 			var settings = {};
-			saveMatchingUrls(settings);
-			savePrivacyLevel(settings)
-			saveViews(settings)
+			this.getSettings(settings)
 			let moduleName = this.state.name;
-			window.helper.config_module(moduleName, settings).then(()=>{
+			return window.helper.config_module(moduleName, settings).then(()=>{
 				this.props.reload();
-				this.setState({
-					modal1: !this.state.modal1
+				return window.helper.loadModules().then((modules) => {
+					this.toggle(tId);
+					this.setState({						
+						module: modules[moduleName]
+					})				
 				})
 			});					
         };
@@ -377,6 +425,9 @@ class Module extends React.Component {
 		
         return (
             <div id="general-api-wrapper">
+				<Prompt
+					when={true}
+					message={this.handleUnsavedChanges}/>
                 <div className={'save-bt-fix'}>											
 					<i onClick={saveAll} className={'fa fa-save'}/>
 				</div>
@@ -386,7 +437,7 @@ class Module extends React.Component {
                             <div className={'container-fluid'}>
                                 <div className="row">
                                     <div className="col-md-2 back-bt"
-                                         onClick={() => this.props.history.push('/modules')}>
+                                         onClick={() =>  this.props.history.push('/modules')}>
                                         <i className='fa fa-arrow-left'/>
                                     </div>
                                     <div className="col-md-7 back-bt module-title" id={'api-name'}>
@@ -413,16 +464,35 @@ class Module extends React.Component {
                             </div>
                         </MDBCardBody>
                     </MDBCard>
-                </div>
+                </div>				
                 <MDBContainer>
-                    <MDBModal size="lg" isOpen={this.state.modal1} toggle={() => this.toggle('1')}>
-                        <MDBModalHeader toggle={() => this.toggle('1')}>Save Configurations</MDBModalHeader>
+                    <MDBModal size="md" isOpen={this.state.modal0} toggle={() => this.toggle('0')}>
+                        <MDBModalHeader toggle={() => this.toggle('0')}>Unsaved changes</MDBModalHeader>
                         <MDBModalBody>
-                            <h5>By clicking on "Confirm" Your changes will take effect immediately.</h5>
+                            <p>You have unsaved changes made to this module which will be lost if you navigate away. Are you sure you wish to discard these changes?</p>
                         </MDBModalBody>
                         <MDBModalFooter>
-                            <MDBBtn color="secondary" onClick={() => this.toggle('1')}>Close</MDBBtn>
-                            <MDBBtn onClick={saveAllConfirm} color="secondary">Confirm Changes</MDBBtn>
+                            <MDBBtn size="md" color="secondary" onClick={() => {
+								this.discardUnsavedChanges = true
+								this.props.history.push(this.nextLocation.pathname)
+							}}>Discard
+							</MDBBtn>
+                            <MDBBtn size="md" onClick={() => saveAllConfirm('0').then(() => {
+									this.props.history.push(this.nextLocation.pathname)
+							})}color="secondary">Save</MDBBtn>
+                        </MDBModalFooter>
+                    </MDBModal>
+                </MDBContainer>
+				
+				 <MDBContainer>
+                    <MDBModal size="md" isOpen={this.state.modal1} toggle={() => this.toggle('1')}>
+                        <MDBModalHeader toggle={() => this.toggle('1')}>Save Configurations</MDBModalHeader>
+                        <MDBModalBody>
+                            <p>By clicking on "Confirm" Your changes will take effect immediately.</p>
+                        </MDBModalBody>
+                        <MDBModalFooter>
+                            <MDBBtn size="md" color="secondary" onClick={() => this.toggle('1')}>Close</MDBBtn>
+                            <MDBBtn size="md" onClick={() => saveAllConfirm('1')} color="secondary">Confirm Changes</MDBBtn>
                         </MDBModalFooter>
                     </MDBModal>
                 </MDBContainer>
@@ -830,9 +900,7 @@ class Module extends React.Component {
                                         <NavBar handleClick={handleClick} navs={['Lowest', 'Low', 'Medium', 'High', 'Highest']}
                                                 activeNav={this.state.activeNav}/>
                                     </div>
-                                </MDBCardBody>
-
-                            {/*<MDBBtn onClick={()=>{savePrivacyLevel()}} color="secondary">Confirm</MDBBtn>*/}
+                                </MDBCardBody>                           
 
                         </MDBCard>
 
@@ -849,7 +917,7 @@ class Module extends React.Component {
                                 <MDBCardBody>
                                     <MDBCardTitle>{this.state.views[key].title}</MDBCardTitle>
                                     {key=="API" && this.state.connected === false ?
-                                        <MDBBtn onClick={connect} className={this.state.module.is_enabled?'' : 'disabled'} color="indigo">                        <img className='general-api-logo-2' src={this.state.icon}/>
+                                        <MDBBtn onClick={connect} color="indigo">                        <img className='general-api-logo-2' src={this.state.icon}/>
  Connect to
                                             {' ' + this.state.module.name}</MDBBtn> : ''
                                     } {key=="API" && this.state.connected === true ?

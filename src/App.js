@@ -16,8 +16,7 @@ class App extends Component {
 		let that = this;
 
 		async function loader() {
-			let x = await window.helper.load();
-			let f = x.modules;
+			let f = await window.helper.loadModules();
 			let list = [];
 			for(let x in f){
 				list.push(f[x])				
