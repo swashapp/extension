@@ -1,42 +1,45 @@
 import React, { Component } from 'react';
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBIcon } from 'mdbreact';
+import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBIcon, MDBContainer, NavbarNav} from 'mdbreact';
 
 class TopNavigation extends Component {
-    state = {
-        collapse: false
-    }
+	state = {
+	  collapseID: ''
+	}
 
-    onClick = () => {
-        this.setState({
-            collapse: !this.state.collapse,
-        });
-    }
-
-    toggle = () => {
-        this.setState({
-            dropdownOpen: !this.state.dropdownOpen
-        });
-    }
+	toggleCollapse = collapseID => () => {
+	  this.setState(prevState => ({ collapseID: (prevState.collapseID !== collapseID ? collapseID : '') }));
+	} 
 
     render() {
         return (
-            <MDBNavbar className="flexible-navbar" light expand="md" scrolling>
-                <MDBNavbarBrand href="/">
-                </MDBNavbarBrand>
-                <MDBNavbarToggler onClick = { this.toggle } />
-                <MDBCollapse isOpen = { this.state.collapse } navbar>
-                    <MDBNavbarNav left>
-                        Enjoy Your Last Drop of Privacy
-                    </MDBNavbarNav>
-                    <MDBNavbarNav right>
-
-                        <MDBNavItem>
-                            <a className="border border-light rounded mr-1 nav-link Ripple-parent" rel="noopener noreferrer" href="https://github.com/mdbootstrap/React-Bootstrap-with-Material-Design" target="_blank"><MDBIcon fab icon="github" className="mr-2"/>Surf-Streamr</a>
-                        </MDBNavItem>
-
-                    </MDBNavbarNav>
-                </MDBCollapse>
-            </MDBNavbar>
+			<MDBNavbar light>			  
+				<MDBNavbarToggler onClick={this.toggleCollapse('navbarCollapse1')} />
+				<MDBCollapse id="navbarCollapse1" isOpen={this.state.collapseID} navbar>
+				  <NavbarNav left>
+					<MDBNavItem>
+					  <MDBNavLink to="/Profile">Profile</MDBNavLink>
+					</MDBNavItem>
+					<MDBNavItem>
+					  <MDBNavLink to="/Modules">Modules</MDBNavLink>
+					</MDBNavItem>
+					<MDBNavItem>
+					  <MDBNavLink to="/Filters">Advanced Filters</MDBNavLink>
+					</MDBNavItem>
+					<MDBNavItem>
+					  <MDBNavLink to="/Marketplace">Marketplace</MDBNavLink>
+					</MDBNavItem>
+					<MDBNavItem>
+					  <MDBNavLink to="/Messages">Messages</MDBNavLink>
+					</MDBNavItem>
+					<MDBNavItem>
+					  <MDBNavLink to="/Manual">Manual</MDBNavLink>
+					</MDBNavItem>
+					<MDBNavItem>
+					  <MDBNavLink to="/About">About</MDBNavLink>
+					</MDBNavItem>
+				  </NavbarNav>
+				</MDBCollapse>			  
+			</MDBNavbar>				
         );
     }
 }

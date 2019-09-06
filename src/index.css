@@ -68,7 +68,7 @@ main {
         position: absolute;
         left: 0;
         right: 0;
-        z-index: 999999;
+        z-index: 1049;
         top:0;
         bottom: 0;
         background: rgba(0, 0, 0, 0.14);
@@ -184,7 +184,9 @@ table .th-sm{
   width: 100%;
 }
 
-
+.navbar {
+	display: none;
+}
 
 .navbar-brand{
   margin-left: 15px;
@@ -364,7 +366,11 @@ table .th-sm{
   .card.cascading-admin-card {
     margin-top: 2.5rem;
   }
+  .navbar {
+	display: block;
+  }
 }
+
 
 @media (max-width: 576px) {
   .card.cascading-admin-card {

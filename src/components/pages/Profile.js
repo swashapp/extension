@@ -125,7 +125,7 @@ class ProfilePage extends React.Component {
                                                     </MDBCardTitle>                                                    
                                                     <MDBInput onChange={changeInput} value={this.state.walletId}
                                                               label="Wallet Id" icon="user" id="wallet"/>
-                                                    <MDBInput value={changeInput} value={this.state.email}
+                                                    <MDBInput onChange={changeInput} value={this.state.email}
                                                               label="Email Address" icon="envelope" id="email"/>
                                                     {/*<div className={'input-title'}>
                                                         <div className='row'>

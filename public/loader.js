@@ -43,6 +43,16 @@ var helper = (function() {
     function loadFilters(){
         return filters
     }
+	
+	function loadModules(){        
+    }
+	
+	function loadPrivacyData () {		
+	}
+	
+	function loadMessages () {	
+	}
+	
     function load(){
 		var promise1 = new Promise(function(resolve, reject) {
 			resolve(resource);
@@ -60,6 +70,9 @@ return {
         save: save,
         loadFilters: loadFilters,
 		saveFilters: saveFilters,
-		identityPrivacy: identityPrivacy
+		identityPrivacy: identityPrivacy,
+		loadModules: loadModules,
+		loadPrivacyData: loadPrivacyData ,
+		loadMessages: loadMessages 
     };
 }());
