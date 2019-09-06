@@ -184,7 +184,7 @@ table .th-sm{
   width: 100%;
 }
 
-.navbar {
+.navbar-light {
 	display: none;
 }
 
@@ -366,7 +366,7 @@ table .th-sm{
   .card.cascading-admin-card {
     margin-top: 2.5rem;
   }
-  .navbar {
+  .navbar-light {
 	display: block;
   }
 }
