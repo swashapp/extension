@@ -24,7 +24,7 @@ a{
 }
 
 main {
-  background-color: #EDEDEE;
+  background-color: #FFF;
 }
 
     input[type="checkbox"].switch {
@@ -114,7 +114,7 @@ main {
     font-size: 18px;
     text-align: left;
 }
-table.table thead th{
+/*table.table thead th{
     border-top: none;
     font-weight: 700;
     text-align: left;
@@ -123,7 +123,7 @@ table.table thead th{
 }
 table.table.btn-table td{
     text-align: left;
-}
+}*/
 table .th-sm{
     width: 20%;
     min-width: 550px!important;
@@ -204,7 +204,7 @@ table .th-sm{
   z-index: 1050;
   background-color: #fff;
   padding: 1.5rem;
-  padding-top: 0;
+  padding-top: 164px;
 }
 .list-group.list-group-flush a{
   margin: 0px 0px;
@@ -1023,9 +1023,9 @@ enabled{
   z-index: 0;
 }
 
-table.table th, table.table td{
+/*table.table th, table.table td{
     padding: 5px!important;
-}
+}*/
 .disabled-module{
     background-color: gray;
 }
@@ -1183,7 +1183,33 @@ table.table th, table.table td{
        url('statics/fonts/roboto-v20-latin-900.svg#Roboto') format('svg'); /* Legacy iOS */
 }
 
+/* roboto-italic - latin */
+@font-face {
+  font-family: 'Roboto-Italic';
+  font-style: italic;
+  font-weight: 400;
+  src: url('statics/fonts/roboto-v20-latin-italic.eot'); /* IE9 Compat Modes */
+  src: local('Roboto Italic'), local('Roboto-Italic'),
+       url('statics/fonts/roboto-v20-latin-italic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('statics/fonts/roboto-v20-latin-italic.woff2') format('woff2'), /* Super Modern Browsers */
+       url('statics/fonts/roboto-v20-latin-italic.woff') format('woff'), /* Modern Browsers */
+       url('statics/fonts/roboto-v20-latin-italic.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('statics/fonts/roboto-v20-latin-italic.svg#Roboto') format('svg'); /* Legacy iOS */
+}
 
+/* ibm-plex-sans-regular - latin */
+@font-face {
+  font-family: 'IBMPlexSans-Medium';
+  font-style: normal;
+  font-weight: 400;
+  src: url('statics/fonts/ibm-plex-sans-v7-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('IBM Plex Sans'), local('IBMPlexSans'),
+       url('statics/fonts/ibm-plex-sans-v7-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('statics/fonts/ibm-plex-sans-v7-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('statics/fonts/ibm-plex-sans-v7-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('statics/fonts/ibm-plex-sans-v7-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('statics/fonts/ibm-plex-sans-v7-latin-regular.svg#IBMPlexSans') format('svg'); /* Legacy iOS */
+}
 
 
 .side-bar-text{
@@ -1206,3 +1232,210 @@ width: 72px;
 width: 91px;
 }
 
+
+.content-padding{
+  padding-left: 100px;
+  padding-top: 164px;
+}
+
+.swash-head{
+  color: rgb(50, 50, 50);
+font-family: Roboto-Bold;
+font-size: 24px;
+font-weight: bold;
+padding-bottom: 16px;
+}
+
+.swash-head2{
+  color: rgb(50, 50, 50);
+font-family: Roboto-Bold;
+font-size: 20px;
+font-weight: bold;
+padding-bottom: 16px;
+}
+
+.swash-p {
+
+  color: rgb(50, 50, 50);
+font-family: Roboto-Regular;
+font-size: 16px;
+text-align: justify;
+
+margin-bottom: 68px;
+}
+
+.swash-col{
+width: 680px;
+
+}
+
+.setting-part{
+  margin-bottom: 160px;
+}
+
+.graybox{
+background: rgb(241, 241, 241);
+width: 680px;
+  border-radius: 4px;
+  padding: 32px;
+}
+
+.graybox ul {
+  color: rgb(50, 50, 50);
+font-family: Roboto-Regular;
+font-size: 16px;
+font-weight: normal;
+letter-spacing: 0px;
+line-height: 32px;
+padding-inline-start: 20px;
+}
+
+.balance-block{
+background: rgb(241, 241, 241);
+height: 80px;
+width: 680px;
+}
+
+.withdraw-block{
+background: rgb(245, 245, 245);
+}
+
+.block-top-corner-radius{
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+}
+
+.block-bottom-corner-radius{
+  border-bottom-left-radius:  4px;
+  border-bottom-right-radius : 4px;
+}
+
+.form-caption{
+  margin-bottom: 8px;
+  margin-top: 32px;
+
+box-shadow: ;
+color: rgb(50, 50, 50);
+font-family: Roboto-Medium;
+font-size: 12px;
+font-weight: 500;
+height: 16px;
+letter-spacing: 0px;
+line-height: 16px;
+}
+
+.form-input{
+  width: 100%;
+  background: rgb(255, 255, 255);
+  border-radius: 4px;
+  border: 1px solid rgb(239, 239, 239);
+  height: 40px;
+  padding-left: 16px;
+}
+
+.form-input-with-button{
+  position: absolute;
+
+}
+
+.form-input-button{
+  box-shadow: ;
+  color: rgb(173, 173, 173);
+  font-family: IBMPlexSans-Medium;
+  font-size: 10px;
+  font-weight: 500;
+  height: 32px;
+  letter-spacing: 0px;
+  line-height: 32px;
+  text-align: center;
+  background-color: #fff;
+width: 52px;
+  position: absolute;
+  border-width: 0px;
+  margin-left: -56px;
+  margin-top:4px;
+}
+
+.form-input-button:focus{
+  outline: 0px;
+  
+  }
+
+
+  .balance-text{
+    margin-top: 24px;
+    margin-left: 32px;
+    position: absolute;
+        color: rgb(82, 82, 82);
+font-family: Roboto-Regular;
+font-size: 12px;
+letter-spacing: 0px;
+line-height: 32px;
+
+  }
+
+.balance-text-bold{
+font-size: 24px;
+font-weight: 500;
+  }
+
+.table-text{
+  color: rgb(163, 163, 163);
+font-family: Roboto-Regular;
+font-size: 14px;
+font-weight: normal;
+letter-spacing: 0px;
+line-height: 40px;
+padding-left: 40px;
+    padding-bottom: 0px!important;
+    padding-top: 0px!important;
+border: 1px solid #dee2e6;
+
+}
+
+.table-head-text{
+  color: rgb(50, 50, 50);
+font-family: Roboto-Medium;
+font-weight: 500;
+}
+
+.table-head-row{
+  background-color: #f5f5f5;
+  height: 40px;
+  border: 1px solid #dee2e6;;
+}
+
+.table-row{
+  height: 40px;
+  background-color: #fff;
+  
+  }
+
+.setting-part img{
+}
+
+.image-caption{
+  color: rgb(164, 164, 164);
+  font-family: Roboto-Italic;
+  font-size: 14px;
+  font-weight: italic;
+  height: 60px;
+  letter-spacing: 0px;
+  line-height: 60px;
+  text-align: center;
+  width: 680px;
+  margin-bottom: 60px;
+}
+
+.help-table{
+  margin-bottom: 120px;
+}
+
+.help-table .table-text{
+  line-height: 23px;
+    padding-top: 12px!important;
+    padding-bottom: 12px!important;
+    padding-left: 24px;
+
+    color: rgb(50, 50, 50);
+}

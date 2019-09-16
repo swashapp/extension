@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, HashRouter, Switch} from 'react-router-dom';
 import Profile from './pages/Profile';
+import Settings from './pages/Settings';
+import Help from './pages/Help';
 import NotFoundPage from './pages/NotFoundPage';
 import Modules from './pages/Modules';
 import Filters from './pages/Filters';
@@ -21,6 +23,9 @@ class Routes extends React.Component {
 			<Route path='/Marketplace' render={()=><Marketplace reload={this.props.reload}/>} />
 			<Route path='/Dashboard' component={Profile} />
 			<Route path='/Profile' component={Profile} />
+			<Route path='/Settings' component={Settings} />
+			<Route path='/Help' component={Help} />
+
 			<Route path='/apis/'  render={()=>
 				<Module resource={this.props.resource} reload={this.props.reload}/>
 				} />

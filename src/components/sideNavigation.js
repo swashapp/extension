@@ -10,44 +10,34 @@ class SideNavigation extends React.Component {
 
     render(){
     return <div className="sidebar-fixed position-fixed">
-            <a href="#!" className="logo-wrapper waves-effect">
-                {/*<img alt="MDB React Logo" className="img-fluid" src={logo}/>*/}
-            </a>
+            
             <MDBListGroup className="list-group-flush">
+                <NavLink exact={true} to="/Settings" activeClassName="activeClass">
+                <MDBListGroupItem className="side-bar-text">
+                        Settings
+                    </MDBListGroupItem>
+                </NavLink>
+                <NavLink to="/Data" activeClassName="activeClass">
+                    <MDBListGroupItem className="side-bar-text">
+                        Data
+                    </MDBListGroupItem>
+                </NavLink>
                 
-                <NavLink exact={true} to="/Profile" activeClassName="activeClass">
+                <NavLink to="/Advanced" activeClassName="activeClass">
+                    <MDBListGroupItem className="side-bar-text">
+                        Advanced
+                    </MDBListGroupItem>
+                </NavLink>
+                
+                <NavLink to="/Help" activeClassName="activeClass">
+                    <MDBListGroupItem className="side-bar-text">
+                        Help
+                    </MDBListGroupItem>
+                </NavLink>
+                
+                <NavLink to="/Profile" activeClassName="activeClass">
                     <MDBListGroupItem className="side-bar-text">
                         Profile
-                    </MDBListGroupItem>
-                </NavLink>
-                <NavLink to="/Modules" activeClassName="activeClass">
-                    <MDBListGroupItem className="side-bar-text">
-                        Modules
-                    </MDBListGroupItem>
-                </NavLink>
-                <NavLink to="/Filters" activeClassName="activeClass">
-                    <MDBListGroupItem className="side-bar-text">
-                        
-                        Advanced Filters
-                    </MDBListGroupItem>
-                </NavLink>
-                <NavLink to="/Marketplace" activeClassName="activeClass">
-                    <MDBListGroupItem className="side-bar-text">
-                        Marketplace
-                    </MDBListGroupItem>
-                </NavLink><NavLink to="/Messages" activeClassName="activeClass">
-                    <MDBListGroupItem className="side-bar-text">
-                        Messages
-                    </MDBListGroupItem>
-                </NavLink>
-                <NavLink to="/Manual" activeClassName="activeClass">
-                    <MDBListGroupItem className="side-bar-text">
-                        Manual
-                    </MDBListGroupItem>
-                </NavLink>
-                <NavLink to="/About" activeClassName="activeClass">
-                    <MDBListGroupItem className="side-bar-text">
-                        About
                     </MDBListGroupItem>
                 </NavLink>
                 

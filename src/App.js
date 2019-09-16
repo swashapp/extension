@@ -37,7 +37,7 @@ class App extends Component {
 			<div className="flexible-content">          
 			  <TopNavigation  resource={this.state.resource}/>
 			  <SideNavigation  resource={this.state.resource}/>
-			  <main id="content" className="p-5">
+			  <main id="content" className="content-padding">
 				<Routes resource={this.state.resource} reload={this.reload}/>
 			  </main>
 			  {/*<Footer />*/}
