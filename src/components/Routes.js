@@ -11,6 +11,7 @@ import Messages from './pages/Messages';
 import Marketplace from './pages/Marketplace';
 import About from './pages/About';
 import Advanced from './pages/Advanced';
+import Data from './pages/Data';
 
 import Module from './pages/Module';
 
@@ -26,6 +27,7 @@ class Routes extends React.Component {
 			<Route path='/Settings' component={Settings} />
 			<Route path='/Help' component={Help} />
 			<Route path='/Advanced' component={Advanced} />
+			<Route path='/Data' component={Data} />
 			<Route path='/apis/'  render={()=>
 				<Module resource={this.props.resource} reload={this.props.reload}/>
 				} />
