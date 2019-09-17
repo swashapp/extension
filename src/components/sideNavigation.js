@@ -35,12 +35,6 @@ class SideNavigation extends React.Component {
                     </MDBListGroupItem>
                 </NavLink>
                 
-                <NavLink to="/Profile" activeClassName="activeClass">
-                    <MDBListGroupItem className="side-bar-text">
-                        Profile
-                    </MDBListGroupItem>
-                </NavLink>
-                
             </MDBListGroup>
         </div>
 

@@ -10,7 +10,7 @@ import Manuals from './pages/Manuals';
 import Messages from './pages/Messages';
 import Marketplace from './pages/Marketplace';
 import About from './pages/About';
-
+import Advanced from './pages/Advanced';
 
 import Module from './pages/Module';
 
@@ -19,13 +19,13 @@ class Routes extends React.Component {
     return (
       <HashRouter>
 		<Switch>
-			<Route path='/' exact component={Profile} />
+			<Route path='/' exact component={Settings} />
 			<Route path='/Marketplace' render={()=><Marketplace reload={this.props.reload}/>} />
 			<Route path='/Dashboard' component={Profile} />
 			<Route path='/Profile' component={Profile} />
 			<Route path='/Settings' component={Settings} />
 			<Route path='/Help' component={Help} />
-
+			<Route path='/Advanced' component={Advanced} />
 			<Route path='/apis/'  render={()=>
 				<Module resource={this.props.resource} reload={this.props.reload}/>
 				} />
