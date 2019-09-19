@@ -54,54 +54,6 @@ class AdvancedPage extends React.Component {
     }
     
     render() {
-        const settings = {};
-        const saveSettings = () => {
-            let pushStatus = false; //document.getElementById('push').checked;
-            let delay = this.state.delay;
-            let email = document.getElementById('email').value;
-            let wallet = document.getElementById('wallet').value;
-            let data = {
-                email: email,
-                walletId: wallet
-            };
-            window.helper.saveProfile(data).then(() => {
-                window.helper.saveConfigs({pushStatus: pushStatus, delay: delay}).then(() => {
-                    if (pushStatus)
-                        window.helper.subscribe();
-                    else
-                        window.helper.unsubscribe();
-                    NotificationManager.success('Configuration is updated successfully', 'Update Configuration');
-                })
-            })
-        };
-       
-       
-        const changeInput = (e) => {
-            if (e.target.id === 'wallet') {
-                this.setState({walletId: e.target.value})
-            }
-            if (e.target.id === 'email') {
-                this.setState({email: e.target.value})
-            }
-        };
-        const toggle = (x) => {
-            if (x === '1')
-                this.setState({
-                    modal1: !this.state.modal1
-                });
-            if (x === '2')
-                this.setState({
-                    modal2: !this.state.modal2
-                });
-            if (x === '3')
-                this.setState({
-                    modal3: !this.state.modal3
-                });
-            if (x === 'addModal')
-                this.setState({
-                    addModal: !this.state.addModal
-                });
-        };
         let excludeTableData = [
             {
                 url: "https://www.amazon.com/ap/signin*",
@@ -155,8 +107,8 @@ class AdvancedPage extends React.Component {
             }
         ];
         let excludeTableDataRows =  excludeTableData.map( (row) => { return (<tr className="table-row">                                    
-                                                <td className="table-text table-head-text"><input type="text" value={row.url} /></td>
-                                                <td className="table-text"><input type="text" value={row.type} /></td>
+                                                <td className="table-text"><input type="text" value={row.url} disabled className="disabledUrl" /></td>
+                                                <td className="table-text"><input type="text" value={row.type} disabled className="disabledMatchingType" /></td>
                                                 <td className="table-text"><button >Delete</button></td>
                                             </tr>)});
         let addXUrl = (<div><div className="form-caption">Add a URL to exclude</div>
@@ -178,7 +130,7 @@ class AdvancedPage extends React.Component {
             }
         ];
         let maskTableDataRows =  maskTableData.map( (row) => { return (<tr className="table-row">                                    
-                                                <td className="table-text table-head-text"><input type="text" value={row.text} /></td>
+                                                <td className="table-text" style={{width: 592}}><input type="text" value={row.text} className="disabledMaskedText" /></td>
                                                 <td className="table-text"><button >Delete</button></td>
                                             </tr>)});
         let addMaskText = (<div>
@@ -191,7 +143,7 @@ class AdvancedPage extends React.Component {
 
 
         return (
-            <div id="settings-page" className="swash-col">
+            <div id="advanced-page" className="swash-col">
                 <React.Fragment>
                     <div className="swash-col">
                         <div className="setting-part">
@@ -231,9 +183,9 @@ You can mask specific sensitive text data before it is sent to Streamr Marketpla
                                 <MDBTable>
                                     <MDBTableHead>
                                         <tr className="table-head-row">                               
-                                            <th className="table-text table-head-text">{addXUrl}</th>
-                                            <th className="table-text table-head-text">{addXType}</th>
-                                            <th className="table-text table-head-text">{AddXButton}</th>
+                                            <th className="table-head-text">{addXUrl}</th>
+                                            <th className="table-head-text">{addXType}</th>
+                                            <th className="table-head-text" style={{width: 90, paddingRight:0}}>{AddXButton}</th>
                                         </tr>
                                     </MDBTableHead>
                                 
