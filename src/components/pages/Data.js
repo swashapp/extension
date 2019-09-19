@@ -2,6 +2,7 @@ import React from 'react'
 import 'react-widgets/dist/css/react-widgets.css';
 import 'react-notifications/lib/notifications.css';
 import NumberPicker from 'react-widgets/lib/NumberPicker'
+
 import simpleNumberLocalizer from 'react-widgets-simple-number';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import DelaySend from '../microcomponents/DelaySend';
@@ -104,16 +105,21 @@ class DataPage extends React.Component {
                             <div className="swash-p">
                             The data collected from your browsing sessions is shown here before being sent. You can check and delete it here. You can also adjust the sending delay to a level that suits you.
                             </div>
-                        </div>
-
-                        <div className="setting-part">
                             <div>
                                 <div className="form-caption">Delay data send</div>
                                 <div>
-                                    <input type="text" className="form-input"/> <span>Minutes</span>
+                                    <NumberPicker
+                                        
+                                        defaultValue={5}
+                                        className="delayNumberPicker"
+                                      />
+                                      <div style={{marginLeft: "8px", height: "40px", float: "left", lineHeight: "40px"}} >Minutes</div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
+
+                        
+                        
 
                         <div className="setting-part">
                             {collapses}                    
