@@ -5,6 +5,8 @@ import { MDBProgress } from 'mdbreact';
 import CustomCheckBox from './CustomCheckBox'
 
 import icon from '../../statics/images/network-navigation.svg'
+import icon_open from '../../statics/images/active.svg'
+import icon_closed from '../../statics/images/inactive.svg'
 
 class DelaySend extends React.Component {
   static propTypes = {
@@ -26,17 +28,15 @@ class DelaySend extends React.Component {
   render() {
     const {isOpened} = this.state;
     let progress_percentage = 55; //this.props.delay
+    let iconArrow = isOpened? icon_open: icon_closed;
     return (
       <div>
-        <div className="accordion-head">
+        <div className="accordion-head" onClick={() => this.setState({isOpened: !isOpened})} >
           <div className="accordion-domain">{this.props.domain}</div>
           <div className="accordion-module">{this.props.module}</div>
           <MDBProgress className="my-2" material value={progress_percentage} className="accordion-delay" color="info" />
-          <CustomCheckBox
-            className="accordion-checkbox"
-            checked={isOpened}
-              onChange={({target: {checked}}) => this.setState({isOpened: checked})} />
           <img src={icon} className="accordion-icon" />
+          <div className="accordion-checkbox"><img src={iconArrow}  /></div>
           <a className="accordion-delete" />
         </div>
 
