@@ -31,12 +31,12 @@ class DelaySend extends React.Component {
     let iconArrow = isOpened? icon_open: icon_closed;
     return (
       <div>
-        <div className="accordion-head" onClick={() => this.setState({isOpened: !isOpened})} >
+        <div className="accordion-head" >
           <div className="accordion-domain">{this.props.domain}</div>
           <div className="accordion-module">{this.props.module}</div>
           <MDBProgress className="my-2" material value={progress_percentage} className="accordion-delay" color="info" />
           <img src={icon} className="accordion-icon" />
-          <div className="accordion-checkbox"><img src={iconArrow}  /></div>
+          <div className="accordion-checkbox" onClick={() => this.setState({isOpened: !isOpened})} ><img src={iconArrow}  /></div>
           <a className="accordion-delete" />
         </div>
 
