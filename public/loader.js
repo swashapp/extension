@@ -51,6 +51,59 @@ var helper = (function() {
 	}
 	
 	function loadMessages () {	
+		return [
+            {
+            	message : {
+            		origin: "http://en.wikipedia.org",
+                                header: {module: "search"},
+                                dalay: 60,
+                                data: "{\r\n    \"header\": {\r\n        \"function\": \"browsing\",\r\n        \"module\": \"Surfing\",\r\n        \"collector\": \"Page Visit\",\r\n        \"privacyLevel\": 3,\r\n        \"version\": \"0.7.8\"\r\n    },\r\n    \"data\": {\r\n        \"url\": \"https:\/\/en.wikipedia.org\/9b43\/71672544\"\r\n    },\r\n    \"identity\": {\r\n        \"uid\": \"e9810fa424aeabf40e1dc0dad5eb02e6240e7530bc3ee836703df0d6ab60d284\",\r\n        \"walletId\": \"\",\r\n        \"email\": \"\"\r\n    }\r\n}"}
+            },
+            {
+            	message : {
+                origin: "http://en.wikipedia.org",
+                header: {module: "search"},
+                dalay: 40,
+                data: "{\r\n    \"header\": {\r\n        \"function\": \"browsing\",\r\n        \"module\": \"Surfing\",\r\n        \"collector\": \"Page Visit\",\r\n        \"privacyLevel\": 3,\r\n        \"version\": \"0.7.8\"\r\n    },\r\n    \"data\": {\r\n        \"url\": \"https:\/\/en.wikipedia.org\/9b43\/71672544\"\r\n    },\r\n    \"identity\": {\r\n        \"uid\": \"e9810fa424aeabf40e1dc0dad5eb02e6240e7530bc3ee836703df0d6ab60d284\",\r\n        \"walletId\": \"\",\r\n        \"email\": \"\"\r\n    }\r\n}"
+            	}
+            },
+            {
+            	message : {
+                origin: "http://en.wikipedia.org",
+                header: {module: "search"},
+                dalay: 30,
+                data: "{\r\n    \"header\": {\r\n        \"function\": \"browsing\",\r\n        \"module\": \"Surfing\",\r\n        \"collector\": \"Page Visit\",\r\n        \"privacyLevel\": 3,\r\n        \"version\": \"0.7.8\"\r\n    },\r\n    \"data\": {\r\n        \"url\": \"https:\/\/en.wikipedia.org\/9b43\/71672544\"\r\n    },\r\n    \"identity\": {\r\n        \"uid\": \"e9810fa424aeabf40e1dc0dad5eb02e6240e7530bc3ee836703df0d6ab60d284\",\r\n        \"walletId\": \"\",\r\n        \"email\": \"\"\r\n    }\r\n}"
+            	}
+            },
+            {
+            	message : {
+                origin: "http://en.wikipedia.org",
+                header: {module: "Amazon"},
+                dalay: 50,
+                data: "{\r\n    \"header\": {\r\n        \"function\": \"browsing\",\r\n        \"module\": \"Surfing\",\r\n        \"collector\": \"Page Visit\",\r\n        \"privacyLevel\": 3,\r\n        \"version\": \"0.7.8\"\r\n    },\r\n    \"data\": {\r\n        \"url\": \"https:\/\/en.wikipedia.org\/9b43\/71672544\"\r\n    },\r\n    \"identity\": {\r\n        \"uid\": \"e9810fa424aeabf40e1dc0dad5eb02e6240e7530bc3ee836703df0d6ab60d284\",\r\n        \"walletId\": \"\",\r\n        \"email\": \"\"\r\n    }\r\n}"
+            	}
+            },
+            {
+            	message : {
+                origin: "http://reddit.com",
+                header: {module: "facebook"},
+                dalay: 60,
+                data: "{\r\n    \"header\": {\r\n        \"function\": \"browsing\",\r\n        \"module\": \"Surfing\",\r\n        \"collector\": \"Page Visit\",\r\n        \"privacyLevel\": 3,\r\n        \"version\": \"0.7.8\"\r\n    },\r\n    \"data\": {\r\n        \"url\": \"https:\/\/en.wikipedia.org\/9b43\/71672544\"\r\n    },\r\n    \"identity\": {\r\n        \"uid\": \"e9810fa424aeabf40e1dc0dad5eb02e6240e7530bc3ee836703df0d6ab60d284\",\r\n        \"walletId\": \"\",\r\n        \"email\": \"\"\r\n    }\r\n}"
+            	}
+            }
+        ]
+	}
+
+	function saveConfigs(config){
+		console.log("consider it done");
+		var promise1 = new Promise(function(resolve, reject) {
+			resolve(resource);
+		});
+        return promise1;
+	}
+
+	function cancelSending(message_msgId){
+		console.log("consider it done");
 	}
 	
     function load(){
@@ -70,9 +123,11 @@ return {
         save: save,
         loadFilters: loadFilters,
 		saveFilters: saveFilters,
+		saveConfigs: saveConfigs,
 		identityPrivacy: identityPrivacy,
 		loadModules: loadModules,
 		loadPrivacyData: loadPrivacyData ,
-		loadMessages: loadMessages 
+		loadMessages: loadMessages,
+		cancelSending: cancelSending 
     };
 }());

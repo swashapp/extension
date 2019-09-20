@@ -27,24 +27,24 @@ class DelaySend extends React.Component {
 
   render() {
     const {isOpened} = this.state;
-    let progress_percentage = 55; //this.props.delay
+    let progress_percentage = this.props.percentage;
     let iconArrow = isOpened? icon_open: icon_closed;
     return (
       <div>
         <div className="accordion-head" >
-          <div className="accordion-domain">{this.props.domain}</div>
-          <div className="accordion-module">{this.props.module}</div>
+          <div className="accordion-domain">{this.props.message.link}</div>
+          <div className="accordion-module">{this.props.message.title}</div>
           <MDBProgress className="my-2" material value={progress_percentage} className="accordion-delay" color="info" />
-          <img src={icon} className="accordion-icon" />
+          <img src={this.props.message.icon} className="accordion-icon" />
           <div className="accordion-checkbox" onClick={() => this.setState({isOpened: !isOpened})} ><img src={iconArrow}  /></div>
-          <a className="accordion-delete" />
+          <a className="accordion-delete" onClick={() => this.props.onDelete(this.props.message)} />
         </div>
 
         <Collapse isOpened={isOpened}>
           <div className="accordion-text">
-            <pre>
-            {this.props.message.data}
-            </pre>
+            
+            <pre>{JSON.stringify(this.props.message.msg, null, 4)}</pre>
+            
           </div>
         </Collapse>
       </div>

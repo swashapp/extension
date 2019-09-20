@@ -31,68 +31,90 @@ simpleNumberLocalizer();
 class DataPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {          
-            email: "",
-            walletId: "",
-            delay: 0
-        };
     }
+
+    state = {
+        messages: [],
+        delay:0
+    };
+      
+    loadDelay() {
+        window.helper.load().then(db => {
+            let that = this;            
+            this.setState({delay:db.configs.delay})
+        });
+    }
+
 
     componentDidMount() {
-        this.loadSettings()
-    }
-      
-    loadSettings() {
-        // window.helper.load().then(db => {
-        //  //document.getElementById('push').checked = db.configs.pushStatus;
-        //  document.getElementById('email').setAttribute('valuex','1') ;
-        //  document.getElementById('wallet').setAttribute('valuex','1') ;
-        //  let email = db.profile.email;
-        //  let walletId = db.profile.walletId;
-        //  let that = this;            
-  //           this.setState({email:email, walletId:walletId, delay:db.configs.delay})
-        // });
-    }
-    handleChange(delay) {
-        this.setState({delay: delay});
+        this.loadDelay()
+        //Load Messages
+        let that = this;
+        
+        async function loader() {
+            let retMessages = await window.helper.loadMessages();
+            let db = await window.helper.load();
+            let modules = db.modules;
+            let delay = db.configs.delay*60000;
+            let currentTime = Number((new Date()).getTime());
+            let messages = [];
+            for(let msgId in retMessages){
+                let host = "Undetermined"
+                let msg = retMessages[msgId].message;
+                let percentage = Math.round((currentTime - retMessages[msgId].createTime)*100/delay);
+                percentage = (percentage > 100)?100:percentage;
+                try {
+                    host = (new URL(msg.origin)).host;                  
+                }
+                catch(err) {
+                    
+                }               
+                //delete msg.origin
+                 messages.push({
+                    percentage: percentage,
+                    currentTime: currentTime,
+                    msg: msg,
+                    msgId: retMessages[msgId].id,
+                    icon: modules[msg.header.module].icons[0],
+                    link: host,
+                    title: msg.header.module
+                })
+            }
+            that.setState({messages : messages})
+        }
+        loader();
+        this.interval = setInterval(loader, 1000);      
+    };
+
+    componentDidUpdate() {
+
     }
     
-    render() {
-        let dataToBeSend = [
-            {
-                domain: "en.wikipedia.org",
-                module: "BROWSE",
-                dalay: 60,
-                data: "{\r\n    \"header\": {\r\n        \"function\": \"browsing\",\r\n        \"module\": \"Surfing\",\r\n        \"collector\": \"Page Visit\",\r\n        \"privacyLevel\": 3,\r\n        \"version\": \"0.7.8\"\r\n    },\r\n    \"data\": {\r\n        \"url\": \"https:\/\/en.wikipedia.org\/9b43\/71672544\"\r\n    },\r\n    \"identity\": {\r\n        \"uid\": \"e9810fa424aeabf40e1dc0dad5eb02e6240e7530bc3ee836703df0d6ab60d284\",\r\n        \"walletId\": \"\",\r\n        \"email\": \"\"\r\n    }\r\n}"
-            },
-            {
-                domain: "en.wikipedia.org",
-                module: "BROWSE",
-                dalay: 40,
-                data: "{\r\n    \"header\": {\r\n        \"function\": \"browsing\",\r\n        \"module\": \"Surfing\",\r\n        \"collector\": \"Page Visit\",\r\n        \"privacyLevel\": 3,\r\n        \"version\": \"0.7.8\"\r\n    },\r\n    \"data\": {\r\n        \"url\": \"https:\/\/en.wikipedia.org\/9b43\/71672544\"\r\n    },\r\n    \"identity\": {\r\n        \"uid\": \"e9810fa424aeabf40e1dc0dad5eb02e6240e7530bc3ee836703df0d6ab60d284\",\r\n        \"walletId\": \"\",\r\n        \"email\": \"\"\r\n    }\r\n}"
-            },
-            {
-                domain: "en.wikipedia.org",
-                module: "BROWSE",
-                dalay: 30,
-                data: "{\r\n    \"header\": {\r\n        \"function\": \"browsing\",\r\n        \"module\": \"Surfing\",\r\n        \"collector\": \"Page Visit\",\r\n        \"privacyLevel\": 3,\r\n        \"version\": \"0.7.8\"\r\n    },\r\n    \"data\": {\r\n        \"url\": \"https:\/\/en.wikipedia.org\/9b43\/71672544\"\r\n    },\r\n    \"identity\": {\r\n        \"uid\": \"e9810fa424aeabf40e1dc0dad5eb02e6240e7530bc3ee836703df0d6ab60d284\",\r\n        \"walletId\": \"\",\r\n        \"email\": \"\"\r\n    }\r\n}"
-            },
-            {
-                domain: "en.wikipedia.org",
-                module: "BROWSE",
-                dalay: 50,
-                data: "{\r\n    \"header\": {\r\n        \"function\": \"browsing\",\r\n        \"module\": \"Surfing\",\r\n        \"collector\": \"Page Visit\",\r\n        \"privacyLevel\": 3,\r\n        \"version\": \"0.7.8\"\r\n    },\r\n    \"data\": {\r\n        \"url\": \"https:\/\/en.wikipedia.org\/9b43\/71672544\"\r\n    },\r\n    \"identity\": {\r\n        \"uid\": \"e9810fa424aeabf40e1dc0dad5eb02e6240e7530bc3ee836703df0d6ab60d284\",\r\n        \"walletId\": \"\",\r\n        \"email\": \"\"\r\n    }\r\n}"
-            },
-            {
-                domain: "reddit.com",
-                module: "BROWSE",
-                dalay: 60,
-                data: "{\r\n    \"header\": {\r\n        \"function\": \"browsing\",\r\n        \"module\": \"Surfing\",\r\n        \"collector\": \"Page Visit\",\r\n        \"privacyLevel\": 3,\r\n        \"version\": \"0.7.8\"\r\n    },\r\n    \"data\": {\r\n        \"url\": \"https:\/\/en.wikipedia.org\/9b43\/71672544\"\r\n    },\r\n    \"identity\": {\r\n        \"uid\": \"e9810fa424aeabf40e1dc0dad5eb02e6240e7530bc3ee836703df0d6ab60d284\",\r\n        \"walletId\": \"\",\r\n        \"email\": \"\"\r\n    }\r\n}"
-            }
-        ];
+    componentWillUnmount() {
+      clearInterval(this.interval);
+    }   
 
-        let collapses = dataToBeSend.map((item)=>{
-            return (<DelaySend isOpened={false} message={item} data={item.data} domain={item.domain} module={item.module} delay={item.delay} />);
+    
+    render() {
+
+        const deleteMsg = (message)=>{
+            var messages = this.state.messages.filter(function(msg, index, arr){
+                return msg.msgId != message.msgId;
+            });
+            //clearTimeout(message.msgId);          
+            window.helper.cancelSending(message.msgId);
+            this.setState({messages : messages});
+        };
+        const saveDelay = (delay) => {
+            window.helper.saveConfigs({delay: delay}).then(() => {
+                NotificationManager.success('Configuration is updated successfully', 'Update Configuration');
+            })
+            
+        };
+
+
+        let collapses = this.state.messages.map((item)=>{
+            return (<DelaySend isOpened={false} message={item} onDelete={deleteMsg} />);
         });
 
         
@@ -109,7 +131,7 @@ class DataPage extends React.Component {
                                 <div className="form-caption">Delay data send</div>
                                 <div>
                                     <NumberPicker
-                                        
+                                        onChange={value => saveDelay(value)}
                                         defaultValue={5}
                                         className="delayNumberPicker"
                                       />
