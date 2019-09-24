@@ -1642,6 +1642,15 @@ left: 72px;
   border: 1px solid rgb(239, 239, 239);
 }
 
+
+.mask-input{
+  width: 592px;
+}
+
+.filter-input{
+  width: 432px;
+}
+
 #advanced-page .table-row .disabledUrl{
   width: 432px;
   height: 40px;

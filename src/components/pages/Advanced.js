@@ -20,126 +20,157 @@ import {
     MDBBtn,
     MDBIcon
 } from 'mdbreact';
-import src1 from '../../assets/img-1.jpg';
-
 simpleNumberLocalizer();
 
 class AdvancedPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {          
-            email: "",
-            walletId: "",
-            delay: 0
+        this.state={
+            filters:[],
+            masks:[]
         };
     }
 
     componentDidMount() {
-        this.loadSettings()
-    }
-      
-    loadSettings() {
-        // window.helper.load().then(db => {
-        //  //document.getElementById('push').checked = db.configs.pushStatus;
-        //  document.getElementById('email').setAttribute('valuex','1') ;
-        //  document.getElementById('wallet').setAttribute('valuex','1') ;
-        //  let email = db.profile.email;
-        //  let walletId = db.profile.walletId;
-        //  let that = this;            
-  //           this.setState({email:email, walletId:walletId, delay:db.configs.delay})
-        // });
-    }
-    handleChange(delay) {
-        this.setState({delay: delay});
+        let that = this;
+        async function loader() {
+            let filters = await window.helper.loadFilters();
+            let newFilters = [];
+            for(let x in filters){
+                 newFilters.push({
+                    'value': filters[x].value,
+                    'type':filters[x].type,
+                    'internal': filters[x].internal
+                })
+            }
+
+            let masks = await window.helper.loadPrivacyData();
+            let newMasks = [];
+            for(let x in masks){
+                 newMasks.push({
+                    'value': masks[x].value
+                })
+            }
+            
+            that.setState({filters : newFilters, masks: newMasks})
+        }
+        loader();
+    };
+
+
+    deleteFilterRecord(id){
+        let newArray = [];
+        let storageArray = [];
+        for(let i in this.state.filters){
+           
+            if(this.state.filters[i].value !== id){
+                newArray.push(this.state.filters[i]);
+                storageArray.push({type: this.state.filters[i].type, value: this.state.filters[i].value, internal: this.state.filters[i].internal})
+            }                    
+        }
+        window.helper.saveFilters(storageArray)        
+        this.setState({filters: newArray});        
     }
     
-    render() {
-        let excludeTableData = [
-            {
-                url: "https://www.amazon.com/ap/signin*",
-                type: "Wildcard"
-            
-            },
-            {
-                url: "https://www.facebook.com/login*",
-                type: "Wildcard"
-            
-            },
-            {
-                url: "https://www.facebook.com/v3.2/dialog/oauth*",
-                type: "Wildcard"
-            
-            },
-            {
-                url: "https://login.yahoo.com/*",
-                type: "Wildcard"
-            
-            },
-            {
-                url: "https://accounts.google.com/*",
-                type: "Wildcard"
-            
-            },
-            {
-                url: "https://login.live.com/*",
-                type: "Wildcard"
-            
-            },
-            {
-                url: "https://login.aol.com/*",
-                type: "Wildcard"
-            
-            },
-            {
-                url: "https://twitter.com/login*",
-                type: "Wildcard"
-            
-            },
-            {
-                url: "https://twitter.com/account*",
-                type: "Wildcard"
-            
-            },
-            {
-                url: "https://drive.google.com/*",
-                type: "Wildcard"
-            
+    deleteMaskRecord(id){
+        let newArray = [];
+        let storageArray = [];
+        for(let i in this.state.masks){
+
+            if(this.state.masks[i].value !== id){
+                newArray.push(this.state.masks[i]);
+                storageArray.push({value:this.state.masks[i].value})
+
             }
-        ];
-        let excludeTableDataRows =  excludeTableData.map( (row) => { return (<tr className="table-row">                                    
-                                                <td className="table-text"><input type="text" value={row.url} disabled className="disabledUrl" /></td>
+        }
+        window.helper.savePrivacyData(storageArray)
+        this.setState({masks:newArray});
+    }
+
+
+addFilter(){
+            let that = this;
+            let f = {
+                value : document.getElementById('filterValue').value,
+                type  : document.getElementById('filterOption').value,
+                internal: false
+            };  
+            let allow = true;
+            window.helper.loadFilters().then(filter => {
+                for(let i in filter){
+                    if(filter[i].value === f.value){
+                        allow = false ;                        
+                    }
+                }
+                if(allow){                   
+                  filter.push(f);
+                  window.helper.saveFilters(filter);
+                  let i = this.state.filters;
+                  i.push(f)
+                  this.setState({filters:i})
+                }else{
+                    alert('duplicate')
+                }
+             
+                })                     
+        }
+        
+    addMask(){
+            let that = this;
+            let f = {
+                value: document.getElementById('maskValue').value,
+            };            
+            
+
+            let allow = true;
+            window.helper.loadPrivacyData().then(pData => {
+                for (let i in pData) {
+                    if (pData[i].value === f.value) {
+                        allow = false;
+                    }
+                }
+                if (allow) {
+                    pData.push(f);
+                    window.helper.savePrivacyData(pData);
+                    let i = this.state.masks;
+                    i.push(f)
+                    this.setState({masks:i})
+                } else {
+                    alert('duplicate')
+                }
+            })
+        }
+
+
+    render() {
+        let excludeTableDataRows =  this.state.filters.map( (row) => { return (<tr key={row.value} className="table-row">                                    
+                                                <td className="table-text"><input type="text" value={row.value} disabled className="disabledUrl" /></td>
                                                 <td className="table-text"><input type="text" value={row.type} disabled className="disabledMatchingType" /></td>
-                                                <td className="table-text"><button >Delete</button></td>
+                                                <td className="table-text"><button onClick={()=>this.deleteFilterRecord(row.value)}>Delete</button></td>
                                             </tr>)});
         let addXUrl = (<div><div className="form-caption">Add a URL to exclude</div>
                             <div>
-                                <input type="text" className="form-input"/>
+                                <input type="text" id="filterValue" className="form-input  filter-input"/>
                             </div></div>);
         let addXType = (<select id='filterOption' className="browser-default custom-select">
                             <option value="exact">Exact</option>
                             <option value="regex">Regular Expression</option>
                             <option value="wildcard">Wild Card</option>
                         </select>);
-        let AddXButton = (<button>Add</button>);
+        let AddXButton = (<button onClick={()=> this.addFilter()}>Add</button>);
 
 
-        let maskTableData = [
-            {
-                text: "Jane@example.com"
-            
-            }
-        ];
-        let maskTableDataRows =  maskTableData.map( (row) => { return (<tr className="table-row">                                    
-                                                <td className="table-text" style={{width: 592}}><input type="text" value={row.text} className="disabledMaskedText" /></td>
-                                                <td className="table-text"><button >Delete</button></td>
+        let maskTableDataRows =  this.state.masks.map( (row) => { return (<tr key={row.value} className="table-row">                                    
+                                                <td className="table-text" style={{width: 592}}><input type="text" value={row.value} disabled className="disabledMaskedText" /></td>
+                                                <td className="table-text"><button onClick={()=>{this.deleteMaskRecord(row.value)}}>Delete</button></td>
                                             </tr>)});
         let addMaskText = (<div>
                 <div className="form-caption">Add a text mask</div>
                 <div>
-                    <input type="text" className="form-input"/>
+                    <input type="text" id="maskValue" className="form-input mask-input" />
                 </div>
             </div>);
-        let AddMaskButton = (<button>Add</button>);
+        let AddMaskButton = (<button onClick={()=>this.addMask()}>Add</button>);
 
 
         return (
