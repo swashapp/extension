@@ -24,7 +24,9 @@ class Routes extends React.Component {
 			<Route path='/Marketplace' render={()=><Marketplace reload={this.props.reload}/>} />
 			<Route path='/Dashboard' component={Profile} />
 			<Route path='/Profile' component={Profile} />
-			<Route path='/Settings' component={Settings} />
+			<Route path='/Settings'  render={()=>
+				<Settings resource={this.props.resource} reload={this.props.reload}/>
+				} />
 			<Route path='/Help' component={Help} />
 			<Route path='/Advanced' component={Advanced} />
 			<Route path='/Data' component={Data} />

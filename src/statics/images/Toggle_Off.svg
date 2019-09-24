@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="16px" viewBox="0 0 28 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 57.1 (101010) - https://sketch.com -->
+    <title>94C9CF2F-CCB5-44E3-9910-8D94253C2F8A@1.00x</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <circle id="path-1" cx="10.5" cy="12" r="6"></circle>
+        <filter x="-25.0%" y="-25.0%" width="150.0%" height="150.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Swash-Views" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Main-View-Facebook-open" transform="translate(-1028.000000, -1244.000000)">
+            <g id="Group-9" transform="translate(400.000000, 843.000000)">
+                <g id="Browse" transform="translate(0.000000, 373.000000)">
+                    <g id="Icons-/-Toggle-/-Off" transform="translate(626.000000, 24.000000)">
+                        <rect id="Rectangle-6" fill="#D8D8D8" fill-rule="evenodd" x="3" y="4.5" width="27" height="15" rx="7.5"></rect>
+                        <g id="Oval-3">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

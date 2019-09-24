@@ -44,7 +44,12 @@ var helper = (function() {
         return filters
     }
 	
-	function loadModules(){        
+	function loadModules(){  
+		return [
+			{ title: "BROWSE"},
+			{ title: "SEARCH"},
+			{ title: "Facebook"}
+		];      
     }
 	
 	function loadPrivacyData () {		

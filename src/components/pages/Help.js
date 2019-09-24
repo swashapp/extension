@@ -36,7 +36,7 @@ class HelpPage extends React.Component {
     render() {
         
         return (
-            <div id="settings-page" className="swash-col">
+            <div id="help-page" className="swash-col">
                 <React.Fragment>
                     <div className="swash-col">
                         <div className="setting-part">

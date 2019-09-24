@@ -21,6 +21,8 @@ import {
     MDBIcon
 } from 'mdbreact';
 import src1 from '../../assets/img-1.jpg';
+import ModuleView from '../microcomponents/ModuleView';
+import PrivacyLevel from '../microcomponents/PrivacyLevel';
 
 simpleNumberLocalizer();
 
@@ -74,6 +76,10 @@ class SettingsPage extends React.Component {
                 })
             })
         };
+
+        const changePrivacyLevel = (lvl) => {
+
+        };
        
        
         const changeInput = (e) => {
@@ -104,38 +110,7 @@ class SettingsPage extends React.Component {
         };
         let currentBalance1 = "48.92";
         let currentBalance2 = "36.67";
-        let privacyTableData = [
-            {
-                type: "URL",
-                data: "www.test.com",
-                refreshed: "-"
-            },{
-                type: "Time",
-data: "Thu 15 Aug 2019",
-refreshed: "-"
-            },{
-                type: "Text",
-data: "A sentence containing *****",
-refreshed: "-"
-            },{
-                type: "Id",
-data: "e0ede487Xc0a2",
-refreshed: "Every Hour"
-            },{
-                type: "Name",
-data: "Cx53eeApH63xV2LqP0x33",
-refreshed: "-"
-            },{
-                type: "Gender",
-data: "zp93jY7eXcQsW8mNh33tY",
-            refreshed: "-"
-            }
-        ];
-        let privacyTableDataRows =  privacyTableData.map( (row) => { return (<tr className="table-row">                                    
-                                                <td className="table-text table-head-text">{row.type}</td>
-                                                <td className="table-text">{row.data}</td>
-                                                <td className="table-text">{row.refreshed}</td>
-                                            </tr>)});
+        
         // let privacyTableDataRows = privacyTableData.map((row) => {
         //                             (<tr>                                    
         //                                 <td>{row.type}</td>
@@ -143,6 +118,11 @@ data: "zp93jY7eXcQsW8mNh33tY",
         //                                 <td>{row.refreshed}</td>
         //                             </tr>)
         //                         });
+
+        const modules = this.props.resource.map((module)=> {
+            return (<ModuleView isOpened={false} module={module} />)
+        });
+        let currentLevel = 1; // TODO load dynamically 
 
         return (
             <div id="settings-page" className="swash-col">
@@ -170,42 +150,36 @@ data: "zp93jY7eXcQsW8mNh33tY",
                                 <button className="form-input-button">...</button>
                             </div>
                         </div>
-                    </div>
+                    
 
 
-                    <div className="swash-col">
+                    
                         <div className="setting-part">
                             <div className="swash-head">Choose data to capture</div>
                             <div className="swash-p">To stream your web browsing behaviour, Swash uses a modular approach. By default, only 
 the Browse module is on. You can also optionally enable other modules in order to capture specific data from a variety of other popular sites. Click any module to adjust settings.</div>
-                        </div>
-                    </div>
-
-
-                    <div className="swash-col">
-                        <div className="setting-part">
-                            <div className="swash-head">Set global privacy level</div>
-                            <div className="swash-p">
-This allows you to set privacy levels across all your modules. Adjust them to choose
-the types of data you’d like to share and what to obscure or remove. You can also use the Advanced settings to block specific text (eg your name or address), sites and domains.</div>
-                        </div>
+                        
 
                         <div>
-                        <MDBTable>
-                        
-                            <MDBTableHead>
-                                <tr className="table-head-row">                               
-                                    <th className="table-text table-head-text">Type</th>
-                                    <th className="table-text table-head-text">Data to be sent</th>
-                                    <th className="table-text table-head-text">Refreshed</th>
-                                </tr>
-                            </MDBTableHead>
-                            <MDBTableBody>
-                                {privacyTableDataRows}                                
-                            </MDBTableBody>
-                        </MDBTable>
+                            {modules}
                         </div>
-                    </div>
+
+                        </div>
+                    
+
+
+                
+                    <div className="setting-part">
+                        <div className="swash-head">Set global privacy level</div>
+                        <div className="swash-p">
+This allows you to set privacy levels across all your modules. Adjust them to choose
+the types of data you’d like to share and what to obscure or remove. You can also use the Advanced settings to block specific text (eg your name or address), sites and domains.</div>
+                    
+
+                        <PrivacyLevel level={currentLevel} onChange={ (lvl)=> this.changePrivacyLevel(lvl) } />
+                        </div>  
+                </div>
+
 
 
                 </React.Fragment>

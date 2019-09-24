@@ -119,7 +119,7 @@ class DataPage extends React.Component {
 
         
         return (
-            <div id="settings-page" className="swash-col">
+            <div id="data-page" className="swash-col">
                 <React.Fragment>
                     <div className="swash-col">
                         <div className="setting-part">
