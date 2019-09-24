@@ -109,7 +109,7 @@ addFilter(){
                   i.push(f)
                   this.setState({filters:i})
                 }else{
-                    alert('duplicate')
+                    NotificationManager.error('Duplicate entry', 'Error');
                 }
              
                 })                     
@@ -136,7 +136,7 @@ addFilter(){
                     i.push(f)
                     this.setState({masks:i})
                 } else {
-                    alert('duplicate')
+                    NotificationManager.error('Duplicate entry', 'Error');
                 }
             })
         }
