@@ -13,6 +13,11 @@ class PrivacyLevel extends React.Component {
   }
 
 
+  setPrivacy(value){
+    this.setState({level: value});
+    // TODO save in db
+  }
+
   render() {
     // TODO table data
     let privacyTableData = [
@@ -105,7 +110,7 @@ data: "zp93jY7eXcQsW8mNh33tY",
                                                 <td className="table-text">{row.data}</td>
                                                 <td className="table-text">{row.refreshed}</td>
                                             </tr>)});
-    const rangeSelector = (<PrivacySelector handleClick={(value) => this.setState({level: value})} 
+    const rangeSelector = (<PrivacySelector handleClick={(value) => this.setPrivacy(value)} 
                                                  activeNav={this.state.level}/>);
     /*const rangeSelector = (<input type="range" className="privacy-range" min="0" max="2" 
                               defaultValue={this.state.level} 

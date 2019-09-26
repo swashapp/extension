@@ -1472,6 +1472,7 @@ font-weight: 500;
     border-top: 0px; 
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
+    padding: 24px
 }
 
 .accordion-domain{
@@ -1924,4 +1925,41 @@ input[type=range]:focus::-ms-fill-upper {
   padding: 8px 1px;
   color: #ff5c00;
 }
+
+
+.module-detail-view-description{
+  
+  color: rgb(50, 50, 50);
+  font-family: Roboto-Regular;
+  font-size: 14px;
+  font-weight: normal;
+  
+  letter-spacing: 0px;
+  line-height: 24px;
+}
+
+.module-detail-view-title{
+  color: rgb(50, 50, 50);
+font-family: Roboto-Medium;
+font-size: 16px;
+font-weight: 500;
+height: 40px;
+letter-spacing: 0px;
+line-height: 24px;
+margin-top: 32px;
+}
+
+.module-detail-view-checkbox-label{
+  
+color: rgb(50, 50, 50);
+font-family: Roboto-Regular;
+font-size: 16px;
+font-weight: normal;
+margin: 12px;
+letter-spacing: 0px;
+line-height: 40px;
+
+}
+
+
 
