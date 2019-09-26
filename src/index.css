@@ -1460,6 +1460,20 @@ font-weight: 500;
   border: 1px solid rgb(239, 239, 239);
 }
 
+.accordion-head-open{
+    border-bottom: 0px; 
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.accordion-body{
+  border-radius: 4px;
+  border: 1px solid rgb(239, 239, 239);
+    border-top: 0px; 
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
 .accordion-domain{
   color: rgb(50, 50, 50);
   font-family: Roboto-Medium;
@@ -1709,7 +1723,7 @@ left: 72px;
   height: 16px;
   letter-spacing: 1.5px;
   line-height: 16px;
-  text-align: right;
+  text-align: left;
   width: 49px;
 }
 
@@ -1808,3 +1822,106 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: #ff6c1a;
 }
+
+
+
+
+.privacy-selector-wrapper {
+  background: transparent;
+  position: absolute;
+  width: 600px;
+  top: 64px;
+}
+
+.privacy-nav-bar-line {
+  width: 100%;
+  position: absolute;
+  border-bottom: 3px solid #00000061;
+  right: 0px;
+  top: 0px;
+}
+.privacy-nav-selected{
+  border: 11px solid #ff5c00;
+  margin-top: -8px!important;
+  margin-left: -10px!important;
+}
+.privacy-nav-bar-line.active {
+  border-bottom: 3px solid #ff5c00;
+}
+.privacy-nav {
+  
+  display: inline-flex;
+  width: 300px;
+  position: relative;
+}
+.privacy-nav-h {
+  display: flex;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  color: transparent;
+  
+  cursor: pointer;
+  margin-top: -3px;
+  z-index: 9;
+  
+  
+  background: white;
+  
+
+  /*border: 2px solid;*/
+  position: absolute;
+  border-radius: 100%;
+}
+
+.privacy-nav .privacy-nav-title {
+  width: 100%;
+  text-align: center;
+  padding-top: 15px
+}
+
+.active .privacy-nav-h {
+  /*box-shadow: 0  0  0  15px rgba(0, 0, 0, 0.1);*/
+  width: 35px;
+  /*padding: 5px 11px;*/
+  height: 35px;
+  top: 0px;
+  
+
+}
+
+.privacy-nav-h.ok {
+  color: transparent;
+  
+  transition: opacity .4s !important;
+  background: #ff5c00;
+}
+.privacy-nav-h i {
+  font-size: 20px;
+  padding-top: 5px;
+  color: #7d6369;
+}
+.general-api-logo-2{
+    width:35px;
+
+}
+.privacy-nav-h .fa-wallet {
+  padding: 7px 3px;
+}
+.privacy-nav-h .fa-tasks {
+  padding: 7px 3px;
+}
+
+.privacy-nav-h .fa-map-marker-alt {
+  padding: 7px 6px;
+}
+
+.privacy-nav-h .fa-fingerprint {
+  padding: 8px 3px;
+}
+
+.privacy-nav-h .fa-handshake {
+  padding: 8px 1px;
+  color: #ff5c00;
+}
+

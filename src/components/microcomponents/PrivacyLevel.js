@@ -3,6 +3,7 @@ import {
     MDBTable, MDBTableBody,
     MDBTableHead
 } from 'mdbreact';
+import PrivacySelector from '../microcomponents/PrivacySelector'
 
 class PrivacyLevel extends React.Component {
 
@@ -104,10 +105,9 @@ data: "zp93jY7eXcQsW8mNh33tY",
                                                 <td className="table-text">{row.data}</td>
                                                 <td className="table-text">{row.refreshed}</td>
                                             </tr>)});
-    return (
-      <>
-          <div className="privacy-block">
-                            <input type="range" className="privacy-range" min="0" max="2" 
+    const rangeSelector = (<PrivacySelector handleClick={(value) => this.setState({level: value})} 
+                                                 activeNav={this.state.level}/>);
+    /*const rangeSelector = (<input type="range" className="privacy-range" min="0" max="2" 
                               defaultValue={this.state.level} 
                               onChange={(event) => this.setState({level: event.target.value})}/>
                             <div>
@@ -118,6 +118,15 @@ data: "zp93jY7eXcQsW8mNh33tY",
                                 <div className={`privacy-label ${this.state.level == "2" ? 'privacy-label-selected':''}`}  
                                   style={{position: "absolute", bottom: 36, right: 24}}>HIGH</div>
                             </div>
+
+
+                              );
+*/
+    return (
+      <>
+          <div className="privacy-block">
+                            {rangeSelector}
+                            
                         </div>
                         <div>
                             <MDBTable>

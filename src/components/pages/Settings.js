@@ -119,9 +119,9 @@ class SettingsPage extends React.Component {
         //                             </tr>)
         //                         });
 
-        const modules = this.props.resource.map((module)=> {
-            return (<ModuleView isOpened={false} module={module} />)
-        });
+        const modules = (this.props.resource)?(this.props.resource.map((module)=> {
+                return (<ModuleView isOpened={false} module={module} />)
+            })): (<></>);
         let currentLevel = 1; // TODO load dynamically 
 
         return (
