@@ -1893,13 +1893,29 @@ input[type=range]:focus::-ms-fill-upper {
   right: 0px;
   top: 0px;
 }
-.privacy-nav-selected{
+.privacy-nav-selected0{
+  border: 11px solid #ff0f2d;
+  margin-top: -8px!important;
+  margin-left: -10px!important;
+}
+.privacy-nav-selected1{
   border: 11px solid #ff5c00;
   margin-top: -8px!important;
   margin-left: -10px!important;
 }
-.privacy-nav-bar-line.active {
+.privacy-nav-selected2{
+  border: 11px solid #2ac437;
+  margin-top: -8px!important;
+  margin-left: -10px!important;
+}
+.privacy-nav-bar-line.active0 {
+  border-bottom: 3px solid #ff0f2d;
+}
+.privacy-nav-bar-line.active1 {
   border-bottom: 3px solid #ff5c00;
+}
+.privacy-nav-bar-line.active2 {
+  border-bottom: 3px solid #2ac437;
 }
 .privacy-nav {
   
@@ -1943,12 +1959,27 @@ input[type=range]:focus::-ms-fill-upper {
 
 }
 
-.privacy-nav-h.ok {
+.privacy-nav-h.ok0{
+  color: transparent;
+  
+  transition: opacity .4s !important;
+  background: #ff0f2d;
+}
+.privacy-nav-h.ok1 {
   color: transparent;
   
   transition: opacity .4s !important;
   background: #ff5c00;
 }
+.privacy-nav-h.ok2 {
+  color: transparent;
+  
+  transition: opacity .4s !important;
+  background: #2ac437;
+}
+
+
+
 .privacy-nav-h i {
   font-size: 20px;
   padding-top: 5px;
@@ -1977,7 +2008,6 @@ input[type=range]:focus::-ms-fill-upper {
   padding: 8px 1px;
   color: #ff5c00;
 }
-
 
 .module-detail-view-description{
   

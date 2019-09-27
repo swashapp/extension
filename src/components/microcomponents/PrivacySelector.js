@@ -11,17 +11,16 @@ class PrivacySelector extends React.Component {
         };
 
 
-
         return (
             <div className={'privacy-selector-wrapper'}>
                 {navs.map((ob, id) => <>
-        {id !== navs.length-1 ? <div className={'privacy-nav-bar-line '+(this.props.activeNav>id?'active':'')}
+        {id !== navs.length-1 ? <div className={'privacy-nav-bar-line '+(this.props.activeNav>id?'active' + this.props.activeNav :'')}
                             style={{top: 0, left: (id * 100 / (navs.length-1))+"%", width: (100 / (navs.length-1)) + "%" }}
         />: ''}
         
 
         <div onClick={()=>handleClick(id)} 
-            className={'privacy-nav-h '+(this.props.activeNav > id? 'ok':'') + (this.props.activeNav===id?' privacy-nav-selected':'')}
+            className={'privacy-nav-h '+(this.props.activeNav > id? 'ok'+ this.props.activeNav:'') + (this.props.activeNav===id?' privacy-nav-selected' + this.props.activeNav:'')}
             style={{top: 0, left: (id * 100 / (navs.length-1))+"%" }}
 
             ></div>
