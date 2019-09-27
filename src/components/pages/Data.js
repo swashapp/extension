@@ -47,6 +47,9 @@ class DataPage extends React.Component {
 
 
     componentDidMount() {
+        
+  window.scrollTo(0, 0);
+
         this.loadDelay()
         //Load Messages
         let that = this;

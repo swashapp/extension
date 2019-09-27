@@ -32,6 +32,7 @@ class AdvancedPage extends React.Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         let that = this;
         async function loader() {
             let filters = await window.helper.loadFilters();
@@ -146,7 +147,7 @@ addFilter(){
         let excludeTableDataRows =  this.state.filters.map( (row) => { return (<tr key={row.value} className="table-row">                                    
                                                 <td className="table-text"><input type="text" value={row.value} disabled className="disabledUrl" /></td>
                                                 <td className="table-text"><input type="text" value={row.type} disabled className="disabledMatchingType" /></td>
-                                                <td className="table-text"><button onClick={()=>this.deleteFilterRecord(row.value)}>Delete</button></td>
+                                                <td className="table-text"><a className="linkbutton" onClick={()=>this.deleteFilterRecord(row.value)}>Delete</a></td>
                                             </tr>)});
         let addXUrl = (<div><div className="form-caption">Add a URL to exclude</div>
                             <div>
@@ -157,12 +158,12 @@ addFilter(){
                             <option value="regex">Regular Expression</option>
                             <option value="wildcard">Wild Card</option>
                         </select>);
-        let AddXButton = (<button onClick={()=> this.addFilter()}>Add</button>);
+        let AddXButton = (<a className="linkbutton" onClick={()=> this.addFilter()}>Add</a>);
 
 
         let maskTableDataRows =  this.state.masks.map( (row) => { return (<tr key={row.value} className="table-row">                                    
                                                 <td className="table-text" style={{width: 592}}><input type="text" value={row.value} disabled className="disabledMaskedText" /></td>
-                                                <td className="table-text"><button onClick={()=>{this.deleteMaskRecord(row.value)}}>Delete</button></td>
+                                                <td className="table-text"><a className="linkbutton" onClick={()=>{this.deleteMaskRecord(row.value)}}>Delete</a></td>
                                             </tr>)});
         let addMaskText = (<div>
                 <div className="form-caption">Add a text mask</div>
@@ -170,7 +171,7 @@ addFilter(){
                     <input type="text" id="maskValue" className="form-input mask-input" />
                 </div>
             </div>);
-        let AddMaskButton = (<button onClick={()=>this.addMask()}>Add</button>);
+        let AddMaskButton = (<a className="linkbutton" onClick={()=>this.addMask()}>Add</a>);
 
 
         return (

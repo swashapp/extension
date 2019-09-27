@@ -15,7 +15,8 @@ class ModuleView extends React.Component {
 
 
   static defaultProps = {
-    isOpened: false
+    isOpened: false,
+    isActive: false
   };
 
 
@@ -26,18 +27,18 @@ class ModuleView extends React.Component {
 
 
   render() {
-    const {isOpened} = this.state;
+    const {isOpened, isActive} = this.state;
     let progress_percentage = this.props.percentage;
-    let iconArrow = isOpened? icon_open: icon_closed;
+    let iconArrow = isActive? icon_open: icon_closed;
     let icon = (this.props.module.icons)? this.props.module.icons[0]: icon_default;
     let classBody = "accordion-body";
     let classHeader = (isOpened)?"accordion-head accordion-head-open":"accordion-head";
     return (
       <div>
         <div className={classHeader} >
-          <div className="accordion-module-name">{this.props.module.name}</div>
-          <img src={icon} className="accordion-module-icon" />
-          <div className="accordion-switch" onClick={() => this.setState({isOpened: !isOpened})} ><img src={iconArrow}  /></div>
+          <div className="accordion-module-name" onClick={() => this.setState({isOpened: !isOpened})}>{this.props.module.name}</div>
+          <img src={icon} className="accordion-module-icon" onClick={() => this.setState({isOpened: !isOpened})} />
+          <div className="accordion-switch" onClick={() => this.setState({isActive: !isActive})} ><img src={iconArrow}  /></div>
           
         </div>
 

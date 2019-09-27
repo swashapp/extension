@@ -37,7 +37,8 @@ class SettingsPage extends React.Component {
     }
 
     componentDidMount() {
-        this.loadSettings()
+        this.loadSettings();
+        window.scrollTo(0, 0);
     }
       
     loadSettings() {
