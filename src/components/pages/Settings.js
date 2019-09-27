@@ -23,6 +23,7 @@ import {
 import src1 from '../../assets/img-1.jpg';
 import ModuleView from '../microcomponents/ModuleView';
 import PrivacyLevel from '../microcomponents/PrivacyLevel';
+import RevealButton from '../microcomponents/RevealButton';
 
 simpleNumberLocalizer();
 
@@ -145,13 +146,14 @@ class SettingsPage extends React.Component {
                                 <div className="withdraw-btn"><a >Withdraw DATA</a></div>
                             </div>
                             <div className="form-caption">Wallet address</div>
-                            <div>
+                            <div style={{position: 'relative'}}>
                                 <input type="text" className="form-input"/>
                                 <button className="form-input-button">Copy</button>
                             </div>
                             <div className="form-caption">Private key </div>
-                            <div>
+                            <div style={{position: 'relative'}}>
                                 <input type="password" className="form-input"/>
+                                {/*<RevealButton className="form-input-button" />*/}
                                 <button className="form-input-button">...</button>
                             </div>
                         </div>
