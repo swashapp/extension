@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 
+import checked from '../../statics/images/checked.svg';
+import unchecked from '../../statics/images/Unchecked.svg';
 
 class CustomCheckBox extends React.Component {
   static propTypes = {
@@ -25,15 +27,11 @@ class CustomCheckBox extends React.Component {
 
   render() {
     const {isChecked} = this.state;
+    const icon = isChecked? checked: unchecked;
     return (
-      <div className={`custom-checkbox-container ${this.props.className}`} >
-            <input
-              type="checkbox"
-              className="custom-checkbox"
-              checked={isChecked}
-              onChange={(e)=> this.handleChange(e)} />
-            <div className="custom-checkbox-view"></div>
-        </div>
+      <div className="checkbox" onClick={()=>{this.setState({isChecked: !isChecked}); this.props.handleClick()}}>
+        <img src={icon} style={{width: 16, height:16}} />
+      </div>
     );
   }
 }

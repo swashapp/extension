@@ -1954,17 +1954,17 @@ line-height: 24px;
 
 }
 
-.module-detail-view-checkbox label{
+.module-detail-view-checkbox .label{
   
 }
 
-.module-detail-view-checkbox input{
+.module-detail-view-checkbox .checkbox {
   margin-right: 16px;
-  margin-top: 12px;
+  margin-top: 6px;
   float: left;
 }
 
-.module-detail-view-checkbox div{
+.module-detail-view-checkbox .label{
   float: left;
   color: rgb(50, 50, 50);
   font-family: Roboto-Regular;
@@ -1991,7 +1991,7 @@ line-height: 24px;
  width: 210px;
 }
 
-.checkbox-container .module-detail-view-checkbox div{
+.checkbox-container .module-detail-view-checkbox .label{
  width: 150px;
 }
 

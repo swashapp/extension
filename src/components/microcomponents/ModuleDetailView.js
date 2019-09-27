@@ -1,5 +1,7 @@
 import React from 'react';
 
+import CustomCheckBox from './CustomCheckBox';
+
 class ModuleDetailView extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +24,10 @@ class ModuleDetailView extends React.Component {
       <div className={(this.props.module.browsing.length>5)?"checkbox-container":""}>
         {this.props.module.browsing.map( (data, id)=> 
             <div className="module-detail-view-checkbox" >
-            <label><input type="checkbox" value={data.name} /><div>{data.title}</div></label>
+            <label>{/*<input type="checkbox" value={data.name} />*/}
+
+<CustomCheckBox handleClick={()=> console.log(data.name) } />
+            <div className="label">{data.title}</div></label>
           </div>
           )}
       </div>
@@ -41,7 +46,9 @@ class ModuleDetailView extends React.Component {
       <div className={(this.props.module.apiCall.length>5)?"checkbox-container":""}>
       {this.props.module.apiCall.map( (data, id)=> 
           <div className="module-detail-view-checkbox" >
-            <label><input type="checkbox" value={data.name} /><div>{data.title}</div></label>
+            <label>
+<CustomCheckBox handleClick={()=> console.log(data.name) } />
+{/*<input type="checkbox" value={data.name} />*/}<div className="label">{data.title}</div></label>
           </div>
           )}
       </div>
@@ -59,7 +66,8 @@ class ModuleDetailView extends React.Component {
       <div className={(this.props.module.content.length>5)?"checkbox-container":""}>
       {this.props.module.content.map( (data, id)=> 
             <div className="module-detail-view-checkbox" >
-            <label><input type="checkbox" value={data.name} /><div>{data.title}</div></label>
+            <label><CustomCheckBox handleClick={()=> console.log(data.name) } />
+          {/*<input type="checkbox" value={data.name} />*/}<div className="label">{data.title}</div></label>
           </div>
           )}
         
@@ -91,7 +99,7 @@ class ModuleDetailView extends React.Component {
     const checkbox = (<div className={"checkbox-container"} style={{marginTop:48}}>
       {chks.map( (data, id)=> 
             <div className="module-detail-view-checkbox" >
-            <label><input type="checkbox" value={data.name} /><div>{data.title}</div></label>
+            <label><CustomCheckBox handleClick={()=> console.log(data.name) } /><div className="label">{data.title}</div></label>
           </div>
           )}
         
