@@ -1946,20 +1946,104 @@ font-weight: 500;
 height: 40px;
 letter-spacing: 0px;
 line-height: 24px;
-margin-top: 32px;
+
 }
 
-.module-detail-view-checkbox-label{
+.module-detail-view-checkbox{
+ 
+
+}
+
+.module-detail-view-checkbox label{
   
-color: rgb(50, 50, 50);
+}
+
+.module-detail-view-checkbox input{
+  margin-right: 16px;
+  margin-top: 12px;
+  float: left;
+}
+
+.module-detail-view-checkbox div{
+  float: left;
+  color: rgb(50, 50, 50);
+  font-family: Roboto-Regular;
+  font-size: 16px;
+  font-weight: normal;
+
+  letter-spacing: 0px;
+  line-height: 40px;
+
+}
+
+.checkbox-container{
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.module-detail-view-title-container{
+  position: relative;
+  margin-bottom: 28px;
+  margin-top: 32px;
+}
+.checkbox-container .module-detail-view-checkbox{
+ width: 210px;
+}
+
+.checkbox-container .module-detail-view-checkbox div{
+ width: 150px;
+}
+
+
+.module-detail-view-title-container .oauth_btn{
+  position: absolute;
+  right: 0px;
+  top: 0px;
+
+background-color: white;
+
+  color: rgb(50, 50, 50);
+font-family: Roboto-Medium;
+font-size: 12px;
+font-weight: 500;
+height: 32px;
+letter-spacing: 0px;
+line-height: 32px;
+text-align: center;
+width: 144px;
+border-radius: 4px;
+border: 1px solid rgb(50, 50, 50);
+height: 32px;
+width: 144px;
+
+}
+
+.module-btn{
+  background: rgb(239, 239, 239);
+  border-radius: 4px;
+  height: 40px;
+  
+  color: rgb(50, 50, 50);
+font-family: Roboto-Medium;
+font-size: 14px;
+font-weight: 500;
+
+letter-spacing: 0px;
+line-height: 22px;
+text-align: center;
+
+padding-top: 8px;
+    margin-right: 8px;
+
+}
+
+select{
+  color: rgb(50, 50, 50);
 font-family: Roboto-Regular;
 font-size: 16px;
 font-weight: normal;
-margin: 12px;
+height: 40px;
 letter-spacing: 0px;
-line-height: 40px;
-
+line-height: 20px;
 }
-
-
-
