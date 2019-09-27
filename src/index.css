@@ -1646,6 +1646,7 @@ left: 72px;
   text-align: center;
   padding: 8px;
   border: 0px;
+  display: block
 }
 
 #advanced-page .table-row .disabledMatchingType{
