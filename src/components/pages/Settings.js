@@ -111,6 +111,7 @@ class SettingsPage extends React.Component {
         };
         let currentBalance1 = "48.92";
         let currentBalance2 = "36.67";
+        let cumulativeEarnings="761.59";
         
         // let privacyTableDataRows = privacyTableData.map((row) => {
         //                             (<tr>                                    
@@ -136,9 +137,12 @@ class SettingsPage extends React.Component {
                             See the <a href="#/Help">docs</a> to learn more about private keys, balances and withdrawing. </div>
                             <div className="balance-block block-top-corner-radius">
                                 <div className="balance-text"><span className="balance-text-bold">{currentBalance1}</span> DATA balance</div> 
+                                <div className="balance-cumulative">Cumulative earnings<br/>
+<span>{cumulativeEarnings}</span></div>
                             </div>
                             <div className="balance-block withdraw-block block-bottom-corner-radius">
                                 <div className="balance-text"><span className="balance-text-bold">{currentBalance2}</span> DATA available</div> 
+                                <div className="withdraw-btn"><a >Withdraw DATA</a></div>
                             </div>
                             <div className="form-caption">Wallet address</div>
                             <div>
