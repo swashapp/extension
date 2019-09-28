@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Routes from '../src/components/Routes';
-import TopNavigation from './components/topNavigation';
 import SideNavigation from './components/sideNavigation';
-import Footer from './components/Footer';
 class App extends Component {
 	constructor(){
 	  super();
@@ -35,7 +33,6 @@ class App extends Component {
 		  
 		return (
 			<div className="flexible-content">          
-			  <TopNavigation  resource={this.state.resource}/>
 			  <SideNavigation  resource={this.state.resource}/>
 			  <main id="content" className="content-padding">
 				<Routes resource={this.state.resource} reload={this.reload}/>

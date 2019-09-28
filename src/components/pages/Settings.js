@@ -1,10 +1,7 @@
 import React from 'react'
-import 'react-widgets/dist/css/react-widgets.css';
 import 'react-notifications/lib/notifications.css';
-import NumberPicker from 'react-widgets/lib/NumberPicker'
-import simpleNumberLocalizer from 'react-widgets-simple-number';
+import RDropdownMenu from '../microcomponents/RDropdownMenu.js';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-import remove from '../../assets/close-50.png'
 import {
     MDBCard,
     MDBCol,
@@ -20,12 +17,9 @@ import {
     MDBBtn,
     MDBIcon
 } from 'mdbreact';
-import src1 from '../../assets/img-1.jpg';
 import ModuleView from '../microcomponents/ModuleView';
 import PrivacyLevel from '../microcomponents/PrivacyLevel';
-import RevealButton from '../microcomponents/RevealButton';
 
-simpleNumberLocalizer();
 
 class SettingsPage extends React.Component {
     constructor(props) {
@@ -154,7 +148,7 @@ class SettingsPage extends React.Component {
                             <div style={{position: 'relative'}}>
                                 <input type="password" className="form-input"/>
                                 {/*<RevealButton className="form-input-button" />*/}
-                                <button className="form-input-button">...</button>
+                                <button className="form-input-button more-button">...</button>
                             </div>
                         </div>
                     

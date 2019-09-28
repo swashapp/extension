@@ -1,10 +1,6 @@
 import React from 'react'
-import 'react-widgets/dist/css/react-widgets.css';
 import 'react-notifications/lib/notifications.css';
-import NumberPicker from 'react-widgets/lib/NumberPicker'
-import simpleNumberLocalizer from 'react-widgets-simple-number';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-import remove from '../../assets/close-50.png'
 import {
     MDBCard,
     MDBCol,
@@ -20,7 +16,6 @@ import {
     MDBBtn,
     MDBIcon
 } from 'mdbreact';
-simpleNumberLocalizer();
 
 class AdvancedPage extends React.Component {
     constructor(props) {

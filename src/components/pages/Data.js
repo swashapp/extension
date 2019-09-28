@@ -6,8 +6,6 @@ import NumberPicker from 'react-widgets/lib/NumberPicker'
 import simpleNumberLocalizer from 'react-widgets-simple-number';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import DelaySend from '../microcomponents/DelaySend';
-
-import remove from '../../assets/close-50.png'
 import {
     MDBCard,
     MDBCol,
@@ -23,7 +21,6 @@ import {
     MDBBtn,
     MDBIcon
 } from 'mdbreact';
-import src1 from '../../assets/img-1.jpg';
 
 simpleNumberLocalizer();
 

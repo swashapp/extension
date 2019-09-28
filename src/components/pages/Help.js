@@ -1,10 +1,4 @@
 import React from 'react'
-import 'react-widgets/dist/css/react-widgets.css';
-import 'react-notifications/lib/notifications.css';
-import NumberPicker from 'react-widgets/lib/NumberPicker'
-import simpleNumberLocalizer from 'react-widgets-simple-number';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
-import remove from '../../assets/close-50.png'
 import {
     MDBCard,
     MDBCol,
@@ -28,7 +22,6 @@ import help5 from '../../statics/images/help5.png';
 
 import help7 from '../../statics/images/help7.png';
 
-simpleNumberLocalizer();
 
 class HelpPage extends React.Component {
     
@@ -226,8 +219,7 @@ masking</td>
 
                         </div>
                     </div>
-                </React.Fragment>
-                <NotificationContainer/>
+                </React.Fragment>                
             </div>
         );
     }

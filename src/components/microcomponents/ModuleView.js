@@ -35,10 +35,10 @@ class ModuleView extends React.Component {
     let classHeader = (isOpened)?"accordion-head accordion-head-open":"accordion-head";
     return (
       <div>
-        <div className={classHeader} >
-          <div className="accordion-module-name" onClick={() => this.setState({isOpened: !isOpened})}>{this.props.module.name}</div>
-          <img src={icon} className="accordion-module-icon" onClick={() => this.setState({isOpened: !isOpened})} />
-          <div className="accordion-switch" onClick={() => this.setState({isActive: !isActive})} ><img src={iconArrow}  /></div>
+        <div className={classHeader} onClick={() => this.setState({isOpened: !isOpened})}>
+          <div className="accordion-module-name">{this.props.module.name}</div>
+          <img src={icon} className="accordion-module-icon" />
+          <div className="accordion-switch" onClick={(e) => {e.stopPropagation(); this.setState({isActive: !isActive})}} ><img src={iconArrow}  /></div>
           
         </div>
 
