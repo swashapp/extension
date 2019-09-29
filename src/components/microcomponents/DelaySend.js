@@ -29,9 +29,10 @@ class DelaySend extends React.Component {
     const {isOpened} = this.state;
     let progress_percentage = this.props.percentage;
     let iconArrow = isOpened? icon_open: icon_closed;
+    let classHeader = (isOpened)?"accordion-head accordion-head-open":"accordion-head";
     return (
       <div>
-        <div className="accordion-head" >
+        <div className={classHeader} >
           <div className="accordion-domain">{this.props.message.link}</div>
           <div className="accordion-module">{this.props.message.title}</div>
           <MDBProgress className="my-2" material value={progress_percentage} className="accordion-delay" color="info" />

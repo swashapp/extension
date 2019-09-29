@@ -3,82 +3,124 @@ import React from 'react';
 import CustomCheckBox from './CustomCheckBox';
 
 class ModuleDetailView extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      search_selected: "Bing"
+    constructor(props) {
+        super(props);
+        this.state = {
+          search_selected: "Bing",
+          views: {}
+        };
+    }
+
+    componentDidMount() {
+        if (this.props.module) {
+			let views = {};
+            let module = this.props.module;
+            if (module) {                
+				for(let view of module.viewGroups) {
+					views[view.name] = {
+						name: view.name,
+						title: view.title,
+						items: []
+						}
+				}
+				let functions = module.functions;
+				for(let func of functions) {
+					if(module[func]) {
+						let index = 0
+						for (let item of module[func]) {
+							views[item.viewGroup].items.push({
+								name: item.name,
+								title: item.title,
+								description: item.description,
+								is_enabled: item.is_enabled,
+								func: func,
+								index: index
+							})
+							index++;
+						}
+					}
+				}
+			}
+            
+/*			
+			if (module.apiCall) {			  
+				let f  = setInterval(()=>{window.helper.isConnected(module.name).then(connected => {
+					this.setState({connected:connected})
+				});},1000);
+				this.setState({intervalId: f});
+			}                
+*/
+			this.setState({
+				module: module,
+				is_enabled: module.is_enabled,								
+				connected: module.access_token?true:false,
+				views: views,
+			})			
+		}
     };
-  }
 
-  handleOauth(){
+    
+    handleOauth(){
 
-  }
+    }
+  
+  
+    selectAll(e, state){			
+        let views = this.state.views;    
+        for (let viewName in views) {
+            {
+                for (let itemId in views[viewName].items) {
+                    views[viewName].items[itemId].is_enabled = state;
+                }
+            }				
+        }
+        this.setState({views: views});				
+    }
 
-  getBrowsing(){
-    if(! this.props.module.browsing)
+
+  
+  getCollectors(){
+    if(! this.state.views)
       return "";
+      
     return (<div>
-      <div className="module-detail-view-title-container">
-        <div className="module-detail-view-title">Select behaviour to be captured</div>
-      </div>
-      <div className={(this.props.module.browsing.length>5)?"checkbox-container":""}>
-        {this.props.module.browsing.map( (data, id)=> 
-            <div className="module-detail-view-checkbox" >
-            <label>{/*<input type="checkbox" value={data.name} />*/}
+        {this.state.views? Object.keys(this.state.views).map((key,index) =>
+          <>
+              <div className="module-detail-view-title-container">
+                <div className="module-detail-view-title">{this.state.views[key].title}</div>
+                {key == 'API'? <>                
+                    <a className="oauth_btn" onClick={()=> this.handleOauth()}>Connect to {this.props.module.name}</a>
+                    <a className="oauth_btn" onClick={()=> this.handleOauth()}>Connect to {this.props.module.name}</a>
+                </>:''}
+              </div>
+              <div className="checkbox-container">
+                {this.state.views[key].items.map( (data, id)=> 
+                    <div className="module-detail-view-checkbox" >
+                        <label>{/*<input type="checkbox" value={data.name} />*/}
 
-<CustomCheckBox handleClick={()=> console.log(data.name) } />
-            <div className="label">{data.title}</div></label>
-          </div>
-          )}
-      </div>
+                            <CustomCheckBox  id={this.state.views[key].name + "-" + id} checked={this.state.views[key].is_enabled} handleClick={()=> console.log(data.name) } />
+                            <div className="label">{data.title}</div>                        
+                        </label>
+                    </div>           
+                )}
+              </div>
+          </>)
+        :''}
     </div>);
   }
 
 
-  getAPI(){
-    if(! this.props.module.apiCall)
-      return "";
-    return (<div>
-      <div className="module-detail-view-title-container">
-        <div className="module-detail-view-title">Select behaviour to be captured via {this.props.module.name} API</div>
-        <a className="oauth_btn" onClick={()=> this.handleOauth()}>Connect to {this.props.module.name}</a>
-      </div>
-      <div className={(this.props.module.apiCall.length>5)?"checkbox-container":""}>
-      {this.props.module.apiCall.map( (data, id)=> 
-          <div className="module-detail-view-checkbox" >
-            <label>
-<CustomCheckBox handleClick={()=> console.log(data.name) } />
-{/*<input type="checkbox" value={data.name} />*/}<div className="label">{data.title}</div></label>
-          </div>
-          )}
-      </div>
-    </div>);
-  }
-
-
-  getContent(){
-    if(! this.props.module.content)
-      return "";
-    return (<div>
-      <div className="module-detail-view-title-container">
-        <div className="module-detail-view-title">Content Script title</div>
-      </div>
-      <div className={(this.props.module.content.length>5)?"checkbox-container":""}>
-      {this.props.module.content.map( (data, id)=> 
-            <div className="module-detail-view-checkbox" >
-            <label><CustomCheckBox handleClick={()=> console.log(data.name) } />
-          {/*<input type="checkbox" value={data.name} />*/}<div className="label">{data.title}</div></label>
-          </div>
-          )}
+ 
         
-      </div>
-    </div>);
-  }
+        
+
+
+  
 
   getButtons(){
     return <div style={{height: 40, marginTop: 48}}>
-      <a className="module-btn " style={{width: 112, float:"left"}}>Deselect all</a>
-      <a className="module-btn " style={{width: 112, float:"left"}}>Select all</a>
+      <a className="module-btn " onClick={(e) => {this.selectAll(e, false)}} style={{width: 112, float:"left"}}>Deselect all</a>
+      <a className="module-btn " onClick={(e) => {this.selectAll(e, true)}} style={{width: 112, float:"left"}}>Select all</a>
       <a className="module-btn " style={{width: 72, float:"right"}}>Done</a>
     </div>
   }
@@ -116,16 +158,12 @@ class ModuleDetailView extends React.Component {
   }
 
   render_other(){
-    const browsing = this.getBrowsing();
-    const api = this.getAPI();
-    const content = this.getContent();
+    const collectors = this.getCollectors();    
     const buttons = this.getButtons();
     return (
           <>
               <div className="module-detail-view-description">{this.props.module.description}</div>
-              {browsing}
-              {content}
-              {api}
+              {collectors}              
               {buttons}
           </>
       );

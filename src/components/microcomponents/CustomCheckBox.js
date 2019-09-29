@@ -17,9 +17,18 @@ class CustomCheckBox extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {isChecked: this.props.isChecked};
+    this.state = {isChecked: this.props.checked};
   }
 
+  componentDidMount(){     
+  }
+  
+  componentDidUpdate(prevProps){
+      if (prevProps.checked !== this.props.checked) {
+        this.setState({isChecked: this.props.checked});
+      }
+  }
+  
   handleChange(e){
     this.setState({isChecked: e.target.checked});
     this.props.onChange(e);

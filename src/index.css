@@ -1518,8 +1518,14 @@ font-weight: 500;
   border: 1px solid rgb(239, 239, 239);
 }
 
+.accordion-head:hover:not(.accordion-head-open){
+  border: 1px solid #CDCDCD;
+}
+
+
 .accordion-head-open{
-    border-bottom: 0px; 
+    border-bottom: 0px;
+    border-color: rgb(239, 239, 239);
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
 }
@@ -2093,27 +2099,25 @@ line-height: 24px;
 
 
 .module-detail-view-title-container .oauth_btn{
-  position: absolute;
-  right: 0px;
-  top: 0px;
-
-background-color: white;
-
-  color: rgb(50, 50, 50);
-font-family: Roboto-Medium;
-font-size: 12px;
-font-weight: 500;
-height: 32px;
-letter-spacing: 0px;
-line-height: 32px;
-text-align: center;
-width: 144px;
-border-radius: 4px;
-border: 1px solid rgb(50, 50, 50);
-height: 32px;
-width: 144px;
-
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    background-color: white;
+    color: rgb(50, 50, 50);
+    font-family: Roboto-Medium;
+    font-size: 12px;
+    font-weight: 500;
+    height: 32px;
+    letter-spacing: 0px;
+    line-height: 32px;
+    text-align: center;
+    width: 144px;
+    border-radius: 4px;
+    border: 1px solid rgb(50, 50, 50);
+    height: 32px;
+    width: 144px;
 }
+
 
 .module-btn{
   background: rgb(239, 239, 239);
@@ -2132,6 +2136,10 @@ text-align: center;
 padding-top: 8px;
     margin-right: 8px;
 
+}
+
+.module-btn:hover{
+  background: rgb(231, 231, 231);
 }
 
 select{
