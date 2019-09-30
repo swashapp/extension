@@ -77,8 +77,7 @@ class ModuleDetailView extends React.Component {
         this.setState({views: views});				
     }
 
-
-  
+      
   getCollectors(){
     if(! this.state.views)
       return "";
@@ -94,12 +93,12 @@ class ModuleDetailView extends React.Component {
                 </>:''}
               </div>
               <div className="checkbox-container">
-                {this.state.views[key].items.map( (data, id)=> 
+                {this.state.views[key].items.map( (collector, id)=> 
                     <div className="module-detail-view-checkbox" >
                         <label>{/*<input type="checkbox" value={data.name} />*/}
 
-                            <CustomCheckBox  id={this.state.views[key].name + "-" + id} checked={this.state.views[key].is_enabled} handleClick={()=> console.log(data.name) } />
-                            <div className="label">{data.title}</div>                        
+                            <CustomCheckBox  id={this.state.views[key].name + "-" + id} checked={collector.is_enabled}  handleClick={()=> console.log(collector.name) } />
+                            <div className="label">{collector.title}</div>                        
                         </label>
                     </div>           
                 )}
@@ -109,7 +108,7 @@ class ModuleDetailView extends React.Component {
     </div>);
   }
 
-
+   
  
         
         

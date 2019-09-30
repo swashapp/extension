@@ -1510,6 +1510,7 @@ font-weight: 500;
 
 
 .accordion-head{
+  color: rgb(50, 50, 50);
   position: relative;
   height: 72px; 
   margin-top: 16px;
@@ -1517,6 +1518,11 @@ font-weight: 500;
   border-radius: 4px;
   border: 1px solid rgb(239, 239, 239);
 }
+
+.accordion-head-disabled{
+  color:  rgb(205, 205, 205); 
+}
+
 
 .accordion-head:hover:not(.accordion-head-open){
   border: 1px solid #CDCDCD;
@@ -1621,8 +1627,7 @@ font-weight: 500;
   position: absolute;
 }
 
-.accordion-module-name{
-  color: rgb(50, 50, 50);
+.accordion-module-name{  
 font-family: Roboto-Medium;
 font-size: 14px;
 font-weight: 500;

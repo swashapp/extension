@@ -5,12 +5,12 @@ class App extends Component {
 	constructor(){
 	  super();
 	  this.state ={resource : []};
-	  this.reload = this.reload.bind(this);
+	  this.reload = this.reload.bind(this);      
 	}
 	reload() {
 		this.componentDidMount();
 	}
-	componentDidMount(){		  
+	componentDidMount(){	        
 		let that = this;
 
 		async function loader() {

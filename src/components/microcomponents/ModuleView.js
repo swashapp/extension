@@ -16,29 +16,34 @@ class ModuleView extends React.Component {
 
   static defaultProps = {
     isOpened: false,
-    isActive: false
   };
 
 
   constructor(props) {
     super(props);
-    this.state = {isOpened: this.props.isOpened};
+    this.state = {isOpened: this.props.isOpened, isEnabled: this.props.module.is_enabled};
   }
 
 
   render() {
-    const {isOpened, isActive} = this.state;
+    const enableModule = (e) => {
+        e.stopPropagation();
+        this.setState({isEnabled: !this.state.isEnabled})
+        
+    }
+    const {isOpened, isEnabled} = this.state;
     let progress_percentage = this.props.percentage;
-    let iconArrow = isActive? icon_open: icon_closed;
-    let icon = (this.props.module.icons)? this.props.module.icons[0]: icon_default;
+    let iconArrow = isEnabled? icon_open: icon_closed;
+    let icon = (this.props.module.icons)? ((this.state.isEnabled)?this.props.module.icons[0]:this.props.module.icons[1]): icon_default;
     let classBody = "accordion-body";
     let classHeader = (isOpened)?"accordion-head accordion-head-open":"accordion-head";
+    classHeader = (this.state.isEnabled)? classHeader:classHeader + " accordion-head-disabled";
     return (
       <div>
         <div className={classHeader} onClick={() => this.setState({isOpened: !isOpened})}>
           <div className="accordion-module-name">{this.props.module.name}</div>
           <img src={icon} className="accordion-module-icon" />
-          <div className="accordion-switch" onClick={(e) => {e.stopPropagation(); this.setState({isActive: !isActive})}} ><img src={iconArrow}  /></div>
+          <div className="accordion-switch" onClick={enableModule} ><img src={iconArrow}  /></div>
           
         </div>
 
