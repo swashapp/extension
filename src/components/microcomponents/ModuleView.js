@@ -28,7 +28,13 @@ class ModuleView extends React.Component {
   render() {
     const enableModule = (e) => {
         e.stopPropagation();
-        this.setState({isEnabled: !this.state.isEnabled})
+        let settings = {};
+        settings.is_enabled = !this.state.isEnabled;
+        let moduleName = this.props.module.name;
+        return window.helper.configModule(moduleName, settings).then(()=>{
+          this.setState({isEnabled: !this.state.isEnabled})          
+        }); 
+
         
     }
     const {isOpened, isEnabled} = this.state;

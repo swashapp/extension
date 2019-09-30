@@ -21,6 +21,7 @@ class CustomCheckBox extends React.Component {
   }
 
   componentDidMount(){     
+    this.setState({isChecked: this.props.checked});
   }
   
   componentDidUpdate(prevProps){
@@ -38,7 +39,7 @@ class CustomCheckBox extends React.Component {
     const {isChecked} = this.state;
     const icon = isChecked? checked: unchecked;
     return (
-      <div className="checkbox" onClick={()=>{this.setState({isChecked: !isChecked}); this.props.handleClick()}}>
+      <div className="checkbox" onClick={()=>{this.setState({isChecked: !isChecked}); this.props.handleClick(this.state.isChecked)}}>
         <img src={icon} style={{width: 16, height:16}} />
       </div>
     );

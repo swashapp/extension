@@ -182,18 +182,29 @@ var helper = (function() {
     function save(data){
         console.log(data)
     }
-    function saveFilters(data){
+	
+	async function configModule(moduleName, settings){
+		
+	}
+	
+    async function saveFilters(data){
         filters=data
     }
-    function savePrivacyData(data){
+    async function savePrivacyData(data){
     	masks = data
     }
+	async function changePrivacyLevel(level){
+		
+	}
+	
 return {
         load: load,
         save: save,
         loadFilters: loadFilters,
 		saveFilters: saveFilters,
 		saveConfigs: saveConfigs,
+		configModule: configModule,
+		changePrivacyLevel: changePrivacyLevel,
 		identityPrivacy: identityPrivacy,
 		loadModules: loadModules,
 		loadPrivacyData: loadPrivacyData ,

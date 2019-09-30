@@ -1,5 +1,5 @@
 import React from 'react'
-import 'react-notifications/lib/notifications.css';
+import '../../statics/css/custom-notifications.css';
 import RDropdownMenu from '../microcomponents/RDropdownMenu.js';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import {
@@ -25,9 +25,7 @@ class SettingsPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {			
-			email: "",
-			walletId: "",
-			delay: 0
+			privacyLevel: 0
 		};
     }
 
@@ -37,19 +35,11 @@ class SettingsPage extends React.Component {
     }
       
     loadSettings() {
-		// window.helper.load().then(db => {
-		// 	//document.getElementById('push').checked = db.configs.pushStatus;
-		// 	document.getElementById('email').setAttribute('valuex','1') ;
-		// 	document.getElementById('wallet').setAttribute('valuex','1') ;
-		// 	let email = db.profile.email;
-		// 	let walletId = db.profile.walletId;
-		// 	let that = this;			
-  //           this.setState({email:email, walletId:walletId, delay:db.configs.delay})
-		// });
+		window.helper.load().then(db => {				
+            this.setState({privacyLevel: db.configs.privacyLevel})
+		});
     }
-	handleChange(delay) {
-		this.setState({delay: delay});
-	}
+	
     
     render() {
         const settings = {};
@@ -73,8 +63,10 @@ class SettingsPage extends React.Component {
             })
         };
 
-        const changePrivacyLevel = (lvl) => {
-
+        const changePrivacyLevel = (lvl) => {                    
+            return window.helper.changePrivacyLevel(lvl).then(()=>{
+              this.setState({isEnabled: !this.state.isEnabled})          
+            }); 
         };
        
        
@@ -86,24 +78,7 @@ class SettingsPage extends React.Component {
                 this.setState({email: e.target.value})
             }
         };
-        const toggle = (x) => {
-            if (x === '1')
-                this.setState({
-                    modal1: !this.state.modal1
-                });
-            if (x === '2')
-                this.setState({
-                    modal2: !this.state.modal2
-                });
-            if (x === '3')
-                this.setState({
-                    modal3: !this.state.modal3
-                });
-            if (x === 'addModal')
-                this.setState({
-                    addModal: !this.state.addModal
-                });
-        };
+        
         let currentBalance1 = "48.92";
         let currentBalance2 = "36.67";
         let cumulativeEarnings="761.59";
@@ -177,7 +152,7 @@ This allows you to set privacy levels across all your modules. Adjust them to ch
 the types of data you’d like to share and what to obscure or remove. You can also use the Advanced settings to block specific text (eg your name or address), sites and domains.</div>
                     
 
-                        <PrivacyLevel level={currentLevel} onChange={ (lvl)=> this.changePrivacyLevel(lvl) } />
+                        <PrivacyLevel level={this.state.privacyLevel} onChange={ (lvl)=> this.changePrivacyLevel(lvl) } />
                         </div>  
                 </div>
 

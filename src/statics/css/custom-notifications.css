@@ -1,0 +1,109 @@
+@charset "UTF-8";
+@font-face { 
+}
+
+
+
+.notification-container {
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999999;
+  width: 320px;
+  padding: 0px 15px;
+  max-height: calc(100% - 30px);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+
+
+
+.notification {
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;  
+  background: rgb(255, 255, 255);
+  width: 272px;
+  height: 56px;  
+}
+
+.notification .title {
+	width: 196px;
+	height: 20px;
+	color: rgb(50, 50, 50);
+	font-size: 14px;
+	font-family: Roboto-Regular;
+	font-weight: normal;
+	letter-spacing: 0px;
+	line-height: 20px;
+	box-shadow: ;
+}
+
+.notification:hover, .notification:focus {
+  opacity: 1;
+}
+
+.notification-enter {
+  visibility: hidden;
+  transform: translate3d(100%, 0, 0);
+}
+
+.notification-enter.notification-enter-active {
+  visibility: visible;
+  transform: translate3d(0, 0, 0);
+  transition: all 0.4s;
+}
+
+.notification-leave {
+  visibility: visible;
+  transform: translate3d(0, 0, 0);
+}
+
+.notification-leave.notification-leave-active {
+  visibility: hidden;
+  transform: translate3d(100%, 0, 0);
+  transition: all 0.4s;
+}
+
+.notification:before {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  margin-top: -14px;
+  display: block;
+  font-family: 'Notification';
+  width: 28px;
+  height: 28px;
+  font-size: 28px;
+  text-align: center;
+  line-height: 28px;
+}
+
+.notification-info {  
+}
+
+.notification-info:before {
+
+}
+
+.notification-success {  
+}
+
+.notification-success:before {
+
+}
+
+.notification-warning {
+}
+
+.notification-warning:before {
+
+}
+
+.notification-error {
+}
+
+.notification-error:before {
+
+}

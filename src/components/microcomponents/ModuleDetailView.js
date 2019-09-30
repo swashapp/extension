@@ -59,7 +59,10 @@ class ModuleDetailView extends React.Component {
 		}
     };
 
-    
+    componentDidUpdate(prevProps){
+    	console.log(prevProps);
+    }
+
     handleOauth(){
 
     }
@@ -78,6 +81,21 @@ class ModuleDetailView extends React.Component {
     }
 
       
+
+    getSettings(settings) {	
+		let views = this.state.views
+		for (let viewName in views) {
+			{
+				for (let itemId in views[viewName].items) {
+					let f = document.getElementById(viewName + "-" + itemId).checked;
+					settings[views[viewName].items[itemId].func][views[viewName].items[itemId].name] = f;
+				}
+			}				
+		}
+	}
+
+
+
   getCollectors(){
     if(! this.state.views)
       return "";
@@ -97,7 +115,7 @@ class ModuleDetailView extends React.Component {
                     <div className="module-detail-view-checkbox" >
                         <label>{/*<input type="checkbox" value={data.name} />*/}
 
-                            <CustomCheckBox  id={this.state.views[key].name + "-" + id} checked={collector.is_enabled}  handleClick={()=> console.log(collector.name) } />
+                            <CustomCheckBox  id={this.state.views[key].name + "-" + id} checked={collector.is_enabled}  handleClick={(x)=> {/*this.state.views[key].items[id].is_enabled = x*/} } />
                             <div className="label">{collector.title}</div>                        
                         </label>
                     </div>           
