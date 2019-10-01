@@ -1,7 +1,9 @@
 import React from 'react'
 import '../../statics/css/custom-notifications.css';
 import RDropdownMenu from '../microcomponents/RDropdownMenu.js';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import NotificationContainer from '../lib/notifications/NotificationContainer';
+import NotificationManager from '../lib/notifications/NotificationManager';
+
 import {
     MDBCard,
     MDBCol,

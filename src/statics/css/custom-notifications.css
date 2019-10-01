@@ -18,19 +18,22 @@
 }
 
 
-
-
 .notification {
+  margin-top: 15px;
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1);
   border-radius: 4px;  
   background: rgb(255, 255, 255);
   width: 272px;
-  height: 56px;  
+  height: 56px;
+  line-height: 1em;
 }
 
-.notification .title {
-	width: 196px;
-	height: 20px;
+
+.notification .message {
+  padding-top: 18px;
+  padding-bottom: 18px;
+  margin-left: 16px;
+	width: 196px;	
 	color: rgb(50, 50, 50);
 	font-size: 14px;
 	font-family: Roboto-Regular;
@@ -38,6 +41,16 @@
 	letter-spacing: 0px;
 	line-height: 20px;
 	box-shadow: ;
+  text-align: left;
+  float: left;  
+}
+
+.notification .icon {
+  margin-left: 16px;
+  padding-top: 16px;
+  width: 20px;
+  height: 20px;
+  float: left;
 }
 
 .notification:hover, .notification:focus {
@@ -66,16 +79,14 @@
   transition: all 0.4s;
 }
 
-.notification:before {
+.notification:before {  
   position: absolute;
   top: 50%;
   left: 15px;
   margin-top: -14px;
   display: block;
-  font-family: 'Notification';
-  width: 28px;
-  height: 28px;
-  font-size: 28px;
+  width: 20px;
+  height: 20px;
   text-align: center;
   line-height: 28px;
 }
@@ -83,27 +94,16 @@
 .notification-info {  
 }
 
-.notification-info:before {
-
-}
 
 .notification-success {  
 }
 
-.notification-success:before {
-
-}
 
 .notification-warning {
 }
 
-.notification-warning:before {
 
-}
 
 .notification-error {
 }
 
-.notification-error:before {
-
-}

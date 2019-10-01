@@ -1,6 +1,7 @@
 import React from 'react'
-import 'react-notifications/lib/notifications.css';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import '../../statics/css/custom-notifications.css';
+import NotificationContainer from '../lib/notifications/NotificationContainer';
+import NotificationManager from '../lib/notifications/NotificationManager';
 import {
     MDBCard,
     MDBCol,

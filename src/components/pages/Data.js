@@ -1,10 +1,11 @@
 import React from 'react'
 import 'react-widgets/dist/css/react-widgets.css';
-import 'react-notifications/lib/notifications.css';
+import '../../statics/css/custom-notifications.css';
 import NumberPicker from 'react-widgets/lib/NumberPicker'
 
 import simpleNumberLocalizer from 'react-widgets-simple-number';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import NotificationContainer from '../lib/notifications/NotificationContainer';
+import NotificationManager from '../lib/notifications/NotificationManager';
 import DelaySend from '../microcomponents/DelaySend';
 import {
     MDBCard,
