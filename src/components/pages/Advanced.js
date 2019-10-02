@@ -1,7 +1,4 @@
 import React from 'react'
-import '../../statics/css/custom-notifications.css';
-import NotificationContainer from '../lib/notifications/NotificationContainer';
-import NotificationManager from '../lib/notifications/NotificationManager';
 import {
     MDBCard,
     MDBCol,
@@ -17,11 +14,17 @@ import {
     MDBBtn,
     MDBIcon
 } from 'mdbreact';
+import CustomSnackbar from '../microcomponents/CustomSnackbar';
 
 class AdvancedPage extends React.Component {
     constructor(props) {
         super(props);
         this.state={
+            notification: {
+                status: false,
+                type:'',
+                message: ""
+            },
             filters:[],
             masks:[]
         };
@@ -54,6 +57,9 @@ class AdvancedPage extends React.Component {
         loader();
     };
 
+    handleNotification(message,type) {
+        this.setState({notification: {status:true, message: message, type:type}});
+    }
 
     deleteFilterRecord(id){
         let newArray = [];
@@ -105,8 +111,8 @@ addFilter(){
                   let i = this.state.filters;
                   i.push(f)
                   this.setState({filters:i})
-                }else{
-                    NotificationManager.error('Duplicate entry', 'Error');
+                }else{                    
+                    this.handleNotification('Duplicate entry', 'error');
                 }
              
                 })                     
@@ -133,7 +139,7 @@ addFilter(){
                     i.push(f)
                     this.setState({masks:i})
                 } else {
-                    NotificationManager.error('Duplicate entry', 'Error');
+                    this.handleNotification('Duplicate entry');
                 }
             })
         }
@@ -230,7 +236,11 @@ You can mask specific sensitive text data before it is sent to Streamr Marketpla
 
 
                 </React.Fragment>
-                <NotificationContainer/>
+                <CustomSnackbar
+                    notification={this.state.notification}
+                    onClose={() => this.setState({notification:{status:false, message:''}})}
+                 />            
+
             </div>
         );
     }

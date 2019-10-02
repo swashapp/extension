@@ -4,8 +4,6 @@ import '../../statics/css/custom-notifications.css';
 import NumberPicker from 'react-widgets/lib/NumberPicker'
 
 import simpleNumberLocalizer from 'react-widgets-simple-number';
-import NotificationContainer from '../lib/notifications/NotificationContainer';
-import NotificationManager from '../lib/notifications/NotificationManager';
 import DelaySend from '../microcomponents/DelaySend';
 import {
     MDBCard,
@@ -108,7 +106,7 @@ class DataPage extends React.Component {
         };
         const saveDelay = (delay) => {
             window.helper.saveConfigs({delay: delay}).then(() => {
-                NotificationManager.success('Configuration is updated successfully', 'Update Configuration');
+                //NotificationManager.success('Configuration is updated successfully', 'Update Configuration');
             })
             
         };
@@ -150,8 +148,7 @@ class DataPage extends React.Component {
 
                     </div>
 
-                </React.Fragment>
-                <NotificationContainer/>
+                </React.Fragment>                
             </div>
         );
     }

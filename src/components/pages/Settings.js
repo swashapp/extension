@@ -1,8 +1,6 @@
 import React from 'react'
 import '../../statics/css/custom-notifications.css';
 import RDropdownMenu from '../microcomponents/RDropdownMenu.js';
-import NotificationContainer from '../lib/notifications/NotificationContainer';
-import NotificationManager from '../lib/notifications/NotificationManager';
 
 import {
     MDBCard,
@@ -60,7 +58,7 @@ class SettingsPage extends React.Component {
                         window.helper.subscribe();
                     else
                         window.helper.unsubscribe();
-                    NotificationManager.success('Configuration is updated successfully', 'Update Configuration');
+                    //NotificationManager.success('Configuration is updated successfully', 'Update Configuration');
                 })
             })
         };
@@ -160,8 +158,7 @@ the types of data you’d like to share and what to obscure or remove. You can a
 
 
 
-                </React.Fragment>
-                <NotificationContainer/>
+                </React.Fragment>                
             </div>
         );
     }
