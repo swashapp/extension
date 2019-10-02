@@ -8,14 +8,22 @@ import error from '../../statics/images/error-icon.svg'
 
 class CustomSnackbar extends React.Component {
     constructor(props) {
-        super(props);        
+        super(props);
+		this.state = {
+			notification: {
+                status: false,
+                type:'',
+                message: ""
+            }
+		}
     }
 
 
-    
+    handleNotification(message,type) {
+        this.setState({notification: {status:true, message: message, type:type}});
+    }
     
     render() {   
-        const {notification, onClose} = this.props; 
         return (
             <Snackbar
                 autoHideDuration={4000}                
@@ -23,16 +31,16 @@ class CustomSnackbar extends React.Component {
                     vertical: 'top',
                     horizontal: 'right',
                 }}                    
-                open={notification.status}
-                onClose={onClose}
+                open={this.state.notification.status}
+                onClose={() => this.setState({notification:{status:false, message:''}})}
             >
                 <SnackbarContent                    
                     classes= {{root: 'notification'}}
                         message={<div>                            
                                 <div className="notification-icon">
-                                    <img src={notification.type?'success':success,error}/>
+                                    <img src={this.state.notification.type?'success':success,error}/>
                                 </div>
-                                <span id="message-id">{notification.message}</span>
+                                <span id="message-id">{this.state.notification.message}</span>
                             </div>}  
                 />
             </Snackbar>

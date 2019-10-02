@@ -19,11 +19,21 @@ class PrivacySelector extends React.Component {
         />: ''}
         
 
+        
+        
         <div onClick={()=>handleClick(id)} 
             className={'privacy-nav-h '+(this.props.activeNav > id? 'ok'+ this.props.activeNav:'') + (this.props.activeNav===id?' privacy-nav-selected' + this.props.activeNav:'')}
             style={{top: 0, left: (id * 100 / (navs.length-1))+"%" }}
 
             ></div>
+
+        {this.props.activeNav === id?
+            <div onClick={()=>handleClick(id)} 
+            className={'privacy-nav-h privacy-nav-selected'}
+            style={{top: 0, left: (id * 100 / (navs.length-1))+"%" }}
+
+            ></div>
+        :''}
         
         <div className={`privacy-label ${this.props.activeNav === id ? 'privacy-label-selected':''}`}
             style={{position: "absolute", top: 32, left: (id * 100 / (navs.length-1) - 2) +"%" }}

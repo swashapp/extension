@@ -1364,21 +1364,24 @@ line-height: 16px;
 
 .form-input-button:focus{
 	outline: 0px;  
-	background: #EFEFEF;
+	background-color: #EFEFEF;
   }
   
 .form-input-button:hover:not(:focus){
-	background: #F8F8F8;
+	background-color: #F8F8F8;
 }
 
 .form-input-button:active{
-	background: #EFEFEF;
+	background-color: #EFEFEF;
 }
 
 .more-button{
 	height: 24px;
 	width: 32px;
-	top: 8px;
+  top: 8px;
+  background-image: url('statics/images/more-icon.svg');
+  background-repeat: no-repeat;    
+  background-position: 6px center;
 }
 
 .balance-cumulative {
@@ -1914,33 +1917,43 @@ input[type=range]:focus::-ms-fill-upper {
 .privacy-nav-bar-line {
   width: 100%;
   position: absolute;
-  border-bottom: 3px solid #00000061;
+  border-bottom: 1.5px solid rgb(216, 216, 216);
   right: 0px;
   top: 0px;
 }
-.privacy-nav-selected0{
-  border: 11px solid #ff0f2d;
-  margin-top: -8px!important;
-  margin-left: -10px!important;
+.privacy-nav-selected{
+  border: 11px solid rgb(255, 255, 255);
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1);
+  margin-top: -10px!important;
+  margin-left: -11px!important;
+  z-index: 8 !important;
+}
+
+
+.privacy-nav-selected0{  
+  background: #ff0f2d !important;
+  -webkit-transition: opacity .4s !important;
+  transition: opacity .4s !important;
 }
 .privacy-nav-selected1{
-  border: 11px solid #ff5c00;
-  margin-top: -8px!important;
-  margin-left: -10px!important;
+  background: #ff5c00 !important;
+  -webkit-transition: opacity .4s !important;
+  transition: opacity .4s !important;
 }
 .privacy-nav-selected2{
-  border: 11px solid #2ac437;
-  margin-top: -8px!important;
-  margin-left: -10px!important;
-}
+  background: #2ac437 !important;
+  -webkit-transition: opacity .4s !important;
+  transition: opacity .4s !important;
+ }
+
 .privacy-nav-bar-line.active0 {
-  border-bottom: 3px solid #ff0f2d;
+  border-bottom: 1.5px solid #ff0f2d;
 }
 .privacy-nav-bar-line.active1 {
-  border-bottom: 3px solid #ff5c00;
+  border-bottom: 1.5px solid #ff5c00;
 }
 .privacy-nav-bar-line.active2 {
-  border-bottom: 3px solid #2ac437;
+  border-bottom: 1.5px solid #2ac437;
 }
 .privacy-nav {
   
@@ -1956,11 +1969,11 @@ input[type=range]:focus::-ms-fill-upper {
   color: transparent;
   
   cursor: pointer;
-  margin-top: -3px;
+  margin-top: -4px;
   z-index: 9;
   
   
-  background: white;
+  background: rgb(216, 216, 216);
   
 
   /*border: 2px solid;*/
@@ -1986,21 +1999,21 @@ input[type=range]:focus::-ms-fill-upper {
 
 .privacy-nav-h.ok0{
   color: transparent;
-  
+  background: white;
   transition: opacity .4s !important;
-  background: #ff0f2d;
+  border: 1px solid #ff0f2d;
 }
 .privacy-nav-h.ok1 {
   color: transparent;
-  
+  background: white;
   transition: opacity .4s !important;
-  background: #ff5c00;
+  border: 1px solid #ff5c00;  
 }
 .privacy-nav-h.ok2 {
   color: transparent;
-  
+  background: white;
   transition: opacity .4s !important;
-  background: #2ac437;
+  border: 1px solid #2ac437;
 }
 
 

@@ -34,8 +34,6 @@ class ModuleView extends React.Component {
         return window.helper.configModule(moduleName, settings).then(()=>{
           this.setState({isEnabled: !this.state.isEnabled})          
         }); 
-
-        
     }
     const {isOpened, isEnabled} = this.state;
     let progress_percentage = this.props.percentage;

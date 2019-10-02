@@ -122,8 +122,7 @@ class SettingsPage extends React.Component {
                             <div className="form-caption">Private key </div>
                             <div style={{position: 'relative'}}>
                                 <input type="password" className="form-input"/>
-                                {/*<RevealButton className="form-input-button" />*/}
-                                <button className="form-input-button more-button">...</button>
+                                 <RDropdownMenu className="button form-input-button more-button" ref='keyRevealMenu'/>                                
                             </div>
                         </div>
                     

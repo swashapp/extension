@@ -19,12 +19,7 @@ import CustomSnackbar from '../microcomponents/CustomSnackbar';
 class AdvancedPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state={
-            notification: {
-                status: false,
-                type:'',
-                message: ""
-            },
+        this.state={            
             filters:[],
             masks:[]
         };
@@ -57,9 +52,7 @@ class AdvancedPage extends React.Component {
         loader();
     };
 
-    handleNotification(message,type) {
-        this.setState({notification: {status:true, message: message, type:type}});
-    }
+    
 
     deleteFilterRecord(id){
         let newArray = [];
@@ -112,7 +105,7 @@ addFilter(){
                   i.push(f)
                   this.setState({filters:i})
                 }else{                    
-                    this.handleNotification('Duplicate entry', 'error');
+                    this.refs.notify.handleNotification('Duplicate entry', 'error');
                 }
              
                 })                     
@@ -139,7 +132,7 @@ addFilter(){
                     i.push(f)
                     this.setState({masks:i})
                 } else {
-                    this.handleNotification('Duplicate entry');
+                    this.refs.notify.handleNotification('Duplicate entry', 'error');
                 }
             })
         }
@@ -237,8 +230,7 @@ You can mask specific sensitive text data before it is sent to Streamr Marketpla
 
                 </React.Fragment>
                 <CustomSnackbar
-                    notification={this.state.notification}
-                    onClose={() => this.setState({notification:{status:false, message:''}})}
+                    ref='notify'                    
                  />            
 
             </div>

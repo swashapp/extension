@@ -1,8 +1,7 @@
 import React from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-import checked from '../../statics/images/checked.svg';
-import unchecked from '../../statics/images/Unchecked.svg';
+import '../../statics/css/custom-dropdown.css';
 
 class RDropdownMenu extends React.Component {
   constructor(props) {
@@ -22,13 +21,12 @@ class RDropdownMenu extends React.Component {
 
   render() {
     return (
-      <Dropdown size="sm" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-        <DropdownToggle className={this.props.className}>
-          ...
+      <Dropdown className="custom-dropdown" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+        <DropdownToggle className={this.props.className} tag='div'>          
         </DropdownToggle>
-        <DropdownMenu>          
-          <DropdownItem>Reveal</DropdownItem>
-          <DropdownItem>Copy</DropdownItem>       
+        <DropdownMenu className="custom-dropdown-menu">          
+          <DropdownItem className="custom-dropdown-item">Reveal</DropdownItem>
+          <DropdownItem className="custom-dropdown-item">Copy</DropdownItem>       
         </DropdownMenu>
       </Dropdown>
     );
