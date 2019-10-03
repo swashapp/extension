@@ -35,7 +35,7 @@ class SettingsPage extends React.Component {
 
      
     componentDidMount() {
-        this.balanceCheckInterval = setInterval(this.getBalanceInfo, 60000);
+        //this.balanceCheckInterval = setInterval(this.getBalanceInfo, 60000);
         this.loadSettings();
         window.scrollTo(0, 0);
     }
@@ -159,7 +159,7 @@ class SettingsPage extends React.Component {
                             <div className="form-caption">Private key </div>
                             <div style={{position: 'relative'}}>
                                 <input type="password" className="form-input" id="privateKey" value={this.state.keyInfo.privateKey}/>
-                                 <RDropdownMenu className="button form-input-button more-button" callbacks={[]} ref='keyRevealMenu'/>                                
+                                 <RDropdownMenu className="button form-input-button more-button" callbacks={[revealPrivateKey, (e)=>{copyToClipboard(e,document.getElementById("privateKey"))}]} ref='keyRevealMenu'/>                                
                             </div>
                         </div>
                     

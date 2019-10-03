@@ -25,8 +25,8 @@ class RDropdownMenu extends React.Component {
         <DropdownToggle className={this.props.className} tag='div'>          
         </DropdownToggle>
         <DropdownMenu className="custom-dropdown-menu">          
-          <DropdownItem className="custom-dropdown-item">Reveal</DropdownItem>
-          <DropdownItem className="custom-dropdown-item">Copy</DropdownItem>       
+          <DropdownItem className="custom-dropdown-item" onClick={this.props.callbacks[0]}>Reveal</DropdownItem>
+          <DropdownItem className="custom-dropdown-item" onClick={this.props.callbacks[1]}>Copy</DropdownItem>       
         </DropdownMenu>
       </Dropdown>
     );
