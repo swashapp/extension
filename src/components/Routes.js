@@ -9,9 +9,10 @@ class Routes extends React.Component {
   render() {
     return (
       <HashRouter>
-		<Switch>
-			<Route path='/' exact component={Settings} />
-
+		<Switch>			
+			<Route path='/'  render={()=>
+				<Settings resource={this.props.resource} reload={this.props.reload}/>
+				} />
 			<Route path='/Settings'  render={()=>
 				<Settings resource={this.props.resource} reload={this.props.reload}/>
 				} />

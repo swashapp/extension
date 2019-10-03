@@ -196,20 +196,45 @@ var helper = (function() {
 	async function changePrivacyLevel(level){
 		
 	}
+    
+    function getKeyInfo(){
+        return ({
+            address: '0x39dc55954eF1529973Edc74D4F7Dc170CEB8335E',
+            privateKey: '0xe37826ee239734c452f2ae711bc39986c1878adb1a8bdb7e426b8974b95bf9b4'
+        });
+    }
+    
+    async function getDataBalance() {
+		return '48.92';
+	}
 	
+	async function getAvailableBalance() {
+		return '36.67';
+	}
+	
+	async function withdraw() {
+        return 'success';
+	}
+
 return {
-        load: load,
-        save: save,
-        loadFilters: loadFilters,
-		saveFilters: saveFilters,
-		saveConfigs: saveConfigs,
-		configModule: configModule,
-		changePrivacyLevel: changePrivacyLevel,
-		identityPrivacy: identityPrivacy,
-		loadModules: loadModules,
-		loadPrivacyData: loadPrivacyData ,
-		savePrivacyData: savePrivacyData,
-		loadMessages: loadMessages,
-		cancelSending: cancelSending 
+        load ,
+        save,
+        loadFilters,
+		saveFilters,
+		saveConfigs,
+		configModule,
+		changePrivacyLevel,
+		identityPrivacy,
+		loadModules,
+		loadPrivacyData,
+		savePrivacyData,
+		loadMessages,
+        cancelSending,
+        getKeyInfo,
+        getDataBalance,
+        withdraw,
+        getAvailableBalance,
+
+
     };
 }());

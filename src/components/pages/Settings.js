@@ -25,20 +25,45 @@ class SettingsPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {			
-			privacyLevel: 0
-		};
+            privacyLevel: 0,
+            keyInfo: {address:'', privateKey: ''},
+            dataBalance: '48.92',
+            dataAvailable: '36.67',            
+        };
+        this.balanceCheckInterval = 0;
     }
 
+     
     componentDidMount() {
+        this.balanceCheckInterval = setInterval(this.getBalanceInfo, 60000);
         this.loadSettings();
         window.scrollTo(0, 0);
     }
-      
-    loadSettings() {
-		window.helper.load().then(db => {				
-            this.setState({privacyLevel: db.configs.privacyLevel})
-		});
+
+    componentDidUnmount() {
+        clearInterval(this.balanceCheckInterval);
     }
+
+    loadSettings() {        
+        let keyInfo = window.helper.getKeyInfo();
+        window.helper.load().then(db => {				
+            this.setState({
+                privacyLevel: db.configs.privacyLevel,
+                keyInfo: keyInfo
+
+            })
+        });                
+    }
+
+    async getBalanceInfo() {
+        let dataBalance = await window.helper.getDataBalance();
+        let dataAvailable = await window.helper.getAvailableBalance();
+        this.setState({
+            dataBalance: (dataBalance?'':0,dataBalance),
+            dataAvailable: (dataAvailable?'':0,dataAvailable)
+        })
+    }
+    
 	
     
     render() {
@@ -79,8 +104,6 @@ class SettingsPage extends React.Component {
             }
         };
         
-        let currentBalance1 = "48.92";
-        let currentBalance2 = "36.67";
         let cumulativeEarnings="761.59";
         
         // let privacyTableDataRows = privacyTableData.map((row) => {
@@ -106,22 +129,22 @@ class SettingsPage extends React.Component {
                             New earnings are frozen for 48 hours as an anti-fraud measure. Balance available to withdraw is shown below. 
                             See the <a href="#/Help">docs</a> to learn more about private keys, balances and withdrawing. </div>
                             <div className="balance-block block-top-corner-radius">
-                                <div className="balance-text"><span className="balance-text-bold">{currentBalance1}</span> DATA balance</div> 
+                                <div className="balance-text"><span className="balance-text-bold">{this.state.dataBalance}</span> DATA balance</div> 
                                 <div className="balance-cumulative">Cumulative earnings<br/>
 <span>{cumulativeEarnings}</span></div>
                             </div>
                             <div className="balance-block withdraw-block block-bottom-corner-radius">
-                                <div className="balance-text"><span className="balance-text-bold">{currentBalance2}</span> DATA available</div> 
-                                <div className="withdraw-btn"><a >Withdraw DATA</a></div>
+                                <div className="balance-text"><span className="balance-text-bold">{this.state.dataAvailable}</span> DATA available</div> 
+                                <div className="withdraw-btn"><a onClick={window.helper.withdraw} >Withdraw DATA</a></div>
                             </div>
                             <div className="form-caption">Wallet address</div>
                             <div style={{position: 'relative'}}>
-                                <input type="text" className="form-input"/>
+                                <input type="text" className="form-input" value={this.state.keyInfo.address}/>
                                 <button className="form-input-button">Copy</button>
                             </div>
                             <div className="form-caption">Private key </div>
                             <div style={{position: 'relative'}}>
-                                <input type="password" className="form-input"/>
+                                <input type="password" className="form-input" value={this.state.keyInfo.privateKey}/>
                                  <RDropdownMenu className="button form-input-button more-button" ref='keyRevealMenu'/>                                
                             </div>
                         </div>
