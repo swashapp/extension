@@ -104,6 +104,20 @@ class SettingsPage extends React.Component {
             }
         };
         
+        const copyToClipboard = (e, element) => {            
+            element.select();
+            document.execCommand("copy"); 
+        }
+
+        const revealPrivateKey = (e) => {
+            var x = document.getElementById("privateKey");
+            if (x.type === "password") {
+              x.type = "text";
+            } else {
+              x.type = "password";
+            }
+        } 
+
         let cumulativeEarnings="761.59";
         
         // let privacyTableDataRows = privacyTableData.map((row) => {
@@ -139,13 +153,13 @@ class SettingsPage extends React.Component {
                             </div>
                             <div className="form-caption">Wallet address</div>
                             <div style={{position: 'relative'}}>
-                                <input type="text" className="form-input" value={this.state.keyInfo.address}/>
-                                <button className="form-input-button">Copy</button>
+                                <input type="text" className="form-input" id="walletAddress" value={this.state.keyInfo.address}/>
+                                <button className="form-input-button" onClick={(e) => {copyToClipboard(e, document.getElementById("walletAddress"))}}>Copy</button>
                             </div>
                             <div className="form-caption">Private key </div>
                             <div style={{position: 'relative'}}>
-                                <input type="password" className="form-input" value={this.state.keyInfo.privateKey}/>
-                                 <RDropdownMenu className="button form-input-button more-button" ref='keyRevealMenu'/>                                
+                                <input type="password" className="form-input" id="privateKey" value={this.state.keyInfo.privateKey}/>
+                                 <RDropdownMenu className="button form-input-button more-button" callbacks={[]} ref='keyRevealMenu'/>                                
                             </div>
                         </div>
                     
