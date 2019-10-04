@@ -193,10 +193,17 @@ var helper = (function() {
     async function savePrivacyData(data){
     	masks = data
     }
-	async function changePrivacyLevel(level){
+	async function updatePrivacyLevel(level){
 		
 	}
     
+    async function decryptWallet(encryptedWallet, password){
+        return ({
+            address: '0x39dc55954eF1529973Edc74D4F7Dc170CEB8335E',
+            privateKey: '0xe37826ee239734c452f2ae711bc39986c1878adb1a8bdb7e426b8974b95bf9b4'
+        });
+    }
+
     function getKeyInfo(){
         return ({
             address: '0x39dc55954eF1529973Edc74D4F7Dc170CEB8335E',
@@ -223,7 +230,7 @@ return {
 		saveFilters,
 		saveConfigs,
 		configModule,
-		changePrivacyLevel,
+		updatePrivacyLevel,
 		identityPrivacy,
 		loadModules,
 		loadPrivacyData,
@@ -234,7 +241,7 @@ return {
         getDataBalance,
         withdraw,
         getAvailableBalance,
-
+        decryptWallet
 
     };
 }());

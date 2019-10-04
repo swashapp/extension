@@ -60,7 +60,7 @@ class ModuleDetailView extends React.Component {
     };
 
     componentDidUpdate(prevProps){
-    	console.log(prevProps);
+    	
     }
 
     handleOauth(){

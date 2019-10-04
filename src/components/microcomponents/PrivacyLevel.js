@@ -12,10 +12,15 @@ class PrivacyLevel extends React.Component {
     this.state = {level: this.props.level};
   }
 
+  componentDidUpdate(prevProps){
+      if(prevProps.level != this.props.level)
+        this.setState({level: this.props.level});
+  }
 
-  setPrivacy(value){
-    this.setState({level: value});
-    // TODO save in db
+  setPrivacy(value){ 
+    window.helper.updatePrivacyLevel(value).then(()=>{
+        this.setState({level: value})          
+      });
   }
 
   render() {

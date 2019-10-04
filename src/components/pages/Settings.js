@@ -24,44 +24,54 @@ import PrivacyLevel from '../microcomponents/PrivacyLevel';
 class SettingsPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {			
+        this.state = {
+            modules: [],
             privacyLevel: 0,
             keyInfo: {address:'', privateKey: ''},
-            dataBalance: '48.92',
-            dataAvailable: '36.67',            
+            dataBalance: '0.00',
+            dataAvailable: '0.00',            
         };
         this.balanceCheckInterval = 0;
     }
 
      
     componentDidMount() {
-        //this.balanceCheckInterval = setInterval(this.getBalanceInfo, 60000);
+        //this.balanceCheckInterval = setInterval(() => this.getBalanceInfo(this), 5000);
+        this.getBalanceInfo();
         this.loadSettings();
         window.scrollTo(0, 0);
     }
 
     componentDidUnmount() {
-        clearInterval(this.balanceCheckInterval);
+        //clearInterval(this.balanceCheckInterval);
     }
 
     loadSettings() {        
-        let keyInfo = window.helper.getKeyInfo();
-        window.helper.load().then(db => {				
-            this.setState({
-                privacyLevel: db.configs.privacyLevel,
-                keyInfo: keyInfo
-
-            })
-        });                
+        window.helper.load().then(db => {
+            console.log("db: ", db);
+            let modules = [];
+            for(module in db.modules) {
+                modules.push(db.modules[module]);
+            }    
+            window.helper.decryptWallet(db.configs.encryptedWallet, db.configs.salt).then(keyInfo => {
+                console.log("keyInfo: ", keyInfo)
+                this.setState({
+                    privacyLevel: db.configs.privacyLevel,
+                    keyInfo: keyInfo,
+                    modules: modules
+                })
+            })	            
+        });
     }
 
     async getBalanceInfo() {
         let dataBalance = await window.helper.getDataBalance();
         let dataAvailable = await window.helper.getAvailableBalance();
         this.setState({
-            dataBalance: (dataBalance?'':0,dataBalance),
-            dataAvailable: (dataAvailable?'':0,dataAvailable)
+            dataBalance: (dataBalance?'':'0.00',dataBalance),
+            dataAvailable: (dataAvailable?'':'0.00',dataAvailable)
         })
+        setTimeout(this.getBalanceInfo(), 5000)
     }
     
 	
@@ -86,12 +96,6 @@ class SettingsPage extends React.Component {
                     //NotificationManager.success('Configuration is updated successfully', 'Update Configuration');
                 })
             })
-        };
-
-        const changePrivacyLevel = (lvl) => {                    
-            return window.helper.changePrivacyLevel(lvl).then(()=>{
-              this.setState({isEnabled: !this.state.isEnabled})          
-            }); 
         };
        
        
@@ -128,10 +132,10 @@ class SettingsPage extends React.Component {
         //                             </tr>)
         //                         });
 
-        const modules = (this.props.resource)?(this.props.resource.map((module)=> {
+        const modules = (this.state.modules)?(this.state.modules.map((module)=> {
                 return (<ModuleView isOpened={false} module={module} />)
             })): (<></>);
-        let currentLevel = 1; // TODO load dynamically 
+        
 
         return (
             <div id="settings-page" className="swash-col">
@@ -149,7 +153,7 @@ class SettingsPage extends React.Component {
                             </div>
                             <div className="balance-block withdraw-block block-bottom-corner-radius">
                                 <div className="balance-text"><span className="balance-text-bold">{this.state.dataAvailable}</span> DATA available</div> 
-                                <div className="withdraw-btn"><a onClick={window.helper.withdraw} >Withdraw DATA</a></div>
+                                <div className="withdraw-btn"><a onClick={this.loadSettings} >Withdraw DATA</a></div>
                             </div>
                             <div className="form-caption">Wallet address</div>
                             <div style={{position: 'relative'}}>
@@ -188,7 +192,7 @@ This allows you to set privacy levels across all your modules. Adjust them to ch
 the types of data you’d like to share and what to obscure or remove. You can also use the Advanced settings to block specific text (eg your name or address), sites and domains.</div>
                     
 
-                        <PrivacyLevel level={this.state.privacyLevel} onChange={ (lvl)=> this.changePrivacyLevel(lvl) } />
+                        <PrivacyLevel level={this.state.privacyLevel} />
                         </div>  
                 </div>
 

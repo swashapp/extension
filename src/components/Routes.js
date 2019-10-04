@@ -13,15 +13,11 @@ class Routes extends React.Component {
 			
 			
 
-			<Route path='/Settings'  render={()=>
-				<Settings resource={this.props.resource} reload={this.props.reload}/>
-				} />
+			<Route path='/Settings'  component={Settings} />
 			<Route path='/Help' component={Help} />
 			<Route path='/Advanced' component={Advanced} />
 			<Route path='/Data' component={Data} />
-			<Route path='/'  render={()=>
-				<Settings resource={this.props.resource} reload={this.props.reload}/>
-				} />
+			<Route path='/'  component={Settings} />
 		</Switch>
       </HashRouter>
     );
