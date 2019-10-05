@@ -67,11 +67,12 @@ class SettingsPage extends React.Component {
     async getBalanceInfo() {
         let dataBalance = await window.helper.getDataBalance();
         let dataAvailable = await window.helper.getAvailableBalance();
-        this.setState({
-            dataBalance: (dataBalance?'':'0.00',dataBalance),
-            dataAvailable: (dataAvailable?'':'0.00',dataAvailable)
-        })
-        setTimeout(this.getBalanceInfo(), 5000)
+        if(dataBalance != this.state.dataBalance || dataAvailable != this.state.dataAvailable)
+            this.setState({
+                dataBalance: (dataBalance?'':'0.00',dataBalance),
+                dataAvailable: (dataAvailable?'':'0.00',dataAvailable)
+            })
+        this.setTimeout(this.getBalanceInfo(), 50000)
     }
     
 	

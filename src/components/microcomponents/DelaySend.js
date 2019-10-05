@@ -27,7 +27,7 @@ class DelaySend extends React.Component {
 
   render() {
     const {isOpened} = this.state;
-    let progress_percentage = this.props.percentage;
+    let progress_percentage = this.props.message.percentage;
     let iconArrow = isOpened? icon_open: icon_closed;
     let classHeader = (isOpened)?"accordion-head accordion-head-open":"accordion-head";
     return (

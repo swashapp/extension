@@ -6,8 +6,8 @@ class ModuleDetailView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          search_selected: "Bing",
-          views: {}
+          views: {},
+          group_selected: this.props.module.viewGroups[0].name
         };
     }
 
@@ -99,10 +99,22 @@ class ModuleDetailView extends React.Component {
   getCollectors(){
     if(! this.state.views)
       return "";
+      const dropbox = (<div><div className="form-caption">Choose a search engine</div>
+                            <div>
+                        <select id='filterOption' 
+                        className="browser-default custom-select" 
+                        onChange={(e)=> this.setState({group_selected: e.target.value})}
+                        defaultValue={this.state.views[0]}
+                        >
+                          {this.props.module.viewGroups.map((ob,id)=>  <option value={ob.name}>{ob.title}</option>)}
+                        </select>
+                            </div></div>);
       
     return (<div>
+        {this.props.module.style ==='dropbox'?dropbox:''}
         {this.state.views? Object.keys(this.state.views).map((key,index) =>
           <>
+              {((this.props.module.style ==='dropbox' && this.state.group_selected === key) || (this.props.module.style !='dropbox'))?<>
               <div className="module-detail-view-title-container">
                 <div className="module-detail-view-title">{this.state.views[key].title}</div>
                 {key == 'API'? <>                
@@ -121,6 +133,7 @@ class ModuleDetailView extends React.Component {
                     </div>           
                 )}
               </div>
+              </>:''}
           </>)
         :''}
     </div>);
@@ -142,39 +155,8 @@ class ModuleDetailView extends React.Component {
     </div>
   }
   
-  render_search(){
-    const dropbox = (<div><div className="form-caption">Choose a search engine</div>
-                            <div>
-                        <select id='filterOption' 
-                        className="browser-default custom-select" 
-                        onChange={(e)=> this.setState({value: e.target.value})}
-                        defaultValue={this.state.search_selected}
-                        >
-                          {this.props.module.viewGroups.map((ob,id)=>  <option value={ob.name}>{ob.title}</option>)}
-                        </select>
-                            </div></div>);
-    let chks = this.props.module.browsing.filter((ob)=> ob.viewGroup == this.state.search_selected);
-    chks = chks.concat( this.props.module.content.filter((ob)=> ob.viewGroup == this.state.search_selected));
-    const checkbox = (<div className={"checkbox-container"} style={{marginTop:48}}>
-      {chks.map( (data, id)=> 
-            <div className="module-detail-view-checkbox" >
-            <label><CustomCheckBox handleClick={()=> console.log(data.name) } /><div className="label">{data.title}</div></label>
-          </div>
-          )}
-        
-      </div>);
-    const buttons = this.getButtons();
-    return (
-          <>
-              <div className="module-detail-view-description">{this.props.module.description}</div>
-              {dropbox}
-              {checkbox}
-              {buttons}
-          </>
-      );
-  }
-
-  render_other(){
+  
+  render(){
     const collectors = this.getCollectors();    
     const buttons = this.getButtons();
     return (
@@ -185,13 +167,7 @@ class ModuleDetailView extends React.Component {
           </>
       );
   }
-
-  render() {
-    if(this.props.module.name == "Search")
-      return this.render_search();
-    else
-      return this.render_other();
-  }
+  
 }
 
 export default ModuleDetailView;
