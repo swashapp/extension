@@ -5,157 +5,124 @@ import {
 } from 'mdbreact';
 import PrivacySelector from '../microcomponents/PrivacySelector'
 
-class PrivacyLevel extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {level: this.props.level};
-  }
-
-  componentDidUpdate(prevProps){
-      if(prevProps.level != this.props.level)
-        this.setState({level: this.props.level});
-  }
-
-  setPrivacy(value){ 
-    window.helper.updatePrivacyLevel(value).then(()=>{
-        this.setState({level: value})          
-      });
-  }
-
-  render() {
-    // TODO table data
-    let privacyTableData = [
-      [
-            {
-                type: "URL",
-                data: "www.test.com",
-                refreshed: "-"
-            },{
-                type: "Time",
-data: "Thu 15 Aug 2019",
-refreshed: "-"
-            },{
-                type: "Text",
-data: "A sentence containing *****",
-refreshed: "-"
-            },{
-                type: "Id",
-data: "e0ede487Xc0a2",
-refreshed: "Every Hour"
-            },{
-                type: "Name",
-data: "Cx53eeApH63xV2LqP0x33",
-refreshed: "-"
-            },{
-                type: "Gender",
-data: "zp93jY7eXcQsW8mNh33tY",
-            refreshed: "-"
-            }
-        ],
-        [
-            {
-                type: "URL",
-                data: "www.test.com",
-                refreshed: "-"
-            },{
-                type: "Time",
-data: "Thu 15 Aug 2019",
-refreshed: "-"
-            },{
-                type: "Text",
-data: "A sentence containing *****",
-refreshed: "-"
-            },{
-                type: "Id",
-data: "e0ede487Xc0a2",
-refreshed: "Every Hour"
-            },{
-                type: "Name",
-data: "Cx53eeApH63xV2LqP0x33",
-refreshed: "-"
-            },{
-                type: "Gender",
-data: "zp93jY7eXcQsW8mNh33tY",
-            refreshed: "-"
-            }
-        ],
-        [
-            {
-                type: "URL",
-                data: "www.test.com",
-                refreshed: "-"
-            },{
-                type: "Time",
-data: "Thu 15 Aug 2019",
-refreshed: "-"
-            },{
-                type: "Text",
-data: "A sentence containing *****",
-refreshed: "-"
-            },{
-                type: "Id",
-data: "e0ede487Xc0a2",
-refreshed: "Every Hour"
-            },{
-                type: "Name",
-data: "Cx53eeApH63xV2LqP0x33",
-refreshed: "-"
-            },{
-                type: "Gender",
-data: "zp93jY7eXcQsW8mNh33tY",
-            refreshed: "--"
-            }
+let currentDate = new Date();
+const sampleMessage = {
+    header: {
+        privacyLevel: 0
+    },
+    data: {
+        out: {
+            url: "https://www.test.com/path1/path2/sample?var1=sample",
+            time: currentDate.getTime(),
+            timeString: currentDate.toString(),
+            text: "A sentence containing Swash",
+            id: "324242342",
+            userInfo: "John Doe",
+            userAttr: "male"
+        },
+        schems: [
+            { jpath: "$.url", type: "url" },
+            { jpath: "$.time", type: "time" },
+            { jpath: "$.timeString", type: "timeString" },
+            { jpath: "$.text", type: "text" },
+            { jpath: "$.id", type: "id" },
+            { jpath: "$.userInfo", type: "userInfo" },
+            { jpath: "$.userAttr", type: "userAttr" },
         ]
+    }
+}
+
+const mSalt = "523c2eda-6a8b-11e9-a923-1681be663d3e";
+const salt = "59017e28-6a8b-11e9-a923-1681be663d3e";
+const sampleId = "c1edf5cf-25ad-44bf-884a-f0b8416da28d";
+
+const privacyData = [{ value: "Swash" }];
+const sampleModuleIds = [
+    { name: 'Amazon', id: "c7f3abdc-8c97-4dcf-8abf-5fb0aee23814", newId: { id: "", expireTime: "" } },
+    { name: 'Facebook', id: "5ef37a90-cdcf-4e69-8785-e61656522980", newId: { id: "", expireTime: "" } },
+    { name: 'Search', id: "289b244a-8612-4ef7-8194-7299d2b37afe", newId: { id: "", expireTime: "" } },
+    { name: 'Surfing', id: "079304c0-d81e-409f-8480-15eff0343b8c", newId: { id: "", expireTime: "" } },
+    { name: 'Twitter', id: "47361fe5-9563-46f8-81d4-da7dc914c2ea", newId: { id: "", expireTime: "" } },
+    { name: 'Youtube', id: "eee3037a-d6a8-4ae0-8955-eca0d67460c5", newId: { id: "", expireTime: "" } }
+]    
+
+const dataTypes = [{ name: "url", title: "URL" },
+    { name: "time", title: "Time" },
+    { name: "timeString", title: "TimeString" },
+    { name: "text", title: "Text" },
+    { name: "id", title: "Id" },
+    { name: "userInfo", title: "User Info" },
+    { name: "userAttr", title: "User Attribute" }] 
+
+class PrivacyLevel extends React.Component {    
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            level: this.props.level,
+            message: {}
+        };
+    }
+
+    componentDidMount() {
+        sampleMessage.header.privacyLevel = this.state.level;
+        window.helper.enforcePolicy(sampleMessage, mSalt, salt, privacyData).then(message => {
+            this.setState({message: message});
+        })
+    }
 
 
-    ];
-        let privacyTableDataRows =  privacyTableData[this.state.level].map( (row, id) => { return (<tr key={id}  className="table-row">                                    
-                                                <td className="table-text table-head-text">{row.type}</td>
-                                                <td className="table-text">{row.data}</td>
-                                                <td className="table-text">{row.refreshed}</td>
-                                            </tr>)});
-    const rangeSelector = (<PrivacySelector handleClick={(value) => this.setPrivacy(value)} 
-                                                 activeNav={this.state.level}/>);
-    /*const rangeSelector = (<input type="range" className="privacy-range" min="0" max="2" 
-                              defaultValue={this.state.level} 
-                              onChange={(event) => this.setState({level: event.target.value})}/>
-                            <div>
-                                <div className={`privacy-label ${this.state.level == "0" ? 'privacy-label-selected':''}`}  
-                                  style={{position: "absolute", bottom: 36, left: 24}}>LOW</div>
-                                <div className={`privacy-label ${this.state.level == "1" ? 'privacy-label-selected':''}`}  
-                                  style={{position: "absolute", bottom: 36, left: 304}}>MEDIUM</div>
-                                <div className={`privacy-label ${this.state.level == "2" ? 'privacy-label-selected':''}`}  
-                                  style={{position: "absolute", bottom: 36, right: 24}}>HIGH</div>
-                            </div>
+    componentDidUpdate(prevProps) {
+        if (prevProps.level != this.props.level)
+            this.setState({ level: this.props.level });
+    }
 
+    setPrivacy(value) {
+        window.helper.updatePrivacyLevel(value).then(() => {
+            sampleMessage.header.privacyLevel = value;
+            window.helper.enforcePolicy(sampleMessage, mSalt, salt, privacyData).then(message => {
+                this.setState({ level: value,
+                    message: message
+                })
+            })
+            
+        });
+    }
 
-                              );
-*/
-    return (
-      <>
-          <div className="privacy-block">
-                            {rangeSelector}
-                            
-                        </div>
-                        <div>
-                            <MDBTable>
-                            
-                                <MDBTableHead>
-                                    <tr className="table-head-row">                               
-                                        <th className="table-text table-head-text">Type</th>
-                                        <th className="table-text table-head-text">Data to be sent</th>
-                                        <th className="table-text table-head-text">Refreshed</th>
-                                    </tr>
-                                </MDBTableHead>
-                                <MDBTableBody>
-                                    {privacyTableDataRows}                                
-                                </MDBTableBody>
-                            </MDBTable>
-                        </div>
-              </>
-    );
-  }
+    render() {
+        
+        let privacyTableDataRows = dataTypes.map((row, id) => {
+            return (<tr key={id} className="table-row">
+                <td className="table-text table-head-text">{row.title}</td>
+                <td className="table-text">{this.state.message.data?this.state.message.data[row.name]:''}</td>
+            </tr>)
+        });
+        const rangeSelector = (<PrivacySelector handleClick={(value) => this.setPrivacy(value)}
+            activeNav={this.state.level} />);
+
+        return (
+            <>
+                <div className="privacy-block">
+                    {rangeSelector}
+
+                </div>
+                <div>
+                    <MDBTable>
+
+                        <MDBTableHead>
+                            <tr className="table-head-row">
+                                <th className="table-text table-head-text">Type</th>
+                                <th className="table-text table-head-text">Data to be sent</th>
+                            </tr>
+                        </MDBTableHead>
+                        <MDBTableBody>
+                            {privacyTableDataRows}
+                        </MDBTableBody>
+                    </MDBTable>
+                </div>
+            </>
+        );
+    }
 }
 
 export default PrivacyLevel;

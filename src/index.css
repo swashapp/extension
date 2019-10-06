@@ -1375,6 +1375,7 @@ line-height: 16px;
 	background-color: #EFEFEF;
 }
 
+
 .more-button{
 	height: 24px;
 	width: 32px;
@@ -1382,6 +1383,10 @@ line-height: 16px;
   background-image: url('statics/images/more-icon.svg');
   background-repeat: no-repeat;    
   background-position: 6px center;
+}
+
+.more-button-active{
+  background-color: #EFEFEF !important;
 }
 
 .balance-cumulative {

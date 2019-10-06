@@ -36,14 +36,14 @@ class SettingsPage extends React.Component {
 
      
     componentDidMount() {
-        //this.balanceCheckInterval = setInterval(() => this.getBalanceInfo(this), 5000);
+        this.balanceCheckInterval = setInterval(() => this.getBalanceInfo(this), 5000);
         this.getBalanceInfo();
         this.loadSettings();
         window.scrollTo(0, 0);
     }
 
     componentDidUnmount() {
-        //clearInterval(this.balanceCheckInterval);
+        clearInterval(this.balanceCheckInterval);
     }
 
     loadSettings() {        
@@ -71,8 +71,7 @@ class SettingsPage extends React.Component {
             this.setState({
                 dataBalance: (dataBalance?'':'0.00',dataBalance),
                 dataAvailable: (dataAvailable?'':'0.00',dataAvailable)
-            })
-        this.setTimeout(this.getBalanceInfo(), 50000)
+            })        
     }
     
 	
@@ -111,7 +110,8 @@ class SettingsPage extends React.Component {
         
         const copyToClipboard = (e, element) => {            
             element.select();
-            document.execCommand("copy"); 
+            document.execCommand("copy");
+            element.blur();                        
         }
 
         const revealPrivateKey = (e) => {
@@ -125,14 +125,7 @@ class SettingsPage extends React.Component {
 
         let cumulativeEarnings="761.59";
         
-        // let privacyTableDataRows = privacyTableData.map((row) => {
-        //                             (<tr>                                    
-        //                                 <td>{row.type}</td>
-        //                                 <td>{row.data}</td>
-        //                                 <td>{row.refreshed}</td>
-        //                             </tr>)
-        //                         });
-
+     
         const modules = (this.state.modules)?(this.state.modules.map((module)=> {
                 return (<ModuleView isOpened={false} module={module} />)
             })): (<></>);
@@ -159,7 +152,7 @@ class SettingsPage extends React.Component {
                             <div className="form-caption">Wallet address</div>
                             <div style={{position: 'relative'}}>
                                 <input type="text" className="form-input" id="walletAddress" value={this.state.keyInfo.address}/>
-                                <button className="form-input-button" onClick={(e) => {copyToClipboard(e, document.getElementById("walletAddress"))}}>Copy</button>
+                                <button className="form-input-button" onBlur={(e) => {e.target.innerText="Copy"}} onClick={(e) => {copyToClipboard(e, document.getElementById("walletAddress"));e.target.focus();e.target.innerText="Copied"}}>Copy</button>
                             </div>
                             <div className="form-caption">Private key </div>
                             <div style={{position: 'relative'}}>
