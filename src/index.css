@@ -1339,6 +1339,17 @@ line-height: 16px;
   padding-left: 16px;
 }
 
+.form-input:focus {
+  outline-color: #0324FF !important;
+  color: #CDCDCD;
+}
+
+.form-input:active {
+  outline-color: #0324FF !important;
+  color: #323232 !important;
+}
+
+
 .form-input-with-button{
   position: absolute;
 
