@@ -15,6 +15,7 @@ import {
     MDBIcon
 } from 'mdbreact';
 import CustomSnackbar from '../microcomponents/CustomSnackbar';
+import arrow from '../../statics/images/inactive.svg';
 
 class AdvancedPage extends React.Component {
     constructor(props) {
@@ -139,6 +140,12 @@ class AdvancedPage extends React.Component {
 
 
     render() {
+        const openSelectMenu = (e) => {
+            var event = document.createEvent('MouseEvents');
+            event.initMouseEvent('mousedown', true, true, window);
+            let element = document.querySelector("#filterOption");
+            element.dispatchEvent(event);
+        }
         let excludeTableDataRows = this.state.filters.map((row) => {
             return (<tr key={row.value} className="table-row">
                 <td className="table-text"><input type="text" value={row.value} disabled className="disabledUrl" /></td>
@@ -152,13 +159,16 @@ class AdvancedPage extends React.Component {
             </div></div>);
         let addXType = (<div><div className="form-caption">Matching Type</div>
             <div className="swash-select-container">
-                <select id='filterOption' className="browser-default swash-select">
-                    <option value="exact">Exact</option>
-                    <option value="regex">Regular Expression</option>
-                    <option value="wildcard">Wild Card</option>
-                </select>
+            <select id='filterOption' className="swash-select">
+                <option value="exact">Exact</option>
+                <option value="regex">Regular Expression</option>
+                <option value="wildcard">Wild Card</option>
+            </select>
+            <div className="swash-select-arrow" onClick={openSelectMenu}>
+                <img src={arrow}/>
             </div>
-        </div>);
+        </div>
+        </div >);
         let AddXButton = (<a className="linkbutton" onClick={() => this.addFilter()}>Add</a>);
 
 

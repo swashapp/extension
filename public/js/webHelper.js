@@ -122,7 +122,7 @@ var helper = (function () {
             {
                 message: {
                     origin: "http://en.wikipedia.org",
-                    header: { module: "search" },
+                    header: { module: "Search" },
                     dalay: 60,
                     data: "{\r\n    \"header\": {\r\n        \"function\": \"browsing\",\r\n        \"module\": \"Surfing\",\r\n        \"collector\": \"Page Visit\",\r\n        \"privacyLevel\": 3,\r\n        \"version\": \"0.7.8\"\r\n    },\r\n    \"data\": {\r\n        \"url\": \"https:\/\/en.wikipedia.org\/9b43\/71672544\"\r\n    },\r\n    \"identity\": {\r\n        \"uid\": \"e9810fa424aeabf40e1dc0dad5eb02e6240e7530bc3ee836703df0d6ab60d284\",\r\n        \"walletId\": \"\",\r\n        \"email\": \"\"\r\n    }\r\n}"
                 }
@@ -130,7 +130,7 @@ var helper = (function () {
             {
                 message: {
                     origin: "http://en.wikipedia.org",
-                    header: { module: "search" },
+                    header: { module: "Search" },
                     dalay: 40,
                     data: "{\r\n    \"header\": {\r\n        \"function\": \"browsing\",\r\n        \"module\": \"Surfing\",\r\n        \"collector\": \"Page Visit\",\r\n        \"privacyLevel\": 3,\r\n        \"version\": \"0.7.8\"\r\n    },\r\n    \"data\": {\r\n        \"url\": \"https:\/\/en.wikipedia.org\/9b43\/71672544\"\r\n    },\r\n    \"identity\": {\r\n        \"uid\": \"e9810fa424aeabf40e1dc0dad5eb02e6240e7530bc3ee836703df0d6ab60d284\",\r\n        \"walletId\": \"\",\r\n        \"email\": \"\"\r\n    }\r\n}"
                 }
@@ -138,7 +138,7 @@ var helper = (function () {
             {
                 message: {
                     origin: "http://en.wikipedia.org",
-                    header: { module: "search" },
+                    header: { module: "Search" },
                     dalay: 30,
                     data: "{\r\n    \"header\": {\r\n        \"function\": \"browsing\",\r\n        \"module\": \"Surfing\",\r\n        \"collector\": \"Page Visit\",\r\n        \"privacyLevel\": 3,\r\n        \"version\": \"0.7.8\"\r\n    },\r\n    \"data\": {\r\n        \"url\": \"https:\/\/en.wikipedia.org\/9b43\/71672544\"\r\n    },\r\n    \"identity\": {\r\n        \"uid\": \"e9810fa424aeabf40e1dc0dad5eb02e6240e7530bc3ee836703df0d6ab60d284\",\r\n        \"walletId\": \"\",\r\n        \"email\": \"\"\r\n    }\r\n}"
                 }
@@ -154,7 +154,7 @@ var helper = (function () {
             {
                 message: {
                     origin: "http://reddit.com",
-                    header: { module: "facebook" },
+                    header: { module: "Facebook" },
                     dalay: 60,
                     data: "{\r\n    \"header\": {\r\n        \"function\": \"browsing\",\r\n        \"module\": \"Surfing\",\r\n        \"collector\": \"Page Visit\",\r\n        \"privacyLevel\": 3,\r\n        \"version\": \"0.7.8\"\r\n    },\r\n    \"data\": {\r\n        \"url\": \"https:\/\/en.wikipedia.org\/9b43\/71672544\"\r\n    },\r\n    \"identity\": {\r\n        \"uid\": \"e9810fa424aeabf40e1dc0dad5eb02e6240e7530bc3ee836703df0d6ab60d284\",\r\n        \"walletId\": \"\",\r\n        \"email\": \"\"\r\n    }\r\n}"
                 }
