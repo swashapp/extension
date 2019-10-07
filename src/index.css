@@ -1101,9 +1101,40 @@ enabled{
 }
 
 
+.swash-select {
+  padding: 8px;
+  display: inline-block;
+  vertical-align: middle;
+  appearance: none;
+  background: rgb(255, 255, 255);
+  border-radius: 4px;
+  border: 1px solid rgb(239, 239, 239);
+  height: 40px;
+  width: 144px;
+  color: rgb(50, 50, 50);
+  font-family: Roboto-Regular;
+  font-size: 16px;
+  font-weight: normal;
+  letter-spacing: 0px;
+  line-height: 20px;
+} 
 
+.swash-select-container{
+  height: 40px;
+  width: 144px;
+}
 
-
+.swash-select-container:after {
+  position: relative;
+  background-image: url("http://localhost:3000/static/media/inactive.0763bb38.svg");
+  background-repeat: no-repeat;
+  content: '';
+  top: -25px;
+  right: -112px;
+  width: 0;
+  height: 100%;
+  border-color: #fff transparent transparent transparent;
+}
 
 
 
@@ -1258,6 +1289,17 @@ font-weight: bold;
 padding-bottom: 16px;
 }
 
+.swash-head3{
+  color: rgb(50, 50, 50);
+  font-size: 20px;
+  font-family: Roboto-Medium;
+  font-weight: 500;
+  letter-spacing: 0px;
+  line-height: 24px;  
+  margin-bottom: 16px;
+}
+
+
 .swash-p {
 
   color: rgb(50, 50, 50);
@@ -1265,8 +1307,19 @@ font-family: Roboto-Regular;
 font-size: 16px;
 text-align: justify;
 
-margin-bottom: 68px;
+margin-bottom: 74px;
 }
+
+.swash-p2 {
+
+  color: rgb(50, 50, 50);
+font-family: Roboto-Regular;
+font-size: 16px;
+text-align: justify;
+
+margin-bottom: 37px;
+}
+
 
 .swash-col{
 width: 680px;
@@ -1274,14 +1327,15 @@ width: 680px;
 }
 
 .setting-part{
-  margin-bottom: 160px;
+  margin-bottom: 140px;
 }
 
 .graybox{
-background: rgb(241, 241, 241);
-width: 680px;
+background: rgb(239, 239, 239);
+  width: 680px;
   border-radius: 4px;
   padding: 32px;
+  margin-bottom: 32px;
 }
 
 .graybox ul {
@@ -1318,16 +1372,23 @@ background: rgb(245, 245, 245);
 
 .form-caption{
   margin-bottom: 8px;
-  margin-top: 32px;
+  color: rgb(50, 50, 50);
+  font-family: Roboto-Medium;
+  font-size: 12px;
+  font-weight: 500;
+  height: 16px;
+  letter-spacing: 0px;
+  line-height: 16px;
+}
 
-box-shadow: ;
-color: rgb(50, 50, 50);
-font-family: Roboto-Medium;
-font-size: 12px;
-font-weight: 500;
-height: 16px;
-letter-spacing: 0px;
-line-height: 16px;
+#walletAddress{
+  color: #323232;
+  border-color: rgb(239, 239, 239);
+}
+
+#privateKey{
+  color: #323232;
+  border-color: rgb(239, 239, 239);
 }
 
 .form-input{
@@ -1337,16 +1398,32 @@ line-height: 16px;
   border: 1px solid rgb(239, 239, 239);
   height: 40px;
   padding-left: 16px;
-}
-
-.form-input:focus {
-  outline-color: #0324FF !important;
-  color: #CDCDCD;
+  color: #cdcdcd;
+  font-family: Roboto-Regular;
+  font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 0px;
+  line-height: 40px;
 }
 
 .form-input:active {
-  outline-color: #0324FF !important;
-  color: #323232 !important;
+  border-color: #0324FF;
+  color: #CDCDCD; 
+  font-family: Roboto-Regular;
+  font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 0px;
+  line-height: 40px;
+}
+
+.form-input:focus {
+  border-color: #0324FF;
+  color: #323232;
+  font-family: Roboto-Regular;
+  font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 0px;
+  line-height: 40px;
 }
 
 
@@ -1437,6 +1514,14 @@ border-radius: 4px;
 border: 1px solid rgb(82, 82, 82);
 display: block;
 
+}
+
+.withraw-btn-clicked{
+  opacity: 80%
+}
+
+.withraw-btn-disabled{
+  opacity: 50%
 }
 
   .balance-text{
@@ -1714,10 +1799,12 @@ left: 72px;
 
 .linkbutton:hover{
   background: rgb(231, 231, 231);
+  transform: scale(1.05);
 }
 
-.linkbutton:active{
+.linkbutton:active, .linkbutton:focus{
   background: rgb(216, 216, 216);
+  transform: scale(0.95);
 }
 
 .linkbutton{
@@ -1743,6 +1830,7 @@ left: 72px;
   background: rgb(245, 245, 245);
   border-radius: 4px;
   border: 1px solid rgb(239, 239, 239);
+  color: #323232;
 }
 
 #advanced-page .table-row .disabledMaskedText{
@@ -1751,6 +1839,7 @@ left: 72px;
   background: rgb(245, 245, 245);
   border-radius: 4px;
   border: 1px solid rgb(239, 239, 239);
+  color: #323232;
 }
 
 
@@ -1768,6 +1857,7 @@ left: 72px;
   background: rgb(245, 245, 245);
   border-radius: 4px;
   border: 1px solid rgb(239, 239, 239);
+  color: #323232;
 }
 
 #advanced-page .table-head-row{
