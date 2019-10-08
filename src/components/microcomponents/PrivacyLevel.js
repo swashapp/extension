@@ -93,7 +93,7 @@ class PrivacyLevel extends React.Component {
         
         let privacyTableDataRows = dataTypes.map((row, id) => {
             return (<tr key={id} className="table-row">
-                <td className="table-text table-head-text">{row.title}</td>
+                <td className="table-text table-text-bold">{row.title}</td>
                 <td className="table-text">{this.state.message.data?this.state.message.data[row.name]:''}</td>
             </tr>)
         });

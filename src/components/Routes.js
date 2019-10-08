@@ -17,7 +17,7 @@ class Routes extends React.Component {
 			<Route path='/Help' component={Help} />
 			<Route path='/Advanced' component={Advanced} />
 			<Route path='/Data' component={Data} />
-			<Route path='/'  component={Settings} />
+			<Redirect to='/Settings' />
 		</Switch>
       </HashRouter>
     );

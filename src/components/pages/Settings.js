@@ -137,7 +137,7 @@ class SettingsPage extends React.Component {
                     <div className="swash-col">
                         <div className="setting-part">
                             <div className="swash-head">Earnings</div>
-                            <div className="swash-p">Once your data is being purchased on the Streamr Marketplace, your earnings will appear here. 
+                            <div className="swash-p2">Once your data is being purchased on the Streamr Marketplace, your earnings will appear here. 
                             New earnings are frozen for 48 hours as an anti-fraud measure. Balance available to withdraw is shown below. 
                             See the <a href="#/Help">docs</a> to learn more about private keys, balances and withdrawing. </div>
                             <div className="balance-block block-top-corner-radius">

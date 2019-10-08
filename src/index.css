@@ -1317,6 +1317,7 @@ position: relative;
 
 .withdraw-block{
 background: rgb(245, 245, 245);
+margin-bottom: 32px;
 }
 
 .block-top-corner-radius{
@@ -1343,6 +1344,7 @@ background: rgb(245, 245, 245);
 #walletAddress{
   color: #323232;
   border-color: rgb(239, 239, 239);
+  margin-bottom: 24px;
 }
 
 #privateKey{
@@ -1406,7 +1408,7 @@ background: rgb(245, 245, 245);
   position: absolute;
   border-width: 0px;
   top: 8px;
-  right: 4px;
+  right: 8px;
 }
 
 .form-input-button:focus{
@@ -1424,9 +1426,9 @@ background: rgb(245, 245, 245);
 
 
 .more-button{
-	height: 24px;
+	height: 32px;
 	width: 32px;
-  top: 8px;
+  top: 4px;
   background-image: url('statics/images/more-icon.svg');
   background-repeat: no-repeat;    
   background-position: 6px center;
@@ -1449,7 +1451,7 @@ width: 144px;
 
 position: absolute;
 right: 24px;
-top: 24px;
+top: 22px;
 }
 
 .withdraw-btn{
@@ -1498,6 +1500,7 @@ line-height: 32px;
 .balance-text-bold{
 font-size: 24px;
 font-weight: 500;
+font-family: Roboto-Medium;
   }
 
 .table-text{
@@ -1507,7 +1510,7 @@ font-size: 14px;
 font-weight: normal;
 letter-spacing: 0px;
 line-height: 40px;
-padding-left: 40px;
+padding-left: 40px !important;
     padding-bottom: 0px!important;
     padding-top: 0px!important;
 border: 1px solid #dee2e6;
@@ -1522,6 +1525,12 @@ border: 1px solid #dee2e6;
 .table-head-text{
   color: rgb(50, 50, 50);
 font-family: Roboto-Medium;
+font-weight: 500;
+}
+
+.table-text-bold{
+  color: rgb(50, 50, 50);
+font-family: Roboto-reqular;
 font-weight: 500;
 }
 
@@ -1988,10 +1997,10 @@ input[type=range]:focus::-ms-fill-upper {
   top: 0px;
 }
 .privacy-nav-selected{
-  border: 11px solid rgb(255, 255, 255);
+  border: 16px solid rgb(255, 255, 255);
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1);
-  margin-top: -10px!important;
-  margin-left: -11px!important;
+  margin-top: -16px!important;
+  margin-left: -16px!important;
   z-index: 8 !important;
 }
 
