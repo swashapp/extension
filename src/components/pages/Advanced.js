@@ -15,7 +15,8 @@ import {
     MDBIcon
 } from 'mdbreact';
 import CustomSnackbar from '../microcomponents/CustomSnackbar';
-import arrow from '../../statics/images/inactive.svg';
+import CustomSelect from '../microcomponents/CustomSelect';
+
 
 class AdvancedPage extends React.Component {
     constructor(props) {
@@ -89,7 +90,7 @@ class AdvancedPage extends React.Component {
         let that = this;
         let f = {
             value: document.getElementById('filterValue').value,
-            type: document.getElementById('filterOption').value,
+            type: this.refs.matchingTypeSelect.getSelectedItem().value,
             internal: false
         };
         let allow = true;
@@ -157,17 +158,12 @@ class AdvancedPage extends React.Component {
             <div>
                 <input type="text" id="filterValue" placeholder="http://example.com" className="form-input  filter-input" />
             </div></div>);
+        let selectItems = [{ description: 'Exact', value: 'Exact' },
+        { description: 'Wildcard', value: 'Wildcard' },
+        { description: 'Regex', value: 'Regex' }]
         let addXType = (<div><div className="form-caption">Matching Type</div>
-            <div className="swash-select-container">
-            <select id='filterOption' className="swash-select">
-                <option value="exact">Exact</option>
-                <option value="regex">Regular Expression</option>
-                <option value="wildcard">Wild Card</option>
-            </select>
-            <div className="swash-select-arrow" onClick={openSelectMenu}>
-                <img src={arrow}/>
-            </div>
-        </div>
+
+            <CustomSelect items={selectItems} ref='matchingTypeSelect'/>
         </div >);
         let AddXButton = (<a className="linkbutton" onClick={() => this.addFilter()}>Add</a>);
 

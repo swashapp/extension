@@ -1100,43 +1100,6 @@ enabled{
     border-bottom: 1px solid rgba(0,0,0,.125);
 }
 
-.swash-select-container {
-  height: 40px;
-  width: 144px;
-  border: 1px solid rgb(239, 239, 239);
-  border-radius: 4px;
-  background: rgb(255, 255, 255);
-}
-
-.swash-select {
-    -webkit-appearance: none;
-    padding-left: 14px;
-    vertical-align: middle;        
-    border: 0px;
-    height: 38px;
-    width: 94px;
-    color: rgb(50, 50, 50);
-    font-family: Roboto-Regular;
-    font-size: 16px;
-    font-weight: normal;
-    letter-spacing: 0px;
-    line-height: 20px;
-} 
-
-.swash-select-arrow {
-  background: rgb(255, 255, 255);    
-  height: 38px;
-  width: 46px;
-  padding-left:24px;
-  vertical-align: middle;
-  display: flex;
-  float: right;
-}
-
-.swash-select:focus, .swash-select:active{
-  border: 0px;
-  outline: 0px;
-}
 
 
 
@@ -1320,6 +1283,11 @@ width: 680px;
 .setting-part{
   margin-bottom: 140px;
 }
+
+.setting-part-small{
+  margin-bottom: 48px;
+}
+
 
 .graybox{
 background: rgb(239, 239, 239);
@@ -1599,8 +1567,14 @@ font-weight: 500;
 }
 
 .delayNumberPicker{
-  width: 136px;
-  float: left;
+  width: 136px;  
+}
+
+.delayNumberPicker:after{
+  content: 'Minutes';
+  margin-left: 8px;
+  position: absolute;
+  line-height: 40px;
 }
 
 
@@ -1608,7 +1582,7 @@ font-weight: 500;
   color: rgb(50, 50, 50);
   position: relative;
   height: 72px; 
-  margin-top: 16px;
+  margin-bottom: 16px;
   background: rgb(255, 255, 255);
   border-radius: 4px;
   border: 1px solid rgb(239, 239, 239);
@@ -2262,3 +2236,10 @@ letter-spacing: 0px;
 line-height: 20px;
 }
 
+.progress-bar {
+  background-color: #0324ff;
+}
+
+.accordion-head:hover .progress-bar {
+  background-color: #ff5c00;
+}

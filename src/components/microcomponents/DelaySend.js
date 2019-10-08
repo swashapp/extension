@@ -35,7 +35,7 @@ class DelaySend extends React.Component {
         <div className={classHeader} >
           <div className="accordion-domain">{this.props.message.link}</div>
           <div className="accordion-module">{this.props.message.title}</div>
-          <MDBProgress className="my-2" material value={progress_percentage} className="accordion-delay" color="info" />
+          <MDBProgress className="my-2" material value={progress_percentage} className="accordion-delay" color="#ff5c00" />
           <img src={this.props.message.icon} className="accordion-icon" />
           <div className="accordion-checkbox" onClick={() => this.setState({isOpened: !isOpened})} ><img src={iconArrow}  /></div>
           <a className="accordion-delete" onClick={() => this.props.onDelete(this.props.message)} />

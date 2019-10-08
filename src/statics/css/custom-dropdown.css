@@ -24,7 +24,7 @@
 .custom-dropdown-item:focus, .custom-dropdown-item:hover, .custom-dropdown-item:active {
     color: rgb(50, 50, 50) !important;
     text-decoration: none;
-    background: rgb(255, 255, 255) !important;
+    background-color: #efefef !important;
     outline: 0px;
 }
 
