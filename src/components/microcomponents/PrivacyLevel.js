@@ -4,6 +4,7 @@ import {
     MDBTableHead
 } from 'mdbreact';
 import PrivacySelector from '../microcomponents/PrivacySelector'
+import CustomSnackbar from '../microcomponents/CustomSnackbar';
 
 let currentDate = new Date();
 const sampleMessage = {
@@ -84,6 +85,7 @@ class PrivacyLevel extends React.Component {
                 this.setState({ level: value,
                     message: message
                 })
+                this.refs.notify.handleNotification('Saved Successfully', 'success');
             })
             
         });
@@ -120,6 +122,9 @@ class PrivacyLevel extends React.Component {
                         </MDBTableBody>
                     </MDBTable>
                 </div>
+                <CustomSnackbar
+                    ref='notify'
+                />
             </>
         );
     }

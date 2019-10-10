@@ -2,24 +2,28 @@ import React from 'react';
 
 import CustomCheckBox from './CustomCheckBox';
 import CustomSelect from './CustomSelect';
+import CustomSnackbar from '../microcomponents/CustomSnackbar';
 
 class ModuleDetailView extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props) {    
+    super(props);    
     this.state = {
+      module: this.props.module,
       views: {},
       connected: false,
-      group_selected: this.props.module.viewGroups[0].name
+      group_selected: this.props.module.viewGroups[0].name,
+      intervalId: 0  
     };
     this.onSelectChange = this.onSelectChange.bind(this);
+    this.saveSettings = this.saveSettings.bind(this);
   }
 
   
 
   componentDidMount() {
-    if (this.props.module) {
+    if (this.state.module) {
       let views = {};
-      let module = this.props.module;
+      let module = this.state.module;
       if (module) {
         for (let view of module.viewGroups) {
           views[view.name] = {
@@ -47,14 +51,12 @@ class ModuleDetailView extends React.Component {
         }
       }
 
-      /*			
-            if (module.apiCall) {			  
-              let f  = setInterval(()=>{window.helper.isConnected(module.name).then(connected => {
-                this.setState({connected:connected})
-              });},1000);
-              this.setState({intervalId: f});
-            }                
-      */
+      if (module.apiCall) {			  
+        let f  = setInterval(()=>{window.helper.isConnected(module.name).then(connected => {
+          this.setState({connected:connected})
+        });},1000);
+        this.setState({intervalId: f});
+      }                
       this.setState({
         module: module,
         is_enabled: module.is_enabled,
@@ -65,7 +67,11 @@ class ModuleDetailView extends React.Component {
   };
 
   componentDidUpdate(prevProps) {
+    
+  }
 
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId);
   }
 
   connect(name){
@@ -100,15 +106,32 @@ class ModuleDetailView extends React.Component {
 
 
   getSettings(settings) {
+    for(let func of this.state.module.functions) {
+			settings[func] = {};
+		}	
     let views = this.state.views
     for (let viewName in views) {
       {
         for (let itemId in views[viewName].items) {
-          let f = document.getElementById(viewName + "-" + itemId).checked;
-          settings[views[viewName].items[itemId].func][views[viewName].items[itemId].name] = f;
+          settings[views[viewName].items[itemId].func][views[viewName].items[itemId].name] = views[viewName].items[itemId].is_enabled;
         }
       }
     }
+  }
+
+  saveSettings() {
+    var settings = {};
+    this.getSettings(settings);
+    let moduleName = this.state.module.name;
+			return window.helper.configModule(moduleName, settings).then(()=>{
+				return window.helper.loadModules().then((modules) => {
+					this.setState({						
+						module: modules[moduleName]
+          })				
+          this.refs.notify.handleNotification('Saved successfully', 'success');    
+				})
+			});	
+
   }
 
 
@@ -120,7 +143,7 @@ class ModuleDetailView extends React.Component {
     if (!this.state.views)
       return "";
     let selectItems =[];
-    this.props.module.viewGroups.map((ob, id) => selectItems.push({description: ob.title, value: ob.name}));
+    this.state.module.viewGroups.map((ob, id) => selectItems.push({description: ob.title, value: ob.name}));
     let searchEngings = (<div>
       <CustomSelect items={selectItems} className={'search-select-container'} menuClassName='search-select-menu' onChange={this.onSelectChange} />
     </div >);
@@ -131,25 +154,25 @@ class ModuleDetailView extends React.Component {
       </div></div>);
 
     return (<div>
-      {this.props.module.style === 'dropbox' ? dropbox : ''}
+      {this.state.module.style === 'dropbox' ? dropbox : ''}
       {this.state.views ? Object.keys(this.state.views).map((key, index) =>
         <>
-          {((this.props.module.style === 'dropbox' && this.state.group_selected === key) || (this.props.module.style != 'dropbox')) ? <>
+          {((this.state.module.style === 'dropbox' && this.state.group_selected === key) || (this.state.module.style != 'dropbox')) ? <>
             <div className="module-detail-view-title-container">
               <div className="module-detail-view-title">{this.state.views[key].title}</div>
               {key == 'API' ? <>
                 {this.state.connected && this.state.connected != 'connecting'?
-                <a className="oauth_btn" onClick={() => this.disconnect(this.props.module.name)}>Disconnect</a>
-                :<a className="oauth_btn" onClick={() => this.connect(this.props.module.name)}>Connect to {this.props.module.name}</a>                
+                <a className="oauth_btn" onClick={() => this.disconnect(this.state.module.name)}>Disconnect</a>
+                :<a className="oauth_btn" onClick={() => this.connect(this.state.module.name)}>Connect to {this.state.module.name}</a>                
                 }
               </> : ''}
             </div>
             <div className="checkbox-container">
               {this.state.views[key].items.map((collector, id) =>
                 <div className="module-detail-view-checkbox" >
-                  <label>{/*<input type="checkbox" value={data.name} />*/}
+                  <label>
 
-                    <CustomCheckBox id={this.state.views[key].name + "-" + id} checked={collector.is_enabled} handleClick={(x) => {/*this.state.views[key].items[id].is_enabled = x*/ }} />
+                    <CustomCheckBox id={this.state.views[key].name + "-" + id} checked={collector.is_enabled} handleClick={(x) => {this.state.views[key].items[id].is_enabled = !x}} />
                     <div className="label">{collector.title}</div>
                   </label>
                 </div>
@@ -162,18 +185,11 @@ class ModuleDetailView extends React.Component {
   }
 
 
-
-
-
-
-
-
-
   getButtons() {
     return <div style={{ height: 40, marginTop: 32 }}>
       <a className="module-btn " onClick={(e) => { this.selectAll(e, false) }} style={{ width: 112, float: "left" }}>Deselect all</a>
       <a className="module-btn " onClick={(e) => { this.selectAll(e, true) }} style={{ width: 112, float: "left" }}>Select all</a>
-      <a className="module-btn " style={{ width: 72, float: "right" }}>Done</a>
+      <a className="module-btn " onClick={this.saveSettings} style={{ width: 72, float: "right" }}>Done</a>
     </div>
   }
 
@@ -183,9 +199,12 @@ class ModuleDetailView extends React.Component {
     const buttons = this.getButtons();
     return (
       <>
-        <div className="module-detail-view-description">{this.props.module.description}</div>
+        <div className="module-detail-view-description">{this.state.module.description}</div>
         {collectors}
         {buttons}
+        <CustomSnackbar
+                    ref='notify'
+                />
       </>
     );
   }

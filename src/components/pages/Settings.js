@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../statics/css/custom-notifications.css';
 import RDropdownMenu from '../microcomponents/RDropdownMenu.js';
 
 import {
@@ -17,6 +16,7 @@ import {
     MDBBtn,
     MDBIcon
 } from 'mdbreact';
+import CustomSnackbar from '../microcomponents/CustomSnackbar';
 import ModuleView from '../microcomponents/ModuleView';
 import PrivacyLevel from '../microcomponents/PrivacyLevel';
 
@@ -66,39 +66,20 @@ class SettingsPage extends React.Component {
 
     async getBalanceInfo() {
         let dataBalance = await window.helper.getDataBalance();
+        dataBalance = dataBalance === '' ?'0.00':dataBalance
         let dataAvailable = await window.helper.getAvailableBalance();
+        dataAvailable = dataAvailable === ''|| dataAvailable.error?'0.00':dataAvailable
         if(dataBalance != this.state.dataBalance || dataAvailable != this.state.dataAvailable)
             this.setState({
-                dataBalance: (dataBalance?'':'0.00',dataBalance),
-                dataAvailable: (dataAvailable?'':'0.00',dataAvailable)
+                dataBalance: (dataBalance),
+                dataAvailable: (dataAvailable)
             })        
     }
     
 	
     
     render() {
-        const settings = {};
-        const saveSettings = () => {
-            let pushStatus = false; //document.getElementById('push').checked;
-            let delay = this.state.delay;
-            let email = document.getElementById('email').value;
-            let wallet = document.getElementById('wallet').value;
-            let data = {
-                email: email,
-                walletId: wallet
-            };
-            window.helper.saveProfile(data).then(() => {
-                window.helper.saveConfigs({pushStatus: pushStatus, delay: delay}).then(() => {
-                    if (pushStatus)
-                        window.helper.subscribe();
-                    else
-                        window.helper.unsubscribe();
-                    //NotificationManager.success('Configuration is updated successfully', 'Update Configuration');
-                })
-            })
-        };
-       
-       
+               
         const changeInput = (e) => {
             if (e.target.id === 'wallet') {
                 this.setState({walletId: e.target.value})
@@ -109,9 +90,12 @@ class SettingsPage extends React.Component {
         };
         
         const copyToClipboard = (e, element) => {            
+            revealPrivateKey(e);
             element.select();
             document.execCommand("copy");
-            element.blur();                        
+            revealPrivateKey(e);
+            element.blur();    
+            this.refs.notify.handleNotification('Copied successfully', 'success');                    
         }
 
         const revealPrivateKey = (e) => {
@@ -192,7 +176,10 @@ the types of data you’d like to share and what to obscure or remove. You can a
 
 
 
-                </React.Fragment>                
+                </React.Fragment>
+                <CustomSnackbar
+                    ref='notify'
+                />        
             </div>
         );
     }

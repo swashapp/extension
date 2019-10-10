@@ -7,6 +7,7 @@ import ModuleDetailView from './ModuleDetailView';
 import icon_default from '../../statics/images/network-navigation.svg'
 import icon_open from '../../statics/images/Toggle_On.svg'
 import icon_closed from '../../statics/images/Toggle_Off.svg'
+import CustomSnackbar from '../microcomponents/CustomSnackbar';
 
 class ModuleView extends React.Component {
   static propTypes = {
@@ -32,7 +33,8 @@ class ModuleView extends React.Component {
         settings.is_enabled = !this.state.isEnabled;
         let moduleName = this.props.module.name;
         return window.helper.configModule(moduleName, settings).then(()=>{
-          this.setState({isEnabled: !this.state.isEnabled})          
+          this.setState({isEnabled: !this.state.isEnabled});
+          this.refs.notify.handleNotification('Changed Successfully', 'success');      
         }); 
     }
     const {isOpened, isEnabled} = this.state;
@@ -56,6 +58,9 @@ class ModuleView extends React.Component {
             <ModuleDetailView module={this.props.module} />
           </div>
         </Collapse>
+        <CustomSnackbar
+                    ref='notify'
+                />
       </div>
     );
   }
