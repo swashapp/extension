@@ -68,7 +68,7 @@ class DataPage extends React.Component {
                 catch (err) {
 
                 }
-                //delete msg.origin
+                delete msg.origin
                 messages.push({
                     percentage: percentage,
                     currentTime: currentTime,
