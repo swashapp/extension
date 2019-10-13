@@ -18,9 +18,7 @@ class ModuleDetailView extends React.Component {
     this.saveSettings = this.saveSettings.bind(this);
   }
 
-  
-
-  componentDidMount() {
+  loadSettings() {
     if (this.state.module) {
       let views = {};
       let module = this.state.module;
@@ -64,10 +62,16 @@ class ModuleDetailView extends React.Component {
         views: views,
       })
     }
+  }
+
+  componentDidMount() {
+    this.loadSettings();
   };
 
   componentDidUpdate(prevProps) {
-    
+    if(prevProps.isOpened != this.props.isOpened) {
+      this.loadSettings();
+    }      
   }
 
   componentWillUnmount() {

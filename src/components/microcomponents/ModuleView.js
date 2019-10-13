@@ -55,7 +55,7 @@ class ModuleView extends React.Component {
 
         <Collapse isOpened={isOpened}>
           <div className={classBody}>
-            <ModuleDetailView module={this.props.module} />
+            <ModuleDetailView module={this.props.module} isOpened={isOpened}/>
           </div>
         </Collapse>
         <CustomSnackbar

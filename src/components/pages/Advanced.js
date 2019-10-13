@@ -56,7 +56,7 @@ class AdvancedPage extends React.Component {
 
 
 
-    deleteFilterRecord(id) {
+    deleteFilterRecord(id) {       
         let newArray = [];
         let storageArray = [];
         for (let i in this.state.filters) {
@@ -64,6 +64,12 @@ class AdvancedPage extends React.Component {
             if (this.state.filters[i].value !== id) {
                 newArray.push(this.state.filters[i]);
                 storageArray.push({ type: this.state.filters[i].type, value: this.state.filters[i].value, internal: this.state.filters[i].internal })
+            }
+            else {
+                if(this.state.filters[i].internal) {
+                    this.refs.notify.handleNotification('Internal filters can not be removed', 'error');
+                    return;
+                }
             }
         }
         window.helper.saveFilters(storageArray)
@@ -93,6 +99,11 @@ class AdvancedPage extends React.Component {
             type: this.refs.matchingTypeSelect.getSelectedItem().value,
             internal: false
         };
+        if(!f.value || f.value==='undefined') {
+            this.refs.notify.handleNotification('Null is not allowed', 'error');
+            return;
+        }
+
         let allow = true;
         window.helper.loadFilters().then(filter => {
             for (let i in filter) {
@@ -106,6 +117,7 @@ class AdvancedPage extends React.Component {
                 let i = this.state.filters;
                 i.push(f)
                 this.setState({ filters: i })
+                this.refs.notify.handleNotification('Added successfully', 'success');
             } else {
                 this.refs.notify.handleNotification('Duplicate entry', 'error');
             }
@@ -119,6 +131,10 @@ class AdvancedPage extends React.Component {
             value: document.getElementById('maskValue').value,
         };
 
+        if(!f.value || f.value==='undefined') {
+            this.refs.notify.handleNotification('Null is not allowed', 'error');
+            return;
+        }
 
         let allow = true;
         window.helper.loadPrivacyData().then(pData => {
@@ -158,9 +174,9 @@ class AdvancedPage extends React.Component {
             <div>
                 <input type="text" id="filterValue" placeholder="http://example.com" className="form-input  filter-input" />
             </div></div>);
-        let selectItems = [{ description: 'Exact', value: 'Exact' },
-        { description: 'Wildcard', value: 'Wildcard' },
-        { description: 'Regex', value: 'Regex' }]
+        let selectItems = [{ description: 'Exact', value: 'exact' },
+        { description: 'Wildcard', value: 'wildcard' },
+        { description: 'Regex', value: 'regex' }]
         let addXType = (<div><div className="form-caption">Matching Type</div>
 
             <CustomSelect items={selectItems} ref='matchingTypeSelect'/>

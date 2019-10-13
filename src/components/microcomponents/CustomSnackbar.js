@@ -26,7 +26,7 @@ class CustomSnackbar extends React.Component {
     render() {   
         return (
             <Snackbar
-                autoHideDuration={4000}                
+                autoHideDuration={3000}                
                 anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'right',
@@ -43,7 +43,7 @@ class CustomSnackbar extends React.Component {
                                 <div className="notification-icon">
                                     <img src={this.state.notification.type === 'success'?success:error}/>
                                 </div>
-                                <span id="message-id">{this.state.notification.message}</span>
+                                <span className="notification-message" id="message-id">{this.state.notification.message}</span>
                             </div>}  
                 />
             </Snackbar>

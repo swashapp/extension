@@ -106,7 +106,7 @@ var helper = (function () {
         return promise1;
     }
 
-    function loadModules() {
+    async function loadModules() {
         return modules;
     }
 
@@ -198,6 +198,10 @@ var helper = (function () {
 
     }
 
+    async function isConnected(moduleName) {
+		return false;
+	}
+
     async function decryptWallet(encryptedWallet, password) {
         return ({
             address: '0x39dc55954eF1529973Edc74D4F7Dc170CEB8335E',
@@ -259,7 +263,8 @@ var helper = (function () {
         getDataBalance,
         withdraw,
         getAvailableBalance,
-        decryptWallet
+        decryptWallet,
+        isConnected
 
     };
 }());
