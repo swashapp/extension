@@ -35,17 +35,8 @@ const sampleMessage = {
 
 const mSalt = "523c2eda-6a8b-11e9-a923-1681be663d3e";
 const salt = "59017e28-6a8b-11e9-a923-1681be663d3e";
-const sampleId = "c1edf5cf-25ad-44bf-884a-f0b8416da28d";
 
 const privacyData = [{ value: "Swash" }];
-const sampleModuleIds = [
-    { name: 'Amazon', id: "c7f3abdc-8c97-4dcf-8abf-5fb0aee23814", newId: { id: "", expireTime: "" } },
-    { name: 'Facebook', id: "5ef37a90-cdcf-4e69-8785-e61656522980", newId: { id: "", expireTime: "" } },
-    { name: 'Search', id: "289b244a-8612-4ef7-8194-7299d2b37afe", newId: { id: "", expireTime: "" } },
-    { name: 'Surfing', id: "079304c0-d81e-409f-8480-15eff0343b8c", newId: { id: "", expireTime: "" } },
-    { name: 'Twitter', id: "47361fe5-9563-46f8-81d4-da7dc914c2ea", newId: { id: "", expireTime: "" } },
-    { name: 'Youtube', id: "eee3037a-d6a8-4ae0-8955-eca0d67460c5", newId: { id: "", expireTime: "" } }
-]    
 
 const dataTypes = [{ name: "url", title: "URL" },
     { name: "time", title: "Time" },
@@ -74,7 +65,7 @@ class PrivacyLevel extends React.Component {
 
 
     componentDidUpdate(prevProps) {
-        if (prevProps.level != this.props.level)
+        if (prevProps.level !== this.props.level)
             this.setState({ level: this.props.level });
     }
 

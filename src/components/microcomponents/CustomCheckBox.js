@@ -40,7 +40,7 @@ class CustomCheckBox extends React.Component {
     const icon = isChecked? checked: unchecked;
     return (
       <div className="checkbox" onClick={()=>{this.setState({isChecked: !isChecked}); this.props.handleClick(this.state.isChecked)}}>
-        <img src={icon} style={{width: 16, height:16}} />
+        <img alt="" src={icon} style={{width: 16, height:16}} />
       </div>
     );
   }

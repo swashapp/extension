@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBListGroup, MDBListGroupItem, MDBIcon } from 'mdbreact';
+import { MDBListGroup, MDBListGroupItem} from 'mdbreact';
 import { NavLink } from 'react-router-dom';
 
 class SideNavigation extends React.Component {

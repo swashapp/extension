@@ -1,21 +1,6 @@
 import React from 'react'
 import RDropdownMenu from '../microcomponents/RDropdownMenu.js';
 
-import {
-    MDBCard,
-    MDBCol,
-    MDBRow,
-    MDBView,MDBModalBody,MDBModalHeader,
-    MDBMask,MDBTable, MDBTableBody,
-    MDBTableHead,MDBModalFooter,
-    MDBCardImage,MDBModal,
-    MDBCardBody,MDBContainer,
-    MDBCardTitle,
-    MDBCardText, MDBInput,
-    MDBCardFooter,
-    MDBBtn,
-    MDBIcon
-} from 'mdbreact';
 import CustomSnackbar from '../microcomponents/CustomSnackbar';
 import ModuleView from '../microcomponents/ModuleView';
 import PrivacyLevel from '../microcomponents/PrivacyLevel';
@@ -47,14 +32,12 @@ class SettingsPage extends React.Component {
     }
 
     loadSettings() {        
-        window.helper.load().then(db => {
-            console.log("db: ", db);
+        window.helper.load().then(db => {        
             let modules = [];
-            for(module in db.modules) {
+            for(let module in db.modules) {
                 modules.push(db.modules[module]);
             }    
-            window.helper.decryptWallet(db.configs.encryptedWallet, db.configs.salt).then(keyInfo => {
-                console.log("keyInfo: ", keyInfo)
+            window.helper.decryptWallet(db.configs.encryptedWallet, db.configs.salt).then(keyInfo => {                
                 this.setState({
                     privacyLevel: db.configs.privacyLevel,
                     keyInfo: keyInfo,
@@ -69,7 +52,7 @@ class SettingsPage extends React.Component {
         dataBalance = (dataBalance === '' || dataBalance === 'undefined' || typeof(dataBalance ==='undefined')) ?'0.00':dataBalance
         let dataAvailable = await window.helper.getAvailableBalance();
         dataAvailable = dataAvailable === ''|| typeof(dataAvailable) === 'undefined' || dataAvailable.error?'0.00':dataAvailable
-        if(dataBalance != this.state.dataBalance || dataAvailable != this.state.dataAvailable)
+        if(dataBalance !== this.state.dataBalance || dataAvailable !== this.state.dataAvailable)
             this.setState({
                 dataBalance: (dataBalance),
                 dataAvailable: (dataAvailable)
@@ -79,16 +62,7 @@ class SettingsPage extends React.Component {
 	
     
     render() {
-               
-        const changeInput = (e) => {
-            if (e.target.id === 'wallet') {
-                this.setState({walletId: e.target.value})
-            }
-            if (e.target.id === 'email') {
-                this.setState({email: e.target.value})
-            }
-        };
-        
+                    
         const copyToClipboard = (e, element) => {            
             revealPrivateKey(e);
             element.select();

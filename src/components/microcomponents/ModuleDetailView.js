@@ -69,7 +69,7 @@ class ModuleDetailView extends React.Component {
   };
 
   componentDidUpdate(prevProps) {
-    if(prevProps.isOpened != this.props.isOpened) {
+    if(prevProps.isOpened !== this.props.isOpened) {
       this.loadSettings();
     }      
   }
@@ -80,8 +80,7 @@ class ModuleDetailView extends React.Component {
 
   connect(name){
     window.helper.startAuth(name).then(x => {
-      let moduleName = this.state.name;                                               
-              this.setState({connected:'connecting'})				
+      this.setState({connected:'connecting'})				
     });
   }
   
@@ -98,10 +97,8 @@ class ModuleDetailView extends React.Component {
   selectAll(e, state) {
     let views = this.state.views;
     for (let viewName in views) {
-      {
-        for (let itemId in views[viewName].items) {
-          views[viewName].items[itemId].is_enabled = state;
-        }
+      for (let itemId in views[viewName].items) {
+        views[viewName].items[itemId].is_enabled = state;
       }
     }
     this.setState({ views: views });
@@ -115,11 +112,9 @@ class ModuleDetailView extends React.Component {
 		}	
     let views = this.state.views
     for (let viewName in views) {
-      {
         for (let itemId in views[viewName].items) {
           settings[views[viewName].items[itemId].func][views[viewName].items[itemId].name] = views[viewName].items[itemId].is_enabled;
         }
-      }
     }
   }
 
@@ -161,11 +156,11 @@ class ModuleDetailView extends React.Component {
       {this.state.module.style === 'dropbox' ? dropbox : ''}
       {this.state.views ? Object.keys(this.state.views).map((key, index) =>
         <>
-          {((this.state.module.style === 'dropbox' && this.state.group_selected === key) || (this.state.module.style != 'dropbox')) ? <>
+          {((this.state.module.style === 'dropbox' && this.state.group_selected === key) || (this.state.module.style !== 'dropbox')) ? <>
             <div className="module-detail-view-title-container">
               <div className="module-detail-view-title">{this.state.views[key].title}</div>
-              {key == 'API' ? <>
-                {this.state.connected && this.state.connected != 'connecting'?
+              {key === 'API' ? <>
+                {this.state.connected && this.state.connected !== 'connecting'?
                 <a className="oauth_btn" onClick={() => this.disconnect(this.state.module.name)}>Disconnect</a>
                 :<a className="oauth_btn" onClick={() => this.connect(this.state.module.name)}>Connect to {this.state.module.name}</a>                
                 }

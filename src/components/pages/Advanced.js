@@ -1,18 +1,7 @@
 import React from 'react'
-import {
-    MDBCard,
-    MDBCol,
-    MDBRow,
-    MDBView, MDBModalBody, MDBModalHeader,
-    MDBMask, MDBTable, MDBTableBody,
-    MDBTableHead, MDBModalFooter,
-    MDBCardImage, MDBModal,
-    MDBCardBody, MDBContainer,
-    MDBCardTitle,
-    MDBCardText, MDBInput,
-    MDBCardFooter,
-    MDBBtn,
-    MDBIcon
+import {        
+    MDBTable, MDBTableBody,
+    MDBTableHead,        
 } from 'mdbreact';
 import CustomSnackbar from '../microcomponents/CustomSnackbar';
 import CustomSelect from '../microcomponents/CustomSelect';
@@ -92,8 +81,7 @@ class AdvancedPage extends React.Component {
     }
 
 
-    addFilter() {
-        let that = this;
+    addFilter() {        
         let f = {
             value: document.getElementById('filterValue').value,
             type: this.refs.matchingTypeSelect.getSelectedItem().value,
@@ -126,7 +114,6 @@ class AdvancedPage extends React.Component {
     }
 
     addMask() {
-        let that = this;
         let f = {
             value: document.getElementById('maskValue').value,
         };
@@ -157,12 +144,6 @@ class AdvancedPage extends React.Component {
 
 
     render() {
-        const openSelectMenu = (e) => {
-            var event = document.createEvent('MouseEvents');
-            event.initMouseEvent('mousedown', true, true, window);
-            let element = document.querySelector("#filterOption");
-            element.dispatchEvent(event);
-        }
         let excludeTableDataRows = this.state.filters.map((row) => {
             return (<tr key={row.value} className="table-row">
                 <td className="table-text"><input type="text" value={row.value} disabled className="disabledUrl" /></td>

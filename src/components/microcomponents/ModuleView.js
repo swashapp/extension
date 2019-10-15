@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import {Collapse} from 'react-collapse';
-import { MDBProgress } from 'mdbreact';
-import CustomCheckBox from './CustomCheckBox'
 import ModuleDetailView from './ModuleDetailView';
 import icon_default from '../../statics/images/network-navigation.svg'
 import icon_open from '../../statics/images/Toggle_On.svg'
@@ -38,7 +36,6 @@ class ModuleView extends React.Component {
         }); 
     }
     const {isOpened, isEnabled} = this.state;
-    let progress_percentage = this.props.percentage;
     let iconArrow = isEnabled? icon_open: icon_closed;
     let icon = (this.props.module.icons)? ((this.state.isEnabled)?this.props.module.icons[0]:this.props.module.icons[1]): icon_default;
     let classBody = "accordion-body";
@@ -48,8 +45,8 @@ class ModuleView extends React.Component {
       <div>
         <div className={classHeader} onClick={() => this.setState({isOpened: !isOpened})}>
           <div className="accordion-module-name">{this.props.module.name}</div>
-          <img src={icon} className="accordion-module-icon" />
-          <div className="accordion-switch" onClick={enableModule} ><img src={iconArrow}  /></div>
+          <img alt="" src={icon} className="accordion-module-icon" />
+          <div className="accordion-switch" onClick={enableModule} ><img alt="" src={iconArrow}  /></div>
           
         </div>
 

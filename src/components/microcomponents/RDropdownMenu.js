@@ -2,7 +2,6 @@ import React from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 import '../../statics/css/custom-dropdown.css';
-import color from '@material-ui/core/colors/blue';
 
 class RDropdownMenu extends React.Component {
   constructor(props) {

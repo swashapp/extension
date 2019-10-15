@@ -1,18 +1,7 @@
 import React from 'react'
 import {
-    MDBCard,
-    MDBCol,
-    MDBRow,
-    MDBView,MDBModalBody,MDBModalHeader,
-    MDBMask,MDBTable, MDBTableBody,
-    MDBTableHead,MDBModalFooter,
-    MDBCardImage,MDBModal,
-    MDBCardBody,MDBContainer,
-    MDBCardTitle,
-    MDBCardText, MDBInput,
-    MDBCardFooter,
-    MDBBtn,
-    MDBIcon
+    MDBTable, MDBTableBody,
+    MDBTableHead,        
 } from 'mdbreact';
 import help1 from '../../statics/images/help1.png';
 import help2 from '../../statics/images/help2.png';
@@ -42,28 +31,28 @@ class HelpPage extends React.Component {
                             <div className="swash-head2">Getting Started</div>
                             <div className="swash-p"> Swash can be enabled or disabled via the switch in the popover window. A green icon shows the app is running. Your earned balance in DATA is shown here too. The icons give quick access to Settings, Data and Help views.   </div>
 
-                            <img src={help1}/>
+                            <img alt="" src={help1}/>
                             <div className="image-caption">Swash installed and enabled</div>
 
                             <div className="swash-p">Once you've installed Swash, it will generate an ethereum wallet address for you where you can receive payments in Streamr's native token, DATA. You can withdraw these payments and exchange them for other cryptocurrency or plain old cash through various exchanges, such as Coinbase or Binance. For more, see Payments and Withdrawals below.</div>
 
-                            <img src={help2}/>
+                            <img alt="" src={help2}/>
                             <div className="image-caption">Swash’s Earnings section shows balances, address and withdrawal functions</div>
 
                             <div className="swash-p">Swash uses a modular approach to its data gathering functionality. By default, two modules, Browse and Search are enabled, which will gather data when you are browsing web pages and doing web searches on a variety of search engines. You can adjust the settings of these modules in the Settings page under Choose data to capture. You can also choose to enable other modules that gather more fine grained data for a range of popular sites.</div>
 
 
-                            <img src={help3}/>
+                            <img alt="" src={help3}/>
                             <div className="image-caption">Default data collection modules, Browse and Search</div>
 
                             <div className="swash-p">You can also control how much information the modules can gather by adjusting the Privacy settings slider. This enables you to anonymise your data to some general level. For more, see Privacy Settings below. If you want to prevent specific pieces of information or specific web domains or URLs from being captured, you can do this on the Advanced page.</div>
 
-                            <img src={help4}/>
+                            <img alt="" src={help4}/>
                             <div className="image-caption">The Privacy settings slider gives you three levels of privacy options</div>
 
                             <div className="swash-p">Once Swash is gathering data, it appears in the Data page, where you can inspect it if you would like to. By default, Swash adds a 2 minute delay in sending the data, giving you a window to delete captured sessions you would rather not send. This delay can be set to whatever you want. </div>
 
-                            <img src={help5}/>    
+                            <img alt="" src={help5}/>    
                             <div className="image-caption">Delete any captured session from the Data view before the delay progress bar reaches the end</div>
 
                             <div className="swash-head">Capture Modules</div>
@@ -164,7 +153,7 @@ masking</td>
                             <p>If data complies, the extensoin forward it to the upper layer. In the third layer data filters give users the ability to exclude some domains and URLs from their data being collected. In the upper layer, Privacy Level applies to data and based on the level of the privacy that has been chosen by the user, a transofrmation may be applied on data before being sent to Streamr network.</p></div>
 
 
-                            <img src={help7} style={{marginBottom:'102px'}}/>    
+                            <img alt="" src={help7} style={{marginBottom:'102px'}}/>    
 
                             <div className="swash-head">What makes us different?</div>
 

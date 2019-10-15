@@ -5,29 +5,11 @@ import NumberPicker from 'react-widgets/lib/NumberPicker'
 
 import simpleNumberLocalizer from 'react-widgets-simple-number';
 import DelaySend from '../microcomponents/DelaySend';
-import {
-    MDBCard,
-    MDBCol,
-    MDBRow,
-    MDBView, MDBModalBody, MDBModalHeader,
-    MDBMask, MDBTable, MDBTableBody,
-    MDBTableHead, MDBModalFooter,
-    MDBCardImage, MDBModal,
-    MDBCardBody, MDBContainer,
-    MDBCardTitle,
-    MDBCardText, MDBInput,
-    MDBCardFooter,
-    MDBBtn,
-    MDBIcon
-} from 'mdbreact';
 
 simpleNumberLocalizer();
 
 
 class DataPage extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     state = {
         messages: [],
@@ -35,8 +17,7 @@ class DataPage extends React.Component {
     };
 
     loadDelay() {
-        window.helper.load().then(db => {
-            let that = this;
+        window.helper.load().then(db => {            
             this.setState({ delay: db.configs.delay })
         });
     }
@@ -98,7 +79,7 @@ class DataPage extends React.Component {
 
         const deleteMsg = (message) => {
             var messages = this.state.messages.filter(function (msg, index, arr) {
-                return msg.msgId != message.msgId;
+                return msg.msgId !== message.msgId;
             });
             //clearTimeout(message.msgId);          
             window.helper.cancelSending(message.msgId);
@@ -106,7 +87,7 @@ class DataPage extends React.Component {
         };
         const saveDelay = (delay) => {
             window.helper.saveConfigs({ delay: delay }).then(() => {
-                this.state.delay = delay;
+                this.setState({delay:delay});
                 //NotificationManager.success('Configuration is updated successfully', 'Update Configuration');                
             })
 

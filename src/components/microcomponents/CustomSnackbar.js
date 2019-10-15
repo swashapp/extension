@@ -33,15 +33,16 @@ class CustomSnackbar extends React.Component {
                 }}                    
                 open={this.state.notification.status}
                 onClose={() => {
-                    this.state.notification.status = false
-                    this.setState({notification:this.state.notification})}
+                    let notification = this.state.notification;
+                    notification.status = false;      
+                    this.setState({notification: notification})}
             }
             >
                 <SnackbarContent                    
                     classes= {{root: 'notification'}}
                         message={<div>                            
                                 <div className="notification-icon">
-                                    <img src={this.state.notification.type === 'success'?success:error}/>
+                                    <img alt="" src={this.state.notification.type === 'success'?success:error}/>
                                 </div>
                                 <span className="notification-message" id="message-id">{this.state.notification.message}</span>
                             </div>}  
