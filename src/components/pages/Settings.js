@@ -14,7 +14,8 @@ class SettingsPage extends React.Component {
             privacyLevel: 0,
             keyInfo: {address:'', privateKey: ''},
             dataBalance: '0.00',
-            dataAvailable: '0.00',            
+            dataAvailable: '0.00',
+			cumulativeEarnings: '0.00'
         };
         this.balanceCheckInterval = 0;
     }
@@ -50,12 +51,15 @@ class SettingsPage extends React.Component {
     async getBalanceInfo() {
         let dataBalance = await window.helper.getDataBalance();
         dataBalance = (dataBalance === '' || dataBalance === 'undefined' || typeof(dataBalance ==='undefined')) ?'0.00':dataBalance
-        let dataAvailable = await window.helper.getAvailableBalance();
+        let dataAvailable = await window.helper.getAvailableBalance();		
         dataAvailable = dataAvailable === ''|| typeof(dataAvailable) === 'undefined' || dataAvailable.error?'0.00':dataAvailable
+        let cumulativeEarnings = await window.helper.getCumulativeEarnings();		
+        cumulativeEarnings = cumulativeEarnings === ''|| typeof(cumulativeEarnings) === 'undefined' || cumulativeEarnings.error?'0.00':cumulativeEarnings		
         if(dataBalance !== this.state.dataBalance || dataAvailable !== this.state.dataAvailable)
             this.setState({
                 dataBalance: (dataBalance),
-                dataAvailable: (dataAvailable)
+                dataAvailable: (dataAvailable),
+				cumulativeEarnings: (cumulativeEarnings)
             })        
     }
     
@@ -81,8 +85,7 @@ class SettingsPage extends React.Component {
             }
         } 
 
-        let cumulativeEarnings="761.59";
-        
+       
      
         const modules = (this.state.modules)?(this.state.modules.map((module)=> {
                 return (<ModuleView isOpened={false} module={module} />)
@@ -101,7 +104,7 @@ class SettingsPage extends React.Component {
                             <div className="balance-block block-top-corner-radius">
                                 <div className="balance-text"><span className="balance-text-bold">{this.state.dataBalance}</span> DATA balance</div> 
                                 <div className="balance-cumulative">Cumulative earnings<br/>
-<span>{cumulativeEarnings}</span></div>
+<span>{this.state.cumulativeEarnings}</span></div>
                             </div>
                             <div className="balance-block withdraw-block block-bottom-corner-radius">
                                 <div className="balance-text"><span className="balance-text-bold">{this.state.dataAvailable}</span> DATA available</div> 

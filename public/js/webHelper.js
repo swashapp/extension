@@ -224,6 +224,10 @@ var helper = (function () {
         return '36.67';
     }
 
+	async function getCumulativeEarnings() {
+        return '728.67';
+    }
+
     async function withdraw() {
         return 'success';
     }
@@ -263,6 +267,7 @@ var helper = (function () {
         getDataBalance,
         withdraw,
         getAvailableBalance,
+		getCumulativeEarnings,
         decryptWallet,
         isConnected
 
