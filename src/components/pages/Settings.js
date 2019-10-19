@@ -15,7 +15,8 @@ class SettingsPage extends React.Component {
             keyInfo: {address:'', privateKey: ''},
             dataBalance: '0.00',
             dataAvailable: '0.00',
-			cumulativeEarnings: '0.00'
+			cumulativeEarnings: '0.00',
+			withdrawState: false
         };
         this.balanceCheckInterval = 0;
     }
@@ -63,6 +64,19 @@ class SettingsPage extends React.Component {
             })        
     }
     
+	withdraw(ref) {
+		ref.setState({withdrawState: true});
+		window.helper.withdraw().then(tx => {
+			ref.setState({withdrawState: false});
+			ref.refs.notify.handleNotification(`<a href=https://ropsten.etherscan.io/tx/${tx.hash}>See the transaction details</a>`, 'success'); 
+			tx.wait().then(x => {
+				ref.refs.notify.handleNotification("Transaction completed successfully", 'success');
+			})
+		}, reason => {
+			ref.setState({withdrawState: false});			
+			ref.refs.notify.handleNotification(reason.message, 'error');			
+		})				
+	}
 	
     
     render() {
@@ -108,7 +122,8 @@ class SettingsPage extends React.Component {
                             </div>
                             <div className="balance-block withdraw-block block-bottom-corner-radius">
                                 <div className="balance-text"><span className="balance-text-bold">{this.state.dataAvailable}</span> DATA available</div> 
-                                <div className="withdraw-btn"><a onClick={this.loadSettings} >Withdraw DATA</a></div>
+                                {this.state.withdrawState?<div className="withdraw-btn withdraw-btn-disabled"><a>Waiting...</a></div>
+								:<div className="withdraw-btn"><a onClick={() => this.withdraw(this)} >Withdraw DATA</a></div>}
                             </div>
                             <div className="form-caption">Wallet address</div>
                             <div style={{position: 'relative'}}>

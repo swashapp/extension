@@ -1477,12 +1477,16 @@ display: block;
 
 }
 
-.withraw-btn-clicked{
-  opacity: 80%
+.withdraw-btn:active a, withdraw-btn:focus a{
+	opacity: 0.8
 }
 
-.withraw-btn-disabled{
-  opacity: 50%
+.withdraw-btn-clicked{
+  opacity: 0.8
+}
+
+.withdraw-btn-disabled{
+  opacity: 0.5
 }
 
   .balance-text{
