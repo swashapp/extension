@@ -1514,7 +1514,7 @@ font-size: 14px;
 font-weight: normal;
 letter-spacing: 0px;
 line-height: 40px;
-padding-left: 40px !important;
+padding-left: 30px !important;
     padding-bottom: 0px!important;
     padding-top: 0px!important;
 border: 1px solid #dee2e6;
@@ -1534,8 +1534,9 @@ font-weight: 500;
 
 .table-text-bold{
   color: rgb(50, 50, 50);
-font-family: Roboto-reqular;
+font-family: Roboto-regular;
 font-weight: 500;
+width: 20%;
 padding-left: 35px !important;
 }
 
@@ -1883,7 +1884,6 @@ left: 72px;
   font-size: 12px;
   font-weight: 500;
   height: 16px;
-  letter-spacing: 1.5px;
   line-height: 16px;
   text-align: left;
   width: 49px;

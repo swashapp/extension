@@ -23,7 +23,7 @@ class SettingsPage extends React.Component {
 
      
     componentDidMount() {
-        this.balanceCheckInterval = setInterval(() => this.getBalanceInfo(this), 5000);
+        this.balanceCheckInterval = setInterval(() => this.getBalanceInfo(this), 15000);
         this.getBalanceInfo();
         this.loadSettings();
         window.scrollTo(0, 0);
@@ -31,6 +31,12 @@ class SettingsPage extends React.Component {
 
     componentDidUnmount() {
         clearInterval(this.balanceCheckInterval);
+    }
+
+    purgeNumber(num) {
+        if(num.indexOf('.') < 0)
+            return num;
+        return num.slice(0, num.indexOf('.') + 5)
     }
 
     loadSettings() {        
@@ -58,9 +64,9 @@ class SettingsPage extends React.Component {
         cumulativeEarnings = cumulativeEarnings === ''|| typeof(cumulativeEarnings) === 'undefined' || cumulativeEarnings.error?'0.00':cumulativeEarnings		
         if(dataBalance !== this.state.dataBalance || dataAvailable !== this.state.dataAvailable)
             this.setState({
-                dataBalance: (dataBalance),
-                dataAvailable: (dataAvailable),
-				cumulativeEarnings: (cumulativeEarnings)
+                dataBalance: purgeNumber(dataBalance),
+                dataAvailable: purgeNumber(dataAvailable),
+				cumulativeEarnings: purgeNumber(cumulativeEarnings)
             })        
     }
     
