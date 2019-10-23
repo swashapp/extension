@@ -57,16 +57,16 @@ class SettingsPage extends React.Component {
 
     async getBalanceInfo() {
         let dataBalance = await window.helper.getDataBalance();
-        dataBalance = (dataBalance === '' || dataBalance === 'undefined' || typeof(dataBalance ==='undefined')) ?'0.00':dataBalance
+        dataBalance = (dataBalance === '' || dataBalance === 'undefined' || typeof(dataBalance) ==='undefined') ?'0.00':dataBalance
         let dataAvailable = await window.helper.getAvailableBalance();		
         dataAvailable = dataAvailable === ''|| typeof(dataAvailable) === 'undefined' || dataAvailable.error?'0.00':dataAvailable
         let cumulativeEarnings = await window.helper.getCumulativeEarnings();		
         cumulativeEarnings = cumulativeEarnings === ''|| typeof(cumulativeEarnings) === 'undefined' || cumulativeEarnings.error?'0.00':cumulativeEarnings		
         if(dataBalance !== this.state.dataBalance || dataAvailable !== this.state.dataAvailable)
             this.setState({
-                dataBalance: purgeNumber(dataBalance),
-                dataAvailable: purgeNumber(dataAvailable),
-				cumulativeEarnings: purgeNumber(cumulativeEarnings)
+                dataBalance: this.purgeNumber(dataBalance),
+                dataAvailable: this.purgeNumber(dataAvailable),
+				cumulativeEarnings: this.purgeNumber(cumulativeEarnings)
             })        
     }
     
@@ -74,7 +74,7 @@ class SettingsPage extends React.Component {
 		ref.setState({withdrawState: true});
 		window.helper.withdraw().then(tx => {
 			ref.setState({withdrawState: false});
-			ref.refs.notify.handleNotification(`<a href=https://ropsten.etherscan.io/tx/${tx.hash}>See the transaction details</a>`, 'success'); 
+			ref.refs.notify.handleNotification(`<a target="_blank" href=https://etherscan.io/tx/${tx.hash}>See the transaction details</a>`, 'success'); 
 			tx.wait().then(x => {
 				ref.refs.notify.handleNotification("Transaction completed successfully", 'success');
 			})
