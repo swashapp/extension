@@ -65,9 +65,13 @@ class PrivacyLevel extends React.Component {
 
 
     componentDidUpdate(prevProps) {
-        if (prevProps.level !== this.props.level)
-            this.setState({ level: this.props.level });
-    }
+        if (prevProps.level !== this.props.level) {
+			sampleMessage.header.privacyLevel = this.props.level;
+			window.helper.enforcePolicy(sampleMessage, mSalt, salt, privacyData).then(message => {
+            this.setState({message: message, level: this.props.level})
+			})
+		}
+	}
 
     setPrivacy(value) {
         window.helper.updatePrivacyLevel(value).then(() => {
