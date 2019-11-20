@@ -15,7 +15,8 @@ class TransferView extends React.Component {
       toAddress: '',
       addressName: null,
       isDonate: false,
-      isProfile: false
+      isProfile: false,
+      withdrawSuccessful: false
     };
     this.walletChange = this.walletChange.bind(this);
     this.handleWalletDialogClose = this.handleWalletDialogClose.bind(this);
@@ -28,6 +29,60 @@ class TransferView extends React.Component {
 
   handleWalletDialogClose(item){
     this.setState({ toAddress: item.wallet, isDonate: false,isProfile: true, addressName: item.name  });
+  }
+
+  isValidAmount(amount){
+    // format check
+    // less than available data
+  }
+
+  isValidAddress(address){
+    // format check
+  }
+
+  withdraw(ref) {
+    ref.setState({withdrawState: true});
+    const address = this.state.toAddress;
+    const amount = document.getElementById("amountdata").value;
+    if(!this.isValidAddress(address)) return; //TODO highlight error
+    if(!this.isValidAmount(amount)) return; //TODO highlight error
+		window.helper.withdrawFor(address, amount).then(tx => {
+			ref.setState({withdrawState: false});
+			ref.refs.notify.handleNotification(`<a target="_blank" href=https://etherscan.io/tx/${tx.hash}>See the transaction details</a>`, 'success'); 
+      this.setState({withdrawSuccessful:true});
+      tx.wait().then(x => {
+        ref.refs.notify.handleNotification("Transaction completed successfully", 'success');
+			})
+		}, reason => {
+			ref.setState({withdrawState: false});			
+			ref.refs.notify.handleNotification(reason.message, 'error');			
+		})				
+  }
+  
+  saveWallet(toAddress){
+
+  }
+
+  getSuggestToAdd(toAddress, profileWallets){
+    const ws = profileWallets.map((x) => x.wallet);
+    if(ws.indexOf(toAddress) == -1){
+      
+      // window.scrollTo(0, tesNode.offsetTop);
+      return (
+        <div className="setting-part">
+                <div className="swash-head">New wallet address</div>
+                            <div className="swash-p">You can save this wallet address ({toAddress}) in your profile to use in future.</div>
+
+                            <div className="form-caption">Give it a name</div>
+                            <div style={{position: 'relative'}}>
+                                <input type="text" className="form-input" id="newwalletname"/>
+                            </div>
+                            <a className="linkbutton" style={{marginTop: 16}} onClick={() => this.saveWallet(toAddress)}>Save</a>
+        </div>
+      );
+    }else{
+      return ''
+    }
   }
 
   render() {
@@ -43,7 +98,7 @@ class TransferView extends React.Component {
   ]; // TODO fetch from profile
   
     var dataAvailable = '36.67';
-    const {isOpened, toAddress, isDonate,isProfile, addressName} = this.state;
+    const {isOpened, toAddress, isDonate,isProfile, addressName, withdrawSuccessful} = this.state;
     let iconArrow = isOpened? icon_open: icon_closed;
     let classHeader = (isOpened)?"accordion-head accordion-head-open":"accordion-head";
     const donateList = [
@@ -69,6 +124,8 @@ class TransferView extends React.Component {
     //   </label>
     // </div>);
     const addressInfo = (isProfile || isDonate)? ((isDonate? 'Donate to ': 'Transfer to ') + addressName): ' ';
+     const suggestAdding = withdrawSuccessful? this.getSuggestToAdd(toAddress, profileWallets) : '';
+    //const suggestAdding = true? this.getSuggestToAdd(toAddress, profileWallets) : '';
     
     return (
       <div>
@@ -119,9 +176,12 @@ class TransferView extends React.Component {
                             </Collapse>
                           </div>
 
-                          <a className="linkbutton" style={{marginTop: 56}}>Bingo</a>
+                          <a className="linkbutton" style={{marginTop: 56}} onClick={() => this.withdraw(this)}>Bingo</a>
+
+                          
 
                         </div>
+                        {suggestAdding}  
                      
       </div>
     );
