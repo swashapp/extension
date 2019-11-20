@@ -4,6 +4,7 @@ import Settings from './pages/Settings';
 import Help from './pages/Help';
 import Advanced from './pages/Advanced';
 import Data from './pages/Data';
+import Transfer from './pages/Transfer';
 
 class Routes extends React.Component {
   render() {
@@ -17,6 +18,7 @@ class Routes extends React.Component {
 			<Route path='/Help' component={Help} />
 			<Route path='/Advanced' component={Advanced} />
 			<Route path='/Data' component={Data} />
+			<Route path='/Transfer' component={Transfer} />
 			<Redirect to='/Settings' />
 		</Switch>
       </HashRouter>
