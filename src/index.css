@@ -1631,6 +1631,43 @@ padding-left: 35px !important;
     margin-bottom: 16px;
 }
 
+.accordion-title{
+  color: rgb(50, 50, 50);
+  font-family: Roboto-Medium;
+  font-size: 16px;
+  font-weight: 500;
+  height: 18px;
+  letter-spacing: 0px;
+  line-height: 16px;
+  top: 26px;
+  left: 32px;
+  position: absolute;
+}
+
+.accordion-arrow{
+  height: 32px;   
+  width: 32px;
+  top: 16px;
+  right: 32px;
+  position: absolute;
+}
+
+.accordion-arrow img{
+  top: 16px;
+  position: absolute;
+  right: 0px;
+}
+
+.donate-container{
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.donate-container .donate-item{
+  margin: 8px;
+}
+
 .accordion-domain{
   color: rgb(50, 50, 50);
   font-family: Roboto-Medium;
