@@ -101,6 +101,7 @@ class TransferView extends React.Component {
 
   isValidAddress(address){
     // format check TODO
+    if(!address.match('0x[a-fA-F0-9]{40}')) return false;
     return true;
   }
 
