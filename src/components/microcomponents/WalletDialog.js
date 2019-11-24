@@ -15,8 +15,9 @@ function WalletDialog(props){
     onClose(value);
   };
 
+
     return (
-        <Dialog aria-labelledby="simple-dialog-title" open={open}>
+        <Dialog onClose={() => onClose('')} aria-labelledby="simple-dialog-title" open={open}>
         <DialogTitle id="simple-dialog-title">Saved wallet addresses</DialogTitle>
         <List>
             {items.map(item => (

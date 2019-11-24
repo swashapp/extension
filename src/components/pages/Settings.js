@@ -129,7 +129,7 @@ class SettingsPage extends React.Component {
                             <div className="balance-block withdraw-block block-bottom-corner-radius">
                                 <div className="balance-text"><span className="balance-text-bold">{this.state.dataAvailable}</span> DATA available</div> 
                                 {this.state.withdrawState?<div className="withdraw-btn withdraw-btn-disabled"><a>Waiting...</a></div>
-								:<div className="withdraw-btn"><a onClick={() => this.withdraw(this)} >Withdraw DATA</a></div>}
+								:<div className="withdraw-btn"><a href="#/Transfer" >Withdraw DATA</a></div>}
                             </div>
                             <div className="form-caption">Wallet address</div>
                             <div style={{position: 'relative'}}>
