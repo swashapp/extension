@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import {Collapse} from 'react-collapse';
 import CustomCheckBox from './CustomCheckBox';
+import CustomSnackbar from '../microcomponents/CustomSnackbar';
 import WalletDialog from './WalletDialog';
 import icon_open from '../../statics/images/active.svg'
 import icon_closed from '../../statics/images/inactive.svg'
@@ -23,6 +24,7 @@ class TransferView extends React.Component {
     };
     this.walletChange = this.walletChange.bind(this);
     this.handleWalletDialogClose = this.handleWalletDialogClose.bind(this);
+    this.withdraw = this.withdraw.bind(this);
   }
 
   componentDidMount() {
@@ -93,34 +95,43 @@ class TransferView extends React.Component {
 
   isValidAmount(amount){
     // format check
-    if(isNaN(amount)) return false;
+    if(!amount || isNaN(amount)) {
+     this.refs.notify.handleNotification('Invalid amount', 'error');
+      return false;
+    }
     // less than available data
-    if(Number(amount) > this.state.dataAvailable ) return false;
+    if(Number(amount) > this.state.dataAvailable ) {
+     this.refs.notify.handleNotification('Insufficient balance', 'error');
+      return false;
+    }
     return true;
   }
 
   isValidAddress(address){
     // format check TODO
-    if(!address.match('0x[a-fA-F0-9]{40}')) return false;
+    if(!address.match('0x[a-fA-F0-9]{40}'))  {
+     this.refs.notify.handleNotification('Invalid address', 'error');
+      return false;
+    }
     return true;
   }
 
   withdraw(ref) {
-    ref.setState({withdrawState: true});
+    this.setState({withdrawState: true});
     const address = this.state.toAddress;
     const amount = document.getElementById("amountdata").value;
     if(!this.isValidAddress(address)) return; //TODO highlight error
     if(!this.isValidAmount(amount)) return; //TODO highlight error
-		window.helper.withdrawFor(address, Number(amount)).then(tx => {
-			ref.setState({withdrawState: false});
-			ref.refs.notify.handleNotification(`<a target="_blank" href=https://etherscan.io/tx/${tx.hash}>See the transaction details</a>`, 'success'); 
+		window.helper.withdrawTo(address, Number(amount)).then(tx => {
+			this.setState({withdrawState: false});
+			this.refs.notify.handleNotification(`<a target="_blank" href=https://etherscan.io/tx/${tx.hash}>See the transaction details</a>`, 'success'); 
       this.setState({withdrawSuccessful:true});
       tx.wait().then(x => {
-        ref.refs.notify.handleNotification("Transaction completed successfully", 'success');
+        this.refs.notify.handleNotification("Transaction completed successfully", 'success');
 			})
 		}, reason => {
-			ref.setState({withdrawState: false});			
-			ref.refs.notify.handleNotification(reason.message, 'error');			
+			this.setState({withdrawState: false});			
+			this.refs.notify.handleNotification(reason.message, 'error');			
 		})				
   }
   
@@ -226,13 +237,16 @@ class TransferView extends React.Component {
                             </Collapse>
                           </div>
 
-                          <a className="linkbutton" style={{marginTop: 56}} onClick={() => this.withdraw(this)}>Bingo</a>
+                          <a className="linkbutton" style={{marginTop: 56}} onClick={this.withdraw}>Transfer</a>
 
                           
 
-                        </div>  
+                        </div>  <CustomSnackbar
+                    ref='notify'
+                />
                      
       </div>
+
     );
   }
 }

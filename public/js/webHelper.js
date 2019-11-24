@@ -254,7 +254,7 @@ var helper = (function () {
         return 'success';
     }
 
-    async function withdrawFor(address, amount) {
+    async function withdrawTo(address, amount) {
         return 'success';
     }
 
@@ -298,7 +298,7 @@ var helper = (function () {
         isConnected,
         loadWallets,
         saveWallets,
-        withdrawFor
+        withdrawTo
 
     };
 }());

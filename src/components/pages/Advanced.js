@@ -180,6 +180,10 @@ class AdvancedPage extends React.Component {
             this.refs.notify.handleNotification('Null is not allowed (address)', 'error');
             return;
         }
+        if(!f.wallet.match('0x[a-fA-F0-9]{40}')) {
+            this.refs.notify.handleNotification('Invalid wallet address format', 'error');
+            return;
+        }
 
         let allow = true;
         window.helper.loadWallets().then(pData => {
