@@ -254,6 +254,10 @@ var helper = (function () {
         return 'success';
     }
 
+    async function withdrawFor(address, amount) {
+        return 'success';
+    }
+
     async function enforcePolicy(msg, mSalt, salt, privacyData) {
         currentDate = new Date();
         return (
@@ -293,7 +297,8 @@ var helper = (function () {
         decryptWallet,
         isConnected,
         loadWallets,
-        saveWallets
+        saveWallets,
+        withdrawFor
 
     };
 }());

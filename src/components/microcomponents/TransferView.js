@@ -29,7 +29,12 @@ class TransferView extends React.Component {
         window.scrollTo(0, 0);
         this.getWalletList();        
         this.getBalanceInfo();
-        this.getDonateList()
+        this.getDonateList();
+        if(this.props.extraParams){
+          if(this.props.extraParams[0]){
+            this.setState({toAddress: this.props.extraParams[0]});
+          }
+        }
     };
 
     async getDonateList(){
@@ -37,7 +42,6 @@ class TransferView extends React.Component {
       let that = this;
       xhr.addEventListener('load', () => {
         const d = xhr.responseText;
-        console.log(d)
         that.setState({ donateList: JSON.parse(d) })
       })
       xhr.open('GET', 'https://raw.githubusercontent.com/mabdi/swash-backend/master/donate-list.json?_=' + new Date().getTime())
@@ -89,13 +93,14 @@ class TransferView extends React.Component {
 
   isValidAmount(amount){
     // format check
+    if(isNaN(amount)) return false;
     // less than available data
-
+    if(Number(amount) > this.state.dataAvailable ) return false;
     return true;
   }
 
   isValidAddress(address){
-    // format check
+    // format check TODO
     return true;
   }
 
@@ -105,7 +110,7 @@ class TransferView extends React.Component {
     const amount = document.getElementById("amountdata").value;
     if(!this.isValidAddress(address)) return; //TODO highlight error
     if(!this.isValidAmount(amount)) return; //TODO highlight error
-		window.helper.withdrawFor(address, amount).then(tx => {
+		window.helper.withdrawFor(address, Number(amount)).then(tx => {
 			ref.setState({withdrawState: false});
 			ref.refs.notify.handleNotification(`<a target="_blank" href=https://etherscan.io/tx/${tx.hash}>See the transaction details</a>`, 'success'); 
       this.setState({withdrawSuccessful:true});
