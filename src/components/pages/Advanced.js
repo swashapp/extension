@@ -12,7 +12,8 @@ class AdvancedPage extends React.Component {
         super(props);
         this.state = {
             filters: [],
-            masks: []
+            masks: [],
+            wallets: []
         };
     }
 
@@ -38,7 +39,16 @@ class AdvancedPage extends React.Component {
                 })
             }
 
-            that.setState({ filters: newFilters, masks: newMasks })
+            let wallets = await window.helper.loadWallets();
+            let newWallets = [];
+            for (let x in wallets) {
+                newWallets.push({
+                    'name': wallets[x].name,
+                    'wallet': wallets[x].wallet,
+                })
+            }
+
+            that.setState({ filters: newFilters, masks: newMasks, wallets: newWallets })
         }
         loader();
     };
@@ -80,6 +90,20 @@ class AdvancedPage extends React.Component {
         this.setState({ masks: newArray });
     }
 
+    deleteWallet(name) {
+        let newArray = [];
+        let storageArray = [];
+        for (let i in this.state.wallets) {
+
+            if (this.state.wallets[i].name !== name) {
+                newArray.push(this.state.wallets[i]);
+                storageArray.push({ name: this.state.wallets[i].name, 'wallet': this.state.wallets[i].wallet })
+
+            }
+        }
+        window.helper.saveWallets(storageArray)
+        this.setState({ wallets: newArray });
+    }
 
     addFilter() {        
         let f = {
@@ -142,6 +166,39 @@ class AdvancedPage extends React.Component {
         })
     }
 
+    AddWallet() {
+        let f = {
+            name: document.getElementById('walletNameValue').value,
+            wallet: document.getElementById('walletAddressValue').value,
+        };
+
+        if(!f.name || f.name==='undefined') {
+            this.refs.notify.handleNotification('Null is not allowed (name)', 'error');
+            return;
+        }
+        if(!f.wallet || f.wallet==='undefined') {
+            this.refs.notify.handleNotification('Null is not allowed (address)', 'error');
+            return;
+        }
+
+        let allow = true;
+        window.helper.loadWallets().then(pData => {
+            for (let i in pData) {
+                if (pData[i].name === f.name) {
+                    allow = false;
+                }
+            }
+            if (allow) {
+                pData.push(f);
+                window.helper.saveWallets(pData);
+                let i = this.state.wallets;
+                i.push(f)
+                this.setState({ wallets: i })
+            } else {
+                this.refs.notify.handleNotification('Duplicate name', 'error');
+            }
+        })
+    }
 
     render() {
         let excludeTableDataRows = this.state.filters.map((row) => {
@@ -178,6 +235,24 @@ class AdvancedPage extends React.Component {
             </div>
         </div>);
         let AddMaskButton = (<a className="linkbutton" onClick={() => this.addMask()}>Add</a>);
+
+
+        let walletName = (<div><div className="form-caption">Name of wallet</div>
+            <div>
+                <input type="text" id="walletNameValue" placeholder="my wallet" className="form-input " style={{width: 144}} />
+            </div></div>);
+        let walletAddress = (<div><div className="form-caption">Wallet address</div>
+            <div>
+                <input type="text" id="walletAddressValue" placeholder="0x123" className="form-input" style={{width: 432}} />
+            </div></div>);
+        let AddWallet = (<a className="linkbutton" onClick={() => this.AddWallet()}>Add</a>);
+        let walletDataRows = this.state.wallets.map((row) =>{
+            return (<tr key={row.name} className="table-row">
+                <td className="table-text"><input type="text" value={row.name}  style={{width: 144}}disabled className="disabledInput" /></td>
+                <td className="table-text"><input type="text" value={row.wallet} style={{width: 432}} disabled className="disabledInput" /></td>
+                <td className="table-text"><a className="linkbutton" onClick={() => this.deleteWallet(row.name)}>Delete</a></td>
+            </tr>)
+        });
 
 
         return (
@@ -236,6 +311,30 @@ class AdvancedPage extends React.Component {
 
                     </div>
 
+                    <div className="swash-col">
+                        <div className="setting-part">
+                            <div className="swash-head">Wallets to save</div>
+                            <div className="swash-p2">You can save your wallet addresses.</div>
+
+
+                            <div>
+                                <MDBTable>
+                                    <MDBTableHead>
+                                        <tr className="table-head-row">
+                                            <th className="table-head-text">{walletName}</th>
+                                            <th className="table-head-text">{walletAddress}</th>
+                                            <th className="table-head-text" style={{ width: 90, paddingRight: 0 }}>{AddWallet}</th>
+                                        </tr>
+                                    </MDBTableHead>
+
+                                    <MDBTableBody>
+                                        {walletDataRows}
+                                    </MDBTableBody>
+                                </MDBTable>
+                            </div>
+                        </div>
+
+                    </div>
 
 
 

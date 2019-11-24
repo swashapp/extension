@@ -16,11 +16,30 @@ class TransferView extends React.Component {
       addressName: null,
       isDonate: false,
       isProfile: false,
-      withdrawSuccessful: false
+      withdrawSuccessful: false,
+      wallets: []
     };
     this.walletChange = this.walletChange.bind(this);
     this.handleWalletDialogClose = this.handleWalletDialogClose.bind(this);
   }
+
+  componentDidMount() {
+        window.scrollTo(0, 0);
+        let that = this;
+        async function loader() {
+            let wallets = await window.helper.loadWallets();
+            let newWallets = [];
+            for (let x in wallets) {
+                newWallets.push({
+                    'name': wallets[x].name,
+                    'wallet': wallets[x].wallet,
+                })
+            }
+
+            that.setState({ wallets: newWallets })
+        }
+        loader();
+    };
 
   walletChange(e){
     this.setState({ toAddress: e.target.value, isDonate: false,isProfile: false, addressName: ''  });
@@ -86,16 +105,7 @@ class TransferView extends React.Component {
   }
 
   render() {
-    const profileWallets = [
-      {
-          name: 'main wallet',
-          wallet: '0x987'
-      },
-      {
-          name: 'my friend',
-          wallet: '0x777'
-      }
-  ]; // TODO fetch from profile
+    const profileWallets = this.state.wallets;
   
     var dataAvailable = '36.67';
     const {isOpened, toAddress, isDonate,isProfile, addressName, withdrawSuccessful} = this.state;

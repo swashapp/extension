@@ -1869,6 +1869,14 @@ left: 72px;
   width: 432px;
 }
 
+.disabledInput {
+  height: 40px;
+  background: rgb(245, 245, 245);
+  border-radius: 4px;
+  border: 1px solid rgb(239, 239, 239);
+  color: #323232;
+}
+
 #advanced-page .table-row .disabledUrl{
   width: 432px;
   height: 40px;
