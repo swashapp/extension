@@ -4,6 +4,7 @@ import RDropdownMenu from '../microcomponents/RDropdownMenu.js';
 import CustomSnackbar from '../microcomponents/CustomSnackbar';
 import ModuleView from '../microcomponents/ModuleView';
 import PrivacyLevel from '../microcomponents/PrivacyLevel';
+import TopNavigation from '../TopNavigation';
 
 
 class SettingsPage extends React.Component {
@@ -114,6 +115,7 @@ class SettingsPage extends React.Component {
 
         return (
             <div id="settings-page" className="swash-col">
+                <TopNavigation />
                 <React.Fragment>
                     <div className="swash-col">
                         <div className="setting-part">

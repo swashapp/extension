@@ -5,6 +5,7 @@ import {
 } from 'mdbreact';
 import CustomSnackbar from '../microcomponents/CustomSnackbar';
 import CustomSelect from '../microcomponents/CustomSelect';
+import TopNavigation from '../TopNavigation';
 
 
 class AdvancedPage extends React.Component {
@@ -146,9 +147,9 @@ class AdvancedPage extends React.Component {
     render() {
         let excludeTableDataRows = this.state.filters.map((row) => {
             return (<tr key={row.value} className="table-row">
-                <td className="table-text"><input type="text" value={row.value} disabled className="disabledUrl" /></td>
-                <td className="table-text"><input type="text" value={row.type} disabled className="disabledMatchingType" /></td>
-                <td className="table-text"><a className="linkbutton" onClick={() => this.deleteFilterRecord(row.value)}>Delete</a></td>
+                <td className="table-text disabled-url-td"><input type="text" value={row.value} disabled className="disabledUrl" /></td>
+                <td className="table-text disabled-matching-type-td"><input type="text" value={row.type} disabled className="disabledMatchingType" /></td>
+                <td className="table-text delete-matching-type-td"><a className="linkbutton" onClick={() => this.deleteFilterRecord(row.value)}>Delete</a></td>
             </tr>)
         });
         let addXUrl = (<div><div className="form-caption">Add a URL to exclude</div>
@@ -162,13 +163,13 @@ class AdvancedPage extends React.Component {
 
             <CustomSelect items={selectItems} ref='matchingTypeSelect'/>
         </div >);
-        let AddXButton = (<a className="linkbutton" onClick={() => this.addFilter()}>Add</a>);
+        let AddXButton = (<a className="linkbutton add-link-button" onClick={() => this.addFilter()}>Add</a>);
 
 
         let maskTableDataRows = this.state.masks.map((row) => {
             return (<tr key={row.value} className="table-row">
-                <td className="table-text" style={{ width: 592 }}><input type="text" value={row.value} disabled className="disabledMaskedText" /></td>
-                <td className="table-text"><a className="linkbutton" onClick={() => { this.deleteMaskRecord(row.value) }}>Delete</a></td>
+                <td className="table-text disabled-masked-text-td"><input type="text" value={row.value} disabled className="disabledMaskedText" /></td>
+                <td className="table-text delete-masked-text-td"><a className="linkbutton" onClick={() => { this.deleteMaskRecord(row.value) }}>Delete</a></td>
             </tr>)
         });
         let addMaskText = (<div>
@@ -182,6 +183,7 @@ class AdvancedPage extends React.Component {
 
         return (
             <div id="advanced-page" className="swash-col">
+                <TopNavigation />
                 <React.Fragment>
                     <div className="swash-col">
                         <div className="setting-part">
@@ -195,8 +197,8 @@ class AdvancedPage extends React.Component {
                                 <MDBTable>
                                     <MDBTableHead>
                                         <tr className="table-head-row">
-                                            <th className="table-text table-head-text">{addMaskText}</th>
-                                            <th className="table-text table-head-text">{AddMaskButton}</th>
+                                            <th className="table-text table-head-text add-mask-text-th">{addMaskText}</th>
+                                            <th className="table-text table-head-text add-mask-button-th">{AddMaskButton}</th>
                                         </tr>
                                     </MDBTableHead>
 
@@ -221,9 +223,9 @@ class AdvancedPage extends React.Component {
                                 <MDBTable>
                                     <MDBTableHead>
                                         <tr className="table-head-row">
-                                            <th className="table-head-text">{addXUrl}</th>
-                                            <th className="table-head-text">{addXType}</th>
-                                            <th className="table-head-text" style={{ width: 90, paddingRight: 0 }}>{AddXButton}</th>
+                                            <th className="table-head-text add-x-url-th">{addXUrl}</th>
+                                            <th className="table-head-text add-x-type-th">{addXType}</th>
+                                            <th className="table-head-text add-x-button-th" style={{ width: 90, paddingRight: 0 }}>{AddXButton}</th>
                                         </tr>
                                     </MDBTableHead>
 
