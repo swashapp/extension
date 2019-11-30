@@ -2184,23 +2184,36 @@ line-height: 24px;
 
 
 .module-detail-view-title-container .oauth_btn{
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    background-color: white;
-    color: rgb(50, 50, 50);
-    font-family: Roboto-Medium;
-    font-size: 12px;
-    font-weight: 500;
-    height: 32px;
-    letter-spacing: 0px;
-    line-height: 32px;
-    text-align: center;
-    width: 144px;
-    border-radius: 4px;
-    border: 1px solid rgb(50, 50, 50);
-    height: 32px;
-    width: 144px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid rgb(50, 50, 50);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+  background: #ffffff;
+  color: rgb(50,50,50);
+  padding: 8px 12px;
+  text-decoration: none;
+  font-family: Roboto-Medium;
+  font-size: 12px;
+  font-weight: 500;
+
+  /*position: absolute;
+  right: 0px;
+  top: 0px;
+  background-color: white;
+  color: rgb(50, 50, 50);
+  font-family: Roboto-Medium;
+  font-size: 12px;
+  font-weight: 500;
+  height: 32px;
+  letter-spacing: 0px;
+  line-height: 32px;
+  text-align: center;
+  width: 144px;
+  border-radius: 4px;
+  border: 1px solid rgb(50, 50, 50);
+  height: 32px;
+  width: 144px;*/
 }
 
 
@@ -2368,18 +2381,31 @@ line-height: 20px;
     width: 20%;
   }
 
+  #advanced-page .disabledUrl{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  #advanced-page .disabledMatchingType{
+    padding-left: 2px;
+    padding-right: 2px;
+    text-align: center;
+  }
+
   #advanced-page .disabled-url-td{
-    width: 100%;
+    width: 70%;
     height: 40px;
     margin-top: 4px;
     margin-bottom: 4px;
   }
 
   #advanced-page .disabled-matching-type-td{
-    width: 70%;
+    display: none;
+    width: 30%;
     height: 40px;
     margin-top: 4px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
   }
 
   #advanced-page .delete-matching-type-td{
@@ -2507,6 +2533,7 @@ line-height: 20px;
     width: 25%;
     float: left;
   }
+
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
