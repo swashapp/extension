@@ -367,12 +367,17 @@ table .th-sm{
   background-color: #fff;
 }
 
+
 .navbar_brand{
-  color: rgb(59, 62, 76);
   font-size: 20px;
   font-family: Roboto-Medium;
   background-color: #ffffff;
 }
+
+.navbar_link{
+  font-family: Roboto-Medium;
+}
+
 
 .form-check-input[type=checkbox]+label:before, .form-check-input[type=checkbox]:not(.filled-in)+label:after, label.btn input[type=checkbox]+label:before, label.btn input[type=checkbox]:not(.filled-in)+label:after {
   content: '';
@@ -2301,6 +2306,7 @@ line-height: 20px;
   .swash-col{
     width: 100%;
     padding: 5px;
+    margin-top: 40px;
   }
   .content-padding{
     padding: 5px;
@@ -2403,6 +2409,7 @@ line-height: 20px;
     margin-top: 45px;
     margin-bottom: 20px;
   }
+
   .swash-select-container{
     width: 90% !important;
   }
@@ -2477,7 +2484,7 @@ line-height: 20px;
       width: 100%;
   }
   #settings-page .table-text{
-      padding-left: 2px !important;
+      padding-left: 10px !important;
       word-wrap:break-word
   }
 
@@ -2487,6 +2494,18 @@ line-height: 20px;
 
   #settings-page .privacy-level-table-datatobesent-th{
     width: 70%;
+  }
+  #settings-page .mdv-delete-all-btn-a{
+    width: 33%;
+    float: left;
+  }
+  #settings-page .mdv-select-all-btn-a{
+    width: 33%;
+    float: left;
+  }
+  #settings-page .mdv-done-btn-a{
+    width: 25%;
+    float: left;
   }
 }
 
@@ -2578,4 +2597,16 @@ line-height: 20px;
     height: 40px;
   }
 
+  #settings-page .mdv-delete-all-btn-a{
+    width: 112px;
+    float: left;
+  }
+  #settings-page .mdv-select-all-btn-a{
+    width: 112px;
+    float: left;
+  }
+  #settings-page .mdv-done-btn-a{
+    width: 72px;
+    float: left;
+  }
 }

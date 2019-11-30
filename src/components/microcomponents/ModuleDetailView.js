@@ -186,9 +186,9 @@ class ModuleDetailView extends React.Component {
 
   getButtons() {
     return <div style={{ height: 40, marginTop: 32 }}>
-      <a className="module-btn " onClick={(e) => { this.selectAll(e, false) }} style={{ width: 112, float: "left" }}>Deselect all</a>
-      <a className="module-btn " onClick={(e) => { this.selectAll(e, true) }} style={{ width: 112, float: "left" }}>Select all</a>
-      <a className="module-btn " onClick={this.saveSettings} style={{ width: 72, float: "right" }}>Done</a>
+      <a className="module-btn mdv-delete-all-btn-a" onClick={(e) => { this.selectAll(e, false) }} >Deselect all</a>
+      <a className="module-btn mdv-select-all-btn-a" onClick={(e) => { this.selectAll(e, true) }} >Select all</a>
+      <a className="module-btn mdv-done-btn-a" onClick={this.saveSettings} >Done</a>
     </div>
   }
 

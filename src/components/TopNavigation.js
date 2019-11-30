@@ -48,7 +48,7 @@ class TopNavigation extends React.Component {
     return (
       <MDBContainer fluid className="m-0 p-0 top-navigation">
         {/*<!-- Navbar -->*/}
-        <MDBNavbar expand="md" fixed="top" scrolling style={{"backgroundColor":"#ffffff"}} className="z-depth-0">
+        <MDBNavbar expand="md" fixed="top" scrolling style={{"backgroundColor":"#ffffff"}} className="nav_bar z-depth-0">
           {/*<!-- Brand -->*/}
           <MDBNavbarBrand href="/" className="navbar_brand">
             <img src={Logo} alt='Logo' style={{ height: '2.5rem', width: "2.5rem" }} className="mr-2"/>
@@ -65,7 +65,7 @@ class TopNavigation extends React.Component {
             {/*<!-- Links -->*/}
             <MDBNavbarNav right> {/*left,right,auto*/}
               {/*<!-- Left -->*/}
-              <MDBNavItem> {/*active*/}
+              <MDBNavItem className="navbar_item"> {/*active*/}
                 <MDBNavLink
                   to="/Settings"
                   className="navbar_link"
@@ -73,7 +73,7 @@ class TopNavigation extends React.Component {
                   Settings
                 </MDBNavLink>
               </MDBNavItem>
-              <MDBNavItem>
+              <MDBNavItem className="navbar_item">
                 <MDBNavLink
                   to="/Data"
                   className="navbar_link"
@@ -81,7 +81,7 @@ class TopNavigation extends React.Component {
                   Data
                 </MDBNavLink>
               </MDBNavItem>
-              <MDBNavItem>
+              <MDBNavItem className="navbar_item">
                 <MDBNavLink
                   to="/Advanced"
                   className="navbar_link"
@@ -89,7 +89,7 @@ class TopNavigation extends React.Component {
                   Advanced
                 </MDBNavLink>
               </MDBNavItem>
-              <MDBNavItem>
+              <MDBNavItem className="navbar_item">
                 <MDBNavLink
                   to="/Help"
                   className="navbar_link"
