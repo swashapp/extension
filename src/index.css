@@ -2552,6 +2552,12 @@ line-height: 20px;
   .top-navigation{
     display: none;
   }
+  #content{
+    margin-left: 55px;
+  }
+  .sidebar-fixed {
+    width: 150px;
+  }
   
   #advanced-page .table-row .disabledMatchingType{
     width: 144px;
@@ -2570,6 +2576,13 @@ line-height: 20px;
     display: none;
   }
   
+  #content{
+    margin-left: 250px;
+  }
+  .sidebar-fixed {
+    width: 250px;
+  }
+
   #advanced-page .table-row .disabledMatchingType{
     width: 144px;
     height: 40px;
@@ -2590,6 +2603,13 @@ line-height: 20px;
   #advanced-page .table-row .disabledMatchingType{
     width: 144px;
     height: 40px;
+  }
+
+  #content{
+    margin-left: 250px;
+  }
+  .sidebar-fixed {
+    width: 250px;
   }
 
   #advanced-page .table-row .disabledMaskedText{
