@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import {Collapse} from 'react-collapse';
 import CustomCheckBox from './CustomCheckBox';
 import CustomSnackbar from '../microcomponents/CustomSnackbar';
-import WalletDialog from './WalletDialog';
 import icon_open from '../../statics/images/active.svg'
 import icon_closed from '../../statics/images/inactive.svg'
+import TransferDropdownMenu from '../microcomponents/TransferDropdownMenu.js';
 
 class TransferView extends React.Component {
 
@@ -210,32 +210,14 @@ class TransferView extends React.Component {
                             <div className="form-caption" style={{marginTop: 32}}>Destination (Ethereum address)</div>
                             <div style={{position: 'relative'}}>
                                 <input type="text" className="form-input" id="walletAddress" onChange={this.walletChange} value={toAddress}/>
-                                <WalletDialog onClose={this.handleWalletDialogClose} items={profileWallets} />
-                                
+                                <TransferDropdownMenu className="button form-input-button more-button" handleDonateDialogClose={this.handleWalletDialogClose} handleSavedWalletDialogClose={this.handleWalletDialogClose} profileWallets={profileWallets} donateList={donateList} ref='keyAddressMenu'/>                                
                             </div>
                             
                             <div className="swash-p" style={{marginBottom:32, height: 48}}>
                               {addressInfo}
                             </div>
 
-                            <div>
-                            <div className={classHeader} >
-                              <div className='accordion-title'>I would like to donate</div>
-                              
-                              {/*<img src={this.props.message.icon} alt="" className="accordion-icon" />*/}
-                              <div className="accordion-arrow" onClick={() => this.setState({isOpened: !isOpened})} ><img alt="" src={iconArrow}  /></div>
-                              
-                            </div>
-
-                            <Collapse isOpened={isOpened}>
-                              <div className="accordion-body">
-                                <div className="donate-container">
-                                  {donates}
-                                </div>
-                              </div>
-                              
-                            </Collapse>
-                          </div>
+                            
 
                           <a className="linkbutton" style={{marginTop: 56}} onClick={this.withdraw}>Transfer</a>
 
