@@ -11,6 +11,15 @@
     border-radius: 4px;
 }
 
+.custom-dropdown-menu-transfer {
+    min-width: 120px !important;
+    width: 120px !important;
+    height: 68px !important;
+    background: rgb(255, 255, 255);
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
 .custom-dropdown-item {
     padding: 0px 0px 0px 12px!important;
     color: rgb(50, 50, 50);

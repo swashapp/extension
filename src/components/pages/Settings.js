@@ -1,9 +1,10 @@
 import React from 'react'
 import RDropdownMenu from '../microcomponents/RDropdownMenu.js';
-
 import CustomSnackbar from '../microcomponents/CustomSnackbar';
 import ModuleView from '../microcomponents/ModuleView';
 import PrivacyLevel from '../microcomponents/PrivacyLevel';
+import TransferView from '../microcomponents/TransferView';
+
 
 
 class SettingsPage extends React.Component {
@@ -16,7 +17,8 @@ class SettingsPage extends React.Component {
             dataBalance: '0.00',
             dataAvailable: '0.00',
 			cumulativeEarnings: '0.00',
-			withdrawState: false
+			withdrawState: false,
+			transferModal: false
         };
         this.balanceCheckInterval = 0;
     }
@@ -82,9 +84,8 @@ class SettingsPage extends React.Component {
 			ref.setState({withdrawState: false});			
 			ref.refs.notify.handleNotification(reason.message, 'error');			
 		})				
-	}
+	}	   
 	
-    
     render() {
                     
         const copyToClipboard = (e, element) => {            
@@ -113,7 +114,7 @@ class SettingsPage extends React.Component {
         
 
         return (
-            <div id="settings-page" className="swash-col">
+            <div id="settings-page" className="swash-col">				
                 <React.Fragment>
                     <div className="swash-col">
                         <div className="setting-part">
@@ -129,7 +130,7 @@ class SettingsPage extends React.Component {
                             <div className="balance-block withdraw-block block-bottom-corner-radius">
                                 <div className="balance-text"><span className="balance-text-bold">{this.state.dataAvailable}</span> DATA available</div> 
                                 {this.state.withdrawState?<div className="withdraw-btn withdraw-btn-disabled"><a>Waiting...</a></div>
-								:<div className="withdraw-btn"><a onClick={() => this.withdraw(this)} >Withdraw DATA</a></div>}
+								:<div className="withdraw-btn"><a href={"/#/Transfer/" + this.state.keyInfo.address} >Withdraw DATA</a></div>}
                             </div>
                             <div className="form-caption">Wallet address</div>
                             <div style={{position: 'relative'}}>
