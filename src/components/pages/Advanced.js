@@ -241,7 +241,7 @@ class AdvancedPage extends React.Component {
         let AddMaskButton = (<a className="linkbutton" onClick={() => this.addMask()}>Add</a>);
 
 
-        let walletName = (<div><div className="form-caption">Name of wallet</div>
+        let walletName = (<div><div className="form-caption">Wallet name</div>
             <div>
                 <input type="text" id="walletNameValue" placeholder="my wallet" className="form-input " style={{width: 144}} />
             </div></div>);
@@ -317,7 +317,7 @@ class AdvancedPage extends React.Component {
 
                     <div className="swash-col">
                         <div className="setting-part">
-                            <div className="swash-head">Wallets to save</div>
+                            <div className="swash-head">Wallets</div>
                             <div className="swash-p2">You can save your wallet addresses.</div>
 
 

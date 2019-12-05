@@ -1347,6 +1347,10 @@ margin-bottom: 32px;
   margin-bottom: 24px;
 }
 
+#destinationAddress{
+  margin-bottom: 32px;
+}
+
 #privateKey{
   color: #323232;
   border-color: rgb(239, 239, 239);

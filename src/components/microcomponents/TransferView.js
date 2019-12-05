@@ -23,7 +23,7 @@ class TransferView extends React.Component {
       donateList: []
     };
     this.walletChange = this.walletChange.bind(this);
-    this.handleWalletDialogClose = this.handleWalletDialogClose.bind(this);
+	this.handleWalletDialogClose = this.handleWalletDialogClose.bind(this);
     this.withdraw = this.withdraw.bind(this);
   }
 
@@ -74,18 +74,21 @@ class TransferView extends React.Component {
         dataAvailable = dataAvailable === ''|| typeof(dataAvailable) === 'undefined' || dataAvailable.error?'0.00':dataAvailable
         // let cumulativeEarnings = await window.helper.getCumulativeEarnings();   
         // cumulativeEarnings = cumulativeEarnings === ''|| typeof(cumulativeEarnings) === 'undefined' || cumulativeEarnings.error?'0.00':cumulativeEarnings   
-        if(dataAvailable !== this.state.dataAvailable)
+        if(dataAvailable !== this.state.dataAvailable){
             this.setState({
                 // dataBalance: this.purgeNumber(dataBalance),
                 dataAvailable: this.purgeNumber(dataAvailable),
         // cumulativeEarnings: this.purgeNumber(cumulativeEarnings)
             })        
+			document.querySelector("#amountdata").value = dataAvailable;
+		}
     }
 
   walletChange(e){
     this.setState({ toAddress: e.target.value, isDonate: false,isProfile: false, addressName: ''  });
   }
 
+  
 
   handleWalletDialogClose(item){
     if(item){
@@ -153,7 +156,7 @@ class TransferView extends React.Component {
       return (
         <div className="setting-part">
                 <div className="swash-head">New wallet address</div>
-                            <div className="swash-p">You can save this wallet address ({toAddress}) in your profile to use in future.</div>
+                            <div className="swash-p2">You can save this wallet address ({toAddress}) in your profile to use in future.</div>
 
                             <div className="form-caption">Give it a name</div>
                             <div style={{position: 'relative'}}>
@@ -191,8 +194,8 @@ class TransferView extends React.Component {
     return (
       <div>
         <div className="setting-part">
-                            <div className="swash-head">Transfer</div>
-                            <div className="swash-p">In this section you can withdraw your earned money to a wallet.</div>
+                            <div className="swash-head">Transfer earned DATA</div>
+                            <div className="swash-p2">In this section you can withdraw your earned DATA to a wallet.</div>
 
                             <div className="balance-block withdraw-block block-bottom-corner-radius block-top-corner-radius">
                                 <div className="balance-text"><span className="balance-text-bold">{dataAvailable}</span> DATA available to transfer</div> 
@@ -202,24 +205,18 @@ class TransferView extends React.Component {
 
                             <div className="form-caption">Amount (DATA)</div>
                             <div style={{position: 'relative'}}>
-                                <input type="text" className="form-input" id="amountdata"/>
-                                
+                                <input type="text" className="form-input" id="amountdata"/>                                
                             </div>
 
 
                             <div className="form-caption" style={{marginTop: 32}}>Destination (Ethereum address)</div>
                             <div style={{position: 'relative'}}>
-                                <input type="text" className="form-input" id="walletAddress" onChange={this.walletChange} value={toAddress}/>
+                                <input type="text" className="form-input" id="destinationAddress" onChange={this.walletChange} value={toAddress}/>
                                 <TransferDropdownMenu className="button form-input-button more-button" handleDonateDialogClose={this.handleWalletDialogClose} handleSavedWalletDialogClose={this.handleWalletDialogClose} profileWallets={profileWallets} donateList={donateList} ref='keyAddressMenu'/>                                
                             </div>
-                            
-                            <div className="swash-p" style={{marginBottom:32, height: 48}}>
-                              {addressInfo}
-                            </div>
+                                                                                    
 
-                            
-
-                          <a className="linkbutton" style={{marginTop: 56}} onClick={this.withdraw}>Transfer</a>
+                          <a className="linkbutton" onClick={this.withdraw}>Transfer</a>
 
                           
 
