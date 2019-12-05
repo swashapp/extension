@@ -5,6 +5,7 @@ import NumberPicker from 'react-widgets/lib/NumberPicker'
 
 import simpleNumberLocalizer from 'react-widgets-simple-number';
 import DelaySend from '../microcomponents/DelaySend';
+import TopNavigation from '../TopNavigation';
 
 simpleNumberLocalizer();
 
@@ -101,6 +102,7 @@ class DataPage extends React.Component {
 
         return (
             <div id="data-page" className="swash-col">
+                <TopNavigation />
                 <React.Fragment>
                     <div className="swash-col">
                         <div className="setting-part-small">

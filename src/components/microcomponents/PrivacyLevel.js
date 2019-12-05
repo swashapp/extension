@@ -108,8 +108,8 @@ class PrivacyLevel extends React.Component {
 
                         <MDBTableHead>
                             <tr className="table-head-row">
-                                <th className="table-text table-head-text">Type</th>
-                                <th className="table-text table-head-text">Data to be sent</th>
+                                <th className="table-text table-head-text privacy-level-table-type-th">Type</th>
+                                <th className="table-text table-head-text privacy-level-table-datatobesent-th">Data to be sent</th>
                             </tr>
                         </MDBTableHead>
                         <MDBTableBody>

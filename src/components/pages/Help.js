@@ -10,6 +10,7 @@ import help4 from '../../statics/images/help4.png';
 import help5 from '../../statics/images/help5.png';
 
 import help7 from '../../statics/images/help7.png';
+import TopNavigation from '../TopNavigation';
 
 
 class HelpPage extends React.Component {
@@ -22,6 +23,7 @@ class HelpPage extends React.Component {
         
         return (
             <div id="help-page" className="swash-col">
+                <TopNavigation />
                 <React.Fragment>
                     <div className="swash-col">
                         <div className="setting-part">
@@ -87,10 +89,10 @@ class HelpPage extends React.Component {
                                 
                                     <MDBTableHead>
                                         <tr className="table-head-row">                               
-                                            <th className="table-text table-head-text" style={{width: 111}}>Data Type</th>
-                                            <th className="table-text table-head-text" style={{width: 127}}>No Privacy</th>                                            
-                                            <th className="table-text table-head-text" style={{width: 143}}>Medium Privacy</th>
-                                            <th className="table-text table-head-text" style={{width: 159}}>High Privacy</th>
+                                            <th className="table-text table-head-text help-table-data-type-th">Data Type</th>
+                                            <th className="table-text table-head-text help-table-no-privacy-th">No Privacy</th>                                            
+                                            <th className="table-text table-head-text help-table-medium-privacy-th">Medium Privacy</th>
+                                            <th className="table-text table-head-text help-table-high-privacy-th">High Privacy</th>
                                         </tr>
                                     </MDBTableHead>
                                     <MDBTableBody>
