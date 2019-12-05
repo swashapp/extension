@@ -10,7 +10,6 @@ import help4 from '../../statics/images/help4.png';
 import help5 from '../../statics/images/help5.png';
 
 import help7 from '../../statics/images/help7.png';
-import TopNavigation from '../TopNavigation';
 
 
 class HelpPage extends React.Component {
@@ -23,7 +22,6 @@ class HelpPage extends React.Component {
         
         return (
             <div id="help-page" className="swash-col">
-                <TopNavigation />
                 <React.Fragment>
                     <div className="swash-col">
                         <div className="setting-part">

@@ -5,7 +5,6 @@ import {
 } from 'mdbreact';
 import CustomSnackbar from '../microcomponents/CustomSnackbar';
 import CustomSelect from '../microcomponents/CustomSelect';
-import TopNavigation from '../TopNavigation';
 
 
 class AdvancedPage extends React.Component {
@@ -183,7 +182,6 @@ class AdvancedPage extends React.Component {
 
         return (
             <div id="advanced-page" className="swash-col">
-                <TopNavigation />
                 <React.Fragment>
                     <div className="swash-col">
                         <div className="setting-part">
