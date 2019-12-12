@@ -243,18 +243,18 @@ class AdvancedPage extends React.Component {
 
         let walletName = (<div><div className="form-caption">Wallet name</div>
             <div>
-                <input type="text" id="walletNameValue" placeholder="my wallet" className="form-input " style={{width: 144}} />
+                <input type="text" id="walletNameValue" placeholder="my wallet" className="form-input " />
             </div></div>);
         let walletAddress = (<div><div className="form-caption">Wallet address</div>
             <div>
-                <input type="text" id="walletAddressValue" placeholder="0x123" className="form-input" style={{width: 432}} />
+                <input type="text" id="walletAddressValue" placeholder="0x123" className="form-input" />
             </div></div>);
         let AddWallet = (<a className="linkbutton" onClick={() => this.AddWallet()}>Add</a>);
         let walletDataRows = this.state.wallets.map((row) =>{
             return (<tr key={row.name} className="table-row">
-                <td className="table-text"><input type="text" value={row.name}  style={{width: 144}}disabled className="disabledInput" /></td>
-                <td className="table-text"><input type="text" value={row.wallet} style={{width: 432}} disabled className="disabledInput" /></td>
-                <td className="table-text"><a className="linkbutton" onClick={() => this.deleteWallet(row.name)}>Delete</a></td>
+                <td className="table-text add-wallet-walletname-td"><input id="add-wallet-walletname-input" type="text" value={row.name} disabled className="disabledInput w-100" /></td>
+                <td className="table-text add-wallet-walletaddress-td"><input id="add-wallet-walletaddress-input" type="text" value={row.wallet} disabled className="disabledInput w-100" /></td>
+                <td className="table-text add-wallet-delete-td"><a id="add-wallet-delete" className="linkbutton w-100" onClick={() => this.deleteWallet(row.name)}>Delete</a></td>
             </tr>)
         });
 
@@ -302,7 +302,7 @@ class AdvancedPage extends React.Component {
                                         <tr className="table-head-row">
                                             <th className="table-head-text add-x-url-th">{addXUrl}</th>
                                             <th className="table-head-text add-x-type-th">{addXType}</th>
-                                            <th className="table-head-text add-x-button-th" style={{ width: 90, paddingRight: 0 }}>{AddXButton}</th>
+                                            <th className="table-head-text add-x-button-th">{AddXButton}</th>
                                         </tr>
                                     </MDBTableHead>
 
@@ -322,12 +322,12 @@ class AdvancedPage extends React.Component {
 
 
                             <div>
-                                <MDBTable>
+                                <MDBTable id="add-wallet-table">
                                     <MDBTableHead>
                                         <tr className="table-head-row">
-                                            <th className="table-head-text">{walletName}</th>
-                                            <th className="table-head-text">{walletAddress}</th>
-                                            <th className="table-head-text" style={{ width: 90, paddingRight: 0 }}>{AddWallet}</th>
+                                            <th className="table-head-text add-wallet-walletname-th">{walletName}</th>
+                                            <th className="table-head-text add-wallet-walletaddress-th">{walletAddress}</th>
+                                            <th className="table-head-text add-wallet-button-th">{AddWallet}</th>
                                         </tr>
                                     </MDBTableHead>
 

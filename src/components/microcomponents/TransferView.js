@@ -154,7 +154,7 @@ class TransferView extends React.Component {
       
       // window.scrollTo(0, tesNode.offsetTop);
       return (
-        <div className="setting-part">
+        <div className="transfer-part">
                 <div className="swash-head">New wallet address</div>
                             <div className="swash-p2">You can save this wallet address ({toAddress}) in your profile to use in future.</div>
 
@@ -193,7 +193,7 @@ class TransferView extends React.Component {
     
     return (
       <div>
-        <div className="setting-part">
+        <div className="transfer-part">
                             <div className="swash-head">Transfer earned DATA</div>
                             <div className="swash-p2">In this section you can withdraw your earned DATA to a wallet.</div>
 
@@ -209,7 +209,7 @@ class TransferView extends React.Component {
                             </div>
 
 
-                            <div className="form-caption" style={{marginTop: 32}}>Destination (Ethereum address)</div>
+                            <div className="form-caption" style={{marginTop: 56}}>Destination (Ethereum address)</div>
                             <div style={{position: 'relative'}}>
                                 <input type="text" className="form-input" id="destinationAddress" onChange={this.walletChange} value={toAddress}/>
                                 <TransferDropdownMenu className="button form-input-button more-button" handleDonateDialogClose={this.handleWalletDialogClose} handleSavedWalletDialogClose={this.handleWalletDialogClose} profileWallets={profileWallets} donateList={donateList} ref='keyAddressMenu'/>                                
