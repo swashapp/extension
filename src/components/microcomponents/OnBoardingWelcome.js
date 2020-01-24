@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '../../statics/images/Logo_Beta.png';
+import Logo from '../../statics/images/Swash_Beta_Flag.svg';
 
 class OnBoardingPage extends React.Component {
     constructor(props) {
@@ -15,27 +15,30 @@ class OnBoardingPage extends React.Component {
     }
 
     LoadOnBoardingNew(){
-        this.props.ChangeOnBoardingPage('New')
+        this.props.ChangeOnBoardingPage('PrivacyPolicy')
     }
     
     render() {
         return (
-            <div id="onboarding-page" className="d-flex justify-content-center">
+            <div className="d-flex justify-content-center">
                 <React.Fragment>
-                    <div className="w-75">
-                        <div className='m-0 pt-5 text-center'>
-                            <img src={Logo} alt='Logo Picture' />
-                        </div>        
-                        <div className='m-0 pt-5 text-center'>
-                            <p className="welcome-swash-message">Welcome to Swash</p>
-                        </div>        
-                        <div className='m-0 pt-3 text-center'>
-                            <p className="intro-swash-message">Earn crypto by surfing the web with Swash.<br/>We are happy to see you.</p>
-                        </div>        
-                        <div className='m-0 pt-3 text-center d-flex justify-content-center'>
-                            <a className='get-started-button' onClick={this.LoadOnBoardingNew}>Get Started!</a>
-                        </div>        
-                    </div>
+					<div className="onboarding-box">
+						<div className="onboarding-box-header">
+							<p>Welcome to Swash</p>
+						</div>
+						<div className="onboarding-box-body">
+							<img alt="" style={{marginBottom: "23px"}} src={Logo} />
+							<div>
+								<span>Thanks for installing Swash.<br/>
+								We’ll have you ready to go in a couple of minutes.</span>
+							</div>
+						</div>
+						<div className="onboarding-box-footer">
+							<div style={{textAlign: 'center'}}>
+								<div className='onboarding-start-button' onClick={this.LoadOnBoardingNew}>Get started</div>																						
+							</div>
+						</div>
+					</div>					                    
                 </React.Fragment>
             </div>
         );

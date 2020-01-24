@@ -1,1 +1,19 @@
-<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.0//EN'  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'><svg enable-background="new 0 0 32 32" height="32px" id="Layer_1" version="1.0" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M6.01,25v-2l3.641,2.328l5.859-5.125V31L6.01,25z M0.461,18.982L6.01,14l8.975,5.754L9.65,24.382  L0.461,18.982z M6.01,13l-6-4.621L9.01,3l6.5,4.5L6.01,13z M26.01,25l-9.5,6V20.203l5.853,5.062L26.01,23V25z M22.362,24.382  l-5.335-4.628L26.01,14l5.54,4.982L22.362,24.382z M26.01,13l-9.5-5.5l6.5-4.5L32,8.38L26.01,13z" fill="#4C96D1"/><g/><g/><g/><g/><g/><g/></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44px" height="38px" viewBox="0 0 44 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 61.2 (101010) - https://sketch.com -->
+    <title>35215025-9894-466B-B61B-B8811B8E869A@1.00x</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="Swash-Onboarding-page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Onboarding-03B---Choosed-import-settings" transform="translate(-768.000000, -385.000000)" fill="#0061FF">
+            <g id="Group-2" transform="translate(741.666667, 380.000000)">
+                <g id="Dropbox-icon" transform="translate(24.000000, 0.000000)">
+                    <g id="Glyph/Dropbox">
+                        <g id="Group" transform="translate(2.337662, 5.610390)">
+                            <path d="M21.7485195,22.9090909 L32.5881039,29.8139221 L21.7485195,36.7195325 L10.9090909,29.8139221 L21.7485195,22.9090909 Z M32.5020779,0 L43.3411948,6.90545455 L32.576,13.762 L43.3413506,20.6198961 L32.5019221,27.5255065 L21.67,20.624 L10.8394286,27.5255065 L0,20.6198961 L10.764,13.762 L0,6.90545455 L10.8395844,0 L21.67,6.9 L32.5020779,0 Z M21.67,6.91 L10.914,13.762 L21.67,20.614 L32.426,13.762 L21.67,6.91 Z" id="Combined-Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

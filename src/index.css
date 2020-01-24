@@ -9,9 +9,6 @@ body{
   background-color: #EDEDEE;
 }
 
-a{
-  color: inherit;
-}
 
 .list-group-flush{
   color: #495057;
@@ -2605,93 +2602,200 @@ input[type="checkbox"].switch:checked + div .disabled {
 
 
 /* OnBoarding CSS */
-#onboarding-page .logo-32-title{
-  color: rgb(59, 62, 76);
-  font-size: 20px;
-  font-family: Roboto-Medium;
+
+#onboarding-page {
+	background-color: #fdfdfd;	
+	height: 100vh;	
 }
 
-#onboarding-page .welcome-swash-message{
-  font-size: 20px;
-  font-family: Roboto-Bold;
+.onboarding-box {
+	position: absolute;
+    top: 50%;
+	left: 50%;
+    transform: translate(-50%, -50%);
+	width: 528px;
+	height: 360px;
+	background: rgb(255, 255, 255);
+	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+	border-radius: 2px;	
 }
 
-#onboarding-page .intro-swash-message{
-  font-size: 16px;
-  font-family: Roboto-Medium;
+.onboarding-box-big {
+	height: 448px;
 }
 
-#onboarding-page .get-started-button{
-  width: 179px;
-  height: 48px;
-  background: rgb(42, 196, 55);
-  border-radius: 4.2px;
-  color: rgb(255, 255, 255);
-  font-size: 20px;
-  font-family: Roboto-Medium;
-  text-align: center;
-  line-height: 48px;  
-  display: block;
+.onboarding-box-header {
+	width: 528px;
+	height: 80px;
+	color: rgb(50, 50, 50);
+	font-size: 20px;
+	font-family: Roboto-Medium;
+	font-weight: 500;
+	text-align: center;
+	letter-spacing: 0px;
+	line-height: 80px;	
+	border-bottom: 2px solid rgb(242, 241, 241);
 }
 
-#onboarding-page .get-started-button:hover{
-  color: rgb(255, 255, 255) !important;
-  text-decoration: none !important;
+.onboarding-box-body {
+	width: 528px;
+	height: 200px;
+	color: rgb(50, 50, 50);
+	font-size: 16px;
+	font-family: Roboto-Regular;
+	font-weight: normal;
+	text-align: center;
+	letter-spacing: 0px;
+	line-height: 24px;	
+	padding: 0px 48px;
+	display: table-cell;
+    vertical-align: middle;
+	border-bottom: 2px solid rgb(242, 241, 241);
 }
 
-#onboarding-page .new-to-swash-message{
-  font-size: 20px;
-  font-family: Roboto-Medium;
+.onboarding-box-body-big {
+	height: 288px;
 }
 
-#onboarding-page .import-wallet-box{
-  border: 1px solid gray;
-  border-radius: 4px;
-  width: 45%;
-  height: 250px;
-  float: left;
+.onboarding-text-gray {
+    color: rgb(205, 205, 205);
+	margin-left: 30px;
+}
+.onboarding-box-body-radio {	
+	color: rgb(50, 50, 50);
+	font-size: 16px;
+	font-family: Roboto-Medium;
+	font-weight: 500;
+	letter-spacing: 0px;
+	line-height: 24px;
+	margin-left: 72px;
+	text-align: left;
+	margin-bottom: 14px;
 }
 
-#onboarding-page .create-new-wallet-box{
-  border: 1px solid gray;
-  border-radius: 4px;
-  width: 45%;
-  height: 250px;
-  float: right;
+.onboarding-box-body-radio span{
+	margin-left: 14px;
+}
+.swash-radiobox {
+	border-radius: 100%;
+	width: 16px;
+	height: 16px;
+	background: rgb(255, 255, 255);
+	border: 1.5px solid rgb(216, 216, 216);
+	margin-top: 2px;
+	display: inline-block;
 }
 
-#onboarding-page .create-new-wallet-box-title{
-  color: rgb(59, 62, 76);
-  font-size: 14px;
-  font-family: Roboto-Bold;
-  letter-spacing: 0px;
-  line-height: 28px;
+.swash-radiobox-selected-outer{
+	border-radius: 100%;
+	width: 16px;
+	height: 16px;
+	background: rgb(255, 255, 255);
+	border: 1.5px solid rgb(3, 36, 255);
+	float: left;
+	margin-top: 2px;
+	margin-right: 14px;	
 }
 
-#onboarding-page .create-new-wallet-box-text{
-  color: rgb(208, 208, 208);
-  font-size: 12px;
-  font-family: Roboto-Medium;
-  letter-spacing: 0px;
-  line-height: 28px;
+.swash-radiobox-selected {
+	border-radius: 100%;
+	width: 8px;
+	height: 8px;
+	background: rgb(3, 36, 255);
 }
 
-#onboarding-page .import-message{
-  font-size: 20px;
-  font-family: Roboto-Medium;
+.onboarding-proceed-button {
+	width: 96px;
+	height: 40px;
+	color: rgb(255, 255, 255);
+	font-size: 14px;
+	font-family: Roboto-Medium;
+	font-weight: 500;
+	text-align: center;
+	letter-spacing: 0px;
+	background-color: #0324ff;	
+	margin: 20px 32px;
+	border-radius: 4px;
+	line-height: 40px;
+	float:right;
 }
 
-#onboarding-page .import-options-box{
-  border: 1px solid gray;
-  border-radius: 4px;
-  width: 45%;
-  height: auto;
+.onboarding-start-button {
+	width: 144px;
+	height: 40px;
+	color: rgb(255, 255, 255);
+	font-size: 14px;
+	font-family: Roboto-Medium;
+	font-weight: 500;
+	text-align: center;
+	letter-spacing: 0px;
+	background-color: #0324ff;	
+	margin: auto;
+	border-radius: 4px;
+	line-height: 40px;
+	display: inline-block;
+}
+.onboarding-box-footer {
+	width: 528px;
+	height: 80px;
+	line-height: 80px;
 }
 
-#onboarding-page .import-option-rows-box{
-  border: 1px solid gray;
-  width: 100%;
+.onboarding-box-footer-right {
+	width: 50%;
+	float: left;
+	line-height: 80px;
 }
+
+.onboarding-box-footer-right span{
+
+	color: rgb(50, 50, 50);
+	font-size: 14px;
+	font-family: Roboto-Regular;
+	font-weight: normal;
+	letter-spacing: 0px;
+}
+.onboarding-box-footer-left {
+	width: 50%;
+	float: left;
+	min-height: 80px;
+}
+
+.onboarding-box-footer-left .checkbox {
+	margin-left: 48px;
+	margin-bottom: 32px;
+	margin-right: 16px;
+	float: left;
+}
+
+.onboarding-box-footer-left span {
+	color: rgb(50, 50, 50);
+	font-size: 14px;
+	font-family: Roboto-Regular;
+	font-weight: normal;
+	letter-spacing: 0px;
+	line-height: 24px;
+}
+
+.onbording-import-option {
+	width: 96px;
+	height: 124px;
+	float: left;
+	margin-right: 12px;
+}
+
+.onboarding-import-option-row {
+	width: 100%;
+	text-align: center;
+	margin-bottom: 18px;
+}
+
+.onbording-import-option img {
+	margin-top: 26px;
+	margin-bottom: 4px;	
+}
+
+
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {

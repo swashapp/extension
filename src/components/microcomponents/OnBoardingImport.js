@@ -1,5 +1,6 @@
 import React from 'react'
-import Logo_32 from '../../statics/images/Logo_32.png';
+import CustomRadioBox from './CustomRadioBox.js';
+import ThreeBox from '../../statics/images/3box.svg';
 import LocalFile from '../../statics/images/file.svg';
 import GoogleDrive from '../../statics/images/google-drive.svg';
 import Dropbox from '../../statics/images/dropbox.svg';
@@ -21,38 +22,72 @@ class OnBoardingNewPage extends React.Component {
 
   render() {
     return (
-      <div id="onboarding-page" className="d-flex justify-content-center">
-        <React.Fragment>
-        <div className="w-75">
-          <div className='m-0 pt-5 text-center logo-32-title'>
-            <img src={Logo_32} alt='Logo Picture' />
-            Swash            
-          </div>
-          <div>
-            <a className='mt-5' onClick={this.LoadOnBoardingNew}>&lt; Back</a>
-          </div>
-          <div className='m-0 pt-3 text-center'>
-            <p className="import-message">Choose one of this option to import the settings file</p>
-          </div>
-          <div className='d-flex justify-content-center'>
-            <div className='import-options-box ml-4 p-0 text-left'>
-              <div className='import-option-rows-box m-0 p-2'>
-                <a onClick=""><img src={LocalFile} width="64px" height="64px" alt="local file" /> Local file</a>
-              </div>
-              <div className='import-option-rows-box m-0 p-2'>
-                <a onClick=""><img src={GoogleDrive} width="64px" height="64px" alt="google drive" /> Google Drive</a>
-              </div>
-              <div className='import-option-rows-box m-0 p-2'>
-                <a onClick=""><img src={Dropbox} width="64px" height="64px" alt="dropbox" /> Dropbox</a>
-              </div>
-            </div>
-          </div>
-          <div className='mt-5 mb-5 d-flex justify-content-center'>
-            <a className='get-started-button' onClick="">Import</a>
-          </div>
-        </div>
-        </React.Fragment>
-      </div>
+		<div className="d-flex justify-content-center">
+			<React.Fragment>
+				<div className="onboarding-box onboarding-box-big">
+					<div className="onboarding-box-header">
+						<p>Import your wallet</p>
+					</div>
+					<div className="onboarding-box-body onboarding-box-body-big">
+						<span>Choose an option to import your settings file</span><br/>
+						<div className="onbording-import-option">
+							<div className="onboarding-import-option-row">
+								<img src={LocalFile} alt=""/>
+							</div>
+							<div className="onboarding-import-option-row">
+								<span>Local file</span>
+							</div>
+							<div className="onboarding-import-option-row">
+								<CustomRadioBox/>
+							</div>
+						</div>
+						<div className="onbording-import-option">
+							<div className="onboarding-import-option-row">
+								<img src={GoogleDrive} alt=""/>
+							</div>
+							<div className="onboarding-import-option-row">
+								<span>Google Drive</span>
+							</div>
+							<div className="onboarding-import-option-row">
+								<CustomRadioBox/>
+							</div>
+						</div>
+						<div className="onbording-import-option">
+							<div className="onboarding-import-option-row">
+								<img src={Dropbox} alt=""/>
+							</div>
+							<div className="onboarding-import-option-row">
+								<span>Dropbox</span>
+							</div>
+							<div className="onboarding-import-option-row">
+								<CustomRadioBox/>
+							</div>
+						</div>
+						<div className="onbording-import-option">
+							<div className="onboarding-import-option-row">
+								<img src={ThreeBox} alt=""/>
+							</div>
+							<div className="onboarding-import-option-row">
+								<span>3Box</span>
+							</div>
+							<div className="onboarding-import-option-row">
+								<CustomRadioBox/>
+							</div>
+						</div>
+					</div>
+					<div className="onboarding-box-footer">
+						<div className="onboarding-box-footer-left">							
+						</div>
+						<div className="onboarding-box-footer-right">
+							<div className='onboarding-proceed-button' onClick={this.LoadOnBoardingNew}>Import</div>
+							<div style={{float:"right"}}>
+								<span>Back</span>
+							</div>
+						</div>
+					</div>
+				</div>					                    
+			</React.Fragment>
+		</div>
     );
   }
 }

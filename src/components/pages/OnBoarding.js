@@ -2,6 +2,8 @@ import React from 'react'
 import {Redirect} from 'react-router-dom';
 import Logo from '../../statics/images/Logo_Beta.png';
 import OnBoardingWelcomePage from '../microcomponents/OnBoardingWelcome';
+import OnBoardingPrivacyPolicy from '../microcomponents/OnBoardingPrivacyPolicy';
+import OnBoardingResponsibility from '../microcomponents/OnBoardingResponsibility';
 import OnBoardingNewPage from '../microcomponents/OnBoardingNew';
 import OnBoardingImportPage from '../microcomponents/OnBoardingImport';
 import OnBoardingCreatePage from '../microcomponents/OnBoardingCreate';
@@ -25,6 +27,10 @@ class OnBoardingPage extends React.Component {
         switch(page) {
             case 'Welcome':
                 return <OnBoardingWelcomePage ChangeOnBoardingPage={this.ChangeOnBoardingPage}/>;
+			case 'PrivacyPolicy':
+                return <OnBoardingPrivacyPolicy ChangeOnBoardingPage={this.ChangeOnBoardingPage}/>;
+			case 'OnBoardingResponsibility':
+                return <OnBoardingResponsibility ChangeOnBoardingPage={this.ChangeOnBoardingPage}/>;
             case 'New':
                 return <OnBoardingNewPage ChangeOnBoardingPage={this.ChangeOnBoardingPage} />;
             case 'Import':

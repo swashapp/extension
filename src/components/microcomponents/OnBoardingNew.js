@@ -1,9 +1,5 @@
 import React from 'react'
-import Logo_32 from '../../statics/images/Logo_32.png';
-import Import from '../../statics/images/import.svg';
-import Add from '../../statics/images/add.svg';
-
-
+import CustomRadioBox from './CustomRadioBox.js'
 class OnBoardingNewPage extends React.Component {
   constructor(props) {
   super(props);
@@ -25,37 +21,36 @@ class OnBoardingNewPage extends React.Component {
 
   render() {
     return (
-      <div id="onboarding-page" className="d-flex justify-content-center">
-        <React.Fragment>
-        <div className="w-75">
-          <div className='m-0 pt-5 text-center logo-32-title'>
-            <img src={Logo_32} alt='Logo Picture' />
-            Swash            
-          </div>
-          <div className='m-0 pt-3 text-center'>
-            <p className="new-to-swash-message">Are you new to Swash?</p>
-          </div>
-          <div className='mt-5'>
-            <div className='import-wallet-box mx-2 my-3 p-2 text-center'>
-              <img src={Import} width="32px" height="32px" alt="import" />
-              <p className="create-new-wallet-box-title">No, I have a wallet address now</p>
-              <p className="create-new-wallet-box-text">Import your existing wallet address and settings</p>
-              <div className="d-flex justify-content-center">
-                <a className='get-started-button mt-5' onClick={this.LoadOnBoardingImport}>Import Settings</a>
-              </div>
-            </div>
-            <div className='create-new-wallet-box mx-2 my-3 p-2 text-center'>
-              <img src={Add} width="32px" height="32px" alt="import" />
-              <p className="create-new-wallet-box-title">Yes, let's get set up!</p>
-              <p className="create-new-wallet-box-text">This will create a new wallet</p>
-              <div className="d-flex justify-content-center">
-                <a className='get-started-button mt-5' onClick={this.LoadOnBoardingCreate}>Create a wallet</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        </React.Fragment>
-      </div>
+			<div className="d-flex justify-content-center">
+                <React.Fragment>
+					<div className="onboarding-box">
+						<div className="onboarding-box-header">
+							<p>Are you new to Swash?</p>
+						</div>
+						<div className="onboarding-box-body">
+							<div>
+								<div className="onboarding-box-body-radio">
+									<CustomRadioBox/>
+									<span>Yes, I’m new here</span><br/>
+									<div className="onboarding-text-gray">This will create a new wallet</div>
+								</div>
+								<div className="onboarding-box-body-radio">
+									<CustomRadioBox/>									
+									<span>No, I already have a wallet</span><br/>
+									<div className="onboarding-text-gray">Import your existing wallet and settings</div>
+								</div>
+							</div>
+						</div>
+						<div className="onboarding-box-footer">
+							<div className="onboarding-box-footer-left">								
+							</div>
+							<div className="onboarding-box-footer-right">
+								<div className='onboarding-proceed-button' onClick={this.LoadOnBoardingImport}>Next</div>								
+							</div>
+						</div>
+					</div>					                    
+                </React.Fragment>
+            </div>      
     );
   }
 }
