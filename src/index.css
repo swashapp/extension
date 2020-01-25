@@ -2464,10 +2464,14 @@ line-height: 20px;
 }
 
 .sidebar-logo{
-  margin-top: 30px;
-  margin-left: 25px;
-  width: 48px;
-  height: 48px;
+  margin-bottom: 35px;
+  width: 40px;
+  height: 40px;
+}
+
+.sidebar-logo img{
+	width: 40px;
+	height: 40px;
 }
 
 .sidebar-version{
@@ -2828,11 +2832,11 @@ input[type="checkbox"].switch:checked + div .disabled {
   }
   .swash-col{
     width: 100%;
-    padding: 5px;
+    padding: 0px;
     margin-top: 34px;
   }
   .content-padding{
-    padding: 5px;
+    padding: 24px;
     margin: auto;
   }
   .mask-input {
@@ -2874,7 +2878,7 @@ input[type="checkbox"].switch:checked + div .disabled {
   }
 
   #advanced-page .add-mask-text-th{
-    width: 80%;
+    width: 100%;
     height: 90px;
     margin-top: 4px;
     margin-bottom: 4px;
@@ -2924,7 +2928,7 @@ input[type="checkbox"].switch:checked + div .disabled {
     display: none;
     width: 30%;
     height: 40px;
-    margin-top: 4px;
+    margin-top: 0px;
     margin-bottom: 5px;
   }
 
@@ -3245,7 +3249,7 @@ input[type="checkbox"].switch:checked + div .disabled {
   }
 
   #advanced-page .add-mask-text-th{
-    width: 80%;
+    width: 100%;
     height: 90px;
     margin-top: 4px;
     margin-bottom: 4px;
@@ -3295,7 +3299,7 @@ input[type="checkbox"].switch:checked + div .disabled {
     display: none;
     width: 30%;
     height: 40px;
-    margin-top: 4px;
+    margin-top: 0px;
     margin-bottom: 5px;
   }
 
@@ -3575,7 +3579,7 @@ input[type="checkbox"].switch:checked + div .disabled {
   }
 
   #advanced-page .add-mask-text-th{
-    width: 80%;
+    width: 100%;
     height: 90px;
     margin-top: 4px;
     margin-bottom: 4px;
@@ -3630,7 +3634,7 @@ input[type="checkbox"].switch:checked + div .disabled {
   #advanced-page .delete-matching-type-td{
     width: 15%;
     height: 40px;
-    margin-top: 4px;
+    margin-top: 0px;
     margin-bottom: 5px;
   }
 
@@ -3913,7 +3917,7 @@ input[type="checkbox"].switch:checked + div .disabled {
   }
 
   #advanced-page .add-mask-text-th{
-    width: 80%;
+    width: 100%;
     height: 90px;
     margin-top: 4px;
     margin-bottom: 4px;
@@ -3963,7 +3967,7 @@ input[type="checkbox"].switch:checked + div .disabled {
     display: none;
     width: 30%;
     height: 40px;
-    margin-top: 4px;
+    margin-top: 0px;
     margin-bottom: 5px;
   }
 
@@ -4218,7 +4222,7 @@ input[type="checkbox"].switch:checked + div .disabled {
   }
 
   #advanced-page .add-mask-text-th{
-    width: 80%;
+    width: 100%;
     height: 90px;
     margin-top: 4px;
     margin-bottom: 4px;
@@ -4268,7 +4272,7 @@ input[type="checkbox"].switch:checked + div .disabled {
     display: none;
     width: 30%;
     height: 40px;
-    margin-top: 4px;
+    margin-top: 0px;
     margin-bottom: 5px;
   }
 

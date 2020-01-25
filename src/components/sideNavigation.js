@@ -1,6 +1,7 @@
 import React from 'react';
 import { MDBListGroup, MDBListGroupItem} from 'mdbreact';
 import { NavLink } from 'react-router-dom';
+import Logo from '../statics/images/Swash_Beta_Flag.svg';
 
 class SideNavigation extends React.Component {
     
@@ -10,7 +11,15 @@ class SideNavigation extends React.Component {
     return <div className="sidebar-fixed position-fixed">
             
             <MDBListGroup className="list-group-flush">
-                <NavLink exact={true} to="/Settings" activeClassName="activeClass">
+				<div className="sidebar-logo">
+					<img src={Logo} />
+				</div>
+                <NavLink exact={true} to="/Wallet" activeClassName="activeClass">
+                <MDBListGroupItem className="side-bar-text">
+                        Wallet
+                    </MDBListGroupItem>
+                </NavLink>
+				<NavLink exact={true} to="/Settings" activeClassName="activeClass">
                 <MDBListGroupItem className="side-bar-text">
                         Settings
                     </MDBListGroupItem>
@@ -19,14 +28,7 @@ class SideNavigation extends React.Component {
                     <MDBListGroupItem className="side-bar-text">
                         Data
                     </MDBListGroupItem>
-                </NavLink>
-                
-                <NavLink to="/Advanced" activeClassName="activeClass">
-                    <MDBListGroupItem className="side-bar-text">
-                        Advanced
-                    </MDBListGroupItem>
-                </NavLink>
-                
+                </NavLink>                                               
                 <NavLink to="/Help" activeClassName="activeClass">
                     <MDBListGroupItem className="side-bar-text">
                         Help
