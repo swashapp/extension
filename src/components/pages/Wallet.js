@@ -4,6 +4,7 @@ import CustomSnackbar from '../microcomponents/CustomSnackbar';
 import ModuleView from '../microcomponents/ModuleView';
 import PrivacyLevel from '../microcomponents/PrivacyLevel';
 import TransferView from '../microcomponents/TransferView';
+import TransferModal from '../microcomponents/TransferModal';
 
 
 
@@ -11,8 +12,6 @@ class SettingsPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            modules: [],
-            privacyLevel: 0,
             keyInfo: {address:'', privateKey: ''},
             dataBalance: '0.00',
             dataAvailable: '0.00',
@@ -21,6 +20,7 @@ class SettingsPage extends React.Component {
 			transferModal: false
         };
         this.balanceCheckInterval = 0;
+		this.openModal = this.openModal.bind(this);
     }
 
      
@@ -43,20 +43,19 @@ class SettingsPage extends React.Component {
 
     loadSettings() {        
         window.helper.load().then(db => {        
-            let modules = [];
-            for(let module in db.modules) {
-                modules.push(db.modules[module]);
-            }    
             window.helper.decryptWallet(db.configs.encryptedWallet, db.configs.salt).then(keyInfo => {                
                 this.setState({
-                    privacyLevel: db.configs.privacyLevel,
                     keyInfo: keyInfo,
-                    modules: modules
                 })
             })	            
         });
     }
 
+	openModal() {
+		console.log(this);
+		this.setState({transferModal: !this.state.transferModal});
+	}
+	
     async getBalanceInfo() {
         let dataBalance = await window.helper.getDataBalance();
         dataBalance = (dataBalance === '' || dataBalance === 'undefined' || typeof(dataBalance) ==='undefined') ?'0.00':dataBalance
@@ -108,73 +107,59 @@ class SettingsPage extends React.Component {
 
        
      
-        const modules = (this.state.modules)?(this.state.modules.map((module)=> {
-                return (<ModuleView isOpened={false} module={module} />)
-            })): (<></>);
-        
-
+      
         return (
             <div id="settings-page" className="swash-col">				
                 <React.Fragment>
                     <div className="swash-col">
-                        <div className="setting-part">
-                            <div className="swash-head">Earnings</div>
-                            <div className="swash-p2">Once your data is being purchased on the Streamr Marketplace, your earnings will appear here. 
-                            New earnings are frozen for 48 hours as an anti-fraud measure. Balance available to withdraw is shown below. 
-                            See the <a href="#/Help">docs</a> to learn more about private keys, balances and withdrawing. </div>
-                            <div className="balance-block block-top-corner-radius">
-                                <div className="balance-text"><span className="balance-text-bold">{this.state.dataBalance}</span> DATA balance</div> 
-                                <div className="balance-cumulative">Cumulative earnings<br/>
-<span>{this.state.cumulativeEarnings}</span></div>
+					
+                        <div className="setting-part">                                                        
+                            <div className="balance-block">
+								<div className="swash-col">
+									<div className="balance-text"><span className="balance-text-bold">{this.state.dataBalance}</span> DATA balance</div> 
+								</div>
+								<div className="swash-col">
+									<div className="balance-text">
+										<span className="balance-text-bold">{this.state.dataAvailable}</span> DATA available
+										<span className="balance-cumulative">{this.state.cumulativeEarnings}</span> Cumulative earnings
+									</div>                                 
+									
+								</div>
                             </div>
-                            <div className="balance-block withdraw-block block-bottom-corner-radius">
-                                <div className="balance-text"><span className="balance-text-bold">{this.state.dataAvailable}</span> DATA available</div> 
-                                {this.state.withdrawState?<div className="withdraw-btn withdraw-btn-disabled"><a>Waiting...</a></div>
-								:<div className="withdraw-btn"><a href={"#/Transfer/" + this.state.keyInfo.address} >Withdraw DATA</a></div>}
-                            </div>
-                            <div className="form-caption">Wallet address</div>
-                            <div style={{position: 'relative'}}>
-                                <input type="text" className="form-input" id="walletAddress" value={this.state.keyInfo.address}/>
-                                <button className="form-input-button" onBlur={(e) => {e.target.innerText="Copy"}} onClick={(e) => {copyToClipboard(e, document.getElementById("walletAddress"));e.target.focus();e.target.innerText="Copied"}}>Copy</button>
-                            </div>
-                            <div className="form-caption">Private key </div>
-                            <div style={{position: 'relative'}}>
-                                <input type="password" className="form-input" id="privateKey" value={this.state.keyInfo.privateKey}/>
-                                 <RDropdownMenu className="button form-input-button more-button" callbacks={[revealPrivateKey, (e)=>{copyToClipboard(e,document.getElementById("privateKey"))}]} ref='keyRevealMenu'/>                                
-                            </div>
+                            
+							<div className="swash-head">Transfer your DATA</div>
+							<div className="swash-p">
+								New earnings are frozen for 48 hours as an anti-fraud measure. You can withdraw your available balance. We don’t recommend leaving too much DATA in the Swash wallet.												
+							</div>  
+							<div className="transfer-row">
+								<div className="transfer-column">
+									<div className="form-caption">Amount to send</div>
+									<div>
+										<input type="text" id="amount" placeholder="27.2" className="form-input  filter-input" />
+									</div>
+								</div>
+								
+								<div className="transfer-column">
+									<div className="form-caption">Recipient Ethereum address</div>
+									<div>
+										<input type="text" id="wallet" placeholder="0x1234" className="form-input  filter-input" />
+									</div>
+								</div>
+								
+								<div className="transfer-column" style={{marginRight: '0px'}}>
+									<a className="transfer-link-button" onClick={this.openModal}>Transfer</a>						
+								</div>
+							</div>
                         </div>
-                    
-
-
-                    
-                        <div className="setting-part">
-                            <div className="swash-head">Choose data to capture</div>
-                            <div className="swash-p">To stream your web browsing behaviour, Swash uses a modular approach. By default, only 
-the Browse module is on. You can also optionally enable other modules in order to capture specific data from a variety of other popular sites. Click any module to adjust settings.</div>
-                        
-
-                        <div>
-                            {modules}
-                        </div>
-
-                        </div>
-                    
-
-
-                
-                    <div className="setting-part">
-                        <div className="swash-head">Set global privacy level</div>
-                        <div className="swash-p">
-This allows you to set privacy levels across all your modules. Adjust them to choose
-the types of data you’d like to share and what to obscure or remove. You can also use the Advanced settings to block specific text (eg your name or address), sites and domains.</div>
-                    
-
-                        <PrivacyLevel level={this.state.privacyLevel} />
-                        </div>  
-                </div>
-
-
-
+                    </div>
+					
+					{
+						this.state.transferModal?<div>
+							<div onClick={(e) => {if (e.target == e.currentTarget) this.openModal()}} className="swash-modal">
+								<TransferModal status='confirming' opening={this.openModal}/>
+							</div>
+						</div>:''
+					}
                 </React.Fragment>
                 <CustomSnackbar
                     ref='notify'
