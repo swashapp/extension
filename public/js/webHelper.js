@@ -319,6 +319,5 @@ var helper = (function () {
 		getVersion,
 		stop,
 		start
-
     };
 }());
