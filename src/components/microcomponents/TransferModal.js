@@ -1,5 +1,6 @@
 import React from 'react'
-
+import verified from '../../statics/images/verified.svg';
+import arrow from '../../statics/images/arrow.svg';
 
 class TransferModal extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class TransferModal extends React.Component {
 								<p>Transfer completed</p>
 							</div>
 							<div className="transaction-modal-body transaction-modal-body-large">
-								<img href=""></img>
+								<img src={verified}></img>
 								<p>
 									Verify your transaction on <a href={"https://etherscan.com/?tx=" + this.transaction}>Etherscan</a>
 								</p>							
@@ -44,14 +45,15 @@ class TransferModal extends React.Component {
 										<span className="transaction-modal-body-text3">36.67</span> DATA										
 									</div>
 								</div>
+								<div className="transaction-modal-body-middle">
+									<img src={arrow} />
+								</div>
 								<div className="transaction-modal-body-right">
 									<div className="transaction-modal-body-text1">To address</div>								
 									<div className="transaction-modal-body-text3">0x7f46…fbc561</div>									
 								</div>						
 							</div>
-							<div className="transaction-modal-footer">
-								<div className="transaction-modal-footer-left">							
-								</div>
+							<div className="transaction-modal-footer">								
 								<div className="transaction-modal-footer-right">
 									<div className='transaction-modal-button' onClick={this.confirmTransaction}>Confirm and send</div>
 									<div className='transaction-modal-button-cancel' onClick={this.state.opening}>Cancel</div>

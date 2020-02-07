@@ -3,7 +3,7 @@ import React from 'react';
 class PrivacySelector extends React.Component {
 
     render() {
-        const navs=['Low', 'Medium', 'High'];
+        const navs=['LOW', 'MEDIUM', 'HIGH'];
         const handleClick = (id)=>{
             if(this.props.handleClick){
                 this.props.handleClick(id)

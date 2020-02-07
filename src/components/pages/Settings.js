@@ -3,6 +3,7 @@ import CustomSnackbar from '../microcomponents/CustomSnackbar';
 import ModuleView from '../microcomponents/ModuleView';
 import PrivacyLevel from '../microcomponents/PrivacyLevel';
 import TransferView from '../microcomponents/TransferView';
+import RDropdownMenu from '../microcomponents/RDropdownMenu.js';
 
 import {        
     MDBTable, MDBTableBody,
@@ -81,6 +82,9 @@ class SettingsPage extends React.Component {
                 <td className="table-text disabled-url-td"><input type="text" value={row.value} disabled className="disabledUrl" /></td>
                 <td className="table-text disabled-matching-type-td"><input type="text" value={row.type} disabled className="disabledMatchingType" /></td>
                 <td className="table-text delete-matching-type-td"><a className="linkbutton" onClick={() => this.deleteFilterRecord(row.value)}>Delete</a></td>
+				<td className="table-text delete-matching-type-td-small">
+					<RDropdownMenu className="button more-button2" items={[{text: 'Delete', callback: ()=> {console.log(1)}}]} ref='keyRevealMenu'/>
+				</td>
             </tr>)
         });
         let addXUrl = (<div><div className="form-caption">Add a URL to exclude</div>
@@ -120,7 +124,7 @@ class SettingsPage extends React.Component {
                         <div className="setting-part">
                             <div className="swash-head">Choose data to capture</div>
                             <div className="swash-p">To stream your web browsing behaviour, Swash uses a modular approach. By default, only 
-the Browse module is on. You can also optionally enable other modules in order to capture specific data from a variety of other popular sites. Click any module to adjust settings.</div>
+the Search module is on. You can also optionally enable other modules in order to capture specific data from a variety of other popular sites. Click any module to adjust settings.</div>
                         
 
                         <div>

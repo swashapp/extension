@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 62 (101010) - https://sketch.com -->
+    <title>4D2BBFA6-FCCD-4AA9-BA39-E781E85C474B@1.00x</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <polygon id="path-1" points="19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12"></polygon>
+    </defs>
+    <g id="Swash-Mobile-Web" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Menu-/-Pixel-3-XL" transform="translate(-261.000000, -93.000000)">
+            <g id="Side-Drawer-Menu">
+                <g id="icon/navigation/close_24px" transform="translate(256.000000, 88.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="-↳Color" fill-opacity="0.6" fill="#000000" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -10,7 +10,6 @@ class RDropdownMenu extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       dropdownOpen: false,
-      revealText: "Reveal"
     };
   }
 
@@ -20,21 +19,17 @@ class RDropdownMenu extends React.Component {
     }));
   }
   
-  toggleText(e) {
-    if(e.target.innerText === 'Reveal')
-      this.setState({revealText: "Hide"})
-    else
-    this.setState({revealText: "Reveal"})
-  }
 
-  render() {
+  render() {	 
     return (
       <Dropdown className="custom-dropdown" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle className={this.state.dropdownOpen?this.props.className + " more-button-active":this.props.className} tag='div'>          
         </DropdownToggle>
-        <DropdownMenu className="custom-dropdown-menu">          
-          <DropdownItem className="custom-dropdown-item" onClick={(e) => {this.props.callbacks[0](e); this.toggleText(e)}}>{this.state.revealText}</DropdownItem>
-          <DropdownItem className="custom-dropdown-item" onClick={this.props.callbacks[1]}>Copy</DropdownItem>       
+        <DropdownMenu className="custom-dropdown-menu">
+			{this.props.items.map((item) => {
+				return (<DropdownItem className="custom-dropdown-item" onClick={item.callback}>{item.text}</DropdownItem>)
+			  })          
+			}
         </DropdownMenu>
       </Dropdown>
     );
