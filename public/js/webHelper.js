@@ -238,8 +238,12 @@ var helper = (function () {
         });
     }
 
-    async function getDataBalance() {
+    async function getDataBalance(address) {
         return '48.92';
+    }
+	
+	async function getEthBalance() {
+        return '2.4';
     }
 
     async function getAvailableBalance() {
@@ -291,6 +295,7 @@ var helper = (function () {
         cancelSending,
         getKeyInfo,
         getDataBalance,
+		getEthBalance,
         withdraw,
         getAvailableBalance,
 		getCumulativeEarnings,

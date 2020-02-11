@@ -1450,8 +1450,7 @@ padding-inline-start: 20px;
 	display: contents;	
 }
 
-.transfer-row {
-	margin-bottom: 186px;
+.transfer-row {	
 	height: 80px;
 }
 
@@ -1460,6 +1459,20 @@ padding-inline-start: 20px;
 	margin-right: 16px;
 }
 
+.transfer-column li {
+	height: 16px;
+	color: rgb(163, 163, 163);
+	font-size: 12px;
+	font-family: Roboto-Regular;
+	font-weight: normal;
+	letter-spacing: 0px;
+	line-height: 16px;
+}
+
+.amount-column {
+	width: 128px;
+	height: 40px;
+}
 
 #amount {
 	width: 128px;	
@@ -1467,6 +1480,7 @@ padding-inline-start: 20px;
 
 #wallet, #recipient {
 	width: 416px;
+	cursor: pointer;
 }
 
 .transfer-link-button{
@@ -2960,6 +2974,17 @@ input[type="checkbox"].switch:checked + div .disabled {
 	line-height: 40px;
 	float:right;
 	cursor: pointer;
+}
+
+.transaction-modal-button-waiting {
+	opacity: 0.5;
+	color: rgb(255, 255, 255, 0.5);	
+}
+
+.transaction-modal-button-waiting  img{
+	height: 16px;
+	width: 16px;
+	margin-left: 16px;
 }
 
 .transaction-modal-button-cancel{
