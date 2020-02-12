@@ -120,6 +120,10 @@ var helper = (function () {
         return modules;
     }
 
+	async function getVersion() {
+		return '1.0.0';
+	}
+	
     function loadPrivacyData() {
         var promise1 = new Promise(function (resolve, reject) {
             resolve(masks);
@@ -262,6 +266,14 @@ var helper = (function () {
         return 'success';
     }
 
+	async function start() {
+		
+	}
+	
+	async function stop() {
+		
+	}
+	
     async function enforcePolicy(msg, mSalt, salt, privacyData) {
         currentDate = new Date();
         return (
@@ -303,7 +315,10 @@ var helper = (function () {
         isConnected,
         loadWallets,
         saveWallets,
-        withdrawTo
+        withdrawTo,
+		getVersion,
+		stop,
+		start
 
     };
 }());

@@ -2522,15 +2522,28 @@ line-height: 20px;
 .mobile-menu-icon {
 	width: 18px;
 	height: 12px;
-	margin: 30px 0px 0px 24px;
 	cursor: pointer;
+	display: block;
+}
+
+.mobile-menu-icon-wrapper{
+	width: 28px;
+	height: 22px;
+	margin: 25px 0px 0px 19px;
+	padding: 5px;
 }
 
 .mobile-menu-close-icon {
 	width: 24px;
 	height: 24px;
 	float: right;
-	margin: 0px 24px 16px 0px;
+	margin: 0px 19px 11px 0px;
+	padding: 5px;
+}
+
+.mobile-menu-close-icon img {
+	cursor: pointer;
+	display: block;
 }
 
 .sidebar-logo{
@@ -2570,9 +2583,7 @@ line-height: 20px;
   background: rgb(255, 255, 255);
   padding-left: 24px;
   border-bottom: 2px solid rgb(245, 245, 245);
-}
-
-.sidebar-menu-normal a{ 	
+  cursor: pointer;
   color: rgba(0, 0, 0, 0.6);
   font-size: 14px;
   font-family: Roboto-Medium;
@@ -2582,13 +2593,22 @@ line-height: 20px;
   vertical-align: middle;
 }
 
+.sidebar-menu-normal a{
+	color: rgba(0, 0, 0, 0.6);
+}
+
+
+
+.sidebar-menu-normal:hover{
+  background: rgba(163, 163, 163, 0.02);
+}
+
+
 .sidebar-menu-active{
   height: 48px;
   background: rgba(163, 163, 163, 0.08);
   border-bottom: 2px solid rgb(245, 245, 245);
-}
-
-.sidebar-menu-active a{
+  cursor: pointer;
   color: rgb(42, 196, 55);
   font-family: Roboto-Medium;
   font-size: 14px;
@@ -2597,6 +2617,10 @@ line-height: 20px;
   line-height: 48px;
   padding-left: 24px;
   vertical-align: middle;
+}
+
+.sidebar-menu-active a{
+	color: rgb(42, 196, 55);
 }
 
 
