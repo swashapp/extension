@@ -1307,7 +1307,7 @@ padding-inline-start: 20px;
 	width: 680px;
 	position: relative;
 	margin-bottom: 84px;
-	padding: 60px 9%;
+	padding: 60px 0% 60px 9%;
 	border-radius: 4px;
 }
 
@@ -3107,6 +3107,18 @@ input[type="checkbox"].switch:checked + div .disabled {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+  .swash-row .balance-text div {
+	padding-left: 0% !important;
+  }
+  
+  .checkbox-container .module-detail-view-checkbox {
+    width: 100%;
+  }
+  
+  .checkbox-container .module-detail-view-checkbox .label {
+    width: unset;
+  }
+  
   .transaction-modal{
 	width: 95%;	
   }
@@ -3286,10 +3298,12 @@ input[type="checkbox"].switch:checked + div .disabled {
 
   #amount {
 	width: 100%;
+	text-overflow: ellipsis;
   }
   
   #recipient {
 	width: 100%;
+	text-overflow: ellipsis;
   }
   
   .amount-column {
@@ -3344,7 +3358,8 @@ input[type="checkbox"].switch:checked + div .disabled {
   }
 
   #help-page img{
-    width: 100%;
+    width: calc(100% + 48px);
+	margin-left: -24px;
   }
   #help-page .image-caption{
     width: 100%;
@@ -3553,8 +3568,10 @@ input[type="checkbox"].switch:checked + div .disabled {
 		height: 32px;
 		width: 32px;
 		top: 20px;
-		right: 4px;
+		right: 16px;
 		position: absolute;
+		display: block;
+		text-align: center;
 	}
 	
 	.accordion-domain{

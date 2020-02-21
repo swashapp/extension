@@ -21,25 +21,28 @@ class SettingsPage extends React.Component {
 			transferModal: false,
 			revealKeyModal: false,
 			recipient: '',
-			recipientEthBalance: '2.4',
-			recipientDataBalance: '5355'
+			recipientEthBalance: '0.00',
+			recipientDataBalance: '0.00',
+			revealFunction: this.copyToClipboard
         };
         this.balanceCheckInterval = 0;
 		this.openModal = this.openModal.bind(this);
 		this.copyToClipboard = this.copyToClipboard.bind(this);
 		this.revealPrivateKey = this.revealPrivateKey.bind(this);
 		this.pasteWallet = this.pasteWallet.bind(this);
+		this.getBalanceInfo = this.getBalanceInfo.bind(this);
+		this.loadSettings = this.loadSettings.bind(this);
+		this.transfer = this.transfer.bind(this);		
     }
 
      
     componentDidMount() {
         this.balanceCheckInterval = setInterval(() => this.getBalanceInfo(this), 15000);
-        this.getBalanceInfo();
-        this.loadSettings();
+        this.loadSettings().then(this.getBalanceInfo);        
         window.scrollTo(0, 0);
     }
 
-    componentDidUnmount() {
+    componentWillUnmount() {
         clearInterval(this.balanceCheckInterval);
     }
 
@@ -49,9 +52,9 @@ class SettingsPage extends React.Component {
         return num.slice(0, num.indexOf('.') + 5)
     }
 
-    loadSettings() {        
-        window.helper.load().then(db => {        
-            window.helper.decryptWallet(db.configs.encryptedWallet, db.configs.salt).then(keyInfo => {                
+    async loadSettings() {        
+        return window.helper.load().then(db => {        
+            return window.helper.decryptWallet(db.configs.encryptedWallet, db.configs.salt).then(keyInfo => {                
                 this.setState({
                     keyInfo: keyInfo,
                 })
@@ -59,13 +62,36 @@ class SettingsPage extends React.Component {
         });
     }
 
+	transfer() {
+		let amount = document.querySelector("#amount").value;
+		let recipient = document.querySelector("#recipient").value;
+		if(!amount.match(/^[0-9]+(\.[0-9]+)?$/)) {
+			this.refs.notify.handleNotification('Amount value is not valid', 'failure');
+			return;
+		}
+		
+		if(!recipient.match(/^0x[a-fA-F0-9]{40}$/)) {
+			this.refs.notify.handleNotification('Recipient address is not valid', 'failure');
+			return;
+		}
+		this.openModal('Transfer');		
+	}
+	
 	openModal(name) {
 		switch(name) {
 			case 'Transfer':
 				this.setState({transferModal: !this.state.transferModal});
 				break;
 			case 'RevealKey':
-				this.setState({revealKeyModal: !this.state.revealKeyModal});
+				if(this.isPrivateKeyRevealed()) {
+					this.revealPrivateKey();
+					this.forceUpdate();					
+				}
+				else
+					this.setState({revealKeyModal: !this.state.revealKeyModal, revealFunction: this.revealPrivateKey});
+				break;
+			case 'CopyKey':
+				this.setState({revealKeyModal: !this.state.revealKeyModal, revealFunction: this.copyToClipboard});
 				break;
 		}
 	}
@@ -102,7 +128,16 @@ class SettingsPage extends React.Component {
 		} else {
 		  x.type = "password";
 		}
-	} 
+	}
+	
+	isPrivateKeyRevealed() {
+		var x = document.getElementById("privateKey");
+		if(!x)
+			return false;
+		if (x.type === "password")
+			return false;
+		return true;
+	}
 
 	pasteWallet(e) {				
 		navigator.clipboard.readText().then(async address => {
@@ -157,7 +192,7 @@ class SettingsPage extends React.Component {
                             <div className="form-caption">Private key </div>
                             <div style={{position: 'relative'}}>
                                 <input type="password" className="form-input" id="privateKey" value={this.state.keyInfo.privateKey}/>
-                                 <RDropdownMenu className="button form-input-button reveal-button" items={[{text: 'Reveal', callback: () => this.openModal('RevealKey')}, {text: 'Copy', callback: () => this.openModal('RevealKey')}]} ref='keyRevealMenu'/>
+                                 <RDropdownMenu className="button form-input-button reveal-button" items={[{text: this.isPrivateKeyRevealed()? 'Hide':'Reveal', callback: () => this.openModal('RevealKey')}, {text: 'Copy', callback: () => this.openModal('CopyKey')}]} ref='keyRevealMenu'/>
 							</div>
 						</div>
 						<div className="setting-part">
@@ -167,7 +202,7 @@ class SettingsPage extends React.Component {
 							</div>  
 							<div className="transfer-row">
 								<div className="transfer-column amount-column">
-									<div className="form-caption">Amount to send</div>
+									<div className="form-caption">Amount</div>
 									<div>
 										<input type="text" id="amount" placeholder={this.state.dataAvailable} className="form-input  filter-input" />
 									</div>
@@ -176,12 +211,12 @@ class SettingsPage extends React.Component {
 								<div className="transfer-column wallet-column">
 									<div className="form-caption">Recipient Ethereum address</div>
 									<div>
-										<input type="text" id="recipient" placeholder={this.state.keyInfo.address} onClick={this.pasteWallet} className="form-input  filter-input" />
+										<input type="text" id="recipient" placeholder={this.state.keyInfo.address.substr(0,7) + "..."} onClick={this.pasteWallet} className="form-input  filter-input" />
 									</div>
 								</div>
 								
 								<div className="transfer-column button-column" style={{marginRight: '0px'}}>
-									<a className="transfer-link-button" onClick={() => this.openModal('Transfer')}>Transfer</a>						
+									<a className="transfer-link-button" onClick={this.transfer}>Transfer</a>						
 								</div>
 							</div>
 							{this.state.recipient? 
@@ -212,8 +247,8 @@ class SettingsPage extends React.Component {
 					}
 					{
 						this.state.revealKeyModal?<div>
-							<div onClick={(e) => {if (e.target == e.currentTarget) this.openModal('RevealKey')}} className="swash-modal">
-								<RevealKeyModal functions={{copy: (e)=>{this.copyToClipboard(e,document.getElementById("privateKey"))}, reveal: this.revealPrivateKey}} opening={() => this.openModal('RevealKey')}/>
+							<div onClick={(e) => {if (e.target == e.currentTarget) this.openModal('CopyKey')}} className="swash-modal">
+								<RevealKeyModal func={(e)=>{this.state.revealFunction(e,document.getElementById("privateKey"))}} opening={() => this.openModal('CopyKey')}/>
 							</div>
 						</div>:''
 					}

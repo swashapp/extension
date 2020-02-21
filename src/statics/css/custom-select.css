@@ -40,8 +40,7 @@
 .swash-select-arrow {
     background: rgb(255, 255, 255);    
     height: 38px;
-    width: 46px;
-    padding-left:24px;
+    width: 22px;    
     vertical-align: middle;
     display: flex;
     float: right;
@@ -60,4 +59,10 @@
     vertical-align: middle;
     display: flex;
     line-height: 40px;
+}
+
+@media only screen and (max-width: 600px) {	
+	.swash-select-default {
+		width: 50%;
+	}
 }

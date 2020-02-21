@@ -10,9 +10,15 @@ class RDropdownMenu extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       dropdownOpen: false,
+	  items: this.props.items
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+	this.setState({items: nextProps.items})
+	console.log(nextProps.items)
+  }
+  
   toggle() {
     this.setState(prevState => ({
       dropdownOpen: !prevState.dropdownOpen
@@ -26,7 +32,7 @@ class RDropdownMenu extends React.Component {
         <DropdownToggle className={this.state.dropdownOpen?this.props.className + " more-button-active":this.props.className} tag='div'>          
         </DropdownToggle>
         <DropdownMenu className="custom-dropdown-menu">
-			{this.props.items.map((item) => {
+			{this.state.items.map((item) => {
 				return (<DropdownItem className="custom-dropdown-item" onClick={item.callback}>{item.text}</DropdownItem>)
 			  })          
 			}

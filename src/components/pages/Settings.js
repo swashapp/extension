@@ -83,7 +83,7 @@ class SettingsPage extends React.Component {
                 <td className="table-text disabled-matching-type-td"><input type="text" value={row.type} disabled className="disabledMatchingType" /></td>
                 <td className="table-text delete-matching-type-td"><a className="linkbutton" onClick={() => this.deleteFilterRecord(row.value)}>Delete</a></td>
 				<td className="table-text delete-matching-type-td-small">
-					<RDropdownMenu className="button more-button2" items={[{text: 'Delete', callback: ()=> {console.log(1)}}]} ref='keyRevealMenu'/>
+					<RDropdownMenu className="button more-button2" items={[{text: 'Delete', callback: ()=> this.deleteFilterRecord(row.value)}]} ref='filterItem'/>
 				</td>
             </tr>)
         });

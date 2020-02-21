@@ -5,7 +5,6 @@ import MobileSideNavigation from './sideNavigation-mobile';
 import Settings from './pages/Settings';
 import Wallet from './pages/Wallet';
 import Help from './pages/Help';
-import Advanced from './pages/Advanced';
 import Data from './pages/Data';
 
 class Routes extends React.Component {
@@ -26,7 +25,6 @@ class Routes extends React.Component {
 						<Route path='/Settings'  component={Settings} />
 						<Route path='/Help' component={Help} />
 						<Route path='/Wallet' component={Wallet} />
-						<Route path='/Advanced' component={Advanced} />
 						<Route path='/Data' component={Data} />
 						<Redirect to='/Settings' />
 					</Switch>

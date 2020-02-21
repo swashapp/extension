@@ -37,7 +37,7 @@ class DelaySend extends React.Component {
           <MDBProgress material value={progress_percentage} className="accordion-delay" color="#ff5c00" />
           <img src={this.props.message.icon} alt="" className="accordion-icon" />
 		  {
-			  isOpened? <RDropdownMenu className="button form-input-button more-button" items={[{text: 'Delete', callback: ()=> {console.log(1)}}]} ref='keyRevealMenu'/> 
+			  isOpened? <RDropdownMenu className="button form-input-button more-button" items={[{text: 'Delete', callback: () => this.props.onDelete(this.props.message)}]} ref='keyRevealMenu'/> 
 			  : ''
 		  }
           <div className="accordion-checkbox" onClick={() => this.setState({isOpened: !isOpened})} ><img alt="" src={iconArrow}  /></div>

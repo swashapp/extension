@@ -36,7 +36,7 @@ class PrivacySelector extends React.Component {
         :''}
         
         <div className={`privacy-label ${this.props.activeNav === id ? 'privacy-label-selected':''}`}
-            style={{position: "absolute", top: 32, left: (id * 100 / (navs.length-1) - 2) +"%" }}
+            style={{position: "absolute", top: 32, left: "calc(" +(id * 100 / (navs.length-1)) + "% - " + ob.length*4 + "px)" }}
 
         >{ob}</div>
                     </>)
