@@ -69,7 +69,103 @@ class SettingsPage extends React.Component {
         });
     }
 
-    	
+	addMask() {
+        let f = {
+            value: document.getElementById('maskValue').value,
+        };
+
+        if(!f.value || f.value==='undefined') {
+            this.refs.notify.handleNotification('Null is not allowed', 'error');
+            return;
+        }
+
+        let allow = true;
+        window.helper.loadPrivacyData().then(pData => {
+            for (let i in pData) {
+                if (pData[i].value === f.value) {
+                    allow = false;
+                }
+            }
+            if (allow) {
+                pData.push(f);
+                window.helper.savePrivacyData(pData);
+                let i = this.state.masks;
+                i.push(f)
+                this.setState({ masks: i })
+            } else {
+                this.refs.notify.handleNotification('Duplicate entry', 'error');
+            }
+        })
+    }
+    
+	
+	deleteMaskRecord(id) {
+        let newArray = [];
+        let storageArray = [];
+        for (let i in this.state.masks) {
+
+            if (this.state.masks[i].value !== id) {
+                newArray.push(this.state.masks[i]);
+                storageArray.push({ value: this.state.masks[i].value })
+
+            }
+        }
+        window.helper.savePrivacyData(storageArray)
+        this.setState({ masks: newArray });
+    }
+	
+	addFilter() {        
+        let f = {
+            value: document.getElementById('filterValue').value,
+            type: this.refs.matchingTypeSelect.getSelectedItem().value,
+            internal: false
+        };
+        if(!f.value || f.value==='undefined') {
+            this.refs.notify.handleNotification('Null is not allowed', 'error');
+            return;
+        }
+
+        let allow = true;
+        window.helper.loadFilters().then(filter => {
+            for (let i in filter) {
+                if (filter[i].value === f.value) {
+                    allow = false;
+                }
+            }
+            if (allow) {
+                filter.push(f);
+                window.helper.saveFilters(filter);
+                let i = this.state.filters;
+                i.push(f)
+                this.setState({ filters: i })
+                this.refs.notify.handleNotification('Added successfully', 'success');
+            } else {
+                this.refs.notify.handleNotification('Duplicate entry', 'error');
+            }
+
+        })
+    }
+	
+	deleteFilterRecord(id) {       
+        let newArray = [];
+        let storageArray = [];
+        for (let i in this.state.filters) {
+
+            if (this.state.filters[i].value !== id) {
+                newArray.push(this.state.filters[i]);
+                storageArray.push({ type: this.state.filters[i].type, value: this.state.filters[i].value, internal: this.state.filters[i].internal })
+            }
+            else {
+                if(this.state.filters[i].internal) {
+                    this.refs.notify.handleNotification('Internal filters can not be removed', 'error');
+                    return;
+                }
+            }
+        }
+        window.helper.saveFilters(storageArray)
+        this.setState({ filters: newArray });
+    }
+	
     render() {
         const modules = (this.state.modules)?(this.state.modules.map((module)=> {
                 return (<ModuleView isOpened={false} module={module} />)

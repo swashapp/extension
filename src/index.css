@@ -3229,11 +3229,11 @@ input[type="checkbox"].switch:checked + div .disabled {
   }
 
   #advanced-page .disabled-masked-text-td{
-    width: 80%;
+    width: calc(100% - 96px);
   }
 
   #advanced-page .delete-masked-text-td{
-    width: 20%;
+    width: 96px;
   }
 
   #advanced-page .disabled-url-td{
@@ -3695,11 +3695,11 @@ input[type="checkbox"].switch:checked + div .disabled {
   }
 
   #advanced-page .disabled-masked-text-td{
-    width: 80%;
+    width: calc(100% - 96px);
   }
 
   #advanced-page .delete-masked-text-td{
-    width: 20%;
+    width: 96px;
   }
 
   #advanced-page .disabled-url-td{
@@ -4026,11 +4026,11 @@ input[type="checkbox"].switch:checked + div .disabled {
   }
 
   #advanced-page .disabled-masked-text-td{
-    width: 80%;
+    width: calc(100% - 96px);
   }
 
   #advanced-page .delete-masked-text-td{
-    width: 20%;
+    width: 96px;
   }
 
   #advanced-page .table-row:hover .delete-matching-type-td{
@@ -4361,11 +4361,11 @@ input[type="checkbox"].switch:checked + div .disabled {
   }
 
   #advanced-page .disabled-masked-text-td{
-    width: 80%;
+    width: calc(100% - 96px);
   }
 
   #advanced-page .delete-masked-text-td{
-    width: 20%;
+    width: 96px;
   }
 
   #advanced-page .disabled-url-td{
@@ -4663,11 +4663,11 @@ input[type="checkbox"].switch:checked + div .disabled {
   }
 
   #advanced-page .disabled-masked-text-td{
-    width: 80%;
+    width: calc(100% - 96px);
   }
 
   #advanced-page .delete-masked-text-td{
-    width: 20%;
+    width: 96px;
   }
 
   #advanced-page .disabled-url-td{

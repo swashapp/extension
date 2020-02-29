@@ -16,7 +16,6 @@ class RDropdownMenu extends React.Component {
 
   componentWillReceiveProps(nextProps) {
 	this.setState({items: nextProps.items})
-	console.log(nextProps.items)
   }
   
   toggle() {
