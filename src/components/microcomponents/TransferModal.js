@@ -19,13 +19,15 @@ class TransferModal extends React.Component {
 	
 	withdraw() {
 		this.setState({status: 'waiting'});
-		window.helper.withdrawTo(this.state.recipient).then(tx => {
+		window.helper.withdrawTo(this.state.recipient, this.state.amount).then(tx => {
+			if(tx.error) {
+				console.log(tx.error)
+				return;
+			}				
 			this.setState({status: 'confirmed'});
 			this.setState({transactionId: tx.hash})
 			tx.wait().then(x => {
 			})
-		}, reason => {
-			this.setState({status: 'failed'});			
 		})				
 	}
 	

@@ -14,15 +14,15 @@ class SettingsPage extends React.Component {
         super(props);
         this.state = {
             keyInfo: {address:'', privateKey: ''},
-            dataBalance: '0.00',
-            dataAvailable: '0.00',
-			cumulativeEarnings: '0.00',
+            dataBalance: '???',
+            dataAvailable: '???',
+			cumulativeEarnings: '???',
 			withdrawState: false,
 			transferModal: false,
 			revealKeyModal: false,
 			recipient: '',
-			recipientEthBalance: '0.00',
-			recipientDataBalance: '0.00',
+			recipientEthBalance: '???',
+			recipientDataBalance: '???',
 			revealFunction: this.copyToClipboard
         };
         this.balanceCheckInterval = 0;
@@ -98,11 +98,11 @@ class SettingsPage extends React.Component {
 	
     async getBalanceInfo() {
         let dataBalance = await window.helper.getDataBalance(this.state.keyInfo.address);
-        dataBalance = (dataBalance === '' || dataBalance === 'undefined' || typeof(dataBalance) ==='undefined') ?'0.00':dataBalance
+        dataBalance = (dataBalance.error || dataBalance === '' || dataBalance === 'undefined' || typeof(dataBalance) ==='undefined') ?this.state.dataBalance:dataBalance
         let dataAvailable = await window.helper.getAvailableBalance();		
-        dataAvailable = dataAvailable === ''|| typeof(dataAvailable) === 'undefined' || dataAvailable.error?'0.00':dataAvailable
+        dataAvailable = dataAvailable.error || dataAvailable === ''|| typeof(dataAvailable) === 'undefined'?this.state.dataAvailable:dataAvailable
         let cumulativeEarnings = await window.helper.getCumulativeEarnings();		
-        cumulativeEarnings = cumulativeEarnings === ''|| typeof(cumulativeEarnings) === 'undefined' || cumulativeEarnings.error?'0.00':cumulativeEarnings		
+        cumulativeEarnings = cumulativeEarnings.error || cumulativeEarnings === ''|| typeof(cumulativeEarnings) === 'undefined'?this.state.cumulativeEarnings:cumulativeEarnings		
         if(dataBalance !== this.state.dataBalance || dataAvailable !== this.state.dataAvailable)
             this.setState({
                 dataBalance: this.purgeNumber(dataBalance),
