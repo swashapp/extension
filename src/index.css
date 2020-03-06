@@ -2251,7 +2251,8 @@ font-weight: 500;
 height: 40px;
 letter-spacing: 0px;
 line-height: 24px;
-
+display: inline-block;
+margin-right: 120px;
 }
 
 .module-detail-view-checkbox{
@@ -2313,8 +2314,10 @@ line-height: 24px;
   text-decoration: none;
   font-family: Roboto-Medium;
   font-size: 12px;
-  font-weight: 500;
-
+  font-weight: 500;  
+  width: 144px; 
+  display: inline-block;
+  margin-top: 20px;
   /*position: absolute;
   right: 0px;
   top: 0px;
@@ -3107,6 +3110,13 @@ input[type="checkbox"].switch:checked + div .disabled {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+	.module-detail-view-title {
+		margin-right: 0px;
+	}
+	.module-detail-view-title-container .oauth_btn {				
+		display: block;
+	}
+
   .swash-row .balance-text div {
 	padding-left: 0% !important;
   }

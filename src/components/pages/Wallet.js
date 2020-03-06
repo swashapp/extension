@@ -139,7 +139,8 @@ class SettingsPage extends React.Component {
 		return true;
 	}
 
-	pasteWallet(e) {				
+	pasteWallet(e) {		
+		e.preventDefault();
 		navigator.clipboard.readText().then(async address => {
 		if(address.match(/^0x[a-fA-F0-9]{40}$/g)){
 				document.querySelector("#recipient").value = address;
@@ -211,7 +212,7 @@ class SettingsPage extends React.Component {
 								<div className="transfer-column wallet-column">
 									<div className="form-caption">Recipient Ethereum address</div>
 									<div>
-										<input type="text" id="recipient" placeholder={this.state.keyInfo.address.substr(0,7) + "..."} onClick={this.pasteWallet} className="form-input  filter-input" />
+										<input type="text" id="recipient" placeholder={this.state.keyInfo.address.substr(0,7) + "..."} onContextMenu={this.pasteWallet} className="form-input  filter-input" />
 									</div>
 								</div>
 								
