@@ -13,42 +13,127 @@ class OnBoardingPage extends React.Component {
         super(props);
         this.state = {
             CurrentPage: 'Welcome',
+            SelectedPage: '',
+            isUpdate: false
         };
 
         // This binding is necessary to make `this` work in the callback
         // this.XXX = this.XXX.bind(this);
-        this.LoadOnBoarding=this.LoadOnBoarding.bind(this);
-        this.ChangeOnBoardingPage=this.ChangeOnBoardingPage.bind(this);
+        this.getNextPage = this.getNextPage.bind(this);
+        this.getPreviousPage = this.getPreviousPage.bind(this);
+        this.LoadOnBoarding = this.LoadOnBoarding.bind(this);
+        this.ChangeOnBoardingPage = this.ChangeOnBoardingPage.bind(this);
+        this.ChangeSelectedPage = this.ChangeSelectedPage.bind(this);
     }
 
-    LoadOnBoarding(){
-        let page=this.state.CurrentPage;
-        console.log(this.state.CurrentPage)
-        switch(page) {
+    componentDidMount() {
+        window.helper.isExtensionUpdated().then((result) => {
+            this.state.isUpdate = result;
+        });
+    }
+
+    getNextPage() {
+        let isUpdate = this.state.isUpdate;
+        let current = this.state.CurrentPage;
+        let selected = this.state.SelectedPage;
+
+        if (current === 'Welcome') {
+            if (isUpdate)
+                return 'PrivacyPolicy';
+            else
+                return 'New';
+        } else if (current === 'New')
+            return 'PrivacyPolicy';
+        else if (current === 'PrivacyPolicy')
+            return 'OnBoardingResponsibility';
+        else if (current === 'OnBoardingResponsibility') {
+            if (isUpdate)
+                return 'Completed';
+            else
+                return selected;
+        }
+        else if (current === selected)
+            return 'Completed';
+    }
+
+    getPreviousPage() {
+        let isUpdate = this.state.isUpdate;
+        let current = this.state.CurrentPage;
+        let selected = this.state.SelectedPage;
+
+        if (current === 'New')
+            return 'Welcome';
+        else if (current === 'PrivacyPolicy') {
+            if (isUpdate)
+                return 'Welcome';
+            else
+                return 'New';
+        }
+        else if (current === 'OnBoardingResponsibility')
+            return 'PrivacyPolicy';
+        else if (current === selected)
+            return 'OnBoardingResponsibility';
+    }
+
+    LoadOnBoarding() {
+        let page = this.state.CurrentPage;
+        console.log(this.state.CurrentPage);
+        switch (page) {
             case 'Welcome':
-                return <OnBoardingWelcomePage ChangeOnBoardingPage={this.ChangeOnBoardingPage}/>;
-			case 'PrivacyPolicy':
-                return <OnBoardingPrivacyPolicy ChangeOnBoardingPage={this.ChangeOnBoardingPage}/>;
-			case 'OnBoardingResponsibility':
-                return <OnBoardingResponsibility ChangeOnBoardingPage={this.ChangeOnBoardingPage}/>;
+                return <OnBoardingWelcomePage
+                    ChangeOnBoardingPage={this.ChangeOnBoardingPage}
+                    nextPage={this.getNextPage}
+                    previousPage={this.getPreviousPage}
+                />;
             case 'New':
-                return <OnBoardingNewPage ChangeOnBoardingPage={this.ChangeOnBoardingPage} />;
-            case 'Import':
-                return <OnBoardingImportPage ChangeOnBoardingPage={this.ChangeOnBoardingPage} />;
+                return <OnBoardingNewPage
+                    ChangeOnBoardingPage={this.ChangeOnBoardingPage}
+                    nextPage={this.getNextPage}
+                    previousPage={this.getPreviousPage}
+                    ChangeSelectedPage={this.ChangeSelectedPage}
+                />;
+            case 'PrivacyPolicy':
+                return <OnBoardingPrivacyPolicy
+                    ChangeOnBoardingPage={this.ChangeOnBoardingPage}
+                    nextPage={this.getNextPage}
+                    previousPage={this.getPreviousPage}
+                />;
+            case 'OnBoardingResponsibility':
+                return <OnBoardingResponsibility
+                    ChangeOnBoardingPage={this.ChangeOnBoardingPage}
+                    nextPage={this.getNextPage}
+                    previousPage={this.getPreviousPage}
+                    SelectedPage={this.state.SelectedPage}
+                />;
             case 'Create':
-                return <OnBoardingCreatePage ChangeOnBoardingPage={this.ChangeOnBoardingPage} />;
-            case 'CreateWallet':
-                return <Redirect to="/Settings" />
-                // Redirect to Settings
+                return <OnBoardingCreatePage
+                    ChangeOnBoardingPage={this.ChangeOnBoardingPage}
+                    nextPage={this.getNextPage}
+                    previousPage={this.getPreviousPage}
+                />;
+            case 'Import':
+                return <OnBoardingImportPage
+                    ChangeOnBoardingPage={this.ChangeOnBoardingPage}
+                    nextPage={this.getNextPage}
+                    previousPage={this.getPreviousPage}
+                />;
+            case 'Completed':
+                window.helper.submitOnBoarding().then();
+                return  <Redirect to="/Settings"/>;
+            // Redirect to Settings
             default:
                 return 'Welcome';
-        }        
+        }
     }
 
-    ChangeOnBoardingPage(CurrentPage){
-        this.setState({CurrentPage, CurrentPage})
+    ChangeOnBoardingPage(CurrentPage) {
+        this.setState({CurrentPage: CurrentPage})
     }
-    
+
+    ChangeSelectedPage(SelectedPage) {
+        this.setState({SelectedPage: SelectedPage})
+    }
+
     render() {
         return (
             <div id="onboarding-page">

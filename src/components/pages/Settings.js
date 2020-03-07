@@ -10,6 +10,10 @@ import {
     MDBTableHead,        
 } from 'mdbreact';
 import CustomSelect from '../microcomponents/CustomSelect';
+import LocalFileImg from "../../statics/images/file.svg";
+import GoogleDriveImg from "../../statics/images/google-drive.svg";
+import DropboxImg from "../../statics/images/dropbox.svg";
+import ThreeBoxImg from "../../statics/images/3box.svg";
 
 
 
@@ -22,6 +26,9 @@ class SettingsPage extends React.Component {
 			filters: [],
             masks: [],
         };
+
+        this.onBoardingOAuth = this.onBoardingOAuth.bind(this);
+        this.onBoardingUpload = this.onBoardingUpload.bind(this);
     }
 
      
@@ -165,6 +172,31 @@ class SettingsPage extends React.Component {
         window.helper.saveFilters(storageArray)
         this.setState({ filters: newArray });
     }
+
+    onBoardingOAuth(onBoarding) {
+        if (!window.browser.runtime.onMessage.hasListener(this.onBoardingUpload))
+            window.browser.runtime.onMessage.addListener(this.onBoardingUpload);
+
+        window.browser.tabs.getCurrent().then(tab => {
+            window.helper.startOnBoarding(onBoarding, tab.id).then(() => {
+            });
+        });
+    }
+
+    onBoardingUpload(request, sender, sendResponse){
+        if (request.onBoarding){
+            window.helper.uploadFile(request.onBoarding).then((response) => {
+                console.log(response);
+                if (response === false)
+                    this.refs.notify.handleNotification('The configuration file could not be exported', 'error');
+                else
+                    this.refs.notify.handleNotification('The configuration file is exported successfully', 'success');
+            });
+        }
+
+        if (!window.browser.runtime.onMessage.hasListener(this.onBoardingUpload))
+            window.browser.runtime.onMessage.removeListener(this.onBoardingUpload);
+    }
 	
     render() {
         const modules = (this.state.modules)?(this.state.modules.map((module)=> {
@@ -296,7 +328,58 @@ the Search module is on. You can also optionally enable other modules in order t
 					</div>
 				
 				</div>
-				
+
+                    <div className="swash-col">
+                        <div className="setting-part">
+                            <div className="swash-head">Export the configuration</div>
+                            <div className="swash-p">You can maintain a consistent configuration across systems. After you configure settings in Swash on your browser, export those settings to a configuration file using one of these methods and then import the configuration into new installations.</div>
+
+
+                            <div style={{display: "inline-block", width: "100%"}}>
+                                <div className="onbording-export-div">
+                                    <div className="onbording-export-option">
+                                        <a className="onbording-export-button" onClick={() => {window.helper.saveConfig().then();}}>
+                                            <figure><img src={LocalFileImg} alt=""/></figure>
+                                            <div className="onbording-export-button">
+                                                Local file
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div className="onbording-export-option">
+                                        <a className="onbording-export-button" onClick={() => {this.onBoardingOAuth('GoogleDrive');}}>
+                                            <figure><img src={GoogleDriveImg} alt=""/></figure>
+                                            <div className="onbording-export-button">
+                                                Google Drive
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div className="onbording-export-option">
+                                        <a className="onbording-export-button" onClick={() => {this.onBoardingOAuth('DropBox');}}>
+                                            <figure><img src={DropboxImg} alt=""/></figure>
+                                            <div className="onbording-export-button">
+                                                Dropbox
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div className="onbording-export-option">
+                                        <a className="onbording-export-button">
+                                            <figure><img src={ThreeBoxImg} alt="" style={{opacity: "50%"}}/></figure>
+                                            <div className="onbording-export-button">
+                                                3Box
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
 				
 
 
