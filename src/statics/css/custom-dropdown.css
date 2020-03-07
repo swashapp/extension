@@ -3,12 +3,14 @@
 }
 
 .custom-dropdown-menu {
-    min-width: 80px !important;
-    width: 80px !important;
-    height: 68px !important;
+    min-width: 72px !important;
+    width: 72px !important;
     background: rgb(255, 255, 255);
     box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
+	top: 4px !important;
+    left: -28px !important;
+	padding: 0px !important;
 }
 
 .custom-dropdown-menu-transfer {
@@ -21,13 +23,14 @@
 }
 
 .custom-dropdown-item {
-    padding: 0px 0px 0px 12px!important;
+	text-align: center;
     color: rgb(50, 50, 50);
     font-size: 14px;
     font-family: Roboto-Regular;
     font-weight: normal;
     letter-spacing: 0px;
     line-height: 28px;
+	padding: 0px !important;
 }
 
 .custom-dropdown-item:focus, .custom-dropdown-item:hover, .custom-dropdown-item:active {

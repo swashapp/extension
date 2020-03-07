@@ -19,7 +19,7 @@ class TransferPage extends React.Component {
         }
 
         return (
-            <div id="data-page" className="swash-col">
+            <div id="transfer-page" className="swash-col">
                 <React.Fragment>
                     <div className="swash-col">
                          <TransferView extraParams={params} />

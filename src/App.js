@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Route, HashRouter, Switch, Redirect} from 'react-router-dom';
 import Routes from '../src/components/Routes';
-import SideNavigation from './components/sideNavigation';
-import TopNavigation from './components/TopNavigation';
+import Transfer from './components/pages/Transfer';
+import OnBoarding from './components/pages/OnBoarding';
+
 class App extends Component {
 	constructor(){
 	  super();
@@ -13,12 +15,13 @@ class App extends Component {
 		  
 		return (
 			<div className="flexible-content">
-              <TopNavigation />			
-			  <SideNavigation  resource={this.state.resource}/>
-			  <main id="content" className="content-padding">
-				<Routes/>
-			  </main>
-			  {/*<Footer />*/}
+				<HashRouter>
+					<Switch>
+						<Route path='/Transfer' component={Transfer} />
+						<Route path='/OnBoarding' component={OnBoarding} />
+						<Route component={Routes} />
+					</Switch>
+				</HashRouter>
 			</div>
 		);
 	}

@@ -120,6 +120,10 @@ var helper = (function () {
         return modules;
     }
 
+	async function getVersion() {
+		return '1.0.0';
+	}
+	
     function loadPrivacyData() {
         var promise1 = new Promise(function (resolve, reject) {
             resolve(masks);
@@ -238,8 +242,12 @@ var helper = (function () {
         });
     }
 
-    async function getDataBalance() {
+    async function getDataBalance(address) {
         return '48.92';
+    }
+	
+	async function getEthBalance() {
+        return '2.4';
     }
 
     async function getAvailableBalance() {
@@ -258,6 +266,14 @@ var helper = (function () {
         return 'success';
     }
 
+	async function start() {
+		
+	}
+	
+	async function stop() {
+		
+	}
+	
     async function enforcePolicy(msg, mSalt, salt, privacyData) {
         currentDate = new Date();
         return (
@@ -291,6 +307,7 @@ var helper = (function () {
         cancelSending,
         getKeyInfo,
         getDataBalance,
+		getEthBalance,
         withdraw,
         getAvailableBalance,
 		getCumulativeEarnings,
@@ -298,7 +315,9 @@ var helper = (function () {
         isConnected,
         loadWallets,
         saveWallets,
-        withdrawTo
-
+        withdrawTo,
+		getVersion,
+		stop,
+		start
     };
 }());

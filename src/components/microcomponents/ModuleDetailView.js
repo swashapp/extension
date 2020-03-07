@@ -161,8 +161,8 @@ class ModuleDetailView extends React.Component {
               <div className="module-detail-view-title">{this.state.views[key].title}</div>
               {key === 'API' ? <>
                 {this.state.connected && this.state.connected !== 'connecting'?
-                <a className="oauth_btn" onClick={() => this.disconnect(this.state.module.name)}>Disconnect</a>
-                :<a className="oauth_btn" onClick={() => this.connect(this.state.module.name)}>Connect to {this.state.module.name}</a>                
+                <div className="oauth_btn" onClick={() => this.disconnect(this.state.module.name)}>Disconnect</div>
+                :<div className="oauth_btn" onClick={() => this.connect(this.state.module.name)}>Connect to {this.state.module.name}</div>                
                 }
               </> : ''}
             </div>

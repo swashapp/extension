@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="12px" viewBox="0 0 18 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 62 (101010) - https://sketch.com -->
+    <title>10B306A7-86DC-42BD-9E4B-F0DE490CC728@1.00x</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M3,18 L21,18 L21,16 L3,16 L3,18 Z M3,13 L21,13 L21,11 L3,11 L3,13 Z M3,6 L3,8 L21,8 L21,6 L3,6 Z" id="path-1"></path>
+    </defs>
+    <g id="Swash-Mobile-Web" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Swash-Main-View-/-Pixel-3-XL-" transform="translate(-24.000000, -94.000000)">
+            <g id="Top-bar">
+                <g id="icon/navigation/menu_24px" transform="translate(21.000000, 88.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="-↳Color" fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
