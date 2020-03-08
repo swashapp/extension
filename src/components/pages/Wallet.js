@@ -14,15 +14,15 @@ class SettingsPage extends React.Component {
         super(props);
         this.state = {
             keyInfo: {address:'', privateKey: ''},
-            dataBalance: '???',
-            dataAvailable: '???',
-			cumulativeEarnings: '???',
+            dataBalance: '$',
+            dataAvailable: '$',
+			cumulativeEarnings: '$',
 			withdrawState: false,
 			transferModal: false,
 			revealKeyModal: false,
 			recipient: '',
-			recipientEthBalance: '???',
-			recipientDataBalance: '???',
+			recipientEthBalance: '$',
+			recipientDataBalance: '$',
 			revealFunction: this.copyToClipboard
         };
         this.balanceCheckInterval = 0;
