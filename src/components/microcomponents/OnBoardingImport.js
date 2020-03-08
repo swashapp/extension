@@ -135,7 +135,7 @@ class OnBoardingNewPage extends React.Component {
                         <div className="onboarding-box-header">
                             <p>Import your wallet</p>
                         </div>
-                        <div className="onboarding-box-body onboarding-box-body-big onboarding-box-body-import" style={{overflow: "auto"}}>
+                        <div className="onboarding-box-body onboarding-box-body-big onboarding-box-body-import">
                             <span>Choose an option to import your settings file</span><br/>
                             <div className="onbording-export-div">
                                 <div className="onbording-import-option">
