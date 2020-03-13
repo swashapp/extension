@@ -33,44 +33,45 @@ class OnBoardingNewPage extends React.Component {
 
         switch (type) {
             case 'LocalFile':
-                console.log('LocalFile');
                 let input = document.createElement('input');
                 input.type = 'file';
 
                 input.onchange = e => {
+                    let that = this;
                     let file = e.target.files[0];
+                    let reader = new FileReader();
 
-                    window.helper.loadFile(file).then((result) => {
-                        if (result) {
-                            window.helper.applyConfig(result).then((response) => {
-                                if (response) {
-                                    this.goToNextPage();
-                                } else
-                                    this.refs.notify.handleNotification('The configuration file could not be imported', 'error');
-                            });
-                        }
-                    })
+                    reader.readAsText(file);
+
+                    reader.onload = function() {
+                        window.helper.applyConfig(reader.result).then((response) => {
+                            if (response) {
+                                that.goToNextPage();
+                            } else
+                                that.refs.notify.handleNotification('The configuration file could not be imported', 'error');
+                        });
+                    };
+
+                    reader.onerror = function() {
+                        console.error(reader.error);
+                    };
                 };
                 input.click();
                 // return this.props.ChangeOnBoardingPage('ImportFromLocal');
                 break;
             case 'GoogleDrive':
-                console.log('GoogleDrive');
                 window.browser.tabs.getCurrent().then(tab => {
                     window.helper.startOnBoarding(type, tab.id).then(() => {
                     });
                 });
                 break;
             case  'DropBox':
-                console.log('DropBox');
                 window.browser.tabs.getCurrent().then(tab => {
                     window.helper.startOnBoarding(type, tab.id).then(() => {
                     });
                 });
                 break;
             case '3Box':
-                console.log('3Box');
-
                 // const createMetaMaskProvider = require('metamask-extension-provider');
                 // const provider = createMetaMaskProvider();
                 // var web3 = new Web3(provider);
@@ -93,7 +94,6 @@ class OnBoardingNewPage extends React.Component {
                 // });
                 break;
             default:
-                console.log('Welcome');
         }
     }
 

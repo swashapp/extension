@@ -186,7 +186,6 @@ class SettingsPage extends React.Component {
     onBoardingUpload(request, sender, sendResponse){
         if (request.onBoarding){
             window.helper.uploadFile(request.onBoarding).then((response) => {
-                console.log(response);
                 if (response === false)
                     this.refs.notify.handleNotification('The configuration file could not be exported', 'error');
                 else

@@ -17,8 +17,6 @@ class FilePickerPopup extends React.Component {
     componentDidMount() {
         let files = this.state.files;
         window.helper.getFilesList(this.state.onboarding).then(status => {
-            console.log(status);
-
             if (this.state.onboarding === 'GoogleDrive') {
                 for (let fileIndex in status.files) {
                     if (status.files.hasOwnProperty(fileIndex)) {

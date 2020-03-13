@@ -184,7 +184,6 @@ var helper = (function () {
     }
 
     function saveConfigs(config) {
-        console.log("consider it done");
         var promise1 = new Promise(function (resolve, reject) {
             resolve(resource);
         });
@@ -192,7 +191,6 @@ var helper = (function () {
     }
 
     function cancelSending(message_msgId) {
-        console.log("consider it done");
     }
 
     function load() {
@@ -202,7 +200,6 @@ var helper = (function () {
         return promise1;
     }
     function save(data) {
-        console.log(data)
     }
 
     async function configModule(moduleName, settings) {

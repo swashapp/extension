@@ -77,7 +77,6 @@ class OnBoardingPage extends React.Component {
 
     LoadOnBoarding() {
         let page = this.state.CurrentPage;
-        console.log(this.state.CurrentPage);
         switch (page) {
             case 'Welcome':
                 return <OnBoardingWelcomePage
