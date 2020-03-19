@@ -3096,6 +3096,18 @@ input[type="checkbox"].switch:checked + div .enabled {
     border-radius: 2px;
 }
 
+.transaction-modal-large {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 528px;
+    height: 392px;
+    background: rgb(255, 255, 255);
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+
 .transaction-modal-header {
     width: 528px;
     height: 80px;
@@ -3400,6 +3412,10 @@ input[type="checkbox"].switch:checked + div .enabled {
     }
 
     .transaction-modal {
+        width: 95%;
+    }
+
+    .transaction-modal-large {
         width: 95%;
     }
 

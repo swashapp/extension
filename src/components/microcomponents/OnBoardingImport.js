@@ -1,6 +1,4 @@
 import React from 'react';
-// import Web3 from 'web3';
-// import Box from '3box';
 import CustomRadioBox from './CustomRadioBox.js';
 import FilePickerPopup from "./FilePickerPopup";
 import ThreeBoxImg from '../../statics/images/3box.svg';
@@ -8,6 +6,7 @@ import LocalFileImg from '../../statics/images/file.svg';
 import GoogleDriveImg from '../../statics/images/google-drive.svg';
 import DropboxImg from '../../statics/images/dropbox.svg';
 import CustomSnackbar from './CustomSnackbar';
+import PassphraseModal from "./PassphraseModal";
 
 
 class OnBoardingNewPage extends React.Component {
@@ -43,7 +42,7 @@ class OnBoardingNewPage extends React.Component {
 
                     reader.readAsText(file);
 
-                    reader.onload = function() {
+                    reader.onload = function () {
                         window.helper.applyConfig(reader.result).then((response) => {
                             if (response) {
                                 that.goToNextPage();
@@ -52,7 +51,7 @@ class OnBoardingNewPage extends React.Component {
                         });
                     };
 
-                    reader.onerror = function() {
+                    reader.onerror = function () {
                         console.error(reader.error);
                     };
                 };
@@ -72,26 +71,7 @@ class OnBoardingNewPage extends React.Component {
                 });
                 break;
             case '3Box':
-                // const createMetaMaskProvider = require('metamask-extension-provider');
-                // const provider = createMetaMaskProvider();
-                // var web3 = new Web3(provider);
-                //
-                // const eth = new web3.eth(provider);
-                // eth.accounts().then((accounts) => {
-                //     console.log(`Detected MetaMask account ${accounts[0]}`)
-                // });
-                //
-                // console.log(web3.eth.accounts[0]);
-                // web3.eth.getAccounts().then((accounts) => {
-                //     console.log("Accounts");
-                //     console.log(accounts);
-                // });
-
-                // console.log(web3.currentProvider);
-
-                // Box.openBox('0x44dB7d3771e5694f1F33fAB0B82E72f02118DE07', web3.currentProvider).then(() => {
-                //     console.log("Logined");
-                // });
+                this.togglePopup();
                 break;
             default:
         }
@@ -123,17 +103,22 @@ class OnBoardingNewPage extends React.Component {
     }
 
     render() {
-        let picker = <FilePickerPopup
+        let modal = <FilePickerPopup
             text='Click "Close Button" to hide popup'
             closePopup={this.togglePopup.bind(this)}
             onboarding={this.state.onBoardingType}
         />;
+
+        if (this.state.onBoardingType === '3Box') {
+            modal = <PassphraseModal page={'import'} closePopup={this.togglePopup.bind(this)}/>
+        }
+
         return (
             <div className="d-flex justify-content-center">
                 <React.Fragment>
                     <div className="onboarding-box onboarding-box-big">
                         <div className="onboarding-box-header">
-                            <p>Import your wallet</p>
+                            <p>Import your configuration</p>
                         </div>
                         <div className="onboarding-box-body onboarding-box-body-big onboarding-box-body-import">
                             <span>Choose an option to import your settings file</span><br/>
@@ -185,7 +170,7 @@ class OnBoardingNewPage extends React.Component {
                                 </div>
                                 <div className="onbording-import-option">
                                     <div className="onboarding-import-option-row">
-                                        <img src={ThreeBoxImg} alt="" style={{opacity: "50%"}}/>
+                                        <img src={ThreeBoxImg} alt=""/>
                                     </div>
                                     <div className="onboarding-import-option-row">
                                         <span>3Box</span>
@@ -193,7 +178,7 @@ class OnBoardingNewPage extends React.Component {
                                     <div className="onboarding-import-option-row">
                                         <CustomRadioBox
                                             id="3Box"
-                                            // handleClick={this.radioChangeHandler}
+                                            handleClick={this.radioChangeHandler}
                                             isChecked={this.state.onBoardingType === "3Box"}
                                         />
                                     </div>
@@ -218,7 +203,7 @@ class OnBoardingNewPage extends React.Component {
                                 if (e.target === e.currentTarget) this.togglePopup()
                             }}
                         >
-                            {picker}
+                            {modal}
                         </div>
                     </div> : ''}
                 </React.Fragment>
