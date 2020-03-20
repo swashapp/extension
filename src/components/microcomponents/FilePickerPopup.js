@@ -16,11 +16,18 @@ class FilePickerPopup extends React.Component {
 
     componentDidMount() {
         let files = this.state.files;
-        window.helper.getFilesList(this.state.onboarding).then(status => {
-            if (this.state.onboarding === 'GoogleDrive') {
-                for (let fileIndex in status.files) {
-                    if (status.files.hasOwnProperty(fileIndex)) {
-                        let file = status.files[fileIndex];
+        if (this.state.onboarding === 'GoogleDrive' || this.state.onboarding === 'DropBox') {
+            window.helper.getFilesList(this.state.onboarding).then(status => {
+                let fileList = [];
+
+                if (this.state.onboarding === 'GoogleDrive')
+                    fileList = status.files;
+                else if (this.state.onboarding === 'DropBox')
+                    fileList = status.entries;
+
+                for (let fileIndex in fileList) {
+                    if (fileList.hasOwnProperty(fileIndex)) {
+                        let file = fileList[fileIndex];
 
                         let add = {
                             key: file.name,
@@ -31,23 +38,8 @@ class FilePickerPopup extends React.Component {
                     }
                 }
                 this.setState({files: files});
-            } else if (this.state.onboarding === 'DropBox') {
-                for (let fileIndex in status.entries) {
-                    if (status.entries.hasOwnProperty(fileIndex)) {
-                        let file = status.entries[fileIndex];
-
-                        let add = {
-                            key: file.name,
-                            size: file.size,
-                            id: file.id
-                        };
-
-                        files.push(add);
-                    }
-                }
-                this.setState({files: files});
-            }
-        });
+            });
+        }
     }
 
     applyConfig() {
@@ -70,12 +62,12 @@ class FilePickerPopup extends React.Component {
         return (
             <div className="d-flex justify-content-center">
                 <React.Fragment>
-                    <div className="transaction-modal">
+                    <div className="transaction-modal-large">
                         <div>
                             <div className="transaction-modal-header">
                                 <p>Select A File</p>
                             </div>
-                            <div className="transaction-modal-body" style={{overflow: "auto"}}>
+                            <div className="transaction-modal-body-large" style={{overflow: "auto", display: "block", width: "auto"}}>
                                 <div className="modal-body-text" style={{display: "block"}}>
                                     <FileBrowser
                                         files={this.state.files}
