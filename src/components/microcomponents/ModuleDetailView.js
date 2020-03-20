@@ -51,7 +51,8 @@ class ModuleDetailView extends React.Component {
 
       if (module.apiCall) {			  
         let f  = setInterval(()=>{window.helper.isConnected(module.name).then(connected => {
-          this.setState({connected:connected})
+		  if(connected !== this.state.connected)
+			this.setState({connected:connected})
         });},1000);
         this.setState({intervalId: f});
       }                
@@ -133,6 +134,10 @@ class ModuleDetailView extends React.Component {
 
   }
 
+  triggerClickEvent(id) {
+	  let element = document.getElementById(id);
+	  element.click();
+  }
 
   onSelectChange(item) {
     this.setState({group_selected: item.value});
@@ -168,10 +173,10 @@ class ModuleDetailView extends React.Component {
             </div>
             <div className="checkbox-container">
               {this.state.views[key].items.map((collector, id) =>
-                <div className="module-detail-view-checkbox" >
+                <div className="module-detail-view-checkbox" onClick={() => {this.state.views[key].items[id].is_enabled = !this.state.views[key].items[id].is_enabled; this.setState({views:this.state.views})}} >
                   <label>
 
-                    <CustomCheckBox id={this.state.views[key].name + "-" + id} checked={collector.is_enabled} handleClick={(x) => {this.state.views[key].items[id].is_enabled = !x}} />
+                    <CustomCheckBox id={this.state.module.name + '-' + this.state.views[key].name + "-" + id} checked={collector.is_enabled} handleClick={(x) => {return true}} />
                     <div className="label">{collector.title}</div>
                   </label>
                 </div>

@@ -77,10 +77,11 @@ class SettingsPage extends React.Component {
     }
 
 	addMask() {
+		let mvElement = document.getElementById('maskValue');
         let f = {
-            value: document.getElementById('maskValue').value,
+            value: mvElement.value,
         };
-
+		mvElement.value = "";
         if(!f.value || f.value==='undefined') {
             this.refs.notify.handleNotification('Null is not allowed', 'error');
             return;

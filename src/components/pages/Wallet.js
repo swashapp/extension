@@ -20,6 +20,7 @@ class SettingsPage extends React.Component {
 			withdrawState: false,
 			transferModal: false,
 			revealKeyModal: false,
+			disableTransfer: true,
 			recipient: '',
 			recipientEthBalance: '$',
 			recipientDataBalance: '$',
@@ -32,7 +33,8 @@ class SettingsPage extends React.Component {
 		this.pasteWallet = this.pasteWallet.bind(this);
 		this.getBalanceInfo = this.getBalanceInfo.bind(this);
 		this.loadSettings = this.loadSettings.bind(this);
-		this.transfer = this.transfer.bind(this);		
+		this.transfer = this.transfer.bind(this);	
+		this.onAmountChange = this.onAmountChange.bind(this);
     }
 
      
@@ -62,7 +64,7 @@ class SettingsPage extends React.Component {
         });
     }
 
-	transfer() {
+	transfer(e) {		
 		let amount = document.querySelector("#amount").value;
 		let recipient = document.querySelector("#recipient").value;
 		if(!amount.match(/^[0-9]+(\.[0-9]+)?$/)) {
@@ -74,7 +76,7 @@ class SettingsPage extends React.Component {
 			this.refs.notify.handleNotification('Recipient address is not valid', 'failure');
 			return;
 		}
-		this.openModal('Transfer');		
+		this.openModal('Transfer');							
 	}
 	
 	openModal(name) {
@@ -111,6 +113,16 @@ class SettingsPage extends React.Component {
             })        
     }
     	
+	
+	onAmountChange(e) {
+		let val = e.target.value;
+		let btn = document.querySelector("#transfer-button")
+		if(val > this.state.dataAvailable || this.state.dataAvailable == '0.0') {
+			this.setState({disableTransfer: true});
+			return;
+		}
+		this.setState({disableTransfer: false});
+	}
 	
 	copyToClipboard(e, element) {            
 		this.revealPrivateKey(e);
@@ -205,7 +217,7 @@ class SettingsPage extends React.Component {
 								<div className="transfer-column amount-column">
 									<div className="form-caption">Amount</div>
 									<div>
-										<input type="text" id="amount" placeholder={this.state.dataAvailable} className="form-input  filter-input" />
+										<input type="text" id="amount" placeholder={this.state.dataAvailable} onChange={this.onAmountChange} className="form-input  filter-input" />
 									</div>
 								</div>
 								
@@ -217,7 +229,10 @@ class SettingsPage extends React.Component {
 								</div>
 								
 								<div className="transfer-column button-column" style={{marginRight: '0px'}}>
-									<a className="transfer-link-button" onClick={this.transfer}>Transfer</a>						
+									{this.state.disableTransfer?
+										<a id="transfer-button" className="transfer-link-button transfer-link-button-disabled" onClick={() => {return false}}>Transfer</a>:						
+										<a id="transfer-button" className="transfer-link-button" onClick={this.transfer}>Transfer</a>
+									}
 								</div>
 							</div>
 							{this.state.recipient? 

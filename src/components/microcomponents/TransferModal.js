@@ -89,13 +89,39 @@ class TransferModal extends React.Component {
 						</div>
 						<div className="transaction-modal-footer">								
 							<div className="transaction-modal-footer-right">
-								{this.state.status === 'waiting'?
-									<div className='transaction-modal-button transaction-modal-button-waiting'>Sending...
-										<img src={loading} />
-									</div>:
-									<div className='transaction-modal-button' onClick={this.withdraw}>Confirm and send</div>
-								}
 								
+								<div className='transaction-modal-button' onClick={this.withdraw}>Confirm and send</div>								
+								
+								<div className='transaction-modal-button-cancel' onClick={this.state.opening}>Cancel</div>
+							</div>
+						</div>
+				</div>
+				break;
+			case 'waiting': 
+				return <div>
+						<div className="transaction-modal-header">
+							<p>Confirm DATA transfer</p>
+						</div>
+						<div className="transaction-modal-body">
+							<div className="transaction-modal-body-left">
+								<div className="transaction-modal-body-text1">Send</div>
+								<div className="transaction-modal-body-text2">
+									<span className="transaction-modal-body-text3">{this.state.amount}</span> DATA										
+								</div>
+							</div>
+							<div className="transaction-modal-body-middle">
+								<img src={arrow} />
+							</div>
+							<div className="transaction-modal-body-right">
+								<div className="transaction-modal-body-text1">To address</div>								
+								<div className="transaction-modal-body-text3">{this.purgeAddress(this.state.recipient)}</div>									
+							</div>						
+						</div>
+						<div className="transaction-modal-footer">								
+							<div className="transaction-modal-footer-right">								
+								<div className='transaction-modal-button transaction-modal-button-waiting'>Sending...
+									<img src={loading} />
+								</div>								
 								<div className='transaction-modal-button-cancel' onClick={this.state.opening}>Cancel</div>
 							</div>
 						</div>

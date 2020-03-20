@@ -1,4 +1,5 @@
 import React from 'react'
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 import {
     MDBTable, MDBTableBody,
     MDBTableHead,        
@@ -29,23 +30,23 @@ class HelpPage extends React.Component {
                             <div className="swash-p">Swash is a browser extension that pays you to surf the web. Swash can do more than typical browser extensions as it can also call APIs on behalf of the user and send this data to Streamr to monetize it.</div>
 
                             <div className="swash-head2">Getting Started</div>
-                            <div className="swash-p"> Swash can be enabled or disabled via the switch in the popover window. A green icon shows the app is running. Your earned balance in DATA is shown here too. The icons give quick access to Settings, Data and Help views.   </div>
+                            <div className="swash-p">Swash can be enabled or disabled via the switch in the popover window. A green icon shows the app is running. Your earned balance in DATA is shown here too. The icons give quick access to Settings, Data and Help views.</div>
 
                             <img alt="" src={help1}/>
                             <div className="image-caption">Swash installed and enabled</div>
 
-                            <div className="swash-p">Once you've installed Swash, it will generate an ethereum wallet address for you where you can receive payments in Streamr's native token, DATA. You can withdraw these payments and exchange them for other cryptocurrency or plain old cash through various exchanges, such as Coinbase or Binance. For more, see Payments and Withdrawals below.</div>
+                            <div className="swash-p">Once you've installed Swash, it will generate an ethereum wallet address for you where you can receive payments in Streamr's native token, <a target="_blank" href="https://etherscan.io/token/0x0cf0ee63788a0849fe5297f3407f701e122cc023">DATA</a>. You can withdraw these payments and exchange them for other cryptocurrency or plain old cash through various exchanges, such as Coinbase or Binance. For more information, see Payments and Withdrawals below.</div>
 
                             <img alt="" src={help2}/>
                             <div className="image-caption">Swash’s Earnings section shows balances, address and withdrawal functions</div>
 
-                            <div className="swash-p">Swash uses a modular approach to its data gathering functionality. By default, two modules, Browse and Search are enabled, which will gather data when you are browsing web pages and doing web searches on a variety of search engines. You can adjust the settings of these modules in the Settings page under Choose data to capture. You can also choose to enable other modules that gather more fine grained data for a range of popular sites.</div>
+                            <div className="swash-p">Swash uses a modular approach to its data gathering functionality. By default, Search module is enabled, which will gather data when you are searching on a variety of search engines. You can adjust the settings of these modules in the Settings page under Choose data to capture. You can also choose to enable other modules that gather more fine grained data for a range of popular sites.</div>
 
 
                             <img alt="" src={help3}/>
                             <div className="image-caption">Default data collection modules, Browse and Search</div>
 
-                            <div className="swash-p">You can also control how much information the modules can gather by adjusting the Privacy settings slider. This enables you to anonymise your data to some general level. For more, see Privacy Settings below. If you want to prevent specific pieces of information or specific web domains or URLs from being captured, you can do this on the Advanced page.</div>
+                            <div className="swash-p">You can also control how much information the modules can gather by adjusting the Privacy settings slider. This enables you to anonymize your data to some general level. For more information, see <AnchorLink href="#privacySettings">Privacy Settings</AnchorLink> section. If you want to prevent specific pieces of information or specific web domains or URLs from being captured, you can do this on the Advanced page.</div>
 
                             <img alt="" src={help4}/>
                             <div className="image-caption">The Privacy settings slider gives you three levels of privacy options</div>
@@ -77,7 +78,7 @@ class HelpPage extends React.Component {
 
 
 
-                            <div className="swash-head">Privacy Settings</div>
+                            <div id="privacySettings" className="swash-head">Privacy Settings</div>
                             <div className="swash-p">We designed a simple privacy model as you see in the table shown below. The first column of the table shows different data types that we have identified so far and the first row of the table shows privacy levels that have been defined for Swash. At the lowest level, we assure no privacy. In Medium Privacy Level, we Mask URL path names, reduce time precision by removing hours from time and for texts we remove user information from texts. In High Level, we remove URL path names, remove days from the time and remove all texts that have user's information.</div>
 
 
@@ -97,44 +98,37 @@ class HelpPage extends React.Component {
                                         <tr className="table-row">                                    
                                             <td className="table-text table-head-text">URL</td>
                                             <td className="table-text">No changes</td>
-                                            <td className="table-text">Global Masking 
-path name</td>
+                                            <td className="table-text">Mask path name</td>
                                             <td className="table-text">Remove path name and query strings</td>
                                         </tr><tr className="table-row">                                    
                                             <td className="table-text table-head-text">Time</td>
                                             <td className="table-text">No changes</td>
-                                            <td className="table-text">Remove 
-hours</td>
+                                            <td className="table-text">Remove hours</td>
                                             <td className="table-text">Remove days and months</td>
                                         </tr><tr className="table-row">                                    
                                             <td className="table-text table-head-text">TimeString</td>
                                             <td className="table-text">No changes</td>
-                                            <td className="table-text">Remove 
-hours</td>
+                                            <td className="table-text">Remove hours</td>
                                             <td className="table-text">Remove days and months</td>
                                         </tr><tr className="table-row">                                    
                                             <td className="table-text table-head-text">Text</td>
                                             <td className="table-text">No changes</td>
-                                            <td className="table-text">Replace user 
-info with star</td>
+                                            <td className="table-text">Replace user info with star</td>
                                             <td className="table-text">Remove text if contains user information</td>
                                         </tr><tr className="table-row">                                    
                                             <td className="table-text table-head-text">Id</td>
                                             <td className="table-text">No changes</td>
-                                            <td className="table-text">Global 
-masking</td>
+                                            <td className="table-text">Mask</td>
                                             <td className="table-text">Remove Id</td>
                                         </tr><tr className="table-row">                                    
                                             <td className="table-text table-head-text">UserInfo</td>
                                             <td className="table-text">No changes</td>
-                                            <td className="table-text">Global 
-masking</td>
+                                            <td className="table-text">Mask</td>
                                             <td className="table-text">Remove User information</td>
                                         </tr><tr className="table-row">                                    
                                             <td className="table-text table-head-text">UserAttr</td>
                                             <td className="table-text">No changes</td>
-                                            <td className="table-text">Global 
-masking</td>
+                                            <td className="table-text">Mask</td>
                                             <td className="table-text">Remove User attributes</td>
                                         </tr>                              
                                     </MDBTableBody>
@@ -149,21 +143,21 @@ masking</td>
 
                             <div className="swash-head">Swash engine</div>
 
-                            <div className="swash-p">The picture shown below, summarizes our idea about Swash engine. At the lowest layer, each module gathers a specific type of data and passes it to the User Consent Policy layer. The second layer checks whether this data complies with user consent policy or not.
-                            <p>If data complies, the extensoin forward it to the upper layer. In the third layer data filters give users the ability to exclude some domains and URLs from their data being collected. In the upper layer, Privacy Level applies to data and based on the level of the privacy that has been chosen by the user, a transofrmation may be applied on data before being sent to Streamr network.</p></div>
+                            <div className="swash-p">The picture shown below, summarizes the architecture of Swash engine. At the lowest layer, each module gathers a specific type of data and passes it to the User Consent Policy layer. The second layer checks whether this data complies with user consent policy or not.
+                            <p>If data complies, the extension forwards it to the upper layer. In the third layer data filters give users the ability to exclude some domains and URLs from their data being collected. In the upper layer, Privacy Level applies to data and based on the level of the privacy that has been chosen by the user, a transformation may be applied on the data before being sent to the Streamr network.</p></div>
 
 
                             <img alt="" src={help7} style={{marginBottom:'102px'}}/>    
 
                             <div className="swash-head">What makes us different?</div>
 
-                            <div className="swash-p">A comparison between the way Swash collects data and the way giant data collectors collect data, shows some major differences: Firstly, unlike giant data collectors, Swash asks the user to approve every data it would send to Streamr. Then, by using Swash, the user gets paid for every data he provides to sell, but giant data collectors never share revenue of selling data. Next, Swash never reveals user identity unless the user gives permission, but user identity is known for the giant data collectors. Moreover, Swash is not limited to data regarding a specific business and it can collects a combination of user's data that none of these companies have all these data together. As Swash is installed on the user side, it can collect some other interesting data that giant data collectors do not have access.</div>
+                            <div className="swash-p">A comparison between the way Swash collects data and the way giant data collectors collect data, shows some major differences: Firstly, unlike giant data collectors, users can configure which data they want to be sent to Streamr. Then, by using Swash, the user gets paid for all data he/she provides to sell, but giant data collectors never share revenue of selling data. Next, Swash users are anonymous and the user identity is anonymized before sending data, but giant data collectors has profiled users. Moreover, Swash is not limited to data regarding a specific business and it can collects a combination of user's data that none of these companies have all these data together. As Swash is installed on the user side, it can collect some other interesting data that giant data collectors do not have access.</div>
 
 
                             <div className="graybox">
                                 <div className="swash-head3">Giant data collectors</div>
                                 <ul>
-                                    <li>User is not asked to provide a consent</li>
+                                    <li>Users are not asked to provide consent</li>
                                     <li>User will not get paid for his own data</li>
                                     <li>User identity is known for giant data collectors</li>
                                     <li>Every data collector has user data regarding their business</li>
@@ -174,11 +168,11 @@ masking</td>
                             <div className="graybox">
                             <div className="swash-head3">Swash</div>
                             <ul>
-                                <li>Swash asks user to approve every data it send</li>
-<li>Users get paid for every data they provide to sell</li>
-<li>Swash never reveal user identity unless users give permission to do so</li>
-<li>Swash collects a combination of user data</li>
-<li>Swash is in the user side and it can collect more data</li>
+                                <li>Users can configure which data they want to be sent</li>
+								<li>User gets paid for all data they provide to sell</li>
+								<li>Swash never reveals the user identity unless the users gives permission to do so</li>
+								<li>Swash collects a combination of user data</li>
+								<li>Swash is on the user side and it can collect more data</li>
                             </ul>
                             </div>
 

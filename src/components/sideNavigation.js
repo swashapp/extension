@@ -34,8 +34,8 @@ class SideNavigation extends React.Component {
                         Help
                     </MDBListGroupItem>
                 </NavLink>
-                
-            </MDBListGroup>
+                				
+			</MDBListGroup>
         </div>
 
 }}

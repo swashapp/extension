@@ -37,33 +37,25 @@ class OnBoardingPrivacyPolicy extends React.Component {
                                 <a target="_blank" href="https://swashapp.io/file/final-privacy-policy.pdf"> here</a>
                                 . Swash can collect personal data, so it is very important that you read and understand our privacy policy.
                             </p>
-                            <div className="onboarding-box-footer-left-small">
-                                <CustomCheckBox id="approvePolicy"
-                                                checked={this.state.isChecked}
-                                                handleClick={() => {
-                                                    this.setState({
-                                                        isChecked: !this.state.isChecked
-                                                    });
-                                                }}
-                                />
-                                <span>I have read it and I agree</span>
+                            <div className="onboarding-box-footer-left-small" onClick={() => {this.setState({isChecked: !this.state.isChecked});}}>
+								<CustomCheckBox id="approvePolicy"
+												checked={this.state.isChecked}													
+								/>
+								<span>I have read it and I agree</span>
                             </div>
                         </div>
                         <div className="onboarding-box-footer">
                             <div className="onboarding-box-footer-left">
-                                <CustomCheckBox id="approvePolicy"
-                                                checked={this.state.isChecked}
-                                                handleClick={() => {
-                                                    this.setState({
-                                                        isChecked: !this.state.isChecked
-                                                    });
-                                                }}
-                                />
-                                <span>I have read it and I agree</span>
+								<div className="onboarding-box-approve-wrapper" onClick={() => {this.setState({isChecked: !this.state.isChecked});}}>
+									<CustomCheckBox id="approvePolicy"
+													checked={this.state.isChecked}													
+									/>
+									<span>I have read it and I agree</span>
+								</div>
                             </div>
                             <div className="onboarding-box-footer-right">
                                 <div className={this.state.isChecked ? 'onboarding-proceed-button' : 'onboarding-proceed-disable-button'} onClick={this.LoadOnBoardingNew}>Proceed</div>
-                                <div style={{float: "right"}}>
+                                <div style={{float: "right", cursor: "pointer"}}>
                                     <span onClick={this.goToPreviousPage}>Back</span>
                                 </div>
                             </div>

@@ -1591,6 +1591,11 @@ input[type="checkbox"].switch:checked + div .enabled {
     line-height: 40px;
 }
 
+.transfer-link-button-disabled {
+	background-color: rgb(36, 60, 219, 0.5) !important;
+	cursor: default;
+}
+
 .withdraw-btn {
 
     position: absolute;
@@ -2251,6 +2256,16 @@ input[type=range]:focus::-ms-fill-upper {
     display: inline-flex;
     width: 300px;
     position: relative;
+}
+
+.privacy-nav-wrapper {
+    width: 32px;
+    height: 32px;
+	margin-top: -16px !important;
+	margin-left: -16px !important;
+	z-index: 9 !important;
+	cursor: pointer;
+	position: absolute;
 }
 
 .privacy-nav-h {
@@ -3012,9 +3027,7 @@ input[type="checkbox"].switch:checked + div .enabled {
 
 .onboarding-box-footer-right {
     width: 50%;
-    float: left;
-    line-height: 80px;
-    cursor: pointer;
+    float: left;       
 }
 
 .onboarding-box-footer-right span {
@@ -3036,12 +3049,21 @@ input[type="checkbox"].switch:checked + div .enabled {
     width: 100%;
     float: left;
     display: none;
+	cursor: pointer;
+}
+
+.onboarding-box-approve-wrapper {
+	height: 24px;
+	cursor: pointer;
+	margin-top: 28px;
+	line-height: 0px;
 }
 
 .onboarding-box-footer-left .checkbox {
     margin-left: 48px;
     margin-bottom: 32px;
     margin-right: 16px;
+	line-height: 20px;
     float: left;
 }
 
@@ -3134,6 +3156,13 @@ input[type="checkbox"].switch:checked + div .enabled {
     text-align: center;
     letter-spacing: 0px;
     line-height: 24px;
+}
+
+.transaction-modal-body-large p{
+	margin-top: 0;
+	margin-bottom: 20px;
+	margin-left: 20px;
+	margin-right: 20px;
 }
 
 .modal-body-text {
