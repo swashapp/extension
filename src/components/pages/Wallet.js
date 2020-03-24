@@ -56,7 +56,7 @@ class SettingsPage extends React.Component {
 
     async loadSettings() {        
         return window.helper.load().then(db => {        
-            return window.helper.decryptWallet(db.configs.encryptedWallet, db.configs.salt).then(keyInfo => {                
+            return window.helper.decryptWallet(db.profile.encryptedWallet, db.configs.salt).then(keyInfo => {                
                 this.setState({
                     keyInfo: keyInfo,
                 })

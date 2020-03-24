@@ -32,9 +32,9 @@ class ModuleDetailView extends React.Component {
         }
         let functions = module.functions;
         for (let func of functions) {
-          if (module[func]) {
+          if (module[func].items) {
             let index = 0
-            for (let item of module[func]) {
+            for (let item of module[func].items) {
               views[item.viewGroup].items.push({
                 name: item.name,
                 title: item.title,
@@ -59,7 +59,7 @@ class ModuleDetailView extends React.Component {
       this.setState({
         module: module,
         is_enabled: module.is_enabled,
-        connected: module.access_token ? true : false,
+        connected: module.apiCall && module.apiCall.access_token ? true : false,
         views: views,
       })
     }
