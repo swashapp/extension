@@ -190,7 +190,7 @@ class OnBoardingNewPage extends React.Component {
                             </div>
                             <div className="onboarding-box-footer-right">
                                 <div className='onboarding-proceed-button' onClick={this.LoadOnBoardingNew}>Import</div>
-                                <div style={{float: "right"}}>
+                                <div style={{float: "right", cursor: "pointer"}}>
                                     <span onClick={this.goToPreviousPage}>Back</span>
                                 </div>
                             </div>

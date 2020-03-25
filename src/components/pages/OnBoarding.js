@@ -13,7 +13,7 @@ class OnBoardingPage extends React.Component {
         super(props);
         this.state = {
             CurrentPage: 'Welcome',
-            SelectedPage: '',
+            SelectedPage: 'Create',
             isUpdate: false
         };
 
@@ -90,6 +90,7 @@ class OnBoardingPage extends React.Component {
                     nextPage={this.getNextPage}
                     previousPage={this.getPreviousPage}
                     ChangeSelectedPage={this.ChangeSelectedPage}
+                    SelectedPage={this.state.SelectedPage}
                 />;
             case 'PrivacyPolicy':
                 return <OnBoardingPrivacyPolicy
