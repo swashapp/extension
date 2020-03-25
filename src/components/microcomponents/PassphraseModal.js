@@ -93,7 +93,8 @@ class PassphraseModal extends React.Component {
                             'border': 'solid #e6e6e6 1px',
                             'border-radius': '4px',
                             'padding': '10px',
-                            'background': '#f7f7f7'
+                            'background': '#f7f7f7',
+                            'margin': 'unset'
                         }}>
                             {this.state.mnemonic}
                         </p>

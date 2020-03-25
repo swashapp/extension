@@ -200,14 +200,10 @@ class SettingsPage extends React.Component {
             showPopup: !this.state.showPopup
         });
 
-        console.log("isCompleted");
-        console.log(isCompleted);
-
         if (isCompleted === false)
                 this.refs.notify.handleNotification('The configuration file could not be exported', 'error');
         else if (isCompleted === true)
             this.refs.notify.handleNotification('The configuration file is exported successfully', 'success');
-
     }
 
     render() {
