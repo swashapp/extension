@@ -86,6 +86,8 @@ class DataPage extends React.Component {
             this.setState({ messages: messages });
         };
         const saveDelay = (delay) => {
+			if(!delay || delay < 0)
+				delay = 0;
             window.helper.saveConfigs({ delay: delay }).then(() => {
                 this.setState({delay:delay});
                 //NotificationManager.success('Configuration is updated successfully', 'Update Configuration');                

@@ -6,6 +6,7 @@ class RevealKeyModal extends React.Component {
   constructor(props) {
   super(props);
     this.state = {
+		text: this.props.text,
 		opening: this.props.opening,
 		revealFunction: this.props.func		
     };	
@@ -28,7 +29,7 @@ class RevealKeyModal extends React.Component {
 						</div>
 						<div className="transaction-modal-footer">							
 							<div className="transaction-modal-footer-right">
-								<div className='transaction-modal-button' onClick={(e) => {this.state.revealFunction(e); this.state.opening(e)}}>Yes, copy keys</div>
+								<div className='transaction-modal-button' onClick={(e) => {this.state.revealFunction(e); this.state.opening(e)}}>Yes, {this.state.text} keys</div>
 								<div className='transaction-modal-button-cancel' onClick={this.state.opening}>Cancel</div>
 							</div>
 						</div>

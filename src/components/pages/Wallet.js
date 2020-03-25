@@ -24,7 +24,7 @@ class SettingsPage extends React.Component {
 			recipient: '',
 			recipientEthBalance: '$',
 			recipientDataBalance: '$',
-			revealFunction: this.copyToClipboard
+			revealFunction: {func: this.copyToClipboard, text: 'copy'}
         };
         this.balanceCheckInterval = 0;
 		this.openModal = this.openModal.bind(this);
@@ -90,10 +90,10 @@ class SettingsPage extends React.Component {
 					this.forceUpdate();					
 				}
 				else
-					this.setState({revealKeyModal: !this.state.revealKeyModal, revealFunction: this.revealPrivateKey});
+					this.setState({revealKeyModal: !this.state.revealKeyModal, revealFunction: {func: this.revealPrivateKey, text: 'reveal'}});
 				break;
 			case 'CopyKey':
-				this.setState({revealKeyModal: !this.state.revealKeyModal, revealFunction: this.copyToClipboard});
+				this.setState({revealKeyModal: !this.state.revealKeyModal, revealFunction: {func: this.copyToClipboard, text: 'copy'}});
 				break;
 		}
 	}
@@ -125,11 +125,10 @@ class SettingsPage extends React.Component {
 	}
 	
 	copyToClipboard(e, element) {            
-		this.revealPrivateKey(e);
 		element.select();
 		document.execCommand("copy");
 		this.revealPrivateKey(e);
-		element.blur();    
+		element.blur();
 		this.refs.notify.handleNotification('Copied successfully', 'success');                    
 	}
 
@@ -264,7 +263,7 @@ class SettingsPage extends React.Component {
 					{
 						this.state.revealKeyModal?<div>
 							<div onClick={(e) => {if (e.target == e.currentTarget) this.openModal('CopyKey')}} className="swash-modal">
-								<RevealKeyModal func={(e)=>{this.state.revealFunction(e,document.getElementById("privateKey"))}} opening={() => this.openModal('CopyKey')}/>
+								<RevealKeyModal func={(e)=>{this.state.revealFunction.func(e,document.getElementById("privateKey"))}} text={this.state.revealFunction.text} opening={() => this.openModal('CopyKey')}/>
 							</div>
 						</div>:''
 					}

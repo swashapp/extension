@@ -58,7 +58,7 @@ class HelpPage extends React.Component {
 
                             <div className="swash-head">Capture Modules</div>
 
-                            <div className="swash-p2">Swash is a modular extension and, aside from its default modules for Browse and Search it currently provides optional modules for Facebook, Amazon, Twitter, and Youtube. These modules provide for some fine grained data capture on those websites.</div>
+                            <div className="swash-p2">Swash is a modular extension and, aside from its default modules for Browse and Search it currently provides optional modules for Facebook, Amazon, Twitter, Spotify and Youtube. These modules provide for some fine grained data capture on those websites.</div>
 
                             <div className="swash-head2">Search</div>
                             <div className="swash-p2">Search engine module supports six top search engines: Google, Bing, Yahoo, AOL, Ask, Baidu.
@@ -74,12 +74,15 @@ class HelpPage extends React.Component {
                             <div className="swash-p2">User's post tweet and searches, follow and unfollow actions, mute and unmute actions, likes, and retweets can be captured by the Twitter module.  </div>
 
                             <div className="swash-head2">Youtube</div>
-                            <div className="swash-p2">This module can capture watched videoes, subscriptions, channels, playlists and any activities done on the Youtube platform.  </div>
+                            <div className="swash-p2">This module can capture watched videos, subscriptions, channels, playlists and any activities done on the Youtube platform.  </div>
+							
+							<div className="swash-head2">Spotify</div>
+                            <div className="swash-p2">This module captures the user's Spotify profile, saved tracks and albums, current playlists and playbacks, currently playing and recently played songs, and the artists that the user has followed.  </div>
 
 
 
                             <div id="privacySettings" className="swash-head">Privacy Settings</div>
-                            <div className="swash-p">We designed a simple privacy model as you see in the table shown below. The first column of the table shows different data types that we have identified so far and the first row of the table shows privacy levels that have been defined for Swash. At the lowest level, we assure no privacy. In Medium Privacy Level, we Mask URL path names, reduce time precision by removing hours from time and for texts we remove user information from texts. In High Level, we remove URL path names, remove days from the time and remove all texts that have user's information.</div>
+                            <div className="swash-p">We designed a simple privacy model as you see in the table shown below. The first column of the table shows different data types that we have identified so far and the first row of the table shows privacy levels that have been defined for Swash. At the lowest level, Swash assures no privacy. In Medium Privacy Level, Swash masks URL path names, reduces time precision by removing hours from time and for texts it removes user information from texts. In High Level, it removes URL path names, removes days from the time and removes all texts that have user's information.</div>
 
 
 
@@ -112,9 +115,9 @@ class HelpPage extends React.Component {
                                             <td className="table-text">Remove days and months</td>
                                         </tr><tr className="table-row">                                    
                                             <td className="table-text table-head-text">Text</td>
-                                            <td className="table-text">No changes</td>
-                                            <td className="table-text">Replace user info with star</td>
-                                            <td className="table-text">Remove text if contains user information</td>
+                                            <td className="table-text">Replace masked text with '*'</td>
+                                            <td className="table-text">Replace masked text with null</td>
+                                            <td className="table-text">Remove texts that has masked text</td>
                                         </tr><tr className="table-row">                                    
                                             <td className="table-text table-head-text">Id</td>
                                             <td className="table-text">No changes</td>

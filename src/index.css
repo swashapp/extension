@@ -2430,6 +2430,8 @@ margin-right: 120px;
 
 
 .module-detail-view-title-container .oauth_btn{
+   cursor: pointer;
+   text-align: center;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;

@@ -229,7 +229,7 @@ class SettingsPage extends React.Component {
         let addXUrl = (<div>
             <div className="form-caption">Add a URL to exclude</div>
             <div>
-                <input type="text" id="filterValue" placeholder="http://example.com" className="form-input  filter-input"/>
+                <input type="text" id="filterValue" onKeyDown={(e) => {if (e.key === 'Enter') this.addFilter()}} placeholder="http://example.com" className="form-input  filter-input"/>
             </div>
         </div>);
         let selectItems = [{description: 'Exact', value: 'exact'},
@@ -254,7 +254,7 @@ class SettingsPage extends React.Component {
         let addMaskText = (<div>
             <div className="form-caption">Add a text mask</div>
             <div>
-                <input type="text" id="maskValue" placeholder="Peter" className="form-input mask-input"/>
+                <input type="text" id="maskValue" onKeyDown={(e) => {if (e.key === 'Enter') this.addMask()}} placeholder="Peter" className="form-input mask-input"/>
             </div>
         </div>);
         let AddMaskButton = (<a className="linkbutton" onClick={() => this.addMask()}>Add</a>);
@@ -286,7 +286,7 @@ class SettingsPage extends React.Component {
                                 <div className="swash-head">Set global privacy level</div>
                                 <div className="swash-p">
                                     This allows you to set privacy levels across all your modules. Adjust them to choose
-                                    the types of data you’d like to share and what to obscure or remove. You can also use the Advanced settings to block specific text (eg your name
+                                    the types of data you’d like to share and what to obscure or remove. You can also use the Advanced settings to block specific text (e.g. your name
                                     or address), sites and domains.
                                 </div>
 
@@ -301,7 +301,7 @@ class SettingsPage extends React.Component {
                                 <div className="swash-head">Text masking</div>
                                 <div className="swash-p2">
                                     You can mask specific sensitive text data before it is sent to Streamr Marketplace. Your sensitive data is transformed based on the privacy
-                                    level setting. Examples of text you might want to mask could be your name, email address, and phone number.
+                                    level setting. Examples of text you might want to mask could be your name, email address and phone number.
 
                                 </div>
 
