@@ -14,7 +14,8 @@ class OnBoardingPage extends React.Component {
         this.state = {
             CurrentPage: 'Welcome',
             SelectedPage: 'Create',
-            isUpdate: false
+            isUpdate: false,
+			shoudlRedirect: false
         };
 
         // This binding is necessary to make `this` work in the callback
@@ -118,8 +119,11 @@ class OnBoardingPage extends React.Component {
                     previousPage={this.getPreviousPage}
                 />;
             case 'Completed':
-                window.helper.submitOnBoarding().then();
-                return  <Redirect to="/Settings"/>;
+                window.helper.submitOnBoarding().then(() => {
+					this.setState({shoudlRedirect: true, CurrentPage: "Home"})
+					}					
+				);
+                return  <div/>;
             // Redirect to Settings
             default:
                 return 'Welcome';
@@ -138,6 +142,7 @@ class OnBoardingPage extends React.Component {
         return (
             <div id="onboarding-page">
                 <React.Fragment>
+					{this.state.shoudlRedirect? <Redirect to="/Settings"/>: ''}					
                     <div>
                         {this.LoadOnBoarding()}
                     </div>
