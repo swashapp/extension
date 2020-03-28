@@ -35,7 +35,7 @@ class OnBoardingNewPage extends React.Component {
                         </div>
                         <div className="onboarding-box-body">
                             <div>
-                                <div className="onboarding-box-body-radio">
+                                <div className="onboarding-box-body-radio" onClick={() => {this.setState({userType: "Create"});}} style={{cursor: "pointer"}}>
                                     <CustomRadioBox
                                         id="Create"
                                         handleClick={this.radioChangeHandler}
@@ -44,7 +44,7 @@ class OnBoardingNewPage extends React.Component {
                                     <span>Yes, I’m new here</span><br/>
                                     <div className="onboarding-text-gray">This will create a new wallet</div>
                                 </div>
-                                <div className="onboarding-box-body-radio">
+                                <div className="onboarding-box-body-radio" onClick={() => {this.setState({userType: "Import"});}} style={{cursor: "pointer"}}>
                                     <CustomRadioBox
                                         id="Import"
                                         handleClick={this.radioChangeHandler}

@@ -123,7 +123,7 @@ class OnBoardingNewPage extends React.Component {
                         <div className="onboarding-box-body onboarding-box-body-big onboarding-box-body-import">
                             <span>Choose an option to import your settings file</span><br/>
                             <div className="onbording-export-div">
-                                <div className="onbording-import-option">
+                                <div className="onbording-import-option" onClick={() => {this.setState({onBoardingType: "LocalFile"});}} style={{cursor: "pointer"}}>
                                     <div className="onboarding-import-option-row">
                                         <img src={LocalFileImg} alt=""/>
                                     </div>
@@ -138,7 +138,7 @@ class OnBoardingNewPage extends React.Component {
                                         />
                                     </div>
                                 </div>
-                                <div className="onbording-import-option">
+                                <div className="onbording-import-option" onClick={() => {this.setState({onBoardingType: "GoogleDrive"});}} style={{cursor: "pointer"}}>
                                     <div className="onboarding-import-option-row">
                                         <img src={GoogleDriveImg} alt=""/>
                                     </div>
@@ -153,7 +153,7 @@ class OnBoardingNewPage extends React.Component {
                                         />
                                     </div>
                                 </div>
-                                <div className="onbording-import-option">
+                                <div className="onbording-import-option" onClick={() => {this.setState({onBoardingType: "DropBox"});}} style={{cursor: "pointer"}}>
                                     <div className="onboarding-import-option-row">
                                         <img src={DropboxImg} alt=""/>
                                     </div>
@@ -168,7 +168,7 @@ class OnBoardingNewPage extends React.Component {
                                         />
                                     </div>
                                 </div>
-                                <div className="onbording-import-option">
+                                <div className="onbording-import-option" onClick={() => {this.setState({onBoardingType: "3Box"});}} style={{cursor: "pointer"}}>
                                     <div className="onboarding-import-option-row">
                                         <img src={ThreeBoxImg} alt=""/>
                                     </div>
