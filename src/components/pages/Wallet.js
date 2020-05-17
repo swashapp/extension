@@ -93,7 +93,14 @@ class SettingsPage extends React.Component {
 					this.setState({revealKeyModal: !this.state.revealKeyModal, revealFunction: {func: this.revealPrivateKey, text: 'reveal'}});
 				break;
 			case 'CopyKey':
-				this.setState({revealKeyModal: !this.state.revealKeyModal, revealFunction: {func: this.copyToClipboard, text: 'copy'}});
+				this.setState({revealKeyModal: !this.state.revealKeyModal, revealFunction: {func: (e) => {						
+						let pKey = document.getElementById("privateKey");
+						let pKeyType = pKey.type;
+						pKey.type = "text";
+						this.copyToClipboard(e, document.getElementById("privateKey"));
+						pKey.type = pKeyType;
+					}, text: 'copy'}
+				});					
 				break;
 		}
 	}
@@ -126,8 +133,7 @@ class SettingsPage extends React.Component {
 	
 	copyToClipboard(e, element) {            
 		element.select();
-		document.execCommand("copy");
-		this.revealPrivateKey(e);
+		document.execCommand("copy");		
 		element.blur();
 		this.refs.notify.handleNotification('Copied successfully', 'success');                    
 	}

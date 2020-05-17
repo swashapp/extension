@@ -48,7 +48,7 @@ class TransferModal extends React.Component {
 						<div className="transaction-modal-body transaction-modal-body-large">
 							<img src={verified}></img>
 							<p>
-								Verify your transaction on <a href={`https://etherscan.io/tx/${this.state.transactionId}`}>Etherscan</a>
+								Verify your transaction on <a target="_blank" href={`https://etherscan.io/tx/${this.state.transactionId}`}>Etherscan</a>
 							</p>							
 						</div>
 					</div>
