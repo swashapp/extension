@@ -20,7 +20,7 @@ class SettingsPage extends React.Component {
 			withdrawState: false,
 			transferModal: false,
 			revealKeyModal: false,
-			disableTransfer: true,
+			disableTransfer: false,
 			recipient: '',
 			recipientEthBalance: '$',
 			recipientDataBalance: '$',
@@ -222,7 +222,7 @@ class SettingsPage extends React.Component {
 								<div className="transfer-column amount-column">
 									<div className="form-caption">Amount</div>
 									<div>
-										<input type="text" id="amount" placeholder={this.state.dataAvailable} onChange={this.onAmountChange} className="form-input  filter-input" />
+										<input type="text" id="amount" value={this.state.dataAvailable} disabled="true" className="form-input  filter-input" />
 									</div>
 								</div>
 								
