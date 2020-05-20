@@ -1,9 +1,6 @@
 import React from 'react'
 import RDropdownMenu from '../microcomponents/RDropdownMenu.js';
 import CustomSnackbar from '../microcomponents/CustomSnackbar';
-import ModuleView from '../microcomponents/ModuleView';
-import PrivacyLevel from '../microcomponents/PrivacyLevel';
-import TransferView from '../microcomponents/TransferView';
 import TransferModal from '../microcomponents/TransferModal';
 import RevealKeyModal from '../microcomponents/RevealKeyModal';
 

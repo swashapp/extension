@@ -13,7 +13,8 @@ class CustomSnackbar extends React.Component {
 			notification: {
                 status: false,
                 type:'',
-                message: ""
+                message: "",
+                link: ""
             }
 		}
     }
@@ -23,6 +24,10 @@ class CustomSnackbar extends React.Component {
         this.setState({notification: {status:true, message: message, type:type}});
     }
     
+    handleNotificationByLink(message, type, link) {
+        this.setState({notification: {status:true, message: message, type:type, link: link}});
+    }
+
     render() {   
         return (
             <Snackbar
@@ -44,7 +49,12 @@ class CustomSnackbar extends React.Component {
                                 <div className="notification-icon">
                                     <img alt="" src={this.state.notification.type === 'success'?success:error}/>
                                 </div>
-                                <span className="notification-message" id="message-id" dangerouslySetInnerHTML={{__html: this.state.notification.message}}></span>
+                                {this.state.notification.link? <span className="notification-message" id="message-id">
+                                    <a target="_blank" rel="noreferrer" href={this.state.notification.link}>{this.state.notification.message}</a>
+                                    </span>
+                                    :<span className="notification-message" id="message-id">{this.state.notification.message}</span>
+                                }
+                                
                             </div>}  
                 />
             </Snackbar>

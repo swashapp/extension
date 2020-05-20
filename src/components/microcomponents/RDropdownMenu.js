@@ -14,7 +14,7 @@ class RDropdownMenu extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
 	this.setState({items: nextProps.items})
   }
   

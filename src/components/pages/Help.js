@@ -35,7 +35,7 @@ class HelpPage extends React.Component {
                             <img alt="" src={help1}/>
                             <div className="image-caption">Swash installed and enabled</div>
 
-                            <div className="swash-p">Once you've installed Swash, it will generate an ethereum wallet address for you where you can receive payments in Streamr's native token, <a target="_blank" href="https://etherscan.io/token/0x0cf0ee63788a0849fe5297f3407f701e122cc023">DATA</a>. You can withdraw these payments and exchange them for other cryptocurrency or plain old cash through various exchanges, such as Coinbase or Binance. For more information, see Payments and Withdrawals below.</div>
+                            <div className="swash-p">Once you've installed Swash, it will generate an ethereum wallet address for you where you can receive payments in Streamr's native token, <a target="_blank" rel="noreferrer" href="https://etherscan.io/token/0x0cf0ee63788a0849fe5297f3407f701e122cc023">DATA</a>. You can withdraw these payments and exchange them for other cryptocurrency or plain old cash through various exchanges, such as Coinbase or Binance. For more information, see Payments and Withdrawals below.</div>
 
                             <img alt="" src={help2}/>
                             <div className="image-caption">Swash’s Earnings section shows balances, address and withdrawal functions</div>
