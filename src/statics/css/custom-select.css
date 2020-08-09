@@ -4,13 +4,11 @@
     border: 1px solid rgb(239, 239, 239);
     border-radius: 4px;
     background: rgb(255, 255, 255);
-  }
-  
+}
 
 .swash-select {
     position: unset !important;
 }
-
 
 .swash-select-menu {
     background: rgb(255, 255, 255);
@@ -21,7 +19,7 @@
 }
 
 .swash-select-item {
-    padding: 0px 0px 0px 16px!important;
+    padding: 0px 0px 0px 16px !important;
     color: rgb(50, 50, 50) !important;
     font-family: Roboto-Regular;
     font-size: 14px;
@@ -30,7 +28,9 @@
     line-height: 28px;
 }
 
-.swash-select-item:focus, .swash-select-item:hover, .swash-select-item:active {
+.swash-select-item:focus,
+.swash-select-item:hover,
+.swash-select-item:active {
     color: rgb(50, 50, 50) !important;
     text-decoration: none;
     background-color: #efefef !important;
@@ -38,18 +38,18 @@
 }
 
 .swash-select-arrow {
-    background: rgb(255, 255, 255);    
+    background: rgb(255, 255, 255);
     height: 38px;
-    width: 22px;    
+    width: 22px;
     vertical-align: middle;
     display: flex;
     float: right;
-  }
-  
+}
+
 .swash-select-default {
     float: left;
     height: 40px;
-    padding: 0px 0px 0px 16px!important;
+    padding: 0px 0px 0px 16px !important;
     color: rgb(50, 50, 50) !important;
     font-family: Roboto-Regular;
     font-size: 16px;
@@ -61,8 +61,8 @@
     line-height: 40px;
 }
 
-@media only screen and (max-width: 600px) {	
-	.swash-select-default {
-		width: 50%;
-	}
+@media only screen and (max-width: 600px) {
+    .swash-select-default {
+        width: 50%;
+    }
 }

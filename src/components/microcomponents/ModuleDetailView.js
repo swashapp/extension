@@ -5,14 +5,14 @@ import CustomSelect from './CustomSelect';
 import CustomSnackbar from '../microcomponents/CustomSnackbar';
 
 class ModuleDetailView extends React.Component {
-  constructor(props) {    
-    super(props);    
+  constructor(props) {
+    super(props);
     this.state = {
       module: this.props.module,
       views: {},
       connected: false,
       group_selected: this.props.module.viewGroups[0].name,
-      intervalId: 0  
+      intervalId: 0,
     };
     this.onSelectChange = this.onSelectChange.bind(this);
     this.saveSettings = this.saveSettings.bind(this);
@@ -27,13 +27,13 @@ class ModuleDetailView extends React.Component {
           views[view.name] = {
             name: view.name,
             title: view.title,
-            items: []
-          }
+            items: [],
+          };
         }
         let functions = module.functions;
         for (let func of functions) {
           if (module[func].items) {
-            let index = 0
+            let index = 0;
             for (let item of module[func].items) {
               views[item.viewGroup].items.push({
                 name: item.name,
@@ -41,59 +41,58 @@ class ModuleDetailView extends React.Component {
                 description: item.description,
                 is_enabled: item.is_enabled,
                 func: func,
-                index: index
-              })
+                index: index,
+              });
               index++;
             }
           }
         }
       }
 
-      if (module.apiCall) {			  
-        let f  = setInterval(()=>{window.helper.isConnected(module.name).then(connected => {
-		  if(connected !== this.state.connected)
-			this.setState({connected:connected})
-        });},1000);
+      if (module.apiCall) {
+        let f = setInterval(() => {
+          window.helper.isConnected(module.name).then((connected) => {
+            if (connected !== this.state.connected) this.setState({connected: connected});
+          });
+        }, 1000);
         this.setState({intervalId: f});
-      }                
+      }
       this.setState({
         module: module,
         is_enabled: module.is_enabled,
         connected: module.apiCall && module.apiCall.access_token ? true : false,
         views: views,
-      })
+      });
     }
   }
 
   componentDidMount() {
     this.loadSettings();
-  };
+  }
 
   componentDidUpdate(prevProps) {
-    if(prevProps.isOpened !== this.props.isOpened) {
+    if (prevProps.isOpened !== this.props.isOpened) {
       this.loadSettings();
-    }      
+    }
   }
 
   componentWillUnmount() {
     clearInterval(this.state.intervalId);
   }
 
-  connect(name){
-    window.helper.startAuth(name).then(x => {
-      this.setState({connected:'connecting'})				
+  connect(name) {
+    window.helper.startAuth(name).then((x) => {
+      this.setState({connected: 'connecting'});
     });
   }
-  
-  disconnect(name){
-    window.helper.removeAuth(name).then(x => {      
-      window.helper.isConnected(name).then(connected => {
+
+  disconnect(name) {
+    window.helper.removeAuth(name).then((x) => {
+      window.helper.isConnected(name).then((connected) => {
         this.setState({connected: connected});
       });
     });
   }
-
-
 
   selectAll(e, state) {
     let views = this.state.views;
@@ -102,20 +101,18 @@ class ModuleDetailView extends React.Component {
         views[viewName].items[itemId].is_enabled = state;
       }
     }
-    this.setState({ views: views });
+    this.setState({views: views});
   }
 
-
-
   getSettings(settings) {
-    for(let func of this.state.module.functions) {
-			settings[func] = {};
-		}	
-    let views = this.state.views
+    for (let func of this.state.module.functions) {
+      settings[func] = {};
+    }
+    let views = this.state.views;
     for (let viewName in views) {
-        for (let itemId in views[viewName].items) {
-          settings[views[viewName].items[itemId].func][views[viewName].items[itemId].name] = views[viewName].items[itemId].is_enabled;
-        }
+      for (let itemId in views[viewName].items) {
+        settings[views[viewName].items[itemId].func][views[viewName].items[itemId].name] = views[viewName].items[itemId].is_enabled;
+      }
     }
   }
 
@@ -123,20 +120,19 @@ class ModuleDetailView extends React.Component {
     var settings = {};
     this.getSettings(settings);
     let moduleName = this.state.module.name;
-			return window.helper.configModule(moduleName, settings).then(()=>{
-				return window.helper.loadModules().then((modules) => {
-					this.setState({						
-						module: modules[moduleName]
-          })				
-          this.refs.notify.handleNotification('Saved successfully', 'success');    
-				})
-			});	
-
+    return window.helper.configModule(moduleName, settings).then(() => {
+      return window.helper.loadModules().then((modules) => {
+        this.setState({
+          module: modules[moduleName],
+        });
+        this.refs.notify.handleNotification('Saved successfully', 'success');
+      });
+    });
   }
 
   triggerClickEvent(id) {
-	  let element = document.getElementById(id);
-	  element.click();
+    let element = document.getElementById(id);
+    element.click();
   }
 
   onSelectChange(item) {
@@ -144,59 +140,103 @@ class ModuleDetailView extends React.Component {
   }
 
   getCollectors() {
-    if (!this.state.views)
-      return "";
-    let selectItems =[];
+    if (!this.state.views) return '';
+    let selectItems = [];
     this.state.module.viewGroups.map((ob, id) => selectItems.push({description: ob.title, value: ob.name}));
-    let searchEngings = (<div>
-      <CustomSelect items={selectItems} className={'search-select-container'} menuClassName='search-select-menu' onChange={this.onSelectChange} />
-    </div >);
-
-    const dropbox = (<div style={{marginTop: '48px'}}><div className="form-caption">Choose a search engine</div>
+    let searchEngings = (
       <div>
-        {searchEngings}
-      </div></div>);
+        <CustomSelect items={selectItems} className={'search-select-container'} menuClassName="search-select-menu" onChange={this.onSelectChange} />
+      </div>
+    );
 
-    return (<div>
-      {this.state.module.style === 'dropbox' ? dropbox : ''}
-      {this.state.views ? Object.keys(this.state.views).map((key, index) =>
-        <>
-          {((this.state.module.style === 'dropbox' && this.state.group_selected === key) || (this.state.module.style !== 'dropbox')) ? <>
-            <div className="module-detail-view-title-container">
-              <div className="module-detail-view-title">{this.state.views[key].title}</div>
-              {key === 'API' ? <>
-                {this.state.connected && this.state.connected !== 'connecting'?
-                <div className="oauth_btn" onClick={() => this.disconnect(this.state.module.name)}>Disconnect</div>
-                :<div className="oauth_btn" onClick={() => this.connect(this.state.module.name)}>Connect to {this.state.module.name}</div>                
-                }
-              </> : ''}
-            </div>
-            <div className="checkbox-container">
-              {this.state.views[key].items.map((collector, id) =>
-                <div className="module-detail-view-checkbox" onClick={() => {this.state.views[key].items[id].is_enabled = !this.state.views[key].items[id].is_enabled; this.setState({views:this.state.views})}} >
-                  <label>
+    const dropbox = (
+      <div style={{marginTop: '48px'}}>
+        <div className="form-caption">Choose a search engine</div>
+        <div>{searchEngings}</div>
+      </div>
+    );
 
-                    <CustomCheckBox id={this.state.module.name + '-' + this.state.views[key].name + "-" + id} checked={collector.is_enabled} handleClick={(x) => {return true}} />
-                    <div className="label">{collector.title}</div>
-                  </label>
-                </div>
-              )}
-            </div>
-          </> : ''}
-        </>)
-        : ''}
-    </div>);
+    return (
+      <div>
+        {this.state.module.style === 'dropbox' ? dropbox : ''}
+        {this.state.views
+          ? Object.keys(this.state.views).map((key, index) => (
+              <>
+                {(this.state.module.style === 'dropbox' && this.state.group_selected === key) || this.state.module.style !== 'dropbox' ? (
+                  <>
+                    <div className="module-detail-view-title-container">
+                      <div className="module-detail-view-title">{this.state.views[key].title}</div>
+                      {key === 'API' ? (
+                        <>
+                          {this.state.connected && this.state.connected !== 'connecting' ? (
+                            <div className="oauth_btn" onClick={() => this.disconnect(this.state.module.name)}>
+                              Disconnect
+                            </div>
+                          ) : (
+                            <div className="oauth_btn" onClick={() => this.connect(this.state.module.name)}>
+                              Connect to {this.state.module.name}
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        ''
+                      )}
+                    </div>
+                    <div className="checkbox-container">
+                      {this.state.views[key].items.map((collector, id) => (
+                        <div
+                          className="module-detail-view-checkbox"
+                          onClick={() => {
+                            this.state.views[key].items[id].is_enabled = !this.state.views[key].items[id].is_enabled;
+                            this.setState({views: this.state.views});
+                          }}>
+                          <label>
+                            <CustomCheckBox
+                              id={this.state.module.name + '-' + this.state.views[key].name + '-' + id}
+                              checked={collector.is_enabled}
+                              handleClick={(x) => {
+                                return true;
+                              }}
+                            />
+                            <div className="label">{collector.title}</div>
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  ''
+                )}
+              </>
+            ))
+          : ''}
+      </div>
+    );
   }
-
 
   getButtons() {
-    return <div style={{ height: 40, marginTop: 32 }}>
-      <a className="module-btn mdv-delete-all-btn-a" onClick={(e) => { this.selectAll(e, false) }} >Deselect all</a>
-      <a className="module-btn mdv-select-all-btn-a" onClick={(e) => { this.selectAll(e, true) }} >Select all</a>
-      <a className="module-btn mdv-done-btn-a" onClick={this.saveSettings} >Done</a>
-    </div>
+    return (
+      <div style={{height: 40, marginTop: 32}}>
+        <a
+          className="module-btn mdv-delete-all-btn-a"
+          onClick={(e) => {
+            this.selectAll(e, false);
+          }}>
+          Deselect all
+        </a>
+        <a
+          className="module-btn mdv-select-all-btn-a"
+          onClick={(e) => {
+            this.selectAll(e, true);
+          }}>
+          Select all
+        </a>
+        <a className="module-btn mdv-done-btn-a" onClick={this.saveSettings}>
+          Done
+        </a>
+      </div>
+    );
   }
-
 
   render() {
     const collectors = this.getCollectors();
@@ -206,13 +246,10 @@ class ModuleDetailView extends React.Component {
         <div className="module-detail-view-description">{this.state.module.description}</div>
         {collectors}
         {buttons}
-        <CustomSnackbar
-                    ref='notify'
-                />
+        <CustomSnackbar ref="notify" />
       </>
     );
   }
-
 }
 
 export default ModuleDetailView;

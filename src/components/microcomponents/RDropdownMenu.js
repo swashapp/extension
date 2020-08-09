@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 
 import '../../statics/css/custom-dropdown.css';
 
@@ -10,31 +10,34 @@ class RDropdownMenu extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       dropdownOpen: false,
-	  items: this.props.items
+      items: this.props.items,
     };
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-	this.setState({items: nextProps.items})
+    this.setState({items: nextProps.items});
   }
-  
+
   toggle() {
-    this.setState(prevState => ({
-      dropdownOpen: !prevState.dropdownOpen
+    this.setState((prevState) => ({
+      dropdownOpen: !prevState.dropdownOpen,
     }));
   }
-  
 
-  render() {	 
+  render() {
     return (
       <Dropdown className="custom-dropdown" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-        <DropdownToggle className={this.state.dropdownOpen?this.props.className + " more-button-active":this.props.className} tag='div'>          
-        </DropdownToggle>
+        <DropdownToggle
+          className={this.state.dropdownOpen ? this.props.className + ' more-button-active' : this.props.className}
+          tag="div"></DropdownToggle>
         <DropdownMenu className="custom-dropdown-menu">
-			{this.state.items.map((item) => {
-				return (<DropdownItem className="custom-dropdown-item" onClick={item.callback}>{item.text}</DropdownItem>)
-			  })          
-			}
+          {this.state.items.map((item) => {
+            return (
+              <DropdownItem className="custom-dropdown-item" onClick={item.callback}>
+                {item.text}
+              </DropdownItem>
+            );
+          })}
         </DropdownMenu>
       </Dropdown>
     );

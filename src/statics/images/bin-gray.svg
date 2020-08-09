@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="20px" height="18px" viewBox="0 0 20 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="20px" height="18px" viewBox="0 0 20 18" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <!-- Generator: sketchtool 57.1 (101010) - https://sketch.com -->
     <title>27DFBD8B-67E0-4CDE-BF60-104FF05FA963@1.00x</title>
     <desc>Created with sketchtool.</desc>
     <g id="Swash-Views" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
         <g id="Data-view" transform="translate(-1034.000000, -523.000000)" stroke="#A3A3A3" stroke-width="1.5">
             <g id="bin-copy" transform="translate(1035.000000, 524.000000)">
-                <path d="M13.5555556,16 L4.22222222,16 C3.48584256,16 2.88888889,15.4030463 2.88888889,14.6666667 L2.88888889,2.66666667 L14.8888889,2.66666667 L14.8888889,14.6666667 C14.8888889,15.4030463 14.2919352,16 13.5555556,16 Z" id="Path"></path>
+                <path d="M13.5555556,16 L4.22222222,16 C3.48584256,16 2.88888889,15.4030463 2.88888889,14.6666667 L2.88888889,2.66666667 L14.8888889,2.66666667 L14.8888889,14.6666667 C14.8888889,15.4030463 14.2919352,16 13.5555556,16 Z"
+                      id="Path"></path>
                 <path d="M6.88888889,12 L6.88888889,6.66666667" id="Path"></path>
                 <path d="M10.8888889,12 L10.8888889,6.66666667" id="Path"></path>
                 <path d="M0.222222222,2.66666667 L17.5555556,2.66666667" id="Path"></path>
-                <path d="M10.8888889,0 L6.88888889,0 C6.15250922,0 5.55555556,0.596953667 5.55555556,1.33333333 L5.55555556,2.66666667 L12.2222222,2.66666667 L12.2222222,1.33333333 C12.2222222,0.596953667 11.6252686,0 10.8888889,0 Z" id="Path"></path>
+                <path d="M10.8888889,0 L6.88888889,0 C6.15250922,0 5.55555556,0.596953667 5.55555556,1.33333333 L5.55555556,2.66666667 L12.2222222,2.66666667 L12.2222222,1.33333333 C12.2222222,0.596953667 11.6252686,0 10.8888889,0 Z"
+                      id="Path"></path>
             </g>
         </g>
     </g>
