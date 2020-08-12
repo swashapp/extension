@@ -1614,6 +1614,11 @@ label.btn input[type='checkbox'].filled-in:checked + label:after {
     cursor: pointer;
 }
 
+#referral-link {
+    width: 560px;
+    cursor: pointer;
+}
+
 .transfer-link-button {
     width: 104px;
     height: 40px;
@@ -3649,6 +3654,11 @@ input[type='checkbox'].switch:checked + div .enabled {
         text-overflow: ellipsis;
     }
 
+    #referral-link {
+        width: 100%;
+        text-overflow: ellipsis;
+    }
+
     .amount-column {
         width: 23%;
         margin-right: 2%;
@@ -3656,6 +3666,11 @@ input[type='checkbox'].switch:checked + div .enabled {
 
     .wallet-column {
         width: 73%;
+        margin-right: 2%;
+    }
+
+    .referral-column {
+        width: 100%;
         margin-right: 2%;
     }
 
@@ -5611,3 +5626,25 @@ div.rendered-file-browser p.empty {
     margin: 0 0 15px;
     font-size: 16px;
 }
+
+.onboarding-select-container {
+    height: 40px;
+    width: 128px;
+    border: 1px solid rgb(239, 239, 239);
+    border-radius: 4px;
+    background: rgb(255, 255, 255);
+}
+
+.onboarding-select-label {
+    color: rgb(50, 50, 50);
+    font-family: Roboto-Regular;
+    font-size: 14px;
+    font-weight: normal;
+    height: 24px;
+    letter-spacing: 0px;
+    line-height: 24px;
+    width: 125px;
+    text-align: left;
+    margin-bottom: 4px;
+}
+

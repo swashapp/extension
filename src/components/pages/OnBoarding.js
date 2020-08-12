@@ -1,11 +1,13 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
 import OnBoardingWelcomePage from '../microcomponents/OnBoardingWelcome';
+import OnBoardingYourProfileWarning from '../microcomponents/OnBoardingYourProfileWarning';
 import OnBoardingPrivacyPolicy from '../microcomponents/OnBoardingPrivacyPolicy';
 import OnBoardingResponsibility from '../microcomponents/OnBoardingResponsibility';
 import OnBoardingNewPage from '../microcomponents/OnBoardingNew';
 import OnBoardingImportPage from '../microcomponents/OnBoardingImport';
 import OnBoardingCreatePage from '../microcomponents/OnBoardingCreate';
+import OnBoardingYourProfile from '../microcomponents/OnBoardingYourProfile';
 
 class OnBoardingPage extends React.Component {
   constructor(props) {
@@ -28,7 +30,7 @@ class OnBoardingPage extends React.Component {
 
   componentDidMount() {
     window.helper.isExtensionUpdated().then((result) => {
-      this.state.isUpdate = result;
+      this.setState({isUpdate: result});
     });
   }
 
@@ -39,8 +41,10 @@ class OnBoardingPage extends React.Component {
 
     if (current === 'Welcome') {
       if (isUpdate) return 'PrivacyPolicy';
-      else return 'New';
-    } else if (current === 'New') return 'PrivacyPolicy';
+      else return 'YourProfileWarning';
+    } else if (current === 'YourProfileWarning') return 'YourProfile';
+    else if (current === 'YourProfile') return 'New';
+    else if (current === 'New') return 'PrivacyPolicy';
     else if (current === 'PrivacyPolicy') return 'OnBoardingResponsibility';
     else if (current === 'OnBoardingResponsibility') {
       if (isUpdate) return 'Completed';
@@ -53,7 +57,9 @@ class OnBoardingPage extends React.Component {
     let current = this.state.CurrentPage;
     let selected = this.state.SelectedPage;
 
-    if (current === 'New') return 'Welcome';
+    if (current === 'YourProfileWarning') return 'Welcome';
+    if (current === 'YourProfile') return 'YourProfileWarning';
+    if (current === 'New') return 'YourProfile';
     else if (current === 'PrivacyPolicy') {
       if (isUpdate) return 'Welcome';
       else return 'New';
@@ -67,6 +73,18 @@ class OnBoardingPage extends React.Component {
       case 'Welcome':
         return (
           <OnBoardingWelcomePage ChangeOnBoardingPage={this.ChangeOnBoardingPage} nextPage={this.getNextPage} previousPage={this.getPreviousPage} />
+        );
+      case 'YourProfileWarning':
+        return (
+          <OnBoardingYourProfileWarning
+            ChangeOnBoardingPage={this.ChangeOnBoardingPage}
+            nextPage={this.getNextPage}
+            previousPage={this.getPreviousPage}
+          />
+        );
+      case 'YourProfile':
+        return (
+          <OnBoardingYourProfile ChangeOnBoardingPage={this.ChangeOnBoardingPage} nextPage={this.getNextPage} previousPage={this.getPreviousPage} />
         );
       case 'New':
         return (

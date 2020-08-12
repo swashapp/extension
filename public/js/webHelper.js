@@ -291,11 +291,11 @@ var helper = (function() {
   }
 
   async function isNeededOnBoarding() {
-    return true;
+    return false;
   }
 
   async function isExtensionUpdated() {
-    return true;
+    return false;
   }
 
   async function submitOnBoarding() {
