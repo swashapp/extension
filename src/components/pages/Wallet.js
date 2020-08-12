@@ -287,6 +287,38 @@ class SettingsPage extends React.Component {
                 ''
               )}
             </div>
+            <div className="setting-part">
+              <div className="swash-head">Invite a friend</div>
+              <div className="swash-p">
+                Refer a friend to Swash and earn a 50 DATA bonus for every referred signup. Just copy and share the invite link below.
+              </div>
+              <div className="transfer-row">
+                <div className="transfer-column referral-column">
+                  <div className="form-caption">Your referral link</div>
+                  <div>
+                    <input
+                      type="text"
+                      id="referral-link"
+                      value={'https://swashapp.io/project/ckanfpqxx00blga01apv6qh05'}
+                      readOnly={true}
+                      className="form-input  filter-input"
+                    />
+                  </div>
+                </div>
+                <div className="transfer-column button-column" style={{marginRight: '0px'}}>
+                  <a
+                    id="transfer-button"
+                    className="transfer-link-button"
+                    aria-readonly={'true'}
+                    onClick={(e) => {
+                      this.copyToClipboard(e, document.getElementById('referral-link'));
+                      e.target.innerText = 'Copied !';
+                    }}>
+                    Copy Link
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
 
           {this.state.transferModal ? (
