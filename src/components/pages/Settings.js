@@ -1,7 +1,5 @@
 import React from 'react';
 import CustomSnackbar from '../microcomponents/CustomSnackbar';
-import ModuleView from '../microcomponents/ModuleView';
-import PrivacyLevel from '../microcomponents/PrivacyLevel';
 import RDropdownMenu from '../microcomponents/RDropdownMenu.js';
 
 import {MDBTable, MDBTableBody, MDBTableHead} from 'mdbreact';
@@ -191,14 +189,6 @@ class SettingsPage extends React.Component {
   }
 
   render() {
-    const modules = this.state.modules ? (
-      this.state.modules.map((module) => {
-        return <ModuleView isOpened={false} module={module} />;
-      })
-    ) : (
-      <></>
-    );
-
     let excludeTableDataRows = this.state.filters.map((row) => {
       return (
         <tr key={row.value} className="table-row">
@@ -209,9 +199,9 @@ class SettingsPage extends React.Component {
             <input type="text" value={row.type} disabled className="disabledMatchingType" />
           </td>
           <td className="table-text delete-matching-type-td">
-            <a className="linkbutton" onClick={() => this.deleteFilterRecord(row.value)}>
+            <button className="linkbutton" onClick={() => this.deleteFilterRecord(row.value)}>
               Delete
-            </a>
+            </button>
           </td>
           <td className="table-text delete-matching-type-td-small">
             <RDropdownMenu
@@ -252,9 +242,9 @@ class SettingsPage extends React.Component {
       </div>
     );
     let AddXButton = (
-      <a className="linkbutton add-link-button" onClick={() => this.addFilter()}>
+      <button className="linkbutton add-link-button" onClick={() => this.addFilter()}>
         Add
-      </a>
+      </button>
     );
 
     let maskTableDataRows = this.state.masks.map((row) => {
@@ -264,13 +254,13 @@ class SettingsPage extends React.Component {
             <input type="text" value={row.value} disabled className="disabledMaskedText" />
           </td>
           <td className="table-text delete-masked-text-td">
-            <a
+            <button
               className="linkbutton"
               onClick={() => {
                 this.deleteMaskRecord(row.value);
               }}>
               Delete
-            </a>
+            </button>
           </td>
         </tr>
       );
@@ -292,9 +282,9 @@ class SettingsPage extends React.Component {
       </div>
     );
     let AddMaskButton = (
-      <a className="linkbutton" onClick={() => this.addMask()}>
+      <button className="linkbutton" onClick={() => this.addMask()}>
         Add
-      </a>
+      </button>
     );
 
     return (
@@ -361,51 +351,51 @@ class SettingsPage extends React.Component {
               <div style={{display: 'inline-block', width: '100%'}}>
                 <div className="onbording-export-div">
                   <div className="onbording-export-option">
-                    <a
+                    <button
                       className="onbording-export-button"
                       onClick={() => {
                         window.helper.saveConfig().then();
                       }}>
                       <figure>
-                        <img src={LocalFileImg} alt="" />
+                        <img src={LocalFileImg} alt={''} />
                       </figure>
                       <div className="onbording-export-button">Local file</div>
-                    </a>
+                    </button>
                   </div>
 
                   <div className="onbording-export-option">
-                    <a
+                    <button
                       className="onbording-export-button"
                       onClick={() => {
                         this.onBoardingOAuth('GoogleDrive');
                       }}>
                       <figure>
-                        <img src={GoogleDriveImg} alt="" />
+                        <img src={GoogleDriveImg} alt={''} />
                       </figure>
                       <div className="onbording-export-button">Google Drive</div>
-                    </a>
+                    </button>
                   </div>
 
                   <div className="onbording-export-option">
-                    <a
+                    <button
                       className="onbording-export-button"
                       onClick={() => {
                         this.onBoardingOAuth('DropBox');
                       }}>
                       <figure>
-                        <img src={DropboxImg} alt="" />
+                        <img src={DropboxImg} alt={''} />
                       </figure>
                       <div className="onbording-export-button">Dropbox</div>
-                    </a>
+                    </button>
                   </div>
 
                   <div className="onbording-export-option">
-                    <a className="onbording-export-button" onClick={this.togglePopup}>
+                    <button className="onbording-export-button" onClick={this.togglePopup}>
                       <figure>
-                        <img src={ThreeBoxImg} alt="" />
+                        <img src={ThreeBoxImg} alt={''} />
                       </figure>
                       <div className="onbording-export-button">3Box</div>
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>

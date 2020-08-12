@@ -26,7 +26,7 @@ class OnBoardingPage extends React.Component {
               <p>Welcome to Swash</p>
             </div>
             <div className="onboarding-box-body">
-              <img alt="" style={{marginBottom: '23px'}} src={Logo} />
+              <img alt={''} style={{marginBottom: '23px'}} src={Logo} />
               <div>
                 <span>
                   Thanks for installing Swash.

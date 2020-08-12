@@ -139,7 +139,7 @@ class PassphraseModal extends React.Component {
                   return <div />;
                 }}
                 onSelectFile={(file) => {
-                  this.state.selectedFile = file;
+                  this.setState({selectedFile: file});
                 }}
               />
             </div>
@@ -167,7 +167,7 @@ class PassphraseModal extends React.Component {
         return this.state.waiting ? (
           <div className="transaction-modal-button transaction-modal-button-waiting">
             Uploading...
-            <img src={loading} alt="" />
+            <img src={loading} alt={''} />
           </div>
         ) : (
           <div className="transaction-modal-button" onClick={this.backupConfig}>
@@ -178,7 +178,7 @@ class PassphraseModal extends React.Component {
         return this.state.waiting ? (
           <div className="transaction-modal-button transaction-modal-button-waiting">
             Signing in...
-            <img src={loading} alt="" />
+            <img src={loading} alt={''} />
           </div>
         ) : (
           <div className="transaction-modal-button" onClick={this.signIn3Box}>
@@ -212,7 +212,7 @@ class PassphraseModal extends React.Component {
     this.setState({waiting: true});
     let inputValue = document.getElementById('3box-passphrase-input').value;
     if (bip39.validateMnemonic(inputValue)) {
-      this.state.mnemonic = inputValue;
+      this.setState({mnemonic: inputValue});
       bip39.mnemonicToSeed(inputValue).then((bytes) => {
         let seed = '0x'.concat(bytes.toString('hex').substring(0, 32));
         window.helper.getFrom3BoxSpace(seed).then((result) => {

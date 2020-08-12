@@ -45,17 +45,16 @@ class TransferModal extends React.Component {
               <p>Transfer completed</p>
             </div>
             <div className="transaction-modal-body transaction-modal-body-large">
-              <img src={verified}></img>
+              <img src={verified} alt={'Verified'}></img>
               <p>
                 Verify your transaction on{' '}
-                <a target="_blank" rel="noreferrer" href={`https://etherscan.io/tx/${this.state.transactionId}`}>
+                <a target="_blank" rel="noopener noreferrer" href={`https://etherscan.io/tx/${this.state.transactionId}`}>
                   Etherscan
                 </a>
               </p>
             </div>
           </div>
         );
-        break;
       case 'failed':
         return (
           <div>
@@ -63,13 +62,11 @@ class TransferModal extends React.Component {
               <p>Transfer failed</p>
             </div>
             <div className="transaction-modal-body transaction-modal-body-large">
-              <img src={error}></img>
+              <img src={error} alt={'Error'}></img>
               <p>Reason: {this.state.failedReason}</p>
             </div>
           </div>
         );
-        break;
-
       case 'init':
         return (
           <div>
@@ -84,7 +81,7 @@ class TransferModal extends React.Component {
                 </div>
               </div>
               <div className="transaction-modal-body-middle">
-                <img src={arrow} />
+                <img src={arrow} alt={'Arrow'} />
               </div>
               <div className="transaction-modal-body-right">
                 <div className="transaction-modal-body-text1">To address</div>
@@ -104,7 +101,6 @@ class TransferModal extends React.Component {
             </div>
           </div>
         );
-        break;
       case 'waiting':
         return (
           <div>
@@ -119,7 +115,7 @@ class TransferModal extends React.Component {
                 </div>
               </div>
               <div className="transaction-modal-body-middle">
-                <img src={arrow} />
+                <img src={arrow} alt={'Arrow'} />
               </div>
               <div className="transaction-modal-body-right">
                 <div className="transaction-modal-body-text1">To address</div>
@@ -130,7 +126,7 @@ class TransferModal extends React.Component {
               <div className="transaction-modal-footer-right">
                 <div className="transaction-modal-button transaction-modal-button-waiting">
                   Sending...
-                  <img src={loading} />
+                  <img src={loading} alt={'Loading'} />
                 </div>
                 <div className="transaction-modal-button-cancel" onClick={this.state.opening}>
                   Cancel
@@ -139,6 +135,8 @@ class TransferModal extends React.Component {
             </div>
           </div>
         );
+      default:
+        return '';
     }
   }
 

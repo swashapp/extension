@@ -43,7 +43,7 @@ class CustomCheckBox extends React.Component {
 
           if (this.props.handleClick) this.props.handleClick(this.state.isChecked);
         }}>
-        <img alt="" src={icon} style={{width: 16, height: 16, cursor: 'pointer'}} />
+        <img alt={''} src={icon} style={{width: 16, height: 16, cursor: 'pointer'}} />
       </div>
     );
   }

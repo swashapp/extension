@@ -45,11 +45,11 @@ class CustomSnackbar extends React.Component {
           message={
             <div>
               <div className="notification-icon">
-                <img alt="" src={this.state.notification.type === 'success' ? success : error} />
+                <img alt={''} src={this.state.notification.type === 'success' ? success : error} />
               </div>
               {this.state.notification.link ? (
                 <span className="notification-message" id="message-id">
-                  <a target="_blank" rel="noreferrer" href={this.state.notification.link}>
+                  <a target="_blank" rel="noopener noreferrer" href={this.state.notification.link}>
                     {this.state.notification.message}
                   </a>
                 </span>

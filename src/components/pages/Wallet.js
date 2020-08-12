@@ -98,6 +98,8 @@ class SettingsPage extends React.Component {
           },
         });
         break;
+      default:
+        break;
     }
   }
 
@@ -124,8 +126,7 @@ class SettingsPage extends React.Component {
 
   onAmountChange(e) {
     let val = e.target.value;
-    let btn = document.querySelector('#transfer-button');
-    if (val > this.state.dataAvailable || this.state.dataAvailable == '0.0') {
+    if (val > this.state.dataAvailable || this.state.dataAvailable === '0.0') {
       this.setState({disableTransfer: true});
       return;
     }
@@ -256,18 +257,18 @@ class SettingsPage extends React.Component {
 
                 <div className="transfer-column button-column" style={{marginRight: '0px'}}>
                   {this.state.disableTransfer ? (
-                    <a
+                    <button
                       id="transfer-button"
                       className="transfer-link-button transfer-link-button-disabled"
                       onClick={() => {
                         return false;
                       }}>
                       Transfer
-                    </a>
+                    </button>
                   ) : (
-                    <a id="transfer-button" className="transfer-link-button" onClick={this.transfer}>
+                    <button id="transfer-button" className="transfer-link-button" onClick={this.transfer}>
                       Transfer
-                    </a>
+                    </button>
                   )}
                 </div>
               </div>
@@ -306,16 +307,15 @@ class SettingsPage extends React.Component {
                   </div>
                 </div>
                 <div className="transfer-column button-column" style={{marginRight: '0px'}}>
-                  <a
+                  <button
                     id="transfer-button"
                     className="transfer-link-button"
-                    aria-readonly={'true'}
                     onClick={(e) => {
                       this.copyToClipboard(e, document.getElementById('referral-link'));
                       e.target.innerText = 'Copied !';
                     }}>
                     Copy Link
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -325,7 +325,7 @@ class SettingsPage extends React.Component {
             <div>
               <div
                 onClick={(e) => {
-                  if (e.target == e.currentTarget) this.openModal('Transfer');
+                  if (e.target === e.currentTarget) this.openModal('Transfer');
                 }}
                 className="swash-modal">
                 <TransferModal
@@ -343,7 +343,7 @@ class SettingsPage extends React.Component {
             <div>
               <div
                 onClick={(e) => {
-                  if (e.target == e.currentTarget) this.openModal('CopyKey');
+                  if (e.target === e.currentTarget) this.openModal('CopyKey');
                 }}
                 className="swash-modal">
                 <RevealKeyModal

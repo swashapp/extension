@@ -122,7 +122,7 @@ class OnBoardingNewPage extends React.Component {
                   }}
                   style={{cursor: 'pointer'}}>
                   <div className="onboarding-import-option-row">
-                    <img src={LocalFileImg} alt="" />
+                    <img src={LocalFileImg} alt={''} />
                   </div>
                   <div className="onboarding-import-option-row">
                     <span>Local file</span>
@@ -138,7 +138,7 @@ class OnBoardingNewPage extends React.Component {
                   }}
                   style={{cursor: 'pointer'}}>
                   <div className="onboarding-import-option-row">
-                    <img src={GoogleDriveImg} alt="" />
+                    <img src={GoogleDriveImg} alt={''} />
                   </div>
                   <div className="onboarding-import-option-row">
                     <span>Google Drive</span>
@@ -154,7 +154,7 @@ class OnBoardingNewPage extends React.Component {
                   }}
                   style={{cursor: 'pointer'}}>
                   <div className="onboarding-import-option-row">
-                    <img src={DropboxImg} alt="" />
+                    <img src={DropboxImg} alt={''} />
                   </div>
                   <div className="onboarding-import-option-row">
                     <span>Dropbox</span>
@@ -170,7 +170,7 @@ class OnBoardingNewPage extends React.Component {
                   }}
                   style={{cursor: 'pointer'}}>
                   <div className="onboarding-import-option-row">
-                    <img src={ThreeBoxImg} alt="" />
+                    <img src={ThreeBoxImg} alt={''} />
                   </div>
                   <div className="onboarding-import-option-row">
                     <span>3Box</span>

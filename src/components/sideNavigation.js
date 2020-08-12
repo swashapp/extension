@@ -9,7 +9,7 @@ class SideNavigation extends React.Component {
       <div className="sidebar-fixed position-fixed">
         <MDBListGroup className="list-group-flush">
           <div className="sidebar-logo">
-            <img src={Logo} />
+            <img src={Logo} alt={'Swash'} />
           </div>
           <NavLink exact={true} to="/Wallet" activeClassName="activeClass">
             <MDBListGroupItem className="side-bar-text">Wallet</MDBListGroupItem>

@@ -32,20 +32,20 @@ class HelpPage extends React.Component {
                 DATA is shown here too. The icons give quick access to Settings, Data and Help views.
               </div>
 
-              <img alt="" src={help1} />
+              <img alt={''} src={help1} />
               <div className="image-caption">Swash installed and enabled</div>
 
               <div className="swash-p">
                 Once you've installed Swash, it will generate an ethereum wallet address for you where you can receive payments in Streamr's native
                 token,{' '}
-                <a target="_blank" rel="noreferrer" href="https://etherscan.io/token/0x0cf0ee63788a0849fe5297f3407f701e122cc023">
+                <a target="_blank" rel="noopener noreferrer" href="https://etherscan.io/token/0x0cf0ee63788a0849fe5297f3407f701e122cc023">
                   DATA
                 </a>
                 . You can withdraw these payments and exchange them for other cryptocurrency or plain old cash through various exchanges, such as
                 Coinbase or Binance. For more information, see Payments and Withdrawals below.
               </div>
 
-              <img alt="" src={help2} />
+              <img alt={''} src={help2} />
               <div className="image-caption">Swash’s Earnings section shows balances, address and withdrawal functions</div>
 
               <div className="swash-p">
@@ -54,7 +54,7 @@ class HelpPage extends React.Component {
                 to capture. You can also choose to enable other modules that gather more fine grained data for a range of popular sites.
               </div>
 
-              <img alt="" src={help3} />
+              <img alt={''} src={help3} />
               <div className="image-caption">Default data collection modules, Browse and Search</div>
 
               <div className="swash-p">
@@ -64,7 +64,7 @@ class HelpPage extends React.Component {
                 the Advanced page.
               </div>
 
-              <img alt="" src={help4} />
+              <img alt={''} src={help4} />
               <div className="image-caption">The Privacy settings slider gives you three levels of privacy options</div>
 
               <div className="swash-p">
@@ -73,7 +73,7 @@ class HelpPage extends React.Component {
                 whatever you want.
               </div>
 
-              <img alt="" src={help5} />
+              <img alt={''} src={help5} />
               <div className="image-caption">Delete any captured session from the Data view before the delay progress bar reaches the end</div>
 
               <div className="swash-head">Capture Modules</div>
@@ -207,7 +207,7 @@ class HelpPage extends React.Component {
                 </p>
               </div>
 
-              <img alt="" src={help7} style={{marginBottom: '102px'}} />
+              <img alt={''} src={help7} style={{marginBottom: '102px'}} />
 
               <div className="swash-head">What makes us different?</div>
 

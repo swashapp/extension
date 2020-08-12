@@ -1634,6 +1634,12 @@ label.btn input[type='checkbox'].filled-in:checked + label:after {
     text-align: center;
     display: block;
     line-height: 40px;
+    border: unset;
+}
+
+.transfer-link-button:focus {
+    border: unset;
+    outline: 0 !important;
 }
 
 .transfer-link-button-disabled {
@@ -1957,6 +1963,11 @@ withdraw-btn:focus a {
 
 .accordion-delete:hover {
     background: url(statics/images/bin-black.svg) no-repeat;
+}
+
+.accordion-delete:focus {
+    border: unset;
+    outline: 0 !important;
 }
 
 /*
@@ -5606,6 +5617,7 @@ div.rendered-file-browser p.empty {
 
 .onbording-export-button {
     background: #f5f5f5;
+    border: none;
     border-radius: 4px;
     display: inline-block;
     padding: 10px 0 10px 0;

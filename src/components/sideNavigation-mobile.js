@@ -53,7 +53,7 @@ class MobileSideNavigation extends React.Component {
           </div>
           <div className="col-6 m-0 p-0 float-left">
             <div className="mobile-menu-icon-wrapper" onClick={this.toggleClass}>
-              <img src={menu} className="mobile-menu-icon"></img>
+              <img src={menu} className="mobile-menu-icon" alt={'Menu'}></img>
             </div>
           </div>
           <div className="col-6 m-0 p-0 float-left">
@@ -79,7 +79,7 @@ class MobileSideNavigation extends React.Component {
                 </div>
                 <div style={{float: 'left', width: '50%'}}>
                   <div className="mobile-menu-close-icon" onClick={this.toggleClass}>
-                    <img src={close} />
+                    <img src={close} alt={'Close'} />
                   </div>
                 </div>
               </div>

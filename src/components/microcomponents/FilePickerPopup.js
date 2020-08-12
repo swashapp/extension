@@ -71,7 +71,7 @@ class FilePickerPopup extends React.Component {
                       return <div />;
                     }}
                     onSelectFile={(file) => {
-                      this.state.selectedFile = file;
+                      this.setState({selectedFile: file});
                     }}
                   />
                 </div>
