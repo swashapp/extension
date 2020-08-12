@@ -303,18 +303,6 @@ class SettingsPage extends React.Component {
           <div id="settings-page" className="swash-col">
             <div className="swash-col">
               <div className="setting-part">
-                <div className="swash-head">Choose data to capture</div>
-                <div className="swash-p">
-                  To stream your web browsing behaviour, Swash uses a modular approach. By default, only the Search module is on. You can also
-                  optionally enable other modules in order to capture specific data from a variety of other popular sites. Click any module to adjust
-                  settings.
-                </div>
-
-                <div>{modules}</div>
-              </div>
-            </div>
-            <div className="swash-col">
-              <div className="setting-part">
                 <div className="swash-head">Set global privacy level</div>
                 <div className="swash-p">
                   This allows you to set privacy levels across all your modules. Adjust them to choose the types of data you’d like to share and what
