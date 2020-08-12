@@ -300,19 +300,6 @@ class SettingsPage extends React.Component {
     return (
       <div id="settings" className="swash-col">
         <React.Fragment>
-          <div id="settings-page" className="swash-col">
-            <div className="swash-col">
-              <div className="setting-part">
-                <div className="swash-head">Set global privacy level</div>
-                <div className="swash-p">
-                  This allows you to set privacy levels across all your modules. Adjust them to choose the types of data you’d like to share and what
-                  to obscure or remove. You can also use the Advanced settings to block specific text (e.g. your name or address), sites and domains.
-                </div>
-
-                <PrivacyLevel level={this.state.privacyLevel} />
-              </div>
-            </div>
-          </div>
           <div id="advanced-page">
             <div className="swash-col">
               <div className="setting-part">
