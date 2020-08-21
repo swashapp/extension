@@ -6,7 +6,6 @@ class OnBoardingYourProfile extends React.Component {
     super(props);
     this.state = {
       CurrentPage: 'YourProfileWarning',
-      age: '',
     };
 
     // This binding is necessary to make `this` work in the callback
@@ -22,12 +21,6 @@ class OnBoardingYourProfile extends React.Component {
   goToPreviousPage() {
     this.props.ChangeOnBoardingPage(this.props.previousPage());
   }
-
-  onSelectChange(item) {
-    console.log(item);
-    // this.setState({group_selected: item.value});
-  }
-
   render() {
     return (
       <div className="d-flex justify-content-center">
@@ -46,8 +39,9 @@ class OnBoardingYourProfile extends React.Component {
                       {description: 'Male', value: 'Male'},
                       {description: 'Female', value: 'Female'},
                     ]}
+                    // selectedItem={this.props.gender}
                     className={'onboarding-select-container'}
-                    onChange={this.onSelectChange}
+                    onChange={this.props.changeGender}
                   />
                 </div>
                 <div style={{flex: '0 0 25%', padding: '0 16px 0 16px'}}>
@@ -60,8 +54,9 @@ class OnBoardingYourProfile extends React.Component {
                       {description: '40-50', value: '40-50'},
                       {description: '50+', value: '50+'},
                     ]}
+                    // selectedItem={this.props.age}
                     className={'onboarding-select-container'}
-                    onChange={this.onSelectChange}
+                    onChange={this.props.changeAge}
                   />
                 </div>
                 <div style={{flex: '0 0 25%', padding: '0 16px 0 16px'}}>
@@ -73,8 +68,9 @@ class OnBoardingYourProfile extends React.Component {
                       {description: '75-150K', value: '75-150K'},
                       {description: '150K+', value: '150K+'},
                     ]}
+                    // selectedItem={this.props.income}
                     className={'onboarding-select-container'}
-                    onChange={this.onSelectChange}
+                    onChange={this.props.changeIncome}
                   />
                 </div>
               </div>

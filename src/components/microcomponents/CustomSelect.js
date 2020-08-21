@@ -11,7 +11,7 @@ class CustomSelect extends React.Component {
     this.state = {
       dropdownOpen: false,
       items: this.props.items,
-      selectedItem: this.props.items[0] ? this.props.items[0] : '',
+      selectedItem: this.props.selectedItem ? this.props.selectedItem : this.props.items[0] ? this.props.items[0] : '',
     };
   }
 
@@ -42,7 +42,7 @@ class CustomSelect extends React.Component {
         <DropdownMenu className={this.props.menuClassName ? this.props.menuClassName : 'swash-select-menu'}>
           {this.state.items.map((item) => {
             return (
-              <DropdownItem onClick={(e) => this.handleMenuClick(e, item)} className="swash-select-item" tag="div">
+              <DropdownItem onClick={(e) => this.handleMenuClick(e, item)} className="swash-select-item" key={'select-' + item.value} tag="div">
                 {item.description}
               </DropdownItem>
             );

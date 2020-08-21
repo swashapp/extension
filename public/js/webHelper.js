@@ -340,6 +340,13 @@ var helper = (function() {
   function openOnBoarding() {
   }
 
+  async function saveProfileInOnBoarding(gender, age, income) {
+    console.log('It is called.');
+    console.log(gender);
+    console.log(age);
+    console.log(income);
+  }
+
   return {
     load,
     save,
@@ -385,5 +392,6 @@ var helper = (function() {
     save3BoxMnemonic,
     get3BoxMnemonic,
     openOnBoarding,
+    saveProfileInOnBoarding
   };
 }());

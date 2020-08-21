@@ -16,7 +16,10 @@ class OnBoardingPage extends React.Component {
       CurrentPage: 'Welcome',
       SelectedPage: 'Create',
       isUpdate: false,
-      shoudlRedirect: false,
+      shouldRedirect: false,
+      gender: {description: 'Non-binary', value: 'Non-binary'},
+      age: {description: '~20', value: '~20'},
+      income: {description: '~50K', value: '~50K'},
     };
 
     // This binding is necessary to make `this` work in the callback
@@ -26,6 +29,9 @@ class OnBoardingPage extends React.Component {
     this.LoadOnBoarding = this.LoadOnBoarding.bind(this);
     this.ChangeOnBoardingPage = this.ChangeOnBoardingPage.bind(this);
     this.ChangeSelectedPage = this.ChangeSelectedPage.bind(this);
+    this.ChangeGender = this.ChangeGender.bind(this);
+    this.ChangeAge = this.ChangeAge.bind(this);
+    this.ChangeIncome = this.ChangeIncome.bind(this);
   }
 
   componentDidMount() {
@@ -84,7 +90,14 @@ class OnBoardingPage extends React.Component {
         );
       case 'YourProfile':
         return (
-          <OnBoardingYourProfile ChangeOnBoardingPage={this.ChangeOnBoardingPage} nextPage={this.getNextPage} previousPage={this.getPreviousPage} />
+          <OnBoardingYourProfile
+            changeGender={this.ChangeGender}
+            changeAge={this.ChangeAge}
+            changeIncome={this.ChangeIncome}
+            ChangeOnBoardingPage={this.ChangeOnBoardingPage}
+            nextPage={this.getNextPage}
+            previousPage={this.getPreviousPage}
+          />
         );
       case 'New':
         return (
@@ -119,7 +132,9 @@ class OnBoardingPage extends React.Component {
         );
       case 'Completed':
         window.helper.submitOnBoarding().then(() => {
-          this.setState({shoudlRedirect: true, CurrentPage: 'Home'});
+          window.helper.saveProfileInOnBoarding(this.state.gender.value, this.state.age.value, this.state.income.value).then(() => {
+            this.setState({shouldRedirect: true, CurrentPage: 'Home'});
+          });
         });
         return <div />;
       // Redirect to Settings
@@ -136,11 +151,26 @@ class OnBoardingPage extends React.Component {
     this.setState({SelectedPage: SelectedPage});
   }
 
+  ChangeGender(gender) {
+    console.log(gender);
+    this.setState({gender: gender});
+  }
+
+  ChangeAge(age) {
+    console.log(age);
+    this.setState({age: age});
+  }
+
+  ChangeIncome(income) {
+    console.log(income);
+    this.setState({income: income});
+  }
+
   render() {
     return (
       <div id="onboarding-page">
         <React.Fragment>
-          {this.state.shoudlRedirect ? <Redirect to="/Settings" /> : ''}
+          {this.state.shouldRedirect ? <Redirect to="/Settings" /> : ''}
           <div>{this.LoadOnBoarding()}</div>
         </React.Fragment>
       </div>
