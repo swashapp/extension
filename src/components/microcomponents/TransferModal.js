@@ -16,6 +16,11 @@ class TransferModal extends React.Component {
       failedReason: '',
     };
     this.withdraw = this.withdraw.bind(this);
+    this.proceed = this.proceed.bind(this);
+  }
+
+  proceed() {
+    this.setState({status: 'init'});
   }
 
   withdraw() {
@@ -38,6 +43,34 @@ class TransferModal extends React.Component {
 
   renderModal() {
     switch (this.state.status) {
+      case 'notice':
+        return (
+          <div>
+            <div className="transaction-modal-header">
+              <p>Start transfer</p>
+            </div>
+            <div className="transaction-modal-body">              
+              <p>
+                You haven't reached the minimum balance needed for us to cover transaction fees for you. 
+              </p>
+              <br></br>
+              <p>
+                If you want to proceed with the transaction, you need __ ETH in your Swash wallet to cover the gas fee.
+              </p>
+            </div>
+            <div className="transaction-modal-footer">
+              <div className="transaction-modal-footer-right">
+                <div className="transaction-modal-button" onClick={this.proceed}>
+                  Proceed
+                </div>
+
+                <div className="transaction-modal-button-cancel" onClick={this.state.opening}>
+                  Cancel
+                </div>
+              </div>
+            </div>
+          </div>
+        );
       case 'confirmed':
         return (
           <div>

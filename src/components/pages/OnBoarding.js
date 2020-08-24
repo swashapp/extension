@@ -8,13 +8,14 @@ import OnBoardingNewPage from '../microcomponents/OnBoardingNew';
 import OnBoardingImportPage from '../microcomponents/OnBoardingImport';
 import OnBoardingCreatePage from '../microcomponents/OnBoardingCreate';
 import OnBoardingYourProfile from '../microcomponents/OnBoardingYourProfile';
+import OnBoardingJoin from '../microcomponents/OnBoardingJoin';
 
 class OnBoardingPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       CurrentPage: 'Welcome',
-      SelectedPage: 'Create',
+      SelectedPage: 'Join',
       isUpdate: false,
       shouldRedirect: false,
       gender: {description: 'Non-binary', value: 'Non-binary'},
@@ -53,9 +54,10 @@ class OnBoardingPage extends React.Component {
     else if (current === 'New') return 'PrivacyPolicy';
     else if (current === 'PrivacyPolicy') return 'OnBoardingResponsibility';
     else if (current === 'OnBoardingResponsibility') {
-      if (isUpdate) return 'Completed';
-      else return selected;
-    } else if (current === selected) return 'Completed';
+      if (isUpdate) return 'Join';
+      else return "Create";
+    } else if (current === "Create") return 'Join';
+    else if (current === selected) return 'Completed';
   }
 
   getPreviousPage() {
@@ -121,10 +123,14 @@ class OnBoardingPage extends React.Component {
             previousPage={this.getPreviousPage}
             SelectedPage={this.state.SelectedPage}
           />
-        );
+        );      
       case 'Create':
         return (
           <OnBoardingCreatePage ChangeOnBoardingPage={this.ChangeOnBoardingPage} nextPage={this.getNextPage} previousPage={this.getPreviousPage} />
+        );
+      case 'Join':
+        return (
+          <OnBoardingJoin ChangeOnBoardingPage={this.ChangeOnBoardingPage} nextPage={this.getNextPage} previousPage={this.getPreviousPage} />
         );
       case 'Import':
         return (

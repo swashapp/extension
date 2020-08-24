@@ -177,15 +177,15 @@ class SettingsPage extends React.Component {
               <div className="balance-block">
                 <div className="swash-row">
                   <div className="balance-text">
-                    <div className="balance-text-bold">{this.state.dataBalance}</div>
-                    DATA balance
+                    <div className="balance-text-bold">{this.state.dataAvailable}</div>
+                      DATA available                    
                   </div>
                 </div>
                 <div className="swash-row">
                   <div className="balance-text">
                     <div style={{width: '50%', float: 'left'}}>
-                      <div className="balance-text-bold">{this.state.dataAvailable}</div>
-                      DATA available
+                    <div className="balance-text-bold">{this.state.dataBalance}</div>
+                      Referral Rewards
                     </div>
                     <div style={{width: '50%', float: 'left', paddingLeft: '9%'}}>
                       <div className="balance-cumulative">{this.state.cumulativeEarnings}</div>
@@ -287,38 +287,7 @@ class SettingsPage extends React.Component {
               ) : (
                 ''
               )}
-            </div>
-            <div className="setting-part">
-              <div className="swash-head">Invite a friend</div>
-              <div className="swash-p">
-                Refer a friend to Swash and earn a 50 DATA bonus for every referred signup. Just copy and share the invite link below.
-              </div>
-              <div className="transfer-row">
-                <div className="transfer-column referral-column">
-                  <div className="form-caption">Your referral link</div>
-                  <div>
-                    <input
-                      type="text"
-                      id="referral-link"
-                      value={'https://swashapp.io/project/ckanfpqxx00blga01apv6qh05'}
-                      readOnly={true}
-                      className="form-input  filter-input"
-                    />
-                  </div>
-                </div>
-                <div className="transfer-column button-column" style={{marginRight: '0px'}}>
-                  <button
-                    id="transfer-button"
-                    className="transfer-link-button"
-                    onClick={(e) => {
-                      this.copyToClipboard(e, document.getElementById('referral-link'));
-                      e.target.innerText = 'Copied !';
-                    }}>
-                    Copy Link
-                  </button>
-                </div>
-              </div>
-            </div>
+            </div>            
           </div>
 
           {this.state.transferModal ? (
@@ -329,7 +298,7 @@ class SettingsPage extends React.Component {
                 }}
                 className="swash-modal">
                 <TransferModal
-                  status="init"
+                  status="notice"
                   amount={document.querySelector('#amount').value}
                   recipient={document.querySelector('#recipient').value}
                   opening={() => this.openModal('Transfer')}

@@ -188,6 +188,13 @@ class SettingsPage extends React.Component {
     else if (isCompleted === true) this.refs.notify.handleNotification('The configuration file is exported successfully', 'success');
   }
 
+  copyToClipboard(e, element) {
+    element.select();
+    document.execCommand('copy');
+    element.blur();
+    this.refs.notify.handleNotification('Copied successfully', 'success');
+  }
+
   render() {
     let excludeTableDataRows = this.state.filters.map((row) => {
       return (
@@ -213,22 +220,7 @@ class SettingsPage extends React.Component {
         </tr>
       );
     });
-    let addXUrl = (
-      <div>
-        <div className="form-caption">Add a URL to exclude</div>
-        <div>
-          <input
-            type="text"
-            id="filterValue"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') this.addFilter();
-            }}
-            placeholder="http://example.com"
-            className="form-input  filter-input"
-          />
-        </div>
-      </div>
-    );
+    
     let selectItems = [
       {description: 'Exact', value: 'exact'},
       {description: 'Wildcard', value: 'wildcard'},
@@ -293,6 +285,45 @@ class SettingsPage extends React.Component {
           <div id="advanced-page">
             <div className="swash-col">
               <div className="setting-part">
+                <div className="swash-head">Invite a friend</div>
+                <div className="swash-p">
+                  Refer a friend to Swash and earn a 1 DATA bonus for any new installation of Swash that is made by your referral URL and 1 DATA when the invited user balance reaches her first 10 DATA.
+
+                </div>
+                <div className="transfer-row">
+                  <div className="transfer-column referral-column">
+                    <div className="form-caption">Your referral link</div>
+                    <div>
+                      <input
+                        type="text"
+                        id="referral-link"
+                        value={'https://swashapp.io/project/ckanfpqxx00blga01apv6qh05'}
+                        readOnly={true}
+                        className="form-input  filter-input"
+                      />
+                    </div>
+                  </div>
+                  <div className="transfer-column button-column" style={{marginRight: '0px'}}>
+                    <button
+                      id="transfer-button"
+                      className="transfer-link-button"
+                      onBlur={(e) => {
+                        e.target.innerText = 'Copy Link';
+                      }}
+                      onClick={(e) => {
+                        this.copyToClipboard(e, document.getElementById('referral-link'));
+                        e.target.focus();
+                        e.target.innerText = 'Copied';
+                      }}>
+                      Copy Link
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="swash-col">
+              <div className="setting-part">
                 <div className="swash-head">Text masking</div>
                 <div className="swash-p2">
                   You can mask specific sensitive text data before it is sent to Streamr Marketplace. Your sensitive data is transformed based on the
@@ -313,31 +344,7 @@ class SettingsPage extends React.Component {
                 </div>
               </div>
             </div>
-
-            <div className="swash-col">
-              <div className="setting-part">
-                <div className="swash-head">URLs to exclude</div>
-                <div className="swash-p2">
-                  This filtering is used to exclude domains and URLs to ensure their data are not going to be sent to Streamr Marketplace. This
-                  mechanism is independent of the global filters and can be used to target whatever you would like to exclude. See the docs for more
-                  details.
-                </div>
-
-                <div>
-                  <MDBTable>
-                    <MDBTableHead>
-                      <tr className="table-head-row">
-                        <th className="table-head-text add-x-url-th">{addXUrl}</th>
-                        <th className="table-head-text add-x-type-th">{addXType}</th>
-                        <th className="table-head-text add-x-button-th">{AddXButton}</th>
-                      </tr>
-                    </MDBTableHead>
-
-                    <MDBTableBody>{excludeTableDataRows}</MDBTableBody>
-                  </MDBTable>
-                </div>
-              </div>
-            </div>
+            
           </div>
 
           <div className="swash-col">

@@ -3135,8 +3135,7 @@ input[type='checkbox'].switch:checked + div .enabled {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 528px;
-    height: 312px;
+    width: 528px;    
     background: rgb(255, 255, 255);
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
     border-radius: 2px;
@@ -3169,7 +3168,7 @@ input[type='checkbox'].switch:checked + div .enabled {
 
 .transaction-modal-body {
     width: 528px;
-    height: 150px;
+    height: 200px;
     color: rgb(50, 50, 50);
     font-size: 16px;
     font-family: Roboto-Regular;
@@ -3194,11 +3193,9 @@ input[type='checkbox'].switch:checked + div .enabled {
     line-height: 24px;
 }
 
-.transaction-modal-body-large p {
-    margin-top: 0;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
+.transaction-modal-body p {
+    text-align: center;
+    margin: 0 48px;
 }
 
 .modal-body-text {
