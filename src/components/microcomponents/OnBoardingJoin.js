@@ -1,4 +1,5 @@
 import React from 'react';
+import ReCAPTCHA from "react-google-recaptcha";
 
 class OnBoardingJoin extends React.Component {
   constructor(props) {
@@ -28,16 +29,14 @@ class OnBoardingJoin extends React.Component {
             </div>
             <div className="onboarding-box-body">
               <p>
-                Everything is almost done. Now you can join the first Data Union.                 
+                You're almost a part of the world's first digital Data Union!
               </p>
-              <p>
-                Join and enjoy!
-              </p>
+              <ReCAPTCHA sitekey="6Le39MMZAAAAAMJXYWkw3OvMImnzHKfeisqLZul3" onChange={console.log}/>
             </div>
             <div className="onboarding-box-footer">
               <div style={{textAlign: 'center'}}>
-                <div className="onboarding-start-button" onClick={this.LoadOnBoardingJoin}>
-                  Join
+                <div className="onboarding-start-button" onClick={this.LoadOnBoardingJoin}>                  
+                  Join now                  
                 </div>
               </div>
             </div>            

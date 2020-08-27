@@ -2935,6 +2935,7 @@ input[type='checkbox'].switch:checked + div .enabled {
     line-height: 24px;
     padding: 0px 48px;
     display: table-cell;
+    text-align: -webkit-center;
     vertical-align: middle;
     border-bottom: 2px solid rgb(242, 241, 241);
 }
