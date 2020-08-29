@@ -55,8 +55,8 @@ class OnBoardingPage extends React.Component {
     else if (current === 'PrivacyPolicy') return 'OnBoardingResponsibility';
     else if (current === 'OnBoardingResponsibility') {
       if (isUpdate) return 'Join';
-      else return "Create";
-    } else if (current === "Create") return 'Join';
+      else return 'Create';
+    } else if (current === 'Create') return 'Join';
     else if (current === selected) return 'Completed';
   }
 
@@ -123,15 +123,13 @@ class OnBoardingPage extends React.Component {
             previousPage={this.getPreviousPage}
             SelectedPage={this.state.SelectedPage}
           />
-        );      
+        );
       case 'Create':
         return (
           <OnBoardingCreatePage ChangeOnBoardingPage={this.ChangeOnBoardingPage} nextPage={this.getNextPage} previousPage={this.getPreviousPage} />
         );
       case 'Join':
-        return (
-          <OnBoardingJoin ChangeOnBoardingPage={this.ChangeOnBoardingPage} nextPage={this.getNextPage} previousPage={this.getPreviousPage} />
-        );
+        return <OnBoardingJoin ChangeOnBoardingPage={this.ChangeOnBoardingPage} nextPage={this.getNextPage} previousPage={this.getPreviousPage} />;
       case 'Import':
         return (
           <OnBoardingImportPage ChangeOnBoardingPage={this.ChangeOnBoardingPage} nextPage={this.getNextPage} previousPage={this.getPreviousPage} />
@@ -139,7 +137,9 @@ class OnBoardingPage extends React.Component {
       case 'Completed':
         window.helper.submitOnBoarding().then(() => {
           window.helper.saveProfileInOnBoarding(this.state.gender.value, this.state.age.value, this.state.income.value).then(() => {
-            this.setState({shouldRedirect: true, CurrentPage: 'Home'});
+            window.helper.joinSwash().then(() => {
+              this.setState({shouldRedirect: true, CurrentPage: 'Home'});
+            });
           });
         });
         return <div />;

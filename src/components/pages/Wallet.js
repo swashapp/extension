@@ -104,11 +104,7 @@ class SettingsPage extends React.Component {
   }
 
   async getBalanceInfo() {
-    let dataBalance = await window.helper.getDataBalance(this.state.keyInfo.address);
-    dataBalance =
-      dataBalance.error || dataBalance === '' || dataBalance === 'undefined' || typeof dataBalance === 'undefined'
-        ? this.state.dataBalance
-        : dataBalance;
+    let dataBalance = (await window.helper.getReferralRewards()).toString();
     let dataAvailable = await window.helper.getAvailableBalance();
     dataAvailable = dataAvailable.error || dataAvailable === '' || typeof dataAvailable === 'undefined' ? this.state.dataAvailable : dataAvailable;
     let cumulativeEarnings = await window.helper.getCumulativeEarnings();
@@ -178,13 +174,13 @@ class SettingsPage extends React.Component {
                 <div className="swash-row">
                   <div className="balance-text">
                     <div className="balance-text-bold">{this.state.dataAvailable}</div>
-                      DATA available                    
+                    DATA available
                   </div>
                 </div>
                 <div className="swash-row">
                   <div className="balance-text">
                     <div style={{width: '50%', float: 'left'}}>
-                    <div className="balance-text-bold">{this.state.dataBalance}</div>
+                      <div className="balance-text-bold">{this.state.dataBalance}</div>
                       Referral Rewards
                     </div>
                     <div style={{width: '50%', float: 'left', paddingLeft: '9%'}}>
@@ -256,25 +252,17 @@ class SettingsPage extends React.Component {
                 </div>
 
                 <div className="transfer-column button-column" style={{marginRight: '0px'}}>
-                  {this.state.disableTransfer ? (
-                    <button
-                      id="transfer-button"
-                      className="transfer-link-button transfer-link-button-disabled"
-                      onClick={() => {
-                        return false;
-                      }}>
-                      Transfer
-                    </button>
-                  ) : (
-                    <button id="transfer-button" className="transfer-link-button" onClick={this.transfer}>
-                      Transfer
-                    </button>
-                  )}
+                  <button
+                    id="transfer-button"
+                    className="transfer-link-button"
+                    disabled={this.state.dataAvailable === '$' || this.state.dataAvailable == null || this.state.dataAvailable === '0.0'}
+                    onClick={this.transfer}>
+                    Transfer
+                  </button>
                 </div>
               </div>
               {this.state.recipient ? (
                 <div className="transfer-row">
-                  <div className="transfer-column amount-column"></div>
                   <div className="transfer-column wallet-column">
                     <ul>
                       <li>Same as address on your clipboard</li>
@@ -287,7 +275,7 @@ class SettingsPage extends React.Component {
               ) : (
                 ''
               )}
-            </div>            
+            </div>
           </div>
 
           {this.state.transferModal ? (

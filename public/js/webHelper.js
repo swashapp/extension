@@ -341,10 +341,15 @@ var helper = (function() {
   }
 
   async function saveProfileInOnBoarding(gender, age, income) {
-    console.log('It is called.');
-    console.log(gender);
-    console.log(age);
-    console.log(income);
+  }
+
+  async function joinSwash(recaptchaToken) {
+  }
+
+  async function getUserId() {
+  }
+
+  async function getReferralRewards() {
   }
 
   return {
@@ -392,6 +397,9 @@ var helper = (function() {
     save3BoxMnemonic,
     get3BoxMnemonic,
     openOnBoarding,
-    saveProfileInOnBoarding
+    saveProfileInOnBoarding,
+    joinSwash,
+    getUserId,
+    getReferralRewards
   };
 }());

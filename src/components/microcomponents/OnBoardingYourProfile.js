@@ -39,7 +39,6 @@ class OnBoardingYourProfile extends React.Component {
                       {description: 'Male', value: 'Male'},
                       {description: 'Female', value: 'Female'},
                     ]}
-                    // selectedItem={this.props.gender}
                     className={'onboarding-select-container'}
                     onChange={this.props.changeGender}
                   />
@@ -54,7 +53,6 @@ class OnBoardingYourProfile extends React.Component {
                       {description: '40-50', value: '40-50'},
                       {description: '50+', value: '50+'},
                     ]}
-                    // selectedItem={this.props.age}
                     className={'onboarding-select-container'}
                     onChange={this.props.changeAge}
                   />
@@ -68,7 +66,6 @@ class OnBoardingYourProfile extends React.Component {
                       {description: '75-150K', value: '75-150K'},
                       {description: '150K+', value: '150K+'},
                     ]}
-                    // selectedItem={this.props.income}
                     className={'onboarding-select-container'}
                     onChange={this.props.changeIncome}
                   />
