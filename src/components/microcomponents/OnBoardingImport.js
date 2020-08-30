@@ -13,7 +13,7 @@ class OnBoardingNewPage extends React.Component {
     super(props);
     this.state = {};
     this.state.showPopup = false;
-    this.state.onBoardingType = 'LocalFile';
+    this.state.onboardingType = 'LocalFile';
     // This binding is necessary to make `this` work in the callback
     // this.XXX = this.XXX.bind(this);
     this.LoadOnBoardingNew = this.LoadOnBoardingNew.bind(this);
@@ -24,7 +24,7 @@ class OnBoardingNewPage extends React.Component {
   }
 
   LoadOnBoardingNew() {
-    let type = this.state.onBoardingType;
+    let type = this.state.onboardingType;
 
     if (!window.browser.runtime.onMessage.hasListener(this.togglePopup)) window.browser.runtime.onMessage.addListener(this.togglePopup);
 
@@ -74,7 +74,7 @@ class OnBoardingNewPage extends React.Component {
 
   radioChangeHandler(selectedType) {
     this.setState({
-      onBoardingType: selectedType,
+      onboardingType: selectedType,
     });
   }
 
@@ -97,10 +97,10 @@ class OnBoardingNewPage extends React.Component {
 
   render() {
     let modal = (
-      <FilePickerPopup text='Click "Close Button" to hide popup' closePopup={this.togglePopup.bind(this)} onboarding={this.state.onBoardingType} />
+      <FilePickerPopup text='Click "Close Button" to hide popup' closePopup={this.togglePopup.bind(this)} onboarding={this.state.onboardingType} />
     );
 
-    if (this.state.onBoardingType === '3Box') {
+    if (this.state.onboardingType === '3Box') {
       modal = <PassphraseModal page={'import'} closePopup={this.togglePopup.bind(this)} />;
     }
 
@@ -118,7 +118,7 @@ class OnBoardingNewPage extends React.Component {
                 <div
                   className="onbording-import-option"
                   onClick={() => {
-                    this.setState({onBoardingType: 'LocalFile'});
+                    this.setState({onboardingType: 'LocalFile'});
                   }}
                   style={{cursor: 'pointer'}}>
                   <div className="onboarding-import-option-row">
@@ -128,13 +128,13 @@ class OnBoardingNewPage extends React.Component {
                     <span>Local file</span>
                   </div>
                   <div className="onboarding-import-option-row">
-                    <CustomRadioBox id="LocalFile" handleClick={this.radioChangeHandler} isChecked={this.state.onBoardingType === 'LocalFile'} />
+                    <CustomRadioBox id="LocalFile" handleClick={this.radioChangeHandler} isChecked={this.state.onboardingType === 'LocalFile'} />
                   </div>
                 </div>
                 <div
                   className="onbording-import-option"
                   onClick={() => {
-                    this.setState({onBoardingType: 'GoogleDrive'});
+                    this.setState({onboardingType: 'GoogleDrive'});
                   }}
                   style={{cursor: 'pointer'}}>
                   <div className="onboarding-import-option-row">
@@ -144,13 +144,13 @@ class OnBoardingNewPage extends React.Component {
                     <span>Google Drive</span>
                   </div>
                   <div className="onboarding-import-option-row">
-                    <CustomRadioBox id="GoogleDrive" handleClick={this.radioChangeHandler} isChecked={this.state.onBoardingType === 'GoogleDrive'} />
+                    <CustomRadioBox id="GoogleDrive" handleClick={this.radioChangeHandler} isChecked={this.state.onboardingType === 'GoogleDrive'} />
                   </div>
                 </div>
                 <div
                   className="onbording-import-option"
                   onClick={() => {
-                    this.setState({onBoardingType: 'DropBox'});
+                    this.setState({onboardingType: 'DropBox'});
                   }}
                   style={{cursor: 'pointer'}}>
                   <div className="onboarding-import-option-row">
@@ -160,13 +160,13 @@ class OnBoardingNewPage extends React.Component {
                     <span>Dropbox</span>
                   </div>
                   <div className="onboarding-import-option-row">
-                    <CustomRadioBox id="DropBox" handleClick={this.radioChangeHandler} isChecked={this.state.onBoardingType === 'DropBox'} />
+                    <CustomRadioBox id="DropBox" handleClick={this.radioChangeHandler} isChecked={this.state.onboardingType === 'DropBox'} />
                   </div>
                 </div>
                 <div
                   className="onbording-import-option"
                   onClick={() => {
-                    this.setState({onBoardingType: '3Box'});
+                    this.setState({onboardingType: '3Box'});
                   }}
                   style={{cursor: 'pointer'}}>
                   <div className="onboarding-import-option-row">
@@ -176,7 +176,7 @@ class OnBoardingNewPage extends React.Component {
                     <span>3Box</span>
                   </div>
                   <div className="onboarding-import-option-row">
-                    <CustomRadioBox id="3Box" handleClick={this.radioChangeHandler} isChecked={this.state.onBoardingType === '3Box'} />
+                    <CustomRadioBox id="3Box" handleClick={this.radioChangeHandler} isChecked={this.state.onboardingType === '3Box'} />
                   </div>
                 </div>
               </div>

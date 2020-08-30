@@ -49,14 +49,10 @@ class TransferModal extends React.Component {
             <div className="transaction-modal-header">
               <p>Start transfer</p>
             </div>
-            <div className="transaction-modal-body">              
-              <p>
-                You haven't reached the minimum balance needed for us to cover transaction fees for you. 
-              </p>
+            <div className="transaction-modal-body">
+              <p>You haven't reached the minimum balance needed for us to cover transaction fees for you.</p>
               <br></br>
-              <p>
-                If you want to proceed with the transaction, you need __ ETH in your Swash wallet to cover the gas fee.
-              </p>
+              <p>If you want to proceed with the transaction, you need __ ETH in your Swash wallet to cover the gas fee.</p>
             </div>
             <div className="transaction-modal-footer">
               <div className="transaction-modal-footer-right">

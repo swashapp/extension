@@ -11,7 +11,9 @@ class OnBoardingNewPage extends React.Component {
   }
 
   LoadOnBoardingCreateWallet() {
-    this.props.ChangeOnBoardingPage(this.props.nextPage());
+    window.helper.createAndSaveWallet().then(() => {
+      this.props.ChangeOnBoardingPage(this.props.nextPage());
+    });
   }
 
   goToPreviousPage() {

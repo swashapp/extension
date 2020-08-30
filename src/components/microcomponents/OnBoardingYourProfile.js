@@ -6,6 +6,9 @@ class OnBoardingYourProfile extends React.Component {
     super(props);
     this.state = {
       CurrentPage: 'YourProfileWarning',
+      gender: {description: 'Non-binary', value: 'Non-binary'},
+      age: {description: '~20', value: '~20'},
+      income: {description: '~50K', value: '~50K'},
     };
 
     // This binding is necessary to make `this` work in the callback
@@ -15,12 +18,15 @@ class OnBoardingYourProfile extends React.Component {
   }
 
   LoadOnBoardingNew() {
-    this.props.ChangeOnBoardingPage(this.props.nextPage());
+    window.helper.saveProfileInOnBoarding(this.state.gender.value, this.state.age.value, this.state.income.value).then(() => {
+      this.props.ChangeOnBoardingPage(this.props.nextPage());
+    });
   }
 
   goToPreviousPage() {
     this.props.ChangeOnBoardingPage(this.props.previousPage());
   }
+
   render() {
     return (
       <div className="d-flex justify-content-center">
@@ -40,7 +46,9 @@ class OnBoardingYourProfile extends React.Component {
                       {description: 'Female', value: 'Female'},
                     ]}
                     className={'onboarding-select-container'}
-                    onChange={this.props.changeGender}
+                    onChange={(item) => {
+                      this.setState({gender: item});
+                    }}
                   />
                 </div>
                 <div style={{flex: '0 0 25%', padding: '0 16px 0 16px'}}>
@@ -54,7 +62,9 @@ class OnBoardingYourProfile extends React.Component {
                       {description: '50+', value: '50+'},
                     ]}
                     className={'onboarding-select-container'}
-                    onChange={this.props.changeAge}
+                    onChange={(item) => {
+                      this.setState({age: item});
+                    }}
                   />
                 </div>
                 <div style={{flex: '0 0 25%', padding: '0 16px 0 16px'}}>
@@ -67,7 +77,9 @@ class OnBoardingYourProfile extends React.Component {
                       {description: '150K+', value: '150K+'},
                     ]}
                     className={'onboarding-select-container'}
-                    onChange={this.props.changeIncome}
+                    onChange={(item) => {
+                      this.setState({income: item});
+                    }}
                   />
                 </div>
               </div>

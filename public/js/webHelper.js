@@ -294,17 +294,17 @@ var helper = (function() {
     return false;
   }
 
-  async function isExtensionUpdated() {
-    return false;
+  async function getOnboardingFlow() {
+    return 'Welcome';
   }
 
   async function submitOnBoarding() {
   }
 
-  function startOnBoarding(onBoardingName, tabId) {
+  function startOnBoarding(onboardingName, tabId) {
   }
 
-  function startOnBoardingOAuth(onBoardingName) {
+  function startOnBoardingOAuth(onboardingName) {
   }
 
   function loadFile(file) {
@@ -316,13 +316,13 @@ var helper = (function() {
   function saveConfig() {
   }
 
-  function getFilesList(onBoardingName) {
+  function getFilesList(onboardingName) {
   }
 
-  function downloadFile(onBoardingName, fileId) {
+  function downloadFile(onboardingName, fileId) {
   }
 
-  function uploadFile(onBoardingName) {
+  function uploadFile(onboardingName) {
   }
 
   function writeTo3BoxSpace(seed) {
@@ -343,6 +343,9 @@ var helper = (function() {
   async function saveProfileInOnBoarding(gender, age, income) {
   }
 
+  async function createAndSaveWallet() {
+  }
+
   async function joinSwash(recaptchaToken) {
   }
 
@@ -352,7 +355,7 @@ var helper = (function() {
   async function getReferralRewards() {
   }
 
-  async function generateJWTToken() {
+  async function generateJWT() {
     return "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.eyJhZGRyZXNzIjoiMHhFMjMzYzQ1MzhiMjVhNUQ3Y2IzODZkODlCZTA2MmMwOTJmOTUxOUYyIiwicHVibGljS2V5IjoiMHgwMzYxOWRlMDE3MDQ1ZDA1YTkyNTVlNjViMTNlZmQzNzhlMWExZWFlMmY4NTBiOTYzYzE2ODJmZjdlNzA2YzQwNTYiLCJ0aW1lc3RhbXAiOjE1OTg3MDg1MDE3MTB9.Z6MbbDIAOR1r6dooBlx3cIMPGweXvWDIDUYcr1k2AhGWScf5Wb0nLp7qE9ebD0wse_Sx4595LHxn3gxpLLig9Q";
   }
 
@@ -386,7 +389,7 @@ var helper = (function() {
     stop,
     start,
     isNeededOnBoarding,
-    isExtensionUpdated,
+    getOnboardingFlow,
     submitOnBoarding,
     startOnBoarding,
     startOnBoardingOAuth,
@@ -402,7 +405,8 @@ var helper = (function() {
     get3BoxMnemonic,
     openOnBoarding,
     saveProfileInOnBoarding,
-    generateJWTToken,
+    createAndSaveWallet,
+    generateJWT,
     joinSwash,
     getUserId,
     getReferralRewards

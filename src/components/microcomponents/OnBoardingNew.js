@@ -5,7 +5,7 @@ class OnBoardingNewPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.state.userType = this.props.SelectedPage;
+    this.state.userType = 'Create';
     // This binding is necessary to make `this` work in the callback
     // this.XXX = this.XXX.bind(this);
     this.LoadOnBoardingNew = this.LoadOnBoardingNew.bind(this);
@@ -13,7 +13,7 @@ class OnBoardingNewPage extends React.Component {
   }
 
   LoadOnBoardingNew() {
-    this.props.ChangeSelectedPage(this.state.userType);
+    this.props.ChangeSelectedPage('New', this.state.userType);
     this.props.ChangeOnBoardingPage(this.props.nextPage());
   }
 

@@ -21,8 +21,8 @@ class SettingsPage extends React.Component {
       showPopup: false,
     };
 
-    this.onBoardingOAuth = this.onBoardingOAuth.bind(this);
-    this.onBoardingUpload = this.onBoardingUpload.bind(this);
+    this.onboardingOAuth = this.onboardingOAuth.bind(this);
+    this.onboardingUpload = this.onboardingUpload.bind(this);
     this.togglePopup = this.togglePopup.bind(this);
   }
 
@@ -163,23 +163,23 @@ class SettingsPage extends React.Component {
     this.setState({filters: newArray});
   }
 
-  onBoardingOAuth(onBoarding) {
-    if (!window.browser.runtime.onMessage.hasListener(this.onBoardingUpload)) window.browser.runtime.onMessage.addListener(this.onBoardingUpload);
+  onboardingOAuth(onboarding) {
+    if (!window.browser.runtime.onMessage.hasListener(this.onboardingUpload)) window.browser.runtime.onMessage.addListener(this.onboardingUpload);
 
     window.browser.tabs.getCurrent().then((tab) => {
-      window.helper.startOnBoarding(onBoarding, tab.id).then(() => {});
+      window.helper.startOnBoarding(onboarding, tab.id).then(() => {});
     });
   }
 
-  onBoardingUpload(request, sender, sendResponse) {
-    if (request.onBoarding) {
-      window.helper.uploadFile(request.onBoarding).then((response) => {
+  onboardingUpload(request, sender, sendResponse) {
+    if (request.onboarding) {
+      window.helper.uploadFile(request.onboarding).then((response) => {
         if (response === false) this.refs.notify.handleNotification('The configuration file could not be exported', 'error');
         else this.refs.notify.handleNotification('The configuration file is exported successfully', 'success');
       });
     }
 
-    if (!window.browser.runtime.onMessage.hasListener(this.onBoardingUpload)) window.browser.runtime.onMessage.removeListener(this.onBoardingUpload);
+    if (!window.browser.runtime.onMessage.hasListener(this.onboardingUpload)) window.browser.runtime.onMessage.removeListener(this.onboardingUpload);
   }
 
   togglePopup(isCompleted) {
@@ -370,7 +370,7 @@ class SettingsPage extends React.Component {
                     <button
                       className="onbording-export-button"
                       onClick={() => {
-                        this.onBoardingOAuth('GoogleDrive');
+                        this.onboardingOAuth('GoogleDrive');
                       }}>
                       <figure>
                         <img src={GoogleDriveImg} alt={''} />
@@ -383,7 +383,7 @@ class SettingsPage extends React.Component {
                     <button
                       className="onbording-export-button"
                       onClick={() => {
-                        this.onBoardingOAuth('DropBox');
+                        this.onboardingOAuth('DropBox');
                       }}>
                       <figure>
                         <img src={DropboxImg} alt={''} />
