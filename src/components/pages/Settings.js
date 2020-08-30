@@ -59,11 +59,14 @@ class SettingsPage extends React.Component {
         });
       }
 
+      let referralLink = db.profile.user_id ? `https://swashapp.io/referral/${db.profile.user_id}` : '';
+
       this.setState({
         filters: newFilters,
         masks: newMasks,
         privacyLevel: db.configs.privacyLevel,
         modules: modules,
+        referralLink: referralLink,
       });
     });
   }
@@ -220,7 +223,7 @@ class SettingsPage extends React.Component {
         </tr>
       );
     });
-    
+
     let selectItems = [
       {description: 'Exact', value: 'exact'},
       {description: 'Wildcard', value: 'wildcard'},
@@ -287,20 +290,14 @@ class SettingsPage extends React.Component {
               <div className="setting-part">
                 <div className="swash-head">Invite a friend</div>
                 <div className="swash-p">
-                  Refer a friend to Swash and earn a 1 DATA bonus for any new installation of Swash that is made by your referral URL and 1 DATA when the invited user balance reaches her first 10 DATA.
-
+                  Refer a friend to Swash and earn a 1 DATA bonus for any new installation of Swash that is made by your referral URL and 1 DATA when
+                  the invited user balance reaches her first 10 DATA.
                 </div>
                 <div className="transfer-row">
                   <div className="transfer-column referral-column">
                     <div className="form-caption">Your referral link</div>
                     <div>
-                      <input
-                        type="text"
-                        id="referral-link"
-                        value={'https://swashapp.io/project/ckanfpqxx00blga01apv6qh05'}
-                        readOnly={true}
-                        className="form-input  filter-input"
-                      />
+                      <input type="text" id="referral-link" value={this.state.referralLink} readOnly={true} className="form-input  filter-input" />
                     </div>
                   </div>
                   <div className="transfer-column button-column" style={{marginRight: '0px'}}>
@@ -344,7 +341,6 @@ class SettingsPage extends React.Component {
                 </div>
               </div>
             </div>
-            
           </div>
 
           <div className="swash-col">

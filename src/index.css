@@ -1642,7 +1642,7 @@ label.btn input[type='checkbox'].filled-in:checked + label:after {
     outline: 0 !important;
 }
 
-.transfer-link-button-disabled {
+.transfer-link-button:disabled {
     background-color: rgb(36, 60, 219, 0.5) !important;
     cursor: default;
 }
