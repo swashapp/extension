@@ -347,6 +347,10 @@ var helper = (function() {
     console.log(income);
   }
 
+  async function generateJWTToken() {
+    return "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.eyJhZGRyZXNzIjoiMHhFMjMzYzQ1MzhiMjVhNUQ3Y2IzODZkODlCZTA2MmMwOTJmOTUxOUYyIiwicHVibGljS2V5IjoiMHgwMzYxOWRlMDE3MDQ1ZDA1YTkyNTVlNjViMTNlZmQzNzhlMWExZWFlMmY4NTBiOTYzYzE2ODJmZjdlNzA2YzQwNTYiLCJ0aW1lc3RhbXAiOjE1OTg3MDg1MDE3MTB9.Z6MbbDIAOR1r6dooBlx3cIMPGweXvWDIDUYcr1k2AhGWScf5Wb0nLp7qE9ebD0wse_Sx4595LHxn3gxpLLig9Q";
+  }
+
   return {
     load,
     save,
@@ -392,6 +396,7 @@ var helper = (function() {
     save3BoxMnemonic,
     get3BoxMnemonic,
     openOnBoarding,
-    saveProfileInOnBoarding
+    saveProfileInOnBoarding,
+    generateJWTToken
   };
 }());

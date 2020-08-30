@@ -2,7 +2,7 @@ import React from 'react';
 import verified from '../../statics/images/verified.svg';
 import error from '../../statics/images/error-icon.svg';
 import arrow from '../../statics/images/arrow.svg';
-import loading from '../../statics/images/loading.png';
+import loading from '../../statics/images/button-loading.svg';
 
 class TransferModal extends React.Component {
   constructor(props) {

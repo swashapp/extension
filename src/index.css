@@ -2894,6 +2894,23 @@ input[type='checkbox'].switch:checked + div .enabled {
     height: 100vh;
 }
 
+.onboarding-iframe {
+    visibility: hidden; 
+    position: absolute;
+    border: 0px;
+    overflow: hidden;
+    width: 100%;
+    height: 100vh;    
+}
+
+.onboarding-iframe-wrapper {
+    background: no-repeat center url('statics/images/page-loading.svg');
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100vh;
+}
+
 .onboarding-box {
     position: absolute;
     top: 50%;
