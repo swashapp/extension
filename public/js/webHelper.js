@@ -266,6 +266,12 @@ var helper = (function() {
     return 'success';
   }
 
+  async function getWithdrawAllToTransactionFee(targetAddress) {
+  }
+
+  async function getSponsoredWithdrawTransactionFee(targetAddress) {
+  }
+
   async function start() {
 
   }
@@ -385,6 +391,8 @@ var helper = (function() {
     loadWallets,
     saveWallets,
     withdrawTo,
+    getWithdrawAllToTransactionFee,
+    getSponsoredWithdrawTransactionFee,
     getVersion,
     stop,
     start,

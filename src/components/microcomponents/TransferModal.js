@@ -13,10 +13,17 @@ class TransferModal extends React.Component {
       transactionId: this.props.tx,
       amount: this.props.amount,
       recipient: this.props.recipient,
+      sponsorTxFee: '__',
       failedReason: '',
     };
     this.withdraw = this.withdraw.bind(this);
     this.proceed = this.proceed.bind(this);
+  }
+
+  componentDidMount() {
+    window.helper.getWithdrawAllToTransactionFee(this.state.recipient).then((calculatedFee) => {
+      this.setState({sponsorTxFee: calculatedFee});
+    });
   }
 
   proceed() {
@@ -52,7 +59,7 @@ class TransferModal extends React.Component {
             <div className="transaction-modal-body">
               <p>You haven't reached the minimum balance needed for us to cover transaction fees for you.</p>
               <br></br>
-              <p>If you want to proceed with the transaction, you need __ ETH in your Swash wallet to cover the gas fee.</p>
+              <p>If you want to proceed with the transaction, you need {this.state.sponsorTxFee} ETH in your Swash wallet to cover the gas fee.</p>
             </div>
             <div className="transaction-modal-footer">
               <div className="transaction-modal-footer-right">
