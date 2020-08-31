@@ -13,10 +13,14 @@ class OnBoardingJoin extends React.Component {
     this.generalTryCount = 0;
     // This binding is necessary to make `this` work in the callback
     // this.XXX = this.XXX.bind(this);
-    this.goToNextPage = this.goToNextPage.bind(this);
-    this.goToPreviousPage = this.goToPreviousPage.bind(this);
+    this.handleMessages = this.handleMessages.bind(this);
+    this.LoadOnBoardingNew = this.LoadOnBoardingNew.bind(this);
     window.helper.generateJWT().then((token) => this.setState({token}));
     window.onmessage = this.handleMessages;
+  }
+
+  LoadOnBoardingNew() {
+    this.props.ChangeOnBoardingPage(this.props.nextPage());
   }
 
   handleMessages(event) {
@@ -25,7 +29,7 @@ class OnBoardingJoin extends React.Component {
     let code = event.data.code;
     switch (code) {
       case 200:
-        this.goToNextPage();
+        this.LoadOnBoardingNew();
         break;
       case 400:
         this.generalTryCount++;
