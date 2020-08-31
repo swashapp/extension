@@ -272,6 +272,10 @@ var helper = (function() {
   async function getSponsoredWithdrawTransactionFee(targetAddress) {
   }
 
+  async function generateJWT() {
+    return "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.eyJhZGRyZXNzIjoiMHhFMjMzYzQ1MzhiMjVhNUQ3Y2IzODZkODlCZTA2MmMwOTJmOTUxOUYyIiwicHVibGljS2V5IjoiMHgwMzYxOWRlMDE3MDQ1ZDA1YTkyNTVlNjViMTNlZmQzNzhlMWExZWFlMmY4NTBiOTYzYzE2ODJmZjdlNzA2YzQwNTYiLCJ0aW1lc3RhbXAiOjE1OTg3MDg1MDE3MTB9.Z6MbbDIAOR1r6dooBlx3cIMPGweXvWDIDUYcr1k2AhGWScf5Wb0nLp7qE9ebD0wse_Sx4595LHxn3gxpLLig9Q";
+  }
+
   async function start() {
 
   }
@@ -361,8 +365,10 @@ var helper = (function() {
   async function getReferralRewards() {
   }
 
-  async function generateJWT() {
-    return "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.eyJhZGRyZXNzIjoiMHhFMjMzYzQ1MzhiMjVhNUQ3Y2IzODZkODlCZTA2MmMwOTJmOTUxOUYyIiwicHVibGljS2V5IjoiMHgwMzYxOWRlMDE3MDQ1ZDA1YTkyNTVlNjViMTNlZmQzNzhlMWExZWFlMmY4NTBiOTYzYzE2ODJmZjdlNzA2YzQwNTYiLCJ0aW1lc3RhbXAiOjE1OTg3MDg1MDE3MTB9.Z6MbbDIAOR1r6dooBlx3cIMPGweXvWDIDUYcr1k2AhGWScf5Wb0nLp7qE9ebD0wse_Sx4595LHxn3gxpLLig9Q";
+  function getDataEthPairPrice() {
+  }
+
+  function sendSponsoredWithdraw(recipient) {
   }
 
   return {
@@ -417,6 +423,8 @@ var helper = (function() {
     generateJWT,
     joinSwash,
     getUserId,
-    getReferralRewards
+    getReferralRewards,
+    getDataEthPairPrice,
+    sendSponsoredWithdraw
   };
 }());
