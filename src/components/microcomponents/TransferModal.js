@@ -13,7 +13,9 @@ class TransferModal extends React.Component {
       transactionId: this.props.tx,
       amount: this.props.amount,
       recipient: this.props.recipient,
-      sponsorTxFee: '__',
+      minimumData: 0,
+      transactionFee: '__',
+      withdrawType: 'withdrawToAll',
       failedReason: '',
     };
     this.withdraw = this.withdraw.bind(this);
@@ -21,8 +23,17 @@ class TransferModal extends React.Component {
   }
 
   componentDidMount() {
-    window.helper.getWithdrawAllToTransactionFee(this.state.recipient).then((calculatedFee) => {
-      this.setState({sponsorTxFee: calculatedFee});
+    let swPromise = window.helper.getSponsoredWithdrawTransactionFee(this.state.recipient);
+    let waPromise = window.helper.getWithdrawAllToTransactionFee(this.state.recipient);
+    let pricePromise = window.helper.getDataEthPairPrice();
+
+    Promise.all([swPromise, waPromise, pricePromise]).then(([swTxFee, waTxFee, dataPrice]) => {
+      let minData = (swTxFee / dataPrice) * 20;
+      if (minData < Number(this.state.amount)) {
+        this.setState({transactionFee: swTxFee, withdrawType: 'sponsorWithdraw', minimumData: minData});
+      } else {
+        this.setState({transactionFee: waTxFee, withdrawType: 'withdrawToAll', minimumData: minData});
+      }
     });
   }
 
@@ -30,18 +41,33 @@ class TransferModal extends React.Component {
     this.setState({status: 'init'});
   }
 
+  purgeNumber(num) {
+    let temp = num.toString();
+    if (temp.indexOf('.') < 0) return temp;
+    return temp.slice(0, temp.indexOf('.') + 5);
+  }
+
   withdraw() {
     this.setState({status: 'waiting'});
-    //window.helper.withdrawTo(this.state.recipient, this.state.amount).then(tx => {
-    window.helper.withdrawAllTo(this.state.recipient).then((tx) => {
-      if (tx.error) {
-        this.setState({status: 'failed', failedReason: tx.error});
-        return;
-      }
-      this.setState({status: 'confirmed'});
-      this.setState({transactionId: tx.hash});
-      tx.wait().then((x) => {});
-    });
+    if (this.state.withdrawType === 'sponsorWithdraw') {
+      window.helper.sendSponsoredWithdraw(this.state.recipient).then((response) => {
+        if (response !== true) {
+          this.setState({status: 'failed', failedReason: response});
+          return;
+        }
+        this.setState({status: 'confirmed'});
+      });
+    } else {
+      window.helper.withdrawAllTo(this.state.recipient).then((tx) => {
+        if (tx.error) {
+          this.setState({status: 'failed', failedReason: tx.error});
+          return;
+        }
+        this.setState({status: 'confirmed'});
+        this.setState({transactionId: tx.hash});
+        tx.wait().then((x) => {});
+      });
+    }
   }
 
   purgeAddress(address) {
@@ -57,9 +83,24 @@ class TransferModal extends React.Component {
               <p>Start transfer</p>
             </div>
             <div className="transaction-modal-body">
-              <p>You haven't reached the minimum balance needed for us to cover transaction fees for you.</p>
-              <br></br>
-              <p>If you want to proceed with the transaction, you need <span className="text-green">{this.state.sponsorTxFee} ETH</span> in your Swash wallet to cover the gas fee.</p>
+              {this.state.withdrawType === 'sponsorWithdraw' ? (
+                <>
+                  <p>You have reached the minimum balance needed for us to cover transaction fees for you.</p>
+                  <br />
+                  <p>Current transaction fee is <span className="text-green">{this.purgeNumber(this.state.transactionFee)}</span> ETH that we will pay for you.</p>
+                </>
+              ) : (
+                <>
+                  <p>
+                    You haven't reached the minimum balance needed for us to cover transaction fees for you. Current minimum balance is:{' '}
+                    {this.purgeNumber(this.state.minimumData)}
+                  </p>
+                  <br />
+                  <p>
+                    If you want to proceed with the transaction, you need {this.purgeNumber(this.state.transactionFee)} ETH in your Swash wallet to cover the gas fee.
+                  </p>
+                </>
+              )}
             </div>
             <div className="transaction-modal-footer">
               <div className="transaction-modal-footer-right">

@@ -113,10 +113,7 @@ class OnBoardingPage extends React.Component {
         );
       case 'Completed':
         window.helper.submitOnBoarding().then(() => {
-          //Join is called on the backend UI, why you repeated this? should we call isJoined?
-          //window.helper.joinSwash().then(() => {
-            this.setState({shouldRedirect: true, CurrentPage: 'Home'});
-          //});
+          this.setState({shouldRedirect: true, CurrentPage: 'Home'});
         });
         return <div />;
       // Redirect to Settings
