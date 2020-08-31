@@ -32,6 +32,7 @@ class DelaySend extends React.Component {
           <div className="accordion-domain">{this.props.message.link}</div>
           <div className="accordion-module">{this.props.message.title}</div>
           <MDBProgress material value={progress_percentage} className="accordion-delay" color="#ff5c00" />
+          <img src={this.props.message.icon} alt="" className="accordion-icon" />
           {isOpened ? (
             <RDropdownMenu
               className="button form-input-button more-button"

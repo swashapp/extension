@@ -173,19 +173,19 @@ class SettingsPage extends React.Component {
               <div className="balance-block">
                 <div className="swash-row">
                   <div className="balance-text">
-                    <div className="balance-text-bold">{this.state.dataAvailable}</div>
+                    <div className="balance-text-bold">{this.state.dataAvailable} </div>
                     DATA available
                   </div>
                 </div>
                 <div className="swash-row">
                   <div className="balance-text">
                     <div style={{width: '50%', float: 'left'}}>
-                      <div className="balance-text-bold">{this.state.dataBalance}</div>
+                      <div className="balance-text-bold">{this.state.dataBalance} </div>
                       Referral Rewards
                     </div>
                     <div style={{width: '50%', float: 'left', paddingLeft: '9%'}}>
-                      <div className="balance-cumulative">{this.state.cumulativeEarnings}</div>
-                      Cumulative earnings
+                      <div className="balance-cumulative">{this.state.cumulativeEarnings} </div>
+                      Cumulative earnings1
                     </div>
                   </div>
                 </div>

@@ -30,7 +30,6 @@ class DataPage extends React.Component {
     async function loader() {
       let retMessages = await window.helper.loadMessages();
       let db = await window.helper.load();
-      let modules = db.modules;
       let delay = db.configs.delay * 60000;
       let currentTime = Number(new Date().getTime());
       let messages = [];
@@ -48,6 +47,7 @@ class DataPage extends React.Component {
           currentTime: currentTime,
           msg: msg,
           msgId: retMessages[msgId].id,
+          icon: window.helper.getCategory(msg.header.category).icon,
           link: host,
           title: msg.header.module,
         });

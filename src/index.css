@@ -1293,7 +1293,6 @@ label.btn input[type='checkbox'].filled-in:checked + label:after {
   font-style: normal;
   font-weight: 300;
   src: url('statics/fonts/Roboto-Light.ttf'); /* IE9 Compat Modes */
-  src: local('Roboto Italic'), local('Roboto-Italic'), url('statics/fonts/Roboto-Light.ttf') format('truetype'); /* Safari, Android, iOS */
 }
 
 /* roboto-900 - latin */
@@ -1700,6 +1699,11 @@ withdraw-btn:focus a {
   line-height: 32px;
   display: contents;
 }
+
+.text-green {
+  color: rgb(42,196,55);
+}
+
 
 .table-text {
   color: rgb(163, 163, 163);
