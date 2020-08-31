@@ -48,7 +48,6 @@ class DataPage extends React.Component {
           currentTime: currentTime,
           msg: msg,
           msgId: retMessages[msgId].id,
-          icon: modules[msg.header.module].icons[0],
           link: host,
           title: msg.header.module,
         });
