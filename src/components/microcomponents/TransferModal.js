@@ -14,7 +14,7 @@ class TransferModal extends React.Component {
       amount: this.props.amount,
       recipient: this.props.recipient,
       minimumData: 0,
-      transactionFee: '__',
+      transactionFee: '0',
       withdrawType: 'withdrawToAll',
       failedReason: '',
     };
@@ -92,12 +92,11 @@ class TransferModal extends React.Component {
               ) : (
                 <>
                   <p>
-                    You haven't reached the minimum balance needed for us to cover transaction fees for you. Current minimum balance is:{' '}
-                    {this.purgeNumber(this.state.minimumData)}
+                    You haven't reached the minimum balance needed for us to cover transaction fees for you.                    
                   </p>
                   <br />
                   <p>
-                    If you want to proceed with the transaction, you need {this.purgeNumber(this.state.transactionFee)} ETH in your Swash wallet to cover the gas fee.
+                    If you want to proceed with the transaction, you need <span className="text-green">{this.purgeNumber(this.state.transactionFee)}</span> ETH in your Swash wallet to cover the gas fee.
                   </p>
                 </>
               )}

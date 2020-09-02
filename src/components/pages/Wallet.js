@@ -182,7 +182,7 @@ class SettingsPage extends React.Component {
                     </div>
                     <div style={{width: '50%', float: 'left', paddingLeft: '9%'}}>
                       <div className="balance-cumulative">{this.state.cumulativeEarnings} </div>
-                      Cumulative earnings1
+                      Cumulative earnings
                     </div>
                   </div>
                 </div>

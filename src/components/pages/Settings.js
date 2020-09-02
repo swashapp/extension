@@ -28,6 +28,7 @@ class SettingsPage extends React.Component {
 
   componentDidMount() {
     this.loadSettings();
+    this.loadReferal();
     window.scrollTo(0, 0);
   }
 
@@ -58,17 +59,25 @@ class SettingsPage extends React.Component {
           value: masks[x].value,
         });
       }
-
       let referralLink = db.profile.user_id ? `https://swashapp.io/referral/${db.profile.user_id}` : '';
-
       this.setState({
         filters: newFilters,
         masks: newMasks,
         privacyLevel: db.configs.privacyLevel,
         modules: modules,
-        referralLink: referralLink,
+        referralLink: referralLink
       });
     });
+  }
+
+  async loadReferal() {
+    let db = await window.helper.load();
+    if(!db.profile.user_id) {
+      setTimeout(() => this.loadReferal(), 5000);
+      return;
+    }    
+    let referralLink = db.profile.user_id ? `https://swashapp.io/referral/${db.profile.user_id}` : '';
+    this.setState({referralLink});
   }
 
   addMask() {
