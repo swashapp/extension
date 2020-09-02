@@ -31,13 +31,13 @@ class OnBoardingJoin extends React.Component {
       case 200:
         this.LoadOnBoardingNew();
         break;
-      case 400:
-        this.generalTryCount++;
-        if (this.generalTryCount > MAXGENERALTRYCOUNT) this.reloadIFrame();
-        break;
       case 401:
         this.tokenTryCount++;
         if (this.tokenTryCount > MAXTOKENTRYCOUNT) this.goToPreviousPage();
+        break;
+      default:
+        this.generalTryCount++;
+        if (this.generalTryCount > MAXGENERALTRYCOUNT) this.reloadIFrame();
         break;
     }
     console.log(event);

@@ -20,8 +20,7 @@ class SettingsPage extends React.Component {
       recipientEthBalance: '$',
       recipientDataBalance: '$',
       revealFunction: {func: this.copyToClipboard, text: 'copy'},
-    };
-    this.balanceCheckInterval = 0;
+    };    
     this.openModal = this.openModal.bind(this);
     this.copyToClipboard = this.copyToClipboard.bind(this);
     this.revealPrivateKey = this.revealPrivateKey.bind(this);
@@ -32,14 +31,12 @@ class SettingsPage extends React.Component {
     this.onAmountChange = this.onAmountChange.bind(this);
   }
 
-  componentDidMount() {
-    this.balanceCheckInterval = setInterval(() => this.getBalanceInfo(this), 15000);
+  componentDidMount() {    
     this.loadSettings().then(this.getBalanceInfo);
     window.scrollTo(0, 0);
   }
 
   componentWillUnmount() {
-    clearInterval(this.balanceCheckInterval);
   }
 
   purgeNumber(num) {
