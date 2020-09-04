@@ -1,7 +1,16 @@
 import React from 'react';
 import CustomRadioBox from './CustomRadioBox.js';
+import PropTypes from 'prop-types';
 
 class OnBoardingNewPage extends React.Component {
+  static get propTypes() {
+    return {
+      nextPage: PropTypes.string,
+      ChangeSelectedPage: PropTypes.func,
+      ChangeOnBoardingPage: PropTypes.func,
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state = {};

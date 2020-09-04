@@ -1,15 +1,25 @@
 import React from 'react';
 import FileBrowser from 'react-keyed-file-browser';
 import CustomSnackbar from './CustomSnackbar';
+import PropTypes from 'prop-types';
 
 class FilePickerPopup extends React.Component {
+  static get propTypes() {
+    return {
+      closePopup: PropTypes.func,
+      onboarding: PropTypes.string,
+    };
+  }
+
   constructor(props) {
     super(props);
-    this.state = {};
-    this.state.closePopup = this.props.closePopup;
-    this.state.onboarding = this.props.onboarding;
-    this.state.files = [];
-    this.state.selectedFile = {};
+    this.notifyRef = React.createRef();
+    this.state = {
+      closePopup: this.props.closePopup,
+      onboarding: this.props.onboarding,
+      files: [],
+      selectedFile: {},
+    };
 
     this.applyConfig = this.applyConfig.bind(this);
   }
@@ -46,7 +56,7 @@ class FilePickerPopup extends React.Component {
         if (response) {
           return window.helper.applyConfig(JSON.stringify(response)).then((result) => {
             if (result) return this.state.closePopup(true);
-            this.refs.notify.handleNotification('Can not import this config file', 'error');
+            this.notifyRef.current.handleNotification('Can not import this config file', 'error');
             return this.state.closePopup();
           });
         }
@@ -88,7 +98,7 @@ class FilePickerPopup extends React.Component {
               </div>
             </div>
           </div>
-          <CustomSnackbar ref="notify" />
+          <CustomSnackbar ref={this.notifyRef} />
         </React.Fragment>
       </div>
     );

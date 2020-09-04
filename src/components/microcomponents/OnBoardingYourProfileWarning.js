@@ -1,6 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class OnBoardingYourProfileWarning extends React.Component {
+  static get propTypes() {
+    return {
+      nextPage: PropTypes.string,
+      previousPage: PropTypes.string,
+      ChangeOnBoardingPage: PropTypes.func,
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state = {

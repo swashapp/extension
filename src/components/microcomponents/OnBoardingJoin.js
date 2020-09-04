@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SWASHDOMAIN = 'https://swashapp.io';
 const SWASHJOINPAGE = '/join';
@@ -6,6 +7,13 @@ const MAXTOKENTRYCOUNT = 3;
 const MAXGENERALTRYCOUNT = 3;
 
 class OnBoardingJoin extends React.Component {
+  static get propTypes() {
+    return {
+      nextPage: PropTypes.string,
+      previousPage: PropTypes.string,
+      ChangeOnBoardingPage: PropTypes.func,
+    };
+  }
   constructor(props) {
     super(props);
     this.state = {token: ''};
@@ -68,7 +76,11 @@ class OnBoardingJoin extends React.Component {
         <React.Fragment>
           <div className="swash-onboarding-iframe-wrapper">
             {this.state.token ? (
-              <iframe seamless className="swash-onboarding-iframe" onLoad={makeVisible} src={`${SWASHDOMAIN}${SWASHJOINPAGE}?token=${this.state.token}`}>
+              <iframe
+                seamless
+                className="swash-onboarding-iframe"
+                onLoad={makeVisible}
+                src={`${SWASHDOMAIN}${SWASHJOINPAGE}?token=${this.state.token}`}>
                 <p>Your browser does not support iframes.</p>
               </iframe>
             ) : (

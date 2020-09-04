@@ -7,6 +7,7 @@ import RevealKeyModal from '../microcomponents/RevealKeyModal';
 class SettingsPage extends React.Component {
   constructor(props) {
     super(props);
+    this.notifyRef = React.createRef();
     this.state = {
       keyInfo: {address: '', privateKey: ''},
       referralBalance: '$',
@@ -20,7 +21,7 @@ class SettingsPage extends React.Component {
       recipientEthBalance: '$',
       recipientDataBalance: '$',
       revealFunction: {func: this.copyToClipboard, text: 'copy'},
-    };    
+    };
     this.openModal = this.openModal.bind(this);
     this.copyToClipboard = this.copyToClipboard.bind(this);
     this.revealPrivateKey = this.revealPrivateKey.bind(this);
@@ -31,13 +32,12 @@ class SettingsPage extends React.Component {
     this.onAmountChange = this.onAmountChange.bind(this);
   }
 
-  componentDidMount() {    
+  componentDidMount() {
     this.loadSettings().then(this.getBalanceInfo);
     window.scrollTo(0, 0);
   }
 
-  componentWillUnmount() {
-  }
+  componentWillUnmount() {}
 
   purgeNumber(num) {
     if (num.indexOf('.') < 0) return num;
@@ -58,12 +58,12 @@ class SettingsPage extends React.Component {
     let amount = document.querySelector('#swash-amount').value;
     let recipient = document.querySelector('#swash-recipient').value;
     if (!amount.match(/^[0-9]+(\.[0-9]+)?$/)) {
-      this.refs.notify.handleNotification('Amount value is not valid', 'failure');
+      this.notifyRef.current.handleNotification('Amount value is not valid', 'failure');
       return;
     }
 
     if (!recipient.match(/^0x[a-fA-F0-9]{40}$/)) {
-      this.refs.notify.handleNotification('Recipient address is not valid', 'failure');
+      this.notifyRef.current.handleNotification('Recipient address is not valid', 'failure');
       return;
     }
     this.openModal('Transfer');
@@ -130,11 +130,11 @@ class SettingsPage extends React.Component {
     element.select();
     document.execCommand('copy');
     element.blur();
-    this.refs.notify.handleNotification('Copied successfully', 'success');
+    this.notifyRef.current.handleNotification('Copied successfully', 'success');
   }
 
   revealPrivateKey(e) {
-    var x = document.getElementById('swash-privateKey');
+    let x = document.getElementById('swash-privateKey');
     if (x.type === 'password') {
       x.type = 'text';
     } else {
@@ -143,10 +143,9 @@ class SettingsPage extends React.Component {
   }
 
   isPrivateKeyRevealed() {
-    var x = document.getElementById('swash-privateKey');
+    let x = document.getElementById('swash-privateKey');
     if (!x) return false;
-    if (x.type === 'password') return false;
-    return true;
+    return x.type !== 'password';
   }
 
   pasteWallet(e) {
@@ -173,7 +172,7 @@ class SettingsPage extends React.Component {
                     <div className="swash-balance-text-column">
                       <div className="swash-balance-text-bold">{this.state.dataAvailable} </div>
                       DATA available
-                    </div>                    
+                    </div>
                   </div>
                 </div>
                 <div className="swash-row">
@@ -219,7 +218,6 @@ class SettingsPage extends React.Component {
                       callback: () => this.openModal('CopyKey'),
                     },
                   ]}
-                  ref="keyRevealMenu"
                 />
               </div>
             </div>
@@ -233,7 +231,13 @@ class SettingsPage extends React.Component {
                 <div className="swash-transfer-column swash-amount-column">
                   <div className="swash-form-caption">Amount</div>
                   <div>
-                    <input type="text" id="swash-amount" value={this.state.dataAvailable} disabled="true" className="swash-form-input  swash-filter-input" />
+                    <input
+                      type="text"
+                      id="swash-amount"
+                      value={this.state.dataAvailable}
+                      disabled="true"
+                      className="swash-form-input  swash-filter-input"
+                    />
                   </div>
                 </div>
 
@@ -315,7 +319,7 @@ class SettingsPage extends React.Component {
             ''
           )}
         </React.Fragment>
-        <CustomSnackbar ref="notify" />
+        <CustomSnackbar ref={this.notifyRef} />
       </div>
     );
   }

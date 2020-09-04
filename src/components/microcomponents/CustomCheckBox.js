@@ -5,13 +5,14 @@ import checked from '../../statics/images/checked.svg';
 import unchecked from '../../statics/images/Unchecked.svg';
 
 class CustomCheckBox extends React.Component {
-  static propTypes = {
-    isChecked: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    isChecked: false,
-  };
+  static get propTypes() {
+    return {
+      id: PropTypes.string,
+      checked: PropTypes.bool,
+      onChange: PropTypes.func,
+      handleClick: PropTypes.func,
+    };
+  }
 
   constructor(props) {
     super(props);

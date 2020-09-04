@@ -36,8 +36,8 @@ class HelpPage extends React.Component {
               <div className="swash-image-caption">Swash installed and enabled</div>
 
               <div className="swash-p">
-                Once you've installed Swash, it will generate an ethereum wallet address for you where you can receive payments in Streamr's native
-                token,{' '}
+                Once you&apos;ve installed Swash, it will generate an ethereum wallet address for you where you can receive payments in Streamr&apos;s
+                native token,{' '}
                 <a target="_blank" rel="noopener noreferrer" href="https://etherscan.io/token/0x0cf0ee63788a0849fe5297f3407f701e122cc023">
                   DATA
                 </a>
@@ -59,9 +59,9 @@ class HelpPage extends React.Component {
 
               <div className="swash-p">
                 You can also control how much information the modules can gather by adjusting the Privacy settings slider. This enables you to
-                anonymize your data to some general level. For more information, see <AnchorLink href="#swash-privacy-settings">Privacy Settings</AnchorLink>{' '}
-                section. If you want to prevent specific pieces of information or specific web domains or URLs from being captured, you can do this on
-                the Advanced page.
+                anonymize your data to some general level. For more information, see{' '}
+                <AnchorLink href="#swash-privacy-settings">Privacy Settings</AnchorLink> section. If you want to prevent specific pieces of
+                information or specific web domains or URLs from being captured, you can do this on the Advanced page.
               </div>
 
               <img alt={''} src={help4} />
@@ -91,21 +91,21 @@ class HelpPage extends React.Component {
 
               <div className="swash-head2">Facebook</div>
               <div className="swash-p2">
-                The Facebook module is more complicated. It can capture the user's data in three ways. One is through a web request listener. Another
-                is via injected Javascript on Facebook pages and a third way is to use Facebook’s API. The basic module can capture the user's visited
-                Facebook pages and searches, but the Facebook API is required to capture books, videos, televisions, pages, and other
-                Facebook-specific data.
+                The Facebook module is more complicated. It can capture the user&apos;s data in three ways. One is through a web request listener.
+                Another is via injected Javascript on Facebook pages and a third way is to use Facebook’s API. The basic module can capture the
+                user&apos;s visited Facebook pages and searches, but the Facebook API is required to capture books, videos, televisions, pages, and
+                other Facebook-specific data.
               </div>
 
               <div className="swash-head2">Amazon</div>
               <div className="swash-p2">
-                Amazon is another interesting module that captures the user's visited pages and searches on Amazon. Clicked links, items added to
+                Amazon is another interesting module that captures the user&apos;s visited pages and searches on Amazon. Clicked links, items added to
                 cart, items ready to buy and items added to a wishlist can also be captured by this module.
               </div>
 
               <div className="swash-head2">Twitter</div>
               <div className="swash-p2">
-                User's post tweet and searches, follow and unfollow actions, mute and unmute actions, likes, and retweets can be captured by the
+                User&apos;s post tweet and searches, follow and unfollow actions, mute and unmute actions, likes, and retweets can be captured by the
                 Twitter module.
               </div>
 
@@ -116,7 +116,7 @@ class HelpPage extends React.Component {
 
               <div className="swash-head2">Spotify</div>
               <div className="swash-p2">
-                This module captures the user's Spotify profile, saved tracks and albums, current playlists and playbacks, currently playing and
+                This module captures the user&apos;s Spotify profile, saved tracks and albums, current playlists and playbacks, currently playing and
                 recently played songs, and the artists that the user has followed.
               </div>
 
@@ -128,7 +128,7 @@ class HelpPage extends React.Component {
                 we have identified so far and the first row of the table shows privacy levels that have been defined for Swash. At the lowest level,
                 Swash assures no privacy. In Medium Privacy Level, Swash masks URL path names, reduces time precision by removing hours from time and
                 for texts it removes user information from texts. In High Level, it removes URL path names, removes days from the time and removes all
-                texts that have user's information.
+                texts that have user&apos;s information.
               </div>
 
               <div className="swash-help-table">
@@ -162,7 +162,7 @@ class HelpPage extends React.Component {
                     </tr>
                     <tr className="swash-table-row">
                       <td className="swash-table-text swash-table-head-text">Text</td>
-                      <td className="swash-table-text">Replace masked text with '*'</td>
+                      <td className="swash-table-text">Replace masked text with &apos;*&apos;</td>
                       <td className="swash-table-text">Replace masked text with null</td>
                       <td className="swash-table-text">Remove texts that has masked text</td>
                     </tr>
@@ -216,9 +216,9 @@ class HelpPage extends React.Component {
                 Firstly, unlike giant data collectors, users can configure which data they want to be sent to Streamr. Then, by using Swash, the user
                 gets paid for all data he/she provides to sell, but giant data collectors never share revenue of selling data. Next, Swash users are
                 anonymous and the user identity is anonymized before sending data, but giant data collectors has profiled users. Moreover, Swash is
-                not limited to data regarding a specific business and it can collects a combination of user's data that none of these companies have
-                all these data together. As Swash is installed on the user side, it can collect some other interesting data that giant data collectors
-                do not have access.
+                not limited to data regarding a specific business and it can collects a combination of user&apos;s data that none of these companies
+                have all these data together. As Swash is installed on the user side, it can collect some other interesting data that giant data
+                collectors do not have access.
               </div>
 
               <div className="swash-gray-box">

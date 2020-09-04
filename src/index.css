@@ -101,7 +101,6 @@ body {
   background-color: #fdfdfd;
 }
 
-
 /* Router style */
 
 .swash-body-content {
@@ -112,7 +111,6 @@ body {
   margin-left: 328px;
   min-height: calc(100vh);
 }
-
 
 /* SideNavigation style */
 
@@ -127,19 +125,16 @@ body {
 }
 
 .list-group-item:hover {
-  color: #49505B;
+  color: #49505b;
   text-decoration: none;
   /*  background-color: #f8f9fa*/
-
-
 }
 
 .list-group-item:hover {
-  color: #49505B;
+  color: #49505b;
   text-decoration: none;
   /*background-color: #f8f9fa*/
 }
-
 
 .list-group .active {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
@@ -149,8 +144,6 @@ body {
 .activeClass .list-group-item {
   color: #323232;
 }
-
-
 
 #swash-sidebar-navigation-mobile {
   display: none;
@@ -163,9 +156,8 @@ body {
 }
 
 .swash-position-fixed {
-  position: fixed!important;
+  position: fixed !important;
 }
-
 
 .list-group {
   display: flex;
@@ -179,7 +171,6 @@ body {
   width: 40px;
   height: 40px;
 }
-
 
 .swash-sidebar-logo img {
   width: 40px;
@@ -250,8 +241,6 @@ body {
   line-height: 32px;
   display: contents;
 }
-
-
 
 .swash-row {
   width: 100%;
@@ -327,7 +316,7 @@ body {
 }
 
 .swash-form-input-button {
-  border-radius: 2px;  
+  border-radius: 2px;
   color: rgb(173, 173, 173);
   background: #ffffff;
   font-family: IBMPlexSans-Medium;
@@ -356,8 +345,8 @@ body {
   background-color: #efefef;
 }
 
-
-#swash-privateKey, #swash-wallet {
+#swash-privateKey,
+#swash-wallet {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -462,7 +451,6 @@ body {
   cursor: default;
 }
 
-
 .swash-modal {
   width: 100%;
   height: 100%;
@@ -472,7 +460,6 @@ body {
   z-index: 1051;
   position: fixed;
 }
-
 
 /*Style for Settings page */
 
@@ -506,7 +493,6 @@ body {
   padding-left: 8px;
   padding-right: 8px;
 }
-
 
 .swash-disabled-masked-text-td {
   width: calc(100% - 96px);
@@ -747,7 +733,6 @@ body {
   right: 0px;
 }
 
-
 .swash-accordion-domain {
   color: rgb(50, 50, 50);
   font-family: Roboto-Medium;
@@ -831,7 +816,6 @@ body {
   border: unset;
   outline: 0 !important;
 }
-
 
 .swash-setting-part-small {
   margin-bottom: 48px;
@@ -1054,7 +1038,6 @@ body {
   padding: 0px 48px;
 }
 
-
 .swash-transaction-modal-body p {
   text-align: center;
   margin-top: 8px;
@@ -1138,7 +1121,6 @@ body {
   float: left;
   min-height: 80px;
 }
-
 
 .swash-transaction-modal-body-right span {
   color: rgb(50, 50, 50);
@@ -1436,7 +1418,7 @@ body {
 }
 
 .swash-text-green {
-  color: rgb(42,196,55);
+  color: rgb(42, 196, 55);
 }
 
 .swash-onboarding-select-container {

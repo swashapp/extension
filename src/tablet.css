@@ -1,11 +1,11 @@
 @media only screen and (max-width: 1024px) {
   #swash-content {
-    margin-left: 240px;        
+    margin-left: 240px;
   }
 
   .swash-sidebar-fixed {
-      width: 240px;
-      padding-left: 100px;
+    width: 240px;
+    padding-left: 100px;
   }
 
   .swash-col {
@@ -14,7 +14,7 @@
 
   .swash-transfer-column {
     float: left;
-    margin-right: 0px; 
+    margin-right: 0px;
   }
 
   .swash-amount-column {
@@ -31,10 +31,10 @@
   }
 
   #swash-recipient {
-    width: 100%;    
+    width: 100%;
     text-overflow: ellipsis;
   }
-  
+
   #swash-referral-link {
     width: 392px;
     cursor: pointer;
@@ -74,9 +74,8 @@
   }
 
   .swash-balance-text-column {
-    padding-left: calc((50% - 100px)/2);
+    padding-left: calc((50% - 100px) / 2);
     width: 50%;
     display: inline-block;
   }
-
 }

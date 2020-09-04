@@ -8,9 +8,13 @@ import icon_open from '../../statics/images/active.svg';
 import icon_closed from '../../statics/images/inactive.svg';
 
 class DelaySend extends React.Component {
-  static propTypes = {
-    isOpened: PropTypes.bool,
-  };
+  static get propTypes() {
+    return {
+      isOpened: PropTypes.bool,
+      message: PropTypes.object,
+      onDelete: PropTypes.func,
+    };
+  }
 
   static defaultProps = {
     isOpened: false,
@@ -37,7 +41,6 @@ class DelaySend extends React.Component {
             <RDropdownMenu
               className="swash-button swash-form-input-button swash-more-button"
               items={[{text: 'Delete', callback: () => this.props.onDelete(this.props.message)}]}
-              ref="keyRevealMenu"
             />
           ) : (
             ''

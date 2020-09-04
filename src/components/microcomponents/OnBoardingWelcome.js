@@ -1,7 +1,15 @@
 import React from 'react';
 import Logo from '../../statics/images/Swash_Beta_Flag.svg';
+import PropTypes from 'prop-types';
 
 class OnBoardingPage extends React.Component {
+  static get propTypes() {
+    return {
+      nextPage: PropTypes.string,
+      ChangeOnBoardingPage: PropTypes.func,
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state = {

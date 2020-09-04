@@ -2,10 +2,19 @@ import React from 'react';
 import loading from '../../statics/images/loading.png';
 import FileBrowser from 'react-keyed-file-browser';
 import CustomSnackbar from './CustomSnackbar';
+import PropTypes from 'prop-types';
 
 class PassphraseModal extends React.Component {
+  static get propTypes() {
+    return {
+      page: PropTypes.number,
+      closePopup: PropTypes.func,
+    };
+  }
+
   constructor(props) {
     super(props);
+    this.notifyRef = React.createRef();
     this.state = {
       page: 1,
       nextPage: 1,
@@ -242,7 +251,7 @@ class PassphraseModal extends React.Component {
       return window.helper.applyConfig(this.state.selectedFile.conf).then((result) => {
         window.helper.save3BoxMnemonic(this.state.mnemonic).then(() => {
           if (result) return this.state.closePopup(true);
-          this.refs.notify.handleNotification('Can not import this config file', 'error');
+          this.notifyRef.current.handleNotification('Can not import this config file', 'error');
           return this.state.closePopup();
         });
       });
@@ -276,7 +285,7 @@ class PassphraseModal extends React.Component {
                 </div>
               </div>
             </div>
-            <CustomSnackbar ref="notify" />
+            <CustomSnackbar ref={this.notifyRef} />
           </React.Fragment>
         </div>
       );

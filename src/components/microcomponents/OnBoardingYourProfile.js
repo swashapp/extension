@@ -1,7 +1,16 @@
 import React from 'react';
 import CustomSelect from './CustomSelect';
+import PropTypes from 'prop-types';
 
 class OnBoardingYourProfile extends React.Component {
+  static get propTypes() {
+    return {
+      nextPage: PropTypes.string,
+      previousPage: PropTypes.string,
+      ChangeOnBoardingPage: PropTypes.func,
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state = {

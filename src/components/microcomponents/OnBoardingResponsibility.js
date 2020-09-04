@@ -1,7 +1,16 @@
 import React from 'react';
 import CustomCheckBox from './CustomCheckBox';
+import PropTypes from 'prop-types';
 
 class OnBoardingResponsibility extends React.Component {
+  static get propTypes() {
+    return {
+      nextPage: PropTypes.string,
+      previousPage: PropTypes.string,
+      ChangeOnBoardingPage: PropTypes.func,
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state = {

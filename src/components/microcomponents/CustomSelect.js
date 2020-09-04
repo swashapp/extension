@@ -3,8 +3,19 @@ import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 
 import '../../statics/css/custom-select.css';
 import arrow from '../../statics/images/inactive.svg';
+import PropTypes from 'prop-types';
 
 class CustomSelect extends React.Component {
+  static get propTypes() {
+    return {
+      items: PropTypes.array,
+      selectedItem: PropTypes.object,
+      className: PropTypes.string,
+      menuClassName: PropTypes.string,
+      onChange: PropTypes.func,
+    };
+  }
+
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);

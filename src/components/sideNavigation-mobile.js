@@ -4,8 +4,18 @@ import SwashBanner from '../statics/images/swash-banner.svg';
 import Logo from '../statics/images/Swash_Beta_Flag.svg';
 import menu from '../statics/images/menu.svg';
 import close from '../statics/images/close.svg';
+import PropTypes from 'prop-types';
 
 class MobileSideNavigation extends React.Component {
+  static get propTypes() {
+    return {
+      history: PropTypes.object,
+      'history.push': PropTypes.func,
+      location: PropTypes.object,
+      'location.pathname': PropTypes.string,
+    };
+  }
+
   constructor(props) {
     super(props);
     this.toggleClass = this.toggleClass.bind(this);

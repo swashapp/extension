@@ -3,8 +3,19 @@ import verified from '../../statics/images/verified.svg';
 import error from '../../statics/images/error-icon.svg';
 import arrow from '../../statics/images/arrow.svg';
 import loading from '../../statics/images/button-loading.svg';
+import PropTypes from 'prop-types';
 
 class TransferModal extends React.Component {
+  static get propTypes() {
+    return {
+      tx: PropTypes.string,
+      status: PropTypes.bool,
+      opening: PropTypes.func,
+      amount: PropTypes.string,
+      recipient: PropTypes.string,
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -85,16 +96,19 @@ class TransferModal extends React.Component {
             <div className="swash-transaction-modal-body">
               {this.state.withdrawType === 'sponsorWithdraw' ? (
                 <>
-                  <p>You have reached the minimum balance needed for us to cover transaction fees for you.</p>                  
-                  <p>Current transaction fee is <span className="swash-text-green">{this.purgeNumber(this.state.transactionFee)}</span> ETH that we will pay for you.</p>
+                  <p>You have reached the minimum balance needed for us to cover transaction fees for you.</p>
+                  <p>
+                    Current transaction fee is <span className="swash-text-green">{this.purgeNumber(this.state.transactionFee)}</span> ETH that we
+                    will pay for you.
+                  </p>
                 </>
               ) : (
                 <>
+                  <p>You haven&apos;t reached the minimum balance needed for us to cover transaction fees for you.</p>
                   <p>
-                    You haven't reached the minimum balance needed for us to cover transaction fees for you.                    
-                  </p>                  
-                  <p>
-                    If you want to proceed with the transaction, you need <span className="swash-text-green">{this.purgeNumber(this.state.transactionFee)}</span> ETH in your Swash wallet to cover the gas fee.
+                    If you want to proceed with the transaction, you need{' '}
+                    <span className="swash-text-green">{this.purgeNumber(this.state.transactionFee)}</span> ETH in your Swash wallet to cover the gas
+                    fee.
                   </p>
                 </>
               )}
@@ -119,7 +133,7 @@ class TransferModal extends React.Component {
               <p>Transfer completed</p>
             </div>
             <div className="swash-transaction-modal-body swash-transaction-modal-body-large">
-              <img src={verified} alt={'Verified'}></img>
+              <img src={verified} alt={'Verified'} />
               <p>
                 Verify your transaction on{' '}
                 <a target="_blank" rel="noopener noreferrer" href={`https://etherscan.io/tx/${this.state.transactionId}`}>
@@ -136,7 +150,7 @@ class TransferModal extends React.Component {
               <p>Transfer failed</p>
             </div>
             <div className="swash-transaction-modal-body swash-transaction-modal-body-large">
-              <img src={error} alt={'Error'}></img>
+              <img src={error} alt={'Error'} />
               <p>Reason: {this.state.failedReason}</p>
             </div>
           </div>

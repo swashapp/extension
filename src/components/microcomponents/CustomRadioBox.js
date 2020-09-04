@@ -2,9 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class CustomRadioBox extends React.Component {
-  static propTypes = {
-    isChecked: PropTypes.bool,
-  };
+  static get propTypes() {
+    return {
+      id: PropTypes.string,
+      isChecked: PropTypes.bool,
+      onChange: PropTypes.func,
+      handleClick: PropTypes.func,
+    };
+  }
 
   static defaultProps = {
     isChecked: false,

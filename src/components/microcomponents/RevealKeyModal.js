@@ -1,6 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class RevealKeyModal extends React.Component {
+  static get propTypes() {
+    return {
+      text: PropTypes.string,
+      opening: PropTypes.func,
+      func: PropTypes.func,
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state = {

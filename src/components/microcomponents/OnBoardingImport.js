@@ -7,13 +7,21 @@ import GoogleDriveImg from '../../statics/images/google-drive.svg';
 import DropboxImg from '../../statics/images/dropbox.svg';
 import CustomSnackbar from './CustomSnackbar';
 import PassphraseModal from './PassphraseModal';
+import PropTypes from 'prop-types';
 
 class OnBoardingNewPage extends React.Component {
+  static get propTypes() {
+    return {
+      nextPage: PropTypes.string,
+      previousPage: PropTypes.string,
+      ChangeOnBoardingPage: PropTypes.func,
+    };
+  }
+
   constructor(props) {
     super(props);
-    this.state = {};
-    this.state.showPopup = false;
-    this.state.onboardingType = 'LocalFile';
+    this.notifyRef = React.createRef();
+    this.state = {showPopup: false, onboardingType: 'LocalFile'};
     // This binding is necessary to make `this` work in the callback
     // this.XXX = this.XXX.bind(this);
     this.LoadOnBoardingNew = this.LoadOnBoardingNew.bind(this);
@@ -44,7 +52,7 @@ class OnBoardingNewPage extends React.Component {
             window.helper.applyConfig(reader.result).then((response) => {
               if (response) {
                 that.goToNextPage();
-              } else that.refs.notify.handleNotification('The configuration file could not be imported', 'error');
+              } else this.notifyRef.current.handleNotification('The configuration file could not be imported', 'error');
             });
           };
 
@@ -207,7 +215,7 @@ class OnBoardingNewPage extends React.Component {
             ''
           )}
         </React.Fragment>
-        <CustomSnackbar ref="notify" />
+        <CustomSnackbar ref={this.notifyRef} />
       </div>
     );
   }

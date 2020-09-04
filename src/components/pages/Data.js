@@ -83,7 +83,7 @@ class DataPage extends React.Component {
     };
 
     let collapses = this.state.messages.map((item) => {
-      return <DelaySend isOpened={false} message={item} onDelete={deleteMsg} />;
+      return <DelaySend isOpened={false} message={item} onDelete={deleteMsg} key={item.msgId} />;
     });
 
     return (

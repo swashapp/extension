@@ -2,8 +2,16 @@ import React from 'react';
 import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 
 import '../../statics/css/custom-dropdown.css';
+import PropTypes from 'prop-types';
 
 class RDropdownMenu extends React.Component {
+  static get propTypes() {
+    return {
+      items: PropTypes.array,
+      className: PropTypes.string,
+    };
+  }
+
   constructor(props) {
     super(props);
 
@@ -27,13 +35,11 @@ class RDropdownMenu extends React.Component {
   render() {
     return (
       <Dropdown className="swash-custom-dropdown" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-        <DropdownToggle
-          className={this.state.dropdownOpen ? this.props.className + ' swash-more-button-active' : this.props.className}
-          tag="div"></DropdownToggle>
+        <DropdownToggle className={this.state.dropdownOpen ? this.props.className + ' swash-more-button-active' : this.props.className} tag="div" />
         <DropdownMenu className="swash-custom-dropdown-menu">
           {this.state.items.map((item) => {
             return (
-              <DropdownItem className="swash-custom-dropdown-item" onClick={item.callback}>
+              <DropdownItem className="swash-custom-dropdown-item" onClick={item.callback} key={item.text}>
                 {item.text}
               </DropdownItem>
             );

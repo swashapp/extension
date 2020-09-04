@@ -9,6 +9,7 @@ import PassphraseModal from '../microcomponents/PassphraseModal.js';
 class SettingsPage extends React.Component {
   constructor(props) {
     super(props);
+    this.notifyRef = React.createRef();
     this.state = {
       modules: [],
       masks: [],
@@ -48,17 +49,17 @@ class SettingsPage extends React.Component {
       this.setState({
         masks: newMasks,
         modules: modules,
-        referralLink: referralLink
+        referralLink: referralLink,
       });
     });
   }
 
   async loadReferal() {
     let db = await window.helper.load();
-    if(!db.profile.user_id) {
+    if (!db.profile.user_id) {
       setTimeout(() => this.loadReferal(), 5000);
       return;
-    }    
+    }
     let referralLink = db.profile.user_id ? `https://swashapp.io/referral/${db.profile.user_id}` : '';
     this.setState({referralLink});
   }
@@ -70,7 +71,7 @@ class SettingsPage extends React.Component {
     };
     mvElement.value = '';
     if (!f.value || f.value === 'undefined') {
-      this.refs.notify.handleNotification('Null is not allowed', 'error');
+      this.notifyRef.current.handleNotification('Null is not allowed', 'error');
       return;
     }
 
@@ -88,7 +89,7 @@ class SettingsPage extends React.Component {
         i.push(f);
         this.setState({masks: i});
       } else {
-        this.refs.notify.handleNotification('Duplicate entry', 'error');
+        this.notifyRef.current.handleNotification('Duplicate entry', 'error');
       }
     });
   }
@@ -106,7 +107,6 @@ class SettingsPage extends React.Component {
     this.setState({masks: newArray});
   }
 
-
   onboardingOAuth(onboarding) {
     if (!window.browser.runtime.onMessage.hasListener(this.onboardingUpload)) window.browser.runtime.onMessage.addListener(this.onboardingUpload);
 
@@ -118,8 +118,8 @@ class SettingsPage extends React.Component {
   onboardingUpload(request, sender, sendResponse) {
     if (request.onboarding) {
       window.helper.uploadFile(request.onboarding).then((response) => {
-        if (response === false) this.refs.notify.handleNotification('The configuration file could not be exported', 'error');
-        else this.refs.notify.handleNotification('The configuration file is exported successfully', 'success');
+        if (response === false) this.notifyRef.current.handleNotification('The configuration file could not be exported', 'error');
+        else this.notifyRef.current.handleNotification('The configuration file is exported successfully', 'success');
       });
     }
 
@@ -131,18 +131,18 @@ class SettingsPage extends React.Component {
       showPopup: !this.state.showPopup,
     });
 
-    if (isCompleted === false) this.refs.notify.handleNotification('The configuration file could not be exported', 'error');
-    else if (isCompleted === true) this.refs.notify.handleNotification('The configuration file is exported successfully', 'success');
+    if (isCompleted === false) this.notifyRef.current.handleNotification('The configuration file could not be exported', 'error');
+    else if (isCompleted === true) this.notifyRef.current.handleNotification('The configuration file is exported successfully', 'success');
   }
 
   copyToClipboard(e, element) {
     element.select();
     document.execCommand('copy');
     element.blur();
-    this.refs.notify.handleNotification('Copied successfully', 'success');
+    this.notifyRef.current.handleNotification('Copied successfully', 'success');
   }
 
-  render() {    
+  render() {
     let maskTableDataRows = this.state.masks.map((row) => {
       return (
         <tr key={row.value} className="swash-table-row">
@@ -198,7 +198,13 @@ class SettingsPage extends React.Component {
                   <div className="swash-referral-column">
                     <div className="swash-form-caption">Your referral link</div>
                     <div>
-                      <input type="text" id="swash-referral-link" value={this.state.referralLink} readOnly={true} className="swash-form-input  swash-filter-input" />
+                      <input
+                        type="text"
+                        id="swash-referral-link"
+                        value={this.state.referralLink}
+                        readOnly={true}
+                        className="swash-form-input  swash-filter-input"
+                      />
                     </div>
                   </div>
                   <div className="swash-referral-column" style={{marginRight: '0px'}}>
@@ -319,7 +325,7 @@ class SettingsPage extends React.Component {
             ''
           )}
         </React.Fragment>
-        <CustomSnackbar ref="notify" />
+        <CustomSnackbar ref={this.notifyRef} />
       </div>
     );
   }
