@@ -25,20 +25,20 @@ class OnBoardingYourProfileWarning extends React.Component {
     return (
       <div className="d-flex justify-content-center">
         <React.Fragment>
-          <div className="onboarding-box">
-            <div className="onboarding-box-header">
+          <div className="swash-onboarding-box">
+            <div className="swash-onboarding-box-header">
               <p>Your Profile</p>
             </div>
-            <div className="onboarding-box-body">
+            <div className="swash-onboarding-box-body">
               <p>
                 We need to ask you for some generic profile information. This is to make your data more valuable to buyers. Please answer accurately
                 so Swash can deliver good quality data.
               </p>
             </div>
-            <div className="onboarding-box-footer">
-              <div className="onboarding-box-footer-left" />
-              <div className="onboarding-box-footer-right">
-                <div className={'onboarding-proceed-button'} onClick={this.LoadOnBoardingNew}>
+            <div className="swash-onboarding-box-footer">
+              <div className="swash-onboarding-box-footer-left" />
+              <div className="swash-onboarding-box-footer-right">
+                <div className={'swash-onboarding-proceed-button'} onClick={this.LoadOnBoardingNew}>
                   Proceed
                 </div>
                 <div style={{float: 'right', cursor: 'pointer'}}>

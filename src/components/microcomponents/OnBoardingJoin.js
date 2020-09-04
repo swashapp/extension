@@ -52,23 +52,23 @@ class OnBoardingJoin extends React.Component {
   }
 
   reloadIFrame() {
-    document.querySelector('.onboarding-iframe').currentTarget.style.visibility = 'hidden';
-    document.querySelector('.onboarding-iframe-wrapper').style.visibility = 'visible';
-    document.querySelector('.onboarding-iframe').src = document.querySelector('.onboarding-iframe').src;
+    document.querySelector('.swash-onboarding-iframe').currentTarget.style.visibility = 'hidden';
+    document.querySelector('.swash-onboarding-iframe-wrapper').style.visibility = 'visible';
+    document.querySelector('.swash-onboarding-iframe').src = document.querySelector('.swash-onboarding-iframe').src;
   }
 
   render() {
     const makeVisible = (e) => {
       e.currentTarget.style.visibility = 'visible';
-      document.querySelector('.onboarding-iframe-wrapper').style.visibility = 'hidden';
+      document.querySelector('.swash-onboarding-iframe-wrapper').style.visibility = 'hidden';
     };
 
     return (
       <div className="d-flex justify-content-center">
         <React.Fragment>
-          <div className="onboarding-iframe-wrapper">
+          <div className="swash-onboarding-iframe-wrapper">
             {this.state.token ? (
-              <iframe seamless className="onboarding-iframe" onLoad={makeVisible} src={`${SWASHDOMAIN}${SWASHJOINPAGE}?token=${this.state.token}`}>
+              <iframe seamless className="swash-onboarding-iframe" onLoad={makeVisible} src={`${SWASHDOMAIN}${SWASHJOINPAGE}?token=${this.state.token}`}>
                 <p>Your browser does not support iframes.</p>
               </iframe>
             ) : (

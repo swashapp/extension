@@ -70,8 +70,8 @@ class PassphraseModal extends React.Component {
     switch (this.state.page) {
       case 1:
         return (
-          <div className="transaction-modal-body-large" style={{overflow: 'auto', display: 'block', width: 'auto'}}>
-            <div className="modal-body-text" style={{height: 'inherit'}}>
+          <div className="swash-transaction-modal-body-large" style={{overflow: 'auto', display: 'block', width: 'auto'}}>
+            <div className="swash-modal-body-text" style={{height: 'inherit'}}>
               This feature is experimental and so may not work perfectly all the time. It may change or be removed in the future.
               <p
                 style={{
@@ -85,8 +85,8 @@ class PassphraseModal extends React.Component {
       case 2:
         this.getMnemonic();
         return (
-          <div className="transaction-modal-body-large" style={{overflow: 'auto', display: 'block', width: 'auto'}}>
-            <div className="modal-body-text" style={{height: 'inherit'}}>
+          <div className="swash-transaction-modal-body-large" style={{overflow: 'auto', display: 'block', width: 'auto'}}>
+            <div className="swash-modal-body-text" style={{height: 'inherit'}}>
               If you ever change browsers or move computers, you will need this seed phrase to access your 3Box backups. Save them somewhere safe and
               secret.
               <p
@@ -109,8 +109,8 @@ class PassphraseModal extends React.Component {
         );
       case 3:
         return (
-          <div className="transaction-modal-body-large" style={{overflow: 'auto', display: 'block', width: 'auto'}}>
-            <div className="modal-body-text" style={{height: 'inherit'}}>
+          <div className="swash-transaction-modal-body-large" style={{overflow: 'auto', display: 'block', width: 'auto'}}>
+            <div className="swash-modal-body-text" style={{height: 'inherit'}}>
               If you ever change browsers or move computers, you will need this seed phrase to access your 3Box backups. Save them somewhere safe and
               secret.
               <textarea
@@ -131,8 +131,8 @@ class PassphraseModal extends React.Component {
         );
       case 4:
         return (
-          <div className="transaction-modal-body-large" style={{overflow: 'auto', display: 'block', width: 'auto'}}>
-            <div className="modal-body-text" style={{display: 'block'}}>
+          <div className="swash-transaction-modal-body-large" style={{overflow: 'auto', display: 'block', width: 'auto'}}>
+            <div className="swash-modal-body-text" style={{display: 'block'}}>
               <FileBrowser
                 files={this.state.files}
                 detailRenderer={() => {
@@ -154,7 +154,7 @@ class PassphraseModal extends React.Component {
       case 1:
         return (
           <div
-            className="transaction-modal-button"
+            className="swash-transaction-modal-button"
             onClick={(e) => {
               this.setState({
                 page: this.state.page + this.state.nextPage,
@@ -165,29 +165,29 @@ class PassphraseModal extends React.Component {
         );
       case 2:
         return this.state.waiting ? (
-          <div className="transaction-modal-button transaction-modal-button-waiting">
+          <div className="swash-transaction-modal-button swash-transaction-modal-button-waiting">
             Uploading...
             <img src={loading} alt={''} />
           </div>
         ) : (
-          <div className="transaction-modal-button" onClick={this.backupConfig}>
+          <div className="swash-transaction-modal-button" onClick={this.backupConfig}>
             Export
           </div>
         );
       case 3:
         return this.state.waiting ? (
-          <div className="transaction-modal-button transaction-modal-button-waiting">
+          <div className="swash-transaction-modal-button swash-transaction-modal-button-waiting">
             Signing in...
             <img src={loading} alt={''} />
           </div>
         ) : (
-          <div className="transaction-modal-button" onClick={this.signIn3Box}>
+          <div className="swash-transaction-modal-button" onClick={this.signIn3Box}>
             Sign in
           </div>
         );
       case 4:
         return (
-          <div className="transaction-modal-button" onClick={this.applyConfig}>
+          <div className="swash-transaction-modal-button" onClick={this.applyConfig}>
             Import
           </div>
         );
@@ -256,17 +256,17 @@ class PassphraseModal extends React.Component {
       return (
         <div className="d-flex justify-content-center">
           <React.Fragment>
-            <div className="transaction-modal-large">
+            <div className="swash-transaction-modal-large">
               <div>
-                <div className="transaction-modal-header">
+                <div className="swash-transaction-modal-header">
                   <p>{this.getHeader()}</p>
                 </div>
                 {this.getBody()}
-                <div className="transaction-modal-footer">
-                  <div className="transaction-modal-footer-right">
+                <div className="swash-transaction-modal-footer">
+                  <div className="swash-transaction-modal-footer-right">
                     {this.getNextButton()}
                     <div
-                      className="transaction-modal-button-cancel"
+                      className="swash-transaction-modal-button-cancel"
                       onClick={(e) => {
                         this.state.closePopup();
                       }}>

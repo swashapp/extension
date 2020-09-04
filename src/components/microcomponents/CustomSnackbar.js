@@ -41,20 +41,20 @@ class CustomSnackbar extends React.Component {
           this.setState({notification: notification});
         }}>
         <SnackbarContent
-          classes={{root: 'notification'}}
+          classes={{root: 'swash-notification'}}
           message={
             <div>
-              <div className="notification-icon">
+              <div className="swash-notification-icon">
                 <img alt={''} src={this.state.notification.type === 'success' ? success : error} />
               </div>
               {this.state.notification.link ? (
-                <span className="notification-message" id="message-id">
+                <span className="swash-notification-message" id="swash-message-id">
                   <a target="_blank" rel="noopener noreferrer" href={this.state.notification.link}>
                     {this.state.notification.message}
                   </a>
                 </span>
               ) : (
-                <span className="notification-message" id="message-id">
+                <span className="swash-notification-message" id="swash-message-id">
                   {this.state.notification.message}
                 </span>
               )}

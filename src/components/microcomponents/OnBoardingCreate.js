@@ -24,20 +24,20 @@ class OnBoardingNewPage extends React.Component {
     return (
       <div className="d-flex justify-content-center">
         <React.Fragment>
-          <div className="onboarding-box">
-            <div className="onboarding-box-header">
+          <div className="swash-onboarding-box">
+            <div className="swash-onboarding-box-header">
               <p>Create new wallet</p>
             </div>
-            <div className="onboarding-box-body">
+            <div className="swash-onboarding-box-body">
               <p>
                 A new Ethereum wallet will be created for you. Keep the address and private keys in a safe place. You can share your wallet address
                 with everyone but <b>never share your private keys with anyone</b>.
               </p>
             </div>
-            <div className="onboarding-box-footer">
-              <div className="onboarding-box-footer-left"></div>
-              <div className="onboarding-box-footer-right">
-                <div className="onboarding-proceed-button" onClick={this.LoadOnBoardingCreateWallet}>
+            <div className="swash-onboarding-box-footer">
+              <div className="swash-onboarding-box-footer-left"></div>
+              <div className="swash-onboarding-box-footer-right">
+                <div className="swash-onboarding-proceed-button" onClick={this.LoadOnBoardingCreateWallet}>
                   Create
                 </div>
                 <div style={{float: 'right', cursor: 'pointer'}}>

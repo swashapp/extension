@@ -25,31 +25,31 @@ class DelaySend extends React.Component {
     const {isOpened} = this.state;
     let progress_percentage = this.props.message.percentage;
     let iconArrow = isOpened ? icon_open : icon_closed;
-    let classHeader = isOpened ? 'accordion-head accordion-head-open' : 'accordion-head';
+    let classHeader = isOpened ? 'swash-accordion-head swash-accordion-head-open' : 'swash-accordion-head';
     return (
       <div>
         <div className={classHeader}>
-          <div className="accordion-domain">{this.props.message.link}</div>
-          <div className="accordion-module">{this.props.message.title}</div>
-          <MDBProgress material value={progress_percentage} className="accordion-delay" color="#ff5c00" />
-          <img src={this.props.message.icon} alt="" className="accordion-icon" />
+          <div className="swash-accordion-domain">{this.props.message.link}</div>
+          <div className="swash-accordion-module">{this.props.message.title}</div>
+          <MDBProgress material value={progress_percentage} className="swash-accordion-delay" color="#ff5c00" />
+          <img src={this.props.message.icon} alt="" className="swash-accordion-icon" />
           {isOpened ? (
             <RDropdownMenu
-              className="button form-input-button more-button"
+              className="swash-button swash-form-input-button swash-more-button"
               items={[{text: 'Delete', callback: () => this.props.onDelete(this.props.message)}]}
               ref="keyRevealMenu"
             />
           ) : (
             ''
           )}
-          <div className="accordion-checkbox" onClick={() => this.setState({isOpened: !isOpened})}>
+          <div className="swash-accordion-checkbox" onClick={() => this.setState({isOpened: !isOpened})}>
             <img alt={''} src={iconArrow} />
           </div>
-          <button className="accordion-delete" onClick={() => this.props.onDelete(this.props.message)} />
+          <button className="swash-accordion-delete" onClick={() => this.props.onDelete(this.props.message)} />
         </div>
 
         <Collapse isOpened={isOpened}>
-          <div className="accordion-text">
+          <div className="swash-accordion-text">
             <pre>{JSON.stringify(this.props.message.msg, null, 4)}</pre>
           </div>
         </Collapse>

@@ -1,0 +1,82 @@
+@media only screen and (max-width: 1024px) {
+  #swash-content {
+    margin-left: 240px;        
+  }
+
+  .swash-sidebar-fixed {
+      width: 240px;
+      padding-left: 100px;
+  }
+
+  .swash-col {
+    width: 512px;
+  }
+
+  .swash-transfer-column {
+    float: left;
+    margin-right: 0px; 
+  }
+
+  .swash-amount-column {
+    width: 128px;
+    margin-right: 16px;
+  }
+
+  .swash-recipient-column {
+    width: calc(100% - 144px);
+  }
+
+  #swash-amount {
+    text-overflow: ellipsis;
+  }
+
+  #swash-recipient {
+    width: 100%;    
+    text-overflow: ellipsis;
+  }
+  
+  #swash-referral-link {
+    width: 392px;
+    cursor: pointer;
+  }
+
+  .swash-mask-input {
+    width: 424px;
+  }
+
+  .swash-balance-block {
+    width: 100%;
+  }
+
+  .swash-balance-text-bold {
+    font-size: 24px;
+    font-family: Roboto-Medium;
+    font-weight: 500;
+    letter-spacing: 0px;
+    line-height: 20px;
+    margin-bottom: 0px;
+    display: block;
+  }
+
+  .swash-balance-cumulative {
+    color: rgb(173, 173, 173);
+    font-size: 24px;
+    font-family: Roboto-Medium;
+    font-weight: 500;
+    letter-spacing: 0px;
+    line-height: 20px;
+    display: block;
+    padding: 0px;
+  }
+
+  .swash-balance-text {
+    line-height: 20px;
+  }
+
+  .swash-balance-text-column {
+    padding-left: calc((50% - 100px)/2);
+    width: 50%;
+    display: inline-block;
+  }
+
+}

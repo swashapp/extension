@@ -21,11 +21,11 @@ class OnBoardingPage extends React.Component {
     return (
       <div className="d-flex justify-content-center">
         <React.Fragment>
-          <div className="onboarding-box">
-            <div className="onboarding-box-header">
+          <div className="swash-onboarding-box">
+            <div className="swash-onboarding-box-header">
               <p>Welcome to Swash</p>
             </div>
-            <div className="onboarding-box-body">
+            <div className="swash-onboarding-box-body">
               <img alt={''} style={{marginBottom: '23px'}} src={Logo} />
               <div>
                 <span>
@@ -35,9 +35,9 @@ class OnBoardingPage extends React.Component {
                 </span>
               </div>
             </div>
-            <div className="onboarding-box-footer">
+            <div className="swash-onboarding-box-footer">
               <div style={{textAlign: 'center'}}>
-                <div className="onboarding-start-button" onClick={this.LoadOnBoardingNew}>
+                <div className="swash-onboarding-start-button" onClick={this.LoadOnBoardingNew}>
                   Get started
                 </div>
               </div>

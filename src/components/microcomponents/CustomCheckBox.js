@@ -37,7 +37,7 @@ class CustomCheckBox extends React.Component {
     return (
       <div
         id={this.props.id}
-        className="checkbox"
+        className="swash-checkbox"
         onClick={() => {
           this.setState({isChecked: !isChecked});
 

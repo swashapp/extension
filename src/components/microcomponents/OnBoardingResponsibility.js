@@ -27,17 +27,17 @@ class OnBoardingResponsibility extends React.Component {
     return (
       <div className="d-flex justify-content-center">
         <React.Fragment>
-          <div className="onboarding-box">
-            <div className="onboarding-box-header">
+          <div className="swash-onboarding-box">
+            <div className="swash-onboarding-box-header">
               <p>Know your responsibility</p>
             </div>
-            <div className="onboarding-box-body">
+            <div className="swash-onboarding-box-body">
               <p>
                 If you lose your private keys, or someone else gains access to them, <b>you will lose all of your funds forever</b>. Swash cannot
                 recover them. It is your responsibility to be safe and secure.
               </p>
               <div
-                className="onboarding-box-footer-left-small"
+                className="swash-onboarding-box-footer-left-small"
                 onClick={() => {
                   this.setState({isChecked: !this.state.isChecked});
                 }}>
@@ -53,10 +53,10 @@ class OnBoardingResponsibility extends React.Component {
                 <span>I have read it and I agree</span>
               </div>
             </div>
-            <div className="onboarding-box-footer">
-              <div className="onboarding-box-footer-left">
+            <div className="swash-onboarding-box-footer">
+              <div className="swash-onboarding-box-footer-left">
                 <div
-                  className="onboarding-box-approve-wrapper"
+                  className="swash-onboarding-box-approve-wrapper"
                   onClick={() => {
                     this.setState({isChecked: !this.state.isChecked});
                   }}>
@@ -64,9 +64,9 @@ class OnBoardingResponsibility extends React.Component {
                   <span>I have read it and I agree</span>
                 </div>
               </div>
-              <div className="onboarding-box-footer-right">
+              <div className="swash-onboarding-box-footer-right">
                 <div
-                  className={this.state.isChecked ? 'onboarding-proceed-button' : 'onboarding-proceed-disable-button'}
+                  className={this.state.isChecked ? 'swash-onboarding-proceed-button' : 'swash-onboarding-proceed-disable-button'}
                   onClick={this.LoadOnBoardingNew}>
                   Proceed
                 </div>

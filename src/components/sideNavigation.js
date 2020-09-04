@@ -6,22 +6,22 @@ import Logo from '../statics/images/Swash_Beta_Flag.svg';
 class SideNavigation extends React.Component {
   render() {
     return (
-      <div className="sidebar-fixed position-fixed">
-        <MDBListGroup className="list-group-flush">
-          <div className="sidebar-logo">
+      <div className="swash-sidebar-fixed swash-position-fixed">
+        <MDBListGroup className="swash-list-group-flush">
+          <div className="swash-sidebar-logo">
             <img src={Logo} alt={'Swash'} />
           </div>
           <NavLink exact={true} to="/Wallet" activeClassName="activeClass">
-            <MDBListGroupItem className="side-bar-text">Wallet</MDBListGroupItem>
+            <MDBListGroupItem className="swash-sidebar-text">Wallet</MDBListGroupItem>
           </NavLink>
           <NavLink exact={true} to="/Settings" activeClassName="activeClass">
-            <MDBListGroupItem className="side-bar-text">Settings</MDBListGroupItem>
+            <MDBListGroupItem className="swash-sidebar-text">Settings</MDBListGroupItem>
           </NavLink>
           <NavLink to="/Data" activeClassName="activeClass">
-            <MDBListGroupItem className="side-bar-text">Data</MDBListGroupItem>
+            <MDBListGroupItem className="swash-sidebar-text">Data</MDBListGroupItem>
           </NavLink>
           <NavLink to="/Help" activeClassName="activeClass">
-            <MDBListGroupItem className="side-bar-text">Help</MDBListGroupItem>
+            <MDBListGroupItem className="swash-sidebar-text">Help</MDBListGroupItem>
           </NavLink>
         </MDBListGroup>
       </div>

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-.notification {
+.swash-notification {
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1) !important;
   border-radius: 4px !important;
   background: rgb(255, 255, 255) !important;
@@ -9,7 +9,7 @@
   min-width: 272px !important;
 }
 
-.notification-message {
+.swash-notification-message {
   font-size: 14px !important;
   font-family: Roboto-Regular !important;
   font-weight: normal !important;
@@ -18,7 +18,7 @@
   text-align: left;
 }
 
-.notification-icon {
+.swash-notification-icon {
   margin-right: 16px;
   width: 20px;
   height: 20px;

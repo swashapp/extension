@@ -27,11 +27,11 @@ class OnBoardingPrivacyPolicy extends React.Component {
     return (
       <div className="d-flex justify-content-center">
         <React.Fragment>
-          <div className="onboarding-box">
-            <div className="onboarding-box-header">
+          <div className="swash-onboarding-box">
+            <div className="swash-onboarding-box-header">
               <p>Privacy Policy</p>
             </div>
-            <div className="onboarding-box-body">
+            <div className="swash-onboarding-box-body">
               <p>
                 Please read our privacy policy, available
                 <a target="_blank" rel="noopener noreferrer" href="https://swashapp.io/file/final-privacy-policy.pdf">
@@ -41,7 +41,7 @@ class OnBoardingPrivacyPolicy extends React.Component {
                 . Swash can collect personal data, so it is very important that you read and understand our privacy policy.
               </p>
               <div
-                className="onboarding-box-footer-left-small"
+                className="swash-onboarding-box-footer-left-small"
                 onClick={() => {
                   this.setState({isChecked: !this.state.isChecked});
                 }}>
@@ -49,10 +49,10 @@ class OnBoardingPrivacyPolicy extends React.Component {
                 <span>I have read it and I agree</span>
               </div>
             </div>
-            <div className="onboarding-box-footer">
-              <div className="onboarding-box-footer-left">
+            <div className="swash-onboarding-box-footer">
+              <div className="swash-onboarding-box-footer-left">
                 <div
-                  className="onboarding-box-approve-wrapper"
+                  className="swash-onboarding-box-approve-wrapper"
                   onClick={() => {
                     this.setState({isChecked: !this.state.isChecked});
                   }}>
@@ -60,9 +60,9 @@ class OnBoardingPrivacyPolicy extends React.Component {
                   <span>I have read it and I agree</span>
                 </div>
               </div>
-              <div className="onboarding-box-footer-right">
+              <div className="swash-onboarding-box-footer-right">
                 <div
-                  className={this.state.isChecked ? 'onboarding-proceed-button' : 'onboarding-proceed-disable-button'}
+                  className={this.state.isChecked ? 'swash-onboarding-proceed-button' : 'swash-onboarding-proceed-disable-button'}
                   onClick={this.LoadOnBoardingNew}>
                   Proceed
                 </div>

@@ -9,7 +9,7 @@ class SettingsPage extends React.Component {
     super(props);
     this.state = {
       keyInfo: {address: '', privateKey: ''},
-      dataBalance: '$',
+      referralBalance: '$',
       dataAvailable: '$',
       cumulativeEarnings: '$',
       withdrawState: false,
@@ -55,8 +55,8 @@ class SettingsPage extends React.Component {
   }
 
   transfer(e) {
-    let amount = document.querySelector('#amount').value;
-    let recipient = document.querySelector('#recipient').value;
+    let amount = document.querySelector('#swash-amount').value;
+    let recipient = document.querySelector('#swash-recipient').value;
     if (!amount.match(/^[0-9]+(\.[0-9]+)?$/)) {
       this.refs.notify.handleNotification('Amount value is not valid', 'failure');
       return;
@@ -85,10 +85,10 @@ class SettingsPage extends React.Component {
           revealKeyModal: !this.state.revealKeyModal,
           revealFunction: {
             func: (e) => {
-              let pKey = document.getElementById('privateKey');
+              let pKey = document.getElementById('swash-privateKey');
               let pKeyType = pKey.type;
               pKey.type = 'text';
-              this.copyToClipboard(e, document.getElementById('privateKey'));
+              this.copyToClipboard(e, document.getElementById('swash-privateKey'));
               pKey.type = pKeyType;
             },
             text: 'copy',
@@ -101,7 +101,7 @@ class SettingsPage extends React.Component {
   }
 
   async getBalanceInfo() {
-    let dataBalance = (await window.helper.getReferralRewards()).toString();
+    let referralBalance = (await window.helper.getReferralRewards()).toString();
     let dataAvailable = await window.helper.getAvailableBalance();
     dataAvailable = dataAvailable.error || dataAvailable === '' || typeof dataAvailable === 'undefined' ? this.state.dataAvailable : dataAvailable;
     let cumulativeEarnings = await window.helper.getCumulativeEarnings();
@@ -109,9 +109,9 @@ class SettingsPage extends React.Component {
       cumulativeEarnings.error || cumulativeEarnings === '' || typeof cumulativeEarnings === 'undefined'
         ? this.state.cumulativeEarnings
         : cumulativeEarnings;
-    if (dataBalance !== this.state.dataBalance || dataAvailable !== this.state.dataAvailable)
+    if (referralBalance !== this.state.referralBalance || dataAvailable !== this.state.dataAvailable)
       this.setState({
-        dataBalance: this.purgeNumber(dataBalance),
+        referralBalance: this.purgeNumber(referralBalance),
         dataAvailable: this.purgeNumber(dataAvailable),
         cumulativeEarnings: this.purgeNumber(cumulativeEarnings),
       });
@@ -134,7 +134,7 @@ class SettingsPage extends React.Component {
   }
 
   revealPrivateKey(e) {
-    var x = document.getElementById('privateKey');
+    var x = document.getElementById('swash-privateKey');
     if (x.type === 'password') {
       x.type = 'text';
     } else {
@@ -143,7 +143,7 @@ class SettingsPage extends React.Component {
   }
 
   isPrivateKeyRevealed() {
-    var x = document.getElementById('privateKey');
+    var x = document.getElementById('swash-privateKey');
     if (!x) return false;
     if (x.type === 'password') return false;
     return true;
@@ -153,7 +153,7 @@ class SettingsPage extends React.Component {
     e.preventDefault();
     navigator.clipboard.readText().then(async (address) => {
       if (address.match(/^0x[a-fA-F0-9]{40}$/g)) {
-        document.querySelector('#recipient').value = address;
+        document.querySelector('#swash-recipient').value = address;
         let DataBalance = await window.helper.getDataBalance(address);
         let EthBalance = await window.helper.getEthBalance(address);
         this.setState({recipient: address, recipientDataBalance: DataBalance, recipientEthBalance: EthBalance});
@@ -166,50 +166,52 @@ class SettingsPage extends React.Component {
       <div id="settings-page" className="swash-col">
         <React.Fragment>
           <div className="swash-col">
-            <div className="setting-part">
-              <div className="balance-block">
+            <div className="swash-setting-part">
+              <div className="swash-balance-block">
                 <div className="swash-row">
-                  <div className="balance-text">
-                    <div className="balance-text-bold">{this.state.dataAvailable} </div>
-                    DATA available
+                  <div className="swash-balance-text">
+                    <div className="swash-balance-text-column">
+                      <div className="swash-balance-text-bold">{this.state.dataAvailable} </div>
+                      DATA available
+                    </div>                    
                   </div>
                 </div>
                 <div className="swash-row">
-                  <div className="balance-text">
-                    <div style={{width: '50%', float: 'left'}}>
-                      <div className="balance-text-bold">{this.state.dataBalance} </div>
+                  <div className="swash-balance-text">
+                    <div className="swash-balance-text-column">
+                      <div className="swash-balance-text-bold">{this.state.referralBalance} </div>
                       Referral Rewards
                     </div>
-                    <div style={{width: '50%', float: 'left', paddingLeft: '9%'}}>
-                      <div className="balance-cumulative">{this.state.cumulativeEarnings} </div>
+                    <div className="swash-balance-text-column">
+                      <div className="swash-balance-cumulative">{this.state.cumulativeEarnings} </div>
                       Cumulative earnings
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="setting-part">
-              <div className="form-caption">Wallet address</div>
+            <div className="swash-setting-part">
+              <div className="swash-form-caption">Wallet address</div>
               <div style={{position: 'relative'}}>
-                <input type="text" className="form-input" id="walletAddress" value={this.state.keyInfo.address} />
+                <input type="text" className="swash-form-input" id="swash-wallet" value={this.state.keyInfo.address} />
                 <button
-                  className="form-input-button"
+                  className="swash-form-input-button"
                   onBlur={(e) => {
                     e.target.innerText = 'Copy';
                   }}
                   onClick={(e) => {
-                    this.copyToClipboard(e, document.getElementById('walletAddress'));
+                    this.copyToClipboard(e, document.getElementById('swash-wallet'));
                     e.target.focus();
                     e.target.innerText = 'Copied';
                   }}>
                   Copy
                 </button>
               </div>
-              <div className="form-caption">Private key</div>
+              <div className="swash-form-caption">Private key</div>
               <div style={{position: 'relative'}}>
-                <input type="password" className="form-input" id="privateKey" value={this.state.keyInfo.privateKey} />
+                <input type="password" className="swash-form-input" id="swash-privateKey" value={this.state.keyInfo.privateKey} />
                 <RDropdownMenu
-                  className="button form-input-button reveal-button"
+                  className="swash-button swash-form-input-button swash-reveal-button"
                   items={[
                     {text: this.isPrivateKeyRevealed() ? 'Hide' : 'Reveal', callback: () => this.openModal('RevealKey')},
                     {
@@ -221,37 +223,37 @@ class SettingsPage extends React.Component {
                 />
               </div>
             </div>
-            <div className="setting-part">
+            <div className="swash-setting-part">
               <div className="swash-head">Withdraw your DATA</div>
               <div className="swash-p">
                 New earnings are frozen for 48 hours as an anti-fraud measure. You can withdraw your available balance. We don’t recommend leaving too
                 much DATA in the Swash wallet.
               </div>
-              <div className="transfer-row">
-                <div className="transfer-column amount-column">
-                  <div className="form-caption">Amount</div>
+              <div className="swash-transfer-row">
+                <div className="swash-transfer-column swash-amount-column">
+                  <div className="swash-form-caption">Amount</div>
                   <div>
-                    <input type="text" id="amount" value={this.state.dataAvailable} disabled="true" className="form-input  filter-input" />
+                    <input type="text" id="swash-amount" value={this.state.dataAvailable} disabled="true" className="swash-form-input  swash-filter-input" />
                   </div>
                 </div>
 
-                <div className="transfer-column wallet-column">
-                  <div className="form-caption">Recipient Ethereum address</div>
+                <div className="swash-transfer-column swash-recipient-column">
+                  <div className="swash-form-caption">Recipient Ethereum address</div>
                   <div>
                     <input
                       type="text"
-                      id="recipient"
+                      id="swash-recipient"
                       placeholder={this.state.keyInfo.address.substr(0, 7) + '...'}
                       onContextMenu={this.pasteWallet}
-                      className="form-input  filter-input"
+                      className="swash-form-input  swash-filter-input"
                     />
                   </div>
                 </div>
 
-                <div className="transfer-column button-column" style={{marginRight: '0px'}}>
+                <div className="swash-transfer-column swash-transfer-button-column" style={{marginRight: '0px'}}>
                   <button
-                    id="transfer-button"
-                    className="transfer-link-button"
+                    id="swash-transfer-button"
+                    className="swash-transfer-link-button"
                     disabled={this.state.dataAvailable === '$' || this.state.dataAvailable == null || this.state.dataAvailable === '0.0'}
                     onClick={this.transfer}>
                     Transfer
@@ -259,8 +261,8 @@ class SettingsPage extends React.Component {
                 </div>
               </div>
               {this.state.recipient ? (
-                <div className="transfer-row">
-                  <div className="transfer-column wallet-column">
+                <div className="swash-transfer-row">
+                  <div className="swash-transfer-column">
                     <ul>
                       <li>Same as address on your clipboard</li>
                       <li>
@@ -284,8 +286,8 @@ class SettingsPage extends React.Component {
                 className="swash-modal">
                 <TransferModal
                   status="notice"
-                  amount={document.querySelector('#amount').value}
-                  recipient={document.querySelector('#recipient').value}
+                  amount={document.querySelector('#swash-amount').value}
+                  recipient={document.querySelector('#swash-recipient').value}
                   opening={() => this.openModal('Transfer')}
                 />
               </div>
@@ -302,7 +304,7 @@ class SettingsPage extends React.Component {
                 className="swash-modal">
                 <RevealKeyModal
                   func={(e) => {
-                    this.state.revealFunction.func(e, document.getElementById('privateKey'));
+                    this.state.revealFunction.func(e, document.getElementById('swash-privateKey'));
                   }}
                   text={this.state.revealFunction.text}
                   opening={() => this.openModal('CopyKey')}

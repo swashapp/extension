@@ -49,7 +49,7 @@ class Routes extends React.Component {
           <div>
             <SideNavigation resource={this.state.resource} />
             <MobileSideNavigation />
-            <main id="content" className="content-padding">
+            <main id="swash-content" className="swash-body-content">
               <Switch>
                 <Route path="/Settings" component={Settings} />
                 <Route path="/Help" component={Help} />
@@ -58,7 +58,6 @@ class Routes extends React.Component {
                 <Redirect to="/Settings" />
               </Switch>
             </main>
-            {/*<Footer />*/}
           </div>
         );
       }

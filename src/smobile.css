@@ -1,0 +1,174 @@
+@media only screen and (max-width: 600px) {
+    .swash-balance-block {
+        padding: 60px 30px;
+    }
+
+    .swash-accordion-delete {
+        display: none;
+    }
+    
+    .swash-accordion-checkbox {
+        height: 32px;
+        width: 32px;
+        top: 20px;
+        right: 16px;
+        position: absolute;
+        display: block;
+        text-align: center;
+    }
+
+    .swash-more-button {
+        display: block;
+    }
+
+
+    /* Style for onboarding */
+
+    .swash-onboarding-box, .swash-onboarding-box-header, .swash-onboarding-box-footer,
+    .swash-onboarding-box-body {
+        width: 352px;
+    }
+
+    .swash-onboarding-box-body-radio {
+        margin-left: 0px;
+    }
+
+    .swash-onboarding-box-body {
+        padding: 0px 18px;
+    }
+
+    .swash-onboarding-box-footer-left-small {
+        display: block;
+    }
+    
+    .swash-onboarding-box-footer, .swash-onboarding-box-header {
+        width: unset;
+    }
+
+    .swash-onboarding-box-footer-left {
+        display: none;
+        width: 100%;
+    }
+
+    .swash-onboarding-box-footer-right {
+        width: 100%;
+    }
+
+    .swash-onboarding-box-footer-left-small .swash-checkbox {
+        margin: 0px 16px 0px;        
+        display: inline;
+    }
+
+    .swash-profile-box {
+        display: block;
+        width: unset;
+        margin-top: 16px;
+    }
+      
+    .swash-profile-select {
+        display: flex;
+        padding: 0 16px 0 16px;
+        margin-bottom: 16px;
+    }
+
+    .swash-profile-select p {
+        height: 40px;
+        line-height: 40px;
+        margin-bottom: 0px;
+        margin-right: 16px;
+    }
+
+    .swash-onbording-import-option {
+        margin-bottom: 12px;
+    }
+
+    .swash-onbording-import-option img {
+        margin-top: 26px;
+        margin-bottom: 4px;
+    }
+
+    .swash-onboarding-box-body > br, .swash-onboarding-box-body > span {
+        display: none;
+    }
+
+    .swash-onboarding-box-body-import {
+        display: inherit;
+        overflow: auto;        
+    }
+
+    /* Style for transfer modal */
+
+    .swash-transaction-modal-footer, .swash-transaction-modal-header, .swash-transaction-modal-body,
+    .swash-transaction-modal {
+        width: 352px;
+    }
+    
+    .swash-transaction-modal-body {
+        padding: 0px 18px;
+    }
+
+    .swash-transaction-modal-body-left {      
+        margin-left: 0px;      
+    }
+
+    .swash-transaction-modal-body-middle {      
+        margin-left: 4.5px;      
+    }
+
+    .swash-transaction-modal-body-right {      
+        margin-left: 4.5px;      
+    }
+      
+
+       
+}
+@media only screen and (max-width: 376px) {    
+    .swash-balance-block {
+        padding: 60px 5px;
+    }
+
+    #swash-amount {
+        width: 64px;
+    }
+
+    .swash-amount-column {
+        width: 64px;
+        margin-right: 16px;
+    }
+
+    .swash-recipient-column {
+        width: calc(100% - 80px);
+    }
+
+    .swash-onboarding-box, .swash-onboarding-box-header, .swash-onboarding-box-footer,
+    .swash-onboarding-box-body {
+        width: 304px;
+    }
+
+    .swash-profile-select p {
+        margin-right: 8px;
+        margin-left: -10px;
+    }
+
+    .swash-transaction-modal-footer, .swash-transaction-modal-header, .swash-transaction-modal-body,
+    .swash-transaction-modal {
+        width: 304px;
+    }
+
+
+    .swash-transaction-modal-body-left {      
+        margin-left: 0px;
+        width: 100%;
+    }
+
+    .swash-transaction-modal-body-middle {      
+        width: 100%;
+        margin-left: 0px;
+        text-align: center;     
+    }
+
+    .swash-transaction-modal-body-right {      
+        margin-left: 2.25px;      
+        float: right;
+    }
+}

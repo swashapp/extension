@@ -16,10 +16,10 @@ class HelpPage extends React.Component {
 
   render() {
     return (
-      <div id="help-page" className="swash-col">
+      <div id="swash-help-page" className="swash-col">
         <React.Fragment>
           <div className="swash-col">
-            <div className="setting-part">
+            <div className="swash-setting-part">
               <div className="swash-head">Welcome to Swash</div>
               <div className="swash-p">
                 Swash is a browser extension that pays you to surf the web. Swash can do more than typical browser extensions as it can also call APIs
@@ -33,7 +33,7 @@ class HelpPage extends React.Component {
               </div>
 
               <img alt={''} src={help1} />
-              <div className="image-caption">Swash installed and enabled</div>
+              <div className="swash-image-caption">Swash installed and enabled</div>
 
               <div className="swash-p">
                 Once you've installed Swash, it will generate an ethereum wallet address for you where you can receive payments in Streamr's native
@@ -46,7 +46,7 @@ class HelpPage extends React.Component {
               </div>
 
               <img alt={''} src={help2} />
-              <div className="image-caption">Swash’s Earnings section shows balances, address and withdrawal functions</div>
+              <div className="swash-image-caption">Swash’s Earnings section shows balances, address and withdrawal functions</div>
 
               <div className="swash-p">
                 Swash uses a modular approach to its data gathering functionality. By default, Search module is enabled, which will gather data when
@@ -55,17 +55,17 @@ class HelpPage extends React.Component {
               </div>
 
               <img alt={''} src={help3} />
-              <div className="image-caption">Default data collection modules, Browse and Search</div>
+              <div className="swash-image-caption">Default data collection modules, Browse and Search</div>
 
               <div className="swash-p">
                 You can also control how much information the modules can gather by adjusting the Privacy settings slider. This enables you to
-                anonymize your data to some general level. For more information, see <AnchorLink href="#privacySettings">Privacy Settings</AnchorLink>{' '}
+                anonymize your data to some general level. For more information, see <AnchorLink href="#swash-privacy-settings">Privacy Settings</AnchorLink>{' '}
                 section. If you want to prevent specific pieces of information or specific web domains or URLs from being captured, you can do this on
                 the Advanced page.
               </div>
 
               <img alt={''} src={help4} />
-              <div className="image-caption">The Privacy settings slider gives you three levels of privacy options</div>
+              <div className="swash-image-caption">The Privacy settings slider gives you three levels of privacy options</div>
 
               <div className="swash-p">
                 Once Swash is gathering data, it appears in the Data page, where you can inspect it if you would like to. By default, Swash adds a 2
@@ -74,7 +74,7 @@ class HelpPage extends React.Component {
               </div>
 
               <img alt={''} src={help5} />
-              <div className="image-caption">Delete any captured session from the Data view before the delay progress bar reaches the end</div>
+              <div className="swash-image-caption">Delete any captured session from the Data view before the delay progress bar reaches the end</div>
 
               <div className="swash-head">Capture Modules</div>
 
@@ -120,7 +120,7 @@ class HelpPage extends React.Component {
                 recently played songs, and the artists that the user has followed.
               </div>
 
-              <div id="privacySettings" className="swash-head">
+              <div id="swash-privacy-settings" className="swash-head">
                 Privacy Settings
               </div>
               <div className="swash-p">
@@ -131,58 +131,58 @@ class HelpPage extends React.Component {
                 texts that have user's information.
               </div>
 
-              <div className="help-table">
+              <div className="swash-help-table">
                 <MDBTable>
                   <MDBTableHead>
-                    <tr className="table-head-row">
-                      <th className="table-text table-head-text help-table-data-type-th">Data Type</th>
-                      <th className="table-text table-head-text help-table-no-privacy-th">No Privacy</th>
-                      <th className="table-text table-head-text help-table-medium-privacy-th">Medium Privacy</th>
-                      <th className="table-text table-head-text help-table-high-privacy-th">High Privacy</th>
+                    <tr className="swash-table-head-row">
+                      <th className="swash-table-text swash-table-head-text swash-help-table-data-type-th">Data Type</th>
+                      <th className="swash-table-text swash-table-head-text swash-help-table-no-privacy-th">No Privacy</th>
+                      <th className="swash-table-text swash-table-head-text swash-help-table-medium-privacy-th">Medium Privacy</th>
+                      <th className="swash-table-text swash-table-head-text swash-help-table-high-privacy-th">High Privacy</th>
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
-                    <tr className="table-row">
-                      <td className="table-text table-head-text">URL</td>
-                      <td className="table-text">No changes</td>
-                      <td className="table-text">Mask path name</td>
-                      <td className="table-text">Remove path name and query strings</td>
+                    <tr className="swash-table-row">
+                      <td className="swash-table-text swash-table-head-text">URL</td>
+                      <td className="swash-table-text">No changes</td>
+                      <td className="swash-table-text">Mask path name</td>
+                      <td className="swash-table-text">Remove path name and query strings</td>
                     </tr>
-                    <tr className="table-row">
-                      <td className="table-text table-head-text">Time</td>
-                      <td className="table-text">No changes</td>
-                      <td className="table-text">Remove hours</td>
-                      <td className="table-text">Remove days and months</td>
+                    <tr className="swash-table-row">
+                      <td className="swash-table-text swash-table-head-text">Time</td>
+                      <td className="swash-table-text">No changes</td>
+                      <td className="swash-table-text">Remove hours</td>
+                      <td className="swash-table-text">Remove days and months</td>
                     </tr>
-                    <tr className="table-row">
-                      <td className="table-text table-head-text">TimeString</td>
-                      <td className="table-text">No changes</td>
-                      <td className="table-text">Remove hours</td>
-                      <td className="table-text">Remove days and months</td>
+                    <tr className="swash-table-row">
+                      <td className="swash-table-text swash-table-head-text">TimeString</td>
+                      <td className="swash-table-text">No changes</td>
+                      <td className="swash-table-text">Remove hours</td>
+                      <td className="swash-table-text">Remove days and months</td>
                     </tr>
-                    <tr className="table-row">
-                      <td className="table-text table-head-text">Text</td>
-                      <td className="table-text">Replace masked text with '*'</td>
-                      <td className="table-text">Replace masked text with null</td>
-                      <td className="table-text">Remove texts that has masked text</td>
+                    <tr className="swash-table-row">
+                      <td className="swash-table-text swash-table-head-text">Text</td>
+                      <td className="swash-table-text">Replace masked text with '*'</td>
+                      <td className="swash-table-text">Replace masked text with null</td>
+                      <td className="swash-table-text">Remove texts that has masked text</td>
                     </tr>
-                    <tr className="table-row">
-                      <td className="table-text table-head-text">Id</td>
-                      <td className="table-text">No changes</td>
-                      <td className="table-text">Mask</td>
-                      <td className="table-text">Remove Id</td>
+                    <tr className="swash-table-row">
+                      <td className="swash-table-text swash-table-head-text">Id</td>
+                      <td className="swash-table-text">No changes</td>
+                      <td className="swash-table-text">Mask</td>
+                      <td className="swash-table-text">Remove Id</td>
                     </tr>
-                    <tr className="table-row">
-                      <td className="table-text table-head-text">UserInfo</td>
-                      <td className="table-text">No changes</td>
-                      <td className="table-text">Mask</td>
-                      <td className="table-text">Remove User information</td>
+                    <tr className="swash-table-row">
+                      <td className="swash-table-text swash-table-head-text">UserInfo</td>
+                      <td className="swash-table-text">No changes</td>
+                      <td className="swash-table-text">Mask</td>
+                      <td className="swash-table-text">Remove User information</td>
                     </tr>
-                    <tr className="table-row">
-                      <td className="table-text table-head-text">UserAttr</td>
-                      <td className="table-text">No changes</td>
-                      <td className="table-text">Mask</td>
-                      <td className="table-text">Remove User attributes</td>
+                    <tr className="swash-table-row">
+                      <td className="swash-table-text swash-table-head-text">UserAttr</td>
+                      <td className="swash-table-text">No changes</td>
+                      <td className="swash-table-text">Mask</td>
+                      <td className="swash-table-text">Remove User attributes</td>
                     </tr>
                   </MDBTableBody>
                 </MDBTable>
@@ -221,7 +221,7 @@ class HelpPage extends React.Component {
                 do not have access.
               </div>
 
-              <div className="graybox">
+              <div className="swash-gray-box">
                 <div className="swash-head3">Giant data collectors</div>
                 <ul>
                   <li>Users are not asked to provide consent</li>
@@ -231,7 +231,7 @@ class HelpPage extends React.Component {
                   <li>Data collectors can just collect user data that has been sent to them</li>
                 </ul>
               </div>
-              <div className="graybox">
+              <div className="swash-gray-box">
                 <div className="swash-head3">Swash</div>
                 <ul>
                   <li>Users can configure which data they want to be sent</li>

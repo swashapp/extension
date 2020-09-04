@@ -31,28 +31,28 @@ class OnBoardingYourProfile extends React.Component {
     return (
       <div className="d-flex justify-content-center">
         <React.Fragment>
-          <div className="onboarding-box">
-            <div className="onboarding-box-header">
+          <div className="swash-onboarding-box">
+            <div className="swash-onboarding-box-header">
               <p>Your Profile</p>
             </div>
-            <div className="onboarding-box-body">
-              <div style={{display: 'flex', justifyContent: 'center', width: '428px'}}>
-                <div style={{flex: '0 0 25%', padding: '0 16px 0 16px'}}>
-                  <p className={'onboarding-select-label'}>Gender</p>
+            <div className="swash-onboarding-box-body">
+              <div className="swash-profile-box">
+                <div className="swash-profile-select">
+                  <p className={'swash-onboarding-select-label'}>Gender</p>
                   <CustomSelect
                     items={[
                       {description: 'Non-binary', value: 'Non-binary'},
                       {description: 'Male', value: 'Male'},
                       {description: 'Female', value: 'Female'},
                     ]}
-                    className={'onboarding-select-container'}
+                    className={'swash-onboarding-select-container'}
                     onChange={(item) => {
                       this.setState({gender: item});
                     }}
                   />
                 </div>
-                <div style={{flex: '0 0 25%', padding: '0 16px 0 16px'}}>
-                  <p className={'onboarding-select-label'}>Age Bracket</p>
+                <div className="swash-profile-select">
+                  <p className={'swash-onboarding-select-label'}>Age Bracket</p>
                   <CustomSelect
                     items={[
                       {description: '~20', value: '~20'},
@@ -61,14 +61,14 @@ class OnBoardingYourProfile extends React.Component {
                       {description: '40-50', value: '40-50'},
                       {description: '50+', value: '50+'},
                     ]}
-                    className={'onboarding-select-container'}
+                    className={'swash-onboarding-select-container'}
                     onChange={(item) => {
                       this.setState({age: item});
                     }}
                   />
                 </div>
-                <div style={{flex: '0 0 25%', padding: '0 16px 0 16px'}}>
-                  <p className={'onboarding-select-label'}>Household Income</p>
+                <div className="swash-profile-select">
+                  <p className={'swash-onboarding-select-label'}>Household Income</p>
                   <CustomSelect
                     items={[
                       {description: '~50K', value: '~50K'},
@@ -76,7 +76,7 @@ class OnBoardingYourProfile extends React.Component {
                       {description: '75-150K', value: '75-150K'},
                       {description: '150K+', value: '150K+'},
                     ]}
-                    className={'onboarding-select-container'}
+                    className={'swash-onboarding-select-container'}
                     onChange={(item) => {
                       this.setState({income: item});
                     }}
@@ -84,10 +84,10 @@ class OnBoardingYourProfile extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="onboarding-box-footer">
-              <div className="onboarding-box-footer-left" />
-              <div className="onboarding-box-footer-right">
-                <div className={'onboarding-proceed-button'} onClick={this.LoadOnBoardingNew}>
+            <div className="swash-onboarding-box-footer">
+              <div className="swash-onboarding-box-footer-left" />
+              <div className="swash-onboarding-box-footer-right">
+                <div className={'swash-onboarding-proceed-button'} onClick={this.LoadOnBoardingNew}>
                   Proceed
                 </div>
                 <div style={{float: 'right', cursor: 'pointer'}}>

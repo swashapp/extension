@@ -87,24 +87,24 @@ class DataPage extends React.Component {
     });
 
     return (
-      <div id="data-page" className="swash-col">
+      <div id="swash-data-page" className="swash-col">
         <React.Fragment>
           <div className="swash-col">
-            <div className="setting-part-small">
+            <div className="swash-setting-part-small">
               <div className="swash-head">Collected data</div>
               <div className="swash-p2">
                 The data collected from your browsing sessions is shown here before being sent. You can check and delete it here. You can also adjust
                 the sending delay to a level that suits you.
               </div>
               <div>
-                <div className="form-caption">Delay data send</div>
+                <div className="swash-form-caption">Delay data send</div>
                 <div>
-                  <NumberPicker onChange={(value) => saveDelay(value)} value={this.state.delay} className="delayNumberPicker" />
+                  <NumberPicker onChange={(value) => saveDelay(value)} value={this.state.delay} className="swash-delay-number-picker" />
                 </div>
               </div>
             </div>
 
-            <div className="setting-part">{collapses}</div>
+            <div className="swash-setting-part">{collapses}</div>
           </div>
         </React.Fragment>
       </div>

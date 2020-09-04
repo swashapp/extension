@@ -26,14 +26,14 @@ class RDropdownMenu extends React.Component {
 
   render() {
     return (
-      <Dropdown className="custom-dropdown" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+      <Dropdown className="swash-custom-dropdown" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle
-          className={this.state.dropdownOpen ? this.props.className + ' more-button-active' : this.props.className}
+          className={this.state.dropdownOpen ? this.props.className + ' swash-more-button-active' : this.props.className}
           tag="div"></DropdownToggle>
-        <DropdownMenu className="custom-dropdown-menu">
+        <DropdownMenu className="swash-custom-dropdown-menu">
           {this.state.items.map((item) => {
             return (
-              <DropdownItem className="custom-dropdown-item" onClick={item.callback}>
+              <DropdownItem className="swash-custom-dropdown-item" onClick={item.callback}>
                 {item.text}
               </DropdownItem>
             );

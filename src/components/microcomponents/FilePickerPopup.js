@@ -58,13 +58,13 @@ class FilePickerPopup extends React.Component {
     return (
       <div className="d-flex justify-content-center">
         <React.Fragment>
-          <div className="transaction-modal-large">
+          <div className="swash-transaction-modal-large">
             <div>
-              <div className="transaction-modal-header">
+              <div className="swash-transaction-modal-header">
                 <p>Select A File</p>
               </div>
-              <div className="transaction-modal-body-large" style={{overflow: 'auto', display: 'block', width: 'auto'}}>
-                <div className="modal-body-text" style={{display: 'block'}}>
+              <div className="swash-transaction-modal-body-large" style={{overflow: 'auto', display: 'block', width: 'auto'}}>
+                <div className="swash-modal-body-text" style={{display: 'block'}}>
                   <FileBrowser
                     files={this.state.files}
                     detailRenderer={() => {
@@ -76,12 +76,12 @@ class FilePickerPopup extends React.Component {
                   />
                 </div>
               </div>
-              <div className="transaction-modal-footer">
-                <div className="transaction-modal-footer-right">
-                  <div className="transaction-modal-button" onClick={this.applyConfig}>
+              <div className="swash-transaction-modal-footer">
+                <div className="swash-transaction-modal-footer-right">
+                  <div className="swash-transaction-modal-button" onClick={this.applyConfig}>
                     Import
                   </div>
-                  <div className="transaction-modal-button-cancel" onClick={this.state.closePopup}>
+                  <div className="swash-transaction-modal-button-cancel" onClick={this.state.closePopup}>
                     Cancel
                   </div>
                 </div>

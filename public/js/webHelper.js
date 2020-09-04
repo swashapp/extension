@@ -305,7 +305,8 @@ var helper = (function() {
   }
 
   async function getOnboardingFlow() {
-    return 'Welcome';
+    let flow = '{"version":1,"start":"Welcome","pages":{"Welcome":{"version":1,"visible":"all","next":"New"},"New":{"version":1,"visible":{"core":{"notExistInDB":"profile.encryptedWallet"}},"next":"PrivacyPolicy"},"PrivacyPolicy":{"version":1,"visible":"all","next":"OnBoardingResponsibility"},"OnBoardingResponsibility":{"version":1,"visible":"all","next":"YourProfileWarning"},"YourProfileWarning":{"version":1,"visible":{"core":{"notExistInDB":"profile.age"}},"next":"YourProfile"},"YourProfile":{"version":1,"visible":{"core":{"notExistInDB":"profile.age"}},"next":{"basedOnPage":"New","default":"Create"}},"Create":{"version":1,"visible":{"core":{"notExistInDB":"profile.encryptedWallet"}},"next":"Join"},"Import":{"version":1,"visible":{"core":{"notExistInDB":"profile.encryptedWallet"}},"next":"Join"},"Join":{"version":1,"visible":"all","next":"Completed"},"Completed":{"version":1,"visible":"all"}}}'
+    return flow;
   }
 
   async function submitOnBoarding() {
@@ -363,12 +364,17 @@ var helper = (function() {
   }
 
   async function getReferralRewards() {
+    return "20";
   }
 
   function getDataEthPairPrice() {
   }
 
   function sendSponsoredWithdraw(recipient) {
+  }
+
+  async function getCategory() {
+    return "Search";
   }
 
   return {
@@ -425,6 +431,7 @@ var helper = (function() {
     getUserId,
     getReferralRewards,
     getDataEthPairPrice,
-    sendSponsoredWithdraw
+    sendSponsoredWithdraw,
+    getCategory
   };
 }());

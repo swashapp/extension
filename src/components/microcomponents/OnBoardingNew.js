@@ -29,14 +29,14 @@ class OnBoardingNewPage extends React.Component {
     return (
       <div className="d-flex justify-content-center">
         <React.Fragment>
-          <div className="onboarding-box">
-            <div className="onboarding-box-header">
+          <div className="swash-onboarding-box">
+            <div className="swash-onboarding-box-header">
               <p>Are you new to Swash?</p>
             </div>
-            <div className="onboarding-box-body">
+            <div className="swash-onboarding-box-body">
               <div>
                 <div
-                  className="onboarding-box-body-radio"
+                  className="swash-onboarding-box-body-radio"
                   onClick={() => {
                     this.setState({userType: 'Create'});
                   }}
@@ -44,10 +44,10 @@ class OnBoardingNewPage extends React.Component {
                   <CustomRadioBox id="Create" handleClick={this.radioChangeHandler} isChecked={this.state.userType === 'Create'} />
                   <span>Yes, I’m new here</span>
                   <br />
-                  <div className="onboarding-text-gray">This will create a new wallet</div>
+                  <div className="swash-onboarding-text-gray">This will create a new wallet</div>
                 </div>
                 <div
-                  className="onboarding-box-body-radio"
+                  className="swash-onboarding-box-body-radio"
                   onClick={() => {
                     this.setState({userType: 'Import'});
                   }}
@@ -55,14 +55,14 @@ class OnBoardingNewPage extends React.Component {
                   <CustomRadioBox id="Import" handleClick={this.radioChangeHandler} isChecked={this.state.userType === 'Import'} />
                   <span>No, I already have a wallet</span>
                   <br />
-                  <div className="onboarding-text-gray">Import your existing wallet and settings</div>
+                  <div className="swash-onboarding-text-gray">Import your existing wallet and settings</div>
                 </div>
               </div>
             </div>
-            <div className="onboarding-box-footer">
-              <div className="onboarding-box-footer-left"></div>
-              <div className="onboarding-box-footer-right">
-                <div className="onboarding-proceed-button" onClick={this.LoadOnBoardingNew}>
+            <div className="swash-onboarding-box-footer">
+              <div className="swash-onboarding-box-footer-left"></div>
+              <div className="swash-onboarding-box-footer-right">
+                <div className="swash-onboarding-proceed-button" onClick={this.LoadOnBoardingNew}>
                   Next
                 </div>
               </div>
