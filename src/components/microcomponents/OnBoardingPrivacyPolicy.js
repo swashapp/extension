@@ -43,7 +43,7 @@ class OnBoardingPrivacyPolicy extends React.Component {
             <div className="swash-onboarding-box-body">
               <p>
                 Please read our privacy policy, available
-                <a target="_blank" rel="noopener noreferrer" href="https://swashapp.io/file/final-privacy-policy.pdf">
+                <a target="_blank" rel="noopener noreferrer" href="https://swashapp.io/files/privacy-policy.pdf">
                   {' '}
                   here
                 </a>

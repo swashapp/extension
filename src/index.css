@@ -227,7 +227,7 @@ body {
 .swash-reveal-button {
   display: block;
   width: 32px !important;
-  background-image: url(/static/media/more-icon.8eebb24f.svg) !important;
+  background-image: url('statics/images/more-icon.svg') !important;
   background-repeat: no-repeat !important;
   background-position: 6px center !important;
 }
