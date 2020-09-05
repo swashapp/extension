@@ -40,7 +40,7 @@
     cursor: pointer;
   }
 
-  .swash-mask-input {
+  .swash-disabled-masked-text, .swash-mask-input {
     width: 424px;
   }
 
