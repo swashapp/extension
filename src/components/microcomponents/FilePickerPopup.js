@@ -18,6 +18,7 @@ class FilePickerPopup extends React.Component {
     this.state = {
       closePopup: this.props.closePopup,
       onboarding: this.props.onboarding,
+      importState: 'enabled',
       files: [],
       selectedFile: {},
     };
@@ -52,6 +53,7 @@ class FilePickerPopup extends React.Component {
   }
 
   applyConfig() {
+    this.setState({importState: 'waiting'});
     if (this.state.selectedFile.id)
       return window.helper.downloadFile(this.state.onboarding, this.state.selectedFile.id).then((response) => {
         if (response) {
@@ -66,6 +68,22 @@ class FilePickerPopup extends React.Component {
   }
 
   render() {
+
+    const renderImportButton = () => {
+      switch(this.state.importState) {
+        case 'enabled':
+          return <div className="swash-transaction-modal-button" onClick={this.applyConfig}>
+                  Import
+                </div>
+          break;
+        case 'waiting':
+          return <div disabled className="swash-transaction-modal-button swash-transaction-modal-button-waiting" onClick={this.applyConfig}>
+                    Importing...
+                  </div>         
+          break;        
+      }
+    }
+
     return (
       <div className="d-flex justify-content-center">
         <React.Fragment>
@@ -75,7 +93,7 @@ class FilePickerPopup extends React.Component {
                 <p>Select a file</p>
               </div>
               <div className="swash-transaction-modal-body-large" style={{overflow: 'auto', display: 'block', width: 'auto'}}>
-                <div className="swash-modal-body-text" style={{display: 'unset'}}>
+                <div className="swash-modal-body-text" style={{display: 'inherit'}}>
                   <FileBrowser
                     files={this.state.files}
                     isSelectable={true}
@@ -90,9 +108,7 @@ class FilePickerPopup extends React.Component {
               </div>
               <div className="swash-transaction-modal-footer">
                 <div className="swash-transaction-modal-footer-right">
-                  <div className="swash-transaction-modal-button" onClick={this.applyConfig}>
-                    Import
-                  </div>
+                  {renderImportButton()}
                   <div className="swash-transaction-modal-button-cancel" onClick={this.state.closePopup}>
                     Cancel
                   </div>

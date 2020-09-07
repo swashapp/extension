@@ -2,7 +2,6 @@ import React from 'react';
 import verified from '../../statics/images/verified.svg';
 import error from '../../statics/images/error-icon.svg';
 import arrow from '../../statics/images/arrow.svg';
-import loading from '../../statics/images/button-loading.svg';
 import PropTypes from 'prop-types';
 
 class TransferModal extends React.Component {
@@ -213,8 +212,7 @@ class TransferModal extends React.Component {
             <div className="swash-transaction-modal-footer">
               <div className="swash-transaction-modal-footer-right">
                 <div className="swash-transaction-modal-button swash-transaction-modal-button-waiting">
-                  Sending...
-                  <img src={loading} alt={'Loading'} />
+                  Sending...                  
                 </div>
                 <div className="swash-transaction-modal-button-cancel" onClick={this.state.opening}>
                   Cancel
