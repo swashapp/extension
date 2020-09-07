@@ -612,7 +612,8 @@ body {
   width: 100%;
 }
 
-.swash-delete-masked-text-td, .swash-add-mask-button-th {
+.swash-delete-masked-text-td,
+.swash-add-mask-button-th {
   width: 20%;
   margin-top: 28px;
   margin-bottom: 4px;

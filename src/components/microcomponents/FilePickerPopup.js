@@ -75,12 +75,9 @@ class FilePickerPopup extends React.Component {
                 <p>Select a file</p>
               </div>
               <div className="swash-transaction-modal-body-large" style={{overflow: 'auto', display: 'block', width: 'auto'}}>
-                <div className="swash-modal-body-text">
+                <div className="swash-modal-body-text" style={{display: 'unset'}}>
                   <FileBrowser
                     files={this.state.files}
-                    icons={Icons.FontAwesome(4)}
-                    showSize={false}
-                    showModified={false}
                     isSelectable={true}
                     detailRenderer={() => {
                       return <div />;

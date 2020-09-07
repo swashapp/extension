@@ -1,3 +1,3 @@
 module.exports = {
-    plugins: ['no-minify2'],
-  };
+  plugins: ['no-minify2'],
+};
