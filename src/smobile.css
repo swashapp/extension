@@ -104,10 +104,13 @@
   .swash-transaction-modal-footer,
   .swash-transaction-modal-header,
   .swash-transaction-modal-body,
+  .swash-transaction-modal-body-large,
+  .swash-transaction-modal-large,
   .swash-transaction-modal {
     width: 352px;
   }
 
+  .swash-transaction-modal-body-large,
   .swash-transaction-modal-body {
     padding: 0px 18px;
   }
@@ -157,6 +160,8 @@
   .swash-transaction-modal-footer,
   .swash-transaction-modal-header,
   .swash-transaction-modal-body,
+  .swash-transaction-modal-body-large,
+  .swash-transaction-modal-large,
   .swash-transaction-modal {
     width: 304px;
   }

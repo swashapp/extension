@@ -1,5 +1,6 @@
 import React from 'react';
-import FileBrowser from 'react-keyed-file-browser';
+import FileBrowser, {Icons} from 'react-keyed-file-browser';
+import '../../statics/css/react-keyed-file-browser.css';
 import CustomSnackbar from './CustomSnackbar';
 import PropTypes from 'prop-types';
 
@@ -71,12 +72,16 @@ class FilePickerPopup extends React.Component {
           <div className="swash-transaction-modal-large">
             <div>
               <div className="swash-transaction-modal-header">
-                <p>Select A File</p>
+                <p>Select a file</p>
               </div>
               <div className="swash-transaction-modal-body-large" style={{overflow: 'auto', display: 'block', width: 'auto'}}>
-                <div className="swash-modal-body-text" style={{display: 'block'}}>
+                <div className="swash-modal-body-text">
                   <FileBrowser
                     files={this.state.files}
+                    icons={Icons.FontAwesome(4)}
+                    showSize={false}
+                    showModified={false}
+                    isSelectable={true}
                     detailRenderer={() => {
                       return <div />;
                     }}
