@@ -56,7 +56,7 @@ class DataPage extends React.Component {
     }
 
     loader();
-    this.interval = setInterval(loader, 100);
+    this.interval = setInterval(loader, 5000);
   }
 
   componentDidUpdate() {}

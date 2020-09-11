@@ -79,4 +79,12 @@
     width: 50%;
     display: inline-block;
   }
+
+  #swash-help-page .swash-gray-box {
+    width: 100%;
+  }
+
+  #swash-help-page img {
+    width: 512px;
+  }
 }

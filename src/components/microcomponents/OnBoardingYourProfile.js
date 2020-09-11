@@ -64,7 +64,7 @@ class OnBoardingYourProfile extends React.Component {
                   <p className={'swash-onboarding-select-label'}>Age Bracket</p>
                   <CustomSelect
                     items={[
-                      {description: '~20', value: '~20'},
+                      {description: '> 20', value: '-20'},
                       {description: '20-30', value: '20-30'},
                       {description: '30-40', value: '30-40'},
                       {description: '40-50', value: '40-50'},
@@ -80,7 +80,9 @@ class OnBoardingYourProfile extends React.Component {
                   <p className={'swash-onboarding-select-label'}>Household Income</p>
                   <CustomSelect
                     items={[
-                      {description: '~50K', value: '~50K'},
+                      {description: '> 12K', value: '-12K'},
+                      {description: '12-25K', value: '12-25K'},
+                      {description: '25-50K', value: '25-50K'},
                       {description: '50-75K', value: '50-75K'},
                       {description: '75-150K', value: '75-150K'},
                       {description: '150K+', value: '150K+'},

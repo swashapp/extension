@@ -42,8 +42,7 @@ class OnBoardingResponsibility extends React.Component {
             </div>
             <div className="swash-onboarding-box-body">
               <p>
-                If you lose your private keys, or someone else gains access to them, <b>you will lose all of your funds forever</b>. Swash cannot
-                recover them. It is your responsibility to be safe and secure.
+                If you lose your private keys, or someone else gains access to them, <b>you will lose all of your funds forever</b>. Swash cannot recover them. It’s your responsibility to be safe and secure.
               </p>
               <div
                 className="swash-onboarding-box-footer-left-small"

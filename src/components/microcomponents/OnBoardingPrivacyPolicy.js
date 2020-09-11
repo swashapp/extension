@@ -42,12 +42,12 @@ class OnBoardingPrivacyPolicy extends React.Component {
             </div>
             <div className="swash-onboarding-box-body">
               <p>
-                Please read our privacy policy, available
+                Before we start, please take a moment to read our
                 <a target="_blank" rel="noopener noreferrer" href="https://swashapp.io/files/privacy-policy.pdf">
                   {' '}
-                  here
+                  privacy policy
                 </a>
-                . Swash can collect personal data, so it is very important that you read and understand our privacy policy.
+                . Swash can collect personal data, so it’s very important that you read and understand what we do before continuing.
               </p>
               <div
                 className="swash-onboarding-box-footer-left-small"
