@@ -1,25 +1,24 @@
 @charset "UTF-8";
 
-.notification {  
-  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1) !important;;  
-  border-radius: 4px !important;;  
-  background: rgb(255, 255, 255) !important;;
+.swash-notification {
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 4px !important;
+  background: rgb(255, 255, 255) !important;
   color: rgb(50, 50, 50) !important;
   line-height: 1em;
   min-width: 272px !important;
 }
 
-
-.notification-message {
-  font-size: 14px !important;;
-	font-family: Roboto-Regular !important;;
-	font-weight: normal !important;;
-	letter-spacing: 0px !important;;
-	line-height: 20px !important;;	
-  text-align: left;  
+.swash-notification-message {
+  font-size: 14px !important;
+  font-family: Roboto-Regular !important;
+  font-weight: normal !important;
+  letter-spacing: 0px !important;
+  line-height: 20px !important;
+  text-align: left;
 }
 
-.notification-icon {
+.swash-notification-icon {
   margin-right: 16px;
   width: 20px;
   height: 20px;

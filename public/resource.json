@@ -23,7 +23,8 @@
       "privacyLevel": "2",
       "status": "on",
       "icons": []
-    }, {
+    },
+    {
       "name": "2X",
       "description": "ASFJ O)IASJ IJ OPAs",
       "URL": "http://www.linkedin.com",
@@ -46,11 +47,12 @@
       "privacyLevel": "2",
       "status": "on",
       "icons": []
-    }, {
+    },
+    {
       "name": "3X",
       "description": "ASFJ O)IASJ IJ OPAs",
       "URL": "http://www.linkedin.com",
-      "function": ["content","apiCall"],
+      "function": ["content", "apiCall"],
       "apiConfigs": {
         "clientId": "11",
         "apiEndpoint": "",
@@ -74,7 +76,7 @@
       "name": "ALL",
       "description": "ASFJ O)IASJ IJ OPAs",
       "URL": "http://www.linkedin.com",
-      "function": ["content","browsing","apiCall"],
+      "function": ["content", "browsing", "apiCall"],
       "apiConfigs": {
         "clientId": "11",
         "apiEndpoint": "",

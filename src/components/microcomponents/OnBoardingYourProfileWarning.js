@@ -1,11 +1,11 @@
 import React from 'react';
-import Logo from '../../statics/images/Swash_Beta_Flag.svg';
 import PropTypes from 'prop-types';
 
-class OnBoardingPage extends React.Component {
+class OnBoardingYourProfileWarning extends React.Component {
   static get propTypes() {
     return {
       nextPage: PropTypes.string,
+      previousPage: PropTypes.string,
       ChangeOnBoardingPage: PropTypes.func,
     };
   }
@@ -13,16 +13,21 @@ class OnBoardingPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      CurrentPage: 'Welcome',
+      CurrentPage: 'YourProfileWarning',
     };
 
     // This binding is necessary to make `this` work in the callback
     // this.XXX = this.XXX.bind(this);
     this.LoadOnBoardingNew = this.LoadOnBoardingNew.bind(this);
+    this.goToPreviousPage = this.goToPreviousPage.bind(this);
   }
 
   LoadOnBoardingNew() {
     this.props.ChangeOnBoardingPage(this.props.nextPage());
+  }
+
+  goToPreviousPage() {
+    this.props.ChangeOnBoardingPage(this.props.previousPage());
   }
 
   render() {
@@ -31,22 +36,21 @@ class OnBoardingPage extends React.Component {
         <React.Fragment>
           <div className="swash-onboarding-box">
             <div className="swash-onboarding-box-header">
-              <p>Welcome to Swash</p>
+              <p>Your Profile</p>
             </div>
             <div className="swash-onboarding-box-body">
-              <img alt={''} style={{marginBottom: '23px'}} src={Logo} />
-              <div>
-                <span>
-                  Thanks for installing Swash.
-                  <br />
-                  It’ll be ready to go in just a few minutes. 
-                </span>
-              </div>
+              <p>
+              We need to ask you for some generic profile information to make your data more valuable to buyers. Please answer accurately so Swash can deliver good quality data to the Data Union.
+              </p>
             </div>
             <div className="swash-onboarding-box-footer">
-              <div style={{textAlign: 'center'}}>
-                <div className="swash-onboarding-start-button" onClick={this.LoadOnBoardingNew}>
-                  Get started
+              <div className="swash-onboarding-box-footer-left" />
+              <div className="swash-onboarding-box-footer-right">
+                <div className={'swash-onboarding-proceed-button'} onClick={this.LoadOnBoardingNew}>
+                  Proceed
+                </div>
+                <div style={{float: 'right', cursor: 'pointer'}}>
+                  <span onClick={this.goToPreviousPage}>Back</span>
                 </div>
               </div>
             </div>
@@ -57,4 +61,4 @@ class OnBoardingPage extends React.Component {
   }
 }
 
-export default OnBoardingPage;
+export default OnBoardingYourProfileWarning;

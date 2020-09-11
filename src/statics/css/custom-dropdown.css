@@ -1,42 +1,43 @@
-.custom-dropdown {
-    position: unset !important;
+.swash-custom-dropdown {
+  position: unset !important;
 }
 
-.custom-dropdown-menu {
-    min-width: 72px !important;
-    width: 72px !important;
-    background: rgb(255, 255, 255);
-    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-	top: 4px !important;
-    left: -28px !important;
-	padding: 0px !important;
+.swash-custom-dropdown-menu {
+  min-width: 72px !important;
+  width: 72px !important;
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  top: 4px !important;
+  left: -28px !important;
+  padding: 0px !important;
 }
 
-.custom-dropdown-menu-transfer {
-    min-width: 120px !important;
-    width: 120px !important;
-    height: 68px !important;
-    background: rgb(255, 255, 255);
-    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
+.swash-custom-dropdown-menu-transfer {
+  min-width: 120px !important;
+  width: 120px !important;
+  height: 68px !important;
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
 }
 
-.custom-dropdown-item {
-	text-align: center;
-    color: rgb(50, 50, 50);
-    font-size: 14px;
-    font-family: Roboto-Regular;
-    font-weight: normal;
-    letter-spacing: 0px;
-    line-height: 28px;
-	padding: 0px !important;
+.swash-custom-dropdown-item {
+  text-align: center;
+  color: rgb(50, 50, 50);
+  font-size: 14px;
+  font-family: Roboto-Regular;
+  font-weight: normal;
+  letter-spacing: 0px;
+  line-height: 28px;
+  padding: 0px !important;
 }
 
-.custom-dropdown-item:focus, .custom-dropdown-item:hover, .custom-dropdown-item:active {
-    color: rgb(50, 50, 50) !important;
-    text-decoration: none;
-    background-color: #efefef !important;
-    outline: 0px;
+.swash-custom-dropdown-item:focus,
+.swash-custom-dropdown-item:hover,
+.swash-custom-dropdown-item:active {
+  color: rgb(50, 50, 50) !important;
+  text-decoration: none;
+  background-color: #efefef !important;
+  outline: 0px;
 }
-
