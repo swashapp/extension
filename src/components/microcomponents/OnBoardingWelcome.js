@@ -39,7 +39,7 @@ class OnBoardingPage extends React.Component {
                 <span>
                   Thanks for installing Swash.
                   <br />
-                  It’ll be ready to go in just a few minutes. 
+                  It’ll be ready to go in just a few minutes.
                 </span>
               </div>
             </div>

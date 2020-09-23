@@ -80,6 +80,7 @@ class OnBoardingJoin extends React.Component {
                 seamless
                 className="swash-onboarding-iframe"
                 onLoad={makeVisible}
+                title={'joinPage'}
                 src={`${SWASHDOMAIN}${SWASHJOINPAGE}?token=${this.state.token}`}>
                 <p>Your browser does not support iframes.</p>
               </iframe>

@@ -1087,7 +1087,7 @@ body {
 .swash-transaction-modal-button-waiting {
   opacity: 0.5;
   color: rgb(255, 255, 255, 0.5);
-  background: no-repeat right url('statics/images/button-loading.svg') rgba(3,36,255,.5);
+  background: no-repeat right url('statics/images/button-loading.svg') rgba(3, 36, 255, 0.5);
   background-size: 16px;
   background-position-x: calc(100% - 8px);
 }

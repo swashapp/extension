@@ -191,7 +191,8 @@ class SettingsPage extends React.Component {
               <div className="swash-setting-part">
                 <div className="swash-head">Invite a friend</div>
                 <div className="swash-p">
-                  Use your referral URL and earn 1 DATA for every new installation of Swash plus another 1 DATA when the invited user reaches their first 10 DATA.                  
+                  Use your referral URL and earn 1 DATA for every new installation of Swash plus another 1 DATA when the invited user reaches their
+                  first 10 DATA.
                 </div>
                 <div className="swash-transfer-row">
                   <div className="swash-referral-column">
@@ -253,7 +254,8 @@ class SettingsPage extends React.Component {
             <div className="swash-setting-part">
               <div className="swash-head">Export the configuration</div>
               <div className="swash-p">
-                To save your configuration across systems, simply export the settings using one of the methods below and import the configuration into new installations.
+                To save your configuration across systems, simply export the settings using one of the methods below and import the configuration into
+                new installations.
               </div>
 
               <div style={{display: 'inline-block', width: '100%'}}>

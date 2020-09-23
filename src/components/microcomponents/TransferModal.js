@@ -211,9 +211,7 @@ class TransferModal extends React.Component {
             </div>
             <div className="swash-transaction-modal-footer">
               <div className="swash-transaction-modal-footer-right">
-                <div className="swash-transaction-modal-button swash-transaction-modal-button-waiting">
-                  Sending...                  
-                </div>
+                <div className="swash-transaction-modal-button swash-transaction-modal-button-waiting">Sending...</div>
                 <div className="swash-transaction-modal-button-cancel" onClick={this.state.opening}>
                   Cancel
                 </div>
