@@ -3,12 +3,14 @@ import CustomSelect from './CustomSelect';
 import PropTypes from 'prop-types';
 
 const genderList = [
+  {description: 'Please Select', value: null},
   {description: 'Non-binary', value: 'Non-binary'},
   {description: 'Male', value: 'Male'},
   {description: 'Female', value: 'Female'},
 ];
 
 const ageList = [
+  {description: 'Please Select', value: null},
   {description: '< 20', value: '-20'},
   {description: '20-30', value: '20-30'},
   {description: '30-40', value: '30-40'},
@@ -17,12 +19,13 @@ const ageList = [
 ];
 
 const incomeList = [
-  {description: '< 12K', value: '-12K'},
-  {description: '12-25K', value: '12-25K'},
-  {description: '25-50K', value: '25-50K'},
-  {description: '50-75K', value: '50-75K'},
-  {description: '75-150K', value: '75-150K'},
-  {description: '150K+', value: '150K+'},
+  {description: 'Please Select', value: null},
+  {description: '< $12K', value: '-12K'},
+  {description: '$12K - $25K', value: '12-25K'},
+  {description: '$25K - $50K', value: '25-50K'},
+  {description: '$50K - $75K', value: '50-75K'},
+  {description: '$75K - $150K', value: '75-150K'},
+  {description: '$150K+', value: '150K+'},
 ];
 
 class OnBoardingYourProfile extends React.Component {
@@ -50,13 +53,19 @@ class OnBoardingYourProfile extends React.Component {
   }
 
   LoadOnBoardingNew() {
-    window.helper.saveProfileInOnBoarding(this.state.gender.value, this.state.age.value, this.state.income.value).then(() => {
-      this.props.ChangeOnBoardingPage(this.props.nextPage());
-    });
+    if (this.state.gender.value !== null && this.state.age.value && this.state.income.value) {
+      window.helper.saveProfileInOnBoarding(this.state.gender.value, this.state.age.value, this.state.income.value).then(() => {
+        this.props.ChangeOnBoardingPage(this.props.nextPage());
+      });
+    }
   }
 
   goToPreviousPage() {
     this.props.ChangeOnBoardingPage(this.props.previousPage());
+  }
+
+  isCompleted() {
+    return this.state.gender.value !== null && this.state.age.value !== null && this.state.income.value !== null;
   }
 
   render() {
@@ -80,7 +89,7 @@ class OnBoardingYourProfile extends React.Component {
                   />
                 </div>
                 <div className="swash-profile-select">
-                  <p className={'swash-onboarding-select-label'}>Age Bracket</p>
+                  <p className={'swash-onboarding-select-label'}>Age</p>
                   <CustomSelect
                     items={ageList}
                     className={'swash-onboarding-select-container'}
@@ -104,7 +113,9 @@ class OnBoardingYourProfile extends React.Component {
             <div className="swash-onboarding-box-footer">
               <div className="swash-onboarding-box-footer-left" />
               <div className="swash-onboarding-box-footer-right">
-                <div className={'swash-onboarding-proceed-button'} onClick={this.LoadOnBoardingNew}>
+                <div
+                  className={this.isCompleted() ? 'swash-onboarding-proceed-button' : 'swash-onboarding-proceed-disable-button'}
+                  onClick={this.LoadOnBoardingNew}>
                   Proceed
                 </div>
                 <div style={{float: 'right', cursor: 'pointer'}}>

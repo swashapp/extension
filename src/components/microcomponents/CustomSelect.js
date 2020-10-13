@@ -52,11 +52,13 @@ class CustomSelect extends React.Component {
         </DropdownToggle>
         <DropdownMenu className={this.props.menuClassName ? this.props.menuClassName : 'swash-select-menu'}>
           {this.state.items.map((item) => {
-            return (
-              <DropdownItem onClick={(e) => this.handleMenuClick(e, item)} className="swash-select-item" key={'select-' + item.value} tag="div">
-                {item.description}
-              </DropdownItem>
-            );
+            if (item.value !== null) {
+              return (
+                <DropdownItem onClick={(e) => this.handleMenuClick(e, item)} className="swash-select-item" key={'select-' + item.value} tag="div">
+                  {item.description}
+                </DropdownItem>
+              );
+            }
           })}
         </DropdownMenu>
       </Dropdown>
