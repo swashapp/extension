@@ -7,6 +7,7 @@ import Wallet from './pages/Wallet';
 import Help from './pages/Help';
 import Data from './pages/Data';
 import OnBoarding from './pages/OnBoarding.js';
+import WarningOnPages from './microcomponents/WarningOnPages';
 
 class Routes extends React.Component {
   constructor(props) {
@@ -50,6 +51,7 @@ class Routes extends React.Component {
             <SideNavigation resource={this.state.resource} />
             <MobileSideNavigation />
             <main id="swash-content" className="swash-body-content">
+              <WarningOnPages />
               <Switch>
                 <Route path="/Settings" component={Settings} />
                 <Route path="/Help" component={Help} />
