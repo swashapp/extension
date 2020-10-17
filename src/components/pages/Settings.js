@@ -13,6 +13,7 @@ class SettingsPage extends React.Component {
     this.state = {
       modules: [],
       masks: [],
+      reward: 0,
       showPopup: false,
     };
 
@@ -23,11 +24,10 @@ class SettingsPage extends React.Component {
 
   componentDidMount() {
     this.loadSettings();
-    this.loadReferal();
+    this.loadReferral();
+    this.loadActiveReferral();
     window.scrollTo(0, 0);
   }
-
-  componentDidUnmount() {}
 
   loadSettings() {
     window.helper.load().then((db) => {
@@ -54,14 +54,21 @@ class SettingsPage extends React.Component {
     });
   }
 
-  async loadReferal() {
-    let db = await window.helper.load();
-    if (!db.profile.user_id) {
-      setTimeout(() => this.loadReferal(), 5000);
-      return;
-    }
-    let referralLink = db.profile.user_id ? `https://swashapp.io/referral/${db.profile.user_id}` : '';
-    this.setState({referralLink});
+  loadReferral() {
+    window.helper.load().then((db) => {
+      if (!db.profile.user_id) {
+        setTimeout(() => this.loadReferral(), 5000);
+        return;
+      }
+      let referralLink = db.profile.user_id ? `https://swashapp.io/referral/${db.profile.user_id}` : '';
+      this.setState({referralLink});
+    });
+  }
+
+  loadActiveReferral() {
+    window.helper.getActiveReferral().then((referral) => {
+      if (referral.reward) this.setState({reward: referral.reward});
+    });
   }
 
   addMask() {
@@ -191,8 +198,8 @@ class SettingsPage extends React.Component {
               <div className="swash-setting-part">
                 <div className="swash-head">Invite a friend</div>
                 <div className="swash-p">
-                  Use your referral link to earn 10 DATA for every new installation of Swash plus another 1 DATA when the person you invited reaches
-                  their first 10 DATA.
+                  Use your referral link to earn {this.state.reward} DATA for every new installation of Swash plus another 1 DATA when the person you
+                  invited reaches their first 10 DATA.
                 </div>
                 <div className="swash-transfer-row">
                   <div className="swash-referral-column">

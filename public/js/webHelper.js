@@ -384,6 +384,8 @@ var helper = (function() {
     return "Search";
   }
 
+  async function getActiveReferral() {}
+
   return {
     load,
     save,
@@ -441,6 +443,7 @@ var helper = (function() {
     getReferralRewards,
     getDataEthPairPrice,
     sendSponsoredWithdraw,
-    getCategory
+    getCategory,
+    getActiveReferral
   };
 }());
