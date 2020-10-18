@@ -309,6 +309,11 @@
     transform: translateX(0);
   }
 
+  .swash-notification-bar {
+    width: 100%;
+    margin-top: 34px;
+  }
+
   .swash-col {
     width: 100%;
     padding: 0px;

@@ -40,7 +40,8 @@ class OnBoardingYourProfileWarning extends React.Component {
             </div>
             <div className="swash-onboarding-box-body">
               <p>
-              We need to ask you for some generic profile information to make your data more valuable to buyers. Please answer accurately so Swash can deliver good quality data to the Data Union.
+                We need to ask you for some generic profile information to make your data more valuable to buyers. Please answer accurately so Swash
+                can deliver good quality data to the Data Union.
               </p>
             </div>
             <div className="swash-onboarding-box-footer">

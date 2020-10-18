@@ -201,11 +201,20 @@ body {
 
 /* Wallet page style */
 
+.swash-notification-bar {
+  width: 680px;
+}
+
+.notification-span {
+  margin-left: 5px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .swash-col {
   width: 680px;
-  padding: auto;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 
 .swash-setting-part {
@@ -1087,7 +1096,7 @@ body {
 .swash-transaction-modal-button-waiting {
   opacity: 0.5;
   color: rgb(255, 255, 255, 0.5);
-  background: no-repeat right url('statics/images/button-loading.svg') rgba(3,36,255,.5);
+  background: no-repeat right url('statics/images/button-loading.svg') rgba(3, 36, 255, 0.5);
   background-size: 16px;
   background-position-x: calc(100% - 8px);
 }

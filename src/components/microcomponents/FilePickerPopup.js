@@ -1,5 +1,5 @@
 import React from 'react';
-import FileBrowser, {Icons} from 'react-keyed-file-browser';
+import FileBrowser from 'react-keyed-file-browser';
 import '../../statics/css/react-keyed-file-browser.css';
 import CustomSnackbar from './CustomSnackbar';
 import PropTypes from 'prop-types';
@@ -68,21 +68,24 @@ class FilePickerPopup extends React.Component {
   }
 
   render() {
-
     const renderImportButton = () => {
-      switch(this.state.importState) {
+      switch (this.state.importState) {
         case 'enabled':
-          return <div className="swash-transaction-modal-button" onClick={this.applyConfig}>
-                  Import
-                </div>
-          break;
+          return (
+            <div className="swash-transaction-modal-button" onClick={this.applyConfig}>
+              Import
+            </div>
+          );
         case 'waiting':
-          return <div disabled className="swash-transaction-modal-button swash-transaction-modal-button-waiting" onClick={this.applyConfig}>
-                    Importing...
-                  </div>         
-          break;        
+          return (
+            <div disabled className="swash-transaction-modal-button swash-transaction-modal-button-waiting" onClick={this.applyConfig}>
+              Importing...
+            </div>
+          );
+        default:
+          break;
       }
-    }
+    };
 
     return (
       <div className="d-flex justify-content-center">

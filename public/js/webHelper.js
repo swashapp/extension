@@ -304,6 +304,10 @@ var helper = (function() {
     return false;
   }
 
+  async function isNeededJoin() {
+    return true;
+  }
+
   async function getOnboardingFlow() {
     let flow = '{"version":1,"start":"Welcome","pages":{"Welcome":{"version":1,"visible":"all","next":"New"},"New":{"version":1,"visible":{"core":{"notExistInDB":"profile.encryptedWallet"}},"next":"PrivacyPolicy"},"PrivacyPolicy":{"version":1,"visible":"all","next":"OnBoardingResponsibility"},"OnBoardingResponsibility":{"version":1,"visible":"all","next":"YourProfileWarning"},"YourProfileWarning":{"version":1,"visible":{"core":{"notExistInDB":"profile.age"}},"next":"YourProfile"},"YourProfile":{"version":1,"visible":{"core":{"notExistInDB":"profile.age"}},"next":{"basedOnPage":"New","default":"Create"}},"Create":{"version":1,"visible":{"core":{"notExistInDB":"profile.encryptedWallet"}},"next":"Join"},"Import":{"version":1,"visible":{"core":{"notExistInDB":"profile.encryptedWallet"}},"next":"Join"},"Join":{"version":1,"visible":"all","next":"Completed"},"Completed":{"version":1,"visible":"all"}}}'
     return flow;
@@ -351,6 +355,9 @@ var helper = (function() {
   function openOnBoarding() {
   }
 
+  function repeatOnboarding(pages, clicked) {
+  }
+
   async function saveProfileInOnBoarding(gender, age, income) {
   }
 
@@ -376,6 +383,8 @@ var helper = (function() {
   async function getCategory() {
     return "Search";
   }
+
+  async function getActiveReferral() {}
 
   return {
     load,
@@ -409,6 +418,7 @@ var helper = (function() {
     stop,
     start,
     isNeededOnBoarding,
+    isNeededJoin,
     getOnboardingFlow,
     submitOnBoarding,
     startOnBoarding,
@@ -424,6 +434,7 @@ var helper = (function() {
     save3BoxMnemonic,
     get3BoxMnemonic,
     openOnBoarding,
+    repeatOnboarding,
     saveProfileInOnBoarding,
     createAndSaveWallet,
     generateJWT,
@@ -432,6 +443,7 @@ var helper = (function() {
     getReferralRewards,
     getDataEthPairPrice,
     sendSponsoredWithdraw,
-    getCategory
+    getCategory,
+    getActiveReferral
   };
 }());
