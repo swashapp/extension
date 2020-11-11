@@ -395,6 +395,23 @@ body {
   margin-bottom: 74px;
 }
 
+.swash-video {
+  width: 640px;
+  height: 360px;
+  margin: auto auto 74px auto;
+}
+
+.swash-share {
+  color: rgb(50, 50, 50);
+  font-family: Roboto-Regular;
+  font-size: 16px;
+  text-align: justify;
+}
+
+.swash-share svg {
+  margin-left:5px;
+}
+
 .swash-transfer-row {
   height: 80px;
 }

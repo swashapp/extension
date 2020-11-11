@@ -126,6 +126,11 @@
   .swash-transaction-modal-body-right {
     margin-left: 4.5px;
   }
+
+  .swash-video {
+    width: 340px;
+    height: 190px;
+  }
 }
 @media only screen and (max-width: 376px) {
   .swash-balance-block {

@@ -222,10 +222,16 @@ class SettingsPage extends React.Component {
               </div>
             </div>
             <div className="swash-setting-part">
-              <div className="swash-head">Withdraw your DATA</div>
+              <div className="swash-head">Withdraw your earnings</div>
               <div className="swash-p">
-                New earnings are frozen for 48 hours as an anti-fraud measure. You can withdraw your available balance. We don’t recommend leaving too
-                much DATA in the Swash wallet.
+                To withdraw your earnings, simply add your chosen Ethereum address and press ‘Withdraw’.
+                <br />
+                <br />
+                A small box will appear telling you the amount needed in ETH to cover gas fees for the transaction and if your minimum balance is
+                enough for us to cover the cost for you.
+                <br />
+                <br />
+                New earnings are frozen for 48 hours as an anti-fraud measure. Your referral earnings will be available to withdraw soon.
               </div>
               <div className="swash-transfer-row">
                 <div className="swash-transfer-column swash-amount-column">
@@ -260,7 +266,7 @@ class SettingsPage extends React.Component {
                     className="swash-transfer-link-button"
                     disabled={this.state.dataAvailable === '$' || this.state.dataAvailable == null || this.state.dataAvailable === '0.0'}
                     onClick={this.transfer}>
-                    Transfer
+                    Withdraw
                   </button>
                 </div>
               </div>

@@ -91,4 +91,9 @@
   #swash-help-page img {
     width: 512px;
   }
+
+  .swash-video {
+    width: 480px;
+    height: 270px;
+  }
 }

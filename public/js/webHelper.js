@@ -384,7 +384,9 @@ var helper = (function() {
     return "Search";
   }
 
-  async function getActiveReferral() {}
+  async function getActiveReferral() {
+    return {}
+  }
 
   return {
     load,

@@ -5,6 +5,7 @@ import GoogleDriveImg from '../../statics/images/google-drive.svg';
 import DropboxImg from '../../statics/images/dropbox.svg';
 import ThreeBoxImg from '../../statics/images/3box.svg';
 import PassphraseModal from '../microcomponents/PassphraseModal.js';
+import {TwitterIcon, FacebookIcon, LinkedinIcon, EmailIcon} from 'react-share';
 
 class SettingsPage extends React.Component {
   constructor(props) {
@@ -198,8 +199,8 @@ class SettingsPage extends React.Component {
               <div className="swash-setting-part">
                 <div className="swash-head">Invite a friend</div>
                 <div className="swash-p">
-                  Use your referral link to earn {this.state.reward} DATA for every new installation of Swash plus another 1 DATA when the person you
-                  invited reaches their first 10 DATA.
+                  Use your referral link to earn {this.state.reward} DATA for every new installation of Swash plus another 1 DATA. Whoever refers the
+                  most new users each month will receive 1000 $DATA.
                 </div>
                 <div className="swash-transfer-row">
                   <div className="swash-referral-column">
@@ -230,6 +231,21 @@ class SettingsPage extends React.Component {
                     </button>
                   </div>
                 </div>
+                <div className="swash-share">
+                  Share now on
+                  <a href={`https://twitter.com/intent/tweet?url=${this.state.referralLink}`}>
+                    <TwitterIcon size={32} round={true} />
+                  </a>
+                  <a href={`https://www.facebook.com/sharer.php?u=${this.state.referralLink}`}>
+                    <FacebookIcon size={32} round={true} />
+                  </a>
+                  <a href={`https://www.linkedin.com/shareArticle?url=${this.state.referralLink}`}>
+                    <LinkedinIcon size={32} round={true} />
+                  </a>
+                  <a href={`mailto:?&subject=You are invited to swash&body=${this.state.referralLink}`}>
+                    <EmailIcon size={32} round={true} />
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -237,8 +253,8 @@ class SettingsPage extends React.Component {
               <div className="swash-setting-part">
                 <div className="swash-head">Text masking</div>
                 <div className="swash-p2">
-                  You can mask specific sensitive text data before it is sent to Streamr Marketplace. Your sensitive data is transformed based on the
-                  privacy level setting. Examples of text you might want to mask could be your name, email address and phone number.
+                  Swash doesn’t collect any sensitive data from you, like your name, email, or passwords. However, with text masking, you can add
+                  another layer of security to hide certain sensitive words or numbers so they don’t get added to the Streamr Marketplace.
                 </div>
 
                 <div>
@@ -259,10 +275,10 @@ class SettingsPage extends React.Component {
 
           <div className="swash-col">
             <div className="swash-setting-part">
-              <div className="swash-head">Export the configuration</div>
+              <div className="swash-head">Backup your wallet settings</div>
               <div className="swash-p">
-                To save your configuration across systems, simply export the settings using one of the methods below and import the configuration into
-                new installations.
+                If you want to use this wallet on other devices or browsers, simply download your settings using one of the options below and keep it
+                in a safe place.
               </div>
 
               <div style={{display: 'inline-block', width: '100%'}}>
