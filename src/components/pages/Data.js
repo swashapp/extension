@@ -104,7 +104,7 @@ class DataPage extends React.Component {
                 <div className="swash-form-caption">
                   For more information on the data Swash collects, check the privacy policy
                   <a target={'_blank'} rel={'noreferrer'} href={'https://swashapp.io/files/privacy-policy.pdf'}>
-                    here
+                    {' here'}
                   </a>
                   .
                 </div>
