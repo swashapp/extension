@@ -196,6 +196,7 @@ var helper = (function() {
 
   function load() {
     var promise1 = new Promise(function(resolve, reject) {
+      resource.profile.user_id = 1;
       resolve(resource);
     });
     return promise1;

@@ -402,14 +402,58 @@ body {
 }
 
 .swash-share {
+  display: flex;
+  align-items: center;
   color: rgb(50, 50, 50);
   font-family: Roboto-Regular;
   font-size: 16px;
   text-align: justify;
 }
 
-.swash-share svg {
-  margin-left:5px;
+.swash-share span {
+  margin-left: 10px;
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  background-repeat: no-repeat;
+  transition: 0.3s;
+}
+
+.swash-share button {
+  border: none;
+  outline:none;
+}
+
+.swash-share-twitter:hover {
+  background-image: url('statics/images/logos/twitter.svg');
+}
+
+.swash-share-facebook:hover {
+  background-image: url('statics/images/logos/facebook.svg');
+}
+
+.swash-share-linkedin:hover {
+  background-image: url('statics/images/logos/linkedin.svg');
+}
+
+.swash-share-email:hover {
+  background-image: url('statics/images/logos/email.svg');
+}
+
+.swash-share-twitter {
+  background-image: url('statics/images/logos/twitter-gray.svg');
+}
+
+.swash-share-facebook {
+  background-image: url('statics/images/logos/facebook-gray.svg');
+}
+
+.swash-share-linkedin {
+  background-image: url('statics/images/logos/linkedin-gray.svg');
+}
+
+.swash-share-email {
+  background-image: url('statics/images/logos/email-gray.svg');
 }
 
 .swash-transfer-row {

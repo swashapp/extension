@@ -5,7 +5,12 @@ import GoogleDriveImg from '../../statics/images/google-drive.svg';
 import DropboxImg from '../../statics/images/dropbox.svg';
 import ThreeBoxImg from '../../statics/images/3box.svg';
 import PassphraseModal from '../microcomponents/PassphraseModal.js';
-import {TwitterIcon, FacebookIcon, LinkedinIcon, EmailIcon} from 'react-share';
+import {
+  TwitterShareButton,
+  FacebookShareButton,
+  LinkedinShareButton,
+  EmailShareButton,
+} from 'react-share';
 
 class SettingsPage extends React.Component {
   constructor(props) {
@@ -191,6 +196,7 @@ class SettingsPage extends React.Component {
       </button>
     );
 
+    const referralMessage = 'Use my referral link to earn money as you surf with Swash:';
     return (
       <div id="swash-settings" className="swash-col">
         <React.Fragment>
@@ -233,18 +239,18 @@ class SettingsPage extends React.Component {
                 </div>
                 <div className="swash-share">
                   Share now on
-                  <a href={`https://twitter.com/intent/tweet?url=${this.state.referralLink}`}>
-                    <TwitterIcon size={32} round={true} />
-                  </a>
-                  <a href={`https://www.facebook.com/sharer.php?u=${this.state.referralLink}`}>
-                    <FacebookIcon size={32} round={true} />
-                  </a>
-                  <a href={`https://www.linkedin.com/shareArticle?url=${this.state.referralLink}`}>
-                    <LinkedinIcon size={32} round={true} />
-                  </a>
-                  <a href={`mailto:?&subject=You are invited to swash&body=${this.state.referralLink}`}>
-                    <EmailIcon size={32} round={true} />
-                  </a>
+                  <TwitterShareButton url={this.state.referralLink} title={referralMessage}>
+                    <span className="swash-share-twitter" />
+                  </TwitterShareButton>
+                  <FacebookShareButton url={this.state.referralLink} quote={referralMessage}>
+                    <span className="swash-share-facebook" />
+                  </FacebookShareButton>
+                  <LinkedinShareButton url={this.state.referralLink} summary={referralMessage}>
+                    <span className="swash-share-linkedin" />
+                  </LinkedinShareButton>
+                  <EmailShareButton url={this.state.referralLink} subject={'My Referral Link'} body={referralMessage}>
+                    <span className="swash-share-email" />
+                  </EmailShareButton>
                 </div>
               </div>
             </div>
