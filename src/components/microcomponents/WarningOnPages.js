@@ -18,7 +18,7 @@ class WarningOnPages extends React.Component {
   }
 
   openJoin() {
-    window.helper.repeatOnboarding(['Join'], true).then();
+    window.helper.repeatOnboarding(['Join', 'Completed'], true).then();
   }
 
   render() {

@@ -91,13 +91,17 @@ class DataPage extends React.Component {
         <React.Fragment>
           <div className="swash-col">
             <div className="swash-setting-part-small">
-              <div className="swash-head">Collected data</div>
+              <div className="swash-head">Your data</div>
               <div className="swash-p2">
-                The data collected from your browsing sessions is shown here before being sent. You can check and delete it here. You can also adjust
-                the sending delay to a level that suits you.
+                The data collected as you browse is shown here before being added to the Streamr Marketplace. You can choose how long the sending
+                delay should be, giving you time to check and delete anything you don’t want to upload. For more information on the data Swash collects, check the privacy policy
+                <a target={'_blank'} rel={'noopener noreferrer'} href={'https://swashapp.io/files/privacy-policy.pdf'}>
+                  {' here'}
+                </a>
+                .
               </div>
               <div>
-                <div className="swash-form-caption">Delay data send</div>
+                <div className="swash-form-caption">Delay my data by</div>
                 <div>
                   <NumberPicker onChange={(value) => saveDelay(value)} value={this.state.delay} className="swash-delay-number-picker" />
                 </div>

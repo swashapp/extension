@@ -1,6 +1,6 @@
 import React from 'react';
-import help1 from '../../statics/images/help1.png';
 import help2 from '../../statics/images/help2.png';
+import ReactPlayer from 'react-player';
 
 class HelpPage extends React.Component {
   componentDidMount() {
@@ -13,28 +13,34 @@ class HelpPage extends React.Component {
         <React.Fragment>
           <div className="swash-col">
             <div className="swash-setting-part">
+              <div className="swash-p2">
+                For Frequently Asked Questions,
+                <a target={'_blank'} rel={'noopener noreferrer'} href={'https://swashapp.io/faq'}>
+                  {' click here'}
+                </a>
+                .
+              </div>
               <div className="swash-head">Welcome to the world’s first digital Data Union!</div>
-              <div className="swash-p">
-                Swash is a browser extension that makes it possible to earn as you surf the web. The data it captures is sent to a Data Union on your
-                behalf, making it possible for you to sell and profit from your data directly.
+              <div className="swash-p2">
+                Swash is a browser extension that allows you to earn as you surf the web. It captures, pools, and sells data for you, making it
+                possible for you to profit from your data directly.
+              </div>
+              <div className="swash-video">
+                <ReactPlayer url={'https://youtu.be/pmH3yhkDiic'} width={'100%'} height={'100%'} controls={true} />
               </div>
 
               <div className="swash-head2">Getting Started</div>
               <div className="swash-p">
-                Swash can be enabled or disabled via the switch in the popup window. When it’s green, that means the app is running. You can also see
-                your DATA balance and quick access icons to the Swash plugin.
-              </div>
-
-              <img alt={''} src={help1} />
-              <div className="swash-image-caption">After Installation</div>
-
-              <div className="swash-p">
-                Once you&apos;ve installed Swash, you can either create an Ethereum wallet address or import your existing one. Payments are made to
-                your wallet, which is in Streamr’s native token,{' '}
-                <a target="_blank" rel="noopener noreferrer" href="https://etherscan.io/token/0x0cf0ee63788a0849fe5297f3407f701e122cc023">
-                  DATA
+                You can switch Swash on or off using the switch in the popup window. The app is running when the icon is green. You can also see your
+                balance and quick access icons to the Swash plugin.
+                <br />
+                <br />
+                Once you’ve installed Swash, you can either create a new Ethereum wallet address or import your existing one. Payments are made to
+                your wallet in Streamr’s native token,
+                <a target={'_blank'} rel={'noopener noreferrer'} href={'https://etherscan.io/token/0x0cf0ee63788a0849fe5297f3407f701e122cc023'}>
+                  {' DATA'}
                 </a>
-                . You can withdraw these payments and exchange them for other cryptocurrencies or fiat currencies through various exchanges.
+                . You can withdraw these earnings and exchange them for other cryptocurrencies or fiat currencies through various exchanges.
               </div>
 
               <img alt={''} src={help2} />
@@ -44,33 +50,31 @@ class HelpPage extends React.Component {
 
               <div className="swash-p">
                 Swash, unlike other data collectors, makes it possible for people to earn from their data. Typical data collectors make profits on the
-                data they collect and sell while internet users receive nothing in return.
-                <br></br>
-                <br></br>
-                Where conventional data collectors profile users and collect sensitive information, the identity of the Swash user is anonymised
-                before the data is sent to the Data Union.
-                <br></br>
-                <br></br>
-                Swash isn’t limited to collecting data from a specific business but, rather, it can collect a variety of data across different sites
-                and companies, allowing for unique insights that other data collectors lack.
+                data they collect and sell while the people who generate that data receive nothing.
+                <br />
+                <br />
+                Other data collectors often gather sensitive information and don’t care to protect the wellbeing of users who create that data. Swash
+                works for these people, redistributing profits back to them and anonymising the data before it’s added to the Data Union.
+                <br />
+                <br />
               </div>
 
               <div className="swash-gray-box">
-                <div className="swash-head3">Conventional data collectors</div>
+                <div className="swash-head3">Conventional data collectors:</div>
                 <ul>
-                  <li>Users are not able to give consent for data collection</li>
-                  <li>Users are not paid for their own data</li>
-                  <li>User identity is known and shared without consideration for privacy</li>
-                  <li>Data collectors can just collect user data that has been sent to them</li>
+                  <li>Do not pay users for their data</li>
+                  <li>Do not get consent from users</li>
+                  <li>Keep users in the dark about what happens to their data</li>
+                  <li>Know and share the users’ identity without caring about privacy</li>
                 </ul>
               </div>
               <div className="swash-gray-box">
-                <div className="swash-head3">Swash</div>
+                <div className="swash-head3">Swash:</div>
                 <ul>
-                  <li>Users get paid for all data they provide to sell</li>
-                  <li>Swash never reveals the user identity unless the users gives permission to do so</li>
-                  <li>Swash collects a combination of user data across sites</li>
-                  <li>Users can control when Swash is enabled or not</li>
+                  <li>Pay users for the value of their data</li>
+                  <li>Never reveal the identity of users</li>
+                  <li>Gives users a way to control when Swash is enabled or not</li>
+                  <li>Collects a cross-browser combination of data across different sites</li>
                 </ul>
               </div>
             </div>
