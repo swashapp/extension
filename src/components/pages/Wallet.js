@@ -179,11 +179,11 @@ class SettingsPage extends React.Component {
                   <div className="swash-balance-text">
                     <div className="swash-balance-text-column">
                       <div className="swash-balance-text-bold">{this.state.referralBalance} </div>
-                      referral bonus
+                      DATA referral bonus
                     </div>
                     <div className="swash-balance-text-column">
                       <div className="swash-balance-cumulative">{this.state.cumulativeEarnings} </div>
-                      total earnings
+                      DATA total earnings
                     </div>
                   </div>
                 </div>

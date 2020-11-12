@@ -15,7 +15,7 @@ class HelpPage extends React.Component {
             <div className="swash-setting-part">
               <div className="swash-p2">
                 For Frequently Asked Questions,
-                <a target={'_blank'} rel={'noreferrer'} href={'https://swashapp.io/faq'}>
+                <a target={'_blank'} rel={'noopener noreferrer'} href={'https://swashapp.io/faq'}>
                   {' click here'}
                 </a>
                 .
@@ -37,7 +37,7 @@ class HelpPage extends React.Component {
                 <br />
                 Once you’ve installed Swash, you can either create a new Ethereum wallet address or import your existing one. Payments are made to
                 your wallet in Streamr’s native token,
-                <a target={'_blank'} rel={'noreferrer'} href={'https://etherscan.io/token/0x0cf0ee63788a0849fe5297f3407f701e122cc023'}>
+                <a target={'_blank'} rel={'noopener noreferrer'} href={'https://etherscan.io/token/0x0cf0ee63788a0849fe5297f3407f701e122cc023'}>
                   {' DATA'}
                 </a>
                 . You can withdraw these earnings and exchange them for other cryptocurrencies or fiat currencies through various exchanges.
