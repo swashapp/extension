@@ -95,27 +95,28 @@ class TransferModal extends React.Component {
             <div className="swash-transaction-modal-body">
               {this.state.withdrawType === 'sponsorWithdraw' ? (
                 <>
-                  <p>You have reached the minimum balance needed for us to cover transaction fees for you.</p>
                   <p>
-                    Current transaction fee is <span className="swash-text-green">{this.purgeNumber(this.state.transactionFee)}</span> ETH that we
-                    will pay for you.
+                    The current gas fee on Ethereum is <span className="swash-text-green">{this.purgeNumber(this.state.transactionFee)}</span> ETH. No
+                    need to have this amount in your Swash wallet, We will cover the cost of the transaction. Read more about gas fees in the ‘Help’
+                    section.
                   </p>
+                  <p>To continue with your withdrawal, click ‘Continue’.</p>
                 </>
               ) : (
                 <>
-                  <p>You haven&apos;t reached the minimum balance needed for us to cover transaction fees for you.</p>
                   <p>
-                    If you want to proceed with the transaction, you need{' '}
-                    <span className="swash-text-green">{this.purgeNumber(this.state.transactionFee)}</span> ETH in your Swash wallet to cover the gas
-                    fee.
+                    The current gas fee on Ethereum is <span className="swash-text-green">{this.purgeNumber(this.state.transactionFee)}</span> ETH.
+                    You need to have this amount available in your Swash wallet to cover the cost of the transaction. Read more about gas fees in the
+                    ‘Help’ section.
                   </p>
+                  <p>To continue with your withdrawal, click ‘Continue’.</p>
                 </>
               )}
             </div>
             <div className="swash-transaction-modal-footer">
               <div className="swash-transaction-modal-footer-right">
                 <div className="swash-transaction-modal-button" onClick={this.proceed}>
-                  Proceed
+                  Continue
                 </div>
 
                 <div className="swash-transaction-modal-button-cancel" onClick={this.state.opening}>

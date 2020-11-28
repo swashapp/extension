@@ -374,7 +374,7 @@
     width: 100%;
   }
 
-  #swash-help-page img {
+  .swash-image img {
     width: calc(100% + 48px);
     margin-left: -24px;
   }

@@ -88,8 +88,8 @@
     width: 100%;
   }
 
-  #swash-help-page img {
-    width: 512px;
+  .swash-image img {
+    max-width: 512px;
   }
 
   .swash-video {

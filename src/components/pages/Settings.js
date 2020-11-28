@@ -5,12 +5,7 @@ import GoogleDriveImg from '../../statics/images/google-drive.svg';
 import DropboxImg from '../../statics/images/dropbox.svg';
 import ThreeBoxImg from '../../statics/images/3box.svg';
 import PassphraseModal from '../microcomponents/PassphraseModal.js';
-import {
-  TwitterShareButton,
-  FacebookShareButton,
-  LinkedinShareButton,
-  EmailShareButton,
-} from 'react-share';
+import {TwitterShareButton, FacebookShareButton, LinkedinShareButton, EmailShareButton} from 'react-share';
 
 class SettingsPage extends React.Component {
   constructor(props) {
@@ -18,7 +13,6 @@ class SettingsPage extends React.Component {
     this.notifyRef = React.createRef();
     this.state = {
       modules: [],
-      masks: [],
       reward: 0,
       showPopup: false,
     };
@@ -43,17 +37,8 @@ class SettingsPage extends React.Component {
         modules.push(db.modules[module]);
       }
 
-      let masks = db.privacyData;
-      let newMasks = [];
-      for (let x in masks) {
-        newMasks.push({
-          value: masks[x].value,
-        });
-      }
-
       let referralLink = db.profile.user_id ? `https://swashapp.io/referral/${db.profile.user_id}` : '';
       this.setState({
-        masks: newMasks,
         modules: modules,
         referralLink: referralLink,
       });
@@ -75,49 +60,6 @@ class SettingsPage extends React.Component {
     window.helper.getActiveReferral().then((referral) => {
       if (referral.reward) this.setState({reward: referral.reward});
     });
-  }
-
-  addMask() {
-    let mvElement = document.getElementById('swash-mask-value');
-    let f = {
-      value: mvElement.value,
-    };
-    mvElement.value = '';
-    if (!f.value || f.value === 'undefined') {
-      this.notifyRef.current.handleNotification('Null is not allowed', 'error');
-      return;
-    }
-
-    let allow = true;
-    window.helper.loadPrivacyData().then((pData) => {
-      for (let i in pData) {
-        if (pData[i].value === f.value) {
-          allow = false;
-        }
-      }
-      if (allow) {
-        pData.push(f);
-        window.helper.savePrivacyData(pData);
-        let i = this.state.masks;
-        i.push(f);
-        this.setState({masks: i});
-      } else {
-        this.notifyRef.current.handleNotification('Duplicate entry', 'error');
-      }
-    });
-  }
-
-  deleteMaskRecord(id) {
-    let newArray = [];
-    let storageArray = [];
-    for (let i in this.state.masks) {
-      if (this.state.masks[i].value !== id) {
-        newArray.push(this.state.masks[i]);
-        storageArray.push({value: this.state.masks[i].value});
-      }
-    }
-    window.helper.savePrivacyData(storageArray);
-    this.setState({masks: newArray});
   }
 
   onboardingOAuth(onboarding) {
@@ -156,46 +98,6 @@ class SettingsPage extends React.Component {
   }
 
   render() {
-    let maskTableDataRows = this.state.masks.map((row) => {
-      return (
-        <tr key={row.value} className="swash-table-row">
-          <td className="swash-table-text swash-disabled-masked-text-td">
-            <input type="text" value={row.value} disabled className="swash-disabled-masked-text" />
-          </td>
-          <td className="swash-table-text swash-delete-masked-text-td">
-            <button
-              className="swash-link-button"
-              onClick={() => {
-                this.deleteMaskRecord(row.value);
-              }}>
-              Delete
-            </button>
-          </td>
-        </tr>
-      );
-    });
-    let addMaskText = (
-      <div>
-        <div className="swash-form-caption">Add a text mask</div>
-        <div>
-          <input
-            type="text"
-            id="swash-mask-value"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') this.addMask();
-            }}
-            placeholder="Peter"
-            className="swash-form-input swash-mask-input"
-          />
-        </div>
-      </div>
-    );
-    let AddMaskButton = (
-      <button className="swash-link-button" onClick={() => this.addMask()}>
-        Add
-      </button>
-    );
-
     const referralMessage = 'Use my referral link to earn money as you surf with Swash:';
     return (
       <div id="swash-settings" className="swash-col">
@@ -205,8 +107,8 @@ class SettingsPage extends React.Component {
               <div className="swash-setting-part">
                 <div className="swash-head">Invite a friend</div>
                 <div className="swash-p">
-                  Use your referral link to earn {this.state.reward} DATA for every new installation of Swash plus another 1 DATA. Whoever refers the
-                  most new users each month will receive 1000 $DATA.
+                  Share your referral link with friends to earn {this.state.reward} DATAcoin for every new installation of Swash! Whoever refers the
+                  most new users each month will receive 1000 DATAcoin.
                 </div>
                 <div className="swash-transfer-row">
                   <div className="swash-referral-column">
@@ -252,28 +154,8 @@ class SettingsPage extends React.Component {
                     <span className="swash-share-email" />
                   </EmailShareButton>
                 </div>
-              </div>
-            </div>
-
-            <div className="swash-col">
-              <div className="swash-setting-part">
-                <div className="swash-head">Text masking</div>
-                <div className="swash-p2">
-                  Swash doesn’t collect any sensitive data from you, like your name, email, or passwords. However, with text masking, you can add
-                  another layer of security to hide certain sensitive words or numbers so they don’t get added to the Streamr Marketplace.
-                </div>
-
-                <div>
-                  <div>
-                    <div>
-                      <tr className="swash-table-head-row">
-                        <th className="swash-table-text swash-table-head-text swash-add-mask-text-th">{addMaskText}</th>
-                        <th className="swash-table-text swash-table-head-text swash-add-mask-button-th">{AddMaskButton}</th>
-                      </tr>
-                    </div>
-
-                    <div>{maskTableDataRows}</div>
-                  </div>
+                <div className="swash-p">
+                  <em>Your referral earnings will be available to withdraw at the end of Feb 2021.</em>
                 </div>
               </div>
             </div>
