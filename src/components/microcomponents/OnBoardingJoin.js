@@ -48,7 +48,6 @@ class OnBoardingJoin extends React.Component {
         if (this.generalTryCount > MAXGENERALTRYCOUNT) this.reloadIFrame();
         break;
     }
-    console.log(event);
   }
 
   goToNextPage() {
