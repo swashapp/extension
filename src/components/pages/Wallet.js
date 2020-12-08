@@ -171,7 +171,7 @@ class SettingsPage extends React.Component {
                   <div className="swash-balance-text">
                     <div className="swash-balance-text-column" style={{width: '100%'}}>
                       <div className="swash-balance-text-bold">{this.state.dataAvailable} </div>
-                      DATA earnings
+                      DATAcoin earnings
                     </div>
                   </div>
                 </div>
@@ -179,11 +179,7 @@ class SettingsPage extends React.Component {
                   <div className="swash-balance-text">
                     <div className="swash-balance-text-column">
                       <div className="swash-balance-text-bold">{this.state.referralBalance} </div>
-                      DATA referral bonus
-                    </div>
-                    <div className="swash-balance-text-column">
-                      <div className="swash-balance-cumulative">{this.state.cumulativeEarnings} </div>
-                      DATA total earnings
+                      DATAcoin referral bonus
                     </div>
                   </div>
                 </div>
@@ -227,11 +223,12 @@ class SettingsPage extends React.Component {
                 To withdraw your earnings, simply add your chosen Ethereum address and press ‘Withdraw’.
                 <br />
                 <br />
-                A small box will appear telling you the amount needed in ETH to cover gas fees for the transaction and if your minimum balance is
-                enough for us to cover the cost for you.
+                A small box will appear telling you the amount needed in ETH to cover the transaction fees and if your minimum balance is enough for
+                Swash to cover the cost for you
                 <br />
                 <br />
-                New earnings are frozen for 48 hours as an anti-fraud measure. Your referral earnings will be available to withdraw soon.
+                New earnings are frozen for 48 hours as an anti-fraud measure.
+                <em>Your referral earnings will be available to withdraw at the end of Feb 2021.</em>
               </div>
               <div className="swash-transfer-row">
                 <div className="swash-transfer-column swash-amount-column">

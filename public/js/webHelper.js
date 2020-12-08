@@ -268,9 +268,11 @@ var helper = (function() {
   }
 
   async function getWithdrawAllToTransactionFee(targetAddress) {
+    return Promise.resolve(0.0005);
   }
 
   async function getSponsoredWithdrawTransactionFee(targetAddress) {
+    return Promise.resolve(0.0001);
   }
 
   async function generateJWT() {
@@ -386,7 +388,7 @@ var helper = (function() {
   }
 
   async function getActiveReferral() {
-    return {}
+    return {reward: 10};
   }
 
   return {

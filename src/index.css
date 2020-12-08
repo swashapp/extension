@@ -421,7 +421,68 @@ body {
 
 .swash-share button {
   border: none;
-  outline:none;
+  outline: none;
+}
+
+.swash-share-twitter:hover {
+  background-image: url('statics/images/logos/twitter.svg');
+}
+
+.swash-share-facebook:hover {
+  background-image: url('statics/images/logos/facebook.svg');
+}
+
+.swash-share-linkedin:hover {
+  background-image: url('statics/images/logos/linkedin.svg');
+}
+
+.swash-share-email:hover {
+  background-image: url('statics/images/logos/email.svg');
+}
+
+.swash-share-twitter {
+  background-image: url('statics/images/logos/twitter-gray.svg');
+}
+
+.swash-share-facebook {
+  background-image: url('statics/images/logos/facebook-gray.svg');
+}
+
+.swash-share-linkedin {
+  background-image: url('statics/images/logos/linkedin-gray.svg');
+}
+
+.swash-share-email {
+  background-image: url('statics/images/logos/email-gray.svg');
+}
+
+.swash-video {
+  width: 640px;
+  height: 360px;
+  margin: 20px auto 20px auto;
+}
+
+.swash-share {
+  display: flex;
+  align-items: center;
+  color: rgb(50, 50, 50);
+  font-family: Roboto-Regular;
+  font-size: 16px;
+  text-align: justify;
+}
+
+.swash-share span {
+  margin-left: 10px;
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  background-repeat: no-repeat;
+  transition: 0.3s;
+}
+
+.swash-share button {
+  border: none;
+  outline: none;
 }
 
 .swash-share-twitter:hover {
@@ -906,6 +967,14 @@ body {
   margin-bottom: 37px;
 }
 
+.swash-p2 {
+  color: rgb(50, 50, 50);
+  font-family: Roboto-Regular;
+  font-size: 16px;
+  text-align: justify;
+  margin-bottom: 26px;
+}
+
 .swash-delay-number-picker {
   width: 136px;
 }
@@ -919,8 +988,12 @@ body {
 
 /*Style for Help page */
 
-#swash-help-page img {
-  width: 680px;
+#swash-help-page .swash-image {
+  text-align: center;
+}
+
+.swash-image img {
+  max-width: 640px;
 }
 
 #swash-help-page .swash-image-caption {
@@ -951,6 +1024,17 @@ body {
 .swash-head3 {
   color: rgb(50, 50, 50);
   font-size: 20px;
+  font-family: Roboto-Medium;
+  font-weight: 500;
+  letter-spacing: 0px;
+  line-height: 24px;
+  margin-top: 48px;
+  margin-bottom: 16px;
+}
+
+.swash-head4 {
+  color: rgb(50, 50, 50);
+  font-size: 16px;
   font-family: Roboto-Medium;
   font-weight: 500;
   letter-spacing: 0px;
