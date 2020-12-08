@@ -79,7 +79,7 @@
   }
 
   .swash-balance-text-column {
-    padding-left: calc((50% - 100px) / 2);
+    padding-left: calc((50% - 125px) / 2);
     width: 50%;
     display: inline-block;
     vertical-align: text-top;
