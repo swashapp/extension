@@ -82,6 +82,7 @@
     padding-left: calc((50% - 100px) / 2);
     width: 50%;
     display: inline-block;
+    vertical-align: text-top;
   }
 
   #swash-help-page .swash-gray-box {
