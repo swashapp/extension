@@ -34,16 +34,22 @@ class TransferModal extends React.Component {
 
   componentDidMount() {
     let swPromise = window.helper.getSponsoredWithdrawTransactionFee(this.state.recipient);
-    let waPromise = window.helper.getWithdrawAllToTransactionFee(this.state.recipient);
     let pricePromise = window.helper.getDataEthPairPrice();
 
-    Promise.all([swPromise, waPromise, pricePromise]).then(([swTxFee, waTxFee, dataPrice]) => {
-      let minData = (swTxFee / dataPrice) * 20;
-      if (minData < Number(this.state.amount)) {
-        this.setState({transactionFee: swTxFee, withdrawType: 'sponsorWithdraw', minimumData: minData});
-      } else {
-        this.setState({transactionFee: waTxFee, withdrawType: 'withdrawToAll', minimumData: minData});
-      }
+    window.helper.getWithdrawAllToTransactionFee(this.state.recipient).then((waTxFee) => {
+      Promise.all([swPromise, pricePromise]).then(
+        ([swTxFee, dataPrice]) => {
+          let minData = (swTxFee / dataPrice) * 20;
+          if (minData < Number(this.state.amount)) {
+            this.setState({transactionFee: swTxFee, withdrawType: 'sponsorWithdraw', minimumData: minData});
+          } else {
+            this.setState({transactionFee: waTxFee, withdrawType: 'withdrawToAll', minimumData: minData});
+          }
+        },
+        () => {
+          this.setState({transactionFee: waTxFee, withdrawType: 'withdrawToAll', minimumData: Number.MAX_SAFE_INTEGER});
+        }
+      );
     });
   }
 
