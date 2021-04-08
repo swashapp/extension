@@ -288,7 +288,7 @@ class SettingsPage extends React.Component {
                 }}
                 className="swash-modal">
                 <TransferModal
-                  status="notice"
+                  status="choose"
                   amount={document.querySelector('#swash-amount').value}
                   recipient={document.querySelector('#swash-recipient').value}
                   opening={() => this.openModal('Transfer')}

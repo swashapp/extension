@@ -259,22 +259,6 @@ var helper = (function() {
     return '728.67';
   }
 
-  async function withdraw() {
-    return 'success';
-  }
-
-  async function withdrawTo(address, amount) {
-    return 'success';
-  }
-
-  async function getWithdrawAllToTransactionFee(targetAddress) {
-    return Promise.resolve(0.0005);
-  }
-
-  async function getSponsoredWithdrawTransactionFee(targetAddress) {
-    return Promise.resolve(0.0001);
-  }
-
   async function generateJWT() {
     return "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.eyJhZGRyZXNzIjoiMHhFMjMzYzQ1MzhiMjVhNUQ3Y2IzODZkODlCZTA2MmMwOTJmOTUxOUYyIiwicHVibGljS2V5IjoiMHgwMzYxOWRlMDE3MDQ1ZDA1YTkyNTVlNjViMTNlZmQzNzhlMWExZWFlMmY4NTBiOTYzYzE2ODJmZjdlNzA2YzQwNTYiLCJ0aW1lc3RhbXAiOjE1OTg3MDg1MDE3MTB9.Z6MbbDIAOR1r6dooBlx3cIMPGweXvWDIDUYcr1k2AhGWScf5Wb0nLp7qE9ebD0wse_Sx4595LHxn3gxpLLig9Q";
   }
@@ -380,7 +364,7 @@ var helper = (function() {
   function getDataEthPairPrice() {
   }
 
-  function sendSponsoredWithdraw(recipient) {
+  function withdrawToTarget(recipient, amount, useSponsor, sendToMainnet) {
   }
 
   async function getCategory() {
@@ -399,26 +383,20 @@ var helper = (function() {
     saveConfigs,
     configModule,
     updatePrivacyLevel,
-    identityPrivacy,
     loadModules,
     loadPrivacyData,
     savePrivacyData,
     enforcePolicy,
     loadMessages,
     cancelSending,
-    getKeyInfo,
     getDataBalance,
     getEthBalance,
-    withdraw,
     getAvailableBalance,
     getCumulativeEarnings,
     decryptWallet,
     isConnected,
     loadWallets,
     saveWallets,
-    withdrawTo,
-    getWithdrawAllToTransactionFee,
-    getSponsoredWithdrawTransactionFee,
     getVersion,
     stop,
     start,
@@ -447,7 +425,7 @@ var helper = (function() {
     getUserId,
     getReferralRewards,
     getDataEthPairPrice,
-    sendSponsoredWithdraw,
+    withdrawToTarget,
     getCategory,
     getActiveReferral
   };
