@@ -367,6 +367,12 @@ var helper = (function() {
   function withdrawToTarget(recipient, amount, useSponsor, sendToMainnet) {
   }
 
+  function claimRewards() {
+  }
+
+  function getWithdrawBalance() {
+  }
+
   async function getCategory() {
     return "Search";
   }
@@ -426,6 +432,8 @@ var helper = (function() {
     getReferralRewards,
     getDataEthPairPrice,
     withdrawToTarget,
+    claimRewards,
+    getWithdrawBalance,
     getCategory,
     getActiveReferral
   };

@@ -30,6 +30,7 @@ class SettingsPage extends React.Component {
     this.loadSettings = this.loadSettings.bind(this);
     this.transfer = this.transfer.bind(this);
     this.onAmountChange = this.onAmountChange.bind(this);
+    this.claimRewards = this.claimRewards.bind(this);
   }
 
   componentDidMount() {
@@ -160,6 +161,16 @@ class SettingsPage extends React.Component {
     });
   }
 
+  claimRewards() {
+    window.helper.claimRewards().then((result) => {
+      if (result.tx) {
+        this.notifyRef.current.handleNotification('Claimed successfully, refresh the page', 'success');
+      } else {
+        this.notifyRef.current.handleNotification('Failed to claim rewards', 'error');
+      }
+    })
+  }
+
   render() {
     return (
       <div id="settings-page" className="swash-col">
@@ -174,7 +185,12 @@ class SettingsPage extends React.Component {
                       DATAcoin earnings
                     </div>
                     <div className="swash-balance-text-column">
-                      <div className="swash-balance-text-bold">{this.state.referralBalance} </div>
+                      <div className="swash-balance-text-bold">
+                        {this.state.referralBalance}
+                        <button className="swash-claim-button-default" onClick={this.claimRewards}>
+                          Claim
+                        </button>
+                      </div>
                       DATAcoin referral bonus
                     </div>
                   </div>

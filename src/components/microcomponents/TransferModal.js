@@ -31,10 +31,18 @@ class TransferModal extends React.Component {
     this.withdraw = this.withdraw.bind(this);
     this.start = this.start.bind(this);
     this.proceed = this.proceed.bind(this);
+
+    window.helper.getWithdrawBalance().then((result) => {
+      this.setState({txFee: result});
+    });
   }
 
   start() {
-    this.setState({status: 'notice'});
+    if (this.state.sendToMainnet) {
+      this.setState({status: 'notice'});
+    } else {
+      this.setState({status: 'init'});
+    }
   }
 
   proceed() {
@@ -49,13 +57,14 @@ class TransferModal extends React.Component {
 
   withdraw() {
     this.setState({status: 'waiting'});
-    window.helper.withdrawToTarget(this.state.recipient, this.state.amount, this.state.useSponsor, this.state.sendToMainnet).then((tx) => {
-      if (tx.error) {
-        this.setState({status: 'failed', failedReason: tx.error});
-        return;
+    window.helper.withdrawToTarget(this.state.recipient, this.state.amount, this.state.useSponsor, this.state.sendToMainnet).then((result) => {
+      console.log(result);
+      if (result.tx) {
+        this.setState({status: 'confirmed'});
+        this.setState({transactionId: result.tx});
+      } else {
+        this.setState({status: 'failed', failedReason: result.reason});
       }
-      this.setState({status: 'confirmed'});
-      this.setState({transactionId: tx.hash});
     });
   }
 
@@ -73,8 +82,8 @@ class TransferModal extends React.Component {
             </div>
             <div className="swash-transaction-modal-body">
               <p>
-                The current gas fee on Ethereum is <span className="swash-text-green">0</span> ETH. You need to have this amount available in your
-                Swash wallet to cover the cost of the transaction. Read more about gas fees in the ‘Help’ section.
+                The current gas fee on Ethereum is <span className="swash-text-green">{this.purgeNumber(this.state.txFee)}</span> ETH. You need to
+                have this amount available in your Swash wallet to cover the cost of the transaction. Read more about gas fees in the ‘Help’ section.
               </p>
               <p>To continue with your withdrawal, click ‘Continue’.</p>
             </div>
@@ -210,16 +219,6 @@ class TransferModal extends React.Component {
                   }}>
                   <CustomCheckBox id="approvePolicy" checked={this.state.sendToMainnet} />
                   <span>Send to mainnet</span>
-                </div>
-              </div>
-              <div className="swash-onboarding-box-footer-left">
-                <div
-                  className="swash-onboarding-box-approve-wrapper"
-                  onClick={() => {
-                    this.setState({useSponsor: !this.state.useSponsor});
-                  }}>
-                  <CustomCheckBox id="approvePolicy" checked={this.state.useSponsor} />
-                  <span>Sponsor withdraw</span>
                 </div>
               </div>
             </div>
