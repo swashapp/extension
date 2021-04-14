@@ -12,7 +12,6 @@ class SettingsPage extends React.Component {
       keyInfo: {address: '', privateKey: ''},
       referralBalance: '$',
       dataAvailable: '$',
-      cumulativeEarnings: '$',
       withdrawState: false,
       transferModal: false,
       revealKeyModal: false,
@@ -102,20 +101,24 @@ class SettingsPage extends React.Component {
   }
 
   async getBalanceInfo() {
-    let referralBalance = (await window.helper.getReferralRewards()).toString();
-    let dataAvailable = await window.helper.getAvailableBalance();
-    dataAvailable = dataAvailable.error || dataAvailable === '' || typeof dataAvailable === 'undefined' ? this.state.dataAvailable : dataAvailable;
-    let cumulativeEarnings = await window.helper.getCumulativeEarnings();
-    cumulativeEarnings =
-      cumulativeEarnings.error || cumulativeEarnings === '' || typeof cumulativeEarnings === 'undefined'
-        ? this.state.cumulativeEarnings
-        : cumulativeEarnings;
-    if (referralBalance !== this.state.referralBalance || dataAvailable !== this.state.dataAvailable)
-      this.setState({
-        referralBalance: this.purgeNumber(referralBalance),
-        dataAvailable: this.purgeNumber(dataAvailable),
-        cumulativeEarnings: this.purgeNumber(cumulativeEarnings),
-      });
+    this.setState({
+      referralBalance: '$',
+      dataAvailable: '$',
+    });
+    window.helper.getReferralRewards().then((referralBalance) => {
+      if (referralBalance.toString() !== this.state.referralBalance) {
+        this.setState({
+          referralBalance: this.purgeNumber(referralBalance.toString()),
+        });
+      }
+    });
+    window.helper.getAvailableBalance().then((dataAvailable) => {
+      dataAvailable = dataAvailable.error || dataAvailable === '' || typeof dataAvailable === 'undefined' ? this.state.dataAvailable : dataAvailable;
+      if (dataAvailable !== this.state.dataAvailable)
+        this.setState({
+          dataAvailable: this.purgeNumber(dataAvailable),
+        });
+    });
   }
 
   onAmountChange(e) {
@@ -164,11 +167,12 @@ class SettingsPage extends React.Component {
   claimRewards() {
     window.helper.claimRewards().then((result) => {
       if (result.tx) {
-        this.notifyRef.current.handleNotification('Claimed successfully, refresh the page', 'success');
+        this.getBalanceInfo().then();
+        this.notifyRef.current.handleNotification('Rewards are claimed successfully', 'success');
       } else {
         this.notifyRef.current.handleNotification('Failed to claim rewards', 'error');
       }
-    })
+    });
   }
 
   render() {
@@ -308,6 +312,7 @@ class SettingsPage extends React.Component {
                   amount={document.querySelector('#swash-amount').value}
                   recipient={document.querySelector('#swash-recipient').value}
                   opening={() => this.openModal('Transfer')}
+                  onSuccess={this.getBalanceInfo}
                 />
               </div>
             </div>

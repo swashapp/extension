@@ -13,6 +13,7 @@ class TransferModal extends React.Component {
       opening: PropTypes.func,
       amount: PropTypes.string,
       recipient: PropTypes.string,
+      onSuccess: PropTypes.func,
     };
   }
 
@@ -62,6 +63,7 @@ class TransferModal extends React.Component {
       if (result.tx) {
         this.setState({status: 'confirmed'});
         this.setState({transactionId: result.tx});
+        this.props.onSuccess().then();
       } else {
         this.setState({status: 'failed', failedReason: result.reason});
       }
