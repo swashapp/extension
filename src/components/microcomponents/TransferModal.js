@@ -9,10 +9,10 @@ class TransferModal extends React.Component {
   static get propTypes() {
     return {
       tx: PropTypes.string,
-      status: PropTypes.bool,
       opening: PropTypes.func,
       amount: PropTypes.string,
       recipient: PropTypes.string,
+      sendToMainnet: PropTypes.bool,
       onSuccess: PropTypes.func,
     };
   }
@@ -20,34 +20,16 @@ class TransferModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: this.props.status,
+      status: 'init',
       opening: this.props.opening,
       transactionId: this.props.tx,
       amount: this.props.amount,
       recipient: this.props.recipient,
-      sendToMainnet: false,
+      sendToMainnet: this.props.sendToMainnet,
       useSponsor: false,
       failedReason: '',
     };
     this.withdraw = this.withdraw.bind(this);
-    this.start = this.start.bind(this);
-    this.proceed = this.proceed.bind(this);
-
-    window.helper.getWithdrawBalance().then((result) => {
-      this.setState({txFee: result});
-    });
-  }
-
-  start() {
-    if (this.state.sendToMainnet) {
-      this.setState({status: 'notice'});
-    } else {
-      this.setState({status: 'init'});
-    }
-  }
-
-  proceed() {
-    this.setState({status: 'init'});
   }
 
   purgeNumber(num) {
@@ -76,32 +58,6 @@ class TransferModal extends React.Component {
 
   renderModal() {
     switch (this.state.status) {
-      case 'notice':
-        return (
-          <div>
-            <div className="swash-transaction-modal-header">
-              <p>Start transfer</p>
-            </div>
-            <div className="swash-transaction-modal-body">
-              <p>
-                The current gas fee on Ethereum is <span className="swash-text-green">{this.purgeNumber(this.state.txFee)}</span> ETH. You need to
-                have this amount available in your Swash wallet to cover the cost of the transaction. Read more about gas fees in the ‘Help’ section.
-              </p>
-              <p>To continue with your withdrawal, click ‘Continue’.</p>
-            </div>
-            <div className="swash-transaction-modal-footer">
-              <div className="swash-transaction-modal-footer-right">
-                <div className="swash-transaction-modal-button" onClick={this.proceed}>
-                  Continue
-                </div>
-
-                <div className="swash-transaction-modal-button-cancel" onClick={this.state.opening}>
-                  Cancel
-                </div>
-              </div>
-            </div>
-          </div>
-        );
       case 'confirmed':
         return (
           <div>
@@ -199,37 +155,6 @@ class TransferModal extends React.Component {
             <div className="swash-transaction-modal-footer">
               <div className="swash-transaction-modal-footer-right">
                 <div className="swash-transaction-modal-button swash-transaction-modal-button-waiting">Sending...</div>
-                <div className="swash-transaction-modal-button-cancel" onClick={this.state.opening}>
-                  Cancel
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      case 'choose':
-        return (
-          <div>
-            <div className="swash-transaction-modal-header">
-              <p>Choose Option</p>
-            </div>
-            <div className="swash-transaction-modal-body">
-              <div className="swash-onboarding-box-footer-left">
-                <div
-                  className="swash-onboarding-box-approve-wrapper"
-                  onClick={() => {
-                    this.setState({sendToMainnet: !this.state.sendToMainnet});
-                  }}>
-                  <CustomCheckBox id="approvePolicy" checked={this.state.sendToMainnet} />
-                  <span>Send to mainnet</span>
-                </div>
-              </div>
-            </div>
-            <div className="swash-transaction-modal-footer">
-              <div className="swash-transaction-modal-footer-right">
-                <div className="swash-transaction-modal-button" onClick={this.start}>
-                  Continue
-                </div>
-
                 <div className="swash-transaction-modal-button-cancel" onClick={this.state.opening}>
                   Cancel
                 </div>

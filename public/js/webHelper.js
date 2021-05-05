@@ -358,7 +358,7 @@ var helper = (function() {
   }
 
   async function getReferralRewards() {
-    return "20";
+    return "1234.567890";
   }
 
   function getDataEthPairPrice() {
@@ -371,6 +371,7 @@ var helper = (function() {
   }
 
   function getWithdrawBalance() {
+    return Promise.resolve("4321.0123");
   }
 
   async function getCategory() {

@@ -3,6 +3,13 @@ import RDropdownMenu from '../microcomponents/RDropdownMenu.js';
 import CustomSnackbar from '../microcomponents/CustomSnackbar';
 import TransferModal from '../microcomponents/TransferModal';
 import RevealKeyModal from '../microcomponents/RevealKeyModal';
+import CustomSelect from '../microcomponents/CustomSelect';
+
+const networkList = [
+  {description: 'Select', value: null},
+  {description: 'xDai', value: 'xDai'},
+  {description: 'Mainnet', value: 'Mainnet'},
+];
 
 class SettingsPage extends React.Component {
   constructor(props) {
@@ -10,13 +17,15 @@ class SettingsPage extends React.Component {
     this.notifyRef = React.createRef();
     this.state = {
       keyInfo: {address: '', privateKey: ''},
-      referralBalance: '$',
+      unclaimedBonus: '$',
       dataAvailable: '$',
       withdrawState: false,
       transferModal: false,
       revealKeyModal: false,
       disableTransfer: false,
+      withdrawTo: undefined,
       recipient: '',
+      txFee: '',
       recipientEthBalance: '$',
       recipientDataBalance: '$',
       revealFunction: {func: this.copyToClipboard, text: 'copy'},
@@ -30,6 +39,10 @@ class SettingsPage extends React.Component {
     this.transfer = this.transfer.bind(this);
     this.onAmountChange = this.onAmountChange.bind(this);
     this.claimRewards = this.claimRewards.bind(this);
+
+    window.helper.getWithdrawBalance().then((result) => {
+      this.setState({txFee: result});
+    });
   }
 
   componentDidMount() {
@@ -41,7 +54,7 @@ class SettingsPage extends React.Component {
 
   purgeNumber(num) {
     if (num.indexOf('.') < 0) return num;
-    return num.slice(0, num.indexOf('.') + 5);
+    return num.slice(0, num.indexOf('.') + 3);
   }
 
   async loadSettings() {
@@ -102,13 +115,13 @@ class SettingsPage extends React.Component {
 
   async getBalanceInfo() {
     this.setState({
-      referralBalance: '$',
+      unclaimedBonus: '$',
       dataAvailable: '$',
     });
-    window.helper.getReferralRewards().then((referralBalance) => {
-      if (referralBalance.toString() !== this.state.referralBalance) {
+    window.helper.getReferralRewards().then((unclaimedBonus) => {
+      if (unclaimedBonus.toString() !== this.state.unclaimedBonus) {
         this.setState({
-          referralBalance: this.purgeNumber(referralBalance.toString()),
+          unclaimedBonus: this.purgeNumber(unclaimedBonus.toString()),
         });
       }
     });
@@ -184,18 +197,18 @@ class SettingsPage extends React.Component {
               <div className="swash-balance-block">
                 <div className="swash-row">
                   <div className="swash-balance-text">
-                    <div className="swash-balance-text-column" style={{width: '50%'}}>
+                    <div className="swash-balance-text-column left">
                       <div className="swash-balance-text-bold">{this.state.dataAvailable} </div>
-                      DATAcoin earnings
+                      <div>DATA earnings</div>
                     </div>
-                    <div className="swash-balance-text-column">
-                      <div className="swash-balance-text-bold">
-                        {this.state.referralBalance}
-                        <button className="swash-claim-button-default" onClick={this.claimRewards}>
-                          Claim
-                        </button>
+                    <div className="swash-balance-text-column right">
+                      <div className="swash-form-input claim-reward">
+                        <div className="amount">{this.state.unclaimedBonus}</div>
+                        <div className="description">DATA referral bonus</div>
                       </div>
-                      DATAcoin referral bonus
+                      <button className="swash-link-button" onClick={this.claimRewards}>
+                        Claim
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -260,6 +273,19 @@ class SettingsPage extends React.Component {
                   </div>
                 </div>
 
+                <div className="swash-transfer-column swash-amount-column">
+                  <div className="swash-form-caption">Withdraw to</div>
+                  <div>
+                    <CustomSelect
+                      items={networkList}
+                      className={'swash-onboarding-select-container'}
+                      onChange={(item) => {
+                        this.setState({withdrawTo: item});
+                      }}
+                    />
+                  </div>
+                </div>
+
                 <div className="swash-transfer-column swash-recipient-column">
                   <div className="swash-form-caption">Recipient Ethereum address</div>
                   <div>
@@ -277,9 +303,14 @@ class SettingsPage extends React.Component {
                   <button
                     id="swash-transfer-button"
                     className="swash-transfer-link-button"
-                    disabled={this.state.dataAvailable === '$' || this.state.dataAvailable == null || this.state.dataAvailable === '0.0'}
+                    disabled={
+                      this.state.dataAvailable === '$' ||
+                      this.state.dataAvailable == null ||
+                      this.state.dataAvailable === '0.0' ||
+                      !this.state.withdrawTo
+                    }
                     onClick={this.transfer}>
-                    Withdraw
+                    Transfer
                   </button>
                 </div>
               </div>
@@ -288,6 +319,7 @@ class SettingsPage extends React.Component {
                   <div className="swash-transfer-column">
                     <ul>
                       <li>Same as address on your clipboard</li>
+                      <li>Transaction fee is {this.state.txFee} ETH</li>
                       <li>
                         Owns {this.purgeNumber(this.state.recipientEthBalance)} ETH, {this.purgeNumber(this.state.recipientDataBalance)} DATA
                       </li>
@@ -308,11 +340,11 @@ class SettingsPage extends React.Component {
                 }}
                 className="swash-modal">
                 <TransferModal
-                  status="choose"
                   amount={document.querySelector('#swash-amount').value}
                   recipient={document.querySelector('#swash-recipient').value}
                   opening={() => this.openModal('Transfer')}
                   onSuccess={this.getBalanceInfo}
+                  sendToMainnet={this.state.withdrawTo.value === 'Mainnet'}
                 />
               </div>
             </div>

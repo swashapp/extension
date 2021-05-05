@@ -223,18 +223,23 @@ body {
 
 .swash-balance-block {
   background: rgb(248, 248, 248);
-  height: 168px;
+  height: 192px;
   width: 680px;
   position: relative;
   margin-bottom: 84px;
   padding: 60px;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
-.swash-balance-text-column {
-  padding-left: 40px;
-  width: 50%;
+.swash-balance-text .left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.swash-balance-text .right {
   display: inline-block;
+  width: 320px;
 }
 
 .swash-reveal-button {
@@ -278,19 +283,11 @@ body {
   font-weight: normal;
   letter-spacing: 0px;
   line-height: 40px;
-}
 
-.swash-claim-button-default {
-  border: 2px solid black;
-  background-color: white;
-  color: black;
-  font-size: 16px;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
-.swash-claim-button-default:hover {
-  background: #e7e7e7;
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: space-around;
+  width: inherit;
 }
 
 .swash-form-caption {
@@ -555,6 +552,34 @@ body {
   line-height: 16px;
 }
 
+.claim-reward {
+  float: left;
+  width: 220px;
+  margin-right: 16px;
+  display: inline-flex;
+  align-items: center;
+  background: #FCFBF9;
+  overflow: hidden;
+}
+
+.claim-reward:active {
+  border-color: rgb(239, 239, 239);
+}
+
+.claim-reward .amount {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  color: #323232
+}
+
+.claim-reward .description {
+  font-size: 12px;
+  color: #525252;
+  margin-left: 9px;
+  white-space: nowrap;
+}
+
 .swash-amount-column {
   width: 128px;
   height: 40px;
@@ -565,7 +590,7 @@ body {
 }
 
 #swash-recipient {
-  width: 416px;
+  width: 272px;
   cursor: pointer;
 }
 
@@ -597,7 +622,7 @@ body {
 }
 
 .swash-transfer-link-button:disabled {
-  background-color: rgb(36, 60, 219, 0.5) !important;
+  background-color: rgba(36, 60, 219, 0.5) !important;
   cursor: default;
 }
 
@@ -1606,6 +1631,7 @@ body {
   border: 1px solid rgb(239, 239, 239);
   border-radius: 4px;
   background: rgb(255, 255, 255);
+  padding: 0 16px 0 16px !important;
 }
 
 .swash-onboarding-select-label {
