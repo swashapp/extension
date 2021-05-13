@@ -22,8 +22,8 @@
   }
 
   .swash-amount-column {
-    width: 128px;
-    margin-right: 16px;
+    width: 47%;
+    margin-bottom: 15px;
   }
 
   .swash-recipient-column {
@@ -51,6 +51,7 @@
 
   .swash-balance-block {
     width: 100%;
+    padding: 60px 20px;
   }
 
   .swash-balance-text-bold {
@@ -76,13 +77,6 @@
 
   .swash-balance-text {
     line-height: 20px;
-  }
-
-  .swash-balance-text-column {
-    padding-left: calc((50% - 125px) / 2);
-    width: 50%;
-    display: inline-block;
-    vertical-align: text-top;
   }
 
   #swash-help-page .swash-gray-box {

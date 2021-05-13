@@ -25,7 +25,7 @@ class SettingsPage extends React.Component {
       transferModal: false,
       revealKeyModal: false,
       disableTransfer: false,
-      withdrawTo: undefined,
+      withdrawTo: networkList[0],
       recipient: '',
       recipientEthBalance: '$',
       recipientDataBalance: '$',
@@ -40,6 +40,8 @@ class SettingsPage extends React.Component {
     this.transfer = this.transfer.bind(this);
     this.onAmountChange = this.onAmountChange.bind(this);
     this.claimRewards = this.claimRewards.bind(this);
+    this.isClaimDisable = this.isClaimDisable.bind(this);
+    this.isTransferDisable = this.isTransferDisable.bind(this);
   }
 
   componentDidMount() {
@@ -162,6 +164,18 @@ class SettingsPage extends React.Component {
     return x.type !== 'password';
   }
 
+  isTransferDisable() {
+    if (this.state.dataAvailable === '$' || Number(this.state.dataAvailable) <= 0) return true;
+    if (!this.state.withdrawTo) return true;
+    if (
+      this.state.withdrawTo.value === 'Mainnet' &&
+      Number(this.state.dataAvailable) < this.state.minimumWithdraw &&
+      Number(this.state.recipientEthBalance) < this.state.gasLimit
+    )
+      return true;
+    return false;
+  }
+
   pasteWallet(e) {
     e.preventDefault();
     window.helper.getWithdrawBalance().then((response) => {
@@ -186,7 +200,15 @@ class SettingsPage extends React.Component {
     });
   }
 
+  isClaimDisable() {
+    return this.state.unclaimedBonus === '$' || Number(this.state.unclaimedBonus) <= 0;
+  }
+
   claimRewards() {
+    this.setState({
+      unclaimedBonus: '$',
+      dataAvailable: '$',
+    });
     window.helper.claimRewards().then((result) => {
       if (result.tx) {
         this.getBalanceInfo().then();
@@ -213,9 +235,10 @@ class SettingsPage extends React.Component {
                     <div className="swash-balance-text-column right">
                       <div className="swash-form-input claim-reward">
                         <div className="amount">{this.state.unclaimedBonus}</div>
-                        <div className="description">DATA referral bonus</div>
+                        <div className="description desktop">DATA referral bonus</div>
+                        <div className="description mobile">DATA bonus</div>
                       </div>
-                      <button className="swash-link-button" onClick={this.claimRewards}>
+                      <button className="swash-link-button" onClick={this.claimRewards} disabled={this.isClaimDisable()}>
                         Claim
                       </button>
                     </div>
@@ -266,7 +289,6 @@ class SettingsPage extends React.Component {
                 <br />
                 <br />
                 New earnings are frozen for 48 hours as an anti-fraud measure.
-                <em>Your referral earnings will be available to withdraw at the end of Feb 2021.</em>
               </div>
               <div className="swash-transfer-row">
                 <div className="swash-transfer-column swash-amount-column">
@@ -277,7 +299,7 @@ class SettingsPage extends React.Component {
                       id="swash-amount"
                       value={this.state.dataAvailable}
                       disabled="true"
-                      className="swash-form-input  swash-filter-input"
+                      className="swash-form-input swash-filter-input"
                     />
                   </div>
                 </div>
@@ -287,7 +309,7 @@ class SettingsPage extends React.Component {
                   <div>
                     <CustomSelect
                       items={networkList}
-                      className={'swash-onboarding-select-container'}
+                      className={'swash-select-network'}
                       onChange={(item) => {
                         this.setState({withdrawTo: item});
                       }}
@@ -312,12 +334,7 @@ class SettingsPage extends React.Component {
                   <button
                     id="swash-transfer-button"
                     className="swash-transfer-link-button"
-                    disabled={
-                      this.state.dataAvailable === '$' ||
-                      this.state.dataAvailable == null ||
-                      this.state.dataAvailable === '0.0' ||
-                      !this.state.withdrawTo
-                    }
+                    disabled={this.isTransferDisable()}
                     onClick={this.transfer}>
                     Transfer
                   </button>
@@ -328,11 +345,11 @@ class SettingsPage extends React.Component {
                   <div className="swash-transfer-column">
                     <ul>
                       {Number(this.state.dataAvailable) > this.state.minimumWithdraw ? (
-                        <li>Transaction fee is {this.state.gasLimit} ETH (Swash pay the fee)</li>
+                        <li className={'swash-text-green'}>Transaction fee is {this.state.gasLimit} ETH (Swash pay the fee)</li>
                       ) : Number(this.state.recipientEthBalance) > this.state.gasLimit ? (
-                        <li>Transaction fee is {this.state.gasLimit} ETH</li>
+                        <li className={'swash-text-orange'}>Transaction fee is {this.state.gasLimit} ETH</li>
                       ) : this.state.withdrawTo.value === 'Mainnet' ? (
-                        <li>Unable to withdraw - not enough ETH for the gas fee</li>
+                        <li className={'swash-text-orange'}>Unable to withdraw - not enough ETH for the gas fee</li>
                       ) : (
                         ''
                       )}

@@ -237,6 +237,14 @@ body {
   align-items: center;
 }
 
+.desktop {
+  display: block;
+}
+
+.mobile {
+  display: none;
+}
+
 .swash-balance-text .right {
   display: inline-block;
   width: 320px;
@@ -276,7 +284,6 @@ body {
 }
 
 .swash-balance-text {
-  margin-bottom: 48px;
   color: rgb(82, 82, 82);
   font-size: 12px;
   font-family: Roboto-Regular;
@@ -285,8 +292,9 @@ body {
   line-height: 40px;
 
   display: inline-flex;
-  align-items: baseline;
+  align-items: start;
   justify-content: space-around;
+  flex-wrap: wrap;
   width: inherit;
 }
 
@@ -388,6 +396,15 @@ body {
 #swash-privateKey {
   color: #323232;
   border-color: rgb(239, 239, 239);
+}
+
+.swash-select-network {
+  height: 40px;
+  width: 100%;
+  border: 1px solid rgb(239, 239, 239);
+  border-radius: 4px;
+  background: rgb(255, 255, 255);
+  padding: 0 16px 0 16px !important;
 }
 
 .swash-head {
@@ -529,7 +546,10 @@ body {
 }
 
 .swash-transfer-row {
-  height: 80px;
+  display: flex;
+  align-items: start;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .swash-transfer-column {
@@ -581,12 +601,11 @@ body {
 }
 
 .swash-amount-column {
-  width: 128px;
-  height: 40px;
+  width: 18%;
 }
 
 #swash-amount {
-  width: 128px;
+  width: 100%;
 }
 
 #swash-recipient {
@@ -1622,7 +1641,11 @@ body {
 }
 
 .swash-text-green {
-  color: rgb(42, 196, 55);
+  color: rgb(42, 196, 55)  !important;
+}
+
+.swash-text-orange {
+  color: #FF5C00 !important;
 }
 
 .swash-onboarding-select-container {
