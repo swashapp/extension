@@ -144,7 +144,7 @@ class DataPage extends React.Component {
     });
     let addMaskText = (
       <div>
-        <div className="swash-form-caption">Add a text mask</div>
+        <div className="swash-form-caption">Mask it 👇</div>
         <div>
           <input
             type="text"
@@ -189,8 +189,8 @@ class DataPage extends React.Component {
               <div className="swash-setting-part">
                 <div className="swash-head">Text masking</div>
                 <div className="swash-p2">
-                  Swash doesn’t collect any sensitive data from you, like your name, email, or passwords. However, with text masking, you can add
-                  another layer of security to hide certain sensitive words or numbers so they don’t get added to the Streamr Marketplace.
+                  Swash doesn’t collect any sensitive data from you, like your name, email, or passwords. If you really want to be sure, you can hide
+                  certain sensitive words or numbers so they don’t get added to the Swash dataset.
                 </div>
 
                 <div>
@@ -212,8 +212,8 @@ class DataPage extends React.Component {
             <div className="swash-setting-part-small">
               <div className="swash-head">Your data</div>
               <div className="swash-p2">
-                The data collected as you browse is shown here before being added to the Streamr Marketplace. You can choose how long the sending
-                delay should be, giving you time to check and delete anything you don’t want to upload.
+                The data collected as you browse is shown here before being added to the Swash dataset. If you want time to check the data before it
+                gets uploaded, you can adjust the sending delay and delete anything that you don’t want to share.
               </div>
               <div>
                 <div className="swash-form-caption">Delay my data by</div>

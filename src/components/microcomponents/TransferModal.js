@@ -12,6 +12,7 @@ class TransferModal extends React.Component {
       opening: PropTypes.func,
       amount: PropTypes.string,
       recipient: PropTypes.string,
+      useSponsor: PropTypes.bool,
       sendToMainnet: PropTypes.bool,
       onSuccess: PropTypes.func,
     };
@@ -26,7 +27,7 @@ class TransferModal extends React.Component {
       amount: this.props.amount,
       recipient: this.props.recipient,
       sendToMainnet: this.props.sendToMainnet,
-      useSponsor: false,
+      useSponsor: this.props.useSponsor,
       failedReason: '',
     };
     this.withdraw = this.withdraw.bind(this);

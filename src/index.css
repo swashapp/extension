@@ -558,7 +558,7 @@ body {
   margin-right: 16px;
   display: inline-flex;
   align-items: center;
-  background: #FCFBF9;
+  background: #fcfbf9;
   overflow: hidden;
 }
 
@@ -570,7 +570,7 @@ body {
   font-size: 16px;
   font-style: normal;
   font-weight: normal;
-  color: #323232
+  color: #323232;
 }
 
 .claim-reward .description {

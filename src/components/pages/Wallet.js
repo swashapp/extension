@@ -19,13 +19,14 @@ class SettingsPage extends React.Component {
       keyInfo: {address: '', privateKey: ''},
       unclaimedBonus: '$',
       dataAvailable: '$',
+      minimumWithdraw: 99999999,
+      gasLimit: 99999999,
       withdrawState: false,
       transferModal: false,
       revealKeyModal: false,
       disableTransfer: false,
       withdrawTo: undefined,
       recipient: '',
-      txFee: '',
       recipientEthBalance: '$',
       recipientDataBalance: '$',
       revealFunction: {func: this.copyToClipboard, text: 'copy'},
@@ -39,10 +40,6 @@ class SettingsPage extends React.Component {
     this.transfer = this.transfer.bind(this);
     this.onAmountChange = this.onAmountChange.bind(this);
     this.claimRewards = this.claimRewards.bind(this);
-
-    window.helper.getWithdrawBalance().then((result) => {
-      this.setState({txFee: result});
-    });
   }
 
   componentDidMount() {
@@ -167,6 +164,18 @@ class SettingsPage extends React.Component {
 
   pasteWallet(e) {
     e.preventDefault();
+    window.helper.getWithdrawBalance().then((response) => {
+      if (response.minimum) {
+        this.setState({
+          minimumWithdraw: response.minimum,
+        });
+      }
+      if (response.gas) {
+        this.setState({
+          gasLimit: response.gas.toFixed(3),
+        });
+      }
+    });
     navigator.clipboard.readText().then(async (address) => {
       if (address.match(/^0x[a-fA-F0-9]{40}$/g)) {
         document.querySelector('#swash-recipient').value = address;
@@ -318,8 +327,15 @@ class SettingsPage extends React.Component {
                 <div className="swash-transfer-row">
                   <div className="swash-transfer-column">
                     <ul>
-                      <li>Same as address on your clipboard</li>
-                      <li>Transaction fee is {this.state.txFee} ETH</li>
+                      {Number(this.state.dataAvailable) > this.state.minimumWithdraw ? (
+                        <li>Transaction fee is {this.state.gasLimit} ETH (Swash pay the fee)</li>
+                      ) : Number(this.state.recipientEthBalance) > this.state.gasLimit ? (
+                        <li>Transaction fee is {this.state.gasLimit} ETH</li>
+                      ) : this.state.withdrawTo.value === 'Mainnet' ? (
+                        <li>Unable to withdraw - not enough ETH for the gas fee</li>
+                      ) : (
+                        ''
+                      )}
                       <li>
                         Owns {this.purgeNumber(this.state.recipientEthBalance)} ETH, {this.purgeNumber(this.state.recipientDataBalance)} DATA
                       </li>
@@ -344,6 +360,7 @@ class SettingsPage extends React.Component {
                   recipient={document.querySelector('#swash-recipient').value}
                   opening={() => this.openModal('Transfer')}
                   onSuccess={this.getBalanceInfo}
+                  useSponsor={Number(this.state.dataAvailable) > this.state.minimumWithdraw}
                   sendToMainnet={this.state.withdrawTo.value === 'Mainnet'}
                 />
               </div>
