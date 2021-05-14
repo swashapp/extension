@@ -171,13 +171,11 @@ class SettingsPage extends React.Component {
 
   isTransferDisable() {
     if (this.state.dataAvailable === '$' || Number(this.state.dataAvailable) <= 0) return true;
+    if (this.state.recipientEthBalance === '$' || Number(this.state.recipientEthBalance) <= 0) return true;
     if (!this.state.withdrawTo) return true;
-    if (
-      this.state.withdrawTo.value === 'Mainnet' &&
-      Number(this.state.dataAvailable) < this.state.minimumWithdraw &&
-      Number(this.state.recipientEthBalance) < this.state.gasLimit
-    )
-      return true;
+    if (this.state.withdrawTo.value === 'Mainnet') {
+      if (Number(this.state.recipientEthBalance) < this.state.gasLimit && Number(this.state.dataAvailable) < this.state.minimumWithdraw) return true;
+    }
     return false;
   }
 
@@ -206,7 +204,7 @@ class SettingsPage extends React.Component {
   }
 
   isClaimDisable() {
-    return this.state.unclaimedBonus === '$' || Number(this.state.unclaimedBonus) <= 0;
+    return this.state.unclaimedBonus === '$' || Number(this.state.unclaimedBonus) <= 0 || this.state.claimBtn === 'Claiming';
   }
 
   claimRewards() {
