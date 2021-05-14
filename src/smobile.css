@@ -61,6 +61,43 @@
     display: inline;
   }
 
+  #swash-transfer-button {
+    width: 100%;
+  }
+
+  .swash-transfer-button-column {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .swash-transfer-button-column input {
+    width: 100%;
+  }
+
+  .swash-recipient-column {
+    width: 100%;
+  }
+
+  .swash-balance-text-column {
+    margin-bottom: 20px;
+  }
+
+  .swash-balance-text .right {
+    width: 280px;
+  }
+
+  .claim-reward {
+    width: 180px;
+  }
+
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: block;
+  }
+
   .swash-profile-box {
     display: block;
     width: unset;
@@ -137,17 +174,8 @@
     padding: 60px 5px;
   }
 
-  #swash-amount {
-    width: 64px;
-  }
-
-  .swash-amount-column {
-    width: 64px;
-    margin-right: 16px;
-  }
-
-  .swash-recipient-column {
-    width: calc(100% - 80px);
+  .swash-balance-block {
+    height: 232px;
   }
 
   .swash-onboarding-box,

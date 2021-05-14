@@ -3,6 +3,12 @@ import RDropdownMenu from '../microcomponents/RDropdownMenu.js';
 import CustomSnackbar from '../microcomponents/CustomSnackbar';
 import TransferModal from '../microcomponents/TransferModal';
 import RevealKeyModal from '../microcomponents/RevealKeyModal';
+import CustomSelect from '../microcomponents/CustomSelect';
+
+const networkList = [
+  {description: 'xDai', value: 'xDai'},
+  {description: 'Mainnet', value: 'Mainnet'},
+];
 
 class SettingsPage extends React.Component {
   constructor(props) {
@@ -10,17 +16,20 @@ class SettingsPage extends React.Component {
     this.notifyRef = React.createRef();
     this.state = {
       keyInfo: {address: '', privateKey: ''},
-      referralBalance: '$',
+      unclaimedBonus: '$',
       dataAvailable: '$',
-      cumulativeEarnings: '$',
+      minimumWithdraw: 99999999,
+      gasLimit: 99999999,
       withdrawState: false,
       transferModal: false,
       revealKeyModal: false,
       disableTransfer: false,
+      withdrawTo: networkList[0],
       recipient: '',
       recipientEthBalance: '$',
       recipientDataBalance: '$',
       revealFunction: {func: this.copyToClipboard, text: 'copy'},
+      claimBtn: 'Claim',
     };
     this.openModal = this.openModal.bind(this);
     this.copyToClipboard = this.copyToClipboard.bind(this);
@@ -30,6 +39,10 @@ class SettingsPage extends React.Component {
     this.loadSettings = this.loadSettings.bind(this);
     this.transfer = this.transfer.bind(this);
     this.onAmountChange = this.onAmountChange.bind(this);
+    this.claimRewards = this.claimRewards.bind(this);
+    this.isClaimDisable = this.isClaimDisable.bind(this);
+    this.isTransferDisable = this.isTransferDisable.bind(this);
+    this.isMessageNeeded = this.isMessageNeeded.bind(this);
   }
 
   componentDidMount() {
@@ -41,7 +54,7 @@ class SettingsPage extends React.Component {
 
   purgeNumber(num) {
     if (num.indexOf('.') < 0) return num;
-    return num.slice(0, num.indexOf('.') + 5);
+    return num.slice(0, num.indexOf('.') + 3);
   }
 
   async loadSettings() {
@@ -101,20 +114,24 @@ class SettingsPage extends React.Component {
   }
 
   async getBalanceInfo() {
-    let referralBalance = (await window.helper.getReferralRewards()).toString();
-    let dataAvailable = await window.helper.getAvailableBalance();
-    dataAvailable = dataAvailable.error || dataAvailable === '' || typeof dataAvailable === 'undefined' ? this.state.dataAvailable : dataAvailable;
-    let cumulativeEarnings = await window.helper.getCumulativeEarnings();
-    cumulativeEarnings =
-      cumulativeEarnings.error || cumulativeEarnings === '' || typeof cumulativeEarnings === 'undefined'
-        ? this.state.cumulativeEarnings
-        : cumulativeEarnings;
-    if (referralBalance !== this.state.referralBalance || dataAvailable !== this.state.dataAvailable)
-      this.setState({
-        referralBalance: this.purgeNumber(referralBalance),
-        dataAvailable: this.purgeNumber(dataAvailable),
-        cumulativeEarnings: this.purgeNumber(cumulativeEarnings),
-      });
+    this.setState({
+      unclaimedBonus: '$',
+      dataAvailable: '$',
+    });
+    window.helper.getReferralRewards().then((unclaimedBonus) => {
+      if (unclaimedBonus.toString() !== this.state.unclaimedBonus) {
+        this.setState({
+          unclaimedBonus: this.purgeNumber(unclaimedBonus.toString()),
+        });
+      }
+    });
+    window.helper.getAvailableBalance().then((dataAvailable) => {
+      dataAvailable = dataAvailable.error || dataAvailable === '' || typeof dataAvailable === 'undefined' ? this.state.dataAvailable : dataAvailable;
+      if (dataAvailable !== this.state.dataAvailable)
+        this.setState({
+          dataAvailable: this.purgeNumber(dataAvailable),
+        });
+    });
   }
 
   onAmountChange(e) {
@@ -148,8 +165,34 @@ class SettingsPage extends React.Component {
     return x.type !== 'password';
   }
 
+  isMessageNeeded() {
+    return this.state.dataAvailable !== '$' && Number(this.state.dataAvailable) > 0 && this.state.recipient;
+  }
+
+  isTransferDisable() {
+    if (this.state.dataAvailable === '$' || Number(this.state.dataAvailable) <= 0) return true;
+    if (!this.state.withdrawTo) return true;
+    if (this.state.withdrawTo.value === 'Mainnet') {
+	  if (this.state.recipientEthBalance === '$' || Number(this.state.recipientEthBalance) <= 0) return true;
+      if (Number(this.state.recipientEthBalance) < this.state.gasLimit && Number(this.state.dataAvailable) < this.state.minimumWithdraw) return true;
+    }
+    return false;
+  }
+
   pasteWallet(e) {
     e.preventDefault();
+    window.helper.getWithdrawBalance().then((response) => {
+      if (response.minimum) {
+        this.setState({
+          minimumWithdraw: response.minimum,
+        });
+      }
+      if (response.gas) {
+        this.setState({
+          gasLimit: response.gas.toFixed(3),
+        });
+      }
+    });
     navigator.clipboard.readText().then(async (address) => {
       if (address.match(/^0x[a-fA-F0-9]{40}$/g)) {
         document.querySelector('#swash-recipient').value = address;
@@ -158,6 +201,28 @@ class SettingsPage extends React.Component {
         this.setState({recipient: address, recipientDataBalance: DataBalance, recipientEthBalance: EthBalance});
       }
     });
+  }
+
+  isClaimDisable() {
+    return this.state.unclaimedBonus === '$' || Number(this.state.unclaimedBonus) <= 0 || this.state.claimBtn === 'Claiming';
+  }
+
+  claimRewards() {
+    this.setState({claimBtn: 'Claiming'});
+    window.helper.claimRewards().then(
+      (result) => {
+        if (result.tx) {
+          this.getBalanceInfo().then();
+          this.notifyRef.current.handleNotification('Rewards are claimed successfully', 'success');
+        } else {
+          this.notifyRef.current.handleNotification('Failed to claim rewards', 'error');
+        }
+        this.setState({claimBtn: 'Claim'});
+      },
+      () => {
+        this.setState({claimBtn: 'Claim'});
+      }
+    );
   }
 
   render() {
@@ -169,13 +234,19 @@ class SettingsPage extends React.Component {
               <div className="swash-balance-block">
                 <div className="swash-row">
                   <div className="swash-balance-text">
-                    <div className="swash-balance-text-column" style={{width: '50%'}}>
+                    <div className="swash-balance-text-column left">
                       <div className="swash-balance-text-bold">{this.state.dataAvailable} </div>
-                      DATAcoin earnings
+                      <div>DATA earnings</div>
                     </div>
-                    <div className="swash-balance-text-column">
-                      <div className="swash-balance-text-bold">{this.state.referralBalance} </div>
-                      DATAcoin referral bonus
+                    <div className="swash-balance-text-column right">
+                      <div className="swash-form-input claim-reward">
+                        <div className="amount">{this.state.unclaimedBonus}</div>
+                        <div className="description desktop">DATA referral bonus</div>
+                        <div className="description mobile">DATA bonus</div>
+                      </div>
+                      <button className="swash-link-button" onClick={this.claimRewards} disabled={this.isClaimDisable()}>
+                        {this.state.claimBtn}
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -224,7 +295,6 @@ class SettingsPage extends React.Component {
                 <br />
                 <br />
                 New earnings are frozen for 48 hours as an anti-fraud measure.
-                <em>Your referral earnings will be available to withdraw at the end of Feb 2021.</em>
               </div>
               <div className="swash-transfer-row">
                 <div className="swash-transfer-column swash-amount-column">
@@ -235,7 +305,20 @@ class SettingsPage extends React.Component {
                       id="swash-amount"
                       value={this.state.dataAvailable}
                       disabled="true"
-                      className="swash-form-input  swash-filter-input"
+                      className="swash-form-input swash-filter-input"
+                    />
+                  </div>
+                </div>
+
+                <div className="swash-transfer-column swash-amount-column">
+                  <div className="swash-form-caption">Withdraw to</div>
+                  <div>
+                    <CustomSelect
+                      items={networkList}
+                      className={'swash-select-network'}
+                      onChange={(item) => {
+                        this.setState({withdrawTo: item});
+                      }}
                     />
                   </div>
                 </div>
@@ -257,19 +340,27 @@ class SettingsPage extends React.Component {
                   <button
                     id="swash-transfer-button"
                     className="swash-transfer-link-button"
-                    disabled={this.state.dataAvailable === '$' || this.state.dataAvailable == null || this.state.dataAvailable === '0.0'}
+                    disabled={this.isTransferDisable()}
                     onClick={this.transfer}>
-                    Withdraw
+                    Transfer
                   </button>
                 </div>
               </div>
-              {this.state.recipient ? (
+              {this.isMessageNeeded() ? (
                 <div className="swash-transfer-row">
                   <div className="swash-transfer-column">
                     <ul>
-                      <li>Same as address on your clipboard</li>
+                      {Number(this.state.dataAvailable) > this.state.minimumWithdraw ? (
+                        <li className={'swash-text-green'}>Transaction fee is {this.state.gasLimit} ETH (Swash pay the fee)</li>
+                      ) : Number(this.state.recipientEthBalance) > this.state.gasLimit ? (
+                        <li className={'swash-text-orange'}>Transaction fee is {this.state.gasLimit} ETH</li>
+                      ) : this.state.withdrawTo.value === 'Mainnet' ? (
+                        <li className={'swash-text-orange'}>Unable to withdraw - not enough ETH for the gas fee</li>
+                      ) : (
+                        ''
+                      )}
                       <li>
-                        Owns {this.purgeNumber(this.state.recipientEthBalance)} ETH, {this.purgeNumber(this.state.recipientDataBalance)} DATA
+                        Balance: {this.purgeNumber(this.state.recipientEthBalance)} ETH, {this.purgeNumber(this.state.recipientDataBalance)} DATA
                       </li>
                     </ul>
                   </div>
@@ -288,10 +379,12 @@ class SettingsPage extends React.Component {
                 }}
                 className="swash-modal">
                 <TransferModal
-                  status="notice"
                   amount={document.querySelector('#swash-amount').value}
                   recipient={document.querySelector('#swash-recipient').value}
                   opening={() => this.openModal('Transfer')}
+                  onSuccess={this.getBalanceInfo}
+                  useSponsor={Number(this.state.dataAvailable) > this.state.minimumWithdraw}
+                  sendToMainnet={this.state.withdrawTo.value === 'Mainnet'}
                 />
               </div>
             </div>

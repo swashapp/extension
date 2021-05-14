@@ -46,7 +46,7 @@ class CustomSelect extends React.Component {
       <Dropdown className="swash-select" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle className={this.props.className ? this.props.className : 'swash-select-container'} tag="div">
           <div className="swash-select-default">{this.state.selectedItem.description}</div>
-          <div className="swash-select-arrow">
+          <div className={this.state.dropdownOpen ? 'swash-select-arrow-open' : 'swash-select-arrow'}>
             <img src={arrow} alt={''} />
           </div>
         </DropdownToggle>

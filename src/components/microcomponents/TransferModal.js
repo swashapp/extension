@@ -3,58 +3,34 @@ import verified from '../../statics/images/verified.svg';
 import error from '../../statics/images/error-icon.svg';
 import arrow from '../../statics/images/arrow.svg';
 import PropTypes from 'prop-types';
+import CustomCheckBox from './CustomCheckBox';
 
 class TransferModal extends React.Component {
   static get propTypes() {
     return {
       tx: PropTypes.string,
-      status: PropTypes.bool,
       opening: PropTypes.func,
       amount: PropTypes.string,
       recipient: PropTypes.string,
+      useSponsor: PropTypes.bool,
+      sendToMainnet: PropTypes.bool,
+      onSuccess: PropTypes.func,
     };
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      status: this.props.status,
+      status: 'init',
       opening: this.props.opening,
       transactionId: this.props.tx,
       amount: this.props.amount,
       recipient: this.props.recipient,
-      minimumData: 0,
-      transactionFee: '0',
-      withdrawType: 'withdrawToAll',
+      sendToMainnet: this.props.sendToMainnet,
+      useSponsor: this.props.useSponsor,
       failedReason: '',
     };
     this.withdraw = this.withdraw.bind(this);
-    this.proceed = this.proceed.bind(this);
-  }
-
-  componentDidMount() {
-    let swPromise = window.helper.getSponsoredWithdrawTransactionFee(this.state.recipient);
-    let pricePromise = window.helper.getDataEthPairPrice();
-
-    window.helper.getWithdrawAllToTransactionFee(this.state.recipient).then((waTxFee) => {
-      Promise.all([swPromise, pricePromise]).then(
-        ([swTxFee, dataPrice]) => {
-          let minData = (swTxFee / dataPrice) * 20;
-          if (minData < Number(this.state.amount)) {
-            this.setState({transactionFee: swTxFee, withdrawType: 'sponsorWithdraw', minimumData: minData});
-          } else {
-            this.setState({transactionFee: waTxFee, withdrawType: 'withdrawToAll', minimumData: minData});
-          }
-        },
-        () => {
-          this.setState({transactionFee: waTxFee, withdrawType: 'withdrawToAll', minimumData: Number.MAX_SAFE_INTEGER});
-        }
-      );
-    });
-  }
-
-  proceed() {
-    this.setState({status: 'init'});
   }
 
   purgeNumber(num) {
@@ -65,25 +41,16 @@ class TransferModal extends React.Component {
 
   withdraw() {
     this.setState({status: 'waiting'});
-    if (this.state.withdrawType === 'sponsorWithdraw') {
-      window.helper.sendSponsoredWithdraw(this.state.recipient).then((response) => {
-        if (response !== true) {
-          this.setState({status: 'failed', failedReason: response});
-          return;
-        }
+    window.helper.withdrawToTarget(this.state.recipient, this.state.amount, this.state.useSponsor, this.state.sendToMainnet).then((result) => {
+      console.log(result);
+      if (result.tx) {
         this.setState({status: 'confirmed'});
-      });
-    } else {
-      window.helper.withdrawAllTo(this.state.recipient).then((tx) => {
-        if (tx.error) {
-          this.setState({status: 'failed', failedReason: tx.error});
-          return;
-        }
-        this.setState({status: 'confirmed'});
-        this.setState({transactionId: tx.hash});
-        tx.wait().then((x) => {});
-      });
-    }
+        this.setState({transactionId: result.tx});
+        this.props.onSuccess().then();
+      } else {
+        this.setState({status: 'failed', failedReason: result.reason});
+      }
+    });
   }
 
   purgeAddress(address) {
@@ -92,46 +59,6 @@ class TransferModal extends React.Component {
 
   renderModal() {
     switch (this.state.status) {
-      case 'notice':
-        return (
-          <div>
-            <div className="swash-transaction-modal-header">
-              <p>Start transfer</p>
-            </div>
-            <div className="swash-transaction-modal-body">
-              {this.state.withdrawType === 'sponsorWithdraw' ? (
-                <>
-                  <p>
-                    The current gas fee on Ethereum is <span className="swash-text-green">{this.purgeNumber(this.state.transactionFee)}</span> ETH. No
-                    need to have this amount in your Swash wallet, We will cover the cost of the transaction. Read more about gas fees in the ‘Help’
-                    section.
-                  </p>
-                  <p>To continue with your withdrawal, click ‘Continue’.</p>
-                </>
-              ) : (
-                <>
-                  <p>
-                    The current gas fee on Ethereum is <span className="swash-text-green">{this.purgeNumber(this.state.transactionFee)}</span> ETH.
-                    You need to have this amount available in your Swash wallet to cover the cost of the transaction. Read more about gas fees in the
-                    ‘Help’ section.
-                  </p>
-                  <p>To continue with your withdrawal, click ‘Continue’.</p>
-                </>
-              )}
-            </div>
-            <div className="swash-transaction-modal-footer">
-              <div className="swash-transaction-modal-footer-right">
-                <div className="swash-transaction-modal-button" onClick={this.proceed}>
-                  Continue
-                </div>
-
-                <div className="swash-transaction-modal-button-cancel" onClick={this.state.opening}>
-                  Cancel
-                </div>
-              </div>
-            </div>
-          </div>
-        );
       case 'confirmed':
         return (
           <div>
@@ -142,9 +69,19 @@ class TransferModal extends React.Component {
               <img src={verified} alt={'Verified'} />
               <p>
                 Verify your transaction on{' '}
-                <a target="_blank" rel="noopener noreferrer" href={`https://etherscan.io/tx/${this.state.transactionId}`}>
-                  Etherscan
-                </a>
+                {this.state.sendToMainnet ? (
+                  <>
+                    <a target="_blank" rel="noopener noreferrer" href={`https://etherscan.io/tx/${this.state.transactionId}`}>
+                      Etherscan
+                    </a>
+                  </>
+                ) : (
+                  <>
+                    <a target="_blank" rel="noopener noreferrer" href={`https://blockscout.com/xdai/mainnet/tx/${this.state.transactionId}`}>
+                      Blockscout
+                    </a>
+                  </>
+                )}
               </p>
             </div>
           </div>

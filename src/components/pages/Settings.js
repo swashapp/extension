@@ -107,8 +107,9 @@ class SettingsPage extends React.Component {
               <div className="swash-setting-part">
                 <div className="swash-head">Invite a friend</div>
                 <div className="swash-p">
-                  Share your referral link with friends to earn {this.state.reward} DATAcoin for every new installation of Swash! Whoever refers the
-                  most new users each month will receive 1000 DATAcoin.
+                  Share your referral link with friends to earn {this.state.reward} DATA for every new installation of Swash! Also, if you earn the
+                  {''} most new users in a month, you’ll receive a 1000 DATA prize - winner announced on
+                  <a href={'https://t.me/swashapp_group'}> Telegram</a> and <a href={'https://twitter.com/swashapp'}>Twitter</a>.
                 </div>
                 <div className="swash-transfer-row">
                   <div className="swash-referral-column">
@@ -154,9 +155,6 @@ class SettingsPage extends React.Component {
                     <span className="swash-share-email" />
                   </EmailShareButton>
                 </div>
-                <div className="swash-p">
-                  <em>Your referral earnings will be available to withdraw at the end of Feb 2021.</em>
-                </div>
               </div>
             </div>
           </div>
@@ -165,8 +163,11 @@ class SettingsPage extends React.Component {
             <div className="swash-setting-part">
               <div className="swash-head">Backup your wallet settings</div>
               <div className="swash-p">
-                If you want to use this wallet on other devices or browsers, simply download your settings using one of the options below and keep it
-                in a safe place.
+                {'🚨 Important! 🚨'}
+                <br />
+                <br />
+                Don’t forget to download your settings to make sure you can access your wallet on other devices or browsers. If you lose access but
+                don’t have this in a safe place, you won’t be able to access your wallet.
               </div>
 
               <div style={{display: 'inline-block', width: '100%'}}>

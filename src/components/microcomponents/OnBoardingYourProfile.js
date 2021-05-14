@@ -3,14 +3,14 @@ import CustomSelect from './CustomSelect';
 import PropTypes from 'prop-types';
 
 const genderList = [
-  {description: 'Please Select', value: null},
+  {description: 'Select', value: null},
   {description: 'Non-binary', value: 'Non-binary'},
   {description: 'Male', value: 'Male'},
   {description: 'Female', value: 'Female'},
 ];
 
 const ageList = [
-  {description: 'Please Select', value: null},
+  {description: 'Select', value: null},
   {description: '< 20', value: '-20'},
   {description: '20-30', value: '20-30'},
   {description: '30-40', value: '30-40'},
@@ -19,7 +19,7 @@ const ageList = [
 ];
 
 const incomeList = [
-  {description: 'Please Select', value: null},
+  {description: 'Select', value: null},
   {description: '< $12K', value: '-12K'},
   {description: '$12K - $25K', value: '12-25K'},
   {description: '$25K - $50K', value: '25-50K'},

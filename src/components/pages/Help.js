@@ -37,6 +37,9 @@ class HelpPage extends React.Component {
             <div className="swash-setting-part">
               <div className="swash-head">Welcome to the world’s first digital Data Union!</div>
               <div className="swash-p">
+                Before you dive in, make sure you get the latest updates by joining the chat on <a href={'https://t.me/swashapp_group'}>Telegram </a>
+                or following Swash on <a href={'https://twitter.com/swashapp'}>Twitter</a>.
+                <br />
                 <a target={'_blank'} rel={'noopener noreferrer'} href={'https://swashapp.io/'}>
                   {'Swash '}
                 </a>
