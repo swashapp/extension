@@ -6,7 +6,6 @@ import RevealKeyModal from '../microcomponents/RevealKeyModal';
 import CustomSelect from '../microcomponents/CustomSelect';
 
 const networkList = [
-  {description: 'Select', value: null},
   {description: 'xDai', value: 'xDai'},
   {description: 'Mainnet', value: 'Mainnet'},
 ];
@@ -30,6 +29,7 @@ class SettingsPage extends React.Component {
       recipientEthBalance: '$',
       recipientDataBalance: '$',
       revealFunction: {func: this.copyToClipboard, text: 'copy'},
+      claimBtn: 'Claim',
     };
     this.openModal = this.openModal.bind(this);
     this.copyToClipboard = this.copyToClipboard.bind(this);
@@ -42,6 +42,7 @@ class SettingsPage extends React.Component {
     this.claimRewards = this.claimRewards.bind(this);
     this.isClaimDisable = this.isClaimDisable.bind(this);
     this.isTransferDisable = this.isTransferDisable.bind(this);
+    this.isMessageNeeded = this.isMessageNeeded.bind(this);
   }
 
   componentDidMount() {
@@ -164,6 +165,10 @@ class SettingsPage extends React.Component {
     return x.type !== 'password';
   }
 
+  isMessageNeeded() {
+    return this.state.dataAvailable !== '$' && Number(this.state.dataAvailable) > 0 && this.state.recipient;
+  }
+
   isTransferDisable() {
     if (this.state.dataAvailable === '$' || Number(this.state.dataAvailable) <= 0) return true;
     if (!this.state.withdrawTo) return true;
@@ -205,18 +210,21 @@ class SettingsPage extends React.Component {
   }
 
   claimRewards() {
-    this.setState({
-      unclaimedBonus: '$',
-      dataAvailable: '$',
-    });
-    window.helper.claimRewards().then((result) => {
-      if (result.tx) {
-        this.getBalanceInfo().then();
-        this.notifyRef.current.handleNotification('Rewards are claimed successfully', 'success');
-      } else {
-        this.notifyRef.current.handleNotification('Failed to claim rewards', 'error');
+    this.setState({claimBtn: 'Claiming'});
+    window.helper.claimRewards().then(
+      (result) => {
+        if (result.tx) {
+          this.getBalanceInfo().then();
+          this.notifyRef.current.handleNotification('Rewards are claimed successfully', 'success');
+        } else {
+          this.notifyRef.current.handleNotification('Failed to claim rewards', 'error');
+        }
+        this.setState({claimBtn: 'Claim'});
+      },
+      () => {
+        this.setState({claimBtn: 'Claim'});
       }
-    });
+    );
   }
 
   render() {
@@ -239,7 +247,7 @@ class SettingsPage extends React.Component {
                         <div className="description mobile">DATA bonus</div>
                       </div>
                       <button className="swash-link-button" onClick={this.claimRewards} disabled={this.isClaimDisable()}>
-                        Claim
+                        {this.state.claimBtn}
                       </button>
                     </div>
                   </div>
@@ -340,7 +348,7 @@ class SettingsPage extends React.Component {
                   </button>
                 </div>
               </div>
-              {this.state.recipient ? (
+              {this.isMessageNeeded() ? (
                 <div className="swash-transfer-row">
                   <div className="swash-transfer-column">
                     <ul>
@@ -354,7 +362,7 @@ class SettingsPage extends React.Component {
                         ''
                       )}
                       <li>
-                        Owns {this.purgeNumber(this.state.recipientEthBalance)} ETH, {this.purgeNumber(this.state.recipientDataBalance)} DATA
+                        Balance: {this.purgeNumber(this.state.recipientEthBalance)} ETH, {this.purgeNumber(this.state.recipientDataBalance)} DATA
                       </li>
                     </ul>
                   </div>

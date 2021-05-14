@@ -436,6 +436,7 @@ body {
   font-family: Roboto-Regular;
   font-size: 16px;
   text-align: justify;
+  margin-top: 15px;
 }
 
 .swash-share span {
@@ -562,13 +563,16 @@ body {
   margin-right: 16px;
 }
 
+.swash-transfer-column ul {
+  padding: 15px;
+}
+
 .swash-transfer-column li {
-  height: 16px;
   color: rgb(163, 163, 163);
   font-size: 12px;
   font-family: Roboto-Regular;
   font-weight: normal;
-  letter-spacing: 0px;
+  letter-spacing: 0;
   line-height: 16px;
 }
 
@@ -1641,11 +1645,11 @@ body {
 }
 
 .swash-text-green {
-  color: rgb(42, 196, 55)  !important;
+  color: rgb(42, 196, 55) !important;
 }
 
 .swash-text-orange {
-  color: #FF5C00 !important;
+  color: #ff5c00 !important;
 }
 
 .swash-onboarding-select-container {
