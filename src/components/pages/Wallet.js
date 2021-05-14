@@ -171,9 +171,9 @@ class SettingsPage extends React.Component {
 
   isTransferDisable() {
     if (this.state.dataAvailable === '$' || Number(this.state.dataAvailable) <= 0) return true;
-    if (this.state.recipientEthBalance === '$' || Number(this.state.recipientEthBalance) <= 0) return true;
     if (!this.state.withdrawTo) return true;
     if (this.state.withdrawTo.value === 'Mainnet') {
+	  if (this.state.recipientEthBalance === '$' || Number(this.state.recipientEthBalance) <= 0) return true;
       if (Number(this.state.recipientEthBalance) < this.state.gasLimit && Number(this.state.dataAvailable) < this.state.minimumWithdraw) return true;
     }
     return false;
