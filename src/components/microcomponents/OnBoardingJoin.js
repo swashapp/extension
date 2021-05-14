@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SWASHDOMAIN = 'https://test.swashapp.io';
-const SWASHJOINPAGE = '/join';
+const SWASHDOMAIN = 'https://swashapp.io';
+const SWASHJOINPAGE = '/user/join';
 const MAXTOKENTRYCOUNT = 3;
 const MAXGENERALTRYCOUNT = 3;
 
