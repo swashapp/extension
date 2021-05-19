@@ -350,9 +350,13 @@ class SettingsPage extends React.Component {
                 <div className="swash-transfer-row">
                   <div className="swash-transfer-column">
                     <ul>
-                      <li className={'swash-text-red'}>
-                        Make sure you have access to the recipient wallet. Exchange wallets are not compatible with xDai.
-                      </li>
+                      {this.state.withdrawTo.value === 'xDai' ? (
+                        <li className={'swash-text-red'}>
+                          Make sure you have access to the recipient wallet. Exchange wallets are not compatible with xDai.
+                        </li>
+                      ) : (
+                        ''
+                      )}
                       {Number(this.state.dataAvailable) > this.state.minimumWithdraw ? (
                         <li className={'swash-text-green'}>Transaction fee is {this.state.gasLimit} ETH (Swash pay the fee)</li>
                       ) : Number(this.state.recipientEthBalance) > this.state.gasLimit ? (
