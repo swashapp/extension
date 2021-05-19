@@ -166,7 +166,7 @@ class SettingsPage extends React.Component {
   }
 
   isMessageNeeded() {
-    return this.state.dataAvailable !== '$' && Number(this.state.dataAvailable) > 0 && this.state.recipient;
+    return this.state.dataAvailable !== '$' && Number(this.state.dataAvailable) > 0;
   }
 
   isTransferDisable() {
@@ -366,9 +366,13 @@ class SettingsPage extends React.Component {
                       ) : (
                         ''
                       )}
-                      <li>
-                        Balance: {this.purgeNumber(this.state.recipientEthBalance)} ETH, {this.purgeNumber(this.state.recipientDataBalance)} DATA
-                      </li>
+                      {this.state.withdrawTo.value === 'Mainnet' && this.state.recipient ? (
+                        <li>
+                          Balance: {this.purgeNumber(this.state.recipientEthBalance)} ETH, {this.purgeNumber(this.state.recipientDataBalance)} DATA
+                        </li>
+                      ) : (
+                        ''
+                      )}
                     </ul>
                   </div>
                 </div>
