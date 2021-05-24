@@ -166,14 +166,14 @@ class SettingsPage extends React.Component {
   }
 
   isMessageNeeded() {
-    return this.state.dataAvailable !== '$' && Number(this.state.dataAvailable) > 0 && this.state.recipient;
+    return this.state.dataAvailable !== '$' && Number(this.state.dataAvailable) > 0;
   }
 
   isTransferDisable() {
     if (this.state.dataAvailable === '$' || Number(this.state.dataAvailable) <= 0) return true;
     if (!this.state.withdrawTo) return true;
     if (this.state.withdrawTo.value === 'Mainnet') {
-	  if (this.state.recipientEthBalance === '$' || Number(this.state.recipientEthBalance) <= 0) return true;
+      if (this.state.recipientEthBalance === '$' || Number(this.state.recipientEthBalance) <= 0) return true;
       if (Number(this.state.recipientEthBalance) < this.state.gasLimit && Number(this.state.dataAvailable) < this.state.minimumWithdraw) return true;
     }
     return false;
@@ -324,7 +324,7 @@ class SettingsPage extends React.Component {
                 </div>
 
                 <div className="swash-transfer-column swash-recipient-column">
-                  <div className="swash-form-caption">Recipient Ethereum address</div>
+                  <div className="swash-form-caption">Recipient Wallet address</div>
                   <div>
                     <input
                       type="text"
@@ -350,6 +350,13 @@ class SettingsPage extends React.Component {
                 <div className="swash-transfer-row">
                   <div className="swash-transfer-column">
                     <ul>
+                      {this.state.withdrawTo.value === 'xDai' ? (
+                        <li className={'swash-text-red'}>
+                          Make sure you have access to the recipient wallet. Exchange wallets are not compatible with xDai.
+                        </li>
+                      ) : (
+                        ''
+                      )}
                       {Number(this.state.dataAvailable) > this.state.minimumWithdraw ? (
                         <li className={'swash-text-green'}>Transaction fee is {this.state.gasLimit} ETH (Swash pay the fee)</li>
                       ) : Number(this.state.recipientEthBalance) > this.state.gasLimit ? (
@@ -359,9 +366,13 @@ class SettingsPage extends React.Component {
                       ) : (
                         ''
                       )}
-                      <li>
-                        Balance: {this.purgeNumber(this.state.recipientEthBalance)} ETH, {this.purgeNumber(this.state.recipientDataBalance)} DATA
-                      </li>
+                      {this.state.withdrawTo.value === 'Mainnet' && this.state.recipient ? (
+                        <li>
+                          Balance: {this.purgeNumber(this.state.recipientEthBalance)} ETH, {this.purgeNumber(this.state.recipientDataBalance)} DATA
+                        </li>
+                      ) : (
+                        ''
+                      )}
                     </ul>
                   </div>
                 </div>

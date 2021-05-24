@@ -1652,6 +1652,10 @@ body {
   color: #ff5c00 !important;
 }
 
+.swash-text-red {
+  color: #d20000 !important;
+}
+
 .swash-onboarding-select-container {
   height: 40px;
   width: 128px;
