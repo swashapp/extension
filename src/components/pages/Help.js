@@ -39,6 +39,9 @@ class HelpPage extends React.Component {
           <div className="swash-col">
             <div className="swash-setting-part">
               <div className="swash-p2">
+			  <div className="swash-head3">
+                Table of contents
+              </div>
                 <ul>
                   <li>
                     <div onClick={() => this.goToSection('welcome')}>Welcome</div>
