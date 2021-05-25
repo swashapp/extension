@@ -9,6 +9,7 @@ class HelpPage extends React.Component {
     this.state = {
       reward: 0,
     };
+    this.goToSection = this.goToSection.bind(this);
   }
 
   componentDidMount() {
@@ -22,58 +23,64 @@ class HelpPage extends React.Component {
     });
   }
 
+  goToSection(id) {
+    const element = document.getElementById(id);
+    console.log(element);
+    window.scrollTo({
+      top: element.offsetTop,
+      behavior: 'smooth',
+    });
+  }
+
   render() {
     return (
       <div id="swash-help-page" className="swash-col">
         <React.Fragment>
           <div className="swash-col">
             <div className="swash-setting-part">
-              <div className="swash-head" id="welcome">
-                Table of contents
-              </div>
               <div className="swash-p2">
                 <ul>
                   <li>
-                    <a href="#welcome">Welcome</a>
+                    <div onClick={() => this.goToSection('welcome')}>Welcome</div>
                   </li>
                   <li>
-                    <a href="#getting-started">Getting Started</a>
+                    <div onClick={() => this.goToSection('getting-started')}>Getting Started</div>
                   </li>
                   <li>
-                    <a href="#wallet">Wallet</a>
-                  </li>
-                  <ul>
-                    <li>
-                      <a href="#balance">Balance</a>
-                    </li>
-                    <li>
-                      <a href="#withdrawals">Withdrawals</a>
-                    </li>
-                  </ul>
-                  <li>
-                    <a href="#settings">Settings</a>
+                    <div onClick={() => this.goToSection('wallet')}>Wallet</div>
                   </li>
                   <ul>
                     <li>
-                      <a href="#invite-a-friend">Invite a Friend</a>
+                      <div onClick={() => this.goToSection('balance')}>Balance</div>
                     </li>
                     <li>
-                      <a href="#backup-your-wallet-settings">Backup your wallet settings</a>
+                      <div onClick={() => this.goToSection('withdrawals')}>Withdrawals</div>
                     </li>
                   </ul>
                   <li>
-                    <a href="#data">Data</a>
+                    <div onClick={() => this.goToSection('settings')}>Settings</div>
                   </li>
                   <ul>
                     <li>
-                      <a href="#text-masking">Text Masking</a>
+                      <div onClick={() => this.goToSection('invite-a-friend')}>Invite a Friend</div>
                     </li>
                     <li>
-                      <a href="#your-data">Your Data</a>
+                      <div onClick={() => this.goToSection('backup-your-wallet-settings')}>Backup your wallet settings</div>
                     </li>
                   </ul>
                   <li>
-                    <a href="#useful-links">Useful Links</a>
+                    <div onClick={() => this.goToSection('data')}>Data</div>
+                  </li>
+                  <ul>
+                    <li>
+                      <div onClick={() => this.goToSection('text-masking')}>Text Masking</div>
+                    </li>
+                    <li>
+                      <div onClick={() => this.goToSection('your-data')}>Your Data</div>
+                    </li>
+                  </ul>
+                  <li>
+                    <div onClick={() => this.goToSection('useful-links')}>Useful Links</div>
                   </li>
                 </ul>
               </div>
@@ -82,11 +89,15 @@ class HelpPage extends React.Component {
               </div>
               <div className="swash-head2">💥 Welcome to the world’s first digital Data Union! 💥</div>
               <div className="swash-p">
-                You are now part of a game-changing movement to create a better internet.
-                <br />
-                <br />
-                Before you dive in, make sure you get the latest updates by joining the chat on <a href={'https://t.me/swashapp_group'}>Telegram </a>
-                or by following Swash on <a href={'https://twitter.com/swashapp'}>Twitter</a>.<div className="swash-head3">So, what is Swash?</div>
+                <div className="swash-p2">
+                  You are now part of a game-changing movement to create a better internet.
+                  <br />
+                  <br />
+                  Before you dive in, make sure you get the latest updates by joining the chat on{' '}
+                  <a href={'https://t.me/swashapp_group'}>Telegram </a>
+                  or by following Swash on <a href={'https://twitter.com/swashapp'}>Twitter</a>.
+                </div>
+                <div className="swash-head3">So, what is Swash?</div>
                 <a target={'_blank'} rel={'noopener noreferrer'} href={'https://swashapp.io/'}>
                   {'Swash '}
                 </a>
