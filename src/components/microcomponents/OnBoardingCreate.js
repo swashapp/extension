@@ -35,16 +35,16 @@ class OnBoardingNewPage extends React.Component {
         <React.Fragment>
           <div className="swash-onboarding-box">
             <div className="swash-onboarding-box-header">
-              <p>Create new wallet</p>
+              <p>Create a new wallet</p>
             </div>
             <div className="swash-onboarding-box-body">
+              <p>Swash is creating a new wallet for you.</p>
               <p>
-                A new Ethereum wallet will be created for you. Keep the address and private keys in a safe place. You can share your wallet address
-                with everyone but <b>never share your private keys with anyone</b>.
+                Keep the private keys in a safe place. You can share your wallet address <b>but never share your private keys! 🔐</b>
               </p>
             </div>
             <div className="swash-onboarding-box-footer">
-              <div className="swash-onboarding-box-footer-left"></div>
+              <div className="swash-onboarding-box-footer-left" />
               <div className="swash-onboarding-box-footer-right">
                 <div className="swash-onboarding-proceed-button" onClick={this.LoadOnBoardingCreateWallet}>
                   Create

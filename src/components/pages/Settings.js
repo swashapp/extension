@@ -107,8 +107,8 @@ class SettingsPage extends React.Component {
               <div className="swash-setting-part">
                 <div className="swash-head">Invite a friend</div>
                 <div className="swash-p">
-                  Share your referral link with friends to earn {this.state.reward} DATA for every new installation of Swash! Also, if you earn the
-                  {''} most new users in a month, you’ll receive a 1000 DATA prize - winner announced on
+                  Share your referral link with friends to earn {this.state.reward} DATA for every friend you bring to Swash! Also, if you bring the
+                  most new users in a month, you’ll receive a 1000 DATA prize. Winners are announced on
                   <a href={'https://t.me/swashapp_group'}> Telegram</a> and <a href={'https://twitter.com/swashapp'}>Twitter</a>.
                 </div>
                 <div className="swash-transfer-row">
@@ -163,11 +163,11 @@ class SettingsPage extends React.Component {
             <div className="swash-setting-part">
               <div className="swash-head">Backup your wallet settings</div>
               <div className="swash-p">
-                {'🚨 Important! 🚨'}
+                🚨 Important! 🚨
                 <br />
                 <br />
                 Don’t forget to download your settings to make sure you can access your wallet on other devices or browsers. If you lose access but
-                don’t have this in a safe place, you won’t be able to access your wallet.
+                don’t have this in a safe place, then you won’t be able to access your wallet.
               </div>
 
               <div style={{display: 'inline-block', width: '100%'}}>

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 const genderList = [
   {description: 'Select', value: null},
-  {description: 'Non-binary', value: 'Non-binary'},
   {description: 'Male', value: 'Male'},
   {description: 'Female', value: 'Female'},
+  {description: 'Non-binary', value: 'Non-binary'},
 ];
 
 const ageList = [

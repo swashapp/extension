@@ -189,8 +189,10 @@ class DataPage extends React.Component {
               <div className="swash-setting-part">
                 <div className="swash-head">Text masking</div>
                 <div className="swash-p2">
-                  Swash doesn’t collect any sensitive data from you, like your name, email, or passwords. If you really want to be sure, you can hide
-                  certain sensitive words or numbers so they don’t get added to the Swash dataset.
+                  Swash doesn’t collect any sensitive data from you, like your name, email, or passwords.
+                  <br />
+                  <br />
+                  If you really want to be sure, you can hide certain sensitive words or numbers so they don’t get added to the Swash dataset.
                 </div>
 
                 <div>

@@ -4,6 +4,7 @@ import CustomSnackbar from '../microcomponents/CustomSnackbar';
 import TransferModal from '../microcomponents/TransferModal';
 import RevealKeyModal from '../microcomponents/RevealKeyModal';
 import CustomSelect from '../microcomponents/CustomSelect';
+import {NavLink} from 'react-router-dom';
 
 const networkList = [
   {description: 'xDai', value: 'xDai'},
@@ -287,14 +288,26 @@ class SettingsPage extends React.Component {
             <div className="swash-setting-part">
               <div className="swash-head">Withdraw your earnings</div>
               <div className="swash-p">
-                To withdraw your earnings, simply add your chosen Ethereum address and press ‘Withdraw’.
+                You can withdraw your earnings using xDai chain or Ethereum mainnet.
                 <br />
                 <br />
-                A small box will appear telling you the amount needed in ETH to cover the transaction fees and if your minimum balance is enough for
-                Swash to cover the cost for you
+                It’s important to make sure you have set up your wallet properly (it only takes a few minutes!). Check the{' '}
+                <NavLink to="/Help">Help section</NavLink> for step-by-step instructions.
                 <br />
                 <br />
-                New earnings are frozen for 48 hours as an anti-fraud measure.
+                xDai is the recommended method as it’s faster and Swash will cover the cost for you! 🎉
+                <br />
+                <br />
+                You can also put your DATA to work by trading or staking liquidity on the{' '}
+                <a href="https://info.honeyswap.org/pair/0x0110f008b8815cf00514d54ea11bfa8bb555c69b">DATA/ xDAI pool</a> on{' '}
+                <a href="https://app.honeyswap.org/#/swap">Honeyswap</a> 🐝
+                <br />
+                <br />
+                Alternatively, if you use Ethereum, you will be presented with the amount needed in your wallet (in ETH) to cover the transaction fee.
+                Exchange wallets are not currently supported.
+                <br />
+                <br />
+                New earnings are available after 48 hours as an anti-fraud measure
               </div>
               <div className="swash-transfer-row">
                 <div className="swash-transfer-column swash-amount-column">
@@ -342,7 +355,7 @@ class SettingsPage extends React.Component {
                     className="swash-transfer-link-button"
                     disabled={this.isTransferDisable()}
                     onClick={this.transfer}>
-                    Transfer
+                    Withdraw
                   </button>
                 </div>
               </div>
@@ -358,7 +371,7 @@ class SettingsPage extends React.Component {
                         ''
                       )}
                       {Number(this.state.dataAvailable) > this.state.minimumWithdraw ? (
-                        <li className={'swash-text-green'}>Transaction fee is {this.state.gasLimit} ETH (Swash pay the fee)</li>
+                        <li className={'swash-text-green'}>It’s on us. Swash will cover these transaction fees for you! 🎉</li>
                       ) : Number(this.state.recipientEthBalance) > this.state.gasLimit ? (
                         <li className={'swash-text-orange'}>Transaction fee is {this.state.gasLimit} ETH</li>
                       ) : this.state.withdrawTo.value === 'Mainnet' ? (

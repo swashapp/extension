@@ -39,9 +39,10 @@ class OnBoardingYourProfileWarning extends React.Component {
               <p>Your Profile</p>
             </div>
             <div className="swash-onboarding-box-body">
+              <p>When Swash data is sold, 70% of profits are returned back to you, the Swash members.</p>
               <p>
-                We need to ask you for some generic profile information to make your data more valuable to buyers. Please answer accurately so Swash
-                can deliver good quality data to the Data Union.
+                Please fill in the following profile information as accurately as you can. This will make the Swash data quality even better and even
+                more valuable, so you’ll receive more for your contribution.
               </p>
             </div>
             <div className="swash-onboarding-box-footer">

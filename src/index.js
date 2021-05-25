@@ -9,7 +9,7 @@ import './tablet.css';
 import './mobile.css';
 import './smobile.css';
 import App from './App';
-import {HashRouter as Router} from 'react-router-dom';
+import {MemoryRouter as Router} from 'react-router-dom';
 
 const anchor = document.createElement('div');
 anchor.id = 'extension-root';

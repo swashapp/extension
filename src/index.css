@@ -1029,12 +1029,17 @@ body {
   margin-bottom: 37px;
 }
 
-.swash-p2 {
+.swash-p3 {
   color: rgb(50, 50, 50);
   font-family: Roboto-Regular;
   font-size: 16px;
   text-align: justify;
   margin-bottom: 26px;
+}
+
+.swash-p2 li {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .swash-delay-number-picker {
