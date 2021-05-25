@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from '../../statics/images/Swash_Beta_Flag.svg';
+import Logo from '../../statics/images/Swash.svg';
 import PropTypes from 'prop-types';
 
 class OnBoardingPage extends React.Component {
@@ -37,16 +37,16 @@ class OnBoardingPage extends React.Component {
               <img alt={''} style={{marginBottom: '23px'}} src={Logo} />
               <div>
                 <span>
-                  Thanks for installing Swash.
+                  Thanks for installing Swash!
                   <br />
-                  It’ll be ready to go in just a few minutes.
+                  Let’s get you set up.
                 </span>
               </div>
             </div>
             <div className="swash-onboarding-box-footer">
               <div style={{textAlign: 'center'}}>
                 <div className="swash-onboarding-start-button" onClick={this.LoadOnBoardingNew}>
-                  Get started
+                  I’m ready
                 </div>
               </div>
             </div>

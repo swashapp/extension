@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {HashRouter, Route, Switch} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import Routes from '../src/components/Routes';
 import OnBoarding from './components/pages/OnBoarding';
 
@@ -14,12 +14,10 @@ class App extends Component {
   render() {
     return (
       <div className="flexible-content">
-        <HashRouter>
-          <Switch>
-            <Route path="/OnBoarding" component={OnBoarding} />
-            <Route component={Routes} />
-          </Switch>
-        </HashRouter>
+        <Switch>
+          <Route path="/OnBoarding" component={OnBoarding} />
+          <Route component={Routes} />
+        </Switch>
       </div>
     );
   }

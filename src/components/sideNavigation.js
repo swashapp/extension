@@ -1,7 +1,7 @@
 import React from 'react';
 import {MDBListGroup, MDBListGroupItem} from 'mdbreact';
 import {NavLink} from 'react-router-dom';
-import Logo from '../statics/images/Swash_Beta_Flag.svg';
+import Logo from '../statics/images/Swash.svg';
 
 class SideNavigation extends React.Component {
   render() {

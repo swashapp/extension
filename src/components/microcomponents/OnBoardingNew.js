@@ -53,7 +53,7 @@ class OnBoardingNewPage extends React.Component {
                   <CustomRadioBox id="Create" handleClick={this.radioChangeHandler} isChecked={this.state.userType === 'Create'} />
                   <span>Yes, I’m new here</span>
                   <br />
-                  <div className="swash-onboarding-text-gray">This will create a new wallet</div>
+                  <div className="swash-onboarding-text-gray">Create a new wallet</div>
                 </div>
                 <div
                   className="swash-onboarding-box-body-radio"
@@ -64,12 +64,12 @@ class OnBoardingNewPage extends React.Component {
                   <CustomRadioBox id="Import" handleClick={this.radioChangeHandler} isChecked={this.state.userType === 'Import'} />
                   <span>No, I already have a wallet</span>
                   <br />
-                  <div className="swash-onboarding-text-gray">Import your existing wallet and settings</div>
+                  <div className="swash-onboarding-text-gray">Import your existing wallet settings</div>
                 </div>
               </div>
             </div>
             <div className="swash-onboarding-box-footer">
-              <div className="swash-onboarding-box-footer-left"></div>
+              <div className="swash-onboarding-box-footer-left" />
               <div className="swash-onboarding-box-footer-right">
                 <div className="swash-onboarding-proceed-button" onClick={this.LoadOnBoardingNew}>
                   Next
