@@ -1,0 +1,36 @@
+{
+  "name": "Swash",
+  "description": "Swash, reimagining data ownership",
+  "version": "2.0",
+  "manifest_version": 2,
+  "icons": {
+    "19": "static/icons/swash/green_19.png",
+    "38": "static/icons/swash/green_38.png",
+    "48": "static/icons/swash/green_48.png",
+    "96": "static/icons/swash/green_96.png",
+    "128": "static/icons/swash/green_128.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "19": "static/icons/swash/green_19.png",
+      "38": "static/icons/swash/green_38.png",
+      "48": "static/icons/swash/green_48.png",
+      "96": "static/icons/swash/green_96.png",
+      "128": "static/icons/swash/green_128.png"
+    },
+    "default_title": "Swash",
+    "default_popup": "entry/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.mozilla.org/*"
+      ],
+      "js": [
+        "scripts/background.ts"
+      ]
+    }
+  ],
+  "permissions": [
+  ]
+}
