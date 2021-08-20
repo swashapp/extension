@@ -20,7 +20,8 @@
   "plugins": [
     "@typescript-eslint",
     "react",
-    "react-hooks"
+    "react-hooks",
+    "import"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -34,5 +35,23 @@
     "react": {
       "version": "detect"
     }
+  },
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          ["parent", "index", "internal"],
+          "sibling"
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "newlines-between": "always-and-inside-groups"
+      }
+    ]
   }
 }
