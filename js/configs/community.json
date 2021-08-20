@@ -1,0 +1,6 @@
+{
+	"apiBaseURL": "https://www.streamr.com/api/v1/communities",
+	"datacoinAddress": "0x0cf0ee63788a0849fe5297f3407f701e122cc023",
+	"communityAddress": "0x7482ba34eafbf5c2f62f9c2e7a669ccbd9537fc3",
+	"tokenExpiration": 540000
+}
