@@ -6,7 +6,7 @@ const utils = (function () {
   function notify(message) {
     /*browser.notifications.create({
         "type": "basic",
-        "iconUrl": browser.extension.getURL("icons/surf48.png"),
+        "iconUrl": browser.runtime.getURL("icons/surf48.png"),
         "title": message.header.module + ":" + message.header.function + ":" + message.header.collector,
         "message": JSON.stringify(message)
       });*/

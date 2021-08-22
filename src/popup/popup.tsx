@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 function Popup() {
-  return <>This is a sample</>;
+  return <></>;
 }
 
-ReactDOM.render(<Popup />, document.getElementById('root'));
+ReactDOM.render(<Popup />, document.getElementById('popup'));

@@ -1,7 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import React from 'react';
-import simpleNumberLocalizer from 'react-widgets-simple-number';
 import NumberPicker from 'react-widgets/NumberPicker';
 
 // import '.react-widgets/dist/css/react-widgets.css';
@@ -9,8 +8,6 @@ import 'url:../../statics/css/custom-notifications.css';
 
 import CustomSnackbar from '../microcomponents/CustomSnackbar';
 import DelaySend from '../microcomponents/DelaySend';
-
-simpleNumberLocalizer();
 
 class DataPage extends React.Component {
   constructor(props) {

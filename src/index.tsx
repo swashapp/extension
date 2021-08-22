@@ -15,13 +15,9 @@ import './smobile.css';
 
 import App from './App';
 
-const anchor = document.createElement('div');
-anchor.id = 'extension-root';
-document.body.insertBefore(anchor, document.body.childNodes[0]);
-
 ReactDOM.render(
   <Router>
     <App />
   </Router>,
-  document.getElementById('extension-root'),
+  document.getElementById('app'),
 );

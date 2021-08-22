@@ -8,6 +8,7 @@
   "scripts": {
     "firefox": "web-ext run -t firefox-desktop --source-dir dist",
     "start:dev": "run-p -r bundle firefox",
+    "bundle:ui": "parcel src/index.html --host localhost --target webext-dev",
     "bundle": "parcel src/manifest.json src/index.html src/popup/popup.html --host localhost --target webext-dev",
     "build": "parcel build src/manifest.json src/index.html src/popup/popup.html --target webext-prod",
     "postbuild": "web-ext build --source-dir dist",
@@ -33,7 +34,6 @@
     "react-router-dom": "^5.2.0",
     "react-share": "^4.4.0",
     "react-widgets": "^5.2.0",
-    "react-widgets-simple-number": "^5.0.7",
     "reactstrap": "^8.9.0",
     "remove": "^0.1.5",
     "streamr-client": "^5.4.4",

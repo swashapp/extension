@@ -1,10 +1,10 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+/* eslint-disable */
 // @ts-nocheck
 function sendMessage(message) {
   return browser.runtime.sendMessage(message);
 }
 
-const helper = (function () {
+var helper = (function () {
   function handleFilter() {
     const message = {
       obj: 'pageAction',

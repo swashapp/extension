@@ -1,7 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import JsStore from 'jsstore';
+import { Connection, DATA_TYPE } from 'jsstore';
+import JsStoreWorker from 'jsstore/dist/jsstore.worker.min';
 
+// This will ensure that we are using only one instance.
+// Otherwise due to multiple instance multiple worker will be created.
 const databaseHelper = (function () {
   'use strict';
 
@@ -10,7 +13,7 @@ const databaseHelper = (function () {
   async function init() {
     if (!connection) {
       dbName = 'SwashDBV3';
-      connection = new JsStore.Connection();
+      connection = new Connection(new Worker(JsStoreWorker));
       await initJsStore();
     }
   }
@@ -24,11 +27,11 @@ const databaseHelper = (function () {
         },
         createTime: {
           notNull: true,
-          dataType: JsStore.DATA_TYPE.Number,
+          dataType: DATA_TYPE.Number,
         },
         message: {
           notNull: true,
-          dataType: JsStore.DATA_TYPE.Object,
+          dataType: DATA_TYPE.Object,
         },
       },
     };
@@ -41,11 +44,11 @@ const databaseHelper = (function () {
         },
         messageCount: {
           notNull: true,
-          dataType: JsStore.DATA_TYPE.Number,
+          dataType: DATA_TYPE.Number,
         },
         lastSent: {
           notNull: true,
-          dataType: JsStore.DATA_TYPE.Number,
+          dataType: DATA_TYPE.Number,
         },
       },
     };
