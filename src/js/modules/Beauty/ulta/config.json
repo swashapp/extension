@@ -1,0 +1,8 @@
+{
+  "name": "beauty_ulta",
+  "description": "This module Captures a user shopping bahaviour on ulta",
+  "functions": ["content"],
+  "is_enabled": true,
+  "privacyLevel": 1,
+  "anonymityLevel": 1
+}

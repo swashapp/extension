@@ -1,9 +1,0 @@
-{
-	"minimumMessageNumber": 0,
-	"sendTimeWindow": 300000,
-	"strategy": "immediateJoinStrategy",
-	"tryInterval": 6000,
-	"maxInterval": 3600000,
-	"failuresThreshold": 2,
-	"backoffRate": 2
-}

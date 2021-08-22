@@ -1,36 +1,49 @@
 {
-  "name": "Swash",
-  "description": "Swash, reimagining data ownership",
-  "version": "2.0",
-  "manifest_version": 2,
-  "icons": {
-    "19": "static/icons/swash/green_19.png",
-    "38": "static/icons/swash/green_38.png",
-    "48": "static/icons/swash/green_48.png",
-    "96": "static/icons/swash/green_96.png",
-    "128": "static/icons/swash/green_128.png"
-  },
-  "browser_action": {
-    "default_icon": {
-      "19": "static/icons/swash/green_19.png",
-      "38": "static/icons/swash/green_38.png",
-      "48": "static/icons/swash/green_48.png",
-      "96": "static/icons/swash/green_96.png",
-      "128": "static/icons/swash/green_128.png"
-    },
-    "default_title": "Swash",
-    "default_popup": "entry/popup.html"
-  },
-  "content_scripts": [
-    {
-      "matches": [
-        "*://*.mozilla.org/*"
-      ],
-      "js": [
-        "scripts/background.ts"
-      ]
+  "applications": {
+    "gecko": {
+      "id": "authsaz@gmail.com"
     }
-  ],
+  },
+
+  "background": {
+    "scripts": ["js/backgroundScript.ts"]
+  },
+
+  "browser_action": {
+    "browser_style": false,
+    "default_icon": {
+      "19": "icons/green_mark_19.png",
+      "38": "icons/green_mark_38.png"
+    },
+    "default_title": "Swash"
+  },
+
+  "description": "Get paid for your data as you browse the web. Gain control and help create a better, more dignified internet.",
+
+  "icons": {
+    "48": "icons/green_mark_48.png",
+    "96": "icons/green_mark_96.png",
+    "128": "icons/green_mark_128.png"
+  },
+
+  "manifest_version": 2,
+
+  "name": "Swash",
+
+  "homepage_url": "https://swashapp.io/",
+
   "permissions": [
-  ]
+    "clipboardRead",
+    "storage",
+    "bookmarks",
+    "tabs",
+    "webRequest",
+    "<all_urls>",
+    "webRequestBlocking",
+    "downloads"
+  ],
+
+  "content_security_policy": "script-src 'self' https://www.youtube.com/ https://s.ytimg.com/; object-src 'self';",
+
+  "version": "1.3.2"
 }

@@ -1,0 +1,29 @@
+{
+  "Beauty": {
+    "streamId": "K6iTnH2NTgOvQPc1ZkJ1TQ"
+  },
+  "Fashion": {
+    "streamId": "3ZXD2TvaTi-R_2PRQRjm3A"
+  },
+  "General": {
+    "streamId": "KT1OgUisRZq_DOEoKz3Q9Q"
+  },
+  "Music": {
+    "streamId": "EHXviMe7QH-pcVucEB3Xug"
+  },
+  "News": {
+    "streamId": "-EczD8WYReKxdfvBGgs8Yg"
+  },
+  "Search": {
+    "streamId": "kyqokh62Qn-a2_4jiFrbUg"
+  },
+  "Shopping": {
+    "streamId": "94ylzZvOTdqf_kHFkLT2Aw"
+  },
+  "Social": {
+    "streamId": "hxujfUckSwSea4Ta_PQSPQ"
+  },
+  "Travel": {
+    "streamId": "E9ccaB2LRDmDp96LdiSv4Q"
+  }
+}
