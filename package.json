@@ -8,8 +8,8 @@
   "scripts": {
     "firefox": "web-ext run -t firefox-desktop --source-dir dist",
     "start:dev": "run-p -r bundle firefox",
-    "bundle": "parcel src/manifest.json --host localhost --target webext-dev",
-    "build": "parcel build src/manifest.json --target webext-prod",
+    "bundle": "parcel src/manifest.json src/index.html src/popup/popup.html --host localhost --target webext-dev",
+    "build": "parcel build src/manifest.json src/index.html src/popup/popup.html --target webext-prod",
     "postbuild": "web-ext build --source-dir dist",
     "lint:code": "eslint src/**/*.ts --fix",
     "lint:extension": "web-ext lint dist",
