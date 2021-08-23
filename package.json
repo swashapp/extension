@@ -5,16 +5,27 @@
   "repository": {
     "url": "https://github.com/swashapp/extension.git"
   },
+  "staticFiles": {
+    "staticPath": [
+      "src/js/configs",
+      "src/js/modules"
+    ]
+  },
   "scripts": {
-    "firefox": "web-ext run -t firefox-desktop --source-dir dist",
-    "start:dev": "run-p -r bundle firefox",
-    "bundle:ui": "parcel src/index.html --host localhost --target webext-dev",
-    "bundle": "parcel src/manifest.json src/index.html src/popup/popup.html --host localhost --target webext-dev",
-    "build": "parcel build src/manifest.json src/index.html src/popup/popup.html --target webext-prod",
-    "postbuild": "web-ext build --source-dir dist",
+    "build:dev": "run-s clean && parcel build src/manifest.json src/dashboard/index.html src/popup/popup.html --target dev && run-s copy",
+    "build:prod": "run-s clean:deep && parcel build src/manifest.json src/dashboard/index.html src/popup/popup.html --target prod && run-s copy",
+    "bundle": "parcel src/manifest.json src/dashboard/index.html src/popup/popup.html --target dev",
+    "clean": "shx rm -rf dist",
+    "clean:deep": "shx rm -rf dist .parcel-cache",
+    "precopy": "shx mkdir -p dist dist/js",
+    "copy": "shx cp -r src/js/configs src/js/modules dist/js/",
+    "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,json} *.{js,jsx,ts,tsx}",
     "lint:code": "eslint src/**/*.ts --fix",
     "lint:extension": "web-ext lint dist",
-    "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,json} *.{js,jsx,ts,tsx}"
+    "run:chromium": "web-ext run -t chromium --source-dir dist",
+    "run:firefox": "web-ext run -t firefox-desktop --source-dir dist",
+    "start:chromium": "run-s copy && run-p bundle run:chromium",
+    "start:firefox": "run-s copy && run-p bundle run:firefox"
   },
   "dependencies": {
     "3box": "1.17.1",
@@ -57,16 +68,22 @@
     "npm-run-all": "^4.1.5",
     "parcel": "^2.0.0-rc.0",
     "prettier": "^2.3.2",
+    "shx": "^0.3.3",
     "typescript": "^4.3.5",
     "web-ext": "^6.3.0"
   },
   "targets": {
-    "webext-dev": {
+    "dev": {
+      "distDir": "dist",
+      "optimize": false,
       "sourceMap": {
         "inline": true,
         "inlineSources": true
       }
     },
-    "webext-prod": {}
+    "prod": {
+      "distDir": "dist",
+      "optimize": true
+    }
   }
 }

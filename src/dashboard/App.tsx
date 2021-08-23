@@ -3,14 +3,14 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import WarningOnPages from './components/microcomponents/WarningOnPages';
-import Data from './components/pages/Data';
-import Help from './components/pages/Help';
-import OnBoarding from './components/pages/OnBoarding';
-import Settings from './components/pages/Settings';
-import Wallet from './components/pages/Wallet';
-import SideNavigation from './components/sideNavigation';
-import MobileSideNavigation from './components/sideNavigation-mobile';
+import WarningOnPages from '../components/microcomponents/WarningOnPages';
+import Data from '../components/pages/Data';
+import Help from '../components/pages/Help';
+import OnBoarding from '../components/pages/OnBoarding';
+import Settings from '../components/pages/Settings';
+import Wallet from '../components/pages/Wallet';
+import SideNavigation from '../components/sideNavigation';
+import MobileSideNavigation from '../components/sideNavigation-mobile';
 
 class App extends React.Component {
   constructor(props) {
