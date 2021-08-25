@@ -10,6 +10,7 @@
 
 # production
 .cache
+.parcel-cache
 /dist
 /build
 /out
