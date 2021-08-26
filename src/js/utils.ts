@@ -1,16 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 const utils = (function () {
   'use strict';
-
-  function notify(message) {
-    /*browser.notifications.create({
-        "type": "basic",
-        "iconUrl": browser.runtime.getURL("icons/surf48.png"),
-        "title": message.header.module + ":" + message.header.function + ":" + message.header.collector,
-        "message": JSON.stringify(message)
-      });*/
-  }
 
   function jsonUpdate(src, newObj) {
     if (Array.isArray(newObj)) {
@@ -105,7 +94,6 @@ const utils = (function () {
   return {
     jsonUpdate,
     wildcard,
-    notify,
     uuid,
     serialize,
     isEmpty,

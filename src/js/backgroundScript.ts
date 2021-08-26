@@ -1,5 +1,9 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+import browser from 'webextension-polyfill';
+
+import { Runtime } from 'webextension-polyfill/namespaces/runtime';
+
+import { Any } from '../types/any.type';
+
 import { browserUtils } from './browserUtils';
 import { communityHelper } from './communityHelper';
 import { configManager } from './configManager';
@@ -18,6 +22,9 @@ import { privacyUtils } from './privacyUtils';
 import { storageHelper } from './storageHelper';
 import { swashApiHelper } from './swashApiHelper';
 
+import MessageSender = Runtime.MessageSender;
+import OnInstalledDetailsType = Runtime.OnInstalledDetailsType;
+
 let isConfigReady = false;
 let tryCount = 0;
 
@@ -31,7 +38,7 @@ function initConfigs() {
   loader.initConfs();
 }
 
-async function installSwash(info) {
+async function installSwash(info: OnInstalledDetailsType) {
   console.log('Start installing...');
   if (!isConfigReady) {
     console.log(
@@ -71,16 +78,14 @@ async function installSwash(info) {
 */
 browser.runtime.onInstalled.addListener(installSwash);
 
-browserUtils.getPlatformInfo().then((info) => {
-  browserUtils.isMobileDevice().then((res) => {
-    if (res) {
-      browser.browserAction.onClicked.addListener(async () =>
-        browser.tabs.create({ url: '/dashboard/index.html#/Settings' }),
-      );
-    } else {
-      browser.browserAction.setPopup({ popup: 'popup/popup.html' });
-    }
-  });
+browserUtils.isMobileDevice().then((res) => {
+  if (res) {
+    browser.browserAction.onClicked.addListener(async () =>
+      browser.tabs.create({ url: '/dashboard/index.html#/Settings' }),
+    );
+  } else {
+    browser.browserAction.setPopup({ popup: 'popup/popup.html' }).then();
+  }
 });
 
 configManager.loadAll().then(async () => {
@@ -96,27 +101,33 @@ configManager.loadAll().then(async () => {
 	Each content script, after successful injection on a page, will send a message to background script to request data.
 	This part handles such requests.
 	*/
-  browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (sender.tab) message.params.push(sender.tab.id);
-    const objList = {
-      storageHelper: storageHelper,
-      databaseHelper: databaseHelper,
-      privacyUtils: privacyUtils,
-      apiCall: apiCall,
-      loader: loader,
-      content: content,
-      dataHandler: dataHandler,
-      context: context,
-      task: task,
-      communityHelper: communityHelper,
-      pageAction: pageAction,
-      transfer: transfer,
-      onboarding: onboarding,
-      swashApiHelper: swashApiHelper,
-      configManager: configManager,
-    };
-    sendResponse(objList[message.obj][message.func](...message.params));
-  });
+  browser.runtime.onMessage.addListener(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    (message: Any, sender: MessageSender, sendResponse: Any) => {
+      if (sender.tab) message.params.push(sender.tab.id);
+      const objList = {
+        storageHelper: storageHelper,
+        databaseHelper: databaseHelper,
+        privacyUtils: privacyUtils,
+        apiCall: apiCall,
+        loader: loader,
+        content: content,
+        dataHandler: dataHandler,
+        context: context,
+        task: task,
+        communityHelper: communityHelper,
+        pageAction: pageAction,
+        transfer: transfer,
+        onboarding: onboarding,
+        swashApiHelper: swashApiHelper,
+        configManager: configManager,
+      };
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      sendResponse(objList[message.obj][message.func](...message.params));
+    },
+  );
 
   /* ***
 	If UI has changed a config in data storage, a reload should be performed.

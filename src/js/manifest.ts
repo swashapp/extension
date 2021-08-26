@@ -1,3 +1,5 @@
+import browser from 'webextension-polyfill';
+
 const ssConfig = (function () {
   'use strict';
 

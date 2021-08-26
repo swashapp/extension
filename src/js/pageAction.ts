@@ -1,19 +1,27 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+import browser from 'webextension-polyfill';
+
+import { Tabs } from 'webextension-polyfill/namespaces/tabs';
+
+import { FilterType } from '../enums/filter.enum';
+import { Filter } from '../types/filter.type';
+
 import { browserUtils } from './browserUtils';
 import { filterUtils } from './filterUtils';
 import { memberManager } from './memberManager';
 import { storageHelper } from './storageHelper';
 
+import Tab = Tabs.Tab;
+
 const pageAction = (function () {
-  async function isDomainFiltered(tabInfo) {
+  async function isDomainFiltered(tabInfo: Tab) {
+    if (!tabInfo.url) return;
     const domain = new URL(tabInfo.url);
     const f = {
       value: `*://${domain.host}/*`,
       type: 'wildcard',
       internal: false,
     };
-    const filter = await storageHelper.retrieveFilters();
+    const filter: Filter[] = await storageHelper.retrieveFilters();
     for (const i in filter) {
       if (
         filter[i].value === f.value &&
@@ -31,11 +39,13 @@ const pageAction = (function () {
       active: true,
       windowId: browser.windows.WINDOW_ID_CURRENT,
     });
+    if (!tabs[0].id) return;
     const tab = await browser.tabs.get(tabs[0].id);
     return isDomainFiltered(tab);
   }
 
-  function loadIcons(url) {
+  function loadIcons(url?: string) {
+    if (!url) return;
     browserUtils.isMobileDevice().then((res) => {
       if (!res) {
         storageHelper.retrieveConfigs().then((configs) => {
@@ -83,6 +93,7 @@ const pageAction = (function () {
       active: true,
       windowId: browser.windows.WINDOW_ID_CURRENT,
     });
+    if (!tabs[0].id) return;
     const tab = await browser.tabs.get(tabs[0].id);
     return isDomainFiltered(tab).then((res) => {
       if (res) {
@@ -95,7 +106,8 @@ const pageAction = (function () {
     });
   }
 
-  function addFilter(tab) {
+  function addFilter(tab: Tab) {
+    if (!tab.url) return;
     const domain = new URL(tab.url);
     if (
       !domain.host ||
@@ -106,12 +118,12 @@ const pageAction = (function () {
     }
     const f = {
       value: `*://${domain.host}/*`,
-      type: 'wildcard',
+      type: FilterType.Wildcard,
       internal: false,
     };
 
     let allow = true;
-    storageHelper.retrieveFilters().then((filter) => {
+    storageHelper.retrieveFilters().then((filter: Filter[]) => {
       for (const i in filter) {
         if (filter[i].value === f.value) {
           allow = false;
@@ -119,14 +131,15 @@ const pageAction = (function () {
       }
       if (allow) {
         filter.push(f);
-        storageHelper.storeFilters(filter).then((res) => {
+        storageHelper.storeFilters(filter).then(() => {
           loadIcons(tab.url);
         });
       }
     });
   }
 
-  function removeFilter(tab) {
+  function removeFilter(tab: Tab) {
+    if (!tab.url) return;
     const domain = new URL(tab.url);
     const f = {
       value: `*://${domain.host}/*`,
@@ -138,7 +151,7 @@ const pageAction = (function () {
     }
 
     storageHelper.retrieveFilters().then((filters) => {
-      filters = filters.filter((fl) => {
+      filters = filters.filter((fl: Filter) => {
         if (
           fl.value !== f.value ||
           fl.type !== f.type ||
@@ -148,7 +161,7 @@ const pageAction = (function () {
         }
       });
 
-      storageHelper.storeFilters(filters).then((res) => {
+      storageHelper.storeFilters(filters).then(() => {
         loadIcons(tab.url);
       });
     });

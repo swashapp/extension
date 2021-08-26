@@ -9,7 +9,7 @@ function filterIconStat(filtered) {
   }
 }
 
-function showPageOnTab(url_to_show) {
+function showPageOnTab(url_to_show: string) {
   window.helper.isNeededOnBoarding().then((result) => {
     if (result)
       url_to_show = browser.runtime.getURL('dashboard/index.html#/OnBoarding');
@@ -18,66 +18,56 @@ function showPageOnTab(url_to_show) {
         populate: true,
         windowTypes: ['normal'],
       })
-      .then((windowInfoArray) => {
-        browser.tabs.create({ url: url_to_show, active: true }).then((x) => {
+      .then(() => {
+        browser.tabs.create({ url: url_to_show, active: true }).then(() => {
           window.close();
         });
       });
   });
 }
 
-function updateBalance(balance) {
+function updateBalance(balance: string) {
   document.getElementById('balance').innerText = `${balance} DATA`;
 }
 
-function updateVersion(version) {
+function updateVersion(version: string) {
   document.getElementById('version').innerText = `V${version}`;
 }
 
-function purgeNumber(num) {
+function purgeNumber(num: string) {
   if (num.indexOf('.') < 0) return num;
   return num.slice(0, num.indexOf('.') + 5);
 }
 
-document
-  .getElementById('open_setting')
-  .addEventListener('click', function (eventObj) {
-    const url = browser.runtime.getURL('dashboard/index.html');
-    showPageOnTab(url);
-  });
+document.getElementById('open_setting').addEventListener('click', function () {
+  const url = browser.runtime.getURL('dashboard/index.html');
+  showPageOnTab(url);
+});
 
-document
-  .getElementById('open_messages')
-  .addEventListener('click', function (eventObj) {
-    const url = browser.runtime.getURL('dashboard/index.html#/Data');
-    showPageOnTab(url);
-  });
+document.getElementById('open_messages').addEventListener('click', function () {
+  const url = browser.runtime.getURL('dashboard/index.html#/Data');
+  showPageOnTab(url);
+});
 
-document
-  .getElementById('open_logs')
-  .addEventListener('click', function (eventObj) {
-    const url = browser.runtime.getURL('dashboard/index.html#/Help');
-    showPageOnTab(url);
-  });
+document.getElementById('open_logs').addEventListener('click', function () {
+  const url = browser.runtime.getURL('dashboard/index.html#/Help');
+  showPageOnTab(url);
+});
 
-document
-  .getElementById('add_filter')
-  .addEventListener('click', function (eventObj) {
-    window.helper.handleFilter().then((res) => {
-      filterIconStat(res);
-    });
+document.getElementById('add_filter').addEventListener('click', function () {
+  window.helper.handleFilter().then((res) => {
+    filterIconStat(res);
   });
+});
 
-document
-  .getElementById('streaming')
-  .addEventListener('click', function (eventObj) {
-    const is_enabled = document.getElementById('streaming').checked;
-    if (is_enabled) {
-      window.helper.start();
-    } else {
-      window.helper.stop();
-    }
-  });
+document.getElementById('streaming').addEventListener('click', function () {
+  const is_enabled = document.getElementById('streaming').checked;
+  if (is_enabled) {
+    window.helper.start();
+  } else {
+    window.helper.stop();
+  }
+});
 
 updateVersion(browser.runtime.getManifest().version);
 

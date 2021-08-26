@@ -1,6 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import { ethers } from 'ethers';
+
+import browser from 'webextension-polyfill';
 
 import { communityHelper } from './communityHelper';
 import { configManager } from './configManager';
@@ -49,11 +49,13 @@ const swashApiHelper = (function () {
   }
 
   async function joinSwash() {
-    browser.tabs.create({
-      url: 'https://swashapp.io/user/join?token='.concat(
-        await communityHelper.generateJWT(),
-      ),
-    });
+    browser.tabs
+      .create({
+        url: 'https://swashapp.io/user/join?token='.concat(
+          await communityHelper.generateJWT(),
+        ),
+      })
+      .then();
   }
 
   async function getReferralRewards() {

@@ -1,16 +1,19 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import { sha256 } from 'ethers/lib/utils';
+
+import { ObjectType } from '../enums/object.enum';
+import { Any } from '../types/any.type';
+import { Message } from '../types/message.type';
+import { Module } from '../types/module.type';
 
 import { utils } from './utils';
 
 const privacyUtils = (function () {
   'use strict';
   let basicIdentity = '';
-  const moduleIdentity = {};
-  const categoryIdentity = {};
+  const moduleIdentity: Any = {};
+  const categoryIdentity: Any = {};
 
-  function anonymiseIdentity(id, message, module) {
+  function anonymiseIdentity(id: string, message: Message, module: Module) {
     basicIdentity = basicIdentity ? basicIdentity : sha256(id);
 
     switch (message.header.anonymityLevel) {
@@ -22,8 +25,8 @@ const privacyUtils = (function () {
           : sha256(`${id}${module.category}`);
         return sha256(`${basicIdentity}${categoryIdentity[module.category]}`);
       case 2:
-        moduleIdentity[module.name] = moduleIdentity[module]
-          ? moduleIdentity[module]
+        moduleIdentity[module.name] = moduleIdentity[module.name]
+          ? moduleIdentity[module.name]
           : sha256(`${id}${module.name}`);
         return sha256(`${basicIdentity}${moduleIdentity[module.name]}`);
       case 3:
@@ -33,25 +36,25 @@ const privacyUtils = (function () {
     }
   }
 
-  function anonymiseUrl(url, message) {
+  function anonymiseUrl(url: string, message: Message) {
     const urlObj = new URL(url);
+    let path = [];
     switch (message.header.privacyLevel) {
       case 0:
         return urlObj.href;
       case 1:
-        for (const item of urlObj.searchParams)
+        urlObj.searchParams.forEach((item) => {
           urlObj.searchParams.set(item[0], '');
+        });
         return urlObj.href;
       case 2:
-        var path = urlObj.pathname.split('/');
+        path = urlObj.pathname.split('/');
         for (const item in path) {
           if (path[item]) {
             path[item] = sha256(path[item]).substring(0, path[item].length);
           }
         }
-        path = path.join('/');
-        var retUrl = urlObj.origin + path;
-        return retUrl;
+        return urlObj.origin + path.join('/');
       case 3:
         return urlObj.origin;
       default:
@@ -59,7 +62,7 @@ const privacyUtils = (function () {
     }
   }
 
-  function anonymiseTime(time, message) {
+  function anonymiseTime(time: number, message: Message) {
     const date = new Date();
     let date2;
     date.setTime(time);
@@ -82,11 +85,11 @@ const privacyUtils = (function () {
     }
   }
 
-  function anonymisetTxt(text, message, privacyData) {
+  function anonymiseText(text: string, message: Message, privacyData: Any) {
     let retText = JSON.stringify(text);
     switch (message.header.privacyLevel) {
       case 0:
-        for (var i = 0; i < privacyData.length; i++) {
+        for (let i = 0; i < privacyData.length; i++) {
           retText = retText.replace(
             new RegExp('\\b' + privacyData[i].value + '\\b', 'ig'),
             new Array(privacyData[i].value.length + 1).join('*'),
@@ -94,7 +97,7 @@ const privacyUtils = (function () {
         }
         break;
       case 1:
-        for (var i = 0; i < privacyData.length; i++) {
+        for (let i = 0; i < privacyData.length; i++) {
           retText = retText.replace(
             new RegExp('\\b' + privacyData[i].value + '\\b', 'ig'),
             '',
@@ -102,7 +105,7 @@ const privacyUtils = (function () {
         }
         break;
       case 2:
-        for (var i = 0; i < privacyData.length; i++) {
+        for (let i = 0; i < privacyData.length; i++) {
           retText = retText.replace(
             new RegExp('\\b' + privacyData[i].value + '\\b', 'ig'),
             '',
@@ -110,7 +113,7 @@ const privacyUtils = (function () {
         }
         break;
       case 3:
-        for (var i = 0; i < privacyData.length; i++) {
+        for (let i = 0; i < privacyData.length; i++) {
           const res = retText.match(
             new RegExp('\\b' + privacyData[i].value + '\\b', 'ig'),
           );
@@ -126,7 +129,7 @@ const privacyUtils = (function () {
     return JSON.parse(retText);
   }
 
-  function anonymiseUserInfo(user, message) {
+  function anonymiseUserInfo(user: Any, message: Message) {
     let retUserInfo = user;
 
     switch (message.header.privacyLevel) {
@@ -145,7 +148,7 @@ const privacyUtils = (function () {
     }
   }
 
-  function anonymiseUserId(id, message) {
+  function anonymiseUserId(id: string, message: Message) {
     let retId = id;
 
     switch (message.header.privacyLevel) {
@@ -164,7 +167,7 @@ const privacyUtils = (function () {
     }
   }
 
-  function anonymiseUserAttr(userAttr, message, salt) {
+  function anonymiseUserAttr(userAttr: Any, message: Message) {
     let retAttr = userAttr;
 
     switch (message.header.privacyLevel) {
@@ -183,29 +186,34 @@ const privacyUtils = (function () {
     }
   }
 
-  function anonymiseTimeString(timeStr, message) {
+  function anonymiseTimeString(timeStr: string, message: Message) {
     const date = new Date(timeStr);
-    const newTime = timePrivacy(date.getTime(), message);
+    const newTime = anonymiseTime(date.getTime(), message);
     date.setTime(newTime);
     return date.toString();
   }
 
-  function anonymiseObject(object, objectType, message, privacyData) {
+  function anonymiseObject(
+    object: Any,
+    objectType: ObjectType,
+    message: Message,
+    privacyData: Any,
+  ) {
     if (!object) return object;
     switch (objectType) {
-      case 'userInfo':
+      case ObjectType.UserInfo:
         return anonymiseUserInfo(object, message);
-      case 'userAttr':
+      case ObjectType.UserAttr:
         return anonymiseUserAttr(object, message);
-      case 'timeString':
+      case ObjectType.TimeString:
         return anonymiseTimeString(object, message);
-      case 'url':
+      case ObjectType.URL:
         return anonymiseUrl(object, message);
-      case 'time':
+      case ObjectType.Time:
         return anonymiseTime(object, message);
-      case 'text':
-        return anonymisetTxt(object, message, privacyData);
-      case 'id':
+      case ObjectType.Text:
+        return anonymiseText(object, message, privacyData);
+      case ObjectType.ID:
         return anonymiseUserId(object, message);
       default:
         return object;

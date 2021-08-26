@@ -1,7 +1,13 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import { JsonPointer } from 'json-ptr';
 import { JSONPath } from 'jsonpath-plus';
+
+import browser from 'webextension-polyfill';
+
+import { Any } from '../types/any.type';
+import { StreamConfig } from '../types/config/stream.type';
+import { Message } from '../types/message.type';
+import { Module } from '../types/module.type';
+import { Stream } from '../types/stream.type';
 
 import { browserUtils } from './browserUtils';
 import { configManager } from './configManager';
@@ -15,15 +21,15 @@ import { utils } from './utils';
 
 const dataHandler = (function () {
   'use strict';
-  const streams = {};
-  let streamConfig;
+  const streams: { [key: string]: Stream } = {};
+  let streamConfig: StreamConfig;
 
   function init() {
     streamConfig = configManager.getConfig('stream');
   }
 
-  function cancelSending(msgId) {
-    databaseHelper.removeMessage(msgId);
+  function cancelSending(msgId: number) {
+    databaseHelper.removeMessage(msgId).then();
     //clearTimeout(msgId);
     //storageHelper.removeMessage(msgId);
   }
@@ -44,7 +50,7 @@ const dataHandler = (function () {
     await databaseHelper.removeReadyMessages(time);
   }
 
-  async function sendData(message, delay) {
+  async function sendData(message: Message, delay: number) {
     if (delay) {
       await databaseHelper.insertMessage(message);
     } else {
@@ -53,24 +59,25 @@ const dataHandler = (function () {
     }
   }
 
-  async function prepareAndSend(message, module, delay, tabId) {
+  async function prepareAndSend(
+    message: Message,
+    module: Module,
+    delay: number,
+    tabId: number,
+  ) {
     if (!streams[message.header.category])
       streams[message.header.category] = stream(
         streamConfig[module.category].streamId,
       );
     if (module.context) {
-      const bct_attrs = module.context.filter(function (ele, val) {
-        return ele.type === 'browser' && ele.is_enabled;
+      const bct_attrs = module.context.filter((el: Any) => {
+        return el.type === 'browser' && el.is_enabled;
       });
       if (bct_attrs.length > 0) {
         for (const ct of bct_attrs) {
           switch (ct.name) {
             case 'agent':
               message.header.agent = await browserUtils.getUserAgent();
-              break;
-            case 'installedPlugins':
-              message.header.installedPlugins =
-                await browserUtils.getAllInstalledPlugins();
               break;
             case 'platform':
               message.header.platform = await browserUtils.getPlatformInfo();
@@ -82,8 +89,8 @@ const dataHandler = (function () {
         }
       }
 
-      const cct_attrs = module.context.filter(function (ele, val) {
-        return ele.type === 'content' && ele.is_enabled;
+      const cct_attrs = module.context.filter((el: Any) => {
+        return el.type === 'content' && el.is_enabled;
       });
 
       if (cct_attrs.length > 0 && tabId) {
@@ -103,7 +110,7 @@ const dataHandler = (function () {
     return false;
   }
 
-  async function handle(message, tabId) {
+  async function handle(message: Message, tabId: number) {
     message.header.id = utils.uuid();
     if (!message.origin) message.origin = 'undetermined';
     const db = await storageHelper.retrieveAll();
@@ -112,8 +119,8 @@ const dataHandler = (function () {
     const modules = db.modules;
     const collector = modules[message.header.module][
       message.header.function
-    ].items.find((element) => {
-      return element.name === message.header.collector;
+    ].items.find((el: Any) => {
+      return el.name === message.header.collector;
     });
     if (
       !db.configs.is_enabled ||
@@ -133,7 +140,6 @@ const dataHandler = (function () {
       modules[message.header.module].anonymityLevel;
     message.header.version = browserUtils.getVersion();
 
-    message.identity = {};
     message.identity.uid = privacyUtils.anonymiseIdentity(
       configs.Id,
       message,
@@ -150,20 +156,25 @@ const dataHandler = (function () {
     message.identity.language = browserUtils.getBrowserLanguage();
 
     enforcePolicy(message, privacyData);
-    prepareAndSend(message, modules[message.header.module], delay, tabId);
+    prepareAndSend(
+      message,
+      modules[message.header.module],
+      delay,
+      tabId,
+    ).then();
   }
-  function enforcePolicy(message, privacyData) {
+  function enforcePolicy(message: Message, privacyData: Any) {
     const data = message.data.out;
     const schems = message.data.schems;
     const ptr = JsonPointer;
     for (const d of schems) {
-      const jpointers = JSONPath({
+      const jPointers = JSONPath({
         path: d.jpath,
         resultType: 'pointer',
         json: message.data.out,
       });
-      if (jpointers) {
-        for (const jp of jpointers) {
+      if (jPointers) {
+        for (const jp of jPointers) {
           let val = ptr.get(message.data.out, jp);
           val = privacyUtils.anonymiseObject(val, d.type, message, privacyData);
           ptr.set(data, jp, val, true);

@@ -1,13 +1,14 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+import { Config, ManifestCategory } from '../types/config/config.type';
+import { Module } from '../types/module.type';
+
 import { storageHelper } from './storageHelper';
 
 const configManager = (function () {
   const confPath = 'js/configs/';
   const modulePath = 'js/modules/';
-  let configs = {};
-  let categories = {};
-  let modules = {};
+  let configs: Config = {};
+  let categories: ManifestCategory = {};
+  let modules: { [key: string]: Module } = {};
   async function loadAll() {
     console.log('Try loading configuration files and modules...');
     //First check memory configs
@@ -42,6 +43,9 @@ const configManager = (function () {
         configs.manifest = await (
           await fetch(`${confPath}config.json`, { cache: 'no-store' })
         ).json();
+
+      if (!configs.manifest) return;
+
       //importing configuration files
       for (const file in configs.manifest.files) {
         await importConfig(file);
@@ -58,6 +62,9 @@ const configManager = (function () {
         configs.manifest = await (
           await fetch(`${confPath}config.json`, { cache: 'no-store' })
         ).json();
+
+      if (!configs.manifest) return;
+
       //importing modules
       for (const category in configs.manifest.categories) {
         categories[category] = {};
@@ -73,7 +80,7 @@ const configManager = (function () {
       console.log(`Import error: ${err}`);
     }
   }
-  async function importConfig(name) {
+  async function importConfig(name: string) {
     const cPath = `${confPath}${name}.json`;
     try {
       const conf = await (await fetch(cPath, { cache: 'no-store' })).json();
@@ -84,7 +91,7 @@ const configManager = (function () {
     }
   }
 
-  async function importModule(category, name, version) {
+  async function importModule(category: string, name: string, version: string) {
     const mPath = `${modulePath}${category}/${name}/config.json`;
     try {
       const module = await (await fetch(mPath, { cache: 'no-store' })).json();
@@ -102,7 +109,11 @@ const configManager = (function () {
     }
   }
 
-  async function importModuleFunction(category, name, func) {
+  async function importModuleFunction(
+    category: string,
+    name: string,
+    func: string,
+  ) {
     const mFPath = `${modulePath}${category}/${name}/${func}.json`;
     try {
       const mFunc = await (await fetch(mFPath, { cache: 'no-store' })).json();
@@ -119,11 +130,11 @@ const configManager = (function () {
   }
 
   async function storeConfigs() {
-    storageHelper.storeData('configs', configs);
+    storageHelper.storeData('configs', configs).then();
   }
 
   async function storeModules() {
-    storageHelper.storeData('modules', modules);
+    storageHelper.storeData('modules', modules).then();
   }
 
   async function updateAll() {
@@ -133,6 +144,9 @@ const configManager = (function () {
         configs.manifest = await (
           await fetch(`${confPath}config.json`, { cache: 'no-store' })
         ).json();
+
+      if (!configs.manifest) return;
+
       const manifestPath = `${configs.manifest.remotePath}/configs/config.json`;
       const remoteManifest = await (
         await fetch(manifestPath, { cache: 'no-store' })
@@ -183,7 +197,8 @@ const configManager = (function () {
     }
   }
 
-  async function updateConfig(file, version) {
+  async function updateConfig(file: string, version: string) {
+    if (!configs.manifest) return;
     console.log(`Updating configuration file ${file}`);
     const confPath = `${configs.manifest.remotePath}configs/${file}.json`;
     try {
@@ -200,7 +215,8 @@ const configManager = (function () {
     }
   }
 
-  async function updateModule(category, name, version) {
+  async function updateModule(category: string, name: string, version: string) {
+    if (!configs.manifest) return;
     console.log(`Updating module ${category}:${name}`);
     const mPath = `${configs.manifest.remotePath}modules/${category}/${name}/config.json`;
     try {
@@ -226,7 +242,7 @@ const configManager = (function () {
     }
   }
 
-  async function getCategory(name) {
+  async function getCategory(name: string) {
     let category = categories[name];
     //first check memory
     if (category) return category;
@@ -236,6 +252,7 @@ const configManager = (function () {
       configs.manifest = await (
         await fetch(`${confPath}config.json`, { cache: 'no-store' })
       ).json();
+    if (!configs.manifest) return;
     category = configs.manifest.categories[name];
     if (category) {
       categories[name] = category;
@@ -256,7 +273,7 @@ const configManager = (function () {
     return {};
   }
 
-  function getConfig(name) {
+  function getConfig(name: string) {
     return configs[name];
   }
 
@@ -264,7 +281,7 @@ const configManager = (function () {
     return configs;
   }
 
-  function getModule(name) {
+  function getModule(name: string) {
     return modules[name];
   }
 
