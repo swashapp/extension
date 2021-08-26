@@ -1,5 +1,12 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+import browser from 'webextension-polyfill';
+
+import { Tabs } from 'webextension-polyfill/namespaces/tabs';
+
+import { Any } from '../types/any.type';
+import { Config } from '../types/config/config.type';
+import { Filter } from '../types/filter.type';
+import { Module } from '../types/module.type';
+
 import { communityHelper } from './communityHelper';
 import { configManager } from './configManager';
 import { databaseHelper } from './databaseHelper';
@@ -15,19 +22,23 @@ import { storageHelper } from './storageHelper';
 import { swashApiHelper } from './swashApiHelper';
 import { utils } from './utils';
 
+import Tab = Tabs.Tab;
+import OnActivatedActiveInfoType = Tabs.OnActivatedActiveInfoType;
+import OnUpdatedChangeInfoType = Tabs.OnUpdatedChangeInfoType;
+
 const loader = (function () {
   'use strict';
-  let dbHelperInterval;
-  let configs;
-  let modules;
-  let intervalId = 0;
+  let configs: Config;
+  let modules: { [key: string]: Module };
+  let dbHelperInterval: NodeJS.Timer;
+  let intervalId: NodeJS.Timer;
 
   function initConfs() {
     configs = configManager.getAllConfigs();
     modules = configManager.getAllModules();
   }
 
-  async function isDBCreated(db) {
+  async function isDBCreated(db: Any) {
     return !(db == null || Object.keys(db).length === 0);
   }
 
@@ -75,8 +86,8 @@ const loader = (function () {
 
       //keeping defined filters and updating internal filters
       console.log(`Updating exculde urls`);
-      const userFilters = db.filters.filter(function (f, index, arr) {
-        return !f.internal;
+      const userFilters = db.filters.filter((filter: Filter) => {
+        return !filter.internal;
       });
       for (const f of internalFilters) {
         userFilters.push(f);
@@ -98,15 +109,19 @@ const loader = (function () {
   async function onInstalled() {
     await reload();
     memberManager.tryJoin();
-    updateSchedule();
+    updateSchedule().then();
   }
 
-  function changeIconOnUpdated(tabId, changeInfo, tabInfo) {
+  function changeIconOnUpdated(
+    tabId: number,
+    changeInfo: OnUpdatedChangeInfoType,
+    tabInfo: Tab,
+  ) {
     if (!changeInfo.url || !tabInfo.active) return;
     pageAction.loadIcons(tabInfo.url);
   }
 
-  function changeIconOnActivated(activeInfo) {
+  function changeIconOnActivated(activeInfo: OnActivatedActiveInfoType) {
     browser.tabs.get(activeInfo.tabId).then((tabInfo) => {
       if (tabInfo.url) {
         pageAction.loadIcons(tabInfo.url);
@@ -114,7 +129,7 @@ const loader = (function () {
     });
   }
 
-  function init(isEnabled) {
+  function init(isEnabled: boolean) {
     if (isEnabled) {
       if (!browser.tabs.onUpdated.hasListener(changeIconOnUpdated))
         browser.tabs.onUpdated.addListener(changeIconOnUpdated);
@@ -150,13 +165,13 @@ const loader = (function () {
     }
   }
 
-  function functionsLoadModule(module) {
+  function functionsLoadModule(module: Module) {
     for (const func of functions) {
       func.loadModule(module);
     }
   }
 
-  function functionsUnLoadModule(module) {
+  function functionsUnLoadModule(module: Module) {
     for (const func of functions) {
       func.unloadModule(module);
     }
@@ -189,7 +204,7 @@ const loader = (function () {
         await databaseHelper.init();
         await dataHandler.sendDelayedMessages();
       }, 10000);
-      const x = await communityHelper.loadWallet(
+      await communityHelper.loadWallet(
         db.profile.encryptedWallet,
         db.configs.salt,
       );
@@ -223,7 +238,7 @@ const loader = (function () {
     });
   }
 
-  function configModule(moduleName, settings) {
+  function configModule(moduleName: string, settings: Any) {
     return storageHelper.saveModuleSettings(moduleName, settings).then((x) => {
       storageHelper.retrieveAll().then((db) => {
         const module = db.modules[moduleName];
@@ -234,7 +249,7 @@ const loader = (function () {
   }
 
   async function onModulesUpdated() {
-    const dbModules = {};
+    const dbModules: { [key: string]: Module } = {};
     for (const moduleName in modules) {
       const module = modules[moduleName];
       for (const func of functions) {
@@ -270,9 +285,10 @@ const loader = (function () {
       await configManager.updateAll();
       await onUpdatedAll();
     }
-    if (intervalId > 0) clearInterval(intervalId);
+    if (intervalId) clearInterval(intervalId);
     await update();
-    intervalId = setInterval(update, configs.manifest.updateInterval);
+    if (configs.manifest)
+      intervalId = setInterval(update, configs.manifest.updateInterval);
   }
 
   return {

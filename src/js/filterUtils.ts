@@ -1,40 +1,38 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+import { FilterType } from '../enums/filter.enum';
+import { Filter } from '../types/filter.type';
+
 const filterUtils = (function () {
   'use strict';
-  function regexFilter(input, regex) {
-    if (input.match(regex)) return true;
-    return false;
+  function regexFilter(input: string, regex: string) {
+    return !!input.match(regex);
   }
 
-  function matchFilter(input, match) {
-    if (input === match) return true;
-    return false;
+  function matchFilter(input: string, match: string) {
+    return input === match;
   }
 
-  function wildcardFilter(input, wildcard) {
+  function wildcardFilter(input: string, wildcard: string) {
     const regex = new RegExp(
       '^' + wildcard.split(/\*+/).map(regExpEscape).join('.*') + '$',
     );
-    if (input.match(regex)) return true;
-    return false;
+    return !!input.match(regex);
   }
 
-  function regExpEscape(s) {
-    return s.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
+  function regExpEscape(str: string) {
+    return str.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
   }
 
-  function filter(input, filters) {
+  function filter(input: string, filters: Filter[]): boolean {
     let ret = false;
     for (const f of filters) {
       switch (f.type) {
-        case 'regex':
+        case FilterType.Regex:
           ret = regexFilter(input, f.value);
           break;
-        case 'wildcard':
+        case FilterType.Wildcard:
           ret = wildcardFilter(input, f.value);
           break;
-        case 'exact':
+        case FilterType.Exact:
           ret = matchFilter(input, f.value);
           break;
       }

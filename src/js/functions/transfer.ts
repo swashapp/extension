@@ -1,5 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
+import browser from 'webextension-polyfill';
+
 const transfer = (function () {
   const pattern = 'swash://*';
   const regexp = 'swash://(0x[a-fA-F0-9]{40})';

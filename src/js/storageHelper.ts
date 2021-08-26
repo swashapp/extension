@@ -1,16 +1,24 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+import browser from 'webextension-polyfill';
+
+import { Any } from '../types/any.type';
+import { Config } from '../types/config/config.type';
+import { Onboarding } from '../types/config/onboarding.type';
+import { Filter } from '../types/filter.type';
+import { Message } from '../types/message.type';
+import { Module } from '../types/module.type';
+import { Profile } from '../types/profile.type';
+
 import { utils } from './utils';
 
 const storageHelper = (function () {
-  const messages = {};
+  const messages: { [key: string]: Message } = {};
   const functionList = ['content', 'browsing', 'apiCall', 'context', 'task'];
 
   function retrieveProfile() {
     return retrieveData('profile');
   }
 
-  function updateProfile(info) {
+  function updateProfile(info: Profile) {
     return updateData('profile', info);
   }
 
@@ -22,11 +30,11 @@ const storageHelper = (function () {
     return retrieveData('configs');
   }
 
-  function updateConfigs(info) {
+  function updateConfigs(info: Config) {
     return updateData('configs', info);
   }
 
-  function storeFilters(filters) {
+  function storeFilters(filters: Filter[]) {
     return updateData('filters', filters);
   }
 
@@ -34,21 +42,21 @@ const storageHelper = (function () {
     return retrieveData('modules');
   }
 
-  function updateModules(info) {
+  function updateModules(info: { [key: string]: Module }) {
     return updateData('modules', info);
   }
 
-  async function removeModule(moduleName) {
+  async function removeModule(moduleName: string) {
     const info = await retrieveData('modules');
     delete info[moduleName];
-    browser.storage.local.set({ modules: info });
+    browser.storage.local.set({ modules: info }).then();
   }
 
-  function saveMessage(msg, id) {
+  function saveMessage(msg: Message, id: number) {
     messages[id] = msg;
   }
 
-  function removeMessage(id) {
+  function removeMessage(id: number) {
     /*
         var info = await retrieveData("messages");
         delete info[id];
@@ -60,7 +68,7 @@ const storageHelper = (function () {
     return messages;
   }
 
-  async function storeAll(db) {
+  async function storeAll(db: Any) {
     await browser.storage.local.set(db);
   }
 
@@ -68,26 +76,26 @@ const storageHelper = (function () {
     return browser.storage.local.get();
   }
 
-  async function updateData(key, info) {
+  async function updateData(key: string, info: Any) {
     const data = await retrieveData(key);
     utils.jsonUpdate(data, info);
-    const x = {};
+    const x: { [key: string]: Any } = {};
     x[key] = data;
     return browser.storage.local.set(x);
   }
 
-  async function storeData(key, info) {
-    const x = {};
+  async function storeData(key: string, info: Any) {
+    const x: { [key: string]: Any } = {};
     x[key] = info;
     return browser.storage.local.set(x);
   }
 
-  async function retrieveData(key) {
+  async function retrieveData(key: string) {
     const x = await browser.storage.local.get(key);
     return x[key];
   }
 
-  async function createTask(info) {
+  async function createTask(info: Any) {
     const tasks = await retrieveData('tasks');
     if (!tasks[info.moduleName]) tasks[info.moduleName] = {};
     tasks[info.moduleName][info.name] = {
@@ -96,30 +104,34 @@ const storageHelper = (function () {
       endTime: -1,
       success: 'unknown',
     };
-    const x = {};
+    const x: { [key: string]: Any } = {};
     x['tasks'] = tasks;
-    browser.storage.local.set(x);
+    browser.storage.local.set(x).then();
   }
 
-  async function endTask(info) {
+  async function endTask(info: Any) {
     const tasks = await retrieveData('tasks');
     if (!info || !tasks[info.moduleName] || !tasks[info.moduleName][info.name])
       return;
     const res = Object.assign({}, tasks[info.moduleName][info.name]);
     delete tasks[info.moduleName][info.name];
 
-    const x = {};
+    const x: { [key: string]: Any } = {};
     x['tasks'] = tasks;
-    browser.storage.local.set(x);
+    browser.storage.local.set(x).then();
     return res;
   }
 
-  async function loadAllModuleTaskIds(moduleName) {
+  async function loadAllModuleTaskIds(moduleName: string) {
     const tasks = await retrieveData('tasks');
     return tasks[moduleName];
   }
 
-  function updateFunctionSettings(module, functionName, settings) {
+  function updateFunctionSettings(
+    module: Module,
+    functionName: string,
+    settings: Any,
+  ) {
     if (module.functions.includes(functionName)) {
       for (const item of module[functionName].items) {
         item.is_enabled = settings[functionName][item.name];
@@ -127,13 +139,13 @@ const storageHelper = (function () {
     }
   }
 
-  function updatePrivacyLevel(privacyLevel) {
+  function updatePrivacyLevel(privacyLevel: Any) {
     const key = 'configs';
     const info = { privacyLevel: privacyLevel };
     return updateData(key, info);
   }
 
-  async function saveModuleSettings(moduleName, settings) {
+  async function saveModuleSettings(moduleName: string, settings: Any) {
     const modules = await retrieveData('modules');
     const ret = modules[moduleName];
     if (typeof settings.is_enabled != 'undefined')
@@ -154,14 +166,14 @@ const storageHelper = (function () {
     return retrieveData('onboarding');
   }
 
-  function updateOnboarding(info) {
+  function updateOnboarding(info: Onboarding) {
     return updateData('onboarding', info);
   }
 
-  async function removeOnboarding(onboardingName) {
+  async function removeOnboarding(onboardingName: string) {
     const info = await retrieveData('onboarding');
     delete info[onboardingName];
-    browser.storage.local.set({ onboarding: info });
+    browser.storage.local.set({ onboarding: info }).then();
   }
 
   return {

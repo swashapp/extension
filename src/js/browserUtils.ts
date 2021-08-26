@@ -1,10 +1,8 @@
+import browser from 'webextension-polyfill';
+
 const browserUtils = (function () {
   function getUserAgent() {
     return navigator.userAgent;
-  }
-
-  function getAllInstalledPlugins() {
-    /*return browser.management.getAll();*/
   }
 
   function getBrowserLanguage() {
@@ -19,7 +17,8 @@ const browserUtils = (function () {
       .then((platformInfo) => {
         return platformInfo;
       })
-      .catch((error) => {
+      .catch((err) => {
+        console.log(err);
         return { os: 'android' };
       });
   }
@@ -35,7 +34,6 @@ const browserUtils = (function () {
 
   return {
     getUserAgent,
-    getAllInstalledPlugins,
     getBrowserLanguage,
     getPlatformInfo,
     getVersion,

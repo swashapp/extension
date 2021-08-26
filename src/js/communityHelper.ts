@@ -1,26 +1,28 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import { ethers } from 'ethers';
+import { Wallet } from 'ethers';
 import { TokenSigner } from 'jsontokens';
-import { StreamrClient } from 'streamr-client';
+import { Bytes, DataUnion, StreamrClient } from 'streamr-client';
+
+import { CommunityConfig } from '../types/config/community.type';
 
 import { configManager } from './configManager';
 
+type Password = string | Bytes;
+
 const communityHelper = (function () {
-  let wallet;
-  let communityConfig;
+  let wallet: Wallet;
+  let communityConfig: CommunityConfig;
   let timestamp = 0;
   let lastUpdate = 0;
-  let client;
-  let duHandler;
-  const overrides = {};
+  let client: StreamrClient;
+  let duHandler: DataUnion;
   const provider = ethers.getDefaultProvider();
 
   function init() {
     communityConfig = configManager.getConfig('community');
   }
 
-  function etherjsErrorMapping(error) {
+  function etherjsErrorMapping(error: string) {
     if (error.indexOf('insufficient funds') >= 0)
       return 'Insufficient ETH to pay for the gas fee';
     return error;
@@ -31,7 +33,7 @@ const communityHelper = (function () {
     return wallet;
   }
 
-  async function getEncryptedWallet(password) {
+  async function getEncryptedWallet(password: Password) {
     if (!wallet) return { error: 'Wallet is not provided' };
     const options = {
       scrypt: {
@@ -41,12 +43,12 @@ const communityHelper = (function () {
     return await wallet.encrypt(password, options);
   }
 
-  async function loadWallet(encryptedWallet, password) {
+  async function loadWallet(encryptedWallet: string, password: Password) {
     wallet = await ethers.Wallet.fromEncryptedJson(encryptedWallet, password);
     wallet = wallet.connect(provider);
   }
 
-  async function decryptWallet(encryptedWallet, password) {
+  async function decryptWallet(encryptedWallet: string, password: Password) {
     wallet = await ethers.Wallet.fromEncryptedJson(encryptedWallet, password);
     return {
       address: wallet.address,
@@ -77,14 +79,14 @@ const communityHelper = (function () {
     duHandler = client.getDataUnion(communityConfig.communityAddress);
   }
 
-  async function getEthBalance(address) {
+  async function getEthBalance(address: string) {
     if (!provider) return { error: 'provider is not provided' };
     const balance = await provider.getBalance(address);
     return ethers.utils.formatEther(balance);
   }
 
   // In UI: "current DATA balance in your wallet", your DATA + withdrawn tokens
-  async function getDataBalance(address) {
+  async function getDataBalance(address: string) {
     const mainnetTokens = await client.getTokenBalance(address);
     const sidechainTokens = await client.getSidechainTokenBalance(address);
     const balance = mainnetTokens.add(sidechainTokens);
@@ -105,9 +107,13 @@ const communityHelper = (function () {
   async function getCumulativeEarnings() {
     if (!wallet) return { error: 'Wallet is not provided' };
     if (!client) clientConnect();
-    const memberStats = await duHandler.getMemberStats(wallet.address);
-    if (memberStats.error) return { error: 'Member status error' };
-    return ethers.utils.formatEther(memberStats.totalEarnings);
+    try {
+      const memberStats = await duHandler.getMemberStats(wallet.address);
+      return ethers.utils.formatEther(memberStats.totalEarnings);
+    } catch (err) {
+      console.log(err);
+      return { error: 'Member status error' };
+    }
   }
 
   // on-chain balance + available balance
@@ -116,11 +122,14 @@ const communityHelper = (function () {
     const balance = ethers.utils.parseEther(
       await getDataBalance(wallet.address),
     );
-    const aBalance = ethers.utils.parseEther(await getAvailableBalance());
+
+    const availableBalance = await getAvailableBalance();
+    if (typeof availableBalance !== 'string') return availableBalance;
+    const aBalance = ethers.utils.parseEther(availableBalance);
     return ethers.utils.formatEther(balance.add(aBalance));
   }
 
-  async function signWithdrawAllTo(targetAddress) {
+  async function signWithdrawAllTo(targetAddress: string) {
     if (!wallet || !provider) return { error: 'Wallet is not provided' };
     if (!client) clientConnect();
 
@@ -131,7 +140,7 @@ const communityHelper = (function () {
     }
   }
 
-  async function signWithdrawAmountTo(targetAddress, amount) {
+  async function signWithdrawAmountTo(targetAddress: string, amount: string) {
     if (!wallet || !provider) return { error: 'Wallet is not provided' };
     if (!client) clientConnect();
     wallet = wallet.connect(provider);
@@ -155,10 +164,10 @@ const communityHelper = (function () {
     }
   }
 
-  async function transportMessage(message) {
+  async function transportMessage(message: string) {
     try {
       const tx = await duHandler.transportMessage(message);
-      return { tx: tx.transactionHash };
+      return { tx: tx?.transactionHash };
     } catch (err) {
       return { error: etherjsErrorMapping(err.reason) };
     }

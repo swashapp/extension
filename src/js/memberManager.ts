@@ -1,5 +1,8 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+import browser from 'webextension-polyfill';
+
+import { OnboardingPageValues } from '../enums/onboarding.enum';
+import { MemberManagerConfig } from '../types/config/member-manager.type';
+
 import { configManager } from './configManager';
 import { databaseHelper } from './databaseHelper';
 import { onboarding } from './onboarding';
@@ -7,22 +10,22 @@ import { pageAction } from './pageAction';
 import { swashApiHelper } from './swashApiHelper';
 
 const memberManager = (function () {
-  let joined = undefined;
+  let joined: boolean | undefined;
   let failedCount = 0;
-  let mgmtInterval = 0;
-  let memberManagerConfig;
-  let strategyInterval;
+  let mgmtInterval: NodeJS.Timer | undefined;
+  let memberManagerConfig: MemberManagerConfig;
+  let strategyInterval: number;
 
   function init() {
     memberManagerConfig = configManager.getConfig('memberManager');
     if (memberManagerConfig) strategyInterval = memberManagerConfig.tryInterval;
   }
 
-  function updateStatus(strategy) {
+  function updateStatus(strategy: string) {
     console.log(`${strategy}: Trying to join...`);
     swashApiHelper.isJoinedSwash().then((status) => {
       joined = status;
-      if (status === false) {
+      if (!status) {
         console.log(`${strategy}: user is not joined`);
         failedCount++;
 
@@ -30,9 +33,14 @@ const memberManager = (function () {
           clearJoinStrategy();
           failedCount = 0;
           console.log(`need to join swash again`);
-          onboarding.repeatOnboarding(['Join', 'Completed']).then();
+          onboarding
+            .repeatOnboarding([
+              OnboardingPageValues.Join,
+              OnboardingPageValues.Completed,
+            ])
+            .then();
         }
-      } else if (status === true) {
+      } else if (status) {
         console.log(`${strategy}: user is already joined`);
         clearJoinStrategy();
         strategyInterval = memberManagerConfig.tryInterval;
@@ -116,8 +124,8 @@ const memberManager = (function () {
   }
 
   function clearJoinStrategy() {
-    clearInterval(mgmtInterval);
-    mgmtInterval = 0;
+    mgmtInterval && clearInterval(mgmtInterval);
+    mgmtInterval = undefined;
   }
 
   function isJoined() {

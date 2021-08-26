@@ -1,18 +1,20 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import { Connection, DATA_TYPE } from 'jsstore';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import JsStoreWorker from 'jsstore/dist/jsstore.worker.min';
+
+import { MessageRecord } from '../types/db.type';
+import { Message } from '../types/message.type';
 
 // This will ensure that we are using only one instance.
 // Otherwise due to multiple instance multiple worker will be created.
 const databaseHelper = (function () {
   'use strict';
 
-  let dbName;
-  let connection;
+  const dbName = 'SwashDBV3';
+  let connection: Connection;
   async function init() {
     if (!connection) {
-      dbName = 'SwashDBV3';
       connection = new Connection(new Worker(JsStoreWorker));
       await initJsStore();
     }
@@ -53,11 +55,10 @@ const databaseHelper = (function () {
       },
     };
 
-    const db = {
+    return {
       name: dbName,
       tables: [tblMessage, tblStats],
     };
-    return db;
   }
 
   async function initJsStore() {
@@ -69,7 +70,7 @@ const databaseHelper = (function () {
     }
   }
 
-  function updateMessageCount(moduleName) {
+  function updateMessageCount(moduleName: string) {
     const currentTime = Number(new Date().getTime());
     return connection
       .update({
@@ -97,19 +98,19 @@ const databaseHelper = (function () {
               into: 'stats',
               values: [row],
             })
-            .then(function (rowsInserted) {})
-            .catch(function (err) {
+            .then()
+            .catch((err) => {
               console.error(err);
             });
         }
       })
-      .catch(function (err) {
+      .catch((err) => {
         console.error(err);
       });
   }
 
-  async function getMessageCount(moduleName) {
-    const rows = await connection.select({
+  const getMessageCount = async (moduleName: string) => {
+    const rows = await connection.select<{ messageCount: number }>({
       from: 'stats',
       where: {
         moduleName: moduleName,
@@ -118,10 +119,10 @@ const databaseHelper = (function () {
     return rows && rows[0] && rows[0]['messageCount']
       ? rows[0]['messageCount']
       : 0;
-  }
+  };
 
-  async function getTotalMessageCount() {
-    const rows = await connection.select({
+  const getTotalMessageCount = async (): Promise<number> => {
+    const rows = await connection.select<{ 'sum(messageCount)': number }>({
       from: 'stats',
       aggregate: {
         sum: 'messageCount',
@@ -130,10 +131,10 @@ const databaseHelper = (function () {
     return rows && rows[0] && rows[0]['sum(messageCount)']
       ? rows[0]['sum(messageCount)']
       : 0;
-  }
+  };
 
-  async function getLastSentDate() {
-    const rows = await connection.select({
+  const getLastSentDate = async (): Promise<number> => {
+    const rows = await connection.select<{ 'max(lastSent)': number }>({
       from: 'stats',
       aggregate: {
         max: 'lastSent',
@@ -142,9 +143,9 @@ const databaseHelper = (function () {
     return rows && rows[0] && rows[0]['max(lastSent)']
       ? rows[0]['max(lastSent)']
       : 0;
-  }
+  };
 
-  function insertMessage(message) {
+  function insertMessage(message: Message) {
     const currentTime = Number(new Date().getTime());
     const row = {
       createTime: currentTime,
@@ -156,21 +157,20 @@ const databaseHelper = (function () {
         into: 'messages',
         values: [row],
       })
-      .then(function (rowsInserted) {})
-      .catch(function (err) {
+      .then()
+      .catch((err) => {
         console.error(err);
       });
   }
 
   async function getAllMessages() {
-    const messages = await connection.select({
+    return await connection.select({
       from: 'messages',
     });
-    return messages;
   }
 
-  async function getReadyMessages(time) {
-    const rows = await connection.select({
+  async function getReadyMessages(time: number) {
+    return await connection.select<MessageRecord>({
       from: 'messages',
       where: {
         createTime: {
@@ -178,10 +178,9 @@ const databaseHelper = (function () {
         },
       },
     });
-    return rows;
   }
 
-  async function removeReadyMessages(time) {
+  async function removeReadyMessages(time: number) {
     return connection
       .remove({
         from: 'messages',
@@ -191,13 +190,13 @@ const databaseHelper = (function () {
           },
         },
       })
-      .then(function (rowsDeleted) {})
-      .catch(function (err) {
+      .then()
+      .catch((err) => {
         console.error(err);
       });
   }
 
-  function removeMessage(id) {
+  function removeMessage(id: number) {
     return connection
       .remove({
         from: 'messages',
@@ -205,8 +204,8 @@ const databaseHelper = (function () {
           id: id,
         },
       })
-      .then(function (rowsDeleted) {})
-      .catch(function (err) {
+      .then()
+      .catch((err) => {
         console.error(err);
       });
   }
