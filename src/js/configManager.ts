@@ -1,4 +1,8 @@
-import { Config, ManifestCategory } from '../types/config/config.type';
+import {
+  Configs,
+  ConfigsManifest,
+  ManifestCategory,
+} from '../types/configs/configs.type';
 import { Module } from '../types/module.type';
 
 import { storageHelper } from './storageHelper';
@@ -6,7 +10,7 @@ import { storageHelper } from './storageHelper';
 const configManager = (function () {
   const confPath = 'js/configs/';
   const modulePath = 'js/modules/';
-  let configs: Config = {};
+  let configs: Configs = {};
   let categories: ManifestCategory = {};
   let modules: { [key: string]: Module } = {};
   async function loadAll() {
@@ -84,6 +88,8 @@ const configManager = (function () {
     const cPath = `${confPath}${name}.json`;
     try {
       const conf = await (await fetch(cPath, { cache: 'no-store' })).json();
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       configs[name] = conf;
       console.log(`Configuration file ${name} is imported`);
     } catch (err) {
@@ -148,7 +154,7 @@ const configManager = (function () {
       if (!configs.manifest) return;
 
       const manifestPath = `${configs.manifest.remotePath}/configs/config.json`;
-      const remoteManifest = await (
+      const remoteManifest: ConfigsManifest = await (
         await fetch(manifestPath, { cache: 'no-store' })
       ).json();
       //update configuration files
@@ -197,7 +203,7 @@ const configManager = (function () {
     }
   }
 
-  async function updateConfig(file: string, version: string) {
+  async function updateConfig(file: string, version: number) {
     if (!configs.manifest) return;
     console.log(`Updating configuration file ${file}`);
     const confPath = `${configs.manifest.remotePath}configs/${file}.json`;
@@ -207,6 +213,8 @@ const configManager = (function () {
         console.log(
           `Configuration file ${file} updated from version ${configs.manifest.files[file].version} to ${version}`,
         );
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         configs[file] = conf;
         configs.manifest.files[file].version = version;
       }
@@ -274,6 +282,8 @@ const configManager = (function () {
   }
 
   function getConfig(name: string) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     return configs[name];
   }
 

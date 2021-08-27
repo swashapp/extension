@@ -1,4 +1,4 @@
-export type ApiConfig = {
+export type ApiConfigs = {
   interval: number;
   delay: number;
 };

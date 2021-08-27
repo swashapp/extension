@@ -1,24 +1,35 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { ethers } from 'ethers';
 
 import browser from 'webextension-polyfill';
+
+import { Any } from '../types/any.type';
+import { SwashApiConfigs } from '../types/configs/swash-api.type';
 
 import { communityHelper } from './communityHelper';
 import { configManager } from './configManager';
 import { storageHelper } from './storageHelper';
 
 const swashApiHelper = (function () {
-  let APIConfigManager;
+  let APIConfigManager: SwashApiConfigs;
   function init() {
     APIConfigManager = configManager.getConfig('swashAPI');
   }
 
-  async function callSwashAPIData(api, method = 'GET', body = undefined) {
+  async function callSwashAPIData(
+    api: string,
+    method = 'GET',
+    body = undefined,
+  ) {
+    const token = await communityHelper.generateJWT();
+    if (!token) return;
     const url = APIConfigManager.endpoint + api;
-    let req = {
+    let req: Any = {
       method: method,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer '.concat(await communityHelper.generateJWT()),
+        Authorization: 'Bearer '.concat(token),
       },
     };
 
@@ -49,11 +60,11 @@ const swashApiHelper = (function () {
   }
 
   async function joinSwash() {
+    const token = await communityHelper.generateJWT();
+    if (!token) return;
     browser.tabs
       .create({
-        url: 'https://swashapp.io/user/join?token='.concat(
-          await communityHelper.generateJWT(),
-        ),
+        url: 'https://swashapp.io/user/join?token='.concat(token),
       })
       .then();
   }
@@ -154,7 +165,7 @@ const swashApiHelper = (function () {
     return -1;
   }
 
-  async function updateUserId(user_id) {
+  async function updateUserId(user_id: number) {
     const profile = await storageHelper.retrieveProfile();
     if (profile.user_id == null || profile.user_id !== user_id) {
       profile.user_id = user_id;

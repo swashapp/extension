@@ -1,8 +1,8 @@
 import browser from 'webextension-polyfill';
 
 import { Any } from '../types/any.type';
-import { Config } from '../types/config/config.type';
-import { Onboarding } from '../types/config/onboarding.type';
+import { Configs } from '../types/configs/configs.type';
+import { OnboardingConfigs } from '../types/configs/onboarding.type';
 import { Filter } from '../types/filter.type';
 import { Message } from '../types/message.type';
 import { Module } from '../types/module.type';
@@ -30,7 +30,7 @@ const storageHelper = (function () {
     return retrieveData('configs');
   }
 
-  function updateConfigs(info: Config) {
+  function updateConfigs(info: Configs) {
     return updateData('configs', info);
   }
 
@@ -133,6 +133,8 @@ const storageHelper = (function () {
     settings: Any,
   ) {
     if (module.functions.includes(functionName)) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       for (const item of module[functionName].items) {
         item.is_enabled = settings[functionName][item.name];
       }
@@ -166,7 +168,7 @@ const storageHelper = (function () {
     return retrieveData('onboarding');
   }
 
-  function updateOnboarding(info: Onboarding) {
+  function updateOnboarding(info: OnboardingConfigs) {
     return updateData('onboarding', info);
   }
 

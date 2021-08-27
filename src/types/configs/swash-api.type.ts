@@ -1,4 +1,4 @@
-export type SwashApi = {
+export type SwashApiConfigs = {
   endpoint: string;
   APIs: {
     userJoin: string;

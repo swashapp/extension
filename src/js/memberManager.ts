@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill';
 
 import { OnboardingPageValues } from '../enums/onboarding.enum';
-import { MemberManagerConfig } from '../types/config/member-manager.type';
+import { MemberManagerConfigs } from '../types/configs/member-manager.type';
 
 import { configManager } from './configManager';
 import { databaseHelper } from './databaseHelper';
@@ -13,7 +13,7 @@ const memberManager = (function () {
   let joined: boolean | undefined;
   let failedCount = 0;
   let mgmtInterval: NodeJS.Timer | undefined;
-  let memberManagerConfig: MemberManagerConfig;
+  let memberManagerConfig: MemberManagerConfigs;
   let strategyInterval: number;
 
   function init() {

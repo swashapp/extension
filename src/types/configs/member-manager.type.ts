@@ -1,6 +1,6 @@
 import { Strategy } from '../../enums/strategy.enum';
 
-export type MemberManagerConfig = {
+export type MemberManagerConfigs = {
   minimumMessageNumber: number;
   sendTimeWindow: number;
   strategy: Strategy;

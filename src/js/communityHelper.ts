@@ -3,7 +3,7 @@ import { Wallet } from 'ethers';
 import { TokenSigner } from 'jsontokens';
 import { Bytes, DataUnion, StreamrClient } from 'streamr-client';
 
-import { CommunityConfig } from '../types/config/community.type';
+import { CommunityConfigs } from '../types/configs/community.type';
 
 import { configManager } from './configManager';
 
@@ -11,7 +11,7 @@ type Password = string | Bytes;
 
 const communityHelper = (function () {
   let wallet: Wallet;
-  let communityConfig: CommunityConfig;
+  let communityConfig: CommunityConfigs;
   let timestamp = 0;
   let lastUpdate = 0;
   let client: StreamrClient;
