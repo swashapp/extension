@@ -4,7 +4,7 @@ import { JSONPath } from 'jsonpath-plus';
 import browser from 'webextension-polyfill';
 
 import { Any } from '../types/any.type';
-import { StreamConfig } from '../types/config/stream.type';
+import { StreamConfigs } from '../types/configs/stream.type';
 import { Message } from '../types/message.type';
 import { Module } from '../types/module.type';
 import { Stream } from '../types/stream.type';
@@ -22,7 +22,7 @@ import { utils } from './utils';
 const dataHandler = (function () {
   'use strict';
   const streams: { [key: string]: Stream } = {};
-  let streamConfig: StreamConfig;
+  let streamConfig: StreamConfigs;
 
   function init() {
     streamConfig = configManager.getConfig('stream');

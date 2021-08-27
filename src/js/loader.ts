@@ -3,7 +3,7 @@ import browser from 'webextension-polyfill';
 import { Tabs } from 'webextension-polyfill/namespaces/tabs';
 
 import { Any } from '../types/any.type';
-import { Config } from '../types/config/config.type';
+import { Configs } from '../types/configs/configs.type';
 import { Filter } from '../types/filter.type';
 import { Module } from '../types/module.type';
 
@@ -28,7 +28,7 @@ import OnUpdatedChangeInfoType = Tabs.OnUpdatedChangeInfoType;
 
 const loader = (function () {
   'use strict';
-  let configs: Config;
+  let configs: Configs;
   let modules: { [key: string]: Module };
   let dbHelperInterval: NodeJS.Timer;
   let intervalId: NodeJS.Timer;
