@@ -2,11 +2,8 @@ import Box from '3box';
 import { sha256 } from 'ethers/lib/utils';
 import IdentityWallet from 'identity-wallet';
 import { JSONPath } from 'jsonpath-plus';
-
 import browser from 'webextension-polyfill';
-
 import { Tabs } from 'webextension-polyfill/namespaces/tabs';
-
 import { WebRequest } from 'webextension-polyfill/namespaces/webRequest';
 
 import { OnboardingPageValues } from '../enums/onboarding.enum';

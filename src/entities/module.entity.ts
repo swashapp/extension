@@ -1,6 +1,6 @@
 import { Any } from '../types/any.type';
 import { Module, Modules } from '../types/storage/module.type';
-import { dlJson } from '../utils/common.util';
+import { commonUtils } from '../utils/common.util';
 
 import { ConfigEntity } from './config.entity';
 import { Entity } from './entity';
@@ -12,7 +12,7 @@ async function fetchModule(
   name: string,
   version: number,
 ): Promise<Module> {
-  const module = await dlJson<Module>(
+  const module = await commonUtils.dlJson<Module>(
     `${base}/${category}/${name}/config.json`,
   );
   if (!module || !module.functions) throw 'Bad module configuration file';
@@ -32,7 +32,9 @@ async function fetchModuleFunction(
   module: string,
   name: string,
 ): Promise<Any> {
-  const func = await dlJson(`${base}/${category}/${module}/${name}.json`);
+  const func = await commonUtils.dlJson(
+    `${base}/${category}/${module}/${name}.json`,
+  );
   if (!func) throw `Failed to fetch function ${name} for module ${module}`;
 
   console.log(`Function ${name} for module ${category}:${module} is fetched`);
