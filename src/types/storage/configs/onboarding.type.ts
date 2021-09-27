@@ -1,4 +1,4 @@
-import { Any } from '../any.type';
+import { Any } from '../../any.type';
 import { OnboardingFlow } from '../onboarding.type';
 
 export type OnboardingConfigs = {

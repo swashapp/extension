@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill';
 
 import { OnboardingPageValues } from '../enums/onboarding.enum';
-import { MemberManagerConfigs } from '../types/configs/member-manager.type';
+import { MemberManagerConfigs } from '../types/storage/configs/member-manager.type';
 
 import { configManager } from './configManager';
 import { databaseHelper } from './databaseHelper';

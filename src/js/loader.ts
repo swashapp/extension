@@ -3,9 +3,9 @@ import browser from 'webextension-polyfill';
 import { Tabs } from 'webextension-polyfill/namespaces/tabs';
 
 import { Any } from '../types/any.type';
-import { Configs } from '../types/configs/configs.type';
-import { Filter } from '../types/filter.type';
-import { Module } from '../types/module.type';
+import { Configs } from '../types/storage/configs.type';
+import { Filter } from '../types/storage/filter.type';
+import { Module } from '../types/storage/module.type';
 
 import { communityHelper } from './communityHelper';
 import { configManager } from './configManager';

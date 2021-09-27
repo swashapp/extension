@@ -17,7 +17,7 @@ import {
   Onboarding,
   OnboardingFlow,
   OnboardingPage,
-} from '../types/onboarding.type';
+} from '../types/storage/onboarding.type';
 
 import { browserUtils } from './browserUtils';
 import { communityHelper } from './communityHelper';

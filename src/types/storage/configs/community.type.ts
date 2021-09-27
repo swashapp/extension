@@ -1,5 +1,5 @@
 export type CommunityConfigs = {
-  tokenAddress: string;
+  datacoinAddress: string;
   communityAddress: string;
   tokenExpiration: number;
 };

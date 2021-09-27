@@ -3,7 +3,7 @@ import browser from 'webextension-polyfill';
 import { Tabs } from 'webextension-polyfill/namespaces/tabs';
 
 import { FilterType } from '../enums/filter.enum';
-import { Filter } from '../types/filter.type';
+import { Filter } from '../types/storage/filter.type';
 
 import { browserUtils } from './browserUtils';
 import { filterUtils } from './filterUtils';

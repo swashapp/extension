@@ -1,12 +1,12 @@
 import browser from 'webextension-polyfill';
 
 import { Any } from '../types/any.type';
-import { Configs } from '../types/configs/configs.type';
-import { OnboardingConfigs } from '../types/configs/onboarding.type';
-import { Filter } from '../types/filter.type';
 import { Message } from '../types/message.type';
-import { Module } from '../types/module.type';
-import { Profile } from '../types/profile.type';
+import { Configs } from '../types/storage/configs.type';
+import { OnboardingConfigs } from '../types/storage/configs/onboarding.type';
+import { Filter } from '../types/storage/filter.type';
+import { Module } from '../types/storage/module.type';
+import { Profile } from '../types/storage/profile.type';
 
 import { utils } from './utils';
 

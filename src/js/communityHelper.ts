@@ -3,7 +3,7 @@ import { Wallet } from 'ethers';
 import { TokenSigner } from 'jsontokens';
 import { Bytes, DataUnion, StreamrClient } from 'streamr-client';
 
-import { CommunityConfigs } from '../types/configs/community.type';
+import { CommunityConfigs } from '../types/storage/configs/community.type';
 
 import { configManager } from './configManager';
 

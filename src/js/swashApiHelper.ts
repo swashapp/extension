@@ -5,7 +5,7 @@ import { ethers } from 'ethers';
 import browser from 'webextension-polyfill';
 
 import { Any } from '../types/any.type';
-import { SwashApiConfigs } from '../types/configs/swash-api.type';
+import { SwashApiConfigs } from '../types/storage/configs/swash-api.type';
 
 import { communityHelper } from './communityHelper';
 import { configManager } from './configManager';

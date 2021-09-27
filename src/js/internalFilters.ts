@@ -1,5 +1,5 @@
 import { FilterType } from '../enums/filter.enum';
-import { Filter } from '../types/filter.type';
+import { Filter } from '../types/storage/filter.type';
 
 const internalFilters = [
   {
