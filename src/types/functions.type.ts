@@ -1,4 +1,4 @@
-import { Module } from './module.type';
+import { Module } from './storage/module.type';
 
 export type Functions = {
   initModule: (module: Module) => void;

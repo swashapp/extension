@@ -43,7 +43,7 @@ const loader = (function () {
   }
 
   async function createDBIfNotExist() {
-    let db = await storageHelper.retrieveAll();
+    let db = await storageHelper.getAll();
     if (!(await isDBCreated(db))) {
       console.log('Creating new DB');
       db = {
@@ -58,14 +58,14 @@ const loader = (function () {
       db.configs.salt = utils.uuid();
       db.configs.delay = 2;
       utils.jsonUpdate(db.configs, ssConfig);
-      return storageHelper.storeAll(db);
+      return storageHelper.saveAll(db);
     }
   }
 
   async function install() {
     try {
       await createDBIfNotExist();
-      const db = await storageHelper.retrieveAll();
+      const db = await storageHelper.getAll();
 
       //backup old database
       delete db._backup;
@@ -85,7 +85,7 @@ const loader = (function () {
       db.configs.version = ssConfig.version;
 
       //keeping defined filters and updating internal filters
-      console.log(`Updating exculde urls`);
+      console.log(`Updating exclude urls`);
       const userFilters = db.filters.filter((filter: Filter) => {
         return !filter.internal;
       });
@@ -100,7 +100,7 @@ const loader = (function () {
 
       //updating configurations
       utils.jsonUpdate(db.configs, configs);
-      return storageHelper.storeAll(db);
+      return storageHelper.saveAll(db);
     } catch (exp) {
       console.error(exp);
     }
@@ -178,16 +178,14 @@ const loader = (function () {
   }
 
   function start() {
-    const config = { is_enabled: true };
-    storageHelper.updateConfigs(config).then(() => {
+    storageHelper.updateConfigs('is_enabled', true).then(() => {
       init(true);
       loadFunctions();
     });
   }
 
   function stop() {
-    const config = { is_enabled: false };
-    storageHelper.updateConfigs(config).then(() => {
+    storageHelper.updateConfigs('is_enabled', false).then(() => {
       init(false);
       unloadFunctions();
     });
@@ -199,7 +197,7 @@ const loader = (function () {
   }
 
   async function load() {
-    storageHelper.retrieveAll().then(async (db) => {
+    storageHelper.getAll().then(async (db) => {
       dbHelperInterval = setInterval(async function () {
         await databaseHelper.init();
         await dataHandler.sendDelayedMessages();
@@ -219,7 +217,7 @@ const loader = (function () {
   }
 
   async function reload() {
-    storageHelper.retrieveAll().then(async (db) => {
+    storageHelper.getAll().then(async (db) => {
       clearInterval(dbHelperInterval);
       dbHelperInterval = setInterval(async function () {
         await databaseHelper.init();
@@ -240,7 +238,7 @@ const loader = (function () {
 
   function configModule(moduleName: string, settings: Any) {
     return storageHelper.saveModuleSettings(moduleName, settings).then((x) => {
-      storageHelper.retrieveAll().then((db) => {
+      storageHelper.getAll().then((db) => {
         const module = db.modules[moduleName];
         functionsUnLoadModule(module);
         if (db.configs.is_enabled) functionsLoadModule(module);
@@ -273,11 +271,11 @@ const loader = (function () {
   async function onUpdatedAll() {
     console.log('Storing updated configs');
     onConfigsUpdated();
-    await storageHelper.updateData('configs', configs);
+    await storageHelper.saveConfigs(configs);
 
     console.log('Storing updated modules');
     const dbModules = await onModulesUpdated();
-    await storageHelper.storeData('modules', dbModules);
+    await storageHelper.saveModules(dbModules);
   }
 
   async function updateSchedule() {

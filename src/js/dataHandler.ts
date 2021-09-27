@@ -35,7 +35,7 @@ const dataHandler = (function () {
   }
 
   async function sendDelayedMessages() {
-    const confs = await storageHelper.retrieveConfigs();
+    const confs = await storageHelper.getConfigs();
     const time = Number(new Date().getTime()) - confs.delay * 60000;
     const rows = await databaseHelper.getReadyMessages(time);
     for (const row of rows) {
@@ -113,7 +113,7 @@ const dataHandler = (function () {
   async function handle(message: Message, tabId: number) {
     message.header.id = utils.uuid();
     if (!message.origin) message.origin = 'undetermined';
-    const db = await storageHelper.retrieveAll();
+    const db = await storageHelper.getAll();
     //Return if Swash is disabled or the origin is excluded or module/collector is disabled
     const filters = db.filters;
     const modules = db.modules;

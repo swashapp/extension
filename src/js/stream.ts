@@ -8,7 +8,7 @@ import { databaseHelper } from './databaseHelper';
 
 const stream = function (streamId: string): Stream {
   const client = communityHelper.getStreamrClient();
-  // Wrap event generation and producion into this method
+  // Wrap event generation and production into this method
   function produceNewEvent(msg: Message) {
     // Produce the event to the Stream
 

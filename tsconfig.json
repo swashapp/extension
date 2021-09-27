@@ -10,7 +10,8 @@
     "baseUrl": "./src",
     "typeRoots": ["node_modules/@types"],
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "resolveJsonModule": true
   },
   "include": ["src/**/*"]
 }

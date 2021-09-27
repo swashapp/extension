@@ -13,6 +13,7 @@ const configManager = (function () {
   let configs: Configs = {};
   let categories: ManifestCategory = {};
   let modules: { [key: string]: Module } = {};
+
   async function loadAll() {
     console.log('Try loading configuration files and modules...');
     //First check memory configs
@@ -20,13 +21,17 @@ const configManager = (function () {
       return;
 
     //Next check storage configs
-    const sConfigs = await storageHelper.retrieveConfigs();
-    if (sConfigs && sConfigs.manifest && sConfigs.manifest.length > 0)
+    const sConfigs = await storageHelper.getConfigs();
+    if (
+      sConfigs &&
+      sConfigs.manifest &&
+      Object.keys(sConfigs.manifest).length > 0
+    )
       configs = sConfigs;
     else await importConfs();
 
     //Next check storage modules
-    const sModules = await storageHelper.retrieveModules();
+    const sModules = await storageHelper.getModules();
     if (sModules && Object.keys(sModules).length > 0) modules = sModules;
     else await importModules();
   }
@@ -136,11 +141,11 @@ const configManager = (function () {
   }
 
   async function storeConfigs() {
-    storageHelper.storeData('configs', configs).then();
+    storageHelper.saveConfigs(configs).then();
   }
 
   async function storeModules() {
-    storageHelper.storeData('modules', modules).then();
+    storageHelper.saveModules(modules).then();
   }
 
   async function updateAll() {

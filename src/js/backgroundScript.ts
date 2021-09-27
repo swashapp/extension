@@ -139,7 +139,7 @@ configManager.loadAll().then(async () => {
 	After a successful load of add-on,
 	the main loop will start.
 	*/
-  storageHelper.retrieveConfigs().then((confs) => {
+  storageHelper.getConfigs().then((confs) => {
     if (confs) {
       loader.onInstalled();
     }
