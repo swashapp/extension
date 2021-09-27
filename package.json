@@ -7,18 +7,18 @@
   },
   "staticFiles": {
     "staticPath": [
-      "src/js/configs",
-      "src/js/modules"
+      "src/core/configs",
+      "src/core/modules"
     ]
   },
   "scripts": {
-    "build:dev": "run-s clean && parcel build src/manifest.json src/dashboard/index.html src/popup/popup.html --target dev && run-s copy",
-    "build:prod": "run-s clean:deep && parcel build src/manifest.json src/dashboard/index.html src/popup/popup.html --target prod && run-s copy",
-    "bundle": "parcel src/manifest.json src/dashboard/index.html src/popup/popup.html --target dev",
+    "build:dev": "run-s clean && parcel build src/manifest.json src/entries/index.html src/entries/popup.html --target dev && run-s copy",
+    "build:prod": "run-s clean:deep && parcel build src/manifest.json src/entries/index.html src/entries/popup.html --target prod && run-s copy",
+    "bundle": "parcel src/manifest.json src/entries/index.html src/entries/popup.html --target dev",
     "clean": "shx rm -rf dist",
     "clean:deep": "shx rm -rf dist .parcel-cache",
     "precopy": "shx mkdir -p dist dist/js",
-    "copy": "shx cp -r src/js/configs src/js/modules dist/js/",
+    "copy": "shx cp -r src/core/configs src/core/modules dist/js/",
     "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,json} *.{js,jsx,ts,tsx}",
     "lint:code": "eslint src/**/*.ts --fix",
     "lint:extension": "web-ext lint dist",
