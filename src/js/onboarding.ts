@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import Box from '3box';
 import { sha256 } from 'ethers/lib/utils';
 import IdentityWallet from 'identity-wallet';
@@ -63,7 +61,7 @@ const onboarding = (function () {
   }
 
   async function isNeededOnBoarding() {
-    const data: Onboarding = await storageHelper.retrieveOnboarding();
+    const data: Onboarding = await storageHelper.getOnboarding();
     if (data == null || data.flow == null || !data.completed) return true;
     else if (data.flow.version < onboardingFlow.version) return true;
     return false;
@@ -77,9 +75,9 @@ const onboarding = (function () {
     pages: OnboardingPageValues[],
     clicked = false,
   ) {
-    const data: Onboarding = await storageHelper.retrieveOnboarding();
+    const data: Onboarding = await storageHelper.getOnboarding();
     if (data && data.completed != null) {
-      for (const page in data.flow.pages) {
+      for (const page in data.flow?.pages) {
         if (pages.includes(page)) onboardingFlow.pages[page]['visible'] = 'all';
         else onboardingFlow.pages[page]['visible'] = 'none';
       }
@@ -123,7 +121,7 @@ const onboarding = (function () {
   }
 
   async function getOnboardingFlow() {
-    const data = await storageHelper.retrieveAll();
+    const data = await storageHelper.getAll();
     const result = { ...onboardingFlow };
     for (const page in result.pages) {
       if (!shouldShowThisPage(result.pages[page], data)) {
@@ -136,16 +134,14 @@ const onboarding = (function () {
   async function submitOnBoarding() {
     isOnboardingOpened = false;
     await loader.install();
-    const db = await storageHelper.retrieveAll();
+    const db = await storageHelper.getAll();
 
     if (!isValidDB(db)) return false;
 
-    if (!db.onboarding) db.onboarding = {};
-
-    db.onboarding.flow = onboardingFlow;
-    db.onboarding.completed = true;
-
-    await storageHelper.storeAll(db);
+    await storageHelper.saveOnboarding({
+      flow: onboardingFlow,
+      completed: true,
+    });
     await loader.onInstalled();
     swashApiHelper.getUserCountry().then((location) => {
       console.log(`User is joined from ${location.country}`);
@@ -156,7 +152,7 @@ const onboarding = (function () {
   async function startOnBoarding(onboardingName: string, tabId: number) {
     parentId = tabId;
     obName = onboardingName;
-    const data = await storageHelper.retrieveOnboarding();
+    const data = await storageHelper.getOnboarding();
 
     if (!browser.tabs.onRemoved.hasListener(handleRemoved)) {
       browser.tabs.onRemoved.addListener(handleRemoved);
@@ -244,11 +240,11 @@ const onboarding = (function () {
     const data: Any = {};
     data[onboarding.name] = {};
     data[onboarding.name].access_token = token;
-    storageHelper.updateOnboarding(data).then();
+    storageHelper.saveOnboarding(data).then();
   }
 
   async function getOnBoardingAccessToken(onboardingName: string) {
-    const confs = await storageHelper.retrieveOnboarding();
+    const confs = await storageHelper.getOnboarding();
     for (const confIndex in confs) {
       const conf = confs[confIndex];
       if (confIndex === onboardingName) {
@@ -265,7 +261,7 @@ const onboarding = (function () {
   }
 
   async function validateOnBoardingToken(onboardingName: string) {
-    const data = await storageHelper.retrieveOnboarding();
+    const data = await storageHelper.getOnboarding();
     const conf = data[onboardingName];
 
     for (const onboardingIndex in onboardingTools) {
@@ -330,15 +326,18 @@ const onboarding = (function () {
     const oldDB = JSON.parse(config);
 
     if (isValidDB(oldDB)) {
-      const db = await storageHelper.retrieveAll();
-      db.configs.salt = oldDB.configs.salt;
-      db.profile.encryptedWallet = oldDB.profile.encryptedWallet;
-      await storageHelper.storeAll(db);
+      const configs = await storageHelper.getConfigs();
+      const profile = await storageHelper.getProfile();
 
-      await communityHelper.loadWallet(
-        db.profile.encryptedWallet,
-        db.configs.salt,
-      );
+      const salt = oldDB.configs.salt;
+      configs.salt = salt;
+      const encryptedWallet = oldDB.profile.encryptedWallet;
+      profile.encryptedWallet = encryptedWallet;
+
+      await storageHelper.saveConfigs(configs);
+      await storageHelper.saveProfile(profile);
+
+      await communityHelper.loadWallet(encryptedWallet, salt);
       return true;
     }
     return false;
@@ -349,7 +348,7 @@ const onboarding = (function () {
   }
 
   async function saveConfig() {
-    const db = await storageHelper.retrieveAll();
+    const db = await storageHelper.getAll();
     const data = createConfigFile(JSON.stringify(db));
     const url = window.URL.createObjectURL(data);
     const currentDate = new Date().toISOString().slice(0, 10);
@@ -363,7 +362,7 @@ const onboarding = (function () {
   }
 
   async function getFilesList(onboardingName: string) {
-    const data = await storageHelper.retrieveOnboarding();
+    const data = await storageHelper.getOnboarding();
     const conf = data[onboardingName];
 
     for (const onboardingIndex in onboardingTools) {
@@ -380,7 +379,7 @@ const onboarding = (function () {
   }
 
   async function downloadFile(onboardingName: string, fileId: string) {
-    const data = await storageHelper.retrieveOnboarding();
+    const data = await storageHelper.getOnboarding();
     const conf = data[onboardingName];
 
     for (const onboardingIndex in onboardingTools) {
@@ -409,13 +408,13 @@ const onboarding = (function () {
   }
 
   async function uploadFile(onboardingName: string) {
-    const data = await storageHelper.retrieveOnboarding();
+    const data = await storageHelper.getOnboarding();
     const conf = data[onboardingName];
 
     for (const onboardingIndex in onboardingTools) {
       const onboarding = onboardingTools[onboardingIndex];
       if (onboardingName === onboarding.name) {
-        const db = await storageHelper.retrieveAll();
+        const db = await storageHelper.getAll();
         const uploadFileApi = onboarding.apiCall.uploadFile;
 
         const currentDate = new Date().toISOString().slice(0, 19);
@@ -515,7 +514,7 @@ const onboarding = (function () {
   async function writeTo3BoxSpace(seed: string) {
     const space = await get3BoxSpace(seed);
 
-    const db = await storageHelper.retrieveAll();
+    const db = await storageHelper.getAll();
     delete db.onboarding['3Box'];
     const data = JSON.stringify(db);
     const currentDate = new Date().toISOString().slice(0, 19);
@@ -534,11 +533,11 @@ const onboarding = (function () {
     const data: Any = {};
     data['3Box'] = {};
     data['3Box'].mnemonic = mnemonic;
-    storageHelper.updateOnboarding(data).then();
+    storageHelper.saveOnboarding(data).then();
   }
 
   async function get3BoxMnemonic() {
-    const data = await storageHelper.retrieveOnboarding();
+    const data = await storageHelper.getOnboarding();
     const conf = data['3Box'];
 
     if (conf && conf.mnemonic) return conf.mnemonic;
@@ -554,12 +553,12 @@ const onboarding = (function () {
   }
 
   async function saveProfileInfo(gender: string, age: string, income: string) {
-    const data = await storageHelper.retrieveProfile();
+    const data = await storageHelper.getProfile();
     try {
       data.gender = gender;
       data.age = age;
       data.income = income;
-      await storageHelper.updateProfile(data);
+      await storageHelper.saveProfile(data);
     } catch (err) {
       console.error(
         `Could not to save user profile: ${gender} ${age} ${income}`,
@@ -569,12 +568,14 @@ const onboarding = (function () {
   }
 
   async function createAndSaveWallet() {
-    const db = await storageHelper.retrieveAll();
+    const configs = await storageHelper.getConfigs();
+    const profile = await storageHelper.getProfile();
     await communityHelper.createWallet();
-    db.profile.encryptedWallet = await communityHelper.getEncryptedWallet(
-      db.configs.salt,
-    );
-    return storageHelper.storeAll(db);
+    if (configs.salt) {
+      const wallet = await communityHelper.getEncryptedWallet(configs.salt);
+      if (typeof wallet === 'string') profile.encryptedWallet = wallet;
+    }
+    return storageHelper.saveProfile(profile);
   }
 
   return {

@@ -154,7 +154,7 @@
     },
     "Travel": {
       "icon": "",
-      "module": {}
+      "modules": {}
     }
   }
 }

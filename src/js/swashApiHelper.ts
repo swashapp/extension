@@ -1,7 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import { ethers } from 'ethers';
-
 import browser from 'webextension-polyfill';
 
 import { Any } from '../types/any.type';
@@ -20,7 +17,7 @@ const swashApiHelper = (function () {
   async function callSwashAPIData(
     api: string,
     method = 'GET',
-    body = undefined,
+    body: Any = undefined,
   ) {
     const token = await communityHelper.generateJWT();
     if (!token) return;
@@ -81,7 +78,7 @@ const swashApiHelper = (function () {
 
   async function getWithdrawBalance() {
     const data = await callSwashAPIData(APIConfigManager.APIs.balanceWithdraw);
-    const result = {};
+    const result = { minimum: 1000000, gas: 10000 };
 
     if (data.sponsor && data.sponsor.minimum) {
       result.minimum = Number(ethers.utils.formatEther(data.sponsor.minimum));
@@ -93,13 +90,13 @@ const swashApiHelper = (function () {
   }
 
   async function withdrawToTarget(
-    recipient,
-    amount,
-    useSponsor,
-    sendToMainnet,
+    recipient: string,
+    amount: string,
+    useSponsor: boolean,
+    sendToMainnet: boolean,
   ) {
     const signature = await communityHelper.signWithdrawAllTo(recipient);
-    if (!signature.error) {
+    if (typeof signature === 'string') {
       const amountInWei = ethers.utils.parseEther(amount);
       const body = {
         recipient: recipient,
@@ -115,8 +112,7 @@ const swashApiHelper = (function () {
       );
       if (data.tx) return data;
       else if (data.message) {
-        const tx = await communityHelper.transportMessage(message);
-        return { tx: tx.transactionHash };
+        return communityHelper.transportMessage(data.message);
       }
       return data;
     }
@@ -139,7 +135,7 @@ const swashApiHelper = (function () {
     if (data.country) {
       return { country: data.country, city: data.city };
     }
-    return undefined;
+    throw 'Failed to fetch user country';
   }
 
   async function getDataEthPairPrice() {
@@ -160,21 +156,21 @@ const swashApiHelper = (function () {
   }
 
   async function getUserId() {
-    const profile = await storageHelper.retrieveProfile();
+    const profile = await storageHelper.getProfile();
     if (profile.user_id) return profile.user_id;
     return -1;
   }
 
   async function updateUserId(user_id: number) {
-    const profile = await storageHelper.retrieveProfile();
+    const profile = await storageHelper.getProfile();
     if (profile.user_id == null || profile.user_id !== user_id) {
       profile.user_id = user_id;
-      await storageHelper.updateProfile(profile);
+      await storageHelper.saveProfile(profile);
     }
   }
 
   async function getUserCountry() {
-    const profile = await storageHelper.retrieveProfile();
+    const profile = await storageHelper.getProfile();
     if (profile.country) {
       return { country: profile.country, city: profile.city };
     }
@@ -184,7 +180,7 @@ const swashApiHelper = (function () {
       if (country !== '') {
         profile.country = country;
         profile.city = city;
-        await storageHelper.updateProfile(profile);
+        await storageHelper.saveProfile(profile);
         return country;
       }
     } catch (err) {

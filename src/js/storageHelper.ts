@@ -1,154 +1,82 @@
 import browser from 'webextension-polyfill';
 
+import { ConfigEntity } from '../entities/config.entity';
+import { ModuleEntity } from '../entities/module.entity';
+import { OnboardingEntity } from '../entities/onboarding.entity';
+import { ProfileEntity } from '../entities/profile.entity';
 import { Any } from '../types/any.type';
-import { Message } from '../types/message.type';
 import { Configs } from '../types/storage/configs.type';
-import { OnboardingConfigs } from '../types/storage/configs/onboarding.type';
-import { Filter } from '../types/storage/filter.type';
-import { Module } from '../types/storage/module.type';
+import { Module, ModuleFunction, Modules } from '../types/storage/module.type';
+import { Onboarding } from '../types/storage/onboarding.type';
 import { Profile } from '../types/storage/profile.type';
 
-import { utils } from './utils';
-
 const storageHelper = (function () {
-  const messages: { [key: string]: Message } = {};
-  const functionList = ['content', 'browsing', 'apiCall', 'context', 'task'];
+  const functionList: ModuleFunction[] = [
+    'content',
+    'browsing',
+    'apiCall',
+    'context',
+    'task',
+  ];
 
-  function retrieveProfile() {
-    return retrieveData('profile');
-  }
-
-  function updateProfile(info: Profile) {
-    return updateData('profile', info);
-  }
-
-  function retrieveFilters() {
-    return retrieveData('filters');
-  }
-
-  function retrieveConfigs() {
-    return retrieveData('configs');
-  }
-
-  function updateConfigs(info: Configs) {
-    return updateData('configs', info);
-  }
-
-  function storeFilters(filters: Filter[]) {
-    return updateData('filters', filters);
-  }
-
-  function retrieveModules() {
-    return retrieveData('modules');
-  }
-
-  function updateModules(info: { [key: string]: Module }) {
-    return updateData('modules', info);
-  }
-
-  async function removeModule(moduleName: string) {
-    const info = await retrieveData('modules');
-    delete info[moduleName];
-    browser.storage.local.set({ modules: info }).then();
-  }
-
-  function saveMessage(msg: Message, id: number) {
-    messages[id] = msg;
-  }
-
-  function removeMessage(id: number) {
-    /*
-        var info = await retrieveData("messages");
-        delete info[id];
-        browser.storage.local.set({messages:info});*/
-    delete messages[id];
-  }
-
-  function retrieveMessages() {
-    return messages;
-  }
-
-  async function storeAll(db: Any) {
-    await browser.storage.local.set(db);
-  }
-
-  function retrieveAll() {
+  async function getAll() {
     return browser.storage.local.get();
   }
 
-  async function updateData(key: string, info: Any) {
-    const data = await retrieveData(key);
-    utils.jsonUpdate(data, info);
-    const x: { [key: string]: Any } = {};
-    x[key] = data;
-    return browser.storage.local.set(x);
+  async function saveAll(db: Any) {
+    return browser.storage.local.set(db);
   }
 
-  async function storeData(key: string, info: Any) {
-    const x: { [key: string]: Any } = {};
-    x[key] = info;
-    return browser.storage.local.set(x);
+  async function getConfigs() {
+    return (await ConfigEntity.getInstance()).get();
   }
 
-  async function retrieveData(key: string) {
-    const x = await browser.storage.local.get(key);
-    return x[key];
+  async function saveConfigs(conf: Configs) {
+    return (await ConfigEntity.getInstance()).save(conf);
   }
 
-  async function createTask(info: Any) {
-    const tasks = await retrieveData('tasks');
-    if (!tasks[info.moduleName]) tasks[info.moduleName] = {};
-    tasks[info.moduleName][info.name] = {
-      startTime: info.startTime,
-      taskId: info.taskId,
-      endTime: -1,
-      success: 'unknown',
-    };
-    const x: { [key: string]: Any } = {};
-    x['tasks'] = tasks;
-    browser.storage.local.set(x).then();
+  async function updateConfigs(key: string, value: Any) {
+    return (await ConfigEntity.getInstance()).update(key, value);
   }
 
-  async function endTask(info: Any) {
-    const tasks = await retrieveData('tasks');
-    if (!info || !tasks[info.moduleName] || !tasks[info.moduleName][info.name])
-      return;
-    const res = Object.assign({}, tasks[info.moduleName][info.name]);
-    delete tasks[info.moduleName][info.name];
-
-    const x: { [key: string]: Any } = {};
-    x['tasks'] = tasks;
-    browser.storage.local.set(x).then();
-    return res;
+  async function getModules() {
+    return (await ModuleEntity.getInstance()).get();
   }
 
-  async function loadAllModuleTaskIds(moduleName: string) {
-    const tasks = await retrieveData('tasks');
-    return tasks[moduleName];
+  async function saveModules(modules: Modules) {
+    return (await ModuleEntity.getInstance()).save(modules);
+  }
+
+  async function getOnboarding() {
+    return (await OnboardingEntity.getInstance()).get();
+  }
+
+  async function saveOnboarding(onboarding: Onboarding) {
+    return (await OnboardingEntity.getInstance()).save(onboarding);
+  }
+
+  async function getProfile() {
+    return (await ProfileEntity.getInstance()).get();
+  }
+
+  async function saveProfile(profile: Profile) {
+    return (await ProfileEntity.getInstance()).save(profile);
   }
 
   function updateFunctionSettings(
     module: Module,
-    functionName: string,
+    functionName: ModuleFunction,
     settings: Any,
   ) {
     if (module.functions.includes(functionName)) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       for (const item of module[functionName].items) {
         item.is_enabled = settings[functionName][item.name];
       }
     }
   }
 
-  function updatePrivacyLevel(privacyLevel: Any) {
-    const key = 'configs';
-    const info = { privacyLevel: privacyLevel };
-    return updateData(key, info);
-  }
-
   async function saveModuleSettings(moduleName: string, settings: Any) {
-    const modules = await retrieveData('modules');
+    const modules = await getModules();
     const ret = modules[moduleName];
     if (typeof settings.is_enabled != 'undefined')
       ret.is_enabled = settings.is_enabled;
@@ -156,55 +84,22 @@ const storageHelper = (function () {
       if (typeof settings[f] != 'undefined')
         updateFunctionSettings(ret, f, settings);
     }
-    return browser.storage.local.set({ modules: modules });
-  }
-
-  async function getVersion() {
-    const configs = await retrieveData('configs');
-    return configs.version;
-  }
-
-  function retrieveOnboarding() {
-    return retrieveData('onboarding');
-  }
-
-  function updateOnboarding(info: OnboardingConfigs) {
-    return updateData('onboarding', info);
-  }
-
-  async function removeOnboarding(onboardingName: string) {
-    const info = await retrieveData('onboarding');
-    delete info[onboardingName];
-    browser.storage.local.set({ onboarding: info }).then();
+    return saveModules(modules);
   }
 
   return {
-    retrieveProfile,
-    updateProfile,
-    retrieveConfigs,
+    getAll,
+    saveAll,
+    getConfigs,
+    saveConfigs,
     updateConfigs,
-    retrieveModules,
-    updateModules,
-    updatePrivacyLevel,
-    retrieveFilters,
-    retrieveAll,
-    storeAll,
+    getModules,
+    saveModules,
+    getOnboarding,
+    saveOnboarding,
+    getProfile,
+    saveProfile,
     saveModuleSettings,
-    retrieveData,
-    updateData,
-    storeData,
-    storeFilters,
-    saveMessage,
-    removeMessage,
-    retrieveMessages,
-    removeModule,
-    createTask,
-    endTask,
-    loadAllModuleTaskIds,
-    getVersion,
-    retrieveOnboarding,
-    updateOnboarding,
-    removeOnboarding,
   };
 })();
 export { storageHelper };
