@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill';
 
-import { utils } from '../js/utils';
 import { Any } from '../types/any.type';
+import { commonUtils } from '../utils/common.util';
 
 export abstract class Entity<Type> {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -44,7 +44,7 @@ export abstract class Entity<Type> {
 
   public async update(key: string, newValue: Any): Promise<void> {
     const value = await this.get();
-    utils.jsonUpdate(value, newValue);
+    commonUtils.jsonUpdate(value, newValue);
     await this.save(value);
   }
 }

@@ -6,14 +6,14 @@
   },
 
   "background": {
-    "scripts": ["js/backgroundScript.ts"]
+    "scripts": ["background.ts"]
   },
 
   "browser_action": {
     "browser_style": false,
     "default_icon": {
-      "19": "icons/green_mark_19.png",
-      "38": "icons/green_mark_38.png"
+      "19": "static/images/icons/green_mark_19.png",
+      "38": "static/images/icons/green_mark_38.png"
     },
     "default_title": "Swash"
   },
@@ -21,9 +21,9 @@
   "description": "Get paid for your data as you browse the web. Gain control and help create a better, more dignified internet.",
 
   "icons": {
-    "48": "icons/green_mark_48.png",
-    "96": "icons/green_mark_96.png",
-    "128": "icons/green_mark_128.png"
+    "48": "static/images/icons/green_mark_48.png",
+    "96": "static/images/icons/green_mark_96.png",
+    "128": "static/images/icons/green_mark_128.png"
   },
 
   "manifest_version": 2,

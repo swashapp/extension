@@ -1,12 +1,12 @@
 import browser from 'webextension-polyfill';
 
-import apiCallJson from '../js/configs/apiCall.json';
-import communityJson from '../js/configs/community.json';
-import configJson from '../js/configs/config.json';
-import memberManagerJson from '../js/configs/memberManager.json';
-import onboardingJson from '../js/configs/onboarding.json';
-import streamJson from '../js/configs/stream.json';
-import swashAPIJson from '../js/configs/swashAPI.json';
+import apiCallJson from '../core/configs/apiCall.json';
+import communityJson from '../core/configs/community.json';
+import configJson from '../core/configs/config.json';
+import memberManagerJson from '../core/configs/memberManager.json';
+import onboardingJson from '../core/configs/onboarding.json';
+import streamJson from '../core/configs/stream.json';
+import swashAPIJson from '../core/configs/swashAPI.json';
 import { Configs } from '../types/storage/configs.type';
 import { ApiConfigs } from '../types/storage/configs/api.type';
 import { CommunityConfigs } from '../types/storage/configs/community.type';
