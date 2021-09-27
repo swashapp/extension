@@ -4,9 +4,9 @@ import { JSONPath } from 'jsonpath-plus';
 import browser from 'webextension-polyfill';
 
 import { Any } from '../types/any.type';
-import { StreamConfigs } from '../types/configs/stream.type';
 import { Message } from '../types/message.type';
-import { Module } from '../types/module.type';
+import { StreamConfigs } from '../types/storage/configs/stream.type';
+import { Module } from '../types/storage/module.type';
 import { Stream } from '../types/stream.type';
 
 import { browserUtils } from './browserUtils';

@@ -2,8 +2,8 @@ import {
   Configs,
   ConfigsManifest,
   ManifestCategory,
-} from '../types/configs/configs.type';
-import { Module } from '../types/module.type';
+} from '../types/storage/configs.type';
+import { Module } from '../types/storage/module.type';
 
 import { storageHelper } from './storageHelper';
 

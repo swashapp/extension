@@ -3,7 +3,7 @@ import { sha256 } from 'ethers/lib/utils';
 import { ObjectType } from '../enums/object.enum';
 import { Any } from '../types/any.type';
 import { Message } from '../types/message.type';
-import { Module } from '../types/module.type';
+import { Module } from '../types/storage/module.type';
 
 import { utils } from './utils';
 

@@ -1,4 +1,4 @@
-import { FilterType } from '../enums/filter.enum';
+import { FilterType } from '../../enums/filter.enum';
 
 export type Filter = {
   type: FilterType;
