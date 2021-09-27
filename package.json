@@ -44,6 +44,7 @@
     "react-keyed-file-browser": "^1.13.1",
     "react-router-dom": "^5.2.0",
     "react-share": "^4.4.0",
+    "react-swipeable-views": "^0.14.0",
     "react-widgets": "^5.2.0",
     "reactstrap": "^8.9.0",
     "remove": "^0.1.5",
