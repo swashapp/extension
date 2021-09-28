@@ -221,3 +221,7 @@ a:hover {
   justify-content: space-between;
   align-content: space-between;
 }
+
+.select {
+  width: 244px;
+}
