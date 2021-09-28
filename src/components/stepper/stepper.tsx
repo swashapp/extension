@@ -16,8 +16,6 @@ import SwashLogo from 'url:../../static/images/logos/swash.svg';
 
 import FlexGrid from '../flex-grid/flex-grid';
 
-import styles from './stepper.module.css';
-
 const padWithZero = (num: number) => String(num).padStart(2, '0');
 
 export default forwardRef(function Stepper(
@@ -59,15 +57,17 @@ export default forwardRef(function Stepper(
   }));
 
   return (
-    <div className={styles.container}>
-      <FlexGrid className={styles.stepperWithLogo} column={2}>
-        <div className={styles.logo}>
+    <div className={'stepper-container'}>
+      <FlexGrid className={'stepper-with-logo'} column={2}>
+        <div className={'stepper-logo'}>
           <img src={SwashLogo} alt={'Swash'} />
         </div>
-        <div className={styles.stepper}>
-          <div className={styles.stepNumber}>{padWithZero(activeStep + 1)}</div>
+        <div className={'stepper'}>
+          <div className={'stepper-step-number'}>
+            {padWithZero(activeStep + 1)}
+          </div>
           <MobileStepper
-            className={styles.mobileStepper}
+            className={'stepper-mobile'}
             variant="progress"
             steps={steps}
             position="static"
@@ -75,14 +75,14 @@ export default forwardRef(function Stepper(
             nextButton={null}
             backButton={null}
             LinearProgressProps={{
-              className: styles.linearProgress,
+              className: 'stepper-linear-progress',
             }}
           />
-          <div className={styles.stepNumber}>{padWithZero(steps)}</div>
+          <div className={'stepper-step-number'}>{padWithZero(steps)}</div>
         </div>
       </FlexGrid>
       <div
-        className={styles.swiperContainer}
+        className={'stepper-swiper-container'}
         style={{ display: props?.display || 'block' }}
       >
         <SwipeableViews
