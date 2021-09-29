@@ -15,17 +15,17 @@ const useStyles = makeStyles({
     height: 20,
     border: '1px solid #E9EDEF',
     boxSizing: 'border-box',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'var(--white)',
     '$root.Mui-focusVisible &': {
       outline: '2px auto black',
       outlineOffset: 2,
     },
     'input:hover ~ &': {
-      backgroundColor: '#c5ffd9',
+      backgroundColor: 'var(--lightest-green)',
     },
   },
   checkedIcon: {
-    backgroundColor: '#3CE35F',
+    backgroundColor: 'var(--green)',
     width: 20,
     height: 20,
     backgroundImage:
@@ -35,7 +35,7 @@ const useStyles = makeStyles({
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     'input:hover ~ &': {
-      backgroundColor: '#26bc57',
+      backgroundColor: 'var(--dark-green)',
     },
   },
 });

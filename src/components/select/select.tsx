@@ -45,7 +45,7 @@ const BootstrapInput = withStyles((theme) => ({
     fontWeight: 500,
     fontSize: 14,
     '&:focus': {
-      borderColor: '#3ce35f',
+      borderColor: 'var(--green)',
       borderRadius: 12,
     },
   },
