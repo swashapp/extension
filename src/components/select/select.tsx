@@ -1,55 +1,10 @@
-import {
-  FormControl,
-  InputBase,
-  InputLabel,
-  makeStyles,
-  withStyles,
-} from '@material-ui/core';
-import MuiSelect from '@material-ui/core/Select';
 import React from 'react';
+import { makeStyles } from '@material-ui/core';
+import MuiSelect from '@material-ui/core/Select';
 import { PropsWithChildren } from 'react';
 import smallArrow from 'url:../../static/images/shape/small-arrow.svg';
-
-const Label = withStyles(() => ({
-  root: {
-    fontFamily: 'Inter',
-    fontStyle: 'normal',
-    fontWight: 500,
-    fontSize: 12,
-    color: '#8091A3 !important',
-    top: 10,
-    left: 24,
-  },
-  focused: {
-    color: '#8091A3 !important',
-  },
-  shrink: {
-    fontWight: 500,
-    fontSize: 16,
-    top: 20,
-  },
-}))(InputLabel);
-
-const BootstrapInput = withStyles((theme) => ({
-  root: {},
-  input: {
-    borderRadius: 12,
-    position: 'relative',
-    backgroundColor: 'transparent',
-    border: '1px solid #E9EDEF',
-    padding: '38px 0px 20px 24px',
-    transition: theme.transitions.create(['border-color']),
-
-    fontFamily: 'Inter',
-    fontStyle: 'normal',
-    fontWeight: 500,
-    fontSize: 14,
-    '&:focus': {
-      borderColor: 'var(--green)',
-      borderRadius: 12,
-    },
-  },
-}))(InputBase);
+import InputBase from '../input-base/input-base';
+import Label from '../label/label';
 
 const useStyles = makeStyles(() => ({
   icon: {
@@ -57,7 +12,7 @@ const useStyles = makeStyles(() => ({
     color: 'rgba(0, 0, 0, 0.54)',
     right: 26,
     position: 'absolute',
-    pointerEvents: 'none',
+    pointerEvents: 'visible',
   },
 }));
 
@@ -70,21 +25,20 @@ export default function Select(
 ) {
   const classes = useStyles();
   return (
-    <FormControl>
-      <Label htmlFor="customized-select">{props.label}</Label>
+    <Label id={'customized-select-' + props.value} text={props.label}>
       <MuiSelect
         displayEmpty={true}
         IconComponent={() => (
           <img className={classes.icon} src={smallArrow} alt={'>'} />
         )}
         className={'select'}
-        id="customized-select"
+        id={'customized-select-' + props.value}
         value={props.value}
         onChange={props.onChange}
-        input={<BootstrapInput />}
+        input={<InputBase />}
       >
         {props.children}
       </MuiSelect>
-    </FormControl>
+    </Label>
   );
 }
