@@ -7,9 +7,9 @@
   --light-green: #59f28b;
   --green: #3ce35f;
   --dark-green: #26bc57;
-  --lightest-blue: #e0f4fa;
+  --lightest-blue: #e5f5fa;
   --light-blue: #9feaff;
-  --blue: #2ba0d3;
+  --blue: #00a9d8;
   --dark-blue: #123c53;
   --darkest-blue: #002030;
   --pink: #ff7979;
@@ -224,4 +224,34 @@ a:hover {
 
 .select {
   width: 244px;
+}
+
+.button-text {
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: none;
+
+  display: flex;
+}
+
+/* .small-text {
+  font-size: 11px;
+}
+
+.large-text {
+  font-size: 12px;
+} */
+
+.button-small {
+  width: 100%;
+  height: 40px;
+}
+
+.button-large {
+  width: 100%;
+  height: 48px;
+}
+
+.button-fixed {
+  padding: 12px 29px !important;
 }
