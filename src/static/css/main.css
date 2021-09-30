@@ -356,3 +356,39 @@ a:hover {
 .numeric-layout2-image {
   background: url('../images/background/stat2.png') no-repeat center center;
 }
+
+.section-container {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  margin: 33px 0 33px 0;
+}
+
+.section {
+  border-bottom: 1px solid #e7f4f4;
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+/* .section:hover {
+  border-bottom: 1px solid var(--dark-green);
+} */
+
+/* .section:last-child:hover {
+  border-bottom: none;
+} */
+
+.section-link {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-between;
+}
+
+.section-row {
+  padding: 17px 0 17px 0;
+}
