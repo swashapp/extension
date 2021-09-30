@@ -427,3 +427,44 @@ a:hover {
   font-weight: 415;
   font-size: 20px;
 }
+
+.remove-button {
+  display: flex;
+  flex-direction: row;
+
+  cursor: pointer;
+  opacity: 1;
+}
+.remove-button:hover {
+  opacity: 0.6;
+}
+
+.remove-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 12px;
+}
+
+.remove-text {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+
+  color: #ff7979;
+}
+
+.text-masking-container {
+  width: 100%;
+}
+
+.text-masking-items {
+  padding: 16px 0 24px 0;
+}
+
+.text-masking-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0 8px 0;
+}
