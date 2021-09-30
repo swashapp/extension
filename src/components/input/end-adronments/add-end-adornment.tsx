@@ -11,10 +11,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function AddEndAdornment(props: {
-  value: string;
-  onAdd: () => {};
-}) {
+export default function AddEndAdornment(props: { onAdd: () => void }) {
   const classes = useStyles();
   return (
     <InputAdornment
