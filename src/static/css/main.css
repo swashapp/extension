@@ -564,3 +564,30 @@ a:hover {
   top: 16px;
   right: 16px;
 }
+
+.tour-step-container {
+  padding: 4px 14px;
+}
+
+.my-title {
+  width: 150px;
+  margin: 0;
+  padding: 0;
+}
+
+.__floater__arrow > span {
+  margin-left: 10px;
+}
+
+.react-joyride__beacon {
+  background: url('../images/shape/question.svg') no-repeat center center;
+  right: -10px;
+  visibility: visible;
+}
+.react-joyride__beacon span {
+  visibility: hidden;
+}
+
+.react-joyride__tooltip svg {
+  display: none;
+}

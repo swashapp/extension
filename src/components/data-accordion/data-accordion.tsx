@@ -76,21 +76,10 @@ const AccordionDetails = withStyles(() => ({
 export default function DataAccordion(
   props: PropsWithChildren<{
     items: DataItem[];
-    // setItems: Dispatch<SetStateAction<DataItem[]>>;
+    onRemove: (item: DataItem) => void;
   }>,
 ) {
   const [active, setActive] = useState(-1);
-  // const deleteMsg = useCallback(
-  //   (message) =>
-  //     props.setItems((messages) => {
-  //       const filterdMessages = messages.filter(
-  //         (msg: DataItem) => msg.msgId !== message.msgId,
-  //       );
-  //       window.helper.cancelSending(message.msgId);
-  //       return filterdMessages.slice();
-  //     }),
-  //   [props.setItems],
-  // );
   return (
     <div className={'data-accordion-container'}>
       {props.items.map((item: DataItem, index: number) => {
@@ -134,8 +123,7 @@ export default function DataAccordion(
                         </div>
                       </div>
                     </div>
-                    {/* <RemoveButton onClick={() => deleteMsg(item)} /> */}
-                    <RemoveButton onClick={() => {}} />
+                    <RemoveButton onClick={() => props.onRemove(item)} />
                   </div>
                   <div className="data-accordion-progress">
                     <ProgressBar value={item.percentage} />
