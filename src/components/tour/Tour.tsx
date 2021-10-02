@@ -12,7 +12,8 @@ const tourStyles = {
   spotlight: {
     borderRadius: '12px',
     padding: 0,
-    backgroundColor: 'var(--white)',
+    backgroundColor: 'transparent',
+    boxShadow: '0 0 0 99999px rgba(0, 32, 48, 0.7)',
   },
   spotlightLegacy: {},
   buttonClose: {
@@ -32,7 +33,7 @@ const tourStyles = {
     margin: 0,
   },
   overlay: {
-    mixBlendMode: 'overlay',
+    backgroundColor: 'transparent',
   },
   options: {
     zIndex: 10000,
