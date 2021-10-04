@@ -15,6 +15,7 @@ export default function App(): JSX.Element {
       </div>
       <div className="content">
         <Switch>
+          <Route exact path="/" component={EmptyComponent} />
           {SidenavItems.map((link) => (
             <Route
               path={link.route}

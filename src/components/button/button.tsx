@@ -40,9 +40,14 @@ function getButton(
   text: string | JSX.Element,
   muiProps?: ButtonProps,
   loading?: boolean,
+  onClick?: () => void,
 ) {
   return (
-    <StyledButton {...muiProps} className={`${color} ${'button-' + size}`}>
+    <StyledButton
+      {...muiProps}
+      className={`${color} ${'button-' + size}`}
+      onClick={onClick}
+    >
       <div
         className={`${'button-text'} ${'button-' + size + '-text'} ${
           fixed ? 'button-fixed' : ''
@@ -61,6 +66,7 @@ export default function Button(props: {
   fixed?: boolean;
   text: string | JSX.Element;
   link: LinkProps | false;
+  onClick?: () => void;
   muiProps?: ButtonProps;
   loading?: boolean;
 }) {
@@ -74,6 +80,7 @@ export default function Button(props: {
     text,
     props?.muiProps,
     props?.loading,
+    props?.onClick,
   );
 
   if (props.link === false) return button;

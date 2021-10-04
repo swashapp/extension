@@ -9,6 +9,7 @@ import settingsIcon from 'url:../static/images/icons/sidenav/settings.png';
 import settingsBlackIcon from 'url:../static/images/icons/sidenav/settings-black.svg';
 import helpIcon from 'url:../static/images/icons/sidenav/help.png';
 import helpBlackIcon from 'url:../static/images/icons/sidenav/help-black.svg';
+import Wallet from '../pages/Wallet';
 
 export interface SidenavItem {
   title: string;
@@ -18,12 +19,11 @@ export interface SidenavItem {
 }
 
 export const SidenavItems = [
-  { title: 'Home', icon: undefined, route: RouteToPages.home, component: null },
   {
     title: 'Wallet',
     icon: { active: walletIcon, inactive: walletBlackIcon },
     route: RouteToPages.wallet,
-    component: null,
+    component: Wallet,
   },
   {
     title: 'Donations',

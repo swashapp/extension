@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useState } from 'react';
 import CloseIcon from 'url:../../static/images/shape/close.svg';
 
 export default function ClosablePanel(
-  props: PropsWithChildren<{ className?: string }>,
+  props: PropsWithChildren<{ className?: string; onClose?: () => void }>,
 ) {
   const [close, setClose] = useState<boolean>(false);
   return (
@@ -11,7 +11,13 @@ export default function ClosablePanel(
         close ? 'closable-panel-close' : 'closable-panel-open'
       } ${props.className}`}
     >
-      <div onClick={() => setClose(true)} className="closable-panel-icon">
+      <div
+        onClick={() => {
+          props.onClose && props.onClose();
+          setClose(true);
+        }}
+        className="closable-panel-icon"
+      >
         <img width={24} height={24} src={CloseIcon} alt={'x'} />
       </div>
       {props.children}

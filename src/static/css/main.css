@@ -14,6 +14,8 @@
   --darkest-blue: #002030;
   --pink: #ff7979;
   --gray: #d8e1da;
+  --warning: #f9c057;
+  --error: #ff7979;
 }
 
 html,
@@ -85,10 +87,16 @@ h5 {
   line-height: 38px;
 }
 
-h6 {
+/* h6 {
   font-weight: 410;
   font-size: 28px;
   line-height: 33px;
+} */
+
+h6 {
+  font-weight: 415;
+  font-size: 20px;
+  line-height: 30px;
 }
 
 p {
@@ -213,13 +221,25 @@ a:hover {
 }
 
 .flex-grid-container {
-  height: 100%;
   width: 100%;
 
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-content: space-between;
+  row-gap: 32px;
+}
+
+.flex-grid-card-gap {
+  justify-content: flex-start !important;
+  gap: 32px;
+  flex-wrap: nowrap;
+}
+
+.flex-grid-item-gap {
+  justify-content: flex-start !important;
+  gap: 16px;
+  flex-wrap: nowrap;
 }
 
 .select {
@@ -301,12 +321,11 @@ a:hover {
 }
 
 .numeric-container {
-  height: 152px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 0 32px 0 32px;
+  padding: 40px 32px 40px 32px;
 
   background: var(--white);
   box-shadow: 0px 4px 8px rgba(44, 62, 62, 0.04);
@@ -324,6 +343,13 @@ a:hover {
 
 .numeric-icon {
   margin-right: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: url('../images/background/numeric-back.png') no-repeat center
+    center;
 }
 
 .numeric-title-number {
@@ -592,16 +618,24 @@ a:hover {
 
 .main-container {
   width: 100vw;
+  min-height: 100vh;
   position: relative;
   overflow-x: hidden;
   display: flex;
   flex-direction: row;
 }
+.content {
+  width: 100%;
+  height: inherit;
+}
+
+.sidenav {
+  height: inherit;
+}
 
 .content > div {
   max-width: 1184px;
   padding: 64px;
-
   background-color: var(--lightest-blue);
   display: flex;
   flex-direction: column;
@@ -609,6 +643,7 @@ a:hover {
 
 .sidenav > div {
   max-width: 256px;
+  height: 100%;
   background-color: var(--white);
 }
 
@@ -686,6 +721,8 @@ a:hover {
   background: url('../images/background/welcome.png') no-repeat center center;
   padding: 24px;
   margin: 20px;
+
+  bottom: 0px;
 }
 
 .welcome-text {
@@ -737,4 +774,161 @@ a:hover {
   height: 41px;
   bottom: -34px;
   right: 28px;
+}
+
+.simple-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.form-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-button {
+  width: 114px;
+}
+
+.simple-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  box-shadow: 0px 4px 8px rgba(44, 62, 62, 0.04);
+  border-radius: 12px;
+  padding: 32px;
+
+  gap: 24px;
+}
+
+.wallet-container {
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 188px !important;
+}
+
+.wallet-header {
+  margin-bottom: 32px;
+}
+
+.wallet-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.wallet-title-question-mark {
+  width: 16px;
+  height: 16px;
+
+  margin-left: 8px;
+}
+
+.withdraw-read-more-button {
+  margin-top: 16px;
+}
+
+.form-message-container {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+}
+
+.form-message-text {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 20px;
+
+  margin-left: 8px;
+}
+
+.withdraw-button {
+  margin-top: 6px;
+}
+
+.theme-circle1,
+.theme-circle2,
+.theme-circle3 {
+  position: absolute;
+}
+
+.theme-circle1 {
+  width: 61px;
+  height: 61px;
+  top: 25px;
+  right: 215px;
+}
+
+.theme-circle2 {
+  width: 147px;
+  height: 147px;
+  top: -81px;
+  right: 136px;
+}
+
+.theme-circle3 {
+  width: 319px;
+  height: 319px;
+  bottom: -170px;
+  right: 783px;
+}
+
+.on-line-circle1,
+.on-line-circle2,
+.on-line-circle3,
+.on-line-circle4,
+.on-line-circle5 {
+  position: absolute;
+}
+
+.on-line-circle1 {
+  width: 22px;
+  height: 22px;
+  top: 34px;
+  left: 0;
+  z-index: 1;
+}
+
+.on-line-circle2 {
+  width: 67px;
+  height: 67px;
+  top: 13px;
+  right: 55%;
+  z-index: 3;
+}
+
+.on-line-circle3 {
+  width: 90px;
+  height: 90px;
+  top: 0;
+  right: 12%;
+  z-index: 2;
+}
+
+.on-line-container {
+  width: 100%;
+  height: 90px;
+  position: relative;
+  display: flex;
+
+  overflow: hidden;
+}
+
+.circle-on-line {
+  position: absolute;
+  width: 544px;
+  bottom: 34px;
+  right: 0;
+}
+
+.wallet-read-more-popup {
+  padding: 32px;
+}
+
+.wallet-read-more-title {
+  margin-bottom: 65px;
 }
