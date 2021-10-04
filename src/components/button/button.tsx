@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
     '&:hover': { background: 'var(--black)', color: 'var(--white)' },
   },
   white: {
-    background: 'transparent',
+    background: 'white',
     color: 'var(--black)',
     '&:hover': { background: 'var(--black)', color: 'var(--white)' },
   },
