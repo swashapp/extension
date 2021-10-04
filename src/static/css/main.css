@@ -544,7 +544,7 @@ a:hover {
 }
 
 .closable-panel-container {
-  position: absolute;
+  position: relative;
 }
 
 .closable-panel-open {
@@ -588,4 +588,153 @@ a:hover {
 
 #react-joyride-portal {
   z-index: 10000;
+}
+
+.main-container {
+  width: 100vw;
+  position: relative;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: row;
+}
+
+.content > div {
+  max-width: 1184px;
+  padding: 64px;
+
+  background-color: var(--lightest-blue);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidenav > div {
+  max-width: 256px;
+  background-color: var(--white);
+}
+
+.sidenav-container {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+}
+
+.sidenav-logo {
+  margin-bottom: 48px;
+  padding: 20px 20px 0 20px;
+}
+
+.sidenav-links-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidenav-link {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.sidenav-link-active {
+  opacity: 1;
+}
+
+.sidenav-link-inactive {
+  opacity: 0.5;
+}
+
+.sidenav-link-inactive:hover {
+  opacity: 1;
+}
+
+.sidenav-icon-title {
+  color: var(--black);
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  padding: 17px 48px 17px 0;
+}
+
+.sidenav-icon {
+  margin-right: 16px;
+}
+
+.sidenav-border {
+  width: 4px;
+  margin-right: 36px;
+  height: inherit;
+}
+
+.sidenav-border-active {
+  background-color: var(--light-green);
+  transition: background-color 500ms linear;
+}
+
+.sidenav-border-inactive {
+  background-color: transparent;
+}
+
+.welcome-container {
+  overflow: hidden;
+  border-radius: 20px;
+  background: url('../images/background/welcome.png') no-repeat center center;
+  padding: 24px;
+  margin: 20px;
+}
+
+.welcome-text {
+  margin-bottom: 32px;
+  width: 128px;
+
+  font-family: 'Sequel Sans';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 19px;
+}
+
+.circle-container {
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  align-items: center;
+}
+
+.circle-colorful {
+  background: url('../images/background/circle-pattern.webp');
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.welcome-circle1,
+.welcome-circle2,
+.welcome-circle3 {
+  position: absolute;
+}
+
+.welcome-circle1 {
+  width: 368px;
+  height: 368px;
+  bottom: -227px;
+  right: -247px;
+}
+
+.welcome-circle2 {
+  width: 18px;
+  height: 18px;
+  bottom: 108px;
+  right: 20px;
+}
+
+.welcome-circle3 {
+  width: 41px;
+  height: 41px;
+  bottom: -34px;
+  right: 28px;
 }
