@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 export default function NumericSection(props: {
-  layout?: 'layout1' | 'layout2';
+  layout?: 'layout1' | 'layout2' | ReactElement;
   title: string;
   value: number | string;
   image?: string;
@@ -12,7 +12,7 @@ export default function NumericSection(props: {
       <div className={'numeric-icon-content'}>
         {image ? (
           <div className={'numeric-icon'}>
-            <img src={image} alt={''} width={64} height={64} />
+            <img src={image} alt={''} />
           </div>
         ) : (
           <></>
@@ -22,7 +22,15 @@ export default function NumericSection(props: {
           <h4 className={'numeric-number'}>{value}</h4>
         </div>
       </div>
-      {image ? <div className={'numeric-' + layout + '-image'} /> : <></>}
+      {layout ? (
+        layout === 'layout1' || layout === 'layout2' ? (
+          <div className={'numeric-' + layout + '-image'} />
+        ) : (
+          layout
+        )
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

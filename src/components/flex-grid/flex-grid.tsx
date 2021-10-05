@@ -9,7 +9,7 @@ export default function FlexGrid(
   }>,
 ) {
   return (
-    <div className={`'flex-grid-container' ${props.className}`}>
+    <div className={`flex-grid-container ${props.className}`}>
       {Children.map(props.children, (child, index) => {
         return props.innerClassName ? (
           <div key={`text-grid-${index}`} className={props?.innerClassName}>
