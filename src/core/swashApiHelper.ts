@@ -3,7 +3,19 @@ import { ethers } from 'ethers';
 import { Any } from '../types/any.type';
 import { SwashApiConfigs } from '../types/storage/configs/swash-api.type';
 
+import {
+  ActiveReferralRequest,
+  ClaimRewardRequest,
+  JoinRequest,
+  LocationRequest,
+  MinimumWithdrawRequest,
+  ReferralRewardRequest,
+  WithdrawRequest,
+} from '../types/swash-api.type';
+
 import { configManager } from './configManager';
+
+const OK_STATUS = 200;
 
 const swashApiHelper = (function () {
   let config: SwashApiConfigs;
@@ -12,7 +24,21 @@ const swashApiHelper = (function () {
     config = configManager.getConfig('swashAPI');
   }
 
-  async function callSwashAPIData(
+  async function getDataEthPairPrice() {
+    const resp = await fetch(
+      'https://api.binance.com/api/v3/ticker/price?symbol=DATAETH',
+      {
+        method: 'GET',
+      },
+    );
+
+    if (resp.status === OK_STATUS) {
+      return (await resp.json()).price;
+    }
+    throw new Error('Unable to fetch DATA price');
+  }
+
+  async function call<Type>(
     token: string,
     api: string,
     method = 'GET',
@@ -23,55 +49,48 @@ const swashApiHelper = (function () {
       method: method,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer '.concat(token),
+        Authorization: `Bearer ${token}`,
       },
     };
 
-    if (body) {
-      req = { ...req, body: JSON.stringify(body) };
+    if (body) req = { ...req, body: JSON.stringify(body) };
+    const resp = await fetch(url, req);
+
+    if (resp.status === OK_STATUS) {
+      const payload = await resp.json();
+      if (payload.status === 'success') return payload.data as Type;
+      throw Error(payload.message);
     }
-    try {
-      const resp = await fetch(url, req);
-      const result = await resp.json();
-      if (result.status === 'success') return result.data;
-      else {
-        console.log(result.message);
-        return { reason: result.message };
-      }
-    } catch (err) {
-      console.error(`Error message: ${err.message}`);
-    }
-    return {};
+    throw Error(`Failed to fetch ${api}`);
   }
 
   async function getTimestamp() {
     const resp = await fetch(config.endpoint + config.APIs.syncTimestamp, {
       method: 'GET',
     });
-    if (resp.status === 200) {
+    if (resp.status === OK_STATUS) {
       return (await resp.json()).timestamp;
     }
     throw Error('Could not update timestamp');
   }
 
   async function getActiveReferral(token: string) {
-    return await callSwashAPIData(token, config.APIs.referralActive);
+    return call<ActiveReferralRequest>(token, config.APIs.referralActive);
   }
 
   async function getJoinedSwash(token: string) {
-    return callSwashAPIData(token, config.APIs.userJoin);
+    return call<JoinRequest>(token, config.APIs.userJoin);
   }
 
   async function getReferralRewards(token: string) {
-    const data = await callSwashAPIData(token, config.APIs.userReferralReward);
-    if (data.reward) {
-      return ethers.utils.formatEther(data.reward);
-    }
-    return '0';
+    return call<ReferralRewardRequest>(token, config.APIs.userReferralReward);
   }
 
   async function getWithdrawBalance(token: string) {
-    const data = await callSwashAPIData(token, config.APIs.balanceWithdraw);
+    const data = await call<MinimumWithdrawRequest>(
+      token,
+      config.APIs.balanceWithdraw,
+    );
     const result = { minimum: 1000000, gas: 10000 };
 
     if (data.sponsor && data.sponsor.minimum) {
@@ -84,32 +103,11 @@ const swashApiHelper = (function () {
   }
 
   async function getIpLocation(token: string) {
-    const data = await callSwashAPIData(token, config.APIs.ipLookup);
-    if (data.country) {
-      return { country: data.country, city: data.city };
-    }
-    throw 'Failed to fetch user country';
-  }
-
-  async function getDataEthPairPrice() {
-    const url = 'https://api.binance.com/api/v3/ticker/price?symbol=DATAETH';
-    const req = {
-      method: 'GET',
-    };
-    try {
-      const resp = await fetch(url, req);
-      if (resp.status === 200) {
-        const data = await resp.json();
-        return data['price'];
-      }
-    } catch (err) {
-      console.error(`Error message: ${err.message}`);
-    }
-    throw new Error('Unable to fetch DATA price');
+    return call<LocationRequest>(token, config.APIs.ipLookup);
   }
 
   async function userWithdraw(token: string, body: Any) {
-    return await callSwashAPIData(
+    return await call<WithdrawRequest>(
       token,
       config.APIs.userBalanceWithdraw,
       'POST',
@@ -118,17 +116,20 @@ const swashApiHelper = (function () {
   }
 
   async function claimRewards() {
-    return await callSwashAPIData(config.APIs.userReferralClaim, 'POST');
+    return await call<ClaimRewardRequest>(
+      config.APIs.userReferralClaim,
+      'POST',
+    );
   }
 
   return {
     init,
+    getDataEthPairPrice,
     getTimestamp,
     getActiveReferral,
     getJoinedSwash,
     getReferralRewards,
     getWithdrawBalance,
-    getDataEthPairPrice,
     getIpLocation,
     userWithdraw,
     claimRewards,
