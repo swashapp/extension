@@ -1,6 +1,7 @@
 export type SwashApiConfigs = {
   endpoint: string;
   APIs: {
+    syncTimestamp: string;
     userJoin: string;
     userReferralReward: string;
     userReferralClaim: string;

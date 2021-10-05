@@ -17,12 +17,11 @@ import {
 import { browserUtils } from '../utils/browser.util';
 import { commonUtils } from '../utils/common.util';
 
-import { communityHelper } from './communityHelper';
 import { configManager } from './configManager';
 import { loader } from './loader';
 import { memberManager } from './memberManager';
 import { storageHelper } from './storageHelper';
-import { swashApiHelper } from './swashApiHelper';
+import { userHelper } from './userHelper';
 
 import OnRemovedRemoveInfoType = Tabs.OnRemovedRemoveInfoType;
 import OnBeforeRequestDetailsType = WebRequest.OnBeforeRequestDetailsType;
@@ -141,7 +140,7 @@ const onboarding = (function () {
       completed: true,
     });
     await loader.onInstalled();
-    swashApiHelper.getUserCountry().then((location) => {
+    userHelper.getUserCountry().then((location) => {
       console.log(`User is joined from ${location.country}`);
     });
     return true;
@@ -335,7 +334,7 @@ const onboarding = (function () {
       await storageHelper.saveConfigs(configs);
       await storageHelper.saveProfile(profile);
 
-      await communityHelper.loadWallet(encryptedWallet, salt);
+      await userHelper.loadEncryptedWallet(encryptedWallet, salt);
       return true;
     }
     return false;
@@ -568,9 +567,9 @@ const onboarding = (function () {
   async function createAndSaveWallet() {
     const configs = await storageHelper.getConfigs();
     const profile = await storageHelper.getProfile();
-    await communityHelper.createWallet();
+    await userHelper.createWallet();
     if (configs.salt) {
-      const wallet = await communityHelper.getEncryptedWallet(configs.salt);
+      const wallet = await userHelper.getEncryptedWallet(configs.salt);
       if (typeof wallet === 'string') profile.encryptedWallet = wallet;
     }
     return storageHelper.saveProfile(profile);

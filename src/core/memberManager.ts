@@ -7,7 +7,7 @@ import { configManager } from './configManager';
 import { databaseHelper } from './databaseHelper';
 import { onboarding } from './onboarding';
 import { pageAction } from './pageAction';
-import { swashApiHelper } from './swashApiHelper';
+import { userHelper } from './userHelper';
 
 const memberManager = (function () {
   let joined: boolean | undefined;
@@ -23,7 +23,7 @@ const memberManager = (function () {
 
   function updateStatus(strategy: string) {
     console.log(`${strategy}: Trying to join...`);
-    swashApiHelper.isJoinedSwash().then((status) => {
+    userHelper.isJoinedSwash().then((status) => {
       joined = status;
       if (!status) {
         console.log(`${strategy}: user is not joined`);

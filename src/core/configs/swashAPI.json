@@ -1,6 +1,7 @@
 {
   "endpoint": "https://api.swashapp.io/v1",
   "APIs": {
+    "syncTimestamp": "/sync/timestamp",
     "userJoin": "/user/join",
     "userReferralReward": "/user/referral/reward",
     "userReferralClaim": "/user/referral/claim",
