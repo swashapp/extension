@@ -7,7 +7,9 @@ import LearnMore from '../button/learn-more';
 export default memo(function WelcomeToNewDataWorld() {
   return (
     <ClosablePanel className={'welcome-container'}>
-      <div className="welcome-text">Welcome to a new world of data.</div>
+      <div className="welcome-text">
+        <h5>Welcome to a new world of data.</h5>
+      </div>
       <Circle className={'welcome-circle1'} border={'black'} />
       <Circle className={'welcome-circle2'} color={'black'} />
       <Circle className={'welcome-circle3'} border={'black'} />

@@ -19,7 +19,7 @@ export default function NumericSection(props: {
         )}
         <div className={'numeric-title-number'}>
           <div className={'numeric-title'}>{title}</div>
-          <h4 className={'numeric-number'}>{value}</h4>
+          <div className={'numeric-number title'}>{value}</div>
         </div>
       </div>
       {layout ? (

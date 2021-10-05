@@ -20,13 +20,13 @@ export default function Wallet() {
   const [walletAddress, setWalletAddress] = useState<string>('');
   const [readMore, setReadMore] = useState<boolean>(false);
   return (
-    <div className="wallet-container">
+    <div className="page-container wallet-container">
       <BackgroundTheme />
-      <div className="wallet-header">
-        <h5>Wallet</h5>
+      <div className="page-header">
+        <h2>Wallet</h2>
       </div>
-      <FlexGrid column={2} className="flex-grid-card-gap">
-        <div className={'simple-cards'}>
+      <FlexGrid column={2} className="flex-grid gap32">
+        <div className={'flex-column gap32'}>
           <NumericSection
             title="Data Earnings"
             value={dataAvailable}
@@ -38,12 +38,7 @@ export default function Wallet() {
             value={unclaimedBonus}
             layout={
               <div className="form-button">
-                <Button
-                  color="primary"
-                  text="Claim"
-                  size="small"
-                  link={false}
-                />
+                <Button color="primary" text="Claim" link={false} />
               </div>
             }
             image={DataBonusIcon}
@@ -75,7 +70,6 @@ export default function Wallet() {
               <Button
                 color="secondary"
                 text="Read More"
-                size="small"
                 link={false}
                 onClick={() => setReadMore(true)}
               />
@@ -135,8 +129,8 @@ export default function Wallet() {
               </Popup>
             </div>
           </div>
-          <div className="form-items">
-            <FlexGrid className="flex-grid-item-gap" column={2}>
+          <div className="flex-column gap16">
+            <FlexGrid className="flex-grid gap16" column={2}>
               <Input label="Amount" value={0} onChange={() => {}} />
               <Select label="Withdraw To" value={'xDai'} onChange={() => {}}>
                 <MenuItem value="xDai">xDai</MenuItem>
@@ -153,7 +147,7 @@ export default function Wallet() {
             <FormMessage text="al;skdflasdflasdfasd" type="error" />
           </div>
           <div className="form-button withdraw-button">
-            <Button color="primary" text="Withdraw" size="small" link={false} />
+            <Button color="primary" text="Withdraw" link={false} />
           </div>
         </div>
       </FlexGrid>

@@ -58,33 +58,33 @@ h6,
 }
 
 h1 {
-  font-weight: 500;
-  font-size: 88px;
-  line-height: 90px;
+  font-weight: 410;
+  font-size: 36px;
+  line-height: 42px;
 }
 
 h2 {
-  font-weight: 415;
-  font-size: 64px;
-  line-height: 78px;
+  font-weight: 410;
+  font-size: 32px;
+  line-height: 48px;
 }
 
 h3 {
   font-weight: 410;
-  font-size: 56px;
-  line-height: 66px;
+  font-size: 24px;
+  line-height: 150%;
 }
 
 h4 {
   font-weight: 410;
-  font-size: 48px;
-  line-height: 56px;
+  font-size: 22px;
+  line-height: 24px;
 }
 
 h5 {
-  font-weight: 410;
-  font-size: 32px;
-  line-height: 38px;
+  font-weight: 415;
+  font-size: 24px;
+  line-height: 150%;
 }
 
 /* h6 {
@@ -96,7 +96,7 @@ h5 {
 h6 {
   font-weight: 415;
   font-size: 20px;
-  line-height: 30px;
+  line-height: 150%;
 }
 
 p {
@@ -117,6 +117,16 @@ a {
 
 a:hover {
   color: var(--dark-green);
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
 }
 
 .solid-line {
@@ -227,18 +237,10 @@ a:hover {
   flex-wrap: wrap;
   justify-content: space-between;
   align-content: space-between;
-  row-gap: 32px;
 }
 
-.flex-grid-card-gap {
+.flex-grid {
   justify-content: flex-start !important;
-  gap: 32px;
-  flex-wrap: nowrap;
-}
-
-.flex-grid-item-gap {
-  justify-content: flex-start !important;
-  gap: 16px;
   flex-wrap: nowrap;
 }
 
@@ -294,10 +296,6 @@ a:hover {
   align-items: normal;
 }
 
-.icon-button-icon {
-  margin-right: 16px;
-}
-
 .icon-button-small {
   width: 100%;
   height: 52px;
@@ -317,7 +315,7 @@ a:hover {
   color: var(--black);
 
   width: fit-content;
-  margin: 0;
+  margin-left: 16px;
 }
 
 .numeric-container {
@@ -368,6 +366,11 @@ a:hover {
 
 .numeric-number {
   color: #002030;
+
+  font-style: normal;
+  font-weight: 410;
+  font-size: 48px;
+  line-height: 57px;
 }
 
 .numeric-layout1-image,
@@ -691,6 +694,7 @@ a:hover {
   color: var(--black);
   display: flex;
   flex-direction: row;
+  white-space: nowrap;
 
   align-items: center;
   padding: 17px 48px 17px 0;
@@ -719,7 +723,7 @@ a:hover {
   overflow: hidden;
   border-radius: 20px;
   background: url('../images/background/welcome.png') no-repeat center center;
-  padding: 24px;
+  padding: 20px;
   margin: 20px;
 
   bottom: 0px;
@@ -728,11 +732,6 @@ a:hover {
 .welcome-text {
   margin-bottom: 32px;
   width: 128px;
-
-  font-family: 'Sequel Sans';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 19px;
 }
 
 .circle-container {
@@ -776,15 +775,11 @@ a:hover {
   right: 28px;
 }
 
-.simple-cards {
-  display: flex;
-  flex-direction: column;
+.gap32 {
   gap: 32px;
 }
 
-.form-items {
-  display: flex;
-  flex-direction: column;
+.gap16 {
   gap: 16px;
 }
 
@@ -803,13 +798,20 @@ a:hover {
   gap: 24px;
 }
 
+.simple-card .simple-card {
+  box-shadow: none;
+  padding: 0;
+}
+
 .wallet-container {
-  overflow: hidden;
-  position: relative;
   padding-bottom: 188px !important;
 }
 
-.wallet-header {
+.page-container {
+  overflow: hidden;
+  position: relative;
+}
+.page-header {
   margin-bottom: 32px;
 }
 
@@ -931,4 +933,85 @@ a:hover {
 
 .wallet-read-more-title {
   margin-bottom: 65px;
+}
+
+.invite-friends-container {
+  padding-bottom: 182px !important;
+}
+
+.or-share-on-line {
+  display: flex;
+  flex-direction: row;
+}
+
+.or-share-line {
+  position: relative;
+  width: 100%;
+  opacity: 0.2;
+}
+
+.or-share {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 150%;
+  color: #8091a3;
+
+  white-space: nowrap;
+  text-transform: uppercase;
+  margin: 0 19px;
+}
+
+.win-data-prize {
+  background: url('../images/background/win-data-prize.png') no-repeat center
+    center;
+
+  padding: 32px !important;
+  overflow: hidden;
+  position: relative;
+}
+
+.win-data-prize-title,
+.win-data-prize-text {
+  width: 218px;
+}
+
+.win-data-prize-text {
+  font-size: 16px;
+  padding-bottom: 42px;
+}
+
+.win-data-prize-button {
+  width: 125px;
+}
+
+.win-data-prize-circle1,
+.win-data-prize-circle2,
+.win-data-prize-circle3 {
+  position: absolute;
+}
+
+.win-data-prize-circle1 {
+  width: 188px;
+  height: 188px;
+  top: -103px;
+  right: 36px;
+}
+
+.win-data-prize-circle2 {
+  width: 486px;
+  height: 486px;
+  bottom: -292px;
+  right: -317px;
+}
+
+.win-data-prize-circle3 {
+  width: 34px;
+  height: 34px;
+  bottom: 137px;
+  right: 44px;
+}
+
+.share-button {
+  width: 100%;
 }
