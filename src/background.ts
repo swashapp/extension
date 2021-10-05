@@ -2,7 +2,6 @@ import browser from 'webextension-polyfill';
 
 import { Runtime } from 'webextension-polyfill/namespaces/runtime';
 
-import { communityHelper } from './core/communityHelper';
 import { configManager } from './core/configManager';
 import { databaseHelper } from './core/databaseHelper';
 import { dataHandler } from './core/dataHandler';
@@ -17,6 +16,7 @@ import { onboarding } from './core/onboarding';
 import { pageAction } from './core/pageAction';
 import { storageHelper } from './core/storageHelper';
 import { swashApiHelper } from './core/swashApiHelper';
+import { userHelper } from './core/userHelper';
 import { Any } from './types/any.type';
 import { browserUtils } from './utils/browser.util';
 import { privacyUtils } from './utils/privacy.util';
@@ -30,7 +30,7 @@ let tryCount = 0;
 function initConfigs() {
   memberManager.init();
   dataHandler.init();
-  communityHelper.init();
+  userHelper.init();
   onboarding.init();
   apiCall.init();
   swashApiHelper.init();
@@ -115,7 +115,7 @@ configManager.loadAll().then(async () => {
         dataHandler: dataHandler,
         context: context,
         task: task,
-        communityHelper: communityHelper,
+        communityHelper: userHelper,
         pageAction: pageAction,
         transfer: transfer,
         onboarding: onboarding,

@@ -9,7 +9,6 @@ import { Module } from '../types/storage/module.type';
 
 import { commonUtils } from '../utils/common.util';
 
-import { communityHelper } from './communityHelper';
 import { configManager } from './configManager';
 import { databaseHelper } from './databaseHelper';
 import { dataHandler } from './dataHandler';
@@ -22,6 +21,7 @@ import { onboarding } from './onboarding';
 import { pageAction } from './pageAction';
 import { storageHelper } from './storageHelper';
 import { swashApiHelper } from './swashApiHelper';
+import { userHelper } from './userHelper';
 
 import Tab = Tabs.Tab;
 import OnActivatedActiveInfoType = Tabs.OnActivatedActiveInfoType;
@@ -203,7 +203,7 @@ const loader = (function () {
         await databaseHelper.init();
         await dataHandler.sendDelayedMessages();
       }, 10000);
-      await communityHelper.loadWallet(
+      await userHelper.loadEncryptedWallet(
         db.profile.encryptedWallet,
         db.configs.salt,
       );
@@ -225,7 +225,7 @@ const loader = (function () {
         await dataHandler.sendDelayedMessages();
       }, 10000);
       init(false);
-      const x = await communityHelper.loadWallet(
+      await userHelper.loadEncryptedWallet(
         db.profile.encryptedWallet,
         db.configs.salt,
       );
@@ -262,7 +262,7 @@ const loader = (function () {
   function onConfigsUpdated() {
     memberManager.init();
     dataHandler.init();
-    communityHelper.init();
+    userHelper.init();
     onboarding.init();
     apiCall.init();
     swashApiHelper.init();

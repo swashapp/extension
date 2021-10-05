@@ -1,27 +1,24 @@
 import { ethers } from 'ethers';
-import browser from 'webextension-polyfill';
 
 import { Any } from '../types/any.type';
 import { SwashApiConfigs } from '../types/storage/configs/swash-api.type';
 
-import { communityHelper } from './communityHelper';
 import { configManager } from './configManager';
-import { storageHelper } from './storageHelper';
 
 const swashApiHelper = (function () {
-  let APIConfigManager: SwashApiConfigs;
+  let config: SwashApiConfigs;
+
   function init() {
-    APIConfigManager = configManager.getConfig('swashAPI');
+    config = configManager.getConfig('swashAPI');
   }
 
   async function callSwashAPIData(
+    token: string,
     api: string,
     method = 'GET',
-    body: Any = undefined,
+    body?: Any,
   ) {
-    const token = await communityHelper.generateJWT();
-    if (!token) return;
-    const url = APIConfigManager.endpoint + api;
+    const url = config.endpoint + api;
     let req: Any = {
       method: method,
       headers: {
@@ -47,37 +44,34 @@ const swashApiHelper = (function () {
     return {};
   }
 
-  async function isJoinedSwash() {
-    const data = await callSwashAPIData(APIConfigManager.APIs.userJoin);
-    if (data.id) {
-      await updateUserId(data.id);
-      return true;
+  async function getTimestamp() {
+    const resp = await fetch(config.endpoint + config.APIs.syncTimestamp, {
+      method: 'GET',
+    });
+    if (resp.status === 200) {
+      return (await resp.json()).timestamp;
     }
-    return false;
+    throw Error('Could not update timestamp');
   }
 
-  async function joinSwash() {
-    const token = await communityHelper.generateJWT();
-    if (!token) return;
-    browser.tabs
-      .create({
-        url: 'https://swashapp.io/user/join?token='.concat(token),
-      })
-      .then();
+  async function getActiveReferral(token: string) {
+    return await callSwashAPIData(token, config.APIs.referralActive);
   }
 
-  async function getReferralRewards() {
-    const data = await callSwashAPIData(
-      APIConfigManager.APIs.userReferralReward,
-    );
+  async function getJoinedSwash(token: string) {
+    return callSwashAPIData(token, config.APIs.userJoin);
+  }
+
+  async function getReferralRewards(token: string) {
+    const data = await callSwashAPIData(token, config.APIs.userReferralReward);
     if (data.reward) {
       return ethers.utils.formatEther(data.reward);
     }
     return '0';
   }
 
-  async function getWithdrawBalance() {
-    const data = await callSwashAPIData(APIConfigManager.APIs.balanceWithdraw);
+  async function getWithdrawBalance(token: string) {
+    const data = await callSwashAPIData(token, config.APIs.balanceWithdraw);
     const result = { minimum: 1000000, gas: 10000 };
 
     if (data.sponsor && data.sponsor.minimum) {
@@ -89,49 +83,8 @@ const swashApiHelper = (function () {
     return result;
   }
 
-  async function withdrawToTarget(
-    recipient: string,
-    amount: string,
-    useSponsor: boolean,
-    sendToMainnet: boolean,
-  ) {
-    const signature = await communityHelper.signWithdrawAllTo(recipient);
-    if (typeof signature === 'string') {
-      const amountInWei = ethers.utils.parseEther(amount);
-      const body = {
-        recipient: recipient,
-        signature: signature,
-        amount: amountInWei.toString(),
-        useSponsor: useSponsor,
-        sendToMainnet: sendToMainnet,
-      };
-      const data = await callSwashAPIData(
-        APIConfigManager.APIs.userBalanceWithdraw,
-        'POST',
-        body,
-      );
-      if (data.tx) return data;
-      else if (data.message) {
-        return communityHelper.transportMessage(data.message);
-      }
-      return data;
-    }
-    return signature;
-  }
-
-  async function claimRewards() {
-    return await callSwashAPIData(
-      APIConfigManager.APIs.userReferralClaim,
-      'POST',
-    );
-  }
-
-  async function getActiveReferral() {
-    return await callSwashAPIData(APIConfigManager.APIs.referralActive);
-  }
-
-  async function ip2Location() {
-    const data = await callSwashAPIData(APIConfigManager.APIs.ipLookup);
+  async function getIpLocation(token: string) {
+    const data = await callSwashAPIData(token, config.APIs.ipLookup);
     if (data.country) {
       return { country: data.country, city: data.city };
     }
@@ -155,52 +108,30 @@ const swashApiHelper = (function () {
     throw new Error('Unable to fetch DATA price');
   }
 
-  async function getUserId() {
-    const profile = await storageHelper.getProfile();
-    if (profile.user_id) return profile.user_id;
-    return -1;
+  async function userWithdraw(token: string, body: Any) {
+    return await callSwashAPIData(
+      token,
+      config.APIs.userBalanceWithdraw,
+      'POST',
+      body,
+    );
   }
 
-  async function updateUserId(user_id: number) {
-    const profile = await storageHelper.getProfile();
-    if (profile.user_id == null || profile.user_id !== user_id) {
-      profile.user_id = user_id;
-      await storageHelper.saveProfile(profile);
-    }
-  }
-
-  async function getUserCountry() {
-    const profile = await storageHelper.getProfile();
-    if (profile.country) {
-      return { country: profile.country, city: profile.city };
-    }
-
-    try {
-      const { country, city } = await ip2Location();
-      if (country !== '') {
-        profile.country = country;
-        profile.city = city;
-        await storageHelper.saveProfile(profile);
-        return country;
-      }
-    } catch (err) {
-      console.log(err.message);
-    }
-    return 'Unknown';
+  async function claimRewards() {
+    return await callSwashAPIData(config.APIs.userReferralClaim, 'POST');
   }
 
   return {
-    joinSwash,
-    isJoinedSwash,
-    getReferralRewards,
+    init,
+    getTimestamp,
     getActiveReferral,
-    withdrawToTarget,
-    claimRewards,
+    getJoinedSwash,
+    getReferralRewards,
     getWithdrawBalance,
     getDataEthPairPrice,
-    getUserId,
-    getUserCountry,
-    init,
+    getIpLocation,
+    userWithdraw,
+    claimRewards,
   };
 })();
 

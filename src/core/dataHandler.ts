@@ -18,7 +18,7 @@ import { configManager } from './configManager';
 import { databaseHelper } from './databaseHelper';
 import { storageHelper } from './storageHelper';
 import { stream } from './stream';
-import { swashApiHelper } from './swashApiHelper';
+import { userHelper } from './userHelper';
 
 const dataHandler = (function () {
   'use strict';
@@ -147,7 +147,7 @@ const dataHandler = (function () {
       modules[message.header.module],
     );
     message.identity.country =
-      profile.country || (await swashApiHelper.getUserCountry());
+      profile.country || (await userHelper.getUserCountry());
     message.identity.city = profile.city || '';
     message.identity.gender = profile.gender;
     message.identity.age = profile.age;
