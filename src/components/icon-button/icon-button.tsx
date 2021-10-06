@@ -10,15 +10,17 @@ function IconButtonBase(props: { body?: string; image: string }) {
       }`}
     >
       <div className={'icon-button-body'}>
-        <div className={'icon-button-icon'}>
-          <img
-            src={props.image}
-            alt={''}
-            width={props.body ? 16 : 24}
-            height={props.body ? 16 : 24}
-          />
-        </div>
-        <p className={'icon-button-text'}>{props.body}</p>
+        <img
+          src={props.image}
+          alt={''}
+          width={props.body ? 16 : 24}
+          height={props.body ? 16 : 24}
+        />
+        {props.body ? (
+          <p className={'icon-button-text'}>{props.body}</p>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
