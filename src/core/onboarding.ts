@@ -38,8 +38,8 @@ const onboarding = (function () {
   let onboardingFlow: OnboardingFlow;
   let isOnboardingOpened = false;
 
-  function init() {
-    onboardingConfigs = configManager.getConfig('onboarding');
+  async function init() {
+    onboardingConfigs = await configManager.getConfig('onboarding');
     if (onboardingConfigs) onboardingTools = onboardingConfigs['tools'];
     if (onboardingConfigs) onboardingFlow = onboardingConfigs['flow'];
   }

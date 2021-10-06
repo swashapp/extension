@@ -20,8 +20,8 @@ const OK_STATUS = 200;
 const swashApiHelper = (function () {
   let config: SwashApiConfigs;
 
-  function init() {
-    config = configManager.getConfig('swashAPI');
+  async function init() {
+    config = await configManager.getConfig('swashAPI');
   }
 
   async function getDataEthPairPrice() {

@@ -20,8 +20,8 @@ const apiCall = (function () {
   let API_CALL_INTERVAL;
   let DELAY_BETWEEN_CALLS;
 
-  function init() {
-    apiCallConfig = configManager.getConfig('apiCall');
+  async function init() {
+    apiCallConfig = await configManager.getConfig('apiCall');
     if (apiCallConfig) {
       API_CALL_INTERVAL = apiCallConfig.interval;
       DELAY_BETWEEN_CALLS = apiCallConfig.delay;

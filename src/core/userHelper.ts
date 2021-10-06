@@ -20,8 +20,8 @@ const userHelper = (function () {
   let duHandler: DataUnion;
   const provider = ethers.getDefaultProvider();
 
-  function init() {
-    config = configManager.getConfig('community');
+  async function init() {
+    config = await configManager.getConfig('community');
   }
 
   function createWallet() {

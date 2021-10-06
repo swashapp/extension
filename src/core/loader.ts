@@ -3,7 +3,6 @@ import browser from 'webextension-polyfill';
 import { Tabs } from 'webextension-polyfill/namespaces/tabs';
 
 import { Any } from '../types/any.type';
-import { Configs } from '../types/storage/configs.type';
 import { Filter } from '../types/storage/filter.type';
 import { Module } from '../types/storage/module.type';
 
@@ -28,38 +27,15 @@ import OnActivatedActiveInfoType = Tabs.OnActivatedActiveInfoType;
 import OnUpdatedChangeInfoType = Tabs.OnUpdatedChangeInfoType;
 
 const loader = (function () {
-  'use strict';
-  let configs: Configs;
-  let modules: { [key: string]: Module };
   let dbHelperInterval: NodeJS.Timer;
   let intervalId: NodeJS.Timer;
 
-  function initConfs() {
-    configs = configManager.getAllConfigs();
-    modules = configManager.getAllModules();
-  }
-
-  async function isDBCreated(db: Any) {
-    return !(db == null || Object.keys(db).length === 0);
-  }
-
   async function createDBIfNotExist() {
-    let db = await storageHelper.getAll();
-    if (!(await isDBCreated(db))) {
-      console.log('Creating new DB');
-      db = {
-        modules: {},
-        configs: {},
-        profile: {},
-        filters: [],
-        privacyData: [],
-        onboarding: {},
-      };
-      db.configs.Id = commonUtils.uuid();
-      db.configs.salt = commonUtils.uuid();
-      db.configs.delay = 2;
-      commonUtils.jsonUpdate(db.configs, ssConfig);
-      return storageHelper.saveAll(db);
+    const configs = await storageHelper.getConfigs();
+    if (!configs.Id || !configs.salt) {
+      configs.Id = commonUtils.uuid();
+      configs.salt = commonUtils.uuid();
+      return storageHelper.saveConfigs(configs);
     }
   }
 
@@ -248,9 +224,9 @@ const loader = (function () {
   }
 
   async function onModulesUpdated() {
+    const modules = await storageHelper.getModules();
     const dbModules: { [key: string]: Module } = {};
-    for (const moduleName in modules) {
-      const module = modules[moduleName];
+    for (const [, module] of Object.entries(modules)) {
       for (const func of functions) {
         await func.initModule(module);
       }
@@ -259,24 +235,21 @@ const loader = (function () {
     return dbModules;
   }
 
-  function onConfigsUpdated() {
-    memberManager.init();
-    dataHandler.init();
-    userHelper.init();
-    onboarding.init();
-    apiCall.init();
-    swashApiHelper.init();
-    initConfs();
+  async function onConfigsUpdated() {
+    await memberManager.init();
+    await dataHandler.init();
+    await userHelper.init();
+    await onboarding.init();
+    await apiCall.init();
+    await swashApiHelper.init();
   }
 
   async function onUpdatedAll() {
-    console.log('Storing updated configs');
-    onConfigsUpdated();
-    await storageHelper.saveConfigs(configs);
+    console.log('Loading updated configs');
+    await onConfigsUpdated();
 
-    console.log('Storing updated modules');
-    const dbModules = await onModulesUpdated();
-    await storageHelper.saveModules(dbModules);
+    console.log('Loading updated modules');
+    await onModulesUpdated();
   }
 
   async function updateSchedule() {
@@ -284,6 +257,8 @@ const loader = (function () {
       await configManager.updateAll();
       await onUpdatedAll();
     }
+
+    const configs = await storageHelper.getConfigs();
     if (intervalId) clearInterval(intervalId);
     await update();
     if (configs.manifest)
@@ -291,8 +266,6 @@ const loader = (function () {
   }
 
   return {
-    initConfs,
-    isDBCreated,
     createDBIfNotExist,
     install,
     onInstalled,
