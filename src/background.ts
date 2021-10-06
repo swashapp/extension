@@ -24,39 +24,18 @@ import { privacyUtils } from './utils/privacy.util';
 import MessageSender = Runtime.MessageSender;
 import OnInstalledDetailsType = Runtime.OnInstalledDetailsType;
 
-let isConfigReady = false;
-let tryCount = 0;
-
-function initConfigs() {
-  memberManager.init();
-  dataHandler.init();
-  userHelper.init();
-  onboarding.init();
-  apiCall.init();
-  swashApiHelper.init();
-  loader.initConfs();
+async function initConfigs() {
+  await memberManager.init();
+  await dataHandler.init();
+  await userHelper.init();
+  await onboarding.init();
+  await apiCall.init();
+  await swashApiHelper.init();
 }
 
 async function installSwash(info: OnInstalledDetailsType) {
   console.log('Start installing...');
-  if (!isConfigReady) {
-    console.log(
-      'Configuration files is not ready yet, will try install it later',
-    );
-    if (tryCount < 120) {
-      setTimeout(() => installSwash(info), 1000);
-      tryCount++;
-      return;
-    }
-    console.log(
-      "Configuration files couldn't be loaded successfully. Installation aborted",
-    );
-    return;
-  }
-  tryCount = 0;
-
-  await configManager.importAll();
-  initConfigs();
+  await initConfigs();
   if (info.reason === 'update' || info.reason === 'install') {
     await loader.createDBIfNotExist();
     const isNeeded = await onboarding.isNeededOnBoarding();
@@ -87,12 +66,11 @@ browserUtils.isMobileDevice().then((res) => {
   }
 });
 
-configManager.loadAll().then(async () => {
+(async () => {
   console.log('Start loading...');
 
-  //Now the configuration is avaliable
-  initConfigs();
-  isConfigReady = true;
+  //Now the configuration is available
+  await initConfigs();
 
   /* Set popup menu for desktop versions */
 
@@ -143,4 +121,4 @@ configManager.loadAll().then(async () => {
       loader.onInstalled();
     }
   });
-});
+})();

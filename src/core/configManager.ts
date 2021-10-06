@@ -1,323 +1,155 @@
-import {
-  Configs,
-  ConfigsManifest,
-  ManifestCategory,
-} from '../types/storage/configs.type';
+import { ConfigsManifest } from '../types/storage/configs.type';
 import { Module } from '../types/storage/module.type';
+import { commonUtils } from '../utils/common.util';
 
 import { storageHelper } from './storageHelper';
 
 const configManager = (function () {
-  const confPath = 'js/configs/';
-  const modulePath = 'js/modules/';
-  let configs: Configs = {};
-  let categories: ManifestCategory = {};
-  let modules: { [key: string]: Module } = {};
-
-  async function loadAll() {
-    console.log('Try loading configuration files and modules...');
-    //First check memory configs
-    if (Object.keys(configs).length > 0 && Object.keys(modules).length > 0)
-      return;
-
-    //Next check storage configs
-    const sConfigs = await storageHelper.getConfigs();
-    if (
-      sConfigs &&
-      sConfigs.manifest &&
-      Object.keys(sConfigs.manifest).length > 0
-    )
-      configs = sConfigs;
-    else await importConfs();
-
-    //Next check storage modules
-    const sModules = await storageHelper.getModules();
-    if (sModules && Object.keys(sModules).length > 0) modules = sModules;
-    else await importModules();
-  }
-
-  async function importAll() {
-    configs = {};
-    modules = {};
-    categories = {};
-
-    await importConfs();
-    await importModules();
-  }
-
-  async function importConfs() {
-    console.log('Try importing configuration files...');
-    try {
-      if (!configs.manifest)
-        configs.manifest = await (
-          await fetch(`${confPath}config.json`, { cache: 'no-store' })
-        ).json();
-
-      if (!configs.manifest) return;
-
-      //importing configuration files
-      for (const file in configs.manifest.files) {
-        await importConfig(file);
-      }
-    } catch (err) {
-      console.log(`Import error: ${err}`);
-    }
-  }
-
-  async function importModules() {
-    console.log('Try importing modules...');
-    try {
-      if (!configs.manifest)
-        configs.manifest = await (
-          await fetch(`${confPath}config.json`, { cache: 'no-store' })
-        ).json();
-
-      if (!configs.manifest) return;
-
-      //importing modules
-      for (const category in configs.manifest.categories) {
-        categories[category] = {};
-        categories[category].icon = configs.manifest.categories[category].icon;
-        for (const name in configs.manifest.categories[category].modules)
-          await importModule(
-            category,
-            name,
-            configs.manifest.categories[category].modules[name]['version'],
-          );
-      }
-    } catch (err) {
-      console.log(`Import error: ${err}`);
-    }
-  }
-  async function importConfig(name: string) {
-    const cPath = `${confPath}${name}.json`;
-    try {
-      const conf = await (await fetch(cPath, { cache: 'no-store' })).json();
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      configs[name] = conf;
-      console.log(`Configuration file ${name} is imported`);
-    } catch (err) {
-      console.log(`Error while importing configuration file ${name}: ${err}`);
-    }
-  }
-
-  async function importModule(category: string, name: string, version: string) {
-    const mPath = `${modulePath}${category}/${name}/config.json`;
-    try {
-      const module = await (await fetch(mPath, { cache: 'no-store' })).json();
-      if (!module || !module.functions) throw 'Bad configuration file';
-      const mFunctions = module.functions;
-      module['category'] = category;
-      module['version'] = version;
-      for (const func of mFunctions) {
-        module[func] = await importModuleFunction(category, name, func);
-      }
-      modules[module.name] = module;
-      console.log(`Module ${category}:${name} is imported`);
-    } catch (err) {
-      console.log(`Error while importing module ${category}:${name}: ${err}`);
-    }
-  }
-
-  async function importModuleFunction(
-    category: string,
-    name: string,
-    func: string,
-  ) {
-    const mFPath = `${modulePath}${category}/${name}/${func}.json`;
-    try {
-      const mFunc = await (await fetch(mFPath, { cache: 'no-store' })).json();
-      if (!mFunc) throw 'Bad configuration file';
-      console.log(
-        `Function ${func} for module ${category}:${name} is imported`,
-      );
-      return mFunc;
-    } catch (err) {
-      console.log(
-        `Error while importing function ${func} for module ${category}:${name}: ${err}`,
-      );
-    }
-  }
-
-  async function storeConfigs() {
-    storageHelper.saveConfigs(configs).then();
-  }
-
-  async function storeModules() {
-    storageHelper.saveModules(modules).then();
-  }
-
   async function updateAll() {
     console.log('Try updating...');
+    const configs = await storageHelper.getConfigs();
+    const modules = await storageHelper.getModules();
+    const remotePath = configs.manifest.remotePath;
+
     try {
-      if (!configs.manifest)
-        configs.manifest = await (
-          await fetch(`${confPath}config.json`, { cache: 'no-store' })
-        ).json();
+      const manifestPath = `${remotePath}/configs/config.json`;
+      const remoteManifest = await commonUtils.dlJson<ConfigsManifest>(
+        manifestPath,
+      );
 
-      if (!configs.manifest) return;
-
-      const manifestPath = `${configs.manifest.remotePath}/configs/config.json`;
-      const remoteManifest: ConfigsManifest = await (
-        await fetch(manifestPath, { cache: 'no-store' })
-      ).json();
-      //update configuration files
-      for (const file in remoteManifest.files) {
-        if (
-          configs.manifest.files[file] &&
-          remoteManifest.files[file].version >
-            configs.manifest.files[file].version
-        ) {
-          await updateConfig(file, remoteManifest.files[file].version);
-        }
-      }
-
-      //update modules
-      for (const category in remoteManifest.categories) {
-        if (!configs.manifest.categories[category]) {
-          console.log(`Adding new category with name ${category}`);
-          configs.manifest.categories[category] = { modules: {}, icon: '' };
-          categories[category] = {};
-          categories[category].icon = remoteManifest.categories[category].icon;
-        }
-
-        for (const module in remoteManifest.categories[category].modules) {
-          if (!configs.manifest.categories[category].modules[module]) {
-            configs.manifest.categories[category].modules[module] = {
-              version: 0,
-            };
-            console.log(
-              `Adding new module with name ${module} to the category ${category}`,
-            );
-          }
-          if (
-            remoteManifest.categories[category].modules[module].version >
-            configs.manifest.categories[category].modules[module].version
-          ) {
-            await updateModule(
-              category,
-              module,
-              remoteManifest.categories[category].modules[module].version,
-            );
-          }
-        }
-      }
+      await updateConfigs(remoteManifest);
+      await updateModules(remoteManifest);
     } catch (err) {
       console.log(`Updating error: ${err}`);
     }
-  }
 
-  async function updateConfig(file: string, version: number) {
-    if (!configs.manifest) return;
-    console.log(`Updating configuration file ${file}`);
-    const confPath = `${configs.manifest.remotePath}configs/${file}.json`;
-    try {
-      const conf = await (await fetch(confPath, { cache: 'no-store' })).json();
-      if (conf) {
-        console.log(
-          `Configuration file ${file} updated from version ${configs.manifest.files[file].version} to ${version}`,
-        );
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        configs[file] = conf;
-        configs.manifest.files[file].version = version;
+    async function updateConfigs(remoteManifest: ConfigsManifest) {
+      for (const [name, file] of Object.entries(remoteManifest.files)) {
+        if (file.version > configs.manifest.files[name].version) {
+          try {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            configs[name] = await updateConfig(remotePath, name);
+            console.log(
+              `Configuration file ${file} updated from version ${configs.manifest.files[name].version} to ${file.version}`,
+            );
+            configs.manifest.files[name].version = file.version;
+          } catch (err) {
+            console.log(
+              `Error while importing configuration file ${name}: ${err}`,
+            );
+          }
+        }
       }
-    } catch (err) {
-      console.log(`Error on Updating configuration file ${file}: ${err}`);
     }
-  }
 
-  async function updateModule(category: string, name: string, version: string) {
-    if (!configs.manifest) return;
-    console.log(`Updating module ${category}:${name}`);
-    const mPath = `${configs.manifest.remotePath}modules/${category}/${name}/config.json`;
-    try {
-      const module = await (await fetch(mPath, { cache: 'no-store' })).json();
+    async function updateConfig(remote: string, file: string) {
+      console.log(`Updating configuration file ${file}`);
+      const confPath = `${remote}configs/${file}.json`;
+
+      return commonUtils.dlJson(confPath);
+    }
+
+    async function updateModules(remoteManifest: ConfigsManifest) {
+      for (const [name, category] of Object.entries(
+        remoteManifest.categories,
+      )) {
+        if (!configs.manifest.categories[name]) {
+          console.log(`Adding new category with name ${name}`);
+          configs.manifest.categories[name] = {
+            modules: {},
+            icon: category.icon,
+          };
+        }
+
+        for (const module in Object.keys(category.modules)) {
+          if (!configs.manifest.categories[name].modules[module]) {
+            configs.manifest.categories[name].modules[module] = {
+              version: 0,
+            };
+            console.log(
+              `Adding new module with name ${module} to the category ${name}`,
+            );
+          }
+
+          const oldVersion =
+            configs.manifest.categories[name].modules[module].version;
+          const newVersion = category.modules[module].version;
+
+          if (newVersion > oldVersion) {
+            try {
+              const newModule = await updateModule(
+                remotePath,
+                name,
+                module,
+                newVersion,
+              );
+              modules[newModule.name] = newModule;
+              configs.manifest.categories[name].modules[module].version =
+                newVersion;
+
+              console.log(
+                `Module ${category}:${name} updated from version ${oldVersion} to ${newVersion}`,
+              );
+            } catch (err) {
+              console.log(
+                `Error while importing module ${category}:${name}: ${err}`,
+              );
+            }
+          }
+        }
+      }
+    }
+
+    async function updateModule(
+      remote: string,
+      category: string,
+      name: string,
+      version: number,
+    ): Promise<Module> {
+      console.log(`Updating module ${category}:${name}`);
+      const mPath = `${remote}modules/${category}/${name}/config.json`;
+
+      const module = await commonUtils.dlJson<Module>(mPath);
       if (!module || !module.functions) throw 'Bad configuration file';
 
-      module['category'] = category;
-      module['version'] = version;
-      const mFunctions = module.functions;
-      for (const func of mFunctions) {
-        const mFPath = `${configs.manifest.remotePath}modules/${category}/${name}/${func}.json`;
-        const mFunc = await (await fetch(mFPath, { cache: 'no-store' })).json();
-        if (!mFunc) throw 'Bad configuration file';
-        module[func] = mFunc;
+      module.category = category;
+      module.version = version;
+      const functions = module.functions;
+      for (const func of functions) {
+        const newFunction = await commonUtils.dlJson(
+          `${remote}modules/${category}/${name}/${func}.json`,
+        );
+        if (!newFunction) throw 'Bad configuration file';
+        module[func] = newFunction;
       }
-      modules[module.name] = module;
-      console.log(
-        `Module ${category}:${name} updated from version ${configs.manifest.categories[category].modules[name].version} to ${version}`,
-      );
-      configs.manifest.categories[category].modules[name].version = version;
-    } catch (err) {
-      console.log(`Error while updating module ${category}:${name}: ${err}`);
+      return module;
     }
   }
 
-  async function getCategory(name: string) {
-    let category = categories[name];
-    //first check memory
-    if (category) return category;
-
-    //then check local manifest
-    if (!configs.manifest)
-      configs.manifest = await (
-        await fetch(`${confPath}config.json`, { cache: 'no-store' })
-      ).json();
-    if (!configs.manifest) return;
-    category = configs.manifest.categories[name];
-    if (category) {
-      categories[name] = category;
-      return category;
-    }
-
-    //finally try importing remote manifest
-    const manifestPath = `${configs.manifest.remotePath}/configs/config.json`;
-    const remoteManifest = await (
-      await fetch(manifestPath, { cache: 'no-store' })
-    ).json();
-    category = remoteManifest.categories[name];
-    if (category) {
-      categories[name] = category;
-      return category;
-    }
-
-    return {};
-  }
-
-  function getConfig(name: string) {
+  async function getConfig(name: string) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    return configs[name];
+    return (await storageHelper.getConfigs())[name];
   }
 
   function getAllConfigs() {
-    return configs;
+    return storageHelper.getConfigs();
   }
 
-  function getModule(name: string) {
-    return modules[name];
+  async function getModule(name: string) {
+    return (await storageHelper.getModules())[name];
   }
 
   function getAllModules() {
-    return modules;
+    return storageHelper.getModules();
   }
 
   return {
-    importAll,
-    importConfs,
-    importModules,
-    loadAll,
-    importConfig,
-    importModule,
-    storeConfigs,
-    storeModules,
     updateAll,
     getConfig,
     getAllConfigs,
     getModule,
-    getCategory,
     getAllModules,
   };
 })();

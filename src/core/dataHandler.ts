@@ -25,8 +25,8 @@ const dataHandler = (function () {
   const streams: { [key: string]: Stream } = {};
   let streamConfig: StreamConfigs;
 
-  function init() {
-    streamConfig = configManager.getConfig('stream');
+  async function init() {
+    streamConfig = await configManager.getConfig('stream');
   }
 
   function cancelSending(msgId: number) {

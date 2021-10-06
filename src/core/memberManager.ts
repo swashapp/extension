@@ -16,8 +16,8 @@ const memberManager = (function () {
   let memberManagerConfig: MemberManagerConfigs;
   let strategyInterval: number;
 
-  function init() {
-    memberManagerConfig = configManager.getConfig('memberManager');
+  async function init() {
+    memberManagerConfig = await configManager.getConfig('memberManager');
     if (memberManagerConfig) strategyInterval = memberManagerConfig.tryInterval;
   }
 
