@@ -13,7 +13,7 @@ import Button from '../components/button/button';
 export default function Settings() {
   return (
     <div className="page-container settings-container">
-      <BackgroundTheme />
+      <BackgroundTheme layout="layout2" />
       <div className="page-header">
         <h2>Settings</h2>
       </div>

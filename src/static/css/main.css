@@ -871,8 +871,12 @@ a:hover {
 .theme-circle3 {
   width: 319px;
   height: 319px;
-  bottom: -209px;
+  bottom: -170px;
   right: 783px;
+}
+
+.theme-layout2-circle3 {
+  bottom: -209px;
 }
 
 .on-line-circle1,
