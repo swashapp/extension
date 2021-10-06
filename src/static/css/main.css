@@ -293,7 +293,7 @@ a:hover {
 
 .icon-button-body {
   display: flex;
-  align-items: normal;
+  align-items: center;
 }
 
 .icon-button-small {
@@ -848,10 +848,6 @@ a:hover {
   margin-left: 8px;
 }
 
-.withdraw-button {
-  margin-top: 6px;
-}
-
 .theme-circle1,
 .theme-circle2,
 .theme-circle3 {
@@ -875,7 +871,7 @@ a:hover {
 .theme-circle3 {
   width: 319px;
   height: 319px;
-  bottom: -170px;
+  bottom: -209px;
   right: 783px;
 }
 
@@ -1014,4 +1010,12 @@ a:hover {
 
 .share-button {
   width: 100%;
+}
+
+.settings-container {
+  padding-bottom: 142px !important;
+}
+
+.reveal-private-key-button {
+  width: 173px;
 }
