@@ -41,7 +41,7 @@ const useStyles = makeStyles({
 });
 export default function Checkbox(
   props: PropsWithChildren<{
-    value: boolean;
+    checked: boolean;
     onChange?: (event: any) => void;
   }>,
 ) {

@@ -14,6 +14,9 @@
   h2 {
     font-size: 24px !important;
   }
+  h4 {
+    font-size: 18px !important;
+  }
   p {
     font-size: 14px;
   }
@@ -185,5 +188,95 @@
   }
   .wallet-data-transfer-container {
     margin: 20px;
+  }
+  .on-boarding-container {
+    padding: 50px 20px 0 20px;
+  }
+  .on-boarding-start-cards {
+    flex-wrap: wrap;
+  }
+  .on-boarding-start-cards > div {
+    width: 100% !important;
+  }
+  .on-boarding-start-cards .form-button {
+    width: 100%;
+  }
+  .on-boarding-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .on-boarding-header > h2 {
+    width: 249px;
+    text-align: center;
+    line-height: 100%;
+  }
+  .on-boarding-stepper-item {
+    margin: 0 20%;
+  }
+  .stepper-with-numbers {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .stepper {
+    width: 50%;
+    padding-bottom: 60px;
+  }
+  .on-boarding-circle1,
+  .on-boarding-circle4,
+  .on-boarding-circle5 {
+    display: none;
+  }
+  .on-boarding-circle2 {
+    left: 26px;
+    top: 682px;
+  }
+  .on-boarding-circle3 {
+    left: -115px;
+    top: 368px;
+  }
+  .on-boarding-circle6 {
+    right: -221px;
+    top: 368px;
+  }
+  .on-boarding-circle7 {
+    right: -52px;
+    top: 342px;
+  }
+  .on-boarding-profile-form-items {
+    flex-wrap: wrap;
+  }
+  .on-boarding-profile-form-items > div {
+    width: 100% !important;
+  }
+  .on-boarding-verify-email {
+    padding: 50px 20px 20px 20px;
+  }
+  .on-boarding-nav-buttons {
+    margin-top: 21px;
+    padding-top: 20px;
+  }
+  .on-boarding-progress-card > h2 {
+    margin: 24px 0 12px 0;
+  }
+  .import-your-config-card {
+    padding: 16px;
+  }
+  .import-your-config-cards {
+    flex-wrap: wrap;
+  }
+  .import-your-config-cards > div {
+    width: 100% !important;
+  }
+  .import-your-config {
+    text-align: center;
+  }
+  .import-your-config > p {
+    margin: 8px 0 20px 0;
+  }
+  .on-boarding-progress-button {
+    margin-top: 20px;
   }
 }

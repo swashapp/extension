@@ -248,4 +248,76 @@
   .wallet-data-transfer-field {
     align-self: flex-start;
   }
+  .on-boarding-container {
+    padding: 58px 16px 0 16px;
+  }
+  .on-boarding-start-cards {
+    flex-wrap: wrap;
+  }
+  .on-boarding-start-cards > div {
+    width: 100% !important;
+  }
+  .on-boarding-start-cards .form-button {
+    width: 100%;
+  }
+  .on-boarding-header {
+    display: flex;
+    flex-direction: column;
+  }
+  .on-boarding-header > h2 {
+    line-height: 100%;
+  }
+  .stepper {
+    padding-bottom: 26px;
+  }
+  .on-boarding-circle1,
+  .on-boarding-circle2,
+  .on-boarding-circle3,
+  .on-boarding-circle4,
+  .on-boarding-circle5,
+  .on-boarding-circle6,
+  .on-boarding-circle7 {
+    display: none;
+  }
+  .on-boarding-profile-form-items {
+    flex-wrap: wrap;
+  }
+  .on-boarding-profile-form-items > div {
+    width: 100% !important;
+  }
+  .on-boarding-nav-buttons {
+    margin-top: 21px;
+    padding-top: 20px;
+  }
+  .on-boarding-nav-buttons .form-button {
+    width: 114px;
+  }
+  .on-boarding-verify-email {
+    padding: 50px 20px 20px 20px;
+  }
+  .on-boarding-verify-input {
+    width: 100%;
+  }
+  .on-boarding-progress-card > h2 {
+    margin: 24px 0 12px 0;
+  }
+  .import-your-config-button {
+    padding-top: 16px;
+    border-top: 1px solid #e7f4f4;
+  }
+  .import-your-config-card {
+    padding: 16px;
+  }
+  .import-your-config-cards {
+    flex-wrap: wrap;
+  }
+  .import-your-config-cards > div {
+    width: 100% !important;
+  }
+  .import-your-config > p {
+    margin: 8px 0 20px 0;
+  }
+  .on-boarding-progress-button {
+    margin-top: 20px;
+  }
 }

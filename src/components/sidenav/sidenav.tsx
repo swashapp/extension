@@ -6,7 +6,10 @@ import SidenavLinks from './sidenav-links';
 import WelcomeToNewDataWorld from './welcome-to-new-data-world';
 import CloseIcon from 'url:../../static/images/shape/close.svg';
 
-export default memo(function Sidenav(props: { onClose: () => void }) {
+export default memo(function Sidenav(props: {
+  activeIndex?: number;
+  onClose: () => void;
+}) {
   return (
     <div className={'sidenav-container'}>
       <div>
@@ -20,7 +23,7 @@ export default memo(function Sidenav(props: { onClose: () => void }) {
           </div>
         </div>
         <div className={'sidenav-links-container'}>
-          <SidenavLinks />
+          <SidenavLinks activeIndex={props.activeIndex} />
         </div>
       </div>
       <WelcomeToNewDataWorld />

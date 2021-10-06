@@ -8,11 +8,15 @@ import Button from '../components/button/button';
 import Input from '../components/input/input';
 import CopyEndAdornment from '../components/input/end-adronments/copy-end-adornment';
 import Select from '../components/select/select';
-import { MenuItem } from '@material-ui/core';
 import FormMessage from '../components/form-message/form-message';
 import BackgroundTheme from '../components/drawing/background-theme';
 import { showPopup } from '../components/popup/popup';
 import DataTransferPopup from '../components/wallet/data-transfer-popup';
+
+const networkList = [
+  { description: 'xDai', value: 'xDai' },
+  { description: 'Mainnet', value: 'Mainnet' },
+];
 
 export default function Wallet() {
   const [dataAvailable, setDataAvailable] = useState<number>(0);
@@ -21,6 +25,7 @@ export default function Wallet() {
   const [walletAddress, setWalletAddress] = useState<string>('');
   const [recipientWalletAddress, setRecipientWalletAddress] =
     useState<string>('');
+  const [network, setNetwork] = useState<string>('xDai');
   return (
     <div className="page-container">
       <BackgroundTheme />
@@ -149,12 +154,12 @@ export default function Wallet() {
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                 />
-                <Select label="Withdraw To" value={'xDai'} onChange={() => {}}>
-                  <MenuItem value="xDai">xDai</MenuItem>
-                  <MenuItem value="xDai3">xDai1</MenuItem>
-                  <MenuItem value="xDai2">xDai2</MenuItem>
-                  <MenuItem value="xDai1">xDai3</MenuItem>
-                </Select>
+                <Select
+                  items={networkList}
+                  label="Withdraw To"
+                  value={network}
+                  onChange={(e) => setNetwork(e.target.value)}
+                />
               </FlexGrid>
               <Input
                 name="RecipientWalletAddress"
@@ -168,6 +173,7 @@ export default function Wallet() {
               className="form-button"
               color="primary"
               text="Withdraw"
+              disabled={!recipientWalletAddress || !network}
               link={false}
               onClick={() =>
                 showPopup({

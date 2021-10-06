@@ -80,16 +80,22 @@ export default function Button(props: {
   disabled?: boolean;
 }) {
   const classes = useStyles();
-  const { color = 'primary', size = 'large', text, fixed = false } = props;
-
+  const {
+    color = 'primary',
+    size = 'large',
+    text,
+    fixed = false,
+    onClick = () => {},
+    disabled = false,
+  } = props;
   const button = getButton(
-    classes[props.disabled ? 'gray' : color],
+    classes[disabled ? 'gray' : color],
     size,
     fixed,
     props.loading ? props.loadingText || '' : text,
     props?.muiProps,
     props?.loading,
-    props.disabled ? () => {} : props.onClick,
+    disabled ? () => {} : onClick,
     props?.className,
   );
 

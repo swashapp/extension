@@ -42,7 +42,7 @@ export default function TextMasking({
       </div>
       <div className="text-masking-items">
         {items.map((item: string, index: number) => (
-          <div className="text-masking-item">
+          <div key={item + index} className="text-masking-item">
             {item}
             <RemoveButton onClick={() => onRemove(index)} />
           </div>

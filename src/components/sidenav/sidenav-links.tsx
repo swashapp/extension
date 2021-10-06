@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SidenavItem, SidenavItems } from '../../data/sidenav-items';
 
-export default function SidenavLinks() {
-  const [active, setActive] = useState<number>(0);
+export default function SidenavLinks(props: { activeIndex?: number }) {
+  const [active, setActive] = useState<number>(props.activeIndex || 0);
   return (
     <>
       {SidenavItems.map((item: SidenavItem, index: number) => {
         return (
           <div
+            key={item.title + index}
             onClick={() => setActive(index)}
             className={`${'sidenav-link'} ${
               index === active ? 'sidenav-link-active' : 'sidenav-link-inactive'

@@ -11,7 +11,7 @@ export default function NumericSection(props: {
     <div className={`${'numeric-container'} ${!image ? 'numeric-small' : ''}`}>
       <div className={'numeric-icon-content'}>
         {image ? (
-          <div className={'numeric-icon'}>
+          <div className={'card-icon'}>
             <img src={image} alt={''} />
           </div>
         ) : (

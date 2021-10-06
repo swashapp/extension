@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, MenuItem } from '@material-ui/core';
 import MuiSelect from '@material-ui/core/Select';
 import { PropsWithChildren } from 'react';
 import smallArrow from 'url:../../static/images/shape/small-arrow.svg';
@@ -18,6 +18,7 @@ const useStyles = makeStyles(() => ({
 
 export default function Select(
   props: PropsWithChildren<{
+    items: { value: string; description: string }[];
     label: string;
     value: string | number;
     onChange?: (event: any) => void;
@@ -37,7 +38,15 @@ export default function Select(
         onChange={props.onChange}
         input={<InputBase />}
       >
-        {props.children}
+        {props.items.map((item, index) => (
+          <MenuItem key={item.value + index} value={item.value}>
+            <div className="flex-row">
+              <div className="select-item-value">{item.value}</div>
+              &nbsp;&nbsp;&nbsp;
+              <div className="select-item-description">{item.description}</div>
+            </div>
+          </MenuItem>
+        ))}
       </MuiSelect>
     </Label>
   );
