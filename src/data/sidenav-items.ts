@@ -11,6 +11,7 @@ import helpIcon from 'url:../static/images/icons/sidenav/help.png';
 import helpBlackIcon from 'url:../static/images/icons/sidenav/help-black.svg';
 import Wallet from '../pages/wallet';
 import InviteFriends from '../pages/invite-friends';
+import Settings from '../pages/settings';
 
 export interface SidenavItem {
   title: string;
@@ -42,7 +43,7 @@ export const SidenavItems = [
     title: 'Settings',
     icon: { active: settingsIcon, inactive: settingsBlackIcon },
     route: RouteToPages.settings,
-    component: null,
+    component: Settings,
   },
   {
     title: 'Help',
