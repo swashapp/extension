@@ -1,13 +1,16 @@
 import { SidenavItems } from '../data/sidenav-items';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Sidenav from '../components/sidenav/sidenav';
+import { ToastContainer } from 'react-toastify';
+import { injectStyle } from 'react-toastify/dist/inject-style';
 
 function EmptyComponent() {
   return <div style={{ width: '100%' }}></div>;
 }
 
 export default function App(): JSX.Element {
+  useEffect(() => injectStyle(), []);
   return (
     <div className="main-container">
       <div className="sidenav">
@@ -24,6 +27,12 @@ export default function App(): JSX.Element {
           ))}
         </Switch>
       </div>
+      <ToastContainer
+        toastClassName="toast-panel-container"
+        autoClose={3000}
+        closeButton={false}
+        hideProgressBar
+      />
     </div>
   );
 }

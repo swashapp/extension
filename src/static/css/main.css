@@ -1023,3 +1023,45 @@ a:hover {
 .reveal-private-key-button {
   width: 173px;
 }
+
+.toast-panel-container {
+  background: white;
+  box-shadow: 0px 4px 8px rgba(44, 62, 62, 0.04);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.toast-panel {
+  align-items: center;
+}
+
+.toast-image {
+  margin: 0 12px;
+}
+
+.toast-title,
+.toast-text {
+  font-style: normal;
+  font-weight: 415;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.toast-title {
+  color: black;
+}
+
+.toast-text {
+  color: #6b7883;
+}
+
+.toast-message-success {
+  border-left: 4px solid var(--green);
+}
+
+.toast-message-error {
+  border-left: 4px solid var(--error);
+}
+.toast-message-warning {
+  border-left: 4px solid var(--warning);
+}
