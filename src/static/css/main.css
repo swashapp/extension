@@ -254,6 +254,7 @@ a:hover {
   text-transform: none;
 
   display: flex;
+  gap: 12px;
 }
 
 /* .small-text {
@@ -570,6 +571,7 @@ a:hover {
   box-shadow: 0px 10px 20px rgba(44, 62, 62, 0.04),
     0px 2px 6px rgba(44, 62, 62, 0.04), 0px 0px 1px rgba(44, 62, 62, 0.04);
   border-radius: 12px;
+  overflow-x: hidden;
 }
 
 .closable-panel-container {
@@ -745,6 +747,11 @@ a:hover {
 .circle-colorful {
   background: url('../images/background/circle-pattern.webp');
   background-size: cover;
+  border-radius: 50%;
+}
+
+.circle-colorful-gradiant {
+  background: linear-gradient(180deg, #54ffad 0%, #6eecfd 100%);
   border-radius: 50%;
 }
 
@@ -927,7 +934,7 @@ a:hover {
   right: 0;
 }
 
-.wallet-read-more-popup {
+.closable-popup {
   padding: 32px;
 }
 
@@ -1064,4 +1071,91 @@ a:hover {
 }
 .toast-message-warning {
   border-left: 4px solid var(--warning);
+}
+
+.wallet-data-transfer-container {
+  width: 40vw;
+  margin: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wallet-data-transfer-content {
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 138px 0;
+}
+
+.wallet-data-transfer-field-label {
+  color: #8091a3;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.wallet-data-transfer-buttons {
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.data-transfer-confirm-button {
+  width: 178px;
+}
+
+.progress-circle1,
+.progress-circle6 {
+  position: absolute;
+}
+
+.progress-dashed {
+  height: 120px;
+  width: 120px;
+  position: relative;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+.progress-circle1 {
+  height: 120px;
+  width: 120px;
+  top: 0;
+  left: 0;
+}
+
+.progress-circle6 {
+  height: 74px;
+  width: 74px;
+}
+
+.progress-widget {
+  position: relative;
+  width: 74px;
+  height: 74px;
+  margin: auto;
+  align-items: center;
+  display: flex;
+}
+.progress-image {
+  z-index: 1000;
+  margin: auto;
+}
+
+.data-transfer-popup-completed {
+  width: 40vw;
+  margin: 120px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.data-transfer-popup-completed > h2 {
+  margin: 32px 0 20px 0;
+}
+.data-transfer-popup-completed > p {
+  color: #1f3c5a;
 }

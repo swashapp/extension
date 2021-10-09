@@ -31,6 +31,11 @@ const useStyles = makeStyles(() => ({
     color: 'var(--black)',
     '&:hover': { background: 'var(--black)', color: 'var(--white)' },
   },
+  gray: {
+    background: 'var(--gray)',
+    color: 'var(--black)',
+    '&:hover': { background: 'var(--gray)', color: 'var(--black)' },
+  },
 }));
 
 function getButton(
@@ -41,26 +46,28 @@ function getButton(
   muiProps?: ButtonProps,
   loading?: boolean,
   onClick?: () => void,
+  className?: string,
 ) {
   return (
     <StyledButton
       {...muiProps}
-      className={`${color} ${'button-' + size}`}
+      className={`${color} ${'button-' + size} ${className}`}
       onClick={onClick}
     >
       <div
-        className={`${'button-text'} ${'button-' + size + '-text'} ${
+        className={`button-text ${'button-' + size + '-text'} ${
           fixed ? 'button-fixed' : ''
         }`}
       >
-        {loading && <CircularProgress color={'inherit'} size={28} />}
-        {!loading && text}
+        {text ? <>{text}</> : <></>}
+        {loading && <CircularProgress color={'inherit'} size={24} />}
       </div>
     </StyledButton>
   );
 }
 
 export default function Button(props: {
+  className?: string;
   color?: 'primary' | 'secondary' | 'white';
   size?: 'small' | 'large';
   fixed?: boolean;
@@ -69,18 +76,21 @@ export default function Button(props: {
   onClick?: () => void;
   muiProps?: ButtonProps;
   loading?: boolean;
+  loadingText?: string;
+  disabled?: boolean;
 }) {
   const classes = useStyles();
   const { color = 'primary', size = 'large', text, fixed = false } = props;
 
   const button = getButton(
-    classes[color],
+    classes[props.disabled ? 'gray' : color],
     size,
     fixed,
-    text,
+    props.loading ? props.loadingText || '' : text,
     props?.muiProps,
     props?.loading,
-    props?.onClick,
+    props.disabled ? () => {} : props.onClick,
+    props?.className,
   );
 
   if (props.link === false) return button;
