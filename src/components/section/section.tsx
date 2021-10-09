@@ -1,5 +1,5 @@
 import React from 'react';
-import RightArrow from 'url:../../static/images/shape/right-arrow.svg';
+import RightArrowHead from 'url:../../static/images/shape/right-arrow-head.svg';
 import Done from 'url:../../static/images/shape/done.svg';
 
 type SectionItem = {
@@ -19,7 +19,7 @@ export default function Section(props: { items: SectionItem[] }) {
                 <div className={'section-link'}>
                   <p>{item.text}</p>
                   <img
-                    src={item.done ? Done : RightArrow}
+                    src={item.done ? Done : RightArrowHead}
                     alt={item.done ? 'Done' : '>'}
                   />
                 </div>

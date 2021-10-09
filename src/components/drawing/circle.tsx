@@ -12,6 +12,7 @@ export default memo(function Circle(props: {
   border?: 'black' | 'white' | 'gray';
   dashed?: string;
   colorful?: boolean;
+  colorfulGradiant?: boolean;
   className?: string;
 }) {
   const color = props.color ? `var(--${props.color})` : 'transparent';
@@ -21,7 +22,7 @@ export default memo(function Circle(props: {
     <div
       className={`${props.className} ${'circle-container'} ${
         props.colorful ? 'circle-colorful' : ''
-      }`}
+      } ${props.colorfulGradiant ? 'circle-colorful-gradiant' : ''}`}
     >
       <svg
         width={'100%'}

@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Sidenav from '../components/sidenav/sidenav';
 import { ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
+import Popup from '../components/popup/popup';
 
 function EmptyComponent() {
   return <div style={{ width: '100%' }}></div>;
@@ -27,6 +28,7 @@ export default function App(): JSX.Element {
           ))}
         </Switch>
       </div>
+      <Popup />
       <ToastContainer
         toastClassName="toast-panel-container"
         autoClose={3000}

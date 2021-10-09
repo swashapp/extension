@@ -11,16 +11,16 @@ import Select from '../components/select/select';
 import { MenuItem } from '@material-ui/core';
 import FormMessage from '../components/form-message/form-message';
 import BackgroundTheme from '../components/drawing/background-theme';
-import Popup from '../components/popup/popup';
-import ClosablePanel from '../components/closable-panel/closable-panel';
-import ToastMessage from '../components/toast/toast-message';
-import { toast } from 'react-toastify';
+import { showPopup } from '../components/popup/popup';
+import DataTransferPopup from '../components/wallet/data-transfer-popup';
 
 export default function Wallet() {
   const [dataAvailable, setDataAvailable] = useState<number>(0);
+  const [amount, setAmount] = useState<string>('0');
   const [unclaimedBonus, setUnclaimedBonus] = useState<number>(0);
   const [walletAddress, setWalletAddress] = useState<string>('');
-  const [readMore, setReadMore] = useState<boolean>(false);
+  const [recipientWalletAddress, setRecipientWalletAddress] =
+    useState<string>('');
   return (
     <div className="page-container wallet-container">
       <BackgroundTheme />
@@ -39,9 +39,12 @@ export default function Wallet() {
             title="Data Referral Bonus"
             value={unclaimedBonus}
             layout={
-              <div className="form-button">
-                <Button color="primary" text="Claim" link={false} />
-              </div>
+              <Button
+                className="form-button"
+                color="primary"
+                text="Claim"
+                link={false}
+              />
             }
             image={DataBonusIcon}
           />
@@ -73,67 +76,73 @@ export default function Wallet() {
                 color="secondary"
                 text="Read More"
                 link={false}
-                onClick={() => setReadMore(true)}
+                onClick={() =>
+                  showPopup({
+                    closable: true,
+                    content: (
+                      <>
+                        <div className="wallet-read-more-title">
+                          <h6>Withdraw Your Earnings</h6>
+                        </div>
+                        <p>
+                          You can withdraw your earnings using xDai chain or
+                          Ethereum mainnet.
+                          <br />
+                          <br />
+                          It’s important to make sure you have set up your
+                          wallet properly (it only takes a few minutes!). Check
+                          the{' '}
+                          <a
+                            href="#/help"
+                            style={{
+                              color: 'var(--blue)',
+                            }}
+                          >
+                            Help section
+                          </a>{' '}
+                          for step-by-step instructions.
+                          <br />
+                          <br />
+                          xDai is the recommended method as it’s faster and
+                          Swash will cover the cost for you! 🎉
+                          <br />
+                          <br />
+                          You can also put your DATA to work by trading or
+                          staking liquidity on the DATA/ xDAI pool on{' '}
+                          <a
+                            href="https://honeyswap.org"
+                            style={{
+                              color: 'var(--blue)',
+                            }}
+                          >
+                            Honeyswap
+                          </a>{' '}
+                          🐝
+                          <br />
+                          <br />
+                          Alternatively, if you use Ethereum, you will be
+                          presented with the amount needed in your wallet (in
+                          ETH) to cover the transaction fee. Exchange wallets
+                          are not currently supported.
+                          <br />
+                          <br />
+                          New earnings are available after 48 hours as an
+                          anti-fraud measure.
+                        </p>
+                      </>
+                    ),
+                  })
+                }
               />
-              <Popup open={readMore}>
-                <ClosablePanel
-                  className="wallet-read-more-popup"
-                  onClose={() => setReadMore(false)}
-                >
-                  <div className="wallet-read-more-title">
-                    <h6>Withdraw Your Earnings</h6>
-                  </div>
-                  <p>
-                    You can withdraw your earnings using xDai chain or Ethereum
-                    mainnet.
-                    <br />
-                    <br />
-                    It’s important to make sure you have set up your wallet
-                    properly (it only takes a few minutes!). Check the{' '}
-                    <a
-                      href="#/help"
-                      style={{
-                        color: 'var(--blue)',
-                      }}
-                    >
-                      Help section
-                    </a>{' '}
-                    for step-by-step instructions.
-                    <br />
-                    <br />
-                    xDai is the recommended method as it’s faster and Swash will
-                    cover the cost for you! 🎉
-                    <br />
-                    <br />
-                    You can also put your DATA to work by trading or staking
-                    liquidity on the DATA/ xDAI pool on{' '}
-                    <a
-                      href="https://honeyswap.org"
-                      style={{
-                        color: 'var(--blue)',
-                      }}
-                    >
-                      Honeyswap
-                    </a>{' '}
-                    🐝
-                    <br />
-                    <br />
-                    Alternatively, if you use Ethereum, you will be presented
-                    with the amount needed in your wallet (in ETH) to cover the
-                    transaction fee. Exchange wallets are not currently
-                    supported.
-                    <br />
-                    <br />
-                    New earnings are available after 48 hours as an anti-fraud
-                    measure.
-                  </p>
-                </ClosablePanel>
-              </Popup>
             </div>
           </div>
           <div className="flex-column gap16">
             <FlexGrid className="flex-grid gap16" column={2}>
-              <Input label="Amount" value={0} onChange={() => {}} />
+              <Input
+                label="Amount"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
               <Select label="Withdraw To" value={'xDai'} onChange={() => {}}>
                 <MenuItem value="xDai">xDai</MenuItem>
                 <MenuItem value="xDai3">xDai1</MenuItem>
@@ -142,27 +151,35 @@ export default function Wallet() {
               </Select>
             </FlexGrid>
             <Input
+              name="RecipientWalletAddress"
               label="Recipient Wallet Address"
-              value={'alksjdfksjdf'}
-              onChange={(e) => {}}
+              value={recipientWalletAddress}
+              onChange={(e) => setRecipientWalletAddress(e.target.value)}
             />
             <FormMessage text="al;skdflasdflasdfasd" type="error" />
           </div>
-          <div className="form-button withdraw-button">
-            <Button
-              color="primary"
-              text="Withdraw"
-              link={false}
-              onClick={() =>
-                toast(
-                  <ToastMessage
-                    type="error"
-                    content={<>Something went wrong!</>}
-                  />,
-                )
-              }
-            />
-          </div>
+          <Button
+            className="form-button"
+            color="primary"
+            text="Withdraw"
+            link={false}
+            onClick={() =>
+              showPopup({
+                closable: false,
+                content: (
+                  <DataTransferPopup
+                    amount={amount}
+                    toAddress={recipientWalletAddress}
+                    onSend={() =>
+                      new Promise((resolve) =>
+                        setTimeout(() => resolve(true), 3000),
+                      )
+                    }
+                  />
+                ),
+              })
+            }
+          />
         </div>
       </FlexGrid>
     </div>
