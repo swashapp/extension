@@ -15,6 +15,7 @@ import Wallet from '../pages/wallet';
 import InviteFriends from '../pages/invite-friends';
 import Settings from '../pages/settings';
 import Data from '../pages/data';
+import Help from '../pages/help';
 
 export interface SidenavItem {
   title: string;
@@ -58,6 +59,6 @@ export const SidenavItems = [
     title: 'Help',
     icon: { active: helpIcon, inactive: helpBlackIcon },
     route: RouteToPages.help,
-    component: null,
+    component: Help,
   },
 ] as SidenavItem[];

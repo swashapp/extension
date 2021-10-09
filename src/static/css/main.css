@@ -1159,3 +1159,59 @@ a:hover {
 .data-transfer-popup-completed > p {
   color: #1f3c5a;
 }
+.link-in-text {
+  color: var(--blue);
+}
+.next-tour-button {
+  width: 131px;
+}
+
+.section-accordion-container p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 24px;
+
+  color: #1f3c5a;
+}
+
+.section-accordion-container li {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 24px;
+
+  color: #1f3c5a;
+}
+
+.section-accordion-container .title1 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.section-accordion-container .title2 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.section-accordion-container a {
+  color: var(--blue);
+}
+
+.help-wallet-earnings-image {
+  background: url('../images/background/help-earnings.jpg') no-repeat center
+    center;
+  width: 300px;
+  height: 200px;
+  background-size: 300px 200px;
+}
+.help-getting-started-image {
+  background: url('../images/background/help-popup.jpg') no-repeat center center;
+  width: 500px;
+  height: 200px;
+  background-size: 500px 200px;
+}

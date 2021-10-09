@@ -27,11 +27,14 @@ export default function Select(
   props: PropsWithChildren<{
     id: string;
     text: string;
+    shrink?: boolean;
   }>,
 ) {
   return (
     <FormControl style={{ width: '100%' }}>
-      <Label htmlFor={props.id}>{props.text}</Label>
+      <Label htmlFor={props.id} shrink={props.shrink}>
+        {props.text}
+      </Label>
       {props.children}
     </FormControl>
   );
