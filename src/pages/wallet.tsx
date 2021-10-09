@@ -13,6 +13,8 @@ import FormMessage from '../components/form-message/form-message';
 import BackgroundTheme from '../components/drawing/background-theme';
 import Popup from '../components/popup/popup';
 import ClosablePanel from '../components/closable-panel/closable-panel';
+import ToastMessage from '../components/toast/toast-message';
+import { toast } from 'react-toastify';
 
 export default function Wallet() {
   const [dataAvailable, setDataAvailable] = useState<number>(0);
@@ -147,7 +149,19 @@ export default function Wallet() {
             <FormMessage text="al;skdflasdflasdfasd" type="error" />
           </div>
           <div className="form-button withdraw-button">
-            <Button color="primary" text="Withdraw" link={false} />
+            <Button
+              color="primary"
+              text="Withdraw"
+              link={false}
+              onClick={() =>
+                toast(
+                  <ToastMessage
+                    type="error"
+                    content={<>Something went wrong!</>}
+                  />,
+                )
+              }
+            />
           </div>
         </div>
       </FlexGrid>
