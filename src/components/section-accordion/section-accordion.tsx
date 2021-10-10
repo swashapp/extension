@@ -5,11 +5,12 @@ import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import { withStyles } from '@material-ui/core/styles';
 import { PropsWithChildren, useState } from 'react';
 import Expand from 'url:../../static/images/shape/expand.svg';
+import { Markup } from 'interweave';
 
 type AccordionItem = {
   title: string;
   icon: string;
-  content: ReactElement;
+  content: string;
   expanded?: boolean;
 };
 
@@ -89,7 +90,7 @@ export default function SectionAccordion(
               </AccordionSummary>
               <AccordionDetails>
                 <div className={'section-accordion-content'}>
-                  {item.content}
+                  <Markup content={item.content} />
                 </div>
               </AccordionDetails>
             </StyledAccordion>
