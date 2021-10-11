@@ -12,54 +12,73 @@ import Button from '../components/button/button';
 
 export default function Settings() {
   return (
-    <div className="page-container settings-container">
+    <div className="page-container">
       <BackgroundTheme layout="layout2" />
-      <div className="page-header">
-        <h2>Settings</h2>
-      </div>
-      <div className="flex-column gap32">
-        <div className="simple-card">
-          <h6>Backup your wallet settings</h6>
-          <div className="flex-column gap32">
-            <p>
-              Don’t forget to download your settings to make sure you can access
-              your wallet on other devices or browsers. If you lose access but
-              don’t have this in a safe place, then you won’t be able to access
-              your wallet.
-            </p>
-            <FlexGrid column={4} className="flex-grid gap16">
-              <IconButton body="Local File" image={FileLogo} link={false} />
-              <IconButton body="Dropbox" image={DropboxLogo} link={false} />
-              <IconButton
-                body="Google Drive"
-                image={GoogleDriveLogo}
-                imageSize={{ width: 27 }}
-                link={false}
-              />
-              <IconButton
-                body="3Box"
-                image={ThreeBoxLogo}
-                imageSize={{ width: 31, height: 20 }}
-                link={false}
-              />
-            </FlexGrid>
-          </div>
+      <div className="page-content">
+        <div className="page-header">
+          <h2>Settings</h2>
         </div>
-        <div className="simple-card">
-          <h6>Private key</h6>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac
-            eleifend ante.
-          </p>
-          <Input
-            label="Private Key"
-            value={''}
-            disabled={true}
-            onChange={(e) => {}}
-            endAdornment={<CopyEndAdornment value={''} />}
-          />
-          <div className="reveal-private-key-button">
-            <Button color="secondary" text="Reveal Private Key" link={false} />
+        <div className="flex-column card-gap">
+          <div className="simple-card">
+            <h6>Backup your wallet settings</h6>
+            <div className="flex-column card-gap">
+              <p>
+                Don’t forget to download your settings to make sure you can
+                access your wallet on other devices or browsers. If you lose
+                access but don’t have this in a safe place, then you won’t be
+                able to access your wallet.
+              </p>
+              <FlexGrid
+                column={2}
+                className="settings-backup-buttons form-item-gap"
+              >
+                <FlexGrid
+                  column={2}
+                  className="settings-2backup-buttons form-item-gap"
+                >
+                  <IconButton body="Local File" image={FileLogo} link={false} />
+                  <IconButton body="Dropbox" image={DropboxLogo} link={false} />
+                </FlexGrid>
+                <FlexGrid
+                  column={2}
+                  className="settings-2backup-buttons form-item-gap"
+                >
+                  <IconButton
+                    body="Google Drive"
+                    image={GoogleDriveLogo}
+                    imageSize={{ width: 27 }}
+                    link={false}
+                  />
+                  <IconButton
+                    body="3Box"
+                    image={ThreeBoxLogo}
+                    imageSize={{ width: 31, height: 20 }}
+                    link={false}
+                  />
+                </FlexGrid>
+              </FlexGrid>
+            </div>
+          </div>
+          <div className="simple-card">
+            <h6>Private key</h6>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac
+              eleifend ante.
+            </p>
+            <Input
+              label="Private Key"
+              value={''}
+              disabled={true}
+              onChange={(e) => {}}
+              endAdornment={<CopyEndAdornment value={''} />}
+            />
+            <div className="reveal-private-key-button">
+              <Button
+                color="secondary"
+                text="Reveal Private Key"
+                link={false}
+              />
+            </div>
           </div>
         </div>
       </div>

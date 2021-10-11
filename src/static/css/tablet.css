@@ -1,0 +1,158 @@
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  body,
+  input,
+  select,
+  button {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+  h6 {
+    font-size: 18px !important;
+  }
+  h2 {
+    font-size: 24px !important;
+  }
+  p {
+    font-size: 14px;
+  }
+  .card-gap {
+    gap: 16px;
+  }
+  .wallet-cards {
+    flex-wrap: wrap;
+  }
+  .wallet-cards > div {
+    width: 100% !important;
+  }
+  .wallet-numerics {
+    flex-wrap: nowrap;
+  }
+  .numeric-layout1-image {
+    display: none;
+  }
+  .numeric-layout2-image {
+    display: none;
+  }
+  .settings-backup-buttons {
+    flex-wrap: wrap;
+  }
+  .settings-backup-buttons > div {
+    width: 100% !important;
+  }
+  .settings-2backup-buttons {
+    flex-wrap: nowrap;
+  }
+  .popup .MuiDialog-container {
+    align-items: flex-end;
+  }
+  .popup-paper {
+    margin: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    width: 100%;
+    max-width: unset !important;
+  }
+
+  .wallet-data-transfer-content {
+    margin: 115px 0;
+  }
+
+  .data-transfer-popup-completed {
+    margin: 78px 0;
+  }
+  .theme-circle1,
+  .theme-circle2,
+  .theme-circle3,
+  .circle-on-line {
+    display: none;
+  }
+  .page-content {
+    margin: 20px;
+  }
+  .numeric-number {
+    font-size: 36px !important;
+  }
+  .numeric-container {
+    padding: 20px;
+  }
+  .simple-card {
+    padding: 20px;
+  }
+  .claim-button {
+    width: 71px;
+  }
+  .form-button {
+    width: 121px;
+  }
+  .sidenav-button-container {
+    background-color: var(--lightest-blue);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .open-sidenav {
+    width: initial;
+    transition: all 1s;
+  }
+  .close-sidenav {
+    width: 0;
+    transition: all 0.5s;
+  }
+  .open-sidenav-button {
+    height: initial;
+    padding: 48px 20px 4px 20px;
+    transition: all 1s;
+  }
+  .close-sidenav-button {
+    height: 0;
+    padding: 0;
+    transition: all 0.5s;
+  }
+  .content-open-sidenav > div {
+    width: calc(100% + 256px);
+  }
+  .content-close-sidenav > div {
+    width: 100%;
+  }
+  .sidenav-close-button {
+    visibility: visible;
+  }
+  .swash-logo {
+    width: 98px;
+    height: 28px;
+  }
+
+  .win-data-prize-circle1 {
+    top: -110px;
+    right: -82px;
+  }
+
+  .win-data-prize-circle2 {
+    bottom: -357px;
+    right: -316px;
+  }
+
+  .win-data-prize-circle3 {
+    bottom: 74px;
+    right: 48px;
+  }
+
+  .section-accordion-container p {
+    font-size: 12px;
+  }
+
+  .section-accordion-container li {
+    font-size: 12px;
+  }
+
+  .section-accordion-container .title1 {
+    font-size: 14px;
+  }
+
+  .section-accordion-container .title2 {
+    font-size: 12px;
+  }
+}

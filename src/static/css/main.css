@@ -138,12 +138,6 @@ a:hover {
   z-index: -1;
 }
 
-.main-container {
-  width: 100vw;
-  position: relative;
-  overflow-x: hidden;
-}
-
 .large-div {
   margin-right: 20px !important;
   margin-left: 20px !important;
@@ -566,12 +560,13 @@ a:hover {
   margin-top: 16px;
 }
 
-.popup-content {
+.popup-paper {
   background: var(--white);
   box-shadow: 0px 10px 20px rgba(44, 62, 62, 0.04),
     0px 2px 6px rgba(44, 62, 62, 0.04), 0px 0px 1px rgba(44, 62, 62, 0.04);
   border-radius: 12px;
   overflow-x: hidden;
+  width: 50%;
 }
 
 .closable-panel-container {
@@ -631,16 +626,11 @@ a:hover {
 }
 .content {
   width: 100%;
-  height: inherit;
-}
-
-.sidenav {
-  height: inherit;
 }
 
 .content > div {
-  max-width: 1184px;
-  padding: 64px;
+  width: 100%;
+  height: 100%;
   background-color: var(--lightest-blue);
   display: flex;
   flex-direction: column;
@@ -661,7 +651,16 @@ a:hover {
 
 .sidenav-logo {
   margin-bottom: 48px;
-  padding: 20px 20px 0 20px;
+  padding: 20px 15px 0 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidenav-close-button {
+  cursor: pointer;
+  visibility: hidden;
 }
 
 .sidenav-links-container {
@@ -782,11 +781,11 @@ a:hover {
   right: 28px;
 }
 
-.gap32 {
+.card-gap {
   gap: 32px;
 }
 
-.gap16 {
+.form-item-gap {
   gap: 16px;
 }
 
@@ -810,11 +809,27 @@ a:hover {
   padding: 0;
 }
 
-.wallet-container {
-  padding-bottom: 188px !important;
+.page-content {
+  margin: 64px;
+}
+
+.wallet-cards {
+  flex-wrap: nowrap;
+}
+.wallet-numerics {
+  flex-wrap: wrap;
+}
+
+.wallet-numerics > div {
+  width: 100% !important;
+}
+
+.claim-button {
+  width: 141px;
 }
 
 .page-container {
+  min-height: 900px;
   overflow: hidden;
   position: relative;
 }
@@ -884,6 +899,9 @@ a:hover {
 
 .theme-layout2-circle3 {
   bottom: -209px;
+}
+.theme-layout3-circle3 {
+  display: none;
 }
 
 .on-line-circle1,
@@ -983,11 +1001,6 @@ a:hover {
   width: 218px;
 }
 
-.win-data-prize-text {
-  font-size: 16px;
-  padding-bottom: 42px;
-}
-
 .win-data-prize-button {
   width: 125px;
 }
@@ -1027,6 +1040,12 @@ a:hover {
   padding-bottom: 142px !important;
 }
 
+.settings-backup-buttons {
+  flex-wrap: nowrap;
+}
+.settings-2backup-buttons {
+  flex-wrap: nowrap;
+}
 .reveal-private-key-button {
   width: 173px;
 }
@@ -1074,7 +1093,6 @@ a:hover {
 }
 
 .wallet-data-transfer-container {
-  width: 40vw;
   margin: 32px;
   display: flex;
   flex-direction: column;
@@ -1146,7 +1164,6 @@ a:hover {
 }
 
 .data-transfer-popup-completed {
-  width: 40vw;
   margin: 120px 0;
   display: flex;
   flex-direction: column;
@@ -1205,13 +1222,20 @@ a:hover {
 .help-wallet-earnings-image {
   background: url('../images/background/help-earnings.jpg') no-repeat center
     center;
+  width: 400px;
+  height: 200px;
+  background-size: 400px 200px;
+}
+.help-getting-started-image {
+  background: url('../images/background/help-popup.jpg') no-repeat center center;
   width: 300px;
   height: 200px;
   background-size: 300px 200px;
 }
-.help-getting-started-image {
-  background: url('../images/background/help-popup.jpg') no-repeat center center;
-  width: 500px;
-  height: 200px;
-  background-size: 500px 200px;
+.sidenav-button-container {
+  display: none;
+}
+.swash-logo {
+  width: 127px;
+  height: 36px;
 }
