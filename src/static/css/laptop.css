@@ -1,0 +1,23 @@
+@media only screen and (min-width: 1200px) and (max-width: 1439px) {
+  .win-data-prize-circle1 {
+    top: -109px;
+    right: -94px;
+  }
+
+  .win-data-prize-circle2 {
+    bottom: -292px;
+    right: -311px;
+  }
+
+  .win-data-prize-circle3 {
+    bottom: 137px;
+    right: 50px;
+  }
+  .numeric-layout1-image {
+    background: url('../images/background/stat3.png') no-repeat center center;
+  }
+
+  .numeric-layout2-image {
+    background: url('../images/background/stat3.png') no-repeat center center;
+  }
+}

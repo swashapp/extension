@@ -8,7 +8,26 @@ import DataAccordion, {
 
 export default function Data() {
   const [maskItems, setMaskItems] = useState<string[]>([]);
-  const [dataItem, setDataItem] = useState<DataItem[]>([]);
+  const [dataItems, setDataItems] = useState<DataItem[]>([
+    {
+      percentage: 10,
+      category: 'Search',
+      currentTime: 2,
+      link: '',
+      msg: { a: 'asdf', b: 'asdfasd' },
+      msgId: '1',
+      title: 'behtarin',
+    },
+    {
+      percentage: 10,
+      category: 'Search',
+      currentTime: 2,
+      link: '',
+      msg: { a: 'asdf', b: 'asdfasd' },
+      msgId: '1',
+      title: 'behtarin',
+    },
+  ]);
   const [delay, setDelay] = useState<number>(0);
   return (
     <div className="page-container">
@@ -42,7 +61,10 @@ export default function Data() {
               setValue={setDelay}
               unit={delay > 1 ? 'minutes' : 'minute'}
             />
-            <DataAccordion items={dataItem} onRemove={(item: DataItem) => {}} />
+            <DataAccordion
+              items={dataItems}
+              onRemove={(item: DataItem) => {}}
+            />
           </div>
         </div>
       </div>

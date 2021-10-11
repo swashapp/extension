@@ -32,7 +32,7 @@ export default function InviteFriends() {
           <h2>Invite Friends</h2>
         </div>
         <div className="flex-column card-gap">
-          <FlexGrid column={2} className="flex-grid card-gap">
+          <FlexGrid column={2} className="invite-friends-numerics card-gap">
             <NumericSection
               title="Total Bonus Earned"
               value={'124343.9'}
@@ -47,7 +47,10 @@ export default function InviteFriends() {
             />
           </FlexGrid>
           <div className="simple-card">
-            <FlexGrid column={2} className="flex-grid card-gap">
+            <FlexGrid
+              column={2}
+              className="invite-friends-bonus-cards card-gap"
+            >
               <div className="simple-card">
                 <h6>Get More Data Bonus</h6>
                 <p>
@@ -118,9 +121,9 @@ export default function InviteFriends() {
                     Bring the most new users in a month, you’ll receive a 1000
                     DATA prize!
                   </div>
-                  <div className="win-data-prize-button">
-                    <LearnMore size="small" position="WinDataPrize" />
-                  </div>
+                </div>
+                <div className="win-data-prize-button">
+                  <LearnMore size="small" position="WinDataPrize" />
                 </div>
               </div>
             </FlexGrid>

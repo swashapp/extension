@@ -1,4 +1,4 @@
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
+@media only screen and (min-width: 1024px) and (max-width: 1199px) {
   body,
   input,
   select,
@@ -16,6 +16,9 @@
   }
   p {
     font-size: 14px;
+  }
+  .page-header {
+    margin-bottom: 16px;
   }
   .card-gap {
     gap: 16px;
@@ -154,5 +157,33 @@
 
   .section-accordion-container .title2 {
     font-size: 12px;
+  }
+  .section-accordion-title-text {
+    font-size: 18px;
+  }
+  .help-search-input {
+    display: none;
+  }
+  .section-row {
+    padding: 15px 0 15px 0;
+  }
+  .section-accordion-expand-icon {
+    width: 10px;
+    height: 10px;
+  }
+  .section-accordion-container .MuiAccordionSummary-root {
+    margin: 20px 0 20px 0;
+  }
+  .data-accordion-container {
+    gap: 16px;
+  }
+  .data-accordion-container .MuiAccordionSummary-root {
+    padding: 20px 26px 20px 20px;
+  }
+  .data-accordion-progress {
+    display: none;
+  }
+  .wallet-data-transfer-container {
+    margin: 20px;
   }
 }
