@@ -28,12 +28,14 @@ function Modal(props: {
   return (
     <Dialog
       {...props}
+      maxWidth={false}
       open={true}
       onBackdropClick={
         props.closeOnBackDropClick ? () => closePopup() : () => {}
       }
       className="popup"
       BackdropProps={{ style: { background: 'rgba(0, 32, 48, 0.7)' } }}
+      PaperProps={{ className: 'popup-paper' }}
     >
       <div className="popup-content">{props.content || <></>}</div>
     </Dialog>

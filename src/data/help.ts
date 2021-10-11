@@ -289,7 +289,7 @@ const HelpData = [
       ' option to ‘Invite a friend’. Here is where you can find your' +
       ' unique referral link to share Swash with others. For every new' +
       ' installation of Swash made using your referral link, you’ll' +
-      ' receive {this.state.reward} DATA.' +
+      ' receive $REWARD DATA.' +
       '<br />' +
       '<br />' +
       'Whoever invites the most new people to Swash using their' +
