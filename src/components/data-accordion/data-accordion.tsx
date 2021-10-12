@@ -47,7 +47,6 @@ const StyledAccordion = withStyles({
 const AccordionSummary = withStyles({
   root: {
     flexDirection: 'row-reverse',
-    margin: '20px 0 0 0',
     padding: '24px 26px 24px 20px',
     background: '#F3F9F9',
     borderTopLeftRadius: '12px',
@@ -101,7 +100,13 @@ export default function DataAccordion(
               }
             >
               <AccordionSummary
-                expandIcon={<img src={Expand} alt={'Expand'} />}
+                expandIcon={
+                  <img
+                    className="section-accordion-expand-icon"
+                    src={Expand}
+                    alt={'Expand'}
+                  />
+                }
               >
                 <div className="data-accordion-summary-progress">
                   <div className={'data-accordion-summary'}>

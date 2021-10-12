@@ -47,14 +47,14 @@ export default memo(function DataTransferPopup(props: {
       </div>
       <div className="flex-row wallet-data-transfer-buttons">
         <Button
-          className="form-button"
+          className="form-button data-transfer-button"
           link={false}
           color="secondary"
           text="Cancel"
           onClick={() => closePopup()}
         />
         <Button
-          className="data-transfer-confirm-button"
+          className="data-transfer-confirm-button data-transfer-button"
           link={false}
           text={'Confirm and Send'}
           loadingText={'Sending...'}

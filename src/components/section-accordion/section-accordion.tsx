@@ -77,11 +77,17 @@ export default function SectionAccordion(
               }
             >
               <AccordionSummary
-                expandIcon={<img src={Expand} alt={'Expand'} />}
+                expandIcon={
+                  <img
+                    className="section-accordion-expand-icon"
+                    src={Expand}
+                    alt={'Expand'}
+                  />
+                }
               >
                 <div className={'title section-accordion-title'}>
                   <div className={'section-accordion-title-icon'}>
-                    <img width={24} height={24} src={item.icon} alt="" />
+                    <img src={item.icon} alt="" />
                   </div>
                   <div className={'title section-accordion-title-text'}>
                     {item.title}

@@ -140,7 +140,10 @@ export default function Wallet() {
               </div>
             </div>
             <div className="flex-column form-item-gap">
-              <FlexGrid className="flex-grid form-item-gap" column={2}>
+              <FlexGrid
+                className="withdraw-form-items form-item-gap"
+                column={2}
+              >
                 <Input
                   label="Amount"
                   value={amount}

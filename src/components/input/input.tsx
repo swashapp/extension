@@ -13,7 +13,7 @@ export default function Input(props: InputProps & { label?: string }) {
       text={props.label || ''}
     >
       <InputBase
-        className={'input'}
+        className={`input ${props.className}`}
         id={'input-' + props.name}
         inputProps={{
           style: props.label

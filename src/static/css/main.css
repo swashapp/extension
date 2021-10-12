@@ -498,6 +498,7 @@ a:hover {
 
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
 .data-accordion-summary {
@@ -854,6 +855,10 @@ a:hover {
   margin-top: 16px;
 }
 
+.withdraw-form-items {
+  flex-wrap: nowrap;
+}
+
 .form-message-container {
   display: flex;
   flex-direction: row;
@@ -962,6 +967,14 @@ a:hover {
 
 .invite-friends-container {
   padding-bottom: 182px !important;
+}
+
+.invite-friends-numerics {
+  flex-wrap: nowrap;
+}
+
+.invite-friends-bonus-cards {
+  flex-wrap: nowrap;
 }
 
 .or-share-on-line {

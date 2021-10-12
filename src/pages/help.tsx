@@ -90,13 +90,15 @@ export default function Help() {
           </div>
           <div className="simple-card">
             <div>
-              <Input
-                name="search"
-                placeholder="Search something at help..."
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-                endAdornment={<SearchEndAdornment value={searchText} />}
-              />
+              <div className="help-search-input">
+                <Input
+                  name="search"
+                  placeholder="Search something at help..."
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                  endAdornment={<SearchEndAdornment value={searchText} />}
+                />
+              </div>
               <SectionAccordion items={helpData} />
             </div>
           </div>
