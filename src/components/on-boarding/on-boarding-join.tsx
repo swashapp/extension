@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-const SWASHDOMAIN = 'http://localhost:3001';
-const SWASHJOINPAGE = '/user-join';
+const SWASHDOMAIN = 'https://swashapp.io';
+const SWASHJOINPAGE = '/user/join';
 const MAXTOKENTRYCOUNT = 3;
 const MAXGENERALTRYCOUNT = 3;
 
 const enum Status {
   BACK = 'BACK',
   SUCCESS = 'SUCCESS',
-  FAILE = 'FAILE',
+  FAIL = 'FAIL',
   TRYAGAIN = 'TRYAGAIN',
 }
 
@@ -27,7 +27,7 @@ export default function OnBoardingJoin(props: {
 
   const reloadIFrame = useCallback(() => {
     setIframeSrc(`${SWASHDOMAIN}${SWASHJOINPAGE}?token=${token}`);
-  }, [iframeSrc]);
+  }, [token]);
 
   const handleMessages = useCallback(
     (event) => {
@@ -41,7 +41,7 @@ export default function OnBoardingJoin(props: {
         case Status.SUCCESS:
           props.onSubmit();
           break;
-        case Status.FAILE:
+        case Status.FAIL:
           setTokenTry((count) => {
             count++;
             if (count > MAXTOKENTRYCOUNT) props.onBack();
@@ -57,7 +57,7 @@ export default function OnBoardingJoin(props: {
           break;
       }
     },
-    [props.onBack, props.onSubmit, reloadIFrame],
+    [props, reloadIFrame],
   );
   useEffect(() => {
     // window.helper.generateJWT().then(setToken);

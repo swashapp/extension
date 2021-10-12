@@ -1,15 +1,17 @@
 import React, { useCallback, useRef, useState } from 'react';
+
 import Circle from '../components/drawing/circle';
+import CongratsWalletIsReady from '../components/on-boarding/congrats-wallet-is-ready';
+import EmailSent from '../components/on-boarding/email-sent';
+import ImportYourConfig from '../components/on-boarding/import-your-config';
+import OnBoardingImportant from '../components/on-boarding/on-boarding-important';
+import OnBoardingJoin from '../components/on-boarding/on-boarding-join';
+import OnBoardingPrivacy from '../components/on-boarding/on-boarding-privacy';
+import OnBoardingProfile from '../components/on-boarding/on-boarding-profile';
+import OnBoardingStart from '../components/on-boarding/on-boarding-start';
+import OnBoardingVerifiy from '../components/on-boarding/on-boarding-verify';
 import Stepper from '../components/stepper/stepper';
 import { IStepper } from '../components/stepper/stepper.type';
-import OnBoardingStart from '../components/on-boarding/on-boarding-start';
-import OnBoardingPrivacy from '../components/on-boarding/on-boarding-privacy';
-import OnBoardingImportant from '../components/on-boarding/on-boarding-important';
-import OnBoardingProfile from '../components/on-boarding/on-boarding-profile';
-import OnBoardingVerifiy from '../components/on-boarding/on-boarding-verify';
-import ImportYourConfig from '../components/on-boarding/import-your-config';
-import EmailSent from '../components/on-boarding/email-sent';
-import CongratsWalletIsReady from '../components/on-boarding/congrats-wallet-is-ready';
 
 export default function OnBoarding() {
   const ref = useRef<IStepper>();
@@ -69,10 +71,10 @@ export default function OnBoarding() {
               onSubmit={() => ref.current?.next()}
               onBack={() => ref.current?.back()}
             />
-            {/* <OnBoardingJoin
-          onSubmit={() => ref.current?.next()}
-          onBack={() => ref.current?.back()}
-        /> */}
+            <OnBoardingJoin
+              onSubmit={() => ref.current?.next()}
+              onBack={() => ref.current?.back()}
+            />
             <OnBoardingVerifiy
               onSubmit={() => ref.current?.next()}
               onBack={() => ref.current?.back()}
