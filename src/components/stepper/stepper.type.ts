@@ -4,4 +4,5 @@ export interface IStepper {
   change: (step: number) => void;
   activeStep: number;
   steps: number;
+  disable: (state: boolean) => void;
 }

@@ -1,6 +1,8 @@
-import React from 'react';
 import { IconButton, InputAdornment, makeStyles } from '@material-ui/core';
+import React, { memo } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import searchIcon from 'url:../../../static/images/shape/search.svg';
 
 const useStyles = makeStyles(() => ({
@@ -11,7 +13,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function SearchEndAdornment(props: { value: string }) {
+export default memo(function SearchEndAdornment() {
   const classes = useStyles();
   return (
     <InputAdornment className={classes.icon} position="end">
@@ -20,4 +22,4 @@ export default function SearchEndAdornment(props: { value: string }) {
       </IconButton>
     </InputAdornment>
   );
-}
+});

@@ -1,8 +1,10 @@
+import React, { memo, useState } from 'react';
+
 import Input from '../input/input';
-import React, { useState } from 'react';
+
 import NavigationButtons from './navigation-buttons';
 
-export default function OnBoardingVerifiy(props: {
+export default memo(function OnBoardingVerify(props: {
   onSubmit: () => void;
   onBack: () => void;
 }) {
@@ -10,25 +12,25 @@ export default function OnBoardingVerifiy(props: {
   const [loading, setLoading] = useState<boolean>(false);
   return (
     <>
-      <div className="on-boarding-verify-email">
+      <div className="onboarding-verify-email">
         <h2>Check your email!</h2>
-        <div className="on-boarding-verify-text">
+        <div className="onboarding-verify-text">
           <p>
             We have sent you a verification code, please verify your email
             address to continue.
           </p>
         </div>
-        <div className="on-boarding-verify-input">
+        <div className="onboarding-verify-input">
           <Input
-            label="Vertification Code"
+            label="Verification Code"
             value={verificationCode}
             onChange={(e) => setVerificationCode(e.target.value)}
           />
         </div>
-        <div className="on-boarding-verify-question">
+        <div className="onboarding-verify-question">
           <p>
-            Dont work?{' '}
-            <a href="#" className="link-in-text" onClick={() => {}}>
+            Don&apos;t work?{' '}
+            <a href="#" onClick={() => undefined}>
               Send me another code.
             </a>
           </p>
@@ -43,4 +45,4 @@ export default function OnBoardingVerifiy(props: {
       </div>
     </>
   );
-}
+});

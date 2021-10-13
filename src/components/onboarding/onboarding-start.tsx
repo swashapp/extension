@@ -1,29 +1,34 @@
-import React from 'react';
-import FlexGrid from '../flex-grid/flex-grid';
+import React, { memo, useContext } from 'react';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import AlreadyHaveWalletIcon from 'url:../../static/images/icons/already-have-wallet.svg';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import StartNewWalletIcon from 'url:../../static/images/icons/start-new-wallet.svg';
-import Button from '../button/button';
 
-export default function OnBoardingStart(props: {
-  onStartNew: () => void;
-  onStartReady: () => void;
-}) {
+import { StepperContext } from '../../pages/onboarding';
+
+import Button from '../button/button';
+import FlexGrid from '../flex-grid/flex-grid';
+
+export default memo(function OnBoardingStart() {
+  const stepper = useContext(StepperContext);
   return (
     <>
-      <div className="page-header on-boarding-header">
+      <div className="page-header onboarding-header">
         <h2>Welcome!</h2>
         <h2>Are you new to Swash?</h2>
       </div>
-      <FlexGrid column={2} className="on-boarding-start-cards card-gap">
+      <FlexGrid column={2} className="onboarding-start-cards card-gap">
         <div className="simple-card">
           <div>
             <div className="card-icon">
               <img src={StartNewWalletIcon} alt={''} />
             </div>
-            <div className="on-boarding-start-title">
+            <div className="onboarding-start-title">
               <h4>Yes, I’m new here</h4>
             </div>
-            <div className="on-boarding-start-text">
+            <div className="onboarding-start-text">
               I want to create a new wallet
             </div>
           </div>
@@ -32,7 +37,10 @@ export default function OnBoardingStart(props: {
               color="primary"
               text="Start"
               link={false}
-              onClick={() => props.onStartNew()}
+              onClick={() => {
+                stepper.changeSelectedPage('New', 'Create');
+                stepper.next();
+              }}
             />
           </div>
         </div>
@@ -41,10 +49,10 @@ export default function OnBoardingStart(props: {
             <div className="card-icon">
               <img src={AlreadyHaveWalletIcon} alt={''} />
             </div>
-            <div className="on-boarding-start-title">
+            <div className="onboarding-start-title">
               <h4>No, I already have a wallet</h4>
             </div>
-            <div className="on-boarding-start-text">
+            <div className="onboarding-start-text">
               Import my existing wallet settings
             </div>
           </div>
@@ -53,11 +61,14 @@ export default function OnBoardingStart(props: {
               color="primary"
               text="Start"
               link={false}
-              onClick={() => props.onStartReady()}
+              onClick={() => {
+                stepper.changeSelectedPage('New', 'Import');
+                stepper.next();
+              }}
             />
           </div>
         </div>
       </FlexGrid>
     </>
   );
-}
+});

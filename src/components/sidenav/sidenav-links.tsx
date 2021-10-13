@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import { SidenavItem, SidenavItems } from '../../data/sidenav-items';
 
-export default function SidenavLinks(props: { activeIndex?: number }) {
+export default memo(function SidenavLinks(props: { activeIndex?: number }) {
   const [active, setActive] = useState<number>(props.activeIndex || 0);
   return (
     <>
@@ -42,4 +43,4 @@ export default function SidenavLinks(props: { activeIndex?: number }) {
       })}
     </>
   );
-}
+});

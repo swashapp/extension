@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { memo, useContext, useState } from 'react';
+
+import { StepperContext } from '../../pages/onboarding';
+
 import AcceptCheckBox from './accept-checkbox';
 import NavigationButtons from './navigation-buttons';
 
-export default function OnBoardingImportant(props: {
-  onSubmit: () => void;
-  onBack: () => void;
-}) {
+export default memo(function OnBoardingImportant() {
+  const stepper = useContext(StepperContext);
   const [accept, setAccept] = useState<boolean>(false);
   return (
     <>
-      <div className="page-header on-boarding-header">
+      <div className="page-header onboarding-header">
         <h2>Important!</h2>
       </div>
       <div className="simple-card">
@@ -28,12 +29,12 @@ export default function OnBoardingImportant(props: {
         <div className="flex-column">
           <AcceptCheckBox value={accept} setValue={setAccept} />
           <NavigationButtons
-            onBack={props.onBack}
-            onSubmit={accept ? props.onSubmit : () => {}}
+            onBack={stepper.back}
+            onSubmit={accept ? stepper.next : () => undefined}
             disableNext={!accept}
           />
         </div>
       </div>
     </>
   );
-}
+});

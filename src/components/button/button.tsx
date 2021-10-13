@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Button as MButton,
   ButtonProps,
@@ -6,6 +5,7 @@ import {
   makeStyles,
   withStyles,
 } from '@material-ui/core';
+import React, { memo } from 'react';
 
 import Link, { LinkProps } from '../link/link';
 
@@ -66,7 +66,7 @@ function getButton(
   );
 }
 
-export default function Button(props: {
+export default memo(function Button(props: {
   className?: string;
   color?: 'primary' | 'secondary' | 'white';
   size?: 'small' | 'large';
@@ -85,7 +85,7 @@ export default function Button(props: {
     size = 'large',
     text,
     fixed = false,
-    onClick = () => {},
+    onClick = () => undefined,
     disabled = false,
   } = props;
   const button = getButton(
@@ -95,10 +95,10 @@ export default function Button(props: {
     props.loading ? props.loadingText || '' : text,
     props?.muiProps,
     props?.loading,
-    disabled ? () => {} : onClick,
+    disabled ? () => undefined : onClick,
     props?.className,
   );
 
   if (props.link === false) return button;
   else return <Link {...props.link}>{button}</Link>;
-}
+});

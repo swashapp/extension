@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import BackgroundTheme from '../components/drawing/background-theme';
-import TextMasking from '../components/text-masking/text-masking';
-import NumericInput from '../components/numeric-input/numeric-input';
+import React, { memo, useState } from 'react';
+
 import DataAccordion, {
   DataItem,
 } from '../components/data-accordion/data-accordion';
+import BackgroundTheme from '../components/drawing/background-theme';
+import NumericInput from '../components/numeric-input/numeric-input';
+import TextMasking from '../components/text-masking/text-masking';
 
-export default function Data() {
+export default memo(function Data() {
   const [maskItems, setMaskItems] = useState<string[]>([]);
   const [dataItems, setDataItems] = useState<DataItem[]>([
     {
@@ -63,11 +64,11 @@ export default function Data() {
             />
             <DataAccordion
               items={dataItems}
-              onRemove={(item: DataItem) => {}}
+              onRemove={(/*item: DataItem*/) => undefined}
             />
           </div>
         </div>
       </div>
     </div>
   );
-}
+});

@@ -23,6 +23,7 @@ export default forwardRef(function Stepper(
     children: ReactElement[];
     activeStep?: number;
     steps?: number;
+    flow: string[];
   }>,
   ref,
 ) {
@@ -34,23 +35,20 @@ export default forwardRef(function Stepper(
   );
 
   const next = useCallback(() => {
-    if (activeStep < steps - 1) {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    }
-  }, [setActiveStep, activeStep, steps]);
+    setActiveStep((prevActiveStep) =>
+      prevActiveStep < steps - 1 ? prevActiveStep + 1 : prevActiveStep,
+    );
+  }, [steps]);
 
   const back = useCallback(() => {
-    if (activeStep > 0) {
-      setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    }
-  }, [setActiveStep, activeStep]);
+    setActiveStep((prevActiveStep) =>
+      prevActiveStep > 0 ? prevActiveStep - 1 : prevActiveStep,
+    );
+  }, []);
 
-  const change = useCallback(
-    (step: number) => {
-      setActiveStep(step);
-    },
-    [setActiveStep],
-  );
+  const change = useCallback((step: number) => {
+    setActiveStep(step);
+  }, []);
 
   useImperativeHandle(ref, () => ({
     next,
@@ -92,10 +90,17 @@ export default forwardRef(function Stepper(
         <SwipeableViews
           index={activeStep}
           onChangeIndex={change}
+          disabled={true}
           enableMouseEvents
         >
-          {Children.map(props.children, (child) => (
-            <div className="on-boarding-stepper-item">{child}</div>
+          {Children.map(props.children, (child, index: number) => (
+            <div
+              className={`stepper-card ${
+                props.flow[index] === 'Join' ? 'verification-card' : ''
+              }`}
+            >
+              {activeStep === index ? child : <></>}
+            </div>
           ))}
         </SwipeableViews>
       </div>

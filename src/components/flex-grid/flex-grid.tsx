@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { memo, ReactElement } from 'react';
 import { Children, PropsWithChildren } from 'react';
 
-export default function FlexGrid(
+export default memo(function FlexGrid(
   props: PropsWithChildren<{
     column: number;
+    children: ReactElement[];
     className?: string;
     innerClassName?: string;
   }>,
@@ -26,4 +27,4 @@ export default function FlexGrid(
       })}
     </div>
   );
-}
+});

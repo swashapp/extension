@@ -1,10 +1,21 @@
-import React, { useCallback, useState } from 'react';
-import FlexGrid from '../flex-grid/flex-grid';
-import Button from '../button/button';
-import FileLogo from 'url:../../static/images/logos/file.png';
+import React, { memo, useCallback, useState } from 'react';
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import DropboxLogo from 'url:../../static/images/logos/dropbox.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import FileLogo from 'url:../../static/images/logos/file.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import GoogleDriveLogo from 'url:../../static/images/logos/google-drive.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import ThreeBoxLogo from 'url:../../static/images/logos/three-box.png';
+
+import Button from '../button/button';
+import FlexGrid from '../flex-grid/flex-grid';
+
 import CongratsWalletIsReady from './congrats-wallet-is-ready';
 import ImportingConfig from './importing-config';
 
@@ -30,7 +41,7 @@ function ImportCard(props: {
   );
 }
 
-export default function ImportYourConfig() {
+export default memo(function ImportYourConfig() {
   const [importing, setImporting] = useState<boolean | null>(null);
   const doImport = useCallback(() => {
     setImporting(true);
@@ -77,4 +88,4 @@ export default function ImportYourConfig() {
       )}
     </>
   );
-}
+});

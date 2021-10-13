@@ -1,12 +1,13 @@
-import CircularProgress from '../circular-progress/circular-progress';
-import React from 'react';
+import React, { memo } from 'react';
 
-export default function CreatingAWallet() {
+import CircularProgress from '../circular-progress/circular-progress';
+
+export default memo(function CreatingAWallet() {
   return (
-    <div className="on-boarding-progress-card">
+    <div className="onboarding-progress-card">
       <CircularProgress type="loading" />
       <h2>Creating a wallet...</h2>
       <p>One second, we are creating for you a new wallet.</p>
     </div>
   );
-}
+});

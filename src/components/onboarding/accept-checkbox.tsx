@@ -1,7 +1,8 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, memo, SetStateAction } from 'react';
+
 import Checkbox from '../checkbox/checkbox';
 
-export default function AcceptCheckBox(props: {
+export default memo(function AcceptCheckBox(props: {
   value: boolean;
   setValue: Dispatch<SetStateAction<boolean>>;
 }) {
@@ -19,4 +20,4 @@ export default function AcceptCheckBox(props: {
       </div>
     </div>
   );
-}
+});

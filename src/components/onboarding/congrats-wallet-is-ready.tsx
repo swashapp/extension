@@ -1,12 +1,13 @@
-import CircularProgress from '../circular-progress/circular-progress';
-import React from 'react';
-import Button from '../button/button';
+import React, { memo } from 'react';
 
-export default function CongratsWalletIsReady(props: {
+import Button from '../button/button';
+import CircularProgress from '../circular-progress/circular-progress';
+
+export default memo(function CongratsWalletIsReady(props: {
   type: 'imported' | 'created';
 }) {
   return (
-    <div className="on-boarding-progress-card">
+    <div className="onboarding-progress-card">
       <CircularProgress type="completed" />
       <h2>Congratulations!</h2>
       <p>
@@ -19,9 +20,9 @@ export default function CongratsWalletIsReady(props: {
       ) : (
         <></>
       )}
-      <div className="on-boarding-progress-button  congrats-button">
+      <div className="onboarding-progress-button  congrats-button">
         <Button text="Use Swash" link={false} />
       </div>
     </div>
   );
-}
+});

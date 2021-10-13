@@ -83,7 +83,7 @@
   .simple-card {
     padding: 20px;
   }
-  .claim-button {
+  .numeric-container .form-button {
     width: 71px;
   }
   .form-button {
@@ -248,57 +248,61 @@
   .wallet-data-transfer-field {
     align-self: flex-start;
   }
-  .on-boarding-container {
-    padding: 58px 16px 0 16px;
+
+  .stepper-card {
+    margin: 0px 16px;
   }
-  .on-boarding-start-cards {
+  .stepper-with-logo {
+    margin: 48px 16px 0 16px;
+  }
+  .onboarding-start-cards {
     flex-wrap: wrap;
   }
-  .on-boarding-start-cards > div {
+  .onboarding-start-cards > div {
     width: 100% !important;
   }
-  .on-boarding-start-cards .form-button {
+  .onboarding-start-cards .form-button {
     width: 100%;
   }
-  .on-boarding-header {
+  .onboarding-header {
     display: flex;
     flex-direction: column;
   }
-  .on-boarding-header > h2 {
+  .onboarding-header > h2 {
     line-height: 100%;
   }
   .stepper {
     padding-bottom: 26px;
   }
-  .on-boarding-circle1,
-  .on-boarding-circle2,
-  .on-boarding-circle3,
-  .on-boarding-circle4,
-  .on-boarding-circle5,
-  .on-boarding-circle6,
-  .on-boarding-circle7 {
+  .onboarding-circle1,
+  .onboarding-circle2,
+  .onboarding-circle3,
+  .onboarding-circle4,
+  .onboarding-circle5,
+  .onboarding-circle6,
+  .onboarding-circle7 {
     display: none;
   }
-  .on-boarding-profile-form-items {
+  .onboarding-profile-form-items {
     flex-wrap: wrap;
   }
-  .on-boarding-profile-form-items > div {
+  .onboarding-profile-form-items > div {
     width: 100% !important;
   }
-  .on-boarding-nav-buttons {
+  .onboarding-nav-buttons {
     margin-top: 21px;
     padding-top: 20px;
   }
-  .on-boarding-nav-buttons .form-button {
+  .onboarding-nav-buttons .form-button {
     width: 114px;
   }
-  .on-boarding-verify-email {
+  .onboarding-verify-email {
     padding: 50px 20px 20px 20px;
   }
-  .on-boarding-verify-input {
+  .onboarding-verify-input {
     width: 100%;
   }
-  .on-boarding-progress-card > h2 {
+  .onboarding-progress-card > h2 {
     margin: 24px 0 12px 0;
   }
   .import-your-config-button {
@@ -317,7 +321,7 @@
   .import-your-config > p {
     margin: 8px 0 20px 0;
   }
-  .on-boarding-progress-button {
+  .onboarding-progress-button {
     margin-top: 20px;
   }
 }

@@ -1,11 +1,17 @@
-import React from 'react';
-import Circle from '../drawing/circle';
-import uploadingIcon from 'url:../../static/images/icons/uploading.png';
-import completedIcon from 'url:../../static/images/icons/progress-completed.png';
+import React, { memo } from 'react';
 
-export default function CircularProgress(props: {
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import completedIcon from 'url:../../static/images/icons/progress-completed.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import uploadingIcon from 'url:../../static/images/icons/uploading.png';
+
+import Circle from '../drawing/circle';
+
+export default memo(function CircularProgress(props: {
   type: 'loading' | 'completed' | 'uploading';
-}) {
+}): JSX.Element {
   return (
     <div className="progress-outer-circles">
       <div className="progress-arc">
@@ -29,7 +35,7 @@ export default function CircularProgress(props: {
             {props.type !== 'loading' ? (
               <>
                 {props.type === 'completed' ? (
-                  <Circle className={'progress-circle6'} colorfulGradiant />
+                  <Circle className={'progress-circle6'} colorfulGradient />
                 ) : (
                   <></>
                 )}
@@ -49,4 +55,4 @@ export default function CircularProgress(props: {
       </div>
     </div>
   );
-}
+});

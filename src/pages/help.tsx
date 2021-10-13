@@ -1,13 +1,14 @@
-import React, { useMemo, useState } from 'react';
-import Input from '../components/input/input';
-import BackgroundTheme from '../components/drawing/background-theme';
-import Button from '../components/button/button';
-import Section from '../components/section/section';
-import SectionAccordion from '../components/section-accordion/section-accordion';
-import HelpData from '../data/help';
-import SearchEndAdornment from '../components/input/end-adronments/search-end-adornment';
+import React, { memo, useMemo, useState } from 'react';
 
-export default function Help() {
+import Button from '../components/button/button';
+import BackgroundTheme from '../components/drawing/background-theme';
+import SearchEndAdornment from '../components/input/end-adornments/search-end-adornment';
+import Input from '../components/input/input';
+import SectionAccordion from '../components/section-accordion/section-accordion';
+import Section from '../components/section/section';
+import HelpData from '../data/help';
+
+export default memo(function Help() {
   const [searchText, setSearchText] = useState<string>('');
   const [reward, setReward] = useState<string>('VALUE');
 
@@ -96,7 +97,7 @@ export default function Help() {
                   placeholder="Search something at help..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
-                  endAdornment={<SearchEndAdornment value={searchText} />}
+                  endAdornment={<SearchEndAdornment />}
                 />
               </div>
               <SectionAccordion items={helpData} />
@@ -106,4 +107,4 @@ export default function Help() {
       </div>
     </div>
   );
-}
+});

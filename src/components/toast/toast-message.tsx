@@ -1,9 +1,16 @@
-import React, { ReactElement } from 'react';
+import React, { memo, ReactElement } from 'react';
 import { PropsWithChildren } from 'react';
-import ToastPanel from './toast-panel';
-import SuccessIcon from 'url:../../static/images/icons/success.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import ErrorIcon from 'url:../../static/images/icons/error.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import SuccessIcon from 'url:../../static/images/icons/success.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import WarningIcon from 'url:../../static/images/icons/warning.png';
+
+import ToastPanel from './toast-panel';
 
 const Messages = {
   success: {
@@ -18,7 +25,7 @@ const Messages = {
   },
   error: { title: 'Error!', icon: ErrorIcon, class: 'toast-message-error' },
 };
-export default function ToastMessage(
+export default memo(function ToastMessage(
   props: PropsWithChildren<{
     type: keyof typeof Messages;
     content: ReactElement;
@@ -32,4 +39,4 @@ export default function ToastMessage(
       image={Messages[props.type].icon}
     />
   );
-}
+});

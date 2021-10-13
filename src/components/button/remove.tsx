@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import removeIcon from 'url:../../static/images/shape/remove.svg';
 
 export default memo(function RemoveButton(props: { onClick: () => void }) {

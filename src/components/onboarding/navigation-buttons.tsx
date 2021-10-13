@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Button from '../button/button';
 
 export default function NavigationButtons(props: {
@@ -8,9 +9,9 @@ export default function NavigationButtons(props: {
   loading?: boolean;
   disableNext?: boolean;
   disableBack?: boolean;
-}) {
+}): JSX.Element {
   return (
-    <div className="flex-row on-boarding-nav-buttons">
+    <div className="flex-row onboarding-nav-buttons">
       <div className="form-button">
         <Button
           color="secondary"

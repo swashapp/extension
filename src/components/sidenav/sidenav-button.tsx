@@ -1,9 +1,12 @@
-import SwashLogo from '../swash-logo/swash-logo';
-import React, { Dispatch, SetStateAction } from 'react';
 import { IconButton } from '@material-ui/core';
+import React, { Dispatch, memo, SetStateAction } from 'react';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import SidenavIcon from 'url:../../static/images/shape/sidenav.png';
 
-export default function SidenavButton(props: {
+import SwashLogo from '../swash-logo/swash-logo';
+
+export default memo(function SidenavButton(props: {
   sidenavOpen: boolean;
   setSidenavOpen: Dispatch<SetStateAction<boolean>>;
 }) {
@@ -19,4 +22,4 @@ export default function SidenavButton(props: {
       </IconButton>
     </div>
   );
-}
+});

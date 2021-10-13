@@ -1,10 +1,13 @@
 import React, { memo } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import CloseIcon from 'url:../../static/images/shape/close.svg';
+
 import SwashLogo from '../swash-logo/swash-logo';
 
 import SidenavLinks from './sidenav-links';
 import WelcomeToNewDataWorld from './welcome-to-new-data-world';
-import CloseIcon from 'url:../../static/images/shape/close.svg';
 
 export default memo(function Sidenav(props: {
   activeIndex?: number;

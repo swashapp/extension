@@ -1,6 +1,6 @@
-import React, { ReactElement } from 'react';
+import React, { memo, ReactElement } from 'react';
 
-export default function NumericSection(props: {
+export default memo(function NumericSection(props: {
   layout?: 'layout1' | 'layout2' | ReactElement;
   title: string;
   value: number | string;
@@ -33,4 +33,4 @@ export default function NumericSection(props: {
       )}
     </div>
   );
-}
+});

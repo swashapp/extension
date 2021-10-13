@@ -1,19 +1,22 @@
-import { SidenavItems } from '../data/sidenav-items';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Sidenav from '../components/sidenav/sidenav';
+
 import { ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
+
 import Popup from '../components/popup/popup';
+import Sidenav from '../components/sidenav/sidenav';
 import SidenavButton from '../components/sidenav/sidenav-button';
-import OnBoarding from './on-boarding';
+import { SidenavItems } from '../data/sidenav-items';
+
+import OnBoarding from './onboarding';
 
 function EmptyComponent() {
   return <div style={{ width: '100%' }}></div>;
 }
 
 function RouteComponent(
-  ExtentionComponent: React.ComponentClass | null,
+  ExtensionComponent: React.ComponentClass | null,
   activeIndex: number,
 ) {
   const [sidenavOpen, setSidenavOpen] = useState<boolean>(false);
@@ -39,10 +42,10 @@ function RouteComponent(
             sidenavOpen ? 'content-open-sidenav' : 'content-close-sidenav'
           }`}
         >
-          {ExtentionComponent === null ? (
+          {ExtensionComponent === null ? (
             <EmptyComponent />
           ) : (
-            <ExtentionComponent />
+            <ExtensionComponent />
           )}
         </div>
       </div>

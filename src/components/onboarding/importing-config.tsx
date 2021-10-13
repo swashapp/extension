@@ -1,12 +1,13 @@
-import CircularProgress from '../circular-progress/circular-progress';
-import React from 'react';
+import React, { memo } from 'react';
 
-export default function ImportingConfig() {
+import CircularProgress from '../circular-progress/circular-progress';
+
+export default memo(function ImportingConfig() {
   return (
-    <div className="on-boarding-progress-card">
+    <div className="onboarding-progress-card">
       <CircularProgress type="uploading" />
       <h2>Importing configuration...</h2>
       <p>One second, we are importing your configuration.</p>
     </div>
   );
-}
+});

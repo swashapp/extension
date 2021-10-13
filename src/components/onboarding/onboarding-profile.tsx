@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { memo, useContext, useState } from 'react';
+
+import { StepperContext } from '../../pages/onboarding';
+
 import FlexGrid from '../flex-grid/flex-grid';
 import Select from '../select/select';
+
 import NavigationButtons from './navigation-buttons';
 const genderList = [
   { description: '', value: '' },
@@ -27,21 +31,19 @@ const incomeList = [
   { description: '$75K - $150K', value: '75-150K' },
   { description: '$150K+', value: '150K+' },
 ];
-export default function OnBoardingProfile(props: {
-  onSubmit: () => void;
-  onBack: () => void;
-}) {
+export default memo(function OnBoardingProfile() {
+  const stepper = useContext(StepperContext);
   const [gender, setGender] = useState<string>('');
   const [age, setAge] = useState<string>('');
   const [income, setIncome] = useState<string>('');
   return (
     <>
-      <div className="page-header on-boarding-header">
+      <div className="page-header onboarding-header">
         <h2>Your Profile</h2>
       </div>
       <div className="simple-card">
         <div>
-          <div className="on-boarding-profile-text">
+          <div className="onboarding-profile-text">
             <p>
               When Swash data is sold, 70% of profits are returned back to you,
               the Swash members.
@@ -54,34 +56,34 @@ export default function OnBoardingProfile(props: {
           </div>
           <FlexGrid
             column={3}
-            className="on-boarding-profile-form-items form-item-gap"
+            className="onboarding-profile-form-items form-item-gap"
           >
             <Select
               items={genderList}
               label="Gender"
               value={gender}
-              onChange={(e) => setGender(e.target.value)}
+              onChange={(e) => setGender(e.target.value as string)}
             />
             <Select
               items={ageList}
               label="Age"
               value={age}
-              onChange={(e) => setAge(e.target.value)}
+              onChange={(e) => setAge(e.target.value as string)}
             />
             <Select
               items={incomeList}
               label="Household Income"
               value={income}
-              onChange={(e) => setIncome(e.target.value)}
+              onChange={(e) => setIncome(e.target.value as string)}
             />
           </FlexGrid>
           <NavigationButtons
-            onBack={props.onBack}
-            onSubmit={props.onSubmit}
+            onBack={stepper.back}
+            onSubmit={stepper.next}
             disableNext={!gender || !age || !income}
           />
         </div>
       </div>
     </>
   );
-}
+});

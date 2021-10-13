@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
+
 import Circle from './circle';
 import CircleOnLine from './circle-on-line';
 
-export default function BackgroundTheme(props: {
+export default memo(function BackgroundTheme(props: {
   layout?: 'layout1' | 'layout2' | 'layout3';
 }) {
   const { layout = 'layout1' } = props;
@@ -26,4 +27,4 @@ export default function BackgroundTheme(props: {
       )}
     </>
   );
-}
+});

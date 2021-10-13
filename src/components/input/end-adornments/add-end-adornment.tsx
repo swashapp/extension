@@ -1,5 +1,5 @@
-import React from 'react';
 import { InputAdornment, makeStyles } from '@material-ui/core';
+import React, { memo } from 'react';
 
 import Button from '../../button/button';
 
@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function AddEndAdornment(props: { onAdd: () => void }) {
+export default memo(function AddEndAdornment(props: { onAdd: () => void }) {
   const classes = useStyles();
   return (
     <InputAdornment
@@ -22,4 +22,4 @@ export default function AddEndAdornment(props: { onAdd: () => void }) {
       <Button link={false} text="Add" color="secondary" />
     </InputAdornment>
   );
-}
+});

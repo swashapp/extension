@@ -1,7 +1,7 @@
-import React, { PropsWithChildren } from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
 import MuiCheckbox from '@material-ui/core/Checkbox';
+import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import React, { memo, PropsWithChildren } from 'react';
 
 const useStyles = makeStyles({
   root: {
@@ -39,10 +39,10 @@ const useStyles = makeStyles({
     },
   },
 });
-export default function Checkbox(
+export default memo(function Checkbox(
   props: PropsWithChildren<{
     checked: boolean;
-    onChange?: (event: any) => void;
+    onChange?: (event: React.ChangeEvent) => void;
   }>,
 ) {
   const classes = useStyles();
@@ -57,4 +57,4 @@ export default function Checkbox(
       {...props}
     />
   );
-}
+});

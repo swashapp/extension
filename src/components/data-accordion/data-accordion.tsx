@@ -1,18 +1,36 @@
-import React, { Dispatch, SetStateAction, useCallback } from 'react';
 import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import { withStyles } from '@material-ui/core/styles';
+import React, { memo } from 'react';
 import { PropsWithChildren, useState } from 'react';
-import RemoveButton from '../button/remove';
-import Expand from 'url:../../static/images/shape/expand.svg';
-import Search from 'url:../../static/images/icons/search-category.svg';
-import Travel from 'url:../../static/images/icons/travel-category.svg';
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import General from 'url:../../static/images/icons/general-category.svg';
-import Shopping from 'url:../../static/images/icons/shopping-category.svg';
-import Social from 'url:../../static/images/icons/social-category.svg';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import Music from 'url:../../static/images/icons/music-category.svg';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import News from 'url:../../static/images/icons/news-category.svg';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import Search from 'url:../../static/images/icons/search-category.svg';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import Shopping from 'url:../../static/images/icons/shopping-category.svg';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import Social from 'url:../../static/images/icons/social-category.svg';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import Travel from 'url:../../static/images/icons/travel-category.svg';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import Expand from 'url:../../static/images/shape/expand.svg';
+
+import RemoveButton from '../button/remove';
 import ProgressBar from '../progress/progress';
 
 const Icons = {
@@ -28,7 +46,7 @@ const Icons = {
 export interface DataItem {
   percentage: number;
   currentTime: number;
-  msg: object;
+  msg: { [key: string]: string };
   msgId: string;
   category: keyof typeof Icons;
   link: string;
@@ -72,7 +90,7 @@ const AccordionDetails = withStyles(() => ({
   },
 }))(MuiAccordionDetails);
 
-export default function DataAccordion(
+export default memo(function DataAccordion(
   props: PropsWithChildren<{
     items: DataItem[];
     onRemove: (item: DataItem) => void;
@@ -146,4 +164,4 @@ export default function DataAccordion(
       })}
     </div>
   );
-}
+});

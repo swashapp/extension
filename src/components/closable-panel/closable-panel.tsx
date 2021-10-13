@@ -1,8 +1,14 @@
-import React, { PropsWithChildren, useState } from 'react';
+import React, { memo, PropsWithChildren, ReactElement, useState } from 'react';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import CloseIcon from 'url:../../static/images/shape/close.svg';
 
-export default function ClosablePanel(
-  props: PropsWithChildren<{ className?: string; onClose?: () => void }>,
+export default memo(function ClosablePanel(
+  props: PropsWithChildren<{
+    className?: string;
+    onClose?: () => void;
+    children: ReactElement;
+  }>,
 ) {
   const [close, setClose] = useState<boolean>(false);
   return (
@@ -23,4 +29,4 @@ export default function ClosablePanel(
       {props.children}
     </div>
   );
-}
+});

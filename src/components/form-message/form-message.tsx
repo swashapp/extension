@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { PropsWithChildren } from 'react';
-import warningIcon from 'url:../../static/images/shape/warning.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import errorIcon from 'url:../../static/images/shape/error.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import warningIcon from 'url:../../static/images/shape/warning.png';
 
 const FormMessages = {
   warning: { icon: warningIcon, color: 'var(--warning)' },
   error: { icon: errorIcon, color: 'var(--error)' },
 };
 
-export default function FormMessage(
+export default memo(function FormMessage(
   props: PropsWithChildren<{ text: string; type: keyof typeof FormMessages }>,
 ) {
   return (
@@ -25,4 +29,4 @@ export default function FormMessage(
       </div>
     </div>
   );
-}
+});

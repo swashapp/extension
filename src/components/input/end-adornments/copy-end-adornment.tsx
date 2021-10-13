@@ -1,9 +1,13 @@
-import React from 'react';
 import { IconButton, InputAdornment, makeStyles } from '@material-ui/core';
+import React, { memo } from 'react';
 
-import copyIcon from 'url:../../../static/images/shape/copy.svg';
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import copyIcon from 'url:../../../static/images/shape/copy.svg';
 
 const useStyles = makeStyles(() => ({
   icon: {
@@ -13,7 +17,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function CopyEndAdornment(props: { value: string }) {
+export default memo(function CopyEndAdornment(props: { value: string }) {
   const classes = useStyles();
   return (
     <InputAdornment className={classes.icon} position="end">
@@ -24,4 +28,4 @@ export default function CopyEndAdornment(props: { value: string }) {
       </CopyToClipboard>
     </InputAdornment>
   );
-}
+});
