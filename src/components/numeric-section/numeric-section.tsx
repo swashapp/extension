@@ -1,6 +1,6 @@
-import React, { ReactElement } from 'react';
+import React, { memo, ReactElement } from 'react';
 
-export default function NumericSection(props: {
+export default memo(function NumericSection(props: {
   layout?: 'layout1' | 'layout2' | ReactElement;
   title: string;
   value: number | string;
@@ -11,7 +11,7 @@ export default function NumericSection(props: {
     <div className={`${'numeric-container'} ${!image ? 'numeric-small' : ''}`}>
       <div className={'numeric-icon-content'}>
         {image ? (
-          <div className={'numeric-icon'}>
+          <div className={'card-icon'}>
             <img src={image} alt={''} />
           </div>
         ) : (
@@ -33,4 +33,4 @@ export default function NumericSection(props: {
       )}
     </div>
   );
-}
+});

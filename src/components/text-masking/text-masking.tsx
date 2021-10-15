@@ -1,9 +1,16 @@
-import Input from '../input/input';
-import RemoveButton from '../button/remove';
-import React, { useCallback, useState, SetStateAction, Dispatch } from 'react';
-import AddEndAdornment from '../input/end-adronments/add-end-adornment';
+import React, {
+  useCallback,
+  useState,
+  SetStateAction,
+  Dispatch,
+  memo,
+} from 'react';
 
-export default function TextMasking({
+import RemoveButton from '../button/remove';
+import AddEndAdornment from '../input/end-adornments/add-end-adornment';
+import Input from '../input/input';
+
+export default memo(function TextMasking({
   items,
   setItems,
 }: {
@@ -35,6 +42,11 @@ export default function TextMasking({
           name="MaskIt"
           value={mask}
           onChange={(e) => setMask(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter' && mask) {
+              onAdd(mask);
+            }
+          }}
           endAdornment={
             <AddEndAdornment onAdd={() => (mask ? onAdd(mask) : {})} />
           }
@@ -42,7 +54,7 @@ export default function TextMasking({
       </div>
       <div className="text-masking-items">
         {items.map((item: string, index: number) => (
-          <div className="text-masking-item">
+          <div key={item + index} className="text-masking-item">
             {item}
             <RemoveButton onClick={() => onRemove(index)} />
           </div>
@@ -50,4 +62,4 @@ export default function TextMasking({
       </div>
     </div>
   );
-}
+});

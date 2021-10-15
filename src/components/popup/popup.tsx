@@ -1,5 +1,6 @@
-import React, { ReactElement, useEffect } from 'react';
 import Dialog from '@material-ui/core/Dialog';
+import React, { memo, ReactElement, useEffect } from 'react';
+
 import ClosablePanel from '../closable-panel/closable-panel';
 
 export interface popupProps {
@@ -9,14 +10,14 @@ export interface popupProps {
 }
 
 let _item: popupProps = { content: null, closable: false };
-let _callback: () => void = () => {};
+let _callback: () => void = () => undefined;
 
-export function showPopup(props: popupProps) {
+export function showPopup(props: popupProps): void {
   _item = props;
   _callback();
 }
 
-export function closePopup() {
+export function closePopup(): void {
   _item = { content: null, closable: false };
   _callback();
 }
@@ -31,7 +32,7 @@ function Modal(props: {
       maxWidth={false}
       open={true}
       onBackdropClick={
-        props.closeOnBackDropClick ? () => closePopup() : () => {}
+        props.closeOnBackDropClick ? () => closePopup() : () => undefined
       }
       className="popup"
       BackdropProps={{ style: { background: 'rgba(0, 32, 48, 0.7)' } }}
@@ -42,7 +43,7 @@ function Modal(props: {
   );
 }
 
-function ClosablePopup(props: { content: ReactElement | null }) {
+function ClosablePopup(props: { content: ReactElement }) {
   return (
     <Modal
       content={
@@ -53,7 +54,7 @@ function ClosablePopup(props: { content: ReactElement | null }) {
     />
   );
 }
-export default function Popup() {
+export default memo(function Popup() {
   const [openDialog, setOpenedDialog] = React.useState<popupProps>(_item);
   useEffect(() => {
     _callback = () => {
@@ -72,4 +73,4 @@ export default function Popup() {
   ) : (
     <></>
   );
-}
+});

@@ -1,8 +1,13 @@
-import React from 'react';
-import { IconButton, InputAdornment, makeStyles } from '@material-ui/core';
+import { InputAdornment, makeStyles } from '@material-ui/core';
 
-import outerSpin from 'url:../../../static/images/shape/outer-spin.svg';
+import React, { memo } from 'react';
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import innerSpin from 'url:../../../static/images/shape/inner-spin.svg';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import outerSpin from 'url:../../../static/images/shape/outer-spin.svg';
 
 const useStyles = makeStyles(() => ({
   icon: {
@@ -24,7 +29,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function NumericEndAdornment(props: {
+export default memo(function NumericEndAdornment(props: {
   onSpinUp: () => void;
   onSpinDown: () => void;
 }) {
@@ -43,4 +48,4 @@ export default function NumericEndAdornment(props: {
       </div>
     </InputAdornment>
   );
-}
+});

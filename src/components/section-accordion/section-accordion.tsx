@@ -1,11 +1,13 @@
-import React, { ReactElement } from 'react';
 import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import { withStyles } from '@material-ui/core/styles';
-import { PropsWithChildren, useState } from 'react';
-import Expand from 'url:../../static/images/shape/expand.svg';
 import { Markup } from 'interweave';
+import { memo, PropsWithChildren, useState } from 'react';
+import React from 'react';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import Expand from 'url:../../static/images/shape/expand.svg';
 
 type AccordionItem = {
   title: string;
@@ -49,7 +51,7 @@ const AccordionDetails = withStyles(() => ({
   },
 }))(MuiAccordionDetails);
 
-export default function SectionAccordion(
+export default memo(function SectionAccordion(
   props: PropsWithChildren<{
     items: AccordionItem[];
   }>,
@@ -105,4 +107,4 @@ export default function SectionAccordion(
       })}
     </div>
   );
-}
+});

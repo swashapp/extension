@@ -14,6 +14,9 @@
   h2 {
     font-size: 24px !important;
   }
+  h4 {
+    font-size: 18px !important;
+  }
   p {
     font-size: 14px;
   }
@@ -83,11 +86,11 @@
   .simple-card {
     padding: 20px;
   }
-  .claim-button {
-    width: 71px;
-  }
   .form-button {
     width: 121px;
+  }
+  .numeric-container .form-button {
+    width: 71px;
   }
   .sidenav-button-container {
     background-color: var(--lightest-blue);
@@ -185,5 +188,95 @@
   }
   .wallet-data-transfer-container {
     margin: 20px;
+  }
+  .stepper-card {
+    margin: 0 20%;
+  }
+  .stepper-with-logo {
+    margin: 48px 16px 0 16px;
+  }
+  .onboarding-start-cards {
+    flex-wrap: wrap;
+  }
+  .onboarding-start-cards > div {
+    width: 100% !important;
+  }
+  .onboarding-start-cards .form-button {
+    width: 100%;
+  }
+  .onboarding-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .onboarding-header > h2 {
+    width: 249px;
+    text-align: center;
+    line-height: 100%;
+  }
+  .stepper-with-numbers {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .stepper {
+    width: 50%;
+    padding-bottom: 60px;
+  }
+  .onboarding-circle1,
+  .onboarding-circle4,
+  .onboarding-circle5 {
+    display: none;
+  }
+  .onboarding-circle2 {
+    left: 26px;
+    top: 682px;
+  }
+  .onboarding-circle3 {
+    left: -115px;
+    top: 368px;
+  }
+  .onboarding-circle6 {
+    right: -221px;
+    top: 368px;
+  }
+  .onboarding-circle7 {
+    right: -52px;
+    top: 342px;
+  }
+  .onboarding-profile-form-items {
+    flex-wrap: wrap;
+  }
+  .onboarding-profile-form-items > div {
+    width: 100% !important;
+  }
+  .onboarding-verify-email {
+    padding: 50px 20px 20px 20px;
+  }
+  .onboarding-nav-buttons {
+    margin-top: 21px;
+    padding-top: 20px;
+  }
+  .onboarding-progress-card > h2 {
+    margin: 24px 0 12px 0;
+  }
+  .import-your-config-card {
+    padding: 16px;
+  }
+  .import-your-config-cards {
+    flex-wrap: wrap;
+  }
+  .import-your-config-cards > div {
+    width: 100% !important;
+  }
+  .import-your-config {
+    text-align: center;
+  }
+  .import-your-config > p {
+    margin: 8px 0 20px 0;
+  }
+  .onboarding-progress-button {
+    margin-top: 20px;
   }
 }

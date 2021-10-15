@@ -1,12 +1,13 @@
 import { InputProps } from '@material-ui/core';
-import NumericEndAdornment from '../input/end-adronments/numeric-end-adornment';
-import React, { Dispatch, SetStateAction } from 'react';
+
+import React, { Dispatch, memo, SetStateAction } from 'react';
 
 import InputBase from '../input-base/input-base';
+import NumericEndAdornment from '../input/end-adornments/numeric-end-adornment';
 
 import Label from '../label/label';
 
-export default function NumericInput(
+export default memo(function NumericInput(
   props: InputProps & {
     label: string;
     setValue: Dispatch<SetStateAction<number>>;
@@ -19,7 +20,7 @@ export default function NumericInput(
         {...props}
         value={props.value + ' ' + props.unit}
         onChange={(e) => {
-          let value: string = e.target.value;
+          const value: string = e.target.value;
           if (props.unit && value.indexOf(props.unit) > 0) {
             props.setValue(parseInt(value.split(' ')[0]));
           } else {
@@ -43,4 +44,4 @@ export default function NumericInput(
       />
     </Label>
   );
-}
+});

@@ -1,8 +1,8 @@
 import { FormControl, InputLabel, withStyles } from '@material-ui/core';
-import React from 'react';
+import React, { memo, ReactElement } from 'react';
 import { PropsWithChildren } from 'react';
 
-const Label = withStyles(() => ({
+const MuiLabel = withStyles(() => ({
   root: {
     zIndex: 1,
     fontFamily: 'Inter',
@@ -23,19 +23,20 @@ const Label = withStyles(() => ({
   },
 }))(InputLabel);
 
-export default function Select(
+export default memo(function Label(
   props: PropsWithChildren<{
     id: string;
+    children: ReactElement;
     text: string;
-    shrink?: boolean;
+    shrink?: boolean | undefined;
   }>,
 ) {
   return (
     <FormControl style={{ width: '100%' }}>
-      <Label htmlFor={props.id} shrink={props.shrink}>
+      <MuiLabel htmlFor={props.id} shrink={props.shrink}>
         {props.text}
-      </Label>
+      </MuiLabel>
       {props.children}
     </FormControl>
   );
-}
+});

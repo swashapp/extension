@@ -1,10 +1,21 @@
-import WelcomeIcon from 'url:../static/images/icons/help/welcome.png';
-import GettingStartedIcon from 'url:../static/images/icons/help/getting-started.png';
-import WalletIcon from 'url:../static/images/icons/help/wallet.png';
-import DonationsIcon from 'url:../static/images/icons/help/donations.png';
-import SettingsIcon from 'url:../static/images/icons/help/settings.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import DataIcon from 'url:../static/images/icons/help/data.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import GettingStartedIcon from 'url:../static/images/icons/help/getting-started.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import SettingsIcon from 'url:../static/images/icons/help/settings.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import UsefulLinksIcon from 'url:../static/images/icons/help/useful-links.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import WalletIcon from 'url:../static/images/icons/help/wallet.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import WelcomeIcon from 'url:../static/images/icons/help/welcome.png';
 
 export interface HELP_TYPE {
   title: string;

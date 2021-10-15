@@ -1,11 +1,11 @@
 import { InputProps } from '@material-ui/core';
-import React from 'react';
+import React, { memo } from 'react';
 
 import InputBase from '../input-base/input-base';
 
 import Label from '../label/label';
 
-export default function Input(props: InputProps & { label?: string }) {
+export default memo(function Input(props: InputProps & { label?: string }) {
   return (
     <Label
       id={'input-' + props.name}
@@ -26,4 +26,4 @@ export default function Input(props: InputProps & { label?: string }) {
       />
     </Label>
   );
-}
+});

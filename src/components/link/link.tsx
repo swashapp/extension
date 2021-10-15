@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, ReactElement } from 'react';
 import { PropsWithChildren } from 'react';
 
 export interface LinkProps {
@@ -10,7 +10,9 @@ export interface LinkProps {
   className?: string;
 }
 
-export default function Link(props: PropsWithChildren<LinkProps>) {
+export default memo(function Link(
+  props: PropsWithChildren<LinkProps & { children: ReactElement }>,
+) {
   const { url, newTab = false, className = '' } = props;
 
   return (
@@ -23,4 +25,4 @@ export default function Link(props: PropsWithChildren<LinkProps>) {
       {props.children}
     </a>
   );
-}
+});

@@ -1,26 +1,39 @@
-import React, { useState } from 'react';
-import FlexGrid from '../components/flex-grid/flex-grid';
-import NumericSection from '../components/numeric-section/numeric-section';
-import DataEarningsIcon from 'url:../static/images/icons/data-earnings.svg';
+import React, { memo, useState } from 'react';
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import DataBonusIcon from 'url:../static/images/icons/data-bonus.svg';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import DataEarningsIcon from 'url:../static/images/icons/data-earnings.svg';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import QuestionGrayIcon from 'url:../static/images/shape/question-gray.png';
+
 import Button from '../components/button/button';
-import Input from '../components/input/input';
-import CopyEndAdornment from '../components/input/end-adronments/copy-end-adornment';
-import Select from '../components/select/select';
-import { MenuItem } from '@material-ui/core';
-import FormMessage from '../components/form-message/form-message';
 import BackgroundTheme from '../components/drawing/background-theme';
+import FlexGrid from '../components/flex-grid/flex-grid';
+import FormMessage from '../components/form-message/form-message';
+import CopyEndAdornment from '../components/input/end-adornments/copy-end-adornment';
+import Input from '../components/input/input';
+import NumericSection from '../components/numeric-section/numeric-section';
 import { showPopup } from '../components/popup/popup';
+import Select from '../components/select/select';
 import DataTransferPopup from '../components/wallet/data-transfer-popup';
 
-export default function Wallet() {
+const networkList = [
+  { description: 'xDai', value: 'xDai' },
+  { description: 'Mainnet', value: 'Mainnet' },
+];
+
+export default memo(function Wallet() {
   const [dataAvailable, setDataAvailable] = useState<number>(0);
   const [amount, setAmount] = useState<string>('0');
   const [unclaimedBonus, setUnclaimedBonus] = useState<number>(0);
   const [walletAddress, setWalletAddress] = useState<string>('');
   const [recipientWalletAddress, setRecipientWalletAddress] =
     useState<string>('');
+  const [network, setNetwork] = useState<string>('xDai');
   return (
     <div className="page-container">
       <BackgroundTheme />
@@ -42,7 +55,7 @@ export default function Wallet() {
                 value={unclaimedBonus}
                 layout={
                   <Button
-                    className="claim-button"
+                    className="form-button"
                     color="primary"
                     text="Claim"
                     link={false}
@@ -149,12 +162,12 @@ export default function Wallet() {
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                 />
-                <Select label="Withdraw To" value={'xDai'} onChange={() => {}}>
-                  <MenuItem value="xDai">xDai</MenuItem>
-                  <MenuItem value="xDai3">xDai1</MenuItem>
-                  <MenuItem value="xDai2">xDai2</MenuItem>
-                  <MenuItem value="xDai1">xDai3</MenuItem>
-                </Select>
+                <Select
+                  items={networkList}
+                  label="Withdraw To"
+                  value={network}
+                  onChange={(e) => setNetwork(e.target.value as string)}
+                />
               </FlexGrid>
               <Input
                 name="RecipientWalletAddress"
@@ -168,6 +181,7 @@ export default function Wallet() {
               className="form-button"
               color="primary"
               text="Withdraw"
+              disabled={!recipientWalletAddress || !network}
               link={false}
               onClick={() =>
                 showPopup({
@@ -191,4 +205,4 @@ export default function Wallet() {
       </div>
     </div>
   );
-}
+});

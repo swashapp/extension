@@ -1,9 +1,15 @@
-import Button from '../button/button';
 import React, { memo, useMemo, useState } from 'react';
-import { showPopup, closePopup } from '../popup/popup';
-import RightArrow from 'url:../../static/images/shape/right-arrow.svg';
+
 import { toast } from 'react-toastify';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import RightArrow from 'url:../../static/images/shape/right-arrow.svg';
+
+import Button from '../button/button';
+import { showPopup, closePopup } from '../popup/popup';
+
 import ToastMessage from '../toast/toast-message';
+
 import DataTransferCompleted from './data-transfer-completed';
 
 function DataTransferField(props: {
@@ -14,8 +20,8 @@ function DataTransferField(props: {
   const value = useMemo(() => {
     let ret = props.value.toString();
     if (props.ellipsis) {
-      let firstPart = ret.substring(0, 6);
-      let lastPart = ret.substring(ret.length - 6, ret.length);
+      const firstPart = ret.substring(0, 6);
+      const lastPart = ret.substring(ret.length - 6, ret.length);
       ret = firstPart + '...' + lastPart;
     }
     return ret;
@@ -30,7 +36,7 @@ function DataTransferField(props: {
 export default memo(function DataTransferPopup(props: {
   amount: string | number;
   toAddress: string;
-  onSend: () => Promise<any>;
+  onSend: () => Promise<unknown>;
 }) {
   const [loading, setLoading] = useState<boolean>(false);
   return (
@@ -63,7 +69,7 @@ export default memo(function DataTransferPopup(props: {
             setLoading(true);
             props
               .onSend()
-              .then((res) => {
+              .then(() => {
                 showPopup({
                   closable: false,
                   closeOnBackDropClick: true,

@@ -1,7 +1,7 @@
-import React, { ReactElement } from 'react';
+import React, { memo, ReactElement } from 'react';
 import { PropsWithChildren } from 'react';
 
-export default function ToastPanel(
+export default memo(function ToastPanel(
   props: PropsWithChildren<{
     className?: string;
     image: string;
@@ -20,4 +20,4 @@ export default function ToastPanel(
       </div>
     </div>
   );
-}
+});

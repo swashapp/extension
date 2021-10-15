@@ -55,37 +55,40 @@ export default forwardRef(function Tour(
     }),
     [props.steps],
   );
-  const reducer = useCallback((state = INITIAL_STATE, action) => {
-    switch (action.type) {
-      // start the tour
-      case 'START':
-        return { ...state, run: true };
-      // Reset to 0th step
-      case 'RESET':
-        return { ...state, stepIndex: 0 };
-      // Stop the tour
-      case 'STOP':
-        return { ...state, run: false };
-      // Update the steps for next / back button click
-      case 'NEXT_OR_PREV':
-        return { ...state, ...action.payload };
-      case 'NEXT':
-        return { ...state, stepIndex: state.stepIndex + 1 };
-      case 'PREV':
-        return { ...state, stepIndex: state.stepIndex - 1 };
-      // Restart the tour - reset go to 1st step, restart create new tour
-      case 'RESTART':
-        return {
-          ...state,
-          stepIndex: 0,
-          run: true,
-          loading: false,
-          key: new Date(),
-        };
-      default:
-        return state;
-    }
-  }, []);
+  const reducer = useCallback(
+    (state = INITIAL_STATE, action) => {
+      switch (action.type) {
+        // start the tour
+        case 'START':
+          return { ...state, run: true };
+        // Reset to 0th step
+        case 'RESET':
+          return { ...state, stepIndex: 0 };
+        // Stop the tour
+        case 'STOP':
+          return { ...state, run: false };
+        // Update the steps for next / back button click
+        case 'NEXT_OR_PREV':
+          return { ...state, ...action.payload };
+        case 'NEXT':
+          return { ...state, stepIndex: state.stepIndex + 1 };
+        case 'PREV':
+          return { ...state, stepIndex: state.stepIndex - 1 };
+        // Restart the tour - reset go to 1st step, restart create new tour
+        case 'RESTART':
+          return {
+            ...state,
+            stepIndex: 0,
+            run: true,
+            loading: false,
+            key: new Date(),
+          };
+        default:
+          return state;
+      }
+    },
+    [INITIAL_STATE],
+  );
   const [tourState, dispatch] = useReducer(reducer, INITIAL_STATE);
   const callback = useCallback(
     (data) => {
@@ -110,7 +113,7 @@ export default forwardRef(function Tour(
         });
       }
     },
-    [dispatch],
+    [tourState.run],
   );
 
   const start = useCallback(() => dispatch({ type: 'START' }), [dispatch]);

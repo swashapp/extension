@@ -1,16 +1,26 @@
-import React from 'react';
-import FlexGrid from '../components/flex-grid/flex-grid';
-import FileLogo from 'url:../static/images/logos/file.png';
-import DropboxLogo from 'url:../static/images/logos/dropbox.png';
-import GoogleDriveLogo from 'url:../static/images/logos/google-drive.png';
-import ThreeBoxLogo from 'url:../static/images/logos/three-box.png';
-import Input from '../components/input/input';
-import CopyEndAdornment from '../components/input/end-adronments/copy-end-adornment';
-import BackgroundTheme from '../components/drawing/background-theme';
-import IconButton from '../components/icon-button/icon-button';
-import Button from '../components/button/button';
+import React, { memo } from 'react';
 
-export default function Settings() {
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import DropboxLogo from 'url:../static/images/logos/dropbox.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import FileLogo from 'url:../static/images/logos/file.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import GoogleDriveLogo from 'url:../static/images/logos/google-drive.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import ThreeBoxLogo from 'url:../static/images/logos/three-box.png';
+
+import Button from '../components/button/button';
+import BackgroundTheme from '../components/drawing/background-theme';
+import FlexGrid from '../components/flex-grid/flex-grid';
+import IconButton from '../components/icon-button/icon-button';
+import CopyEndAdornment from '../components/input/end-adornments/copy-end-adornment';
+import Input from '../components/input/input';
+
+export default memo(function Settings() {
   return (
     <div className="page-container">
       <BackgroundTheme layout="layout2" />
@@ -69,7 +79,7 @@ export default function Settings() {
               label="Private Key"
               value={''}
               disabled={true}
-              onChange={(e) => {}}
+              onChange={() => undefined}
               endAdornment={<CopyEndAdornment value={''} />}
             />
             <div className="reveal-private-key-button">
@@ -84,4 +94,4 @@ export default function Settings() {
       </div>
     </div>
   );
-}
+});
