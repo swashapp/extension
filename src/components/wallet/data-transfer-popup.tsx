@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 
 import { toast } from 'react-toastify';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -35,10 +35,54 @@ function DataTransferField(props: {
 }
 export default memo(function DataTransferPopup(props: {
   amount: string | number;
-  toAddress: string;
-  onSend: () => Promise<unknown>;
+  recipient: string;
+  onSuccuss: () => Promise<unknown>;
+  useSponsor: boolean;
+  sendToMainnet: boolean;
 }) {
   const [loading, setLoading] = useState<boolean>(false);
+
+  const withdraw = useCallback(() => {
+    setLoading(true);
+    window.helper
+      .withdrawToTarget(
+        props.recipient,
+        props.amount,
+        props.useSponsor,
+        props.sendToMainnet,
+      )
+      .then((result) => {
+        console.log(result);
+        if (result.tx) {
+          props.onSuccuss().then();
+          toast(
+            <ToastMessage
+              type="success"
+              content={<>Successfully approved.</>}
+            />,
+          );
+          showPopup({
+            closable: false,
+            closeOnBackDropClick: true,
+            content: (
+              <DataTransferCompleted
+                transactionId={result.tx}
+                sendToMainnet={props.sendToMainnet}
+              />
+            ),
+          });
+        } else {
+          toast(
+            <ToastMessage
+              type="error"
+              content={<>{result.reason} || Something went wrong!</>}
+            />,
+          );
+        }
+      })
+      .finally(() => setLoading(false));
+  }, [props]);
+
   return (
     <div className="wallet-data-transfer-container">
       <h6>Confirm DATA Transfer</h6>
@@ -47,7 +91,7 @@ export default memo(function DataTransferPopup(props: {
         <img src={RightArrow} alt="-->" />
         <DataTransferField
           label="To Address"
-          value={props.toAddress}
+          value={props.recipient}
           ellipsis
         />
       </div>
@@ -65,33 +109,7 @@ export default memo(function DataTransferPopup(props: {
           text={'Confirm and Send'}
           loadingText={'Sending...'}
           loading={loading}
-          onClick={() => {
-            setLoading(true);
-            props
-              .onSend()
-              .then(() => {
-                showPopup({
-                  closable: false,
-                  closeOnBackDropClick: true,
-                  content: <DataTransferCompleted />,
-                });
-                toast(
-                  <ToastMessage
-                    type="success"
-                    content={<>Successfully approved.</>}
-                  />,
-                );
-              })
-              .catch(() => {
-                toast(
-                  <ToastMessage
-                    type="error"
-                    content={<>Something went wrong!</>}
-                  />,
-                );
-              })
-              .finally(() => setLoading(false));
-          }}
+          onClick={withdraw}
         />
       </div>
     </div>

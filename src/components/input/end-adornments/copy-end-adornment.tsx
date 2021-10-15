@@ -1,9 +1,12 @@
 import { IconButton, InputAdornment, makeStyles } from '@material-ui/core';
+
 import React, { memo } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { toast } from 'react-toastify';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import ToastMessage from '../../toast/toast-message';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
@@ -22,7 +25,16 @@ export default memo(function CopyEndAdornment(props: { value: string }) {
   return (
     <InputAdornment className={classes.icon} position="end">
       <CopyToClipboard text={props.value}>
-        <IconButton>
+        <IconButton
+          onClick={() =>
+            toast(
+              <ToastMessage
+                type="success"
+                content={<>Copied successfully</>}
+              />,
+            )
+          }
+        >
           <img src={copyIcon} alt={'copy'} />
         </IconButton>
       </CopyToClipboard>

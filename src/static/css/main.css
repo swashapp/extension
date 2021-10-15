@@ -885,10 +885,19 @@ a:hover {
 .form-message-text {
   font-style: normal;
   font-weight: normal;
+  line-height: 12px;
   font-size: 12px;
-  line-height: 20px;
 
   margin-left: 8px;
+}
+
+.form-message-balance {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+
+  margin-left: 20px;
 }
 
 .theme-circle1,
