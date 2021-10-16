@@ -1,6 +1,6 @@
 import { InputProps } from '@material-ui/core';
 
-import React, { Dispatch, memo, SetStateAction } from 'react';
+import React, { Dispatch, memo, SetStateAction, useMemo } from 'react';
 
 import InputBase from '../input-base/input-base';
 import NumericEndAdornment from '../input/end-adornments/numeric-end-adornment';
@@ -14,10 +14,21 @@ export default memo(function NumericInput(
     unit?: string;
   },
 ) {
+  const inputProps: InputProps = useMemo(() => {
+    const ret: InputProps & {
+      label?: string;
+      setValue?: Dispatch<SetStateAction<number>>;
+      unit?: string;
+    } = { ...props };
+    delete ret.setValue;
+    delete ret.unit;
+    delete ret.label;
+    return ret;
+  }, [props]);
   return (
     <Label id={'input-' + props.name} text={props.label}>
       <InputBase
-        {...props}
+        {...inputProps}
         value={props.value + ' ' + props.unit}
         onChange={(e) => {
           const value: string = e.target.value;

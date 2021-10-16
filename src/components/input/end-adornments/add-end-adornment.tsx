@@ -11,7 +11,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default memo(function AddEndAdornment(props: { onAdd: () => void }) {
+export default memo(function AddEndAdornment(props: {
+  onAdd: () => void;
+  disabled?: boolean;
+}) {
   const classes = useStyles();
   return (
     <InputAdornment
@@ -19,7 +22,12 @@ export default memo(function AddEndAdornment(props: { onAdd: () => void }) {
       className={classes.icon}
       position="end"
     >
-      <Button link={false} text="Add" color="secondary" />
+      <Button
+        link={false}
+        text="Add"
+        color="secondary"
+        disabled={props.disabled}
+      />
     </InputAdornment>
   );
 });

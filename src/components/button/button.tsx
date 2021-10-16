@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
   primary: {
     background: 'var(--blue)',
     color: 'var(--white)',
-    '&:hover': { background: 'transparent', color: 'var(--black)' },
+    '&:hover': { background: 'var(--black)', color: 'var(--white)' },
   },
   secondary: {
     background: 'var(--lightest-blue)',
