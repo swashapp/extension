@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 
 import DataAccordion, {
   DataItem,
@@ -8,28 +8,84 @@ import NumericInput from '../components/numeric-input/numeric-input';
 import TextMasking from '../components/text-masking/text-masking';
 
 export default memo(function Data() {
-  const [maskItems, setMaskItems] = useState<string[]>([]);
-  const [dataItems, setDataItems] = useState<DataItem[]>([
-    {
-      percentage: 10,
-      category: 'Search',
-      currentTime: 2,
-      link: '',
-      msg: { a: 'asdf', b: 'asdfasd' },
-      msgId: '1',
-      title: 'behtarin',
-    },
-    {
-      percentage: 10,
-      category: 'Search',
-      currentTime: 2,
-      link: '',
-      msg: { a: 'asdf', b: 'asdfasd' },
-      msgId: '1',
-      title: 'behtarin',
-    },
-  ]);
+  const [maskItems, setMaskItems] = useState<string[] | null>(null);
+  const [dataItems, setDataItems] = useState<DataItem[] | null>(null);
+
+  const loadSettings = useCallback(() => {
+    window.helper.load().then((db) => {
+      const masks = db.privacyData;
+      const newMasks = [];
+      for (const x in masks) {
+        newMasks.push(masks[x].value);
+      }
+
+      setDelay(Number(db.configs.delay));
+      setMaskItems(newMasks);
+    });
+  }, []);
+
+  useEffect(() => {
+    loadSettings();
+  }, [loadSettings]);
+
+  useEffect(() => {
+    async function loader() {
+      const retMessages = await window.helper.loadMessages();
+      const db = await window.helper.load();
+      const delay = db.configs.delay * 60000;
+      const currentTime = Number(new Date().getTime());
+      const messages = [];
+      for (const msgId in retMessages) {
+        let host = 'Undetermined';
+        const msg = retMessages[msgId].message;
+        let percentage = Math.round(
+          ((currentTime - retMessages[msgId].createTime) * 100) / delay,
+        );
+        percentage = percentage > 100 ? 100 : percentage;
+        try {
+          host = new URL(msg.origin).host;
+        } catch (err) {
+          //do nothing
+        }
+        delete msg.origin;
+        messages.push({
+          percentage: percentage,
+          currentTime: currentTime,
+          msg: msg,
+          msgId: retMessages[msgId].id,
+          category: msg.header.category,
+          // icon: (await window.helper.getCategory(msg.header.category)).icon,
+          link: host,
+          title: msg.header.module,
+        });
+      }
+      setDataItems(messages);
+    }
+    loader().then();
+    const interval = setInterval(loader, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const [delay, setDelay] = useState<number>(0);
+  useEffect(() => {
+    if (delay > 0) {
+      window.helper.saveConfigs({ delay: delay });
+    }
+  }, [delay]);
+
+  useEffect(() => {
+    if (maskItems) {
+      window.helper.savePrivacyData(maskItems);
+    }
+  }, [maskItems]);
+
+  const deleteMsg = useCallback((message) => {
+    window.helper.cancelSending(message.msgId);
+    setDataItems((items) =>
+      (items || []).filter((msg) => msg.msgId !== message.msgId),
+    );
+  }, []);
   return (
     <div className="page-container">
       <BackgroundTheme layout="layout3" />
@@ -62,10 +118,7 @@ export default memo(function Data() {
               setValue={setDelay}
               unit={delay > 1 ? 'minutes' : 'minute'}
             />
-            <DataAccordion
-              items={dataItems}
-              onRemove={(/*item: DataItem*/) => undefined}
-            />
+            <DataAccordion items={dataItems || []} onRemove={deleteMsg} />
           </div>
         </div>
       </div>

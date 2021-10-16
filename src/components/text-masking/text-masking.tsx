@@ -4,6 +4,7 @@ import React, {
   SetStateAction,
   Dispatch,
   memo,
+  useMemo,
 } from 'react';
 
 import RemoveButton from '../button/remove';
@@ -14,25 +15,31 @@ export default memo(function TextMasking({
   items,
   setItems,
 }: {
-  items: string[];
-  setItems: Dispatch<SetStateAction<string[]>>;
+  items: string[] | null;
+  setItems: Dispatch<SetStateAction<string[] | null>>;
 }) {
-  const [mask, setMask] = useState<string>();
+  const [mask, setMask] = useState<string>('');
   const onAdd = useCallback(
     (item: string) =>
       setItems((_items) => {
-        _items.unshift(item);
-        return _items.slice();
+        const list = _items || [];
+        list?.unshift(item);
+        return list?.slice();
       }),
     [setItems],
   );
   const onRemove = useCallback(
     (index: number) =>
       setItems((_items) => {
-        _items.splice(index, 1);
-        return _items.slice();
+        const list = _items || [];
+        list.splice(index, 1);
+        return list.slice();
       }),
     [setItems],
+  );
+  const allowAdd = useMemo(
+    () => mask && !(items || []).find((item: string) => item === mask),
+    [items, mask],
   );
   return (
     <div className={'text-masking-container'}>
@@ -43,17 +50,20 @@ export default memo(function TextMasking({
           value={mask}
           onChange={(e) => setMask(e.target.value)}
           onKeyPress={(e) => {
-            if (e.key === 'Enter' && mask) {
+            if (e.key === 'Enter' && allowAdd && mask) {
               onAdd(mask);
             }
           }}
           endAdornment={
-            <AddEndAdornment onAdd={() => (mask ? onAdd(mask) : {})} />
+            <AddEndAdornment
+              disabled={!allowAdd}
+              onAdd={() => (allowAdd && mask ? onAdd(mask) : {})}
+            />
           }
         />
       </div>
       <div className="text-masking-items">
-        {items.map((item: string, index: number) => (
+        {(items || []).map((item: string, index: number) => (
           <div key={item + index} className="text-masking-item">
             {item}
             <RemoveButton onClick={() => onRemove(index)} />
