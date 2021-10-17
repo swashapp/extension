@@ -1,4 +1,5 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
@@ -19,8 +20,64 @@ import FlexGrid from '../components/flex-grid/flex-grid';
 import IconButton from '../components/icon-button/icon-button';
 import CopyEndAdornment from '../components/input/end-adornments/copy-end-adornment';
 import Input from '../components/input/input';
+import Export3Box from '../components/passphrase-popup/export-3box';
+import { showPopup } from '../components/popup/popup';
+import ToastMessage from '../components/toast/toast-message';
 
 export default memo(function Settings() {
+  const [reveal, setReveal] = useState<boolean>(false);
+  const [privateKey, setPrivateKey] = useState<string>('');
+
+  const loadSettings = useCallback(async () => {
+    return window.helper.load().then((db) => {
+      window.helper
+        .decryptWallet(db.profile.encryptedWallet, db.configs.salt)
+        .then((keyInfo) => setPrivateKey(keyInfo.privateKey));
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!privateKey) {
+      loadSettings().then();
+    }
+  }, [loadSettings, privateKey]);
+
+  const onboardingUpload = useCallback((request) => {
+    if (request.onboarding) {
+      window.helper.uploadFile(request.onboarding).then((response) => {
+        if (response === false)
+          toast(
+            <ToastMessage
+              type="error"
+              content={<>The configuration file could not be exported</>}
+            />,
+          );
+        else
+          toast(
+            <ToastMessage
+              type="success"
+              content={<>The configuration file is exported successfully</>}
+            />,
+          );
+      });
+    }
+
+    if (window.browser.runtime.onMessage.hasListener(onboardingUpload))
+      window.browser.runtime.onMessage.removeListener(onboardingUpload);
+  }, []);
+
+  const onboardingOAuth = useCallback(
+    (onboarding) => {
+      if (!window.browser.runtime.onMessage.hasListener(onboardingUpload))
+        window.browser.runtime.onMessage.addListener(onboardingUpload);
+
+      window.browser.tabs.getCurrent().then((tab) => {
+        window.helper.startOnBoarding(onboarding, tab.id).then();
+      });
+    },
+    [onboardingUpload],
+  );
+
   return (
     <div className="page-container">
       <BackgroundTheme layout="layout2" />
@@ -46,8 +103,18 @@ export default memo(function Settings() {
                   column={2}
                   className="settings-2backup-buttons form-item-gap"
                 >
-                  <IconButton body="Local File" image={FileLogo} link={false} />
-                  <IconButton body="Dropbox" image={DropboxLogo} link={false} />
+                  <IconButton
+                    body="Local File"
+                    image={FileLogo}
+                    link={false}
+                    onClick={() => window.helper.saveConfig().then()}
+                  />
+                  <IconButton
+                    body="Dropbox"
+                    image={DropboxLogo}
+                    link={false}
+                    onClick={() => onboardingOAuth('DropBox')}
+                  />
                 </FlexGrid>
                 <FlexGrid
                   column={2}
@@ -58,12 +125,20 @@ export default memo(function Settings() {
                     image={GoogleDriveLogo}
                     imageSize={{ width: 27 }}
                     link={false}
+                    onClick={() => onboardingOAuth('GoogleDrive')}
                   />
                   <IconButton
                     body="3Box"
                     image={ThreeBoxLogo}
                     imageSize={{ width: 31, height: 20 }}
                     link={false}
+                    onClick={() => {
+                      showPopup({
+                        closable: true,
+                        closeOnBackDropClick: true,
+                        content: <Export3Box />,
+                      });
+                    }}
                   />
                 </FlexGrid>
               </FlexGrid>
@@ -77,16 +152,18 @@ export default memo(function Settings() {
             </p>
             <Input
               label="Private Key"
-              value={''}
+              value={privateKey}
+              type={reveal ? 'text' : 'password'}
               disabled={true}
-              onChange={() => undefined}
-              endAdornment={<CopyEndAdornment value={''} />}
+              onChange={(e) => setPrivateKey(e.target.value)}
+              endAdornment={<CopyEndAdornment value={privateKey} />}
             />
             <div className="reveal-private-key-button">
               <Button
                 color="secondary"
-                text="Reveal Private Key"
+                text={`${reveal ? 'Hide' : 'Reveal'} Private Key`}
                 link={false}
+                onClick={() => setReveal((r) => !r)}
               />
             </div>
           </div>
