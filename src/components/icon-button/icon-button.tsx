@@ -6,9 +6,11 @@ function IconButtonBase(props: {
   body?: string;
   image: string;
   imageSize?: { width?: number; height?: number };
+  onClick?: () => void;
 }) {
   return (
     <div
+      onClick={props.onClick}
       className={`${'icon-button-container'} ${
         props.body ? 'icon-button-large' : 'icon-button-small'
       }`}
@@ -35,6 +37,7 @@ export default memo(function IconButton(props: {
   image: string;
   imageSize?: { width?: number; height?: number };
   link: LinkProps | false;
+  onClick?: () => void;
 }) {
   return props.link === false ? (
     <IconButtonBase {...props} />
