@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 import Button from '../components/button/button';
 import BackgroundTheme from '../components/drawing/background-theme';
@@ -10,13 +10,23 @@ import HelpData from '../data/help';
 
 export default memo(function Help() {
   const [searchText, setSearchText] = useState<string>('');
-  const [reward, setReward] = useState<string>('VALUE');
+  const [reward, setReward] = useState<number>(0);
+
+  const loadActiveReferral = useCallback(() => {
+    window.helper.getActiveReferral().then((referral) => {
+      if (referral.reward) setReward(referral.reward);
+    });
+  }, []);
+
+  useEffect(() => {
+    loadActiveReferral();
+  }, [loadActiveReferral]);
 
   const helpData = useMemo(() => {
     return searchText === ''
       ? HelpData.map((data) => ({
           ...data,
-          content: data.content.replace('$REWARD', reward),
+          content: data.content.replace('$REWARD', reward.toString()),
         }))
       : [
           ...HelpData.filter(
@@ -33,7 +43,7 @@ export default memo(function Help() {
                   new RegExp(`${searchText}(?![^<]*>)`, 'gi'),
                   `<mark>${searchText}</mark>`,
                 )
-                .replace('$REWARD', reward),
+                .replace('$REWARD', reward.toString()),
               expanded:
                 data.content.toLowerCase().indexOf(searchText.toLowerCase()) >=
                 0,
