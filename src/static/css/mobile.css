@@ -153,6 +153,12 @@
   .win-data-prize-text {
     width: 208px;
   }
+  .win-data-prize-button {
+    margin-top: 24px;
+  }
+  .win-data-prize-content {
+    margin: 20px;
+  }
 
   .section-accordion-container p {
     font-size: 12px;
