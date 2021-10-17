@@ -745,6 +745,7 @@ a:hover {
   overflow: hidden;
   border-radius: 20px;
   background: url('../images/background/welcome.png') no-repeat center center;
+  background-size: cover;
   padding: 20px;
   margin: 20px;
 
@@ -1026,12 +1027,20 @@ a:hover {
 }
 
 .win-data-prize {
+  height: 100%;
   background: url('../images/background/win-data-prize.png') no-repeat center
     center;
+  background-size: cover;
 
-  padding: 32px !important;
   overflow: hidden;
   position: relative;
+
+  justify-content: space-between;
+}
+
+.win-data-prize-content {
+  gap: inherit;
+  margin: 32px;
 }
 
 .win-data-prize-title,
@@ -1040,6 +1049,7 @@ a:hover {
 }
 
 .win-data-prize-button {
+  margin-top: 42px;
   width: 125px;
 }
 
@@ -1846,4 +1856,7 @@ a:hover {
 
 .passphrase-button {
   margin-top: 24px;
+}
+.justify-space-between {
+  justify-content: space-between;
 }

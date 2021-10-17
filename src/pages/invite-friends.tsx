@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 
 import {
   TwitterShareButton,
@@ -34,11 +34,35 @@ import IconButton from '../components/icon-button/icon-button';
 import CopyEndAdornment from '../components/input/end-adornments/copy-end-adornment';
 import Input from '../components/input/input';
 import NumericSection from '../components/numeric-section/numeric-section';
-
 const referralMessage =
   'Use my referral link to earn money as you surf with Swash:';
 export default memo(function InviteFriends() {
   const [referralLink, setReferralLink] = useState<string>('');
+  const [reward, setReward] = useState<number>(0);
+
+  const loadReferral = useCallback(() => {
+    window.helper.load().then((db) => {
+      if (!db.profile.user_id) {
+        setTimeout(() => loadReferral(), 5000);
+        return;
+      }
+      const _referralLink = db.profile.user_id
+        ? `https://swashapp.io/referral/${db.profile.user_id}`
+        : '';
+      setReferralLink(_referralLink);
+    });
+  }, []);
+
+  const loadActiveReferral = useCallback(() => {
+    window.helper.getActiveReferral().then((referral) => {
+      if (referral.reward) setReward(referral.reward);
+    });
+  }, []);
+
+  useEffect(() => {
+    loadReferral();
+    loadActiveReferral();
+  }, [loadActiveReferral, loadReferral]);
   return (
     <div className="page-container">
       <BackgroundTheme />
@@ -69,10 +93,11 @@ export default memo(function InviteFriends() {
               <div className="simple-card">
                 <h6>Get More Data Bonus</h6>
                 <p>
-                  Share your referral link and earn 1 DATA for every friend you
-                  bring to Swash!
+                  Share your referral link and earn {reward} DATA for every
+                  friend you bring to Swash!
                 </p>
                 <Input
+                  name="referral"
                   label="Your Referral Link"
                   value={referralLink}
                   disabled={true}
@@ -128,17 +153,19 @@ export default memo(function InviteFriends() {
                 />
                 <Circle className={'win-data-prize-circle2'} border={'black'} />
                 <Circle className={'win-data-prize-circle3'} color={'black'} />
-                <div className="win-data-prize-title">
-                  <h5>Win 1000 DATA prize every month!</h5>
-                </div>
-                <div className="flex-column">
-                  <div className="win-data-prize-text">
-                    Bring the most new users in a month, you’ll receive a 1000
-                    DATA prize!
+                <div className="flex-column win-data-prize-content">
+                  <div className="win-data-prize-title">
+                    <h5>Win 1000 DATA prize every month!</h5>
                   </div>
-                </div>
-                <div className="win-data-prize-button">
-                  <LearnMore size="small" position="WinDataPrize" />
+                  <div className="flex-column justify-space-between">
+                    <div className="win-data-prize-text">
+                      Bring the most new users in a month, you’ll receive a 1000
+                      DATA prize!
+                    </div>
+                    <div className="win-data-prize-button">
+                      <LearnMore size="small" position="WinDataPrize" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </FlexGrid>

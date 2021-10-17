@@ -146,6 +146,14 @@
     right: 48px;
   }
 
+  .win-data-prize-content {
+    margin: 20px;
+  }
+
+  .win-data-prize-button {
+    margin-top: 65px;
+  }
+
   .section-accordion-container p {
     font-size: 12px;
   }
