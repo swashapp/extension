@@ -1,4 +1,5 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { toast } from 'react-toastify';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
@@ -19,6 +20,7 @@ import Input from '../components/input/input';
 import NumericSection from '../components/numeric-section/numeric-section';
 import { showPopup } from '../components/popup/popup';
 import Select from '../components/select/select';
+import ToastMessage from '../components/toast/toast-message';
 import DataTransferPopup from '../components/wallet/data-transfer-popup';
 
 const networkList = [
@@ -26,14 +28,191 @@ const networkList = [
   { description: 'Mainnet', value: 'Mainnet' },
 ];
 
+const purgeNumber = (num: string) => {
+  if (num.indexOf('.') < 0) return num;
+  return num.slice(0, num.indexOf('.') + 3);
+};
+
 export default memo(function Wallet() {
-  const [dataAvailable, setDataAvailable] = useState<number>(0);
+  const [dataAvailable, setDataAvailable] = useState<string>('$');
+  const [minimumWithdraw, setMinimumWithdraw] = useState<number>(99999999);
+  const [gasLimit, setGasLimit] = useState<number>(99999999);
   const [amount, setAmount] = useState<string>('0');
-  const [unclaimedBonus, setUnclaimedBonus] = useState<number>(0);
+  const [claiming, setClaiming] = useState<boolean>(false);
+  const [recipientEthBalance, setRecipientEthBalance] = useState<string>('$');
+  const [recipientDataBalance, setRecipientDataBalance] = useState<string>('$');
+  const [unclaimedBonus, setUnclaimedBonus] = useState<string>('$');
   const [walletAddress, setWalletAddress] = useState<string>('');
-  const [recipientWalletAddress, setRecipientWalletAddress] =
-    useState<string>('');
+  const [recipient, setRecipient] = useState<string>('');
   const [network, setNetwork] = useState<string>('xDai');
+
+  const loadSettings = useCallback(async () => {
+    return window.helper.load().then((db) => {
+      return window.helper
+        .decryptWallet(db.profile.encryptedWallet, db.configs.salt)
+        .then((keyInfo) => setWalletAddress(keyInfo.address));
+    });
+  }, []);
+
+  const getUnclaimedBonus = useCallback(() => {
+    window.helper.getReferralRewards().then((_unclaimedBonus) => {
+      setUnclaimedBonus((_unclaimed) => {
+        const ret =
+          _unclaimedBonus.toString() !== _unclaimed
+            ? _unclaimedBonus.toString()
+            : _unclaimed;
+        return purgeNumber(ret);
+      });
+    });
+  }, []);
+  const getDataAvailable = useCallback(() => {
+    window.helper.getAvailableBalance().then((_dataAvailable) => {
+      setDataAvailable((data) => {
+        const _data =
+          _dataAvailable.error ||
+          _dataAvailable === '' ||
+          typeof _dataAvailable === 'undefined'
+            ? data
+            : _dataAvailable;
+        return purgeNumber(_data);
+      });
+    });
+  }, []);
+  const getBalanceInfo = useCallback(async () => {
+    getUnclaimedBonus();
+    getDataAvailable();
+  }, [getDataAvailable, getUnclaimedBonus]);
+
+  useEffect(() => {
+    loadSettings().then(getBalanceInfo);
+  });
+
+  const isClaimDisable = useMemo(() => {
+    return unclaimedBonus === '$' || Number(unclaimedBonus) <= 0 || claiming;
+  }, [claiming, unclaimedBonus]);
+
+  const claimRewards = useCallback(() => {
+    setClaiming(true);
+    window.helper
+      .claimRewards()
+      .then((result) => {
+        if (result.tx) {
+          getBalanceInfo().then();
+          toast(
+            <ToastMessage
+              type="success"
+              content={<>Rewards are claimed successfully</>}
+            />,
+          );
+        } else {
+          toast(
+            <ToastMessage
+              type="error"
+              content={<>Failed to claim rewards</>}
+            />,
+          );
+        }
+      })
+      .finally(() => setClaiming(false));
+  }, [getBalanceInfo]);
+
+  const isMessageNeeded = useMemo(
+    () => dataAvailable !== '$' && Number(dataAvailable) > 0,
+    [dataAvailable],
+  );
+
+  const formState: { message: string; type: 'error' | 'warning' | 'success' } =
+    useMemo(() => {
+      let ret: { message: string; type: 'error' | 'warning' | 'success' } = {
+        message: '',
+        type: 'warning',
+      };
+      if (!amount.match(/^[0-9]+(\.[0-9]+)?$/)) {
+        ret = { message: 'Amount value is not valid', type: 'error' };
+      } else if (!recipient.match(/^0x[a-fA-F0-9]{40}$/)) {
+        ret = { message: 'Recipient address is not valid', type: 'error' };
+      } else if (isMessageNeeded) {
+        if (network === 'xDai') {
+          ret = {
+            message: 'Exchange wallets are not compatible with xDai.',
+            type: 'error',
+          };
+        } else if (Number(dataAvailable) > minimumWithdraw) {
+          ret = {
+            message:
+              'It’s on us. Swash will cover these transaction fees for you! 🎉',
+            type: 'success',
+          };
+        } else if (Number(recipientEthBalance) > gasLimit) {
+          ret = {
+            message: `Transaction fee is ${gasLimit} ETH`,
+            type: 'warning',
+          };
+        } else {
+          ret = {
+            message: 'Unable to withdraw - not enough ETH for the gas fee',
+            type: 'error',
+          };
+        }
+      }
+      return ret;
+    }, [
+      amount,
+      dataAvailable,
+      gasLimit,
+      isMessageNeeded,
+      minimumWithdraw,
+      network,
+      recipient,
+      recipientEthBalance,
+    ]);
+
+  const isTransferDisable = useMemo(() => {
+    let ret = false;
+    if (dataAvailable === '$' || Number(dataAvailable) <= 0) ret = true;
+    else if (!network) ret = true;
+    else if (network === 'Mainnet') {
+      if (recipientEthBalance === '$' || Number(recipientEthBalance) <= 0)
+        ret = true;
+      else if (
+        Number(recipientEthBalance) < gasLimit &&
+        Number(dataAvailable) < minimumWithdraw
+      )
+        ret = true;
+    } else if (formState.message && formState.type === 'error') ret = true;
+    return ret;
+  }, [
+    dataAvailable,
+    formState.message,
+    formState.type,
+    gasLimit,
+    minimumWithdraw,
+    network,
+    recipientEthBalance,
+  ]);
+
+  useEffect(() => {
+    if (recipient.length === 42) {
+      window.helper.getWithdrawBalance().then((response) => {
+        if (response.minimum) {
+          setMinimumWithdraw(response.minimum);
+        }
+        if (response.gas) {
+          setGasLimit(response.gas.toFixed(3));
+        }
+      });
+      if (recipient.match(/^0x[a-fA-F0-9]{40}$/g)) {
+        const getBalanceOfRecipient = async () => {
+          const DataBalance = await window.helper.getDataBalance(recipient);
+          const EthBalance = await window.helper.getEthBalance(recipient);
+          setRecipientDataBalance(DataBalance);
+          setRecipientEthBalance(EthBalance);
+        };
+        getBalanceOfRecipient();
+      }
+    }
+  }, [recipient]);
+
   return (
     <div className="page-container">
       <BackgroundTheme />
@@ -58,6 +237,10 @@ export default memo(function Wallet() {
                     className="form-button"
                     color="primary"
                     text="Claim"
+                    loadingText="Claiming"
+                    loading={claiming}
+                    disabled={isClaimDisable}
+                    onClick={claimRewards}
                     link={false}
                   />
                 }
@@ -159,6 +342,7 @@ export default memo(function Wallet() {
               >
                 <Input
                   label="Amount"
+                  name="amount"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                 />
@@ -172,16 +356,25 @@ export default memo(function Wallet() {
               <Input
                 name="RecipientWalletAddress"
                 label="Recipient Wallet Address"
-                value={recipientWalletAddress}
-                onChange={(e) => setRecipientWalletAddress(e.target.value)}
+                value={recipient}
+                onChange={(e) => setRecipient(e.target.value)}
               />
-              <FormMessage text="al;skdflasdflasdfasd" type="error" />
+              <div>
+                <FormMessage text={formState.message} type={formState.type} />
+                {network === 'Mainnet' && recipient ? (
+                  <div className="form-message-balance">{`Balance: ${purgeNumber(
+                    recipientEthBalance,
+                  )} ETH, ${purgeNumber(recipientDataBalance)} DATA`}</div>
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
             <Button
               className="form-button"
               color="primary"
               text="Withdraw"
-              disabled={!recipientWalletAddress || !network}
+              disabled={isTransferDisable}
               link={false}
               onClick={() =>
                 showPopup({
@@ -189,12 +382,10 @@ export default memo(function Wallet() {
                   content: (
                     <DataTransferPopup
                       amount={amount}
-                      toAddress={recipientWalletAddress}
-                      onSend={() =>
-                        new Promise((resolve) =>
-                          setTimeout(() => resolve(true), 3000),
-                        )
-                      }
+                      recipient={recipient}
+                      onSuccuss={getBalanceInfo}
+                      useSponsor={Number(dataAvailable) > minimumWithdraw}
+                      sendToMainnet={network === 'Mainnet'}
                     />
                   ),
                 })

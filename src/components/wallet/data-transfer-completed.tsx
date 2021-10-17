@@ -5,7 +5,10 @@ import completedIcon from 'url:../../static/images/icons/progress-completed.png'
 
 import Circle from '../drawing/circle';
 
-export default memo(function DataTransferCompleted() {
+export default memo(function DataTransferCompleted(props: {
+  transactionId: string;
+  sendToMainnet: boolean;
+}) {
   return (
     <div className="data-transfer-popup-completed">
       <div className="progress-dashed">
@@ -22,9 +25,27 @@ export default memo(function DataTransferCompleted() {
       <h2>Transfer Completed!</h2>
       <p>
         Verify your transaction on{' '}
-        <a href="" target="_blank">
-          Blockscout
-        </a>
+        {props.sendToMainnet ? (
+          <>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`https://etherscan.io/tx/${props.transactionId}`}
+            >
+              Etherscan
+            </a>
+          </>
+        ) : (
+          <>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`https://blockscout.com/xdai/mainnet/tx/${props.transactionId}`}
+            >
+              Blockscout
+            </a>
+          </>
+        )}
       </p>
     </div>
   );

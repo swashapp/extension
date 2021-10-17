@@ -2,14 +2,18 @@ import React, { memo } from 'react';
 import { PropsWithChildren } from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
-import errorIcon from 'url:../../static/images/shape/error.png';
+import ErrorIcon from 'url:../../static/images/icons/error.png';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
-import warningIcon from 'url:../../static/images/shape/warning.png';
+import SuccessIcon from 'url:../../static/images/icons/success.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import WarningIcon from 'url:../../static/images/icons/warning.png';
 
 const FormMessages = {
-  warning: { icon: warningIcon, color: 'var(--warning)' },
-  error: { icon: errorIcon, color: 'var(--error)' },
+  warning: { icon: WarningIcon, color: 'var(--warning)' },
+  error: { icon: ErrorIcon, color: 'var(--error)' },
+  success: { icon: SuccessIcon, color: 'var(--green)' },
 };
 
 export default memo(function FormMessage(
