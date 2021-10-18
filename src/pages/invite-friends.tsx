@@ -33,6 +33,7 @@ import FlexGrid from '../components/flex-grid/flex-grid';
 import IconButton from '../components/icon-button/icon-button';
 import CopyEndAdornment from '../components/input/end-adornments/copy-end-adornment';
 import Input from '../components/input/input';
+import { INVITE_FRIENDS_TOUR_CLASS } from '../components/invite-friends/invite-friends-tour';
 import NumericSection from '../components/numeric-section/numeric-section';
 const referralMessage =
   'Use my referral link to earn money as you surf with Swash:';
@@ -79,6 +80,7 @@ export default memo(function InviteFriends() {
               image={TotalBonusIcon}
             />
             <NumericSection
+              tourClassName={INVITE_FRIENDS_TOUR_CLASS.FRIENDS}
               title="Total Invited Friends"
               value={'123'}
               layout="layout2"
@@ -97,6 +99,7 @@ export default memo(function InviteFriends() {
                   friend you bring to Swash!
                 </p>
                 <Input
+                  className={INVITE_FRIENDS_TOUR_CLASS.REFERRAL}
                   name="referral"
                   label="Your Referral Link"
                   value={referralLink}

@@ -4,9 +4,12 @@ import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 
+import InviteFriendsTour from '../components/invite-friends/invite-friends-tour';
+
 import Popup from '../components/popup/popup';
 import Sidenav from '../components/sidenav/sidenav';
 import SidenavButton from '../components/sidenav/sidenav-button';
+import WalletTour from '../components/wallet/wallet-tour';
 import { SidenavItems } from '../data/sidenav-items';
 
 import OnBoarding from './onboarding';
@@ -48,6 +51,8 @@ function RouteComponent(
             <ExtensionComponent />
           )}
         </div>
+        <WalletTour />
+        <InviteFriendsTour />
       </div>
     </>
   );

@@ -22,6 +22,7 @@ import { showPopup } from '../components/popup/popup';
 import Select from '../components/select/select';
 import ToastMessage from '../components/toast/toast-message';
 import DataTransferPopup from '../components/wallet/data-transfer-popup';
+import { WALLET_TOUR_CLASS } from '../components/wallet/wallet-tour';
 
 const networkList = [
   { description: 'xDai', value: 'xDai' },
@@ -224,6 +225,7 @@ export default memo(function Wallet() {
           <div className={'flex-column card-gap'}>
             <FlexGrid column={2} className={'wallet-numerics card-gap'}>
               <NumericSection
+                tourClassName={WALLET_TOUR_CLASS.DATA_EARNINGS}
                 title="Data Earnings"
                 value={dataAvailable}
                 layout="layout1"
@@ -248,7 +250,9 @@ export default memo(function Wallet() {
               />
             </FlexGrid>
             <div className="simple-card">
-              <div className="wallet-title">
+              <div
+                className={`wallet-title ${WALLET_TOUR_CLASS.WALLET_ADDRESS}`}
+              >
                 <h6>Your wallet address</h6>
                 <div className="wallet-title-question-mark">
                   <img src={QuestionGrayIcon} width={16} height={16} />

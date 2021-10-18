@@ -2,15 +2,20 @@ import React, {
   forwardRef,
   PropsWithChildren,
   useCallback,
+  useEffect,
   useImperativeHandle,
   useMemo,
   useReducer,
+  useState,
 } from 'react';
 import Joyride, { ACTIONS, EVENTS, STATUS, Step } from 'react-joyride';
+import { useLocation } from 'react-router-dom';
+
+import TourNavigationButtons from './tour-navigation-buttons';
 
 const tourStyles = {
   spotlight: {
-    borderRadius: '12px',
+    borderRadius: '20px',
     padding: 0,
     backgroundColor: 'transparent',
     boxShadow: '0 0 0 99999px rgba(0, 32, 48, 0.7)',
@@ -40,10 +45,29 @@ const tourStyles = {
   },
 };
 
+export enum TOUR_NAME {
+  WALLET = 'wallet',
+  INVITE_FRIENDS = 'referral',
+}
+
+export const TourContext = React.createContext<{
+  next: () => void;
+  back: () => void;
+  stop: () => void;
+}>({
+  next: () => undefined,
+  back: () => undefined,
+  stop: () => undefined,
+});
+
 export default forwardRef(function Tour(
-  props: PropsWithChildren<{ steps: Step[] }>,
+  props: PropsWithChildren<{
+    steps: (Step & { header: string })[];
+    tourName: TOUR_NAME;
+  }>,
   ref,
 ) {
+  const location = useLocation();
   const INITIAL_STATE = useMemo(
     () => ({
       key: new Date(),
@@ -121,6 +145,14 @@ export default forwardRef(function Tour(
   const back = useCallback(() => dispatch({ type: 'PREV' }), [dispatch]);
   const stop = useCallback(() => dispatch({ type: 'STOP' }), [dispatch]);
 
+  useEffect(() => {
+    const _tour = new URLSearchParams(location.search).get('tour');
+
+    if (_tour && _tour === props.tourName) {
+      start();
+    }
+  }, [location, props.tourName, start]);
+
   useImperativeHandle(ref, () => ({
     start,
     next,
@@ -129,25 +161,52 @@ export default forwardRef(function Tour(
   }));
 
   return (
-    <Joyride
-      callback={callback}
-      scrollToFirstStep={false}
-      showProgress={false}
-      showSkipButton={false}
-      styles={tourStyles}
-      {...tourState}
-      floaterProps={{
-        offset: 15,
+    <TourContext.Provider
+      value={{
+        next,
+        back,
+        stop,
       }}
-      steps={tourState.steps.map((step: Step) => {
-        return {
-          ...step,
-          content: <div className="tour-step-container">{step.content}</div>,
-          disableBeacon: true,
-          disableOverlayClose: true,
-          hideFooter: true,
-        };
-      })}
-    />
+    >
+      <Joyride
+        callback={callback}
+        scrollToFirstStep={false}
+        showProgress={false}
+        showSkipButton={false}
+        styles={tourStyles}
+        {...tourState}
+        floaterProps={{
+          offset: 15,
+        }}
+        steps={tourState.steps.map(
+          (
+            step: {
+              header: string;
+              content: React.ReactNode;
+            },
+            index: number,
+            arr: Step[],
+          ) => {
+            return {
+              ...step,
+              content: (
+                <div className="tour-step-container">
+                  <h6>{step.header}</h6>
+                  <p>{step.content}</p>
+                  <TourNavigationButtons
+                    tourName={props.tourName}
+                    start={index === 0}
+                    end={index === arr.length - 1}
+                  />
+                </div>
+              ),
+              disableBeacon: true,
+              disableOverlayClose: true,
+              hideFooter: true,
+            };
+          },
+        )}
+      />
+    </TourContext.Provider>
   );
 });

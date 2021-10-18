@@ -1,10 +1,16 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { SidenavItem, SidenavItems } from '../../data/sidenav-items';
+import { WALLET_TOUR_CLASS } from '../wallet/wallet-tour';
 
 export default memo(function SidenavLinks(props: { activeIndex?: number }) {
   const [active, setActive] = useState<number>(props.activeIndex || 0);
+  const getTourClass = useCallback((index: number) => {
+    let ret = '';
+    if (index === 0) ret = WALLET_TOUR_CLASS.WALLET;
+    return ret;
+  }, []);
   return (
     <>
       {SidenavItems.map((item: SidenavItem, index: number) => {
@@ -24,7 +30,7 @@ export default memo(function SidenavLinks(props: { activeIndex?: number }) {
               }`}
             />
             <Link to={item.route}>
-              <div className="sidenav-icon-title">
+              <div className={`sidenav-icon-title ${getTourClass(index)}`}>
                 <div className="sidenav-icon">
                   {item.icon ? (
                     <img
