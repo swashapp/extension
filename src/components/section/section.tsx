@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import { Link } from 'react-router-dom';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import Done from 'url:../../static/images/shape/done.svg';
@@ -19,7 +20,7 @@ export default memo(function Section(props: { items: SectionItem[] }) {
         return (
           <div key={'section-' + index} className={'section'}>
             <div className={'section-row'}>
-              <a href={item.link}>
+              <Link to={item.link}>
                 <div className={'section-link'}>
                   <p>{item.text}</p>
                   <img
@@ -27,7 +28,7 @@ export default memo(function Section(props: { items: SectionItem[] }) {
                     alt={item.done ? 'Done' : '>'}
                   />
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
         );
