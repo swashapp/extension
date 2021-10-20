@@ -1,4 +1,7 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { RouteToPages } from '../../paths';
 
 import Button from '../button/button';
 import CircularProgress from '../circular-progress/circular-progress';
@@ -6,6 +9,12 @@ import CircularProgress from '../circular-progress/circular-progress';
 export default memo(function CongratsWalletIsReady(props: {
   type: 'imported' | 'created';
 }) {
+  const history = useHistory();
+  const onUseSwash = useCallback(() => {
+    window.helper.submitOnBoarding().then(() => {
+      history.push(RouteToPages.wallet);
+    });
+  }, [history]);
   return (
     <div className="onboarding-progress-card">
       <CircularProgress type="completed" />
@@ -21,7 +30,7 @@ export default memo(function CongratsWalletIsReady(props: {
         <></>
       )}
       <div className="onboarding-progress-button  congrats-button">
-        <Button text="Use Swash" link={false} />
+        <Button text="Use Swash" link={false} onClick={onUseSwash} />
       </div>
     </div>
   );

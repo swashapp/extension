@@ -5,7 +5,7 @@ import { StepperContext } from '../../pages/onboarding';
 import AcceptCheckBox from './accept-checkbox';
 import NavigationButtons from './navigation-buttons';
 
-export default memo(function OnBoardingPrivacy() {
+export default memo(function OnboardingPrivacy() {
   const stepper = useContext(StepperContext);
   const [accept, setAccept] = useState<boolean>(false);
   return (

@@ -1,15 +1,32 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useCallback, useContext, useState } from 'react';
+import { toast } from 'react-toastify';
+
+import { StepperContext } from '../../pages/onboarding';
 
 import Input from '../input/input';
 
+import ToastMessage from '../toast/toast-message';
+
 import NavigationButtons from './navigation-buttons';
 
-export default memo(function OnBoardingVerify(props: {
-  onSubmit: () => void;
-  onBack: () => void;
-}) {
+export default memo(function OnboardingVerify() {
+  const stepper = useContext(StepperContext);
   const [verificationCode, setVerificationCode] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
+
+  const onSubmit = useCallback(() => {
+    setLoading(true);
+    new Promise((resolve) => setTimeout(resolve, 3000))
+      .then(() => {
+        stepper.next();
+      })
+      .catch(() =>
+        toast(
+          <ToastMessage type="error" content={<>Something went wrong!</>} />,
+        ),
+      )
+      .finally(() => setLoading(false));
+  }, [stepper]);
   return (
     <>
       <div className="onboarding-verify-email">
@@ -37,8 +54,8 @@ export default memo(function OnBoardingVerify(props: {
         </div>
         <NavigationButtons
           nextButtonText="Verify"
-          onBack={props.onBack}
-          onSubmit={() => props.onSubmit()}
+          onBack={stepper.back}
+          onSubmit={onSubmit}
           loading={loading}
           disableNext={!verificationCode}
         />

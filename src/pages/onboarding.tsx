@@ -12,12 +12,12 @@ import CongratsWalletIsReady from '../components/onboarding/congrats-wallet-is-r
 import CreatingAWallet from '../components/onboarding/creating-a-wallet';
 import EmailSent from '../components/onboarding/email-sent';
 import ImportYourConfig from '../components/onboarding/import-your-config';
-import OnBoardingImportant from '../components/onboarding/onboarding-important';
-import OnBoardingJoin from '../components/onboarding/onboarding-join';
-import OnBoardingPrivacy from '../components/onboarding/onboarding-privacy';
-import OnBoardingProfile from '../components/onboarding/onboarding-profile';
-import OnBoardingStart from '../components/onboarding/onboarding-start';
-import OnBoardingVerify from '../components/onboarding/onboarding-verify';
+import OnboardingImportant from '../components/onboarding/onboarding-important';
+import OnboardingJoin from '../components/onboarding/onboarding-join';
+import OnboardingPrivacy from '../components/onboarding/onboarding-privacy';
+import OnboardingProfile from '../components/onboarding/onboarding-profile';
+import OnboardingStart from '../components/onboarding/onboarding-start';
+import OnboardingVerify from '../components/onboarding/onboarding-verify';
 import Stepper from '../components/stepper/stepper';
 import { IStepper } from '../components/stepper/stepper.type';
 
@@ -31,32 +31,32 @@ export const StepperContext = React.createContext<{
   changeSelectedPage: () => undefined,
 });
 
-function OnboardingStep(props: { page: string }) {
+function OnboardingStep(props: { page: string; flow: string[] }) {
   switch (props.page) {
     case 'Welcome':
-      return <OnBoardingStart />;
+      return <OnboardingStart />;
     case 'YourProfileWarning':
       return <></>;
     case 'YourProfile':
-      return <OnBoardingProfile />;
+      return <OnboardingProfile />;
     case 'New':
       return <></>;
     case 'PrivacyPolicy':
-      return <OnBoardingPrivacy />;
+      return <OnboardingPrivacy />;
     case 'OnBoardingResponsibility':
-      return <OnBoardingImportant />;
+      return <OnboardingImportant />;
     case 'Create':
       return <CreatingAWallet />;
     case 'Join':
-      return <OnBoardingJoin />;
+      return <OnboardingJoin />;
     case 'Import':
       return <ImportYourConfig />;
     case 'Completed':
-      // window.helper.submitOnBoarding().then(() => {
-      //   this.setState({ shouldRedirect: true, CurrentPage: 'Home' });
-      // });
-      return <div />;
-    // Redirect to Settings
+      return (
+        <CongratsWalletIsReady
+          type={props.flow.indexOf('Import') > 0 ? 'imported' : 'created'}
+        />
+      );
     default:
       return <></>;
   }
@@ -68,7 +68,7 @@ interface FLOW {
   start: string;
 }
 
-export default memo(function OnBoarding() {
+export default memo(function Onboarding() {
   const [flow, setFlow] = useState<FLOW>({
     pages: { Welcome: { next: '', back: '' } },
     start: '',
@@ -79,6 +79,12 @@ export default memo(function OnBoarding() {
   useEffect(() => {
     window.helper.getOnboardingFlow().then((res: string) => {
       const newFlow = JSON.parse(res);
+      if (typeof newFlow.pages['Import'].next !== 'object') {
+        newFlow.pages['Import'].next = {
+          basedOnPage: 'Join',
+          default: 'Join',
+        };
+      }
       setFlow(newFlow);
     });
   }, []);
@@ -125,10 +131,12 @@ export default memo(function OnBoarding() {
       while (next) {
         flattened.push(next);
         next = getNextPageOf(next);
+        console.log(next);
       }
     }
     return flattened;
   }, [flow.start, getNextPageOf]);
+  console.log(flattenedFlow);
   const ref = useRef<IStepper>();
   return (
     <div className="page-container">
@@ -162,8 +170,8 @@ export default memo(function OnBoarding() {
           <Stepper ref={ref} flow={flattenedFlow}>
             {flattenedFlow
               .filter((step) => step !== 'YourProfileWarning' && step !== 'New')
-              .map((page: string, index: number) => (
-                <OnboardingStep key={page + index} page={page} />
+              .map((page: string, index: number, arr: string[]) => (
+                <OnboardingStep key={page + index} page={page} flow={arr} />
               ))}
           </Stepper>
         </StepperContext.Provider>

@@ -11,7 +11,7 @@ import { StepperContext } from '../../pages/onboarding';
 import Button from '../button/button';
 import FlexGrid from '../flex-grid/flex-grid';
 
-export default memo(function OnBoardingStart() {
+export default memo(function OnboardingStart() {
   const stepper = useContext(StepperContext);
   return (
     <>

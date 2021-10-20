@@ -1,8 +1,16 @@
-import React, { memo } from 'react';
+import React, { memo, useContext, useEffect } from 'react';
+
+import { StepperContext } from '../../pages/onboarding';
 
 import CircularProgress from '../circular-progress/circular-progress';
 
 export default memo(function CreatingAWallet() {
+  const stepper = useContext(StepperContext);
+  useEffect(() => {
+    window.helper.createAndSaveWallet().then(() => {
+      stepper.next();
+    });
+  });
   return (
     <div className="onboarding-progress-card">
       <CircularProgress type="loading" />

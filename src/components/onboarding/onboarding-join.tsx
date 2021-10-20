@@ -1,8 +1,16 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 import { StepperContext } from '../../pages/onboarding';
 
-const SWASH_DOMAIN = 'http://localhost:3001';
+import OnboardingVerify from './onboarding-verify';
+
+const SWASH_DOMAIN = 'https://swashapp.io';
 const SWASH_JOIN_PAGE = '/user/join';
 const MAX_TOKEN_TRY_COUNT = 3;
 const MAX_GENERAL_TRY_COUNT = 3;
@@ -14,24 +22,32 @@ const enum Status {
   TRY_AGAIN = 'TRYAGAIN',
 }
 
-export default function OnBoardingJoin(): JSX.Element {
+export default function OnboardingJoin(): JSX.Element {
   const stepper = useContext(StepperContext);
-  const [token, setToken] = useState<string | null>('sadfasdf');
+  const [token, setToken] = useState<string | null>('');
   const [tokenTry, setTokenTry] = useState<number>(0);
   const [generalTry, setGeneralTry] = useState<number>(0);
-  const [iframeSrc, setIframeSrc] = useState<string>(
-    `${SWASH_DOMAIN}${SWASH_JOIN_PAGE}?token=${token}`,
+  // const [iframeWrapperVisible, setIframeWrapperVisible] =
+  //   useState<boolean>(true);
+
+  const iframeSrc = useMemo(
+    () => `${SWASH_DOMAIN}${SWASH_JOIN_PAGE}?token=${token}`,
+    [token],
   );
-  const [iframeWrapperVisible, setIframeWrapperVisible] =
-    useState<boolean>(true);
 
   const reloadIFrame = useCallback(() => {
-    setIframeSrc(`${SWASH_DOMAIN}${SWASH_JOIN_PAGE}?token=${token}`);
-  }, [token]);
+    setToken((_token) => _token + '');
+  }, []);
+
+  const [success, setSuccess] = useState<boolean>(false);
+  const onSuccess = useCallback((email: string, stayUpdate: boolean) => {
+    console.log(email, stayUpdate);
+    setSuccess(true);
+  }, []);
 
   const handleMessages = useCallback(
     (event) => {
-      if (event.origin !== SWASH_DOMAIN || !event.data) return;
+      // if (event.origin !== SWASH_DOMAIN || !event.data) return;
 
       const status = event.data.status;
       switch (status) {
@@ -39,7 +55,7 @@ export default function OnBoardingJoin(): JSX.Element {
           stepper.back();
           break;
         case Status.SUCCESS:
-          stepper.next();
+          onSuccess(event.data.email, event.data.stayUpdate);
           break;
         case Status.FAIL:
           setTokenTry((count) => {
@@ -57,40 +73,45 @@ export default function OnBoardingJoin(): JSX.Element {
           break;
       }
     },
-    [reloadIFrame, stepper],
+    [onSuccess, reloadIFrame, stepper],
   );
   useEffect(() => {
-    const value = false;
-    console.log(value);
-    // window.helper.generateJWT().then(setToken);
+    console.log(token);
+    if (!token) {
+      window.helper.generateJWT().then((_token) => setToken(_token));
+    }
     window.onmessage = handleMessages;
-  }, [handleMessages, setToken]);
+  }, [handleMessages, token]);
 
-  const makeVisible = useCallback((e) => {
-    console.log(e.currentTarget.style.width);
-    // e.currentTarget.style.visibility = 'visible';
-    // setIframeWrapperVisible(false);
-  }, []);
+  // const makeVisible = useCallback((e) => {
+  //   reloadIFrame();
+  // }, []);
   return (
-    <div
-      className="onboarding-iframe-wrapper"
-      // style={{ visibility: iframeWrapperVisible ? 'visible' : 'hidden' }}
-    >
-      {token ? (
-        <iframe
-          seamless
-          className="onboarding-join-iframe"
-          onLoad={makeVisible}
-          title={'joinPage'}
-          scrolling="no"
-          frameBorder="no"
-          src={iframeSrc}
-        >
-          <p>Your browser does not support iframe.</p>
-        </iframe>
+    <>
+      {success ? (
+        <OnboardingVerify />
       ) : (
-        ''
+        <div
+          className="onboarding-iframe-wrapper"
+          // style={{ visibility: iframeWrapperVisible ? 'visible' : 'hidden' }}
+        >
+          {token ? (
+            <iframe
+              seamless
+              className="onboarding-join-iframe"
+              onLoad={reloadIFrame}
+              title={'joinPage'}
+              scrolling="no"
+              frameBorder="no"
+              src={iframeSrc}
+            >
+              <p>Your browser does not support iframe.</p>
+            </iframe>
+          ) : (
+            ''
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 }

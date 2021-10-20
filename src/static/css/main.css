@@ -263,6 +263,7 @@ a:hover {
 
   display: flex;
   gap: 12px;
+  align-items: center;
 }
 
 /* .small-text {
@@ -1321,6 +1322,7 @@ a:hover {
   margin-left: 14px;
 
   cursor: pointer;
+  user-select: none;
 }
 
 .onboarding-nav-buttons {

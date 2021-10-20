@@ -552,6 +552,15 @@ var helper = (function () {
     return sendMessage(message);
   }
 
+  function getJoinedSwash() {
+    const message = {
+      obj: 'swashApiHelper',
+      func: 'getJoinedSwash',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
   function getWithdrawBalance() {
     const message = {
       obj: 'swashApiHelper',
@@ -633,6 +642,7 @@ var helper = (function () {
     getDataEthPairPrice,
     withdrawToTarget,
     claimRewards,
+    getJoinedSwash,
     getWithdrawBalance,
     getActiveReferral,
   };
