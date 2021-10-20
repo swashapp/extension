@@ -51,7 +51,6 @@ function ImportCard(props: {
 export default memo(function ImportYourConfig() {
   const stepper = useContext(StepperContext);
   const [importing, setImporting] = useState<boolean>(false);
-  const [onboarding, setOnboarding] = useState<string>('LocalFile');
   const onImport = useCallback(() => {
     window.helper.getJoinedSwash().then((data) => {
       if (data.id && data.email)
@@ -60,18 +59,15 @@ export default memo(function ImportYourConfig() {
     });
   }, [stepper]);
   const togglePopup = useCallback(
-    (isCompleted) => {
+    (message: { onboarding: string }) => {
       showPopup({
         closable: true,
-        content: <FilePicker onboarding={onboarding} onImport={onImport} />,
+        content: (
+          <FilePicker onboarding={message.onboarding} onImport={onImport} />
+        ),
       });
-      if (isCompleted === true) {
-        if (!window.browser.runtime.onMessage.hasListener(togglePopup))
-          window.browser.runtime.onMessage.removeListener(togglePopup);
-        stepper.next();
-      }
     },
-    [onImport, onboarding, stepper],
+    [onImport],
   );
   const importFromFile = useCallback(() => {
     const input = document.createElement('input');
@@ -114,7 +110,6 @@ export default memo(function ImportYourConfig() {
     if (!window.browser.runtime.onMessage.hasListener(togglePopup))
       window.browser.runtime.onMessage.addListener(togglePopup);
     setImporting(true);
-    setOnboarding('GoogleDrive');
     window.browser.tabs.getCurrent().then((tab) => {
       window.helper.startOnBoarding('GoogleDrive', tab.id).then();
     });
@@ -124,7 +119,6 @@ export default memo(function ImportYourConfig() {
     if (!window.browser.runtime.onMessage.hasListener(togglePopup))
       window.browser.runtime.onMessage.addListener(togglePopup);
     setImporting(true);
-    setOnboarding('DropBox');
     window.browser.tabs.getCurrent().then((tab) => {
       window.helper.startOnBoarding('DropBox', tab.id).then();
     });

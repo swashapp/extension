@@ -131,12 +131,12 @@ export default memo(function Onboarding() {
       while (next) {
         flattened.push(next);
         next = getNextPageOf(next);
-        console.log(next);
       }
     }
-    return flattened;
+    return flattened.filter(
+      (step) => step !== 'YourProfileWarning' && step !== 'New',
+    );
   }, [flow.start, getNextPageOf]);
-  console.log(flattenedFlow);
   const ref = useRef<IStepper>();
   return (
     <div className="page-container">
@@ -168,11 +168,9 @@ export default memo(function Onboarding() {
           }}
         >
           <Stepper ref={ref} flow={flattenedFlow}>
-            {flattenedFlow
-              .filter((step) => step !== 'YourProfileWarning' && step !== 'New')
-              .map((page: string, index: number, arr: string[]) => (
-                <OnboardingStep key={page + index} page={page} flow={arr} />
-              ))}
+            {flattenedFlow.map((page: string, index: number, arr: string[]) => (
+              <OnboardingStep key={page + index} page={page} flow={arr} />
+            ))}
           </Stepper>
         </StepperContext.Provider>
       </div>
