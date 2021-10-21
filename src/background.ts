@@ -59,7 +59,7 @@ browser.runtime.onInstalled.addListener(installSwash);
 browserUtils.isMobileDevice().then((res) => {
   if (res) {
     browser.browserAction.onClicked.addListener(async () =>
-      browser.tabs.create({ url: '/dashboard/index.html#/Settings' }),
+      browser.tabs.create({ url: '/dashboard/index.html#/settings' }),
     );
   } else {
     browser.browserAction.setPopup({ popup: 'popup/popup.html' }).then();

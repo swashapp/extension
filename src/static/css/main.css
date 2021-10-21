@@ -472,6 +472,7 @@ a:hover {
   flex-direction: row;
 
   cursor: pointer;
+  user-select: none;
   opacity: 1;
 }
 .remove-button:hover {
@@ -600,6 +601,7 @@ a:hover {
 
 .closable-panel-icon {
   cursor: pointer;
+  user-select: none;
   width: 24px;
   height: 24px;
   position: absolute;
@@ -706,6 +708,7 @@ a:hover {
 
 .sidenav-close-button {
   cursor: pointer;
+  user-select: none;
   visibility: hidden;
 }
 
@@ -1702,16 +1705,21 @@ a:hover {
 .extension-popup-container {
   width: 100%;
   background-color: var(--lightest-blue);
-  padding: 40px;
+  margin: 0;
 }
+.extension-popup-body {
+  width: 400px;
+  overflow: hidden;
+  background-color: var(--lightest-blue);
+}
+
 .extension-popup {
   width: 360px;
+  border-radius: 6px;
   box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.04),
     0px 0px 1px rgba(0, 0, 0, 0.04);
-  border-radius: 6px;
-
   background-color: var(--white);
-  padding: 32px 24px;
+  padding: 24px;
 }
 .extension-popup-logo-and-switch {
   justify-content: space-between;
@@ -1767,6 +1775,8 @@ a:hover {
   align-items: center;
   padding: 16px;
   opacity: 0.5;
+  cursor: pointer;
+  user-select: none;
 }
 .extension-popup-menu-item:hover {
   opacity: 1;
@@ -1813,6 +1823,10 @@ a:hover {
   background: url('../images/icons/sidenav/exclude.svg') no-repeat center center;
 }
 
+.popup-excluded {
+  background: url('../images/icons/sidenav/exclude.svg') no-repeat center center;
+}
+
 .popup-help-icon {
   background: url('../images/icons/sidenav/support-black.svg') no-repeat center
     center;
@@ -1828,6 +1842,7 @@ a:hover {
     center;
   background-size: cover;
   padding: 24px 0 24px 24px;
+  margin-top: 24px;
   bottom: 0;
 }
 

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import ReactDOM from 'react-dom';
+import browser from 'webextension-polyfill';
 
 import LearnMore from '../components/button/learn-more';
 import Circle from '../components/drawing/circle';
 import FlexGrid from '../components/flex-grid/flex-grid';
-import Link from '../components/link/link';
 import SwashLogo from '../components/swash-logo/swash-logo';
 import Switch from '../components/switch/switch';
 
@@ -34,24 +34,99 @@ function NumericStats(props: { value: string; label: string }) {
 }
 
 function MenuItem(props: {
-  link: string;
+  onClick: () => void;
   iconClassName: string;
   text: string;
 }) {
   return (
-    <Link newTab url={props.link} position="Popup" event="PopupLink">
-      <div className="flex-row extension-popup-menu-item">
-        <div className={props.iconClassName} />
-        <div className="extension-popup-menu-item-text">{props.text}</div>
-      </div>
-    </Link>
+    <div onClick={props.onClick} className="flex-row extension-popup-menu-item">
+      <div className={props.iconClassName} />
+      <div className="extension-popup-menu-item-text">{props.text}</div>
+    </div>
   );
 }
 
+const purgeNumber = (num: string) => {
+  if (num.indexOf('.') < 0) return num;
+  return num.slice(0, num.indexOf('.') + 5);
+};
+
 function Popup() {
-  const [dataAvailable, setDataAvailable] = useState<number>(0);
-  const [unclaimedBonus, setUnclaimedBonus] = useState<number>(0);
+  const [dataAvailable, setDataAvailable] = useState<string>('0');
+  const [unclaimedBonus, setUnclaimedBonus] = useState<string>('0');
   const [status, setStatus] = useState<boolean>(false);
+  const [excluded, setExcluded] = useState<boolean>(false);
+  const getUnclaimedBonus = useCallback(() => {
+    window.helper.getReferralRewards().then((_unclaimedBonus) => {
+      setUnclaimedBonus((_unclaimed) => {
+        const ret =
+          _unclaimedBonus.toString() !== _unclaimed
+            ? _unclaimedBonus.toString()
+            : _unclaimed;
+        return purgeNumber(ret);
+      });
+    });
+  }, []);
+  const getDataAvailable = useCallback(() => {
+    window.helper.getAvailableBalance().then((_dataAvailable) => {
+      setDataAvailable((data) => {
+        const _data =
+          _dataAvailable.error ||
+          _dataAvailable === '' ||
+          typeof _dataAvailable === 'undefined'
+            ? data
+            : _dataAvailable;
+        return purgeNumber(_data);
+      });
+    });
+  }, []);
+  const getBalanceInfo = useCallback(async () => {
+    getUnclaimedBonus();
+    getDataAvailable();
+  }, [getDataAvailable, getUnclaimedBonus]);
+
+  // useEffect(() => {
+  //   window.helper.isCurrentDomainFiltered().then((filtered) => {
+  //     if (filtered) setExcluded(true);
+  //   });
+  // }, []);
+
+  // useEffect(() => {
+  //   window.helper.load().then((db) => {
+  //     window.helper.isNeededOnBoarding().then((result) => {
+  //       if (!result) {
+  //         setStatus(db.configs.is_enabled);
+
+  //         getBalanceInfo().then();
+  //       }
+  //     });
+  //   });
+  // }, [getBalanceInfo]);
+
+  const showPageOnTab = useCallback((url_to_show: string) => {
+    window.helper.isNeededOnBoarding().then((result) => {
+      if (result)
+        url_to_show = browser.runtime.getURL('dashboard/index.html#/');
+      return browser.windows
+        .getAll({
+          populate: true,
+          windowTypes: ['normal'],
+        })
+        .then(() => {
+          browser.tabs.create({ url: url_to_show, active: true }).then(() => {
+            window.close();
+          });
+        });
+    });
+  }, []);
+  const onStatusChanged = useCallback((checked: boolean) => {
+    setStatus(checked);
+    if (checked) {
+      window.helper.start();
+    } else {
+      window.helper.stop();
+    }
+  }, []);
   return (
     <div className="extension-popup-container">
       <div className="flex-column extension-popup">
@@ -63,7 +138,7 @@ function Popup() {
             </div>
             <Switch
               checked={!status}
-              onChange={(e) => setStatus(!e.target.checked)}
+              onChange={(e) => onStatusChanged(!e.target.checked)}
             />
           </div>
         </div>
@@ -71,23 +146,43 @@ function Popup() {
           column={2}
           className="flex-row form-item-gap extension-popup-numerics"
         >
-          <NumericStats
-            value={dataAvailable.toString()}
-            label="Data Earnings"
-          />
-          <NumericStats
-            value={unclaimedBonus.toString()}
-            label="Referral Bonus"
-          />
+          <NumericStats value={dataAvailable} label="Data Earnings" />
+          <NumericStats value={unclaimedBonus} label="Referral Bonus" />
         </FlexGrid>
-        <MenuItem text="Wallet" iconClassName="popup-wallet-icon" link="" />
-        <MenuItem text="Settings" iconClassName="popup-settings-icon" link="" />
+        <MenuItem
+          text="Wallet"
+          iconClassName="popup-wallet-icon"
+          onClick={() =>
+            showPageOnTab(browser.runtime.getURL('dashboard/index.html#/data'))
+          }
+        />
+        <MenuItem
+          text="Settings"
+          iconClassName="popup-settings-icon"
+          onClick={() =>
+            showPageOnTab(
+              browser.runtime.getURL('dashboard/index.html#/settings'),
+            )
+          }
+        />
         <MenuItem
           text="Exclude Current Domain"
-          iconClassName="popup-exclude-icon"
-          link=""
+          iconClassName={`popup-exclude-icon ${
+            excluded ? 'popup-excluded' : ''
+          }`}
+          onClick={() => {
+            window.helper.handleFilter().then((res) => {
+              setExcluded(true);
+            });
+          }}
         />
-        <MenuItem text="Help" iconClassName="popup-help-icon" link="" />
+        <MenuItem
+          text="Help"
+          iconClassName="popup-help-icon"
+          onClick={() =>
+            showPageOnTab(browser.runtime.getURL('dashboard/index.html#/help'))
+          }
+        />
         <WelcomeToNewDataWorld />
       </div>
     </div>
