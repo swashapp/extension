@@ -542,7 +542,7 @@ const onboarding = (function () {
   }
 
   function openOnBoarding() {
-    const fullURL = browser.runtime.getURL('dashboard/index.html#/OnBoarding');
+    const fullURL = browser.runtime.getURL('dashboard/index.html#/onboarding');
     browser.tabs.create({
       url: fullURL,
     });

@@ -17,7 +17,7 @@ import Onboarding from './onboarding';
 import Wallet from './wallet';
 
 function EmptyComponent() {
-  return <div style={{ width: '100%' }}></div>;
+  return <div style={{ width: '100%' }} />;
 }
 
 function RouteComponent(
