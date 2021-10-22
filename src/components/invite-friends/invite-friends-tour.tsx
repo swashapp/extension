@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 
 import Tour, { TOUR_NAME } from '../tour/tour';
 
@@ -7,7 +7,7 @@ export enum INVITE_FRIENDS_TOUR_CLASS {
   FRIENDS = 'friends-count',
 }
 
-export default memo(function InviteFriendsTour() {
+export function InviteFriendsTour(): JSX.Element {
   return (
     <Tour
       tourName={TOUR_NAME.INVITE_FRIENDS}
@@ -38,4 +38,4 @@ export default memo(function InviteFriendsTour() {
       ]}
     />
   );
-});
+}

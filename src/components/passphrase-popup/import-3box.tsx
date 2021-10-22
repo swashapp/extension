@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
@@ -6,20 +6,20 @@ import FileBrowser from 'react-keyed-file-browser';
 
 import { toast } from 'react-toastify';
 
-import Button from '../button/button';
+import { Button } from '../button/button';
 import { closePopup } from '../popup/popup';
 
-import ToastMessage from '../toast/toast-message';
+import { ToastMessage } from '../toast/toast-message';
 
 interface FILE {
   key: string;
   conf: File;
 }
-export default memo(function Import3Box(props: {
+export function Import3Box(props: {
   files: FILE[];
   mnemonic: string;
   onImport: () => void;
-}) {
+}): JSX.Element {
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedFile, setSelectedFile] = useState<FILE>();
   const applyConfig = useCallback(() => {
@@ -73,4 +73,4 @@ export default memo(function Import3Box(props: {
       </div>
     </div>
   );
-});
+}

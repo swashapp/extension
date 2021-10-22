@@ -1,12 +1,12 @@
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import Button from '../components/button/button';
-import BackgroundTheme from '../components/drawing/background-theme';
-import SearchEndAdornment from '../components/input/end-adornments/search-end-adornment';
-import Input from '../components/input/input';
-import SectionAccordion from '../components/section-accordion/section-accordion';
-import Section from '../components/section/section';
+import { Button } from '../components/button/button';
+import { BackgroundTheme } from '../components/drawing/background-theme';
+import { SearchEndAdornment } from '../components/input/end-adornments/search-end-adornment';
+import { Input } from '../components/input/input';
+import { SectionAccordion } from '../components/section-accordion/section-accordion';
+import { Section } from '../components/section/section';
 import { TOUR_NAME } from '../components/tour/tour';
 import HelpData from '../data/help';
 import { RouteToPages } from '../paths';
@@ -15,7 +15,7 @@ import {
   STORAGE_KEY,
 } from '../service/local-storage-service';
 
-export default memo(function Help() {
+export function Help(): JSX.Element {
   const [searchText, setSearchText] = useState<string>('');
   const [reward, setReward] = useState<number>(0);
   const [tour, setTour] = useState<{ [key: string]: unknown }>({});
@@ -145,4 +145,4 @@ export default memo(function Help() {
       </div>
     </div>
   );
-});
+}

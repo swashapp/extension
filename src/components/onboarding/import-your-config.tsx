@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 
 import { toast } from 'react-toastify';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -16,15 +16,15 @@ import ThreeBoxLogo from 'url:../../static/images/logos/three-box.png';
 
 import { StepperContext } from '../../pages/onboarding';
 
-import Button from '../button/button';
-import FlexGrid from '../flex-grid/flex-grid';
-import FilePicker from '../passphrase-popup/file-picker';
+import { Button } from '../button/button';
+import { FlexGrid } from '../flex-grid/flex-grid';
+import { FilePicker } from '../passphrase-popup/file-picker';
 
-import SignIn3box from '../passphrase-popup/sign-in-3box';
+import { SignIn3Box } from '../passphrase-popup/sign-in-3box';
 import { closePopup, showPopup } from '../popup/popup';
-import ToastMessage from '../toast/toast-message';
+import { ToastMessage } from '../toast/toast-message';
 
-import ImportingConfig from './importing-config';
+import { ImportingConfig } from './importing-config';
 
 function ImportCard(props: {
   icon: string;
@@ -48,7 +48,7 @@ function ImportCard(props: {
   );
 }
 
-export default memo(function ImportYourConfig() {
+export function ImportYourConfig(): JSX.Element {
   const stepper = useContext(StepperContext);
   const [importing, setImporting] = useState<boolean>(false);
   const onImport = useCallback(() => {
@@ -171,7 +171,7 @@ export default memo(function ImportYourConfig() {
   const importFrom3Box = useCallback(() => {
     showPopup({
       closable: true,
-      content: <SignIn3box onImport={onImport} />,
+      content: <SignIn3Box onImport={onImport} />,
     });
   }, [onImport]);
 
@@ -215,4 +215,4 @@ export default memo(function ImportYourConfig() {
       )}
     </>
   );
-});
+}

@@ -1,16 +1,15 @@
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { toast } from 'react-toastify';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import RightArrow from 'url:../../static/images/shape/right-arrow.svg';
 
-import Button from '../button/button';
+import { Button } from '../button/button';
 import { showPopup, closePopup } from '../popup/popup';
+import { ToastMessage } from '../toast/toast-message';
 
-import ToastMessage from '../toast/toast-message';
-
-import DataTransferCompleted from './data-transfer-completed';
+import { DataTransferCompleted } from './data-transfer-completed';
 
 function DataTransferField(props: {
   ellipsis?: boolean;
@@ -33,13 +32,13 @@ function DataTransferField(props: {
     </div>
   );
 }
-export default memo(function DataTransferPopup(props: {
+export function DataTransferPopup(props: {
   amount: string | number;
   recipient: string;
-  onSuccuss: () => Promise<unknown>;
+  onSuccess: () => Promise<unknown>;
   useSponsor: boolean;
   sendToMainnet: boolean;
-}) {
+}): JSX.Element {
   const [loading, setLoading] = useState<boolean>(false);
 
   const withdraw = useCallback(() => {
@@ -54,7 +53,7 @@ export default memo(function DataTransferPopup(props: {
       .then((result) => {
         console.log(result);
         if (result.tx) {
-          props.onSuccuss().then();
+          props.onSuccess().then();
           toast(
             <ToastMessage
               type="success"
@@ -114,4 +113,4 @@ export default memo(function DataTransferPopup(props: {
       </div>
     </div>
   );
-});
+}

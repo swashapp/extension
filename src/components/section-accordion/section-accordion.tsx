@@ -3,7 +3,7 @@ import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import { withStyles } from '@material-ui/core/styles';
 import { Markup } from 'interweave';
-import { memo, PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useState } from 'react';
 import React from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
@@ -51,11 +51,11 @@ const AccordionDetails = withStyles(() => ({
   },
 }))(MuiAccordionDetails);
 
-export default memo(function SectionAccordion(
+export function SectionAccordion(
   props: PropsWithChildren<{
     items: AccordionItem[];
   }>,
-) {
+): JSX.Element {
   const [active, setActive] = useState(-1);
 
   return (
@@ -107,4 +107,4 @@ export default memo(function SectionAccordion(
       })}
     </div>
   );
-});
+}

@@ -1,10 +1,10 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { SidenavItem, SidenavItems } from '../../data/sidenav-items';
 import { WALLET_TOUR_CLASS } from '../wallet/wallet-tour';
 
-export default memo(function SidenavLinks(props: { activeIndex?: number }) {
+export function SidenavLinks(props: { activeIndex?: number }): JSX.Element {
   const [active, setActive] = useState<number>(props.activeIndex || 0);
   const getTourClass = useCallback((index: number) => {
     let ret = '';
@@ -49,4 +49,4 @@ export default memo(function SidenavLinks(props: { activeIndex?: number }) {
       })}
     </>
   );
-});
+}

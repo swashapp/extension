@@ -8,7 +8,7 @@ import React, {
 
 import { StepperContext } from '../../pages/onboarding';
 
-import OnboardingVerify from './onboarding-verify';
+import { OnboardingVerify } from './onboarding-verify';
 
 const SWASH_DOMAIN = 'https://swashapp.io';
 const SWASH_JOIN_PAGE = '/user/join';
@@ -22,7 +22,7 @@ const enum Status {
   TRY_AGAIN = 'TRYAGAIN',
 }
 
-export default function OnboardingJoin(): JSX.Element {
+export function OnboardingJoin(): JSX.Element {
   const stepper = useContext(StepperContext);
   const [token, setToken] = useState<string | null>('');
   const [tokenTry, setTokenTry] = useState<number>(0);
@@ -89,7 +89,11 @@ export default function OnboardingJoin(): JSX.Element {
   return (
     <>
       {success ? (
-        <OnboardingVerify />
+        <OnboardingVerify
+          onBack={() => {
+            console.log('');
+          }}
+        />
       ) : (
         <div
           className="onboarding-iframe-wrapper"

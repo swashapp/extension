@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -14,17 +14,17 @@ import GoogleDriveLogo from 'url:../static/images/logos/google-drive.png';
 //@ts-ignore
 import ThreeBoxLogo from 'url:../static/images/logos/three-box.png';
 
-import Button from '../components/button/button';
-import BackgroundTheme from '../components/drawing/background-theme';
-import FlexGrid from '../components/flex-grid/flex-grid';
-import IconButton from '../components/icon-button/icon-button';
-import CopyEndAdornment from '../components/input/end-adornments/copy-end-adornment';
-import Input from '../components/input/input';
-import Export3Box from '../components/passphrase-popup/export-3box';
+import { Button } from '../components/button/button';
+import { BackgroundTheme } from '../components/drawing/background-theme';
+import { FlexGrid } from '../components/flex-grid/flex-grid';
+import { IconButton } from '../components/icon-button/icon-button';
+import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-adornment';
+import { Input } from '../components/input/input';
+import { Export3Box } from '../components/passphrase-popup/export-3box';
 import { showPopup } from '../components/popup/popup';
-import ToastMessage from '../components/toast/toast-message';
+import { ToastMessage } from '../components/toast/toast-message';
 
-export default memo(function Settings() {
+export function Settings(): JSX.Element {
   const [reveal, setReveal] = useState<boolean>(false);
   const [privateKey, setPrivateKey] = useState<string>('');
 
@@ -171,4 +171,4 @@ export default memo(function Settings() {
       </div>
     </div>
   );
-});
+}

@@ -1,3 +1,4 @@
+import { NamedExoticComponent } from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import dataBlackIcon from 'url:../static/images/icons/sidenav/data-black.svg';
@@ -35,18 +36,18 @@ import walletBlackIcon from 'url:../static/images/icons/sidenav/wallet-black.svg
 //@ts-ignore
 import walletIcon from 'url:../static/images/icons/sidenav/wallet.png';
 
-import Data from '../pages/data';
-import Help from '../pages/help';
-import InviteFriends from '../pages/invite-friends';
-import Settings from '../pages/settings';
-import Wallet from '../pages/wallet';
+import { Data } from '../pages/data';
+import { Help } from '../pages/help';
+import { InviteFriends } from '../pages/invite-friends';
+import { Settings } from '../pages/settings';
+import { Wallet } from '../pages/wallet';
 import { RouteToPages } from '../paths';
 
 export interface SidenavItem {
   title: string;
   icon?: { active: string; inactive: string };
   route: string;
-  component: React.ComponentClass | null;
+  component: () => JSX.Element;
 }
 
 export const SidenavItems = [
@@ -56,12 +57,12 @@ export const SidenavItems = [
     route: RouteToPages.wallet,
     component: Wallet,
   },
-  {
-    title: 'Donations',
-    icon: { active: donationsIcon, inactive: donationsBlackIcon },
-    route: RouteToPages.donations,
-    component: null,
-  },
+  // {
+  //   title: 'Donations',
+  //   icon: { active: donationsIcon, inactive: donationsBlackIcon },
+  //   route: RouteToPages.donations,
+  //   component: null,
+  // },
   {
     title: 'Invite Friends',
     icon: { active: inviteFriendsIcon, inactive: inviteFriendsBlackIcon },

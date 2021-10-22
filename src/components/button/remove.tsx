@@ -1,10 +1,10 @@
-import React, { memo } from 'react';
+import React from 'react';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import removeIcon from 'url:../../static/images/shape/remove.svg';
 
-export default memo(function RemoveButton(props: { onClick: () => void }) {
+export function RemoveButton(props: { onClick: () => void }): JSX.Element {
   return (
     <div onClick={props.onClick} className="remove-button">
       <div className="remove-icon">
@@ -13,4 +13,4 @@ export default memo(function RemoveButton(props: { onClick: () => void }) {
       <div className="remove-text">Remove</div>
     </div>
   );
-});
+}

@@ -1,12 +1,12 @@
 import bip39 from 'bip39';
 
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
-import Button from '../button/button';
-import FormMessage from '../form-message/form-message';
+import { Button } from '../button/button';
+import { FormMessage } from '../form-message/form-message';
 import { closePopup } from '../popup/popup';
 
-export default memo(function Export3Box() {
+export function Export3Box(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(false);
   const [mnemonic, setMnemonic] = useState<string>('');
   const getMnemonic = useCallback(() => {
@@ -59,4 +59,4 @@ export default memo(function Export3Box() {
       </div>
     </div>
   );
-});
+}

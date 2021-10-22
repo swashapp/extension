@@ -1,7 +1,7 @@
 import Dialog from '@material-ui/core/Dialog';
-import React, { memo, ReactElement, useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 
-import ClosablePanel from '../closable-panel/closable-panel';
+import { ClosablePanel } from '../closable-panel/closable-panel';
 
 export interface popupProps {
   content: ReactElement | null;
@@ -54,7 +54,7 @@ function ClosablePopup(props: { content: ReactElement }) {
     />
   );
 }
-export default memo(function Popup() {
+export function Popup(): JSX.Element {
   const [openDialog, setOpenedDialog] = React.useState<popupProps>(_item);
   useEffect(() => {
     _callback = () => {
@@ -73,4 +73,4 @@ export default memo(function Popup() {
   ) : (
     <></>
   );
-});
+}

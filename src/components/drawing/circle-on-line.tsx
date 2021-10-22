@@ -1,9 +1,8 @@
 import React from 'react';
-import { memo } from 'react';
 
-import Circle from './circle';
+import { Circle } from './circle';
 
-export default memo(function CircleOnLine() {
+export function CircleOnLine(): JSX.Element {
   return (
     <div className={'on-line-container'} style={{ overflow: 'visible' }}>
       <div className={'solid-line'} style={{ zIndex: 1 }} />
@@ -18,4 +17,4 @@ export default memo(function CircleOnLine() {
       </div>
     </div>
   );
-});
+}

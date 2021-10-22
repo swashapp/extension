@@ -1,14 +1,14 @@
-import React, { memo, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { Children, PropsWithChildren } from 'react';
 
-export default memo(function FlexGrid(
+export function FlexGrid(
   props: PropsWithChildren<{
     column: number;
     children: ReactElement[];
     className?: string;
     innerClassName?: string;
   }>,
-) {
+): JSX.Element {
   return (
     <div className={`flex-grid-container ${props.className}`}>
       {Children.map(props.children, (child, index) => {
@@ -27,4 +27,4 @@ export default memo(function FlexGrid(
       })}
     </div>
   );
-});
+}

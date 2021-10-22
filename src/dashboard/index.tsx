@@ -9,7 +9,7 @@ import '../static/css/mobile.css';
 import '../static/css/smobile.css';
 import 'react-keyed-file-browser/dist/react-keyed-file-browser.css';
 
-import App from '../pages/App';
+import App from '../pages/app';
 
 ReactDOM.render(
   <Router>

@@ -1,6 +1,6 @@
 import { IconButton, InputAdornment, makeStyles } from '@material-ui/core';
 
-import React, { memo } from 'react';
+import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { toast } from 'react-toastify';
 
@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default memo(function CopyEndAdornment(props: { value: string }) {
+export function CopyEndAdornment(props: { value: string }): JSX.Element {
   const classes = useStyles();
   return (
     <InputAdornment className={classes.icon} position="end">
@@ -40,4 +40,4 @@ export default memo(function CopyEndAdornment(props: { value: string }) {
       </CopyToClipboard>
     </InputAdornment>
   );
-});
+}

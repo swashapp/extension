@@ -1,13 +1,14 @@
-import React, { memo, useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { StepperContext } from '../../pages/onboarding';
 
-import FlexGrid from '../flex-grid/flex-grid';
-import Select from '../select/select';
-import ToastMessage from '../toast/toast-message';
+import { FlexGrid } from '../flex-grid/flex-grid';
+import { Select } from '../select/select';
+import { ToastMessage } from '../toast/toast-message';
 
-import NavigationButtons from './navigation-buttons';
+import { NavigationButtons } from './navigation-buttons';
+
 const genderList = [
   { description: '', value: '' },
   { description: 'Male', value: 'Male' },
@@ -33,7 +34,7 @@ const incomeList = [
   { description: '$75K - $150K', value: '75-150K' },
   { description: '$150K+', value: '150K+' },
 ];
-export default memo(function OnboardingProfile() {
+export function OnboardingProfile(): JSX.Element {
   const stepper = useContext(StepperContext);
   const [gender, setGender] = useState<string>('');
   const [age, setAge] = useState<string>('');
@@ -107,4 +108,4 @@ export default memo(function OnboardingProfile() {
       </div>
     </>
   );
-});
+}

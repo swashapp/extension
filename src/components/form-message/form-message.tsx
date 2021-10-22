@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { PropsWithChildren } from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
@@ -16,9 +16,9 @@ const FormMessages = {
   success: { icon: SuccessIcon, color: 'var(--green)' },
 };
 
-export default memo(function FormMessage(
+export function FormMessage(
   props: PropsWithChildren<{ text: string; type: keyof typeof FormMessages }>,
-) {
+): JSX.Element {
   return (
     <div
       className="form-message-container"
@@ -33,4 +33,4 @@ export default memo(function FormMessage(
       </div>
     </div>
   );
-});
+}

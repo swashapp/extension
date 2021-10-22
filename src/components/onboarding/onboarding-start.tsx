@@ -1,4 +1,4 @@
-import React, { memo, useContext } from 'react';
+import React, { useContext } from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import AlreadyHaveWalletIcon from 'url:../../static/images/icons/already-have-wallet.svg';
@@ -8,10 +8,10 @@ import StartNewWalletIcon from 'url:../../static/images/icons/start-new-wallet.s
 
 import { StepperContext } from '../../pages/onboarding';
 
-import Button from '../button/button';
-import FlexGrid from '../flex-grid/flex-grid';
+import { Button } from '../button/button';
+import { FlexGrid } from '../flex-grid/flex-grid';
 
-export default memo(function OnboardingStart() {
+export function OnboardingStart(): JSX.Element {
   const stepper = useContext(StepperContext);
   return (
     <>
@@ -71,4 +71,4 @@ export default memo(function OnboardingStart() {
       </FlexGrid>
     </>
   );
-});
+}

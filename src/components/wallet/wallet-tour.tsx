@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 
 import Tour, { TOUR_NAME } from '../tour/tour';
 
@@ -8,7 +8,7 @@ export enum WALLET_TOUR_CLASS {
   WALLET_ADDRESS = 'wallet-address',
 }
 
-export default memo(function WalletTour() {
+export function WalletTour(): JSX.Element {
   return (
     <Tour
       tourName={TOUR_NAME.WALLET}
@@ -49,4 +49,4 @@ export default memo(function WalletTour() {
       ]}
     />
   );
-});
+}

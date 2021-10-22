@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Button from '../button/button';
+import { Button } from '../button/button';
 
-export default function NavigationButtons(props: {
+export function NavigationButtons(props: {
   nextButtonText?: string;
   onSubmit: () => void;
   onBack: () => void;

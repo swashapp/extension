@@ -1,13 +1,13 @@
 import { makeStyles, MenuItem } from '@material-ui/core';
 import MuiSelect from '@material-ui/core/Select';
-import React, { memo } from 'react';
+import React from 'react';
 import { PropsWithChildren } from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import smallArrow from 'url:../../static/images/shape/small-arrow.svg';
 
-import InputBase from '../input-base/input-base';
-import Label from '../label/label';
+import { InputBase } from '../input-base/input-base';
+import { Label } from '../label/label';
 
 const useStyles = makeStyles(() => ({
   icon: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default memo(function Select(
+export function Select(
   props: PropsWithChildren<{
     items: { value: string; description: string }[];
     label: string;
@@ -28,7 +28,7 @@ export default memo(function Select(
       event: React.ChangeEvent<{ name?: string; value: unknown }>,
     ) => void;
   }>,
-) {
+): JSX.Element {
   const classes = useStyles();
   return (
     <Label id={'customized-select-' + props.value} text={props.label}>
@@ -58,4 +58,4 @@ export default memo(function Select(
       </MuiSelect>
     </Label>
   );
-});
+}

@@ -5,9 +5,9 @@ import {
   makeStyles,
   withStyles,
 } from '@material-ui/core';
-import React, { memo } from 'react';
+import React from 'react';
 
-import Link, { LinkProps } from '../link/link';
+import { Link, LinkProps } from '../link/link';
 
 const StyledButton = withStyles(() => ({
   root: {
@@ -66,7 +66,7 @@ function getButton(
   );
 }
 
-export default memo(function Button(props: {
+export function Button(props: {
   className?: string;
   color?: 'primary' | 'secondary' | 'white';
   size?: 'small' | 'large';
@@ -78,7 +78,7 @@ export default memo(function Button(props: {
   loading?: boolean;
   loadingText?: string;
   disabled?: boolean;
-}) {
+}): JSX.Element {
   const classes = useStyles();
   const {
     color = 'primary',
@@ -101,4 +101,4 @@ export default memo(function Button(props: {
 
   if (props.link === false) return button;
   else return <Link {...props.link}>{button}</Link>;
-});
+}

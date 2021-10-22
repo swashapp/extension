@@ -6,12 +6,10 @@ import React, {
   useImperativeHandle,
   useMemo,
   useReducer,
-  useState,
 } from 'react';
 import Joyride, { ACTIONS, EVENTS, STATUS, Step } from 'react-joyride';
-import { useLocation } from 'react-router-dom';
 
-import TourNavigationButtons from './tour-navigation-buttons';
+import { TourNavigationButtons } from './tour-navigation-buttons';
 
 const tourStyles = {
   spotlight: {
@@ -67,7 +65,6 @@ export default forwardRef(function Tour(
   }>,
   ref,
 ) {
-  const location = useLocation();
   const INITIAL_STATE = useMemo(
     () => ({
       key: new Date(),
@@ -79,6 +76,7 @@ export default forwardRef(function Tour(
     }),
     [props.steps],
   );
+
   const reducer = useCallback(
     (state = INITIAL_STATE, action) => {
       switch (action.type) {
@@ -146,12 +144,16 @@ export default forwardRef(function Tour(
   const stop = useCallback(() => dispatch({ type: 'STOP' }), [dispatch]);
 
   useEffect(() => {
-    const _tour = new URLSearchParams(location.search).get('tour');
+    const search = window.location.hash.split('?');
+    if (search) {
+      const _tour = new URLSearchParams(search[1]).get('tour');
+      console.log(_tour);
 
-    if (_tour && _tour === props.tourName) {
-      start();
+      if (_tour && _tour === props.tourName) {
+        start();
+      }
     }
-  }, [location, props.tourName, start]);
+  }, [props.tourName, start]);
 
   useImperativeHandle(ref, () => ({
     start,

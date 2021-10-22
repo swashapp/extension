@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
@@ -13,7 +13,7 @@ type SectionItem = {
   done: boolean;
 };
 
-export default memo(function Section(props: { items: SectionItem[] }) {
+export function Section(props: { items: SectionItem[] }): JSX.Element {
   return (
     <div className={'section-container'}>
       {props.items.map((item: SectionItem, index: number) => {
@@ -35,4 +35,4 @@ export default memo(function Section(props: { items: SectionItem[] }) {
       })}
     </div>
   );
-});
+}

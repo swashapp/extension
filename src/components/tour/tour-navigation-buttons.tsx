@@ -1,5 +1,4 @@
 import React, { useCallback, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 
 import { RouteToPages } from '../../paths';
 
@@ -7,23 +6,23 @@ import {
   LocalStorageService,
   STORAGE_KEY,
 } from '../../service/local-storage-service';
-
-import Button from '../button/button';
+import { Button } from '../button/button';
 
 import { TourContext } from './tour';
 
-export default function TourNavigationButtons(props: {
+export function TourNavigationButtons(props: {
   tourName: string;
   start?: boolean;
   end?: boolean;
 }): JSX.Element {
   const tour = useContext(TourContext);
-  const history = useHistory();
+
   const onEnd = useCallback(() => {
     tour.stop();
     LocalStorageService.save(STORAGE_KEY.TOUR, { [props.tourName]: true });
-    history.push(RouteToPages.help);
-  }, [history, tour, props.tourName]);
+    window.location.hash = RouteToPages.help;
+  }, [tour, props.tourName]);
+
   return (
     <div className="flex-row tour-nav-buttons">
       <div className="form-button">

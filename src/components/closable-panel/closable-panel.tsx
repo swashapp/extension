@@ -1,15 +1,15 @@
-import React, { memo, PropsWithChildren, ReactElement, useState } from 'react';
+import React, { PropsWithChildren, ReactElement, useState } from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import CloseIcon from 'url:../../static/images/shape/close.svg';
 
-export default memo(function ClosablePanel(
+export function ClosablePanel(
   props: PropsWithChildren<{
     className?: string;
     onClose?: () => void;
     children: ReactElement;
   }>,
-) {
+): JSX.Element {
   const [close, setClose] = useState<boolean>(false);
   return (
     <div
@@ -29,4 +29,4 @@ export default memo(function ClosablePanel(
       {props.children}
     </div>
   );
-});
+}

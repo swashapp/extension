@@ -1,14 +1,14 @@
-import React, { memo } from 'react';
+import React from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import completedIcon from 'url:../../static/images/icons/progress-completed.png';
 
-import Circle from '../drawing/circle';
+import { Circle } from '../drawing/circle';
 
-export default memo(function DataTransferCompleted(props: {
+export function DataTransferCompleted(props: {
   transactionId: string;
   sendToMainnet: boolean;
-}) {
+}): JSX.Element {
   return (
     <div className="data-transfer-popup-completed">
       <div className="progress-dashed">
@@ -49,4 +49,4 @@ export default memo(function DataTransferCompleted(props: {
       </p>
     </div>
   );
-});
+}
