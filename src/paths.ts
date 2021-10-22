@@ -1,5 +1,6 @@
 export const RouteToPages = {
   home: `/`,
+  onboarding: `/onboarding`,
   wallet: `/wallet`,
   donations: `/donations`,
   inviteFriends: `/invite-friends`,

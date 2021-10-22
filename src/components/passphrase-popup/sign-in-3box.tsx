@@ -1,20 +1,22 @@
 import bip39 from 'bip39';
-import { showPopup } from 'components/popup/popup';
 
 import React, { memo, useCallback, useMemo, useState } from 'react';
 
 import Button from '../button/button';
 import FormMessage from '../form-message/form-message';
 import Input from '../input/input';
+import { showPopup } from '../popup/popup';
 
 import Import3box from './import-3box';
 
-export default memo(function SignIn3Box() {
+export default memo(function SignIn3Box(props: { onImport: () => void }) {
   const [loading, setLoading] = useState<boolean>(false);
   const [mnemonic, setMnemonic] = useState<string>('');
 
   const isMnemonicValid = useMemo(() => {
-    return bip39.validateMnemonic(mnemonic);
+    let ret = false;
+    if (mnemonic) ret = bip39.validateMnemonic(mnemonic);
+    return ret;
   }, [mnemonic]);
 
   const signIn3Box = useCallback(() => {
@@ -36,12 +38,18 @@ export default memo(function SignIn3Box() {
           }
           showPopup({
             closable: true,
-            content: <Import3box files={files} mnemonic={mnemonic} />,
+            content: (
+              <Import3box
+                files={files}
+                mnemonic={mnemonic}
+                onImport={props.onImport}
+              />
+            ),
           });
         });
       });
     }
-  }, [isMnemonicValid, mnemonic]);
+  }, [isMnemonicValid, mnemonic, props.onImport]);
 
   return (
     <div className="passphrase-container">

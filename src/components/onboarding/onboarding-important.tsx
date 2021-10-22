@@ -5,7 +5,7 @@ import { StepperContext } from '../../pages/onboarding';
 import AcceptCheckBox from './accept-checkbox';
 import NavigationButtons from './navigation-buttons';
 
-export default memo(function OnBoardingImportant() {
+export default memo(function OnboardingImportant() {
   const stepper = useContext(StepperContext);
   const [accept, setAccept] = useState<boolean>(false);
   return (

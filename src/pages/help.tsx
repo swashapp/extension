@@ -1,4 +1,5 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import Button from '../components/button/button';
 import BackgroundTheme from '../components/drawing/background-theme';
@@ -67,6 +68,38 @@ export default memo(function Help() {
     (route: string, tourName: TOUR_NAME) => route + '?tour=' + tourName,
     [],
   );
+  const tourItems = useMemo(() => {
+    return [
+      {
+        text: 'What is Swash wallet?',
+        done: !!tour[TOUR_NAME.WALLET],
+        link: makeTourLink(RouteToPages.wallet, TOUR_NAME.WALLET),
+      },
+      {
+        text: 'How backup works?',
+        done: !!tour?.backup,
+        link: '',
+      },
+      {
+        text: 'How referral link works?',
+        done: !!tour[TOUR_NAME.INVITE_FRIENDS],
+        link: makeTourLink(
+          RouteToPages.inviteFriends,
+          TOUR_NAME.INVITE_FRIENDS,
+        ),
+      },
+      {
+        text: 'How donations works?',
+        done: !!tour?.donations,
+        link: '',
+      },
+      {
+        text: 'Few more things',
+        done: false,
+        link: '',
+      },
+    ];
+  }, [makeTourLink, tour]);
   return (
     <div className="page-container">
       <BackgroundTheme layout="layout3" />
@@ -78,44 +111,20 @@ export default memo(function Help() {
           <div className="simple-card">
             <div>
               <h6>Product tour</h6>
-              <Section
-                items={[
-                  {
-                    text: 'What is Swash wallet?',
-                    done: !!tour[TOUR_NAME.WALLET],
-                    link: makeTourLink(RouteToPages.wallet, TOUR_NAME.WALLET),
-                  },
-                  {
-                    text: 'How backup works?',
-                    done: !!tour?.backup,
-                    link: '',
-                  },
-                  {
-                    text: 'How referral link works?',
-                    done: !!tour[TOUR_NAME.INVITE_FRIENDS],
-                    link: makeTourLink(
-                      RouteToPages.inviteFriends,
-                      TOUR_NAME.INVITE_FRIENDS,
-                    ),
-                  },
-                  {
-                    text: 'How donations works?',
-                    done: !!tour?.donations,
-                    link: '',
-                  },
-                  {
-                    text: 'Few more things',
-                    done: false,
-                    link: '',
-                  },
-                ]}
-              />
-              <Button
-                className="next-tour-button"
-                text="Next Tour"
-                color="secondary"
-                link={false}
-              />
+              <Section items={tourItems} />
+              <Link
+                to={
+                  tourItems.find((item) => item.link && !item.done)?.link ||
+                  tourItems[0].link
+                }
+              >
+                <Button
+                  className="next-tour-button"
+                  text="Next Tour"
+                  color="secondary"
+                  link={false}
+                />
+              </Link>
             </div>
           </div>
           <div className="simple-card">

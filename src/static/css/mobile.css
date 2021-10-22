@@ -256,10 +256,12 @@
   }
 
   .stepper-card {
-    margin: 0px 16px;
+    width: 328px;
+    margin: 0 auto;
   }
   .stepper-with-logo {
     margin: 48px 16px 0 16px;
+    width: unset !important;
   }
   .onboarding-start-cards {
     flex-wrap: wrap;
@@ -302,11 +304,23 @@
   .onboarding-nav-buttons .form-button {
     width: 114px;
   }
+  .import-your-config-card,
+  .onboarding-progress-card,
   .onboarding-verify-email {
-    padding: 50px 20px 20px 20px;
+    width: 328px;
+    margin: 0 auto;
+  }
+  .onboarding-verify-email {
+    padding: 50px 0px 20px 0px;
+  }
+  .onboarding-verify-email-buttons {
+    width: 328px;
   }
   .onboarding-verify-input {
     width: 100%;
+  }
+  .onboarding-progress-card {
+    width: 328px;
   }
   .onboarding-progress-card > h2 {
     margin: 24px 0 12px 0;

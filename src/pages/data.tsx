@@ -31,6 +31,7 @@ export default memo(function Data() {
   useEffect(() => {
     async function loader() {
       const retMessages = await window.helper.loadMessages();
+      console.log(retMessages);
       const db = await window.helper.load();
       const delay = db.configs.delay * 60000;
       const currentTime = Number(new Date().getTime());

@@ -1,5 +1,6 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback, useContext, useState } from 'react';
 
+import { toast } from 'react-toastify';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import DropboxLogo from 'url:../../static/images/logos/dropbox.png';
@@ -13,10 +14,16 @@ import GoogleDriveLogo from 'url:../../static/images/logos/google-drive.png';
 //@ts-ignore
 import ThreeBoxLogo from 'url:../../static/images/logos/three-box.png';
 
+import { StepperContext } from '../../pages/onboarding';
+
 import Button from '../button/button';
 import FlexGrid from '../flex-grid/flex-grid';
+import FilePicker from '../passphrase-popup/file-picker';
 
-import CongratsWalletIsReady from './congrats-wallet-is-ready';
+import SignIn3box from '../passphrase-popup/sign-in-3box';
+import { closePopup, showPopup } from '../popup/popup';
+import ToastMessage from '../toast/toast-message';
+
 import ImportingConfig from './importing-config';
 
 function ImportCard(props: {
@@ -42,15 +49,137 @@ function ImportCard(props: {
 }
 
 export default memo(function ImportYourConfig() {
-  const [importing, setImporting] = useState<boolean | null>(null);
-  const doImport = useCallback(() => {
-    setImporting(true);
-  }, [setImporting]);
+  const stepper = useContext(StepperContext);
+  const [importing, setImporting] = useState<boolean>(false);
+  const onImport = useCallback(() => {
+    window.helper
+      .getJoinedSwash()
+      .then((data) => {
+        if (data.id && data.email)
+          stepper.changeSelectedPage('Join', 'Completed');
+        setImporting(false);
+        stepper.next();
+      })
+      .catch(() => setImporting(false));
+  }, [stepper]);
+  const applyConfig = useCallback(
+    (selectedFile, onboarding) => {
+      if (selectedFile?.id)
+        return window.helper
+          .downloadFile(onboarding, selectedFile.id)
+          .then((response) => {
+            if (response) {
+              setImporting(true);
+              closePopup();
+              return window.helper
+                .applyConfig(JSON.stringify(response))
+                .then((result) => {
+                  if (result) {
+                    onImport();
+                    toast(
+                      <ToastMessage
+                        type="success"
+                        content={<>Config file is imported successfully</>}
+                      />,
+                    );
+                  } else {
+                    setImporting(false);
+                    toast(
+                      <ToastMessage
+                        type="error"
+                        content={<>Can not import this config file</>}
+                      />,
+                    );
+                  }
+                });
+            }
+          });
+      else {
+        closePopup();
+      }
+    },
+    [onImport],
+  );
+  const togglePopup = useCallback(
+    (message: { onboarding: string }) => {
+      console.log(message);
+      showPopup({
+        closable: true,
+        content: (
+          <FilePicker
+            onboarding={message.onboarding}
+            applyConfig={applyConfig}
+          />
+        ),
+      });
+    },
+    [applyConfig],
+  );
+  const importFromFile = useCallback(() => {
+    const input = document.createElement('input');
+    input.type = 'file';
+
+    input.onchange = (e) => {
+      const picker = e.target as HTMLInputElement;
+      const file = picker && picker.files ? picker.files[0] : null;
+      if (file) {
+        const reader = new FileReader();
+
+        reader.readAsText(file);
+
+        reader.onload = function () {
+          setImporting(true);
+          window.helper.applyConfig(reader.result).then((response) => {
+            if (response) {
+              onImport();
+            } else {
+              setImporting(false);
+              toast(
+                <ToastMessage
+                  type="error"
+                  content={<>The configuration file could not be imported</>}
+                />,
+              );
+            }
+          });
+        };
+
+        reader.onerror = function () {
+          console.error(reader.error);
+        };
+      }
+    };
+    input.click();
+  }, [onImport]);
+
+  const importFromGoogleDrive = useCallback(() => {
+    if (!window.browser.runtime.onMessage.hasListener(togglePopup))
+      window.browser.runtime.onMessage.addListener(togglePopup);
+    window.browser.tabs.getCurrent().then((tab) => {
+      window.helper.startOnBoarding('GoogleDrive', tab.id).then();
+    });
+  }, [togglePopup]);
+
+  const importFromDropBox = useCallback(() => {
+    if (!window.browser.runtime.onMessage.hasListener(togglePopup))
+      window.browser.runtime.onMessage.addListener(togglePopup);
+    window.browser.tabs.getCurrent().then((tab) => {
+      window.helper.startOnBoarding('DropBox', tab.id).then();
+    });
+  }, [togglePopup]);
+
+  const importFrom3Box = useCallback(() => {
+    showPopup({
+      closable: true,
+      content: <SignIn3box onImport={onImport} />,
+    });
+  }, [onImport]);
+
   return (
     <>
       {importing ? (
         <ImportingConfig />
-      ) : importing === null ? (
+      ) : (
         <div className="import-your-config">
           <h2>Import your configuration</h2>
           <p>Choose an option to import your settings file</p>
@@ -59,12 +188,12 @@ export default memo(function ImportYourConfig() {
               <ImportCard
                 text="Local File"
                 icon={FileLogo}
-                onClick={doImport}
+                onClick={importFromFile}
               />
               <ImportCard
                 text="Dropbox"
                 icon={DropboxLogo}
-                onClick={doImport}
+                onClick={importFromDropBox}
               />
             </FlexGrid>
             <FlexGrid column={2} className="import-your-config-2cards card-gap">
@@ -72,19 +201,17 @@ export default memo(function ImportYourConfig() {
                 text="Google Drive"
                 icon={GoogleDriveLogo}
                 imageSize={{ width: 27 }}
-                onClick={doImport}
+                onClick={importFromGoogleDrive}
               />
               <ImportCard
                 text="3Box"
                 icon={ThreeBoxLogo}
                 imageSize={{ width: 31, height: 20 }}
-                onClick={doImport}
+                onClick={importFrom3Box}
               />
             </FlexGrid>
           </FlexGrid>
         </div>
-      ) : (
-        <CongratsWalletIsReady type="imported" />
       )}
     </>
   );

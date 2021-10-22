@@ -160,6 +160,10 @@ const userHelper = (function () {
     return false;
   }
 
+  async function getJoinedSwash() {
+    return await swashApiHelper.getJoinedSwash(await generateJWT());
+  }
+
   async function getUserId() {
     const profile = await storageHelper.getProfile();
     if (profile.user_id) return profile.user_id;
@@ -210,6 +214,7 @@ const userHelper = (function () {
     generateJWT,
     withdrawToTarget,
     isJoinedSwash,
+    getJoinedSwash,
     getUserCountry,
   };
 })();

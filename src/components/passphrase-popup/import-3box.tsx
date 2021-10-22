@@ -18,6 +18,7 @@ interface FILE {
 export default memo(function Import3Box(props: {
   files: FILE[];
   mnemonic: string;
+  onImport: () => void;
 }) {
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedFile, setSelectedFile] = useState<FILE>();
@@ -29,6 +30,7 @@ export default memo(function Import3Box(props: {
           .save3BoxMnemonic(props.mnemonic)
           .then(() => {
             if (result) {
+              props.onImport();
               closePopup();
               toast(
                 <ToastMessage
@@ -48,7 +50,7 @@ export default memo(function Import3Box(props: {
           .finally(() => setLoading(false));
       });
     }
-  }, [props.mnemonic, selectedFile]);
+  }, [props, selectedFile]);
 
   return (
     <div className="passphrase-container">

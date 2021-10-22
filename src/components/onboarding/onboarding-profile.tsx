@@ -1,9 +1,11 @@
-import React, { memo, useContext, useState } from 'react';
+import React, { memo, useCallback, useContext, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { StepperContext } from '../../pages/onboarding';
 
 import FlexGrid from '../flex-grid/flex-grid';
 import Select from '../select/select';
+import ToastMessage from '../toast/toast-message';
 
 import NavigationButtons from './navigation-buttons';
 const genderList = [
@@ -31,11 +33,29 @@ const incomeList = [
   { description: '$75K - $150K', value: '75-150K' },
   { description: '$150K+', value: '150K+' },
 ];
-export default memo(function OnBoardingProfile() {
+export default memo(function OnboardingProfile() {
   const stepper = useContext(StepperContext);
   const [gender, setGender] = useState<string>('');
   const [age, setAge] = useState<string>('');
   const [income, setIncome] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const onSubmit = useCallback(() => {
+    setLoading(true);
+    window.helper
+      .saveProfileInOnBoarding(gender, age, income)
+      .then(() => {
+        setLoading(false);
+        stepper.next();
+      })
+      .catch(() => {
+        setLoading(false);
+        toast(
+          <ToastMessage type="error" content={<>Something went wrong!</>} />,
+        );
+      });
+  }, [age, gender, income, stepper]);
+
   return (
     <>
       <div className="page-header onboarding-header">
@@ -79,7 +99,8 @@ export default memo(function OnBoardingProfile() {
           </FlexGrid>
           <NavigationButtons
             onBack={stepper.back}
-            onSubmit={stepper.next}
+            onSubmit={onSubmit}
+            loading={loading}
             disableNext={!gender || !age || !income}
           />
         </div>

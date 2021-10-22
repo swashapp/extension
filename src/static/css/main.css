@@ -183,8 +183,8 @@ a:hover {
 .stepper-with-logo {
   display: flex;
   flex-direction: row;
-  margin: 64px 21% 0 21%;
-  width: inherit !important;
+  width: 828px !important;
+  margin: 64px auto 0 auto;
 }
 
 .stepper-swiper {
@@ -263,6 +263,7 @@ a:hover {
 
   display: flex;
   gap: 12px;
+  align-items: center;
 }
 
 /* .small-text {
@@ -471,6 +472,7 @@ a:hover {
   flex-direction: row;
 
   cursor: pointer;
+  user-select: none;
   opacity: 1;
 }
 .remove-button:hover {
@@ -599,6 +601,7 @@ a:hover {
 
 .closable-panel-icon {
   cursor: pointer;
+  user-select: none;
   width: 24px;
   height: 24px;
   position: absolute;
@@ -705,6 +708,7 @@ a:hover {
 
 .sidenav-close-button {
   cursor: pointer;
+  user-select: none;
   visibility: hidden;
 }
 
@@ -1228,15 +1232,14 @@ a:hover {
 .onboarding-container {
   height: 100vh;
   overflow-y: auto;
-
-  /* padding: 64px 21% 0 21%; */
 }
 .stepper-card {
-  margin: 0 21%;
+  width: 828px;
+  margin: 0 auto;
 }
 .verification-card {
   margin: 0 !important;
-  width: 100%;
+  width: 100% !important;
 }
 
 .onboarding-circle1,
@@ -1321,6 +1324,7 @@ a:hover {
   margin-left: 14px;
 
   cursor: pointer;
+  user-select: none;
 }
 
 .onboarding-nav-buttons {
@@ -1339,7 +1343,7 @@ a:hover {
 
 .onboarding-join-iframe {
   width: 100%;
-  height: 100vh;
+  height: 750px;
 }
 
 .import-your-config-card,
@@ -1351,10 +1355,14 @@ a:hover {
   box-shadow: 0px 4px 8px rgba(44, 62, 62, 0.04);
   border-radius: 12px;
   align-items: center;
+  width: 828px;
+  margin: 0 auto;
 }
 .onboarding-verify-email {
-  padding: 80px 32px 32px 32px;
-  margin: 0 auto;
+  padding: 80px 0 32px 0;
+}
+.onboarding-verify-email-buttons {
+  width: 828px;
 }
 .onboarding-verify-input {
   width: 413px;
@@ -1368,7 +1376,7 @@ a:hover {
 
 .onboarding-progress-card {
   position: relative;
-  padding: 88px 32px;
+  padding: 88px 0px;
 }
 
 .onboarding-progress-button {
@@ -1700,16 +1708,18 @@ a:hover {
 .extension-popup-container {
   width: 100%;
   background-color: var(--lightest-blue);
-  padding: 40px;
+  margin: 0;
 }
+.extension-popup-body {
+  overflow: hidden;
+}
+
 .extension-popup {
-  width: 360px;
+  border-radius: 6px;
   box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.04),
     0px 0px 1px rgba(0, 0, 0, 0.04);
-  border-radius: 6px;
-
   background-color: var(--white);
-  padding: 32px 24px;
+  padding: 24px;
 }
 .extension-popup-logo-and-switch {
   justify-content: space-between;
@@ -1765,6 +1775,8 @@ a:hover {
   align-items: center;
   padding: 16px;
   opacity: 0.5;
+  cursor: pointer;
+  user-select: none;
 }
 .extension-popup-menu-item:hover {
   opacity: 1;
@@ -1811,6 +1823,10 @@ a:hover {
   background: url('../images/icons/sidenav/exclude.svg') no-repeat center center;
 }
 
+.popup-excluded {
+  background: url('../images/icons/sidenav/exclude.svg') no-repeat center center;
+}
+
 .popup-help-icon {
   background: url('../images/icons/sidenav/support-black.svg') no-repeat center
     center;
@@ -1826,6 +1842,7 @@ a:hover {
     center;
   background-size: cover;
   padding: 24px 0 24px 24px;
+  margin-top: 24px;
   bottom: 0;
 }
 

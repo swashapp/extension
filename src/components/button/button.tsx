@@ -60,7 +60,7 @@ function getButton(
         }`}
       >
         {text ? <>{text}</> : <></>}
-        {loading && <CircularProgress color={'inherit'} size={24} />}
+        {loading && <CircularProgress color={'inherit'} size={16} />}
       </div>
     </StyledButton>
   );
