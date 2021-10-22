@@ -1,13 +1,14 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
-import DataAccordion, {
+import {
+  DataAccordion,
   DataItem,
 } from '../components/data-accordion/data-accordion';
-import BackgroundTheme from '../components/drawing/background-theme';
-import NumericInput from '../components/numeric-input/numeric-input';
-import TextMasking from '../components/text-masking/text-masking';
+import { BackgroundTheme } from '../components/drawing/background-theme';
+import { NumericInput } from '../components/numeric-input/numeric-input';
+import { TextMasking } from '../components/text-masking/text-masking';
 
-export default memo(function Data() {
+export function Data(): JSX.Element {
   const [maskItems, setMaskItems] = useState<string[] | null>(null);
   const [dataItems, setDataItems] = useState<DataItem[] | null>(null);
 
@@ -125,4 +126,4 @@ export default memo(function Data() {
       </div>
     </div>
   );
-});
+}

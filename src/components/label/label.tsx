@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, withStyles } from '@material-ui/core';
-import React, { memo, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { PropsWithChildren } from 'react';
 
 const MuiLabel = withStyles(() => ({
@@ -23,14 +23,14 @@ const MuiLabel = withStyles(() => ({
   },
 }))(InputLabel);
 
-export default memo(function Label(
+export function Label(
   props: PropsWithChildren<{
     id: string;
     children: ReactElement;
     text: string;
     shrink?: boolean | undefined;
   }>,
-) {
+): JSX.Element {
   return (
     <FormControl style={{ width: '100%' }}>
       <MuiLabel htmlFor={props.id} shrink={props.shrink}>
@@ -39,4 +39,4 @@ export default memo(function Label(
       {props.children}
     </FormControl>
   );
-});
+}

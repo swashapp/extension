@@ -1,15 +1,14 @@
-import React, { memo, useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { StepperContext } from '../../pages/onboarding';
 
-import Input from '../input/input';
+import { Input } from '../input/input';
+import { ToastMessage } from '../toast/toast-message';
 
-import ToastMessage from '../toast/toast-message';
+import { NavigationButtons } from './navigation-buttons';
 
-import NavigationButtons from './navigation-buttons';
-
-export default memo(function OnboardingVerify(props: { onBack: () => void }) {
+export function OnboardingVerify(props: { onBack: () => void }): JSX.Element {
   const stepper = useContext(StepperContext);
   const [verificationCode, setVerificationCode] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -66,4 +65,4 @@ export default memo(function OnboardingVerify(props: { onBack: () => void }) {
       </div>
     </>
   );
-});
+}

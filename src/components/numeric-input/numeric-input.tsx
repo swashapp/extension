@@ -1,19 +1,18 @@
 import { InputProps } from '@material-ui/core';
 
-import React, { Dispatch, memo, SetStateAction, useMemo } from 'react';
+import React, { Dispatch, SetStateAction, useMemo } from 'react';
 
-import InputBase from '../input-base/input-base';
-import NumericEndAdornment from '../input/end-adornments/numeric-end-adornment';
+import { InputBase } from '../input-base/input-base';
+import { NumericEndAdornment } from '../input/end-adornments/numeric-end-adornment';
+import { Label } from '../label/label';
 
-import Label from '../label/label';
-
-export default memo(function NumericInput(
+export function NumericInput(
   props: InputProps & {
     label: string;
     setValue: Dispatch<SetStateAction<number>>;
     unit?: string;
   },
-) {
+): JSX.Element {
   const inputProps: InputProps = useMemo(() => {
     const ret: InputProps & {
       label?: string;
@@ -55,4 +54,4 @@ export default memo(function NumericInput(
       />
     </Label>
   );
-});
+}

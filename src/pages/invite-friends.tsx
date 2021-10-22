@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import {
   TwitterShareButton,
@@ -25,19 +25,20 @@ import LinkedInLogo from 'url:../static/images/logos/linkedin.png';
 //@ts-ignore
 import TwitterLogo from 'url:../static/images/logos/twitter.png';
 
-import LearnMore from '../components/button/learn-more';
-import BackgroundTheme from '../components/drawing/background-theme';
-import Circle from '../components/drawing/circle';
-import FlexGrid from '../components/flex-grid/flex-grid';
+import { LearnMore } from '../components/button/learn-more';
+import { BackgroundTheme } from '../components/drawing/background-theme';
+import { Circle } from '../components/drawing/circle';
+import { FlexGrid } from '../components/flex-grid/flex-grid';
 
-import IconButton from '../components/icon-button/icon-button';
-import CopyEndAdornment from '../components/input/end-adornments/copy-end-adornment';
-import Input from '../components/input/input';
+import { IconButton } from '../components/icon-button/icon-button';
+import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-adornment';
+import { Input } from '../components/input/input';
 import { INVITE_FRIENDS_TOUR_CLASS } from '../components/invite-friends/invite-friends-tour';
-import NumericSection from '../components/numeric-section/numeric-section';
+import { NumericSection } from '../components/numeric-section/numeric-section';
 const referralMessage =
   'Use my referral link to earn money as you surf with Swash:';
-export default memo(function InviteFriends() {
+
+export function InviteFriends(): JSX.Element {
   const [referralLink, setReferralLink] = useState<string>('');
   const [reward, setReward] = useState<number>(0);
 
@@ -177,4 +178,4 @@ export default memo(function InviteFriends() {
       </div>
     </div>
   );
-});
+}

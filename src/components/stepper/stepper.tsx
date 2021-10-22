@@ -12,8 +12,8 @@ import React from 'react';
 
 import SwipeableViews from 'react-swipeable-views';
 
-import FlexGrid from '../flex-grid/flex-grid';
-import SwashLogo from '../swash-logo/swash-logo';
+import { FlexGrid } from '../flex-grid/flex-grid';
+import { SwashLogo } from '../swash-logo/swash-logo';
 
 const padWithZero = (num: number) => String(num).padStart(2, '0');
 

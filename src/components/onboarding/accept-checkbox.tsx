@@ -1,11 +1,11 @@
-import React, { Dispatch, memo, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
-import Checkbox from '../checkbox/checkbox';
+import { Checkbox } from '../checkbox/checkbox';
 
-export default memo(function AcceptCheckBox(props: {
+export function AcceptCheckBox(props: {
   value: boolean;
   setValue: Dispatch<SetStateAction<boolean>>;
-}) {
+}): JSX.Element {
   return (
     <div className="flex-row accept-checkbox">
       <Checkbox
@@ -20,4 +20,4 @@ export default memo(function AcceptCheckBox(props: {
       </div>
     </div>
   );
-});
+}

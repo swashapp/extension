@@ -1,15 +1,15 @@
 import bip39 from 'bip39';
 
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
-import Button from '../button/button';
-import FormMessage from '../form-message/form-message';
-import Input from '../input/input';
+import { Button } from '../button/button';
+import { FormMessage } from '../form-message/form-message';
+import { Input } from '../input/input';
 import { showPopup } from '../popup/popup';
 
-import Import3box from './import-3box';
+import { Import3Box } from './import-3box';
 
-export default memo(function SignIn3Box(props: { onImport: () => void }) {
+export function SignIn3Box(props: { onImport: () => void }): JSX.Element {
   const [loading, setLoading] = useState<boolean>(false);
   const [mnemonic, setMnemonic] = useState<string>('');
 
@@ -39,7 +39,7 @@ export default memo(function SignIn3Box(props: { onImport: () => void }) {
           showPopup({
             closable: true,
             content: (
-              <Import3box
+              <Import3Box
                 files={files}
                 mnemonic={mnemonic}
                 onImport={props.onImport}
@@ -82,4 +82,4 @@ export default memo(function SignIn3Box(props: { onImport: () => void }) {
       </div>
     </div>
   );
-});
+}

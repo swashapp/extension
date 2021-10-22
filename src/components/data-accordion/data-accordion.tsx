@@ -2,7 +2,7 @@ import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import { withStyles } from '@material-ui/core/styles';
-import React, { memo } from 'react';
+import React from 'react';
 import { PropsWithChildren, useState } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -30,8 +30,8 @@ import Travel from 'url:../../static/images/icons/travel-category.svg';
 //@ts-ignore
 import Expand from 'url:../../static/images/shape/expand.svg';
 
-import RemoveButton from '../button/remove';
-import ProgressBar from '../progress/progress';
+import { RemoveButton } from '../button/remove';
+import { ProgressBar } from '../progress/progress';
 
 const Icons = {
   Search,
@@ -90,12 +90,12 @@ const AccordionDetails = withStyles(() => ({
   },
 }))(MuiAccordionDetails);
 
-export default memo(function DataAccordion(
+export function DataAccordion(
   props: PropsWithChildren<{
     items: DataItem[];
     onRemove: (item: DataItem) => void;
   }>,
-) {
+): JSX.Element {
   const [active, setActive] = useState(-1);
   return (
     <div className={'data-accordion-container'}>
@@ -164,4 +164,4 @@ export default memo(function DataAccordion(
       })}
     </div>
   );
-});
+}

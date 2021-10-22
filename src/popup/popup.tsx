@@ -2,11 +2,11 @@ import React, { useCallback, useState } from 'react';
 import ReactDOM from 'react-dom';
 import browser from 'webextension-polyfill';
 
-import LearnMore from '../components/button/learn-more';
-import Circle from '../components/drawing/circle';
-import FlexGrid from '../components/flex-grid/flex-grid';
-import SwashLogo from '../components/swash-logo/swash-logo';
-import Switch from '../components/switch/switch';
+import { LearnMore } from '../components/button/learn-more';
+import { Circle } from '../components/drawing/circle';
+import { FlexGrid } from '../components/flex-grid/flex-grid';
+import { SwashLogo } from '../components/swash-logo/swash-logo';
+import { Switch } from '../components/switch/switch';
 
 function WelcomeToNewDataWorld() {
   return (

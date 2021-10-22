@@ -1,14 +1,14 @@
-import React, { memo, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { PropsWithChildren } from 'react';
 
-export default memo(function ToastPanel(
+export function ToastPanel(
   props: PropsWithChildren<{
     className?: string;
     image: string;
     title: string;
     content: ReactElement;
   }>,
-) {
+): JSX.Element {
   return (
     <div className={`flex-row toast-panel ${props.className}`}>
       <div className="toast-image">
@@ -20,4 +20,4 @@ export default memo(function ToastPanel(
       </div>
     </div>
   );
-});
+}

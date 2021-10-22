@@ -1,6 +1,6 @@
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles } from '@material-ui/core/styles';
-import React, { memo } from 'react';
+import React from 'react';
 
 const MuiLinearProgress = withStyles(() => ({
   root: {
@@ -16,6 +16,6 @@ const MuiLinearProgress = withStyles(() => ({
   },
 }))(LinearProgress);
 
-export default memo(function ProgressBar(props: { value: number }) {
+export function ProgressBar(props: { value: number }): JSX.Element {
   return <MuiLinearProgress variant="determinate" value={props.value} />;
-});
+}

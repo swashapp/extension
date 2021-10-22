@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -11,17 +11,17 @@ import DataEarningsIcon from 'url:../static/images/icons/data-earnings.svg';
 //@ts-ignore
 import QuestionGrayIcon from 'url:../static/images/shape/question-gray.png';
 
-import Button from '../components/button/button';
-import BackgroundTheme from '../components/drawing/background-theme';
-import FlexGrid from '../components/flex-grid/flex-grid';
-import FormMessage from '../components/form-message/form-message';
-import CopyEndAdornment from '../components/input/end-adornments/copy-end-adornment';
-import Input from '../components/input/input';
-import NumericSection from '../components/numeric-section/numeric-section';
+import { Button } from '../components/button/button';
+import { BackgroundTheme } from '../components/drawing/background-theme';
+import { FlexGrid } from '../components/flex-grid/flex-grid';
+import { FormMessage } from '../components/form-message/form-message';
+import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-adornment';
+import { Input } from '../components/input/input';
+import { NumericSection } from '../components/numeric-section/numeric-section';
 import { showPopup } from '../components/popup/popup';
-import Select from '../components/select/select';
-import ToastMessage from '../components/toast/toast-message';
-import DataTransferPopup from '../components/wallet/data-transfer-popup';
+import { Select } from '../components/select/select';
+import { ToastMessage } from '../components/toast/toast-message';
+import { DataTransferPopup } from '../components/wallet/data-transfer-popup';
 import { WALLET_TOUR_CLASS } from '../components/wallet/wallet-tour';
 
 const networkList = [
@@ -34,7 +34,7 @@ const purgeNumber = (num: string) => {
   return num.slice(0, num.indexOf('.') + 3);
 };
 
-export default memo(function Wallet() {
+export function Wallet(): JSX.Element {
   const [dataAvailable, setDataAvailable] = useState<string>('$');
   const [minimumWithdraw, setMinimumWithdraw] = useState<number>(99999999);
   const [gasLimit, setGasLimit] = useState<number>(99999999);
@@ -387,7 +387,7 @@ export default memo(function Wallet() {
                     <DataTransferPopup
                       amount={amount}
                       recipient={recipient}
-                      onSuccuss={getBalanceInfo}
+                      onSuccess={getBalanceInfo}
                       useSponsor={Number(dataAvailable) > minimumWithdraw}
                       sendToMainnet={network === 'Mainnet'}
                     />
@@ -400,4 +400,4 @@ export default memo(function Wallet() {
       </div>
     </div>
   );
-});
+}

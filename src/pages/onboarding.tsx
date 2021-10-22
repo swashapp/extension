@@ -1,5 +1,4 @@
 import React, {
-  memo,
   useCallback,
   useEffect,
   useMemo,
@@ -7,17 +6,15 @@ import React, {
   useState,
 } from 'react';
 
-import Circle from '../components/drawing/circle';
-import CongratsWalletIsReady from '../components/onboarding/congrats-wallet-is-ready';
-import CreatingAWallet from '../components/onboarding/creating-a-wallet';
-import EmailSent from '../components/onboarding/email-sent';
-import ImportYourConfig from '../components/onboarding/import-your-config';
-import OnboardingImportant from '../components/onboarding/onboarding-important';
-import OnboardingJoin from '../components/onboarding/onboarding-join';
-import OnboardingPrivacy from '../components/onboarding/onboarding-privacy';
-import OnboardingProfile from '../components/onboarding/onboarding-profile';
-import OnboardingStart from '../components/onboarding/onboarding-start';
-import OnboardingVerify from '../components/onboarding/onboarding-verify';
+import { Circle } from '../components/drawing/circle';
+import { CongratsWalletIsReady } from '../components/onboarding/congrats-wallet-is-ready';
+import { CreatingAWallet } from '../components/onboarding/creating-a-wallet';
+import { ImportYourConfig } from '../components/onboarding/import-your-config';
+import { OnboardingImportant } from '../components/onboarding/onboarding-important';
+import { OnboardingJoin } from '../components/onboarding/onboarding-join';
+import { OnboardingPrivacy } from '../components/onboarding/onboarding-privacy';
+import { OnboardingProfile } from '../components/onboarding/onboarding-profile';
+import { OnboardingStart } from '../components/onboarding/onboarding-start';
 import Stepper from '../components/stepper/stepper';
 import { IStepper } from '../components/stepper/stepper.type';
 
@@ -61,6 +58,7 @@ function OnboardingStep(props: { page: string; flow: string[] }) {
       return <></>;
   }
 }
+
 interface FLOW {
   pages: {
     [key: string]: { next: string; back: string; visible?: 'none' };
@@ -68,7 +66,8 @@ interface FLOW {
   start: string;
 }
 
-export default memo(function Onboarding() {
+export function Onboarding(): JSX.Element {
+  const ref = useRef<IStepper>();
   const [flow, setFlow] = useState<FLOW>({
     pages: { Welcome: { next: '', back: '' } },
     start: '',
@@ -76,6 +75,7 @@ export default memo(function Onboarding() {
   const [onSelectedPage, setOnSelectedPage] = useState<{
     [key: string]: string;
   }>({});
+
   useEffect(() => {
     window.helper.getOnboardingFlow().then((res: string) => {
       const newFlow = JSON.parse(res);
@@ -137,7 +137,7 @@ export default memo(function Onboarding() {
       (step) => step !== 'YourProfileWarning' && step !== 'New',
     );
   }, [flow.start, getNextPageOf]);
-  const ref = useRef<IStepper>();
+
   return (
     <div className="page-container">
       <Circle className={'onboarding-circle1'} border={'black'} />
@@ -176,4 +176,4 @@ export default memo(function Onboarding() {
       </div>
     </div>
   );
-});
+}

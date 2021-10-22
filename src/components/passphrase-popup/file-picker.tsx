@@ -1,19 +1,19 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import FileBrowser from 'react-keyed-file-browser';
 
-import Button from '../button/button';
+import { Button } from '../button/button';
 
 interface FILE {
   key: string;
   id: string;
 }
-export default memo(function FilePicker(props: {
+export function FilePicker(props: {
   onboarding: string;
   applyConfig: (selectedFile: FILE | undefined, onboarding: string) => void;
-}) {
+}): JSX.Element {
   const [files, setFiles] = useState<FILE[]>([]);
   const [selectedFile, setSelectedFile] = useState<FILE>();
   useEffect(() => {
@@ -63,4 +63,4 @@ export default memo(function FilePicker(props: {
       </div>
     </div>
   );
-});
+}

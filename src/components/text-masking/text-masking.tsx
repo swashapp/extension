@@ -3,21 +3,20 @@ import React, {
   useState,
   SetStateAction,
   Dispatch,
-  memo,
   useMemo,
 } from 'react';
 
-import RemoveButton from '../button/remove';
-import AddEndAdornment from '../input/end-adornments/add-end-adornment';
-import Input from '../input/input';
+import { RemoveButton } from '../button/remove';
+import { AddEndAdornment } from '../input/end-adornments/add-end-adornment';
+import { Input } from '../input/input';
 
-export default memo(function TextMasking({
+export function TextMasking({
   items,
   setItems,
 }: {
   items: string[] | null;
   setItems: Dispatch<SetStateAction<string[] | null>>;
-}) {
+}): JSX.Element {
   const [mask, setMask] = useState<string>('');
   const onAdd = useCallback(
     (item: string) =>
@@ -72,4 +71,4 @@ export default memo(function TextMasking({
       </div>
     </div>
   );
-});
+}

@@ -1,11 +1,11 @@
-import React, { memo } from 'react';
+import React from 'react';
 
-import Button from './button';
+import { Button } from './button';
 
-export default memo(function LearnMore(props: {
+export function LearnMore(props: {
   position: string;
   size?: 'small' | 'large';
-}) {
+}): JSX.Element {
   return (
     <Button
       text={'Learn More'}
@@ -18,4 +18,4 @@ export default memo(function LearnMore(props: {
       }}
     />
   );
-});
+}

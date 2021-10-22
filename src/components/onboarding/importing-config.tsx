@@ -1,8 +1,8 @@
-import React, { memo } from 'react';
+import React from 'react';
 
-import CircularProgress from '../circular-progress/circular-progress';
+import { CircularProgress } from '../circular-progress/circular-progress';
 
-export default memo(function ImportingConfig() {
+export function ImportingConfig(): JSX.Element {
   return (
     <div className="onboarding-progress-card">
       <CircularProgress type="uploading" />
@@ -10,4 +10,4 @@ export default memo(function ImportingConfig() {
       <p>One second, we are importing your configuration.</p>
     </div>
   );
-});
+}

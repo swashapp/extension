@@ -1,6 +1,6 @@
 import { withStyles } from '@material-ui/core/styles';
 import MuiSwitch, { SwitchProps } from '@material-ui/core/Switch';
-import React, { memo } from 'react';
+import React from 'react';
 
 const StyledSwitch = withStyles((theme) => ({
   root: {
@@ -38,6 +38,6 @@ const StyledSwitch = withStyles((theme) => ({
   focusVisible: {},
 }))(MuiSwitch);
 
-export default memo(function Switch(props: SwitchProps) {
+export function Switch(props: SwitchProps): JSX.Element {
   return <StyledSwitch {...props} />;
-});
+}

@@ -1,4 +1,4 @@
-import React, { memo, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { PropsWithChildren } from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
@@ -10,7 +10,7 @@ import SuccessIcon from 'url:../../static/images/icons/success.png';
 //@ts-ignore
 import WarningIcon from 'url:../../static/images/icons/warning.png';
 
-import ToastPanel from './toast-panel';
+import { ToastPanel } from './toast-panel';
 
 const Messages = {
   success: {
@@ -25,12 +25,12 @@ const Messages = {
   },
   error: { title: 'Error!', icon: ErrorIcon, class: 'toast-message-error' },
 };
-export default memo(function ToastMessage(
+export function ToastMessage(
   props: PropsWithChildren<{
     type: keyof typeof Messages;
     content: ReactElement;
   }>,
-) {
+): JSX.Element {
   return (
     <ToastPanel
       className={Messages[props.type].class}
@@ -39,4 +39,4 @@ export default memo(function ToastMessage(
       image={Messages[props.type].icon}
     />
   );
-});
+}

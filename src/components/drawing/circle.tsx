@@ -1,7 +1,6 @@
 import React from 'react';
-import { memo } from 'react';
 
-export default memo(function Circle(props: {
+export function Circle(props: {
   color?:
     | 'black'
     | 'white'
@@ -14,7 +13,7 @@ export default memo(function Circle(props: {
   colorful?: boolean;
   colorfulGradient?: boolean;
   className?: string;
-}) {
+}): JSX.Element {
   const color = props.color ? `var(--${props.color})` : 'transparent';
   const border = props.border ? `var(--${props.border})` : 'transparent';
   const dashed = props.dashed || '0';
@@ -43,4 +42,4 @@ export default memo(function Circle(props: {
       </svg>
     </div>
   );
-});
+}

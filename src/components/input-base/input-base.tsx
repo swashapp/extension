@@ -3,7 +3,7 @@ import {
   InputBaseProps,
   withStyles,
 } from '@material-ui/core';
-import React, { memo } from 'react';
+import React from 'react';
 
 const BootstrapInput = withStyles((theme) => ({
   root: { width: '100%' },
@@ -29,6 +29,6 @@ const BootstrapInput = withStyles((theme) => ({
   },
 }))(MuiInputBase);
 
-export default memo(function InputBase(props: InputBaseProps) {
+export function InputBase(props: InputBaseProps): JSX.Element {
   return <BootstrapInput {...props} />;
-});
+}

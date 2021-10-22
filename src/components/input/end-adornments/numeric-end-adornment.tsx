@@ -1,6 +1,6 @@
 import { InputAdornment, makeStyles } from '@material-ui/core';
 
-import React, { memo } from 'react';
+import React from 'react';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
@@ -29,10 +29,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default memo(function NumericEndAdornment(props: {
+export function NumericEndAdornment(props: {
   onSpinUp: () => void;
   onSpinDown: () => void;
-}) {
+}): JSX.Element {
   const classes = useStyles();
   return (
     <InputAdornment className={classes.icon} position="end">
@@ -48,4 +48,4 @@ export default memo(function NumericEndAdornment(props: {
       </div>
     </InputAdornment>
   );
-});
+}

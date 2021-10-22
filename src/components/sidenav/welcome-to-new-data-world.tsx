@@ -1,10 +1,10 @@
-import React, { memo } from 'react';
+import React from 'react';
 
-import LearnMore from '../button/learn-more';
-import ClosablePanel from '../closable-panel/closable-panel';
-import Circle from '../drawing/circle';
+import { LearnMore } from '../button/learn-more';
+import { ClosablePanel } from '../closable-panel/closable-panel';
+import { Circle } from '../drawing/circle';
 
-export default memo(function WelcomeToNewDataWorld() {
+export function WelcomeToNewDataWorld(): JSX.Element {
   return (
     <ClosablePanel className={'welcome-container'}>
       <>
@@ -18,4 +18,4 @@ export default memo(function WelcomeToNewDataWorld() {
       </>
     </ClosablePanel>
   );
-});
+}

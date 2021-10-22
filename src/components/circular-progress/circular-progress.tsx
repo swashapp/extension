@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
@@ -7,9 +7,9 @@ import completedIcon from 'url:../../static/images/icons/progress-completed.png'
 //@ts-ignore
 import uploadingIcon from 'url:../../static/images/icons/uploading.png';
 
-import Circle from '../drawing/circle';
+import { Circle } from '../drawing/circle';
 
-export default memo(function CircularProgress(props: {
+export function CircularProgress(props: {
   type: 'loading' | 'completed' | 'uploading';
 }): JSX.Element {
   return (
@@ -55,4 +55,4 @@ export default memo(function CircularProgress(props: {
       </div>
     </div>
   );
-});
+}

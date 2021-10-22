@@ -1,5 +1,5 @@
 import { IconButton, InputAdornment, makeStyles } from '@material-ui/core';
-import React, { memo } from 'react';
+import React from 'react';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default memo(function SearchEndAdornment() {
+export function SearchEndAdornment(): JSX.Element {
   const classes = useStyles();
   return (
     <InputAdornment className={classes.icon} position="end">
@@ -22,4 +22,4 @@ export default memo(function SearchEndAdornment() {
       </IconButton>
     </InputAdornment>
   );
-});
+}

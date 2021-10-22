@@ -1,11 +1,11 @@
-import React, { memo } from 'react';
+import React from 'react';
 
-import Circle from './circle';
-import CircleOnLine from './circle-on-line';
+import { Circle } from './circle';
+import { CircleOnLine } from './circle-on-line';
 
-export default memo(function BackgroundTheme(props: {
+export function BackgroundTheme(props: {
   layout?: 'layout1' | 'layout2' | 'layout3';
-}) {
+}): JSX.Element {
   const { layout = 'layout1' } = props;
   return (
     <>
@@ -27,4 +27,4 @@ export default memo(function BackgroundTheme(props: {
       )}
     </>
   );
-});
+}

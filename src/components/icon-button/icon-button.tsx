@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
+import React from 'react';
 
-import Link, { LinkProps } from '../link/link';
+import { Link, LinkProps } from '../link/link';
 
 function IconButtonBase(props: {
   body?: string;
@@ -32,13 +32,13 @@ function IconButtonBase(props: {
   );
 }
 
-export default memo(function IconButton(props: {
+export function IconButton(props: {
   body?: string;
   image: string;
   imageSize?: { width?: number; height?: number };
   link: LinkProps | false;
   onClick?: () => void;
-}) {
+}): JSX.Element {
   return props.link === false ? (
     <IconButtonBase {...props} />
   ) : (
@@ -46,4 +46,4 @@ export default memo(function IconButton(props: {
       <IconButtonBase {...props} />
     </Link>
   );
-});
+}

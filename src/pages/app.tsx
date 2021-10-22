@@ -4,24 +4,24 @@ import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 
-import InviteFriendsTour from '../components/invite-friends/invite-friends-tour';
+import { InviteFriendsTour } from '../components/invite-friends/invite-friends-tour';
 
-import Popup from '../components/popup/popup';
-import Sidenav from '../components/sidenav/sidenav';
-import SidenavButton from '../components/sidenav/sidenav-button';
-import WalletTour from '../components/wallet/wallet-tour';
+import { Popup } from '../components/popup/popup';
+import { Sidenav } from '../components/sidenav/sidenav';
+import { SidenavButton } from '../components/sidenav/sidenav-button';
+import { WalletTour } from '../components/wallet/wallet-tour';
 import { SidenavItems } from '../data/sidenav-items';
 import { RouteToPages } from '../paths';
 
-import Onboarding from './onboarding';
-import Wallet from './wallet';
+import { Onboarding } from './onboarding';
+import { Wallet } from './wallet';
 
 function EmptyComponent() {
   return <div style={{ width: '100%' }} />;
 }
 
 function RouteComponent(
-  ExtensionComponent: React.ComponentClass | null,
+  ExtensionComponent: () => JSX.Element,
   activeIndex: number,
 ) {
   const [sidenavOpen, setSidenavOpen] = useState<boolean>(false);
@@ -68,9 +68,7 @@ export default function App(): JSX.Element {
         <Route
           exact
           path={RouteToPages.home}
-          component={() =>
-            RouteComponent(Wallet as unknown as React.ComponentClass, 0)
-          }
+          component={() => RouteComponent(Wallet, 0)}
         />
         <Route exact path={RouteToPages.onboarding} component={Onboarding} />
         {SidenavItems.map((link, index) => (

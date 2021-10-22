@@ -1,12 +1,12 @@
-import React, { memo, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
-export default memo(function NumericSection(props: {
+export function NumericSection(props: {
   layout?: 'layout1' | 'layout2' | ReactElement;
   title: string;
   value: number | string;
   image?: string;
   tourClassName?: string;
-}) {
+}): JSX.Element {
   const { layout = 'layout1', title, value, image } = props;
   return (
     <div className={`${'numeric-container'} ${!image ? 'numeric-small' : ''}`}>
@@ -34,4 +34,4 @@ export default memo(function NumericSection(props: {
       )}
     </div>
   );
-});
+}

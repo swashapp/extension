@@ -1,9 +1,9 @@
-import React, { memo } from 'react';
+import React from 'react';
 
-import Button from '../button/button';
-import CircularProgress from '../circular-progress/circular-progress';
+import { Button } from '../button/button';
+import { CircularProgress } from '../circular-progress/circular-progress';
 
-export default memo(function EmailSent() {
+export function EmailSent(): JSX.Element {
   return (
     <div className="onboarding-progress-card email-sent">
       <CircularProgress type="completed" />
@@ -21,4 +21,4 @@ export default memo(function EmailSent() {
       </div>
     </div>
   );
-});
+}

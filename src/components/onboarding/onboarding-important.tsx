@@ -1,11 +1,11 @@
-import React, { memo, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { StepperContext } from '../../pages/onboarding';
 
-import AcceptCheckBox from './accept-checkbox';
-import NavigationButtons from './navigation-buttons';
+import { AcceptCheckBox } from './accept-checkbox';
+import { NavigationButtons } from './navigation-buttons';
 
-export default memo(function OnboardingImportant() {
+export function OnboardingImportant(): JSX.Element {
   const stepper = useContext(StepperContext);
   const [accept, setAccept] = useState<boolean>(false);
   return (
@@ -37,4 +37,4 @@ export default memo(function OnboardingImportant() {
       </div>
     </>
   );
-});
+}

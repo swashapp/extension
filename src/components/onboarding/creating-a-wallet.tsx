@@ -1,10 +1,10 @@
-import React, { memo, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { StepperContext } from '../../pages/onboarding';
 
-import CircularProgress from '../circular-progress/circular-progress';
+import { CircularProgress } from '../circular-progress/circular-progress';
 
-export default memo(function CreatingAWallet() {
+export function CreatingAWallet(): JSX.Element {
   const stepper = useContext(StepperContext);
   useEffect(() => {
     window.helper.createAndSaveWallet().then(() => {
@@ -18,4 +18,4 @@ export default memo(function CreatingAWallet() {
       <p>One second, we are creating for you a new wallet.</p>
     </div>
   );
-});
+}

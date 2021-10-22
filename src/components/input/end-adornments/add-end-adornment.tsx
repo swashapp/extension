@@ -1,7 +1,7 @@
 import { InputAdornment, makeStyles } from '@material-ui/core';
-import React, { memo } from 'react';
+import React from 'react';
 
-import Button from '../../button/button';
+import { Button } from '../../button/button';
 
 const useStyles = makeStyles(() => ({
   icon: {
@@ -11,10 +11,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default memo(function AddEndAdornment(props: {
+export function AddEndAdornment(props: {
   onAdd: () => void;
   disabled?: boolean;
-}) {
+}): JSX.Element {
   const classes = useStyles();
   return (
     <InputAdornment
@@ -30,4 +30,4 @@ export default memo(function AddEndAdornment(props: {
       />
     </InputAdornment>
   );
-});
+}
