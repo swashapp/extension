@@ -32,35 +32,37 @@ export default memo(function OnboardingVerify(props: { onBack: () => void }) {
   return (
     <>
       <div className="onboarding-verify-email">
-        <h2>Check your email!</h2>
-        <div className="onboarding-verify-text">
-          <p>
-            We have sent you a verification code, please verify your email
-            address to continue.
-          </p>
-        </div>
-        <div className="onboarding-verify-input">
-          <Input
-            label="Verification Code"
-            defaultValue={verificationCode}
-            onChange={(e) => setVerificationCode(e.target.value)}
+        <div className="onboarding-verify-email-buttons">
+          <h2>Check your email!</h2>
+          <div className="onboarding-verify-text">
+            <p>
+              We have sent you a verification code, please verify your email
+              address to continue.
+            </p>
+          </div>
+          <div className="onboarding-verify-input">
+            <Input
+              label="Verification Code"
+              defaultValue={verificationCode}
+              onChange={(e) => setVerificationCode(e.target.value)}
+            />
+          </div>
+          <div className="onboarding-verify-question">
+            <p>
+              Don&apos;t work?{' '}
+              <a href="#" onClick={() => undefined}>
+                Send me another code.
+              </a>
+            </p>
+          </div>
+          <NavigationButtons
+            nextButtonText="Verify"
+            onBack={props.onBack}
+            onSubmit={onSubmit}
+            loading={loading}
+            disableNext={!verificationCode}
           />
         </div>
-        <div className="onboarding-verify-question">
-          <p>
-            Don&apos;t work?{' '}
-            <a href="#" onClick={() => undefined}>
-              Send me another code.
-            </a>
-          </p>
-        </div>
-        <NavigationButtons
-          nextButtonText="Verify"
-          onBack={props.onBack}
-          onSubmit={onSubmit}
-          loading={loading}
-          disableNext={!verificationCode}
-        />
       </div>
     </>
   );
