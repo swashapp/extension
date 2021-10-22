@@ -18,14 +18,16 @@ export default memo(function OnboardingVerify(props: { onBack: () => void }) {
     setLoading(true);
     new Promise((resolve) => setTimeout(resolve, 3000))
       .then(() => {
+        setLoading(false);
         stepper.next();
       })
-      .catch(() =>
+      .catch(() => {
+        setLoading(false);
+
         toast(
           <ToastMessage type="error" content={<>Something went wrong!</>} />,
-        ),
-      )
-      .finally(() => setLoading(false));
+        );
+      });
   }, [stepper]);
   return (
     <>
