@@ -21,7 +21,7 @@ import FlexGrid from '../flex-grid/flex-grid';
 import FilePicker from '../passphrase-popup/file-picker';
 
 import SignIn3box from '../passphrase-popup/sign-in-3box';
-import { showPopup } from '../popup/popup';
+import { closePopup, showPopup } from '../popup/popup';
 import ToastMessage from '../toast/toast-message';
 
 import ImportingConfig from './importing-config';
@@ -52,22 +52,68 @@ export default memo(function ImportYourConfig() {
   const stepper = useContext(StepperContext);
   const [importing, setImporting] = useState<boolean>(false);
   const onImport = useCallback(() => {
-    window.helper.getJoinedSwash().then((data) => {
-      if (data.id && data.email)
-        stepper.changeSelectedPage('Join', 'Completed');
-      stepper.next();
-    });
+    window.helper
+      .getJoinedSwash()
+      .then((data) => {
+        if (data.id && data.email)
+          stepper.changeSelectedPage('Join', 'Completed');
+        setImporting(false);
+        stepper.next();
+      })
+      .catch(() => setImporting(false));
   }, [stepper]);
+  const applyConfig = useCallback(
+    (selectedFile, onboarding) => {
+      if (selectedFile?.id)
+        return window.helper
+          .downloadFile(onboarding, selectedFile.id)
+          .then((response) => {
+            if (response) {
+              setImporting(true);
+              closePopup();
+              return window.helper
+                .applyConfig(JSON.stringify(response))
+                .then((result) => {
+                  if (result) {
+                    onImport();
+                    toast(
+                      <ToastMessage
+                        type="success"
+                        content={<>Config file is imported successfully</>}
+                      />,
+                    );
+                  } else {
+                    setImporting(false);
+                    toast(
+                      <ToastMessage
+                        type="error"
+                        content={<>Can not import this config file</>}
+                      />,
+                    );
+                  }
+                });
+            }
+          });
+      else {
+        closePopup();
+      }
+    },
+    [onImport],
+  );
   const togglePopup = useCallback(
     (message: { onboarding: string }) => {
+      console.log(message);
       showPopup({
         closable: true,
         content: (
-          <FilePicker onboarding={message.onboarding} onImport={onImport} />
+          <FilePicker
+            onboarding={message.onboarding}
+            applyConfig={applyConfig}
+          />
         ),
       });
     },
-    [onImport],
+    [applyConfig],
   );
   const importFromFile = useCallback(() => {
     const input = document.createElement('input');
@@ -109,7 +155,6 @@ export default memo(function ImportYourConfig() {
   const importFromGoogleDrive = useCallback(() => {
     if (!window.browser.runtime.onMessage.hasListener(togglePopup))
       window.browser.runtime.onMessage.addListener(togglePopup);
-    setImporting(true);
     window.browser.tabs.getCurrent().then((tab) => {
       window.helper.startOnBoarding('GoogleDrive', tab.id).then();
     });
@@ -118,14 +163,12 @@ export default memo(function ImportYourConfig() {
   const importFromDropBox = useCallback(() => {
     if (!window.browser.runtime.onMessage.hasListener(togglePopup))
       window.browser.runtime.onMessage.addListener(togglePopup);
-    setImporting(true);
     window.browser.tabs.getCurrent().then((tab) => {
       window.helper.startOnBoarding('DropBox', tab.id).then();
     });
   }, [togglePopup]);
 
   const importFrom3Box = useCallback(() => {
-    setImporting(true);
     showPopup({
       closable: true,
       content: <SignIn3box onImport={onImport} />,

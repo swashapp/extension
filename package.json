@@ -33,6 +33,7 @@
     "ethers": "5.0.23",
     "identity-wallet": "^2.0.0",
     "interweave": "^12.8.0",
+    "js-sha256": "^0.9.0",
     "json-ptr": "^2.2.0",
     "jsonpath-plus": "^6.0.1",
     "jsontokens": "^3.0.0",

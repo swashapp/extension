@@ -1,6 +1,6 @@
 import Box from '3box';
-import { sha256 } from 'ethers/lib/utils';
 import IdentityWallet from 'identity-wallet';
+import { sha256 } from 'js-sha256';
 import { JSONPath } from 'jsonpath-plus';
 import browser from 'webextension-polyfill';
 import { Tabs } from 'webextension-polyfill/namespaces/tabs';

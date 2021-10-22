@@ -7,6 +7,7 @@ import '../static/css/laptop.css';
 import '../static/css/tablet.css';
 import '../static/css/mobile.css';
 import '../static/css/smobile.css';
+import 'react-keyed-file-browser/dist/react-keyed-file-browser.css';
 
 import App from '../pages/App';
 

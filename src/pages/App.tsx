@@ -11,8 +11,10 @@ import Sidenav from '../components/sidenav/sidenav';
 import SidenavButton from '../components/sidenav/sidenav-button';
 import WalletTour from '../components/wallet/wallet-tour';
 import { SidenavItems } from '../data/sidenav-items';
+import { RouteToPages } from '../paths';
 
 import Onboarding from './onboarding';
+import Wallet from './wallet';
 
 function EmptyComponent() {
   return <div style={{ width: '100%' }}></div>;
@@ -63,7 +65,14 @@ export default function App(): JSX.Element {
   return (
     <div className="main-container">
       <Switch>
-        <Route exact path="/" component={Onboarding} />
+        <Route
+          exact
+          path={RouteToPages.home}
+          component={() =>
+            RouteComponent(Wallet as unknown as React.ComponentClass, 0)
+          }
+        />
+        <Route exact path={RouteToPages.onboarding} component={Onboarding} />
         {SidenavItems.map((link, index) => (
           <Route
             key={link.title + index}
