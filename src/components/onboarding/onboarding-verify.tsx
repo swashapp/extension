@@ -9,7 +9,7 @@ import ToastMessage from '../toast/toast-message';
 
 import NavigationButtons from './navigation-buttons';
 
-export default memo(function OnboardingVerify() {
+export default memo(function OnboardingVerify(props: { onBack: () => void }) {
   const stepper = useContext(StepperContext);
   const [verificationCode, setVerificationCode] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -40,7 +40,7 @@ export default memo(function OnboardingVerify() {
         <div className="onboarding-verify-input">
           <Input
             label="Verification Code"
-            value={verificationCode}
+            defaultValue={verificationCode}
             onChange={(e) => setVerificationCode(e.target.value)}
           />
         </div>
@@ -54,7 +54,7 @@ export default memo(function OnboardingVerify() {
         </div>
         <NavigationButtons
           nextButtonText="Verify"
-          onBack={stepper.back}
+          onBack={props.onBack}
           onSubmit={onSubmit}
           loading={loading}
           disableNext={!verificationCode}
