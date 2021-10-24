@@ -76,7 +76,7 @@ const loader = (function () {
       db.modules = await onModulesUpdated();
 
       //updating configurations
-      commonUtils.jsonUpdate(db.configs, configs);
+      // commonUtils.jsonUpdate(db.configs, configs);
       return storageHelper.saveAll(db);
     } catch (exp) {
       console.error(exp);

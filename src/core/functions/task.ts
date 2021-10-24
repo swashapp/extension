@@ -19,7 +19,7 @@ const task = (function () {
   }
 
   function load() {
-    storageHelper.retrieveModules().then((modules) => {
+    storageHelper.getModules().then((modules) => {
       for (const module in modules) {
         loadModule(modules[module]);
       }
@@ -116,7 +116,7 @@ const task = (function () {
   }
 
   async function injectTasks(url) {
-    const modules = await storageHelper.retrieveModules();
+    const modules = await storageHelper.getModules();
     for (const module in modules) {
       if (modules[module].functions.includes('task')) {
         if (modules[module].is_enabled)

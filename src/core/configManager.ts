@@ -12,15 +12,16 @@ const configManager = (function () {
     const remotePath = configs.manifest.remotePath;
 
     try {
-      const manifestPath = `${remotePath}/configs/config.json`;
+      const manifestPath = `${remotePath}configs/config.json`;
       const remoteManifest = await commonUtils.dlJson<ConfigsManifest>(
         manifestPath,
       );
 
       await updateConfigs(remoteManifest);
       await updateModules(remoteManifest);
+      console.log(`Updated successfully`);
     } catch (err) {
-      console.log(`Updating error: ${err}`);
+      console.error(`Updating error: ${err}`);
     }
 
     async function updateConfigs(remoteManifest: ConfigsManifest) {
@@ -35,7 +36,7 @@ const configManager = (function () {
             );
             configs.manifest.files[name].version = file.version;
           } catch (err) {
-            console.log(
+            console.error(
               `Error while importing configuration file ${name}: ${err}`,
             );
           }
@@ -62,7 +63,9 @@ const configManager = (function () {
           };
         }
 
-        for (const module in Object.keys(category.modules)) {
+        if (!category.modules) continue;
+
+        for (const module of Object.keys(category.modules)) {
           if (!configs.manifest.categories[name].modules[module]) {
             configs.manifest.categories[name].modules[module] = {
               version: 0,
@@ -92,7 +95,7 @@ const configManager = (function () {
                 `Module ${category}:${name} updated from version ${oldVersion} to ${newVersion}`,
               );
             } catch (err) {
-              console.log(
+              console.error(
                 `Error while importing module ${category}:${name}: ${err}`,
               );
             }

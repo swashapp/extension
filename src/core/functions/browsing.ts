@@ -141,7 +141,7 @@ const browsing = (function () {
   }
 
   function load() {
-    storageHelper.retrieveModules().then((modules) => {
+    storageHelper.getModules().then((modules) => {
       for (const module in modules) {
         loadModule(modules[module]);
       }
@@ -149,7 +149,7 @@ const browsing = (function () {
   }
 
   function unload() {
-    storageHelper.retrieveModules().then((modules) => {
+    storageHelper.getModules().then((modules) => {
       for (const module in modules) {
         unloadModule(modules[module]);
       }

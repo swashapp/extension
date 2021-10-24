@@ -9,7 +9,7 @@ import { Link } from '../link/link';
 
 export function SwashLogo(props: { className?: string }): JSX.Element {
   return (
-    <Link url={WebsitePath} position={'Sidenav'} event={'SwashLogo'}>
+    <Link url={WebsitePath} external>
       <img
         className={`swash-logo ${props.className}`}
         src={logo}

@@ -13,8 +13,7 @@ export function LearnMore(props: {
       color={'white'}
       link={{
         url: '',
-        event: 'LearMoreSwashButton',
-        position: props.position,
+        external: true,
       }}
     />
   );

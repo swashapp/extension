@@ -2,19 +2,23 @@
   .stepper-card {
     width: 744px;
   }
+
   .import-your-config-card,
   .onboarding-progress-card,
   .onboarding-verify-email {
     width: 744px;
     margin: 0 auto;
   }
+
   .onboarding-verify-email-buttons {
     width: 744px;
   }
+
   .stepper-with-logo {
     width: 744px !important;
     margin: 48px auto 0 auto;
   }
+
   .win-data-prize-circle1 {
     top: -109px;
     right: -94px;
@@ -29,6 +33,7 @@
     bottom: 137px;
     right: 50px;
   }
+
   .numeric-layout1-image {
     background: url('../images/background/stat3.png') no-repeat center center;
   }

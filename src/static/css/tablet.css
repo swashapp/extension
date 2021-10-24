@@ -8,51 +8,67 @@
     font-weight: 400;
     line-height: 24px;
   }
+
   h6 {
     font-size: 18px !important;
   }
+
   h2 {
     font-size: 24px !important;
   }
+
   h4 {
     font-size: 18px !important;
   }
+
   p {
     font-size: 14px;
   }
+
   .page-header {
     margin-bottom: 16px;
   }
+
   .card-gap {
     gap: 16px;
   }
+
   .wallet-cards {
     flex-wrap: wrap;
   }
+
   .wallet-cards > div {
     width: 100% !important;
   }
+
   .wallet-numerics {
     flex-wrap: nowrap;
   }
+
   .numeric-layout1-image {
     display: none;
   }
+
   .numeric-layout2-image {
     display: none;
   }
+
   .settings-backup-buttons {
     flex-wrap: wrap;
   }
+
   .settings-backup-buttons > div {
     width: 100% !important;
   }
+
   .settings-2backup-buttons {
     flex-wrap: nowrap;
   }
+
   .popup .MuiDialog-container {
     align-items: flex-end;
   }
+
   .popup-paper {
     margin: 0 !important;
     border-bottom-left-radius: 0 !important;
@@ -68,30 +84,38 @@
   .data-transfer-popup-completed {
     margin: 78px 0;
   }
+
   .theme-circle1,
   .theme-circle2,
   .theme-circle3,
   .circle-on-line {
     display: none;
   }
+
   .page-content {
     margin: 20px;
   }
+
   .numeric-number {
     font-size: 36px !important;
   }
+
   .numeric-container {
     padding: 20px;
   }
+
   .simple-card {
     padding: 20px;
   }
+
   .form-button {
     width: 121px;
   }
+
   .numeric-container .form-button {
     width: 71px;
   }
+
   .sidenav-button-container {
     background-color: var(--lightest-blue);
     display: flex;
@@ -99,33 +123,41 @@
     align-items: center;
     justify-content: space-between;
   }
+
   .open-sidenav {
     width: initial;
     transition: all 1s;
   }
+
   .close-sidenav {
     width: 0;
     transition: all 0.5s;
   }
+
   .open-sidenav-button {
     height: initial;
     padding: 48px 20px 4px 20px;
     transition: all 1s;
   }
+
   .close-sidenav-button {
     height: 0;
     padding: 0;
     transition: all 0.5s;
   }
+
   .content-open-sidenav > div {
     width: calc(100% + 256px);
   }
+
   .content-close-sidenav > div {
     width: 100%;
   }
+
   .sidenav-close-button {
     visibility: visible;
   }
+
   .swash-logo {
     width: 98px;
     height: 28px;
@@ -169,135 +201,172 @@
   .section-accordion-container .title2 {
     font-size: 12px;
   }
+
   .section-accordion-title-text {
     font-size: 18px;
   }
+
   .help-search-input {
     display: none;
   }
+
   .section-row {
     padding: 15px 0 15px 0;
   }
+
   .section-accordion-expand-icon {
     width: 10px;
     height: 10px;
   }
+
   .section-accordion-container .MuiAccordionSummary-root {
     margin: 20px 0 20px 0;
   }
+
   .data-accordion-container {
     gap: 16px;
   }
+
   .data-accordion-container .MuiAccordionSummary-root {
     padding: 20px 26px 20px 20px;
   }
+
   .data-accordion-progress {
     display: none;
   }
+
   .wallet-data-transfer-container {
     margin: 20px;
   }
+
   .stepper-card {
     width: 356px;
     margin: 0 auto;
   }
+
   .stepper-with-logo {
     margin: 48px 16px 0 16px;
     width: unset !important;
   }
+
   .onboarding-start-cards {
     flex-wrap: wrap;
   }
+
   .onboarding-start-cards > div {
     width: 100% !important;
   }
+
   .onboarding-start-cards .form-button {
     width: 100%;
   }
+
   .onboarding-header {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
   }
+
   .onboarding-header > h2 {
     width: 249px;
     text-align: center;
     line-height: 100%;
   }
+
   .stepper-with-numbers {
     width: 100%;
     display: flex;
     justify-content: flex-end;
   }
+
   .stepper {
     width: 50%;
     padding-bottom: 60px;
   }
+
   .onboarding-circle1,
   .onboarding-circle4,
   .onboarding-circle5 {
     display: none;
   }
+
   .onboarding-circle2 {
     left: 26px;
     top: 682px;
   }
+
   .onboarding-circle3 {
     left: -115px;
     top: 368px;
   }
+
   .onboarding-circle6 {
     right: -221px;
     top: 368px;
   }
+
   .onboarding-circle7 {
     right: -52px;
     top: 342px;
   }
+
   .onboarding-profile-form-items {
     flex-wrap: wrap;
   }
+
   .onboarding-profile-form-items > div {
     width: 100% !important;
   }
+
   .import-your-config-card,
   .onboarding-progress-card,
   .onboarding-verify-email {
     width: 356px;
     margin: 0 auto;
   }
+
   .onboarding-verify-email {
     padding: 50px 0 20px 0;
   }
+
   .onboarding-verify-email-buttons {
     width: 356px;
   }
+
   .onboarding-nav-buttons {
     margin-top: 21px;
     padding-top: 20px;
   }
+
   .onboarding-progress-card {
     width: 356px;
   }
+
   .onboarding-progress-card > h2 {
     margin: 24px 0 12px 0;
   }
+
   .import-your-config-card {
     padding: 16px;
   }
+
   .import-your-config-cards {
     flex-wrap: wrap;
   }
+
   .import-your-config-cards > div {
     width: 100% !important;
   }
+
   .import-your-config {
     text-align: center;
   }
+
   .import-your-config > p {
     margin: 8px 0 20px 0;
   }
+
   .onboarding-progress-button {
     margin-top: 20px;
   }
