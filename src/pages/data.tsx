@@ -7,8 +7,10 @@ import {
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { NumericInput } from '../components/numeric-input/numeric-input';
 import { TextMasking } from '../components/text-masking/text-masking';
+import { PrivacyData } from '../types/storage/privacy-data.type';
 
 export function Data(): JSX.Element {
+  const [delay, setDelay] = useState<number>(0);
   const [maskItems, setMaskItems] = useState<string[] | null>(null);
   const [dataItems, setDataItems] = useState<DataItem[] | null>(null);
 
@@ -68,7 +70,6 @@ export function Data(): JSX.Element {
     return () => clearInterval(interval);
   }, []);
 
-  const [delay, setDelay] = useState<number>(0);
   useEffect(() => {
     if (delay > 0) {
       window.helper.saveConfigs({ delay: delay });
@@ -77,7 +78,11 @@ export function Data(): JSX.Element {
 
   useEffect(() => {
     if (maskItems) {
-      window.helper.savePrivacyData(maskItems);
+      const data: PrivacyData[] = [];
+      maskItems.forEach((item) => {
+        data.push({ value: item });
+      });
+      window.helper.savePrivacyData(data);
     }
   }, [maskItems]);
 
@@ -87,6 +92,7 @@ export function Data(): JSX.Element {
       (items || []).filter((msg) => msg.msgId !== message.msgId),
     );
   }, []);
+
   return (
     <div className="page-container">
       <BackgroundTheme layout="layout3" />

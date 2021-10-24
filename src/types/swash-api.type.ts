@@ -1,8 +1,8 @@
-export type JoinRequest = {
+export type JoinResponse = {
   id: number;
 };
 
-export type ActiveReferralRequest = {
+export type ActiveReferralResponse = {
   start: Date;
   expire: Date;
   total: number;
@@ -10,11 +10,11 @@ export type ActiveReferralRequest = {
   reward: number;
 };
 
-export type ReferralRewardRequest = {
+export type ReferralRewardResponse = {
   reward: string;
 };
 
-export type MinimumWithdrawRequest = {
+export type MinimumWithdrawResponse = {
   sponsor: {
     minimum: string;
   };
@@ -24,14 +24,14 @@ export type MinimumWithdrawRequest = {
   };
 };
 
-export type LocationRequest = {
+export type LocationResponse = {
   country: string;
   city: string;
 };
 
-export type WithdrawRequest = {
+export type WithdrawResponse = {
   message?: string;
   tx?: string;
 };
 
-export type ClaimRewardRequest = { tx: string };
+export type ClaimRewardResponse = { tx: string };

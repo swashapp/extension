@@ -47,16 +47,14 @@ export function Wallet(): JSX.Element {
   const [recipient, setRecipient] = useState<string>('');
   const [network, setNetwork] = useState<string>('xDai');
 
-  const loadSettings = useCallback(async () => {
-    return window.helper.load().then((db) => {
-      return window.helper
-        .decryptWallet(db.profile.encryptedWallet, db.configs.salt)
-        .then((keyInfo) => setWalletAddress(keyInfo.address));
-    });
+  const getWalletAddress = useCallback(() => {
+    window.helper
+      .getWalletAddress()
+      .then((address: string) => setWalletAddress(address));
   }, []);
 
   const getUnclaimedBonus = useCallback(() => {
-    window.helper.getReferralRewards().then((_unclaimedBonus) => {
+    window.helper.getRewards().then((_unclaimedBonus) => {
       setUnclaimedBonus((_unclaimed) => {
         const ret =
           _unclaimedBonus.toString() !== _unclaimed
@@ -69,7 +67,6 @@ export function Wallet(): JSX.Element {
 
   const getDataAvailable = useCallback(() => {
     window.helper.getAvailableBalance().then((_dataAvailable) => {
-      console.log(_dataAvailable);
       setDataAvailable((data) => {
         const _data =
           _dataAvailable.error ||
@@ -83,14 +80,14 @@ export function Wallet(): JSX.Element {
   }, []);
 
   const getBalanceInfo = useCallback(async () => {
-    // getUnclaimedBonus();
-    getDataAvailable();
+    await getUnclaimedBonus();
+    await getDataAvailable();
   }, [getDataAvailable, getUnclaimedBonus]);
 
   useEffect(() => {
-    // loadSettings().then(getBalanceInfo);
-    getBalanceInfo().then();
-  });
+    getWalletAddress();
+    getBalanceInfo().catch();
+  }, [getBalanceInfo, getWalletAddress]);
 
   const isClaimDisable = useMemo(() => {
     return unclaimedBonus === '$' || Number(unclaimedBonus) <= 0 || claiming;

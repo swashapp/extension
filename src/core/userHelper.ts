@@ -1,7 +1,6 @@
-import { ethers } from 'ethers';
-import { Wallet } from 'ethers';
+import { ethers, Wallet } from 'ethers';
 import { TokenSigner } from 'jsontokens';
-import { Bytes, DataUnion, StreamrClient } from 'streamr-client';
+import StreamrClient, { Bytes, DataUnion } from 'streamr-client';
 
 import browser from 'webextension-polyfill';
 
@@ -27,6 +26,14 @@ const userHelper = (function () {
   function createWallet() {
     wallet = ethers.Wallet.createRandom();
     return wallet;
+  }
+
+  function getWalletAddress() {
+    return wallet.address;
+  }
+
+  function getWalletPrivateKey() {
+    return wallet.privateKey;
   }
 
   async function getEncryptedWallet(password: Password) {
@@ -200,9 +207,23 @@ const userHelper = (function () {
     return 'Unknown';
   }
 
+  async function getRewards() {
+    try {
+      const { reward } = await swashApiHelper.getReferralRewards(
+        await generateJWT(),
+      );
+      return ethers.utils.formatEther(reward);
+    } catch (err) {
+      console.error(err.message);
+    }
+    return '0';
+  }
+
   return {
     init,
     createWallet,
+    getWalletAddress,
+    getWalletPrivateKey,
     getEncryptedWallet,
     loadEncryptedWallet,
     signWithdrawAllTo,
@@ -216,6 +237,7 @@ const userHelper = (function () {
     isJoinedSwash,
     getJoinedSwash,
     getUserCountry,
+    getRewards,
   };
 })();
 

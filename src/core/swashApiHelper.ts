@@ -4,13 +4,13 @@ import { Any } from '../types/any.type';
 import { SwashApiConfigs } from '../types/storage/configs/swash-api.type';
 
 import {
-  ActiveReferralRequest,
-  ClaimRewardRequest,
-  JoinRequest,
-  LocationRequest,
-  MinimumWithdrawRequest,
-  ReferralRewardRequest,
-  WithdrawRequest,
+  ActiveReferralResponse,
+  ClaimRewardResponse,
+  JoinResponse,
+  LocationResponse,
+  MinimumWithdrawResponse,
+  ReferralRewardResponse,
+  WithdrawResponse,
 } from '../types/swash-api.type';
 
 import { configManager } from './configManager';
@@ -75,19 +75,19 @@ const swashApiHelper = (function () {
   }
 
   async function getActiveReferral(token: string) {
-    return call<ActiveReferralRequest>(token, config.APIs.referralActive);
+    return call<ActiveReferralResponse>(token, config.APIs.referralActive);
   }
 
   async function getJoinedSwash(token: string) {
-    return call<JoinRequest>(token, config.APIs.userJoin);
+    return call<JoinResponse>(token, config.APIs.userJoin);
   }
 
   async function getReferralRewards(token: string) {
-    return call<ReferralRewardRequest>(token, config.APIs.userReferralReward);
+    return call<ReferralRewardResponse>(token, config.APIs.userReferralReward);
   }
 
   async function getWithdrawBalance(token: string) {
-    const data = await call<MinimumWithdrawRequest>(
+    const data = await call<MinimumWithdrawResponse>(
       token,
       config.APIs.balanceWithdraw,
     );
@@ -103,11 +103,11 @@ const swashApiHelper = (function () {
   }
 
   async function getIpLocation(token: string) {
-    return call<LocationRequest>(token, config.APIs.ipLookup);
+    return call<LocationResponse>(token, config.APIs.ipLookup);
   }
 
   async function userWithdraw(token: string, body: Any) {
-    return await call<WithdrawRequest>(
+    return await call<WithdrawResponse>(
       token,
       config.APIs.userBalanceWithdraw,
       'POST',
@@ -116,7 +116,7 @@ const swashApiHelper = (function () {
   }
 
   async function claimRewards() {
-    return await call<ClaimRewardRequest>(
+    return await call<ClaimRewardResponse>(
       config.APIs.userReferralClaim,
       'POST',
     );

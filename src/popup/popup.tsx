@@ -56,8 +56,9 @@ function Popup() {
   const [unclaimedBonus, setUnclaimedBonus] = useState<string>('0');
   const [status, setStatus] = useState<boolean>(false);
   const [excluded, setExcluded] = useState<boolean>(false);
+
   const getUnclaimedBonus = useCallback(() => {
-    window.helper.getReferralRewards().then((_unclaimedBonus) => {
+    window.helper.getRewards().then((_unclaimedBonus) => {
       setUnclaimedBonus((_unclaimed) => {
         const ret =
           _unclaimedBonus.toString() !== _unclaimed
@@ -67,6 +68,7 @@ function Popup() {
       });
     });
   }, []);
+
   const getDataAvailable = useCallback(() => {
     window.helper.getAvailableBalance().then((_dataAvailable) => {
       setDataAvailable((data) => {
@@ -80,6 +82,7 @@ function Popup() {
       });
     });
   }, []);
+
   const getBalanceInfo = useCallback(async () => {
     getUnclaimedBonus();
     getDataAvailable();
@@ -92,14 +95,10 @@ function Popup() {
   }, []);
 
   useEffect(() => {
-    window.helper.load().then((db) => {
-      window.helper.isNeededOnBoarding().then((result) => {
-        if (!result) {
-          setStatus(db.configs.is_enabled);
-
-          getBalanceInfo().then();
-        }
-      });
+    window.helper.isNeededOnBoarding().then((result) => {
+      if (!result) {
+        getBalanceInfo().then();
+      }
     });
   }, [getBalanceInfo]);
 
@@ -119,6 +118,7 @@ function Popup() {
         });
     });
   }, []);
+
   const onStatusChanged = useCallback((checked: boolean) => {
     setStatus(checked);
     if (checked) {
@@ -127,6 +127,7 @@ function Popup() {
       window.helper.stop();
     }
   }, []);
+
   return (
     <div className="extension-popup-container">
       <div className="flex-column extension-popup">
