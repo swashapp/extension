@@ -4,6 +4,7 @@ import {
   DataAccordion,
   DataItem,
 } from '../components/data-accordion/data-accordion';
+import { DATA_TOUR_CLASS } from '../components/data/data-tour';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { NumericInput } from '../components/numeric-input/numeric-input';
 import { TextMasking } from '../components/text-masking/text-masking';
@@ -119,12 +120,14 @@ export function Data(): JSX.Element {
               gets uploaded, you can adjust the sending delay and delete
               anything that you don’t want to share.
             </p>
-            <NumericInput
-              label="Delay My Data By"
-              value={delay}
-              setValue={setDelay}
-              unit={delay > 1 ? 'minutes' : 'minute'}
-            />
+            <div className={DATA_TOUR_CLASS.DELAY_DATA}>
+              <NumericInput
+                label="Delay My Data By"
+                value={delay}
+                setValue={setDelay}
+                unit={delay > 1 ? 'minutes' : 'minute'}
+              />
+            </div>
             <DataAccordion items={dataItems || []} onRemove={deleteMsg} />
           </div>
         </div>

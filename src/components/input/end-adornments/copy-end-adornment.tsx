@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
-import ToastMessage from '../../toast/toast-message';
+import { ToastMessage } from '../../toast/toast-message';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore

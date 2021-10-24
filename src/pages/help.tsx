@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Button } from '../components/button/button';
 import { BackgroundTheme } from '../components/drawing/background-theme';
+import { HELP_TOUR_CLASS } from '../components/help/help-tour';
 import { SearchEndAdornment } from '../components/input/end-adornments/search-end-adornment';
 import { Input } from '../components/input/input';
 import { SectionAccordion } from '../components/section-accordion/section-accordion';
@@ -77,8 +78,8 @@ export function Help(): JSX.Element {
       },
       {
         text: 'How backup works?',
-        done: !!tour?.backup,
-        link: '',
+        done: !!tour[TOUR_NAME.SETTINGS],
+        link: makeTourLink(RouteToPages.settings, TOUR_NAME.SETTINGS),
       },
       {
         text: 'How referral link works?',
@@ -89,14 +90,14 @@ export function Help(): JSX.Element {
         ),
       },
       {
-        text: 'How donations works?',
-        done: !!tour?.donations,
-        link: '',
+        text: 'What is Swash data?',
+        done: !!tour[TOUR_NAME.DATA],
+        link: makeTourLink(RouteToPages.data, TOUR_NAME.DATA),
       },
       {
-        text: 'Few more things',
-        done: false,
-        link: '',
+        text: 'How help works?',
+        done: !!tour[TOUR_NAME.HELP],
+        link: makeTourLink(RouteToPages.help, TOUR_NAME.HELP),
       },
     ];
   }, [makeTourLink, tour]);
@@ -110,7 +111,9 @@ export function Help(): JSX.Element {
         <div className="flex-column card-gap">
           <div className="simple-card">
             <div>
-              <h6>Product tour</h6>
+              <div className={HELP_TOUR_CLASS.TOUR}>
+                <h6>Product tour</h6>
+              </div>
               <Section items={tourItems} />
               <Link
                 to={
@@ -129,7 +132,9 @@ export function Help(): JSX.Element {
           </div>
           <div className="simple-card">
             <div>
-              <div className="help-search-input">
+              <div
+                className={`help-search-input ${HELP_TOUR_CLASS.SEARCH_HELP}`}
+              >
                 <Input
                   name="search"
                   placeholder="Search something at help..."

@@ -22,6 +22,7 @@ import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-ad
 import { Input } from '../components/input/input';
 import { Export3Box } from '../components/passphrase-popup/export-3box';
 import { showPopup } from '../components/popup/popup';
+import { SETTINGS_TOUR_CLASS } from '../components/settings/settings-tour';
 import { ToastMessage } from '../components/toast/toast-message';
 
 export function Settings(): JSX.Element {
@@ -85,7 +86,9 @@ export function Settings(): JSX.Element {
         </div>
         <div className="flex-column card-gap">
           <div className="simple-card">
-            <h6>Backup your wallet settings</h6>
+            <div className={SETTINGS_TOUR_CLASS.BACKUP}>
+              <h6>Backup your wallet settings</h6>
+            </div>
             <div className="flex-column card-gap">
               <p>
                 Don’t forget to download your settings to make sure you can
@@ -148,14 +151,16 @@ export function Settings(): JSX.Element {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac
               eleifend ante.
             </p>
-            <Input
-              label="Private Key"
-              value={privateKey}
-              type={reveal ? 'text' : 'password'}
-              disabled={true}
-              onChange={(e) => setPrivateKey(e.target.value)}
-              endAdornment={<CopyEndAdornment value={privateKey} />}
-            />
+            <div className={SETTINGS_TOUR_CLASS.PRIVATE_KEY}>
+              <Input
+                label="Private Key"
+                value={privateKey}
+                type={reveal ? 'text' : 'password'}
+                disabled={true}
+                onChange={(e) => setPrivateKey(e.target.value)}
+                endAdornment={<CopyEndAdornment value={privateKey} />}
+              />
+            </div>
             <div className="reveal-private-key-button">
               <Button
                 color="secondary"

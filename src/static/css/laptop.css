@@ -10,8 +10,14 @@
     margin: 0 auto;
   }
 
-  .onboarding-verify-email-buttons {
-    width: 744px;
+  .import-your-config-card {
+    width: auto;
+  }
+
+  .onboarding-verify-email-content .onboarding-nav-buttons {
+    width: unset !important;
+    margin-left: 32px;
+    margin-right: 32px;
   }
 
   .stepper-with-logo {

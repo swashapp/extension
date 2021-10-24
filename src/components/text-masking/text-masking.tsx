@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 
 import { RemoveButton } from '../button/remove';
+import { DATA_TOUR_CLASS } from '../data/data-tour';
 import { AddEndAdornment } from '../input/end-adornments/add-end-adornment';
 import { Input } from '../input/input';
 
@@ -19,12 +20,14 @@ export function TextMasking({
 }): JSX.Element {
   const [mask, setMask] = useState<string>('');
   const onAdd = useCallback(
-    (item: string) =>
+    (item: string) => {
       setItems((_items) => {
         const list = _items || [];
         list?.unshift(item);
         return list?.slice();
-      }),
+      });
+      setMask('');
+    },
     [setItems],
   );
   const onRemove = useCallback(
@@ -42,7 +45,7 @@ export function TextMasking({
   );
   return (
     <div className={'text-masking-container'}>
-      <div className="text-masking-input">
+      <div className={`text-masking-input ${DATA_TOUR_CLASS.TEXT_MASKING}`}>
         <Input
           label="Mask It"
           name="MaskIt"

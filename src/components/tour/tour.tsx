@@ -45,7 +45,10 @@ const tourStyles = {
 
 export enum TOUR_NAME {
   WALLET = 'wallet',
-  INVITE_FRIENDS = 'referral',
+  INVITE_FRIENDS = 'friends',
+  SETTINGS = 'settings',
+  DATA = 'data',
+  HELP = 'help',
 }
 
 export const TourContext = React.createContext<{
