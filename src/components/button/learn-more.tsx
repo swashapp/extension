@@ -12,7 +12,8 @@ export function LearnMore(props: {
       size={props.size || 'large'}
       color={'white'}
       link={{
-        url: '',
+        url: 'https://medium.com/swashapp/the-dawn-of-a-new-age-of-data-eff0d8b2f0a4',
+        newTab: true,
         external: true,
       }}
     />

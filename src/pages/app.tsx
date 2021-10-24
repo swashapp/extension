@@ -4,9 +4,13 @@ import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 
+import { DataTour } from '../components/data/data-tour';
+import { HelpTour } from '../components/help/help-tour';
+
 import { InviteFriendsTour } from '../components/invite-friends/invite-friends-tour';
 
 import { Popup } from '../components/popup/popup';
+import { SettingsTour } from '../components/settings/settings-tour';
 import { Sidenav } from '../components/sidenav/sidenav';
 import { SidenavButton } from '../components/sidenav/sidenav-button';
 import { WalletTour } from '../components/wallet/wallet-tour';
@@ -47,6 +51,9 @@ function RouteComponent(
         </div>
         <WalletTour />
         <InviteFriendsTour />
+        <SettingsTour />
+        <DataTour />
+        <HelpTour />
       </div>
     </>
   );

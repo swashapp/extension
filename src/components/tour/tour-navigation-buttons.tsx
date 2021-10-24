@@ -23,16 +23,19 @@ export function TourNavigationButtons(props: {
     window.location.hash = RouteToPages.help;
   }, [tour, props.tourName]);
 
+  const onBack = useCallback(() => {
+    if (props.start) {
+      tour.stop();
+      window.location.hash = RouteToPages.help;
+    } else {
+      tour.back();
+    }
+  }, [props.start, tour]);
+
   return (
     <div className="flex-row tour-nav-buttons">
       <div className="form-button">
-        <Button
-          color="secondary"
-          text="Back"
-          link={false}
-          disabled={props.start}
-          onClick={tour.back}
-        />
+        <Button color="secondary" text="Back" link={false} onClick={onBack} />
       </div>
       <div className="form-button">
         <Button

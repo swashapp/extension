@@ -29,7 +29,7 @@ export function OnboardingVerify(props: { onBack: () => void }): JSX.Element {
   }, [stepper]);
   return (
     <div className="onboarding-verify-email">
-      <div className="onboarding-verify-email-buttons">
+      <div className="flex-column onboarding-verify-email-content">
         <h2>Check your email!</h2>
         <div className="onboarding-verify-text">
           <p>

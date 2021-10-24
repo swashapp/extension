@@ -262,6 +262,7 @@ export function Wallet(): JSX.Element {
               <Input
                 label="Wallet Address"
                 value={walletAddress}
+                disabled={true}
                 onChange={(e) => setWalletAddress(e.target.value)}
                 endAdornment={<CopyEndAdornment value={walletAddress} />}
               />

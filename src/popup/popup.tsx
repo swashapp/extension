@@ -174,7 +174,7 @@ function Popup() {
             excluded ? 'popup-excluded' : ''
           }`}
           onClick={() => {
-            window.helper.handleFilter().then((res) => {
+            window.helper.handleFilter().then(() => {
               setExcluded(true);
             });
           }}

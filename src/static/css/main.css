@@ -1377,22 +1377,27 @@ a:hover {
 
 .import-your-config-card {
   width: auto;
+  white-space: nowrap;
 }
 
 .onboarding-verify-email {
   width: 764px;
-  padding: 80px 32px 32px 32px;
+  padding: 80px 0px 32px 0px;
   justify-content: center;
 }
 
-.onboarding-verify-email-buttons {
+.onboarding-verify-email-content {
+  text-align: center;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+}
+.onboarding-verify-email-content .onboarding-nav-buttons {
+  width: unset !important;
+  margin-left: 32px;
+  margin-right: 32px;
 }
 
 .onboarding-verify-input {
+  align-self: center;
   width: 413px;
 }
 
@@ -1405,6 +1410,7 @@ a:hover {
 }
 
 .onboarding-progress-card {
+  text-align: center;
   position: relative;
   padding: 88px 0;
 }
@@ -1848,10 +1854,13 @@ a:hover {
   opacity: 0.5;
   cursor: pointer;
   user-select: none;
+  mix-blend-mode: normal;
+  border-radius: 8px;
 }
 
 .extension-popup-menu-item:hover {
   opacity: 1;
+  background-color: #f3f9f9;
 }
 
 .extension-popup-menu-item-text {

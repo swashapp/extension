@@ -326,12 +326,23 @@
     margin: 0 auto;
   }
 
+  .import-your-config-card {
+    width: auto;
+  }
+
   .onboarding-verify-email {
     padding: 50px 0 20px 0;
   }
+  .onboarding-verify-email-content .onboarding-nav-buttons {
+    width: unset !important;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
 
-  .onboarding-verify-email-buttons {
-    width: 356px;
+  .onboarding-verify-input {
+    width: unset !important;
+    margin-left: 20px;
+    margin-right: 20px;
   }
 
   .onboarding-nav-buttons {
@@ -345,6 +356,10 @@
 
   .onboarding-progress-card > h2 {
     margin: 24px 0 12px 0;
+  }
+
+  .onboarding-progress-card > p {
+    width: 278px;
   }
 
   .import-your-config-card {

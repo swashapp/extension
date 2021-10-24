@@ -1,0 +1,53 @@
+import React from 'react';
+
+import Tour, { TOUR_NAME } from '../tour/tour';
+
+export enum DATA_TOUR_CLASS {
+  SWASH_DATA = 'swash-data',
+  DELAY_DATA = 'delay-data',
+  TEXT_MASKING = 'text-masking',
+}
+
+export function DataTour(): JSX.Element {
+  return (
+    <Tour
+      tourName={TOUR_NAME.DATA}
+      steps={[
+        {
+          header: 'Data',
+          target: `.${DATA_TOUR_CLASS.SWASH_DATA}`,
+          placement: 'right',
+          content: (
+            <>
+              Ever wondered what data is valuable? Data captured as you surf is
+              collected here.
+            </>
+          ),
+        },
+        {
+          header: 'Delay Data',
+          target: `.${DATA_TOUR_CLASS.DELAY_DATA}`,
+          placement: 'right',
+          content: (
+            <>
+              You can adjust the timer to delay it being added to the Swash Data
+              Union, giving you time to review and edit your data points.
+            </>
+          ),
+        },
+        {
+          header: 'Text Masking',
+          target: `.${DATA_TOUR_CLASS.TEXT_MASKING}`,
+          placement: 'right',
+          content: (
+            <>
+              Here, you’ll also find a pretty cool feature - text masking. Swash
+              doesn’t collect any sensitive information anyway, but here you can
+              add any other words you want Swash to ignore.
+            </>
+          ),
+        },
+      ]}
+    />
+  );
+}
