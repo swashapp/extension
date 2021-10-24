@@ -4,12 +4,14 @@ import { ConfigEntity } from '../entities/config.entity';
 import { FilterEntity } from '../entities/filter.entity';
 import { ModuleEntity } from '../entities/module.entity';
 import { OnboardingEntity } from '../entities/onboarding.entity';
+import { PrivacyDataEntity } from '../entities/privacy-data.entity';
 import { ProfileEntity } from '../entities/profile.entity';
 import { Any } from '../types/any.type';
 import { Configs } from '../types/storage/configs.type';
 import { Filter } from '../types/storage/filter.type';
 import { Module, ModuleFunction, Modules } from '../types/storage/module.type';
 import { Onboarding } from '../types/storage/onboarding.type';
+import { PrivacyData } from '../types/storage/privacy-data.type';
 import { Profile } from '../types/storage/profile.type';
 
 const storageHelper = (function () {
@@ -73,6 +75,14 @@ const storageHelper = (function () {
     return (await FilterEntity.getInstance()).save(filters);
   }
 
+  async function getPrivacyData() {
+    return (await PrivacyDataEntity.getInstance()).get();
+  }
+
+  async function savePrivacyData(privacyData: PrivacyData[]) {
+    return (await PrivacyDataEntity.getInstance()).save(privacyData);
+  }
+
   function updateFunctionSettings(
     module: Module,
     functionName: ModuleFunction,
@@ -111,6 +121,8 @@ const storageHelper = (function () {
     saveProfile,
     getFilters,
     saveFilters,
+    getPrivacyData,
+    savePrivacyData,
     saveModuleSettings,
   };
 })();

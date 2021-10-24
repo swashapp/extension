@@ -29,11 +29,9 @@ export function Settings(): JSX.Element {
   const [privateKey, setPrivateKey] = useState<string>('');
 
   const loadSettings = useCallback(async () => {
-    return window.helper.load().then((db) => {
-      window.helper
-        .decryptWallet(db.profile.encryptedWallet, db.configs.salt)
-        .then((keyInfo) => setPrivateKey(keyInfo.privateKey));
-    });
+    return window.helper
+      .getWalletPrivateKey()
+      .then((key) => setPrivateKey(key));
   }, []);
 
   useEffect(() => {

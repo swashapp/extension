@@ -2,12 +2,12 @@ import { PrivacyData } from '../types/storage/privacy-data.type';
 
 import { Entity } from './entity';
 
-export class MaskEntity extends Entity<PrivacyData[]> {
-  private static instance: MaskEntity;
+export class PrivacyDataEntity extends Entity<PrivacyData[]> {
+  private static instance: PrivacyDataEntity;
 
-  public static async getInstance(): Promise<MaskEntity> {
+  public static async getInstance(): Promise<PrivacyDataEntity> {
     if (!this.instance) {
-      this.instance = new MaskEntity();
+      this.instance = new PrivacyDataEntity();
       await this.instance.init();
     }
     return this.instance;

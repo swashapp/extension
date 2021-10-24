@@ -13,6 +13,7 @@ var helper = (function () {
     };
     return sendMessage(message);
   }
+
   function isCurrentDomainFiltered() {
     const message = {
       obj: 'pageAction',
@@ -21,19 +22,21 @@ var helper = (function () {
     };
     return sendMessage(message);
   }
+
   function loadFilters() {
     const message = {
       obj: 'storageHelper',
-      func: 'retrieveData',
-      params: ['filters'],
+      func: 'getFilters',
+      params: [],
     };
     return sendMessage(message);
   }
+
   function loadPrivacyData() {
     const message = {
       obj: 'storageHelper',
-      func: 'retrieveData',
-      params: ['privacyData'],
+      func: 'getPrivacyData',
+      params: [],
     };
     return sendMessage(message);
   }
@@ -68,17 +71,19 @@ var helper = (function () {
   function load() {
     const message = {
       obj: 'storageHelper',
-      func: 'retrieveAll',
+      func: 'getAll',
       params: [],
     };
     return sendMessage(message);
   }
+
   function save(data) {}
+
   function saveFilters(data) {
     const message = {
       obj: 'storageHelper',
-      func: 'updateData',
-      params: ['filters', data],
+      func: 'saveFilters',
+      params: [data],
     };
     return sendMessage(message);
   }
@@ -86,8 +91,8 @@ var helper = (function () {
   function savePrivacyData(data) {
     const message = {
       obj: 'storageHelper',
-      func: 'updateData',
-      params: ['privacyData', data],
+      func: 'savePrivacyData',
+      params: [data],
     };
     return sendMessage(message);
   }
@@ -127,6 +132,7 @@ var helper = (function () {
     };
     return sendMessage(message);
   }
+
   function configModule(moduleName, settings) {
     const message = {
       obj: 'loader',
@@ -135,6 +141,7 @@ var helper = (function () {
     };
     return sendMessage(message);
   }
+
   function startAuth(moduleName) {
     const message = {
       obj: 'apiCall',
@@ -228,10 +235,19 @@ var helper = (function () {
     return sendMessage(message);
   }
 
-  function getKeyInfo() {
+  function getWalletAddress() {
     const message = {
       obj: 'userHelper',
-      func: 'getWalletInfo',
+      func: 'getWalletAddress',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
+  function getWalletPrivateKey() {
+    const message = {
+      obj: 'userHelper',
+      func: 'getWalletPrivateKey',
       params: [],
     };
     return sendMessage(message);
@@ -507,10 +523,10 @@ var helper = (function () {
     return sendMessage(message);
   }
 
-  function getReferralRewards() {
+  function getRewards() {
     const message = {
-      obj: 'swashApiHelper',
-      func: 'getReferralRewards',
+      obj: 'userHelper',
+      func: 'getRewards',
       params: [],
     };
     return sendMessage(message);
@@ -602,7 +618,8 @@ var helper = (function () {
     removeModule,
     enforcePolicy,
     identityPrivacy,
-    getKeyInfo,
+    getWalletAddress,
+    getWalletPrivateKey,
     getDataBalance,
     getEthBalance,
     getAvailableBalance,
@@ -637,7 +654,7 @@ var helper = (function () {
     saveProfileInOnBoarding,
     createAndSaveWallet,
     joinSwash,
-    getReferralRewards,
+    getRewards,
     getCategory,
     getDataEthPairPrice,
     withdrawToTarget,
