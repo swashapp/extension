@@ -76,7 +76,6 @@ export function OnboardingJoin(): JSX.Element {
     [onSuccess, reloadIFrame, stepper],
   );
   useEffect(() => {
-    console.log(token);
     if (!token) {
       window.helper.generateJWT().then((_token) => setToken(_token));
     }
@@ -90,6 +89,7 @@ export function OnboardingJoin(): JSX.Element {
     <>
       {success ? (
         <OnboardingVerify
+          key={''}
           onBack={() => {
             console.log('');
           }}

@@ -103,7 +103,7 @@ browser.runtime.onMessage.addListener(
       dataHandler: dataHandler,
       context: context,
       task: task,
-      communityHelper: userHelper,
+      userHelper: userHelper,
       pageAction: pageAction,
       transfer: transfer,
       onboarding: onboarding,

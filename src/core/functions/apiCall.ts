@@ -43,7 +43,7 @@ const apiCall = (function () {
   }
 
   async function isConnected(moduleName) {
-    const modules = await storageHelper.retrieveModules();
+    const modules = await storageHelper.getModules();
     for (const moduleN in modules) {
       const module = modules[moduleN];
       if (module.name == moduleName) {
@@ -59,7 +59,7 @@ const apiCall = (function () {
     };
     if (!browser.webRequest.onBeforeRequest.hasListener(extractToken))
       browser.webRequest.onBeforeRequest.addListener(extractToken, filter);
-    storageHelper.retrieveModules().then((modules) => {
+    storageHelper.getModules().then((modules) => {
       for (const moduleN in modules) {
         const module = modules[moduleN];
         if (module.name == moduleName) {
@@ -87,7 +87,7 @@ const apiCall = (function () {
   }
 
   function extractToken(details) {
-    storageHelper.retrieveModules().then((modules) => {
+    storageHelper.getModules().then((modules) => {
       for (const moduleN in modules) {
         const module = modules[moduleN];
         if (module.functions.includes('apiCall')) {
@@ -115,7 +115,7 @@ const apiCall = (function () {
   }
 
   function getAccessToken(moduleName) {
-    return storageHelper.retrieveModules().then((mds) => {
+    return storageHelper.getModules().then((mds) => {
       for (const m in mds) {
         if (mds[m].name == moduleName) {
           if (validateToken(mds[m]))
@@ -140,7 +140,7 @@ const apiCall = (function () {
   }
 
   function saveEtags(module_name, eTags) {
-    storageHelper.retrieveModules().then((modules) => {
+    storageHelper.getModules().then((modules) => {
       const data = {};
       data[module_name] = {};
       data[module_name].apiCall = modules[module_name].apiCall;
@@ -256,7 +256,7 @@ const apiCall = (function () {
   }
 
   function unload() {
-    storageHelper.retrieveModules().then((modules) => {
+    storageHelper.getModules().then((modules) => {
       for (const module in modules) {
         if (modules[module].functions.includes('apiCall')) {
           unloadModule(modules[module]);
@@ -266,7 +266,7 @@ const apiCall = (function () {
   }
 
   function load() {
-    storageHelper.retrieveModules().then((modules) => {
+    storageHelper.getModules().then((modules) => {
       for (const module in modules) {
         if (modules[module].functions.includes('apiCall')) {
           loadModule(modules[module]);

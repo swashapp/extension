@@ -59,7 +59,7 @@ var helper = (function () {
   function loadModules() {
     const message = {
       obj: 'storageHelper',
-      func: 'retrieveModules',
+      func: 'getModules',
       params: [],
     };
     return sendMessage(message);
@@ -221,7 +221,7 @@ var helper = (function () {
 
   function decryptWallet(encryptedWallet, password) {
     const message = {
-      obj: 'communityHelper',
+      obj: 'userHelper',
       func: 'decryptWallet',
       params: [encryptedWallet, password],
     };
@@ -230,7 +230,7 @@ var helper = (function () {
 
   function getKeyInfo() {
     const message = {
-      obj: 'communityHelper',
+      obj: 'userHelper',
       func: 'getWalletInfo',
       params: [],
     };
@@ -239,7 +239,7 @@ var helper = (function () {
 
   function getDataBalance(address) {
     const message = {
-      obj: 'communityHelper',
+      obj: 'userHelper',
       func: 'getDataBalance',
       params: [address],
     };
@@ -248,7 +248,7 @@ var helper = (function () {
 
   function getEthBalance(address) {
     const message = {
-      obj: 'communityHelper',
+      obj: 'userHelper',
       func: 'getEthBalance',
       params: [address],
     };
@@ -257,7 +257,7 @@ var helper = (function () {
 
   function getAvailableBalance() {
     const message = {
-      obj: 'communityHelper',
+      obj: 'userHelper',
       func: 'getAvailableBalance',
       params: [],
     };
@@ -266,7 +266,7 @@ var helper = (function () {
 
   function getCumulativeEarnings() {
     const message = {
-      obj: 'communityHelper',
+      obj: 'userHelper',
       func: 'getCumulativeEarnings',
       params: [],
     };
@@ -275,7 +275,7 @@ var helper = (function () {
 
   function getTotalBalance() {
     const message = {
-      obj: 'communityHelper',
+      obj: 'userHelper',
       func: 'getTotalBalance',
       params: [],
     };
@@ -284,7 +284,7 @@ var helper = (function () {
 
   function generateJWT() {
     const message = {
-      obj: 'communityHelper',
+      obj: 'userHelper',
       func: 'generateJWT',
       params: [],
     };
@@ -554,7 +554,7 @@ var helper = (function () {
 
   function getJoinedSwash() {
     const message = {
-      obj: 'swashApiHelper',
+      obj: 'userHelper',
       func: 'getJoinedSwash',
       params: [],
     };

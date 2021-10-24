@@ -30,7 +30,7 @@ const tourStyles = {
   tooltip: {
     background: 'var(--white)',
     boxShadow:
-      '0px 10px 20px rgba(44, 62, 62, 0.04), 0px 2px 6px rgba(44, 62, 62, 0.04), 0px 0px 1px rgba(44, 62, 62, 0.04)',
+      '0px 10px 20px rgba(44, 62, 62, 0.04), 0 2px 6px rgba(44, 62, 62, 0.04), 0 0 1px rgba(44, 62, 62, 0.04)',
     borderRadius: 12,
     padding: 0,
     margin: 0,
@@ -147,7 +147,6 @@ export default forwardRef(function Tour(
     const search = window.location.hash.split('?');
     if (search) {
       const _tour = new URLSearchParams(search[1]).get('tour');
-      console.log(_tour);
 
       if (_tour && _tour === props.tourName) {
         start();

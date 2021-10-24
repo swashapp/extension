@@ -1,10 +1,8 @@
-import React, { ReactElement } from 'react';
-import { PropsWithChildren } from 'react';
+import React, { ReactElement, PropsWithChildren } from 'react';
+import { Link as RLink } from 'react-router-dom';
 
 export interface LinkProps {
   url: string;
-  position: string;
-  event: string;
   external?: boolean;
   newTab?: boolean;
   className?: string;
@@ -15,7 +13,7 @@ export function Link(
 ): JSX.Element {
   const { url, newTab = false, className = '' } = props;
 
-  return (
+  return props.external ? (
     <a
       href={url}
       className={className}
@@ -24,5 +22,14 @@ export function Link(
     >
       {props.children}
     </a>
+  ) : (
+    <RLink
+      to={url}
+      className={className}
+      target={newTab ? '_blank' : '_self'}
+      rel="noreferrer"
+    >
+      {props.children}
+    </RLink>
   );
 }

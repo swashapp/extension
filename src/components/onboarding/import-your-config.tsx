@@ -15,11 +15,9 @@ import GoogleDriveLogo from 'url:../../static/images/logos/google-drive.png';
 import ThreeBoxLogo from 'url:../../static/images/logos/three-box.png';
 
 import { StepperContext } from '../../pages/onboarding';
-
 import { Button } from '../button/button';
 import { FlexGrid } from '../flex-grid/flex-grid';
 import { FilePicker } from '../passphrase-popup/file-picker';
-
 import { SignIn3Box } from '../passphrase-popup/sign-in-3box';
 import { closePopup, showPopup } from '../popup/popup';
 import { ToastMessage } from '../toast/toast-message';
@@ -55,8 +53,9 @@ export function ImportYourConfig(): JSX.Element {
     window.helper
       .getJoinedSwash()
       .then((data) => {
-        if (data.id && data.email)
-          stepper.changeSelectedPage('Join', 'Completed');
+        // TODO: Should use both emails and id
+        // if (data.id && data.email)
+        if (data.id) stepper.changeSelectedPage('Join', 'Completed');
         setImporting(false);
         stepper.next();
       })
@@ -102,7 +101,6 @@ export function ImportYourConfig(): JSX.Element {
   );
   const togglePopup = useCallback(
     (message: { onboarding: string }) => {
-      console.log(message);
       showPopup({
         closable: true,
         content: (

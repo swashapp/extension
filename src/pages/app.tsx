@@ -16,10 +16,6 @@ import { RouteToPages } from '../paths';
 import { Onboarding } from './onboarding';
 import { Wallet } from './wallet';
 
-function EmptyComponent() {
-  return <div style={{ width: '100%' }} />;
-}
-
 function RouteComponent(
   ExtensionComponent: () => JSX.Element,
   activeIndex: number,
@@ -47,11 +43,7 @@ function RouteComponent(
             sidenavOpen ? 'content-open-sidenav' : 'content-close-sidenav'
           }`}
         >
-          {ExtensionComponent === null ? (
-            <EmptyComponent />
-          ) : (
-            <ExtensionComponent />
-          )}
+          <ExtensionComponent />
         </div>
         <WalletTour />
         <InviteFriendsTour />

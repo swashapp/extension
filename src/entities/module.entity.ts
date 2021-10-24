@@ -5,7 +5,7 @@ import { commonUtils } from '../utils/common.util';
 import { ConfigEntity } from './config.entity';
 import { Entity } from './entity';
 
-const base = 'js/modules';
+const base = 'core/modules';
 
 async function fetchModule(
   category: string,
@@ -47,7 +47,7 @@ async function fetchModules() {
   const configs = await ConfigEntity.getInstance();
   const categories = (await configs.get()).manifest.categories;
 
-  for (const category in Object.keys(categories)) {
+  for (const category of Object.keys(categories)) {
     const _modules = categories[category].modules;
     if (!_modules) continue;
 
@@ -57,7 +57,7 @@ async function fetchModules() {
         const module = await fetchModule(category, name, version);
         modules[module.name] = module;
       } catch (err) {
-        console.log(`Failed to fetch module ${category}:${name}: ${err}`);
+        console.error(`Failed to fetch module ${category}:${name}: ${err}`);
       }
     }
   }

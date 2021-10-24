@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import browser from 'webextension-polyfill';
 
@@ -85,23 +85,23 @@ function Popup() {
     getDataAvailable();
   }, [getDataAvailable, getUnclaimedBonus]);
 
-  // useEffect(() => {
-  //   window.helper.isCurrentDomainFiltered().then((filtered) => {
-  //     if (filtered) setExcluded(true);
-  //   });
-  // }, []);
+  useEffect(() => {
+    window.helper.isCurrentDomainFiltered().then((filtered) => {
+      if (filtered) setExcluded(true);
+    });
+  }, []);
 
-  // useEffect(() => {
-  //   window.helper.load().then((db) => {
-  //     window.helper.isNeededOnBoarding().then((result) => {
-  //       if (!result) {
-  //         setStatus(db.configs.is_enabled);
+  useEffect(() => {
+    window.helper.load().then((db) => {
+      window.helper.isNeededOnBoarding().then((result) => {
+        if (!result) {
+          setStatus(db.configs.is_enabled);
 
-  //         getBalanceInfo().then();
-  //       }
-  //     });
-  //   });
-  // }, [getBalanceInfo]);
+          getBalanceInfo().then();
+        }
+      });
+    });
+  }, [getBalanceInfo]);
 
   const showPageOnTab = useCallback((url_to_show: string) => {
     window.helper.isNeededOnBoarding().then((result) => {
@@ -153,7 +153,9 @@ function Popup() {
           text="Wallet"
           iconClassName="popup-wallet-icon"
           onClick={() =>
-            showPageOnTab(browser.runtime.getURL('dashboard/index.html#/data'))
+            showPageOnTab(
+              browser.runtime.getURL('dashboard/index.html#/wallet'),
+            )
           }
         />
         <MenuItem

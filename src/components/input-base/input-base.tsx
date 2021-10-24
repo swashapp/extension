@@ -12,7 +12,7 @@ const BootstrapInput = withStyles((theme) => ({
     position: 'relative',
     backgroundColor: 'transparent',
     border: '1px solid #E9EDEF',
-    padding: '38px 0px 20px 24px',
+    padding: '38px 0 20px 24px',
     transition: theme.transitions.create(['border-color']),
 
     fontFamily: 'Inter',

@@ -45,7 +45,7 @@ const dataHandler = (function () {
       try {
         streams[message.header.category].produceNewEvent(message);
       } catch (err) {
-        `failed to produce new event because of: ${err.message}`;
+        console.error(`failed to produce new event because of: ${err.message}`);
       }
     }
     await databaseHelper.removeReadyMessages(time);

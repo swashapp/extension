@@ -51,7 +51,6 @@ export function DataTransferPopup(props: {
         props.sendToMainnet,
       )
       .then((result) => {
-        console.log(result);
         if (result.tx) {
           props.onSuccess().then();
           toast(

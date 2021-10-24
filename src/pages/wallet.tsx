@@ -66,8 +66,10 @@ export function Wallet(): JSX.Element {
       });
     });
   }, []);
+
   const getDataAvailable = useCallback(() => {
     window.helper.getAvailableBalance().then((_dataAvailable) => {
+      console.log(_dataAvailable);
       setDataAvailable((data) => {
         const _data =
           _dataAvailable.error ||
@@ -79,13 +81,15 @@ export function Wallet(): JSX.Element {
       });
     });
   }, []);
+
   const getBalanceInfo = useCallback(async () => {
-    getUnclaimedBonus();
+    // getUnclaimedBonus();
     getDataAvailable();
   }, [getDataAvailable, getUnclaimedBonus]);
 
   useEffect(() => {
-    loadSettings().then(getBalanceInfo);
+    // loadSettings().then(getBalanceInfo);
+    getBalanceInfo().then();
   });
 
   const isClaimDisable = useMemo(() => {

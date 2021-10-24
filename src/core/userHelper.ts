@@ -195,7 +195,7 @@ const userHelper = (function () {
         return country;
       }
     } catch (err) {
-      console.log(err.message);
+      console.error(err.message);
     }
     return 'Unknown';
   }
