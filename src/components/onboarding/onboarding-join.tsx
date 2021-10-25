@@ -11,7 +11,7 @@ import { StepperContext } from '../../pages/onboarding';
 import { OnboardingVerify } from './onboarding-verify';
 
 const SWASH_DOMAIN = 'https://swashapp.io';
-const SWASH_JOIN_PAGE = '/user/join';
+const SWASH_JOIN_PAGE = '/user/verify-email';
 const MAX_TOKEN_TRY_COUNT = 3;
 const MAX_GENERAL_TRY_COUNT = 3;
 
@@ -19,7 +19,7 @@ const enum Status {
   BACK = 'BACK',
   SUCCESS = 'SUCCESS',
   FAIL = 'FAIL',
-  TRY_AGAIN = 'TRYAGAIN',
+  TRY_AGAIN = 'TRY_AGAIN',
 }
 
 export function OnboardingJoin(): JSX.Element {
