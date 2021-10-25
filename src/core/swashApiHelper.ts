@@ -11,11 +11,30 @@ import {
   MinimumWithdrawResponse,
   ReferralRewardResponse,
   WithdrawResponse,
+  ReferralsResponse,
 } from '../types/swash-api.type';
 
 import { configManager } from './configManager';
 
 const OK_STATUS = 200;
+
+function encodeQueryString(params: {
+  [key: string]: string | boolean | number;
+}) {
+  return Object.keys(params)
+    .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
+    .join('&');
+}
+
+function createRequest(token: string, method = 'GET') {
+  return {
+    method: method,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  };
+}
 
 const swashApiHelper = (function () {
   let config: SwashApiConfigs;
@@ -38,22 +57,7 @@ const swashApiHelper = (function () {
     throw new Error('Unable to fetch DATA price');
   }
 
-  async function call<Type>(
-    token: string,
-    api: string,
-    method = 'GET',
-    body?: Any,
-  ) {
-    const url = config.endpoint + api;
-    let req: Any = {
-      method: method,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    if (body) req = { ...req, body: JSON.stringify(body) };
+  async function call<Type>(url: string, req: Any) {
     const resp = await fetch(url, req);
 
     if (resp.status === OK_STATUS) {
@@ -61,7 +65,20 @@ const swashApiHelper = (function () {
       if (payload.status === 'success') return payload.data as Type;
       throw Error(payload.message);
     }
-    throw Error(`Failed to fetch ${api}`);
+    throw Error(`Failed to fetch ${url}`);
+  }
+
+  async function get<Type>(token: string, api: string, params?: Any) {
+    const query = params ? `?${encodeQueryString(params)}` : '';
+    const url = config.endpoint + api + query;
+    return call<Type>(url, createRequest(token));
+  }
+
+  async function post<Type>(token: string, api: string, body?: Any) {
+    let req: Any = createRequest(token, 'POST');
+    const url = config.endpoint + api;
+    if (body) req = { ...req, body: JSON.stringify(body) };
+    return call<Type>(url, req);
   }
 
   async function getTimestamp() {
@@ -75,19 +92,25 @@ const swashApiHelper = (function () {
   }
 
   async function getActiveReferral(token: string) {
-    return call<ActiveReferralResponse>(token, config.APIs.referralActive);
+    return get<ActiveReferralResponse>(token, config.APIs.referralActive);
   }
 
   async function getJoinedSwash(token: string) {
-    return call<JoinResponse>(token, config.APIs.userJoin);
+    return get<JoinResponse>(token, config.APIs.userJoin);
   }
 
   async function getReferralRewards(token: string) {
-    return call<ReferralRewardResponse>(token, config.APIs.userReferralReward);
+    return get<ReferralRewardResponse>(token, config.APIs.userReferralReward);
+  }
+
+  async function getReferrals(token: string) {
+    return get<ReferralsResponse[]>(token, config.APIs.userReferralReward, {
+      details: true,
+    });
   }
 
   async function getWithdrawBalance(token: string) {
-    const data = await call<MinimumWithdrawResponse>(
+    const data = await get<MinimumWithdrawResponse>(
       token,
       config.APIs.balanceWithdraw,
     );
@@ -103,22 +126,21 @@ const swashApiHelper = (function () {
   }
 
   async function getIpLocation(token: string) {
-    return call<LocationResponse>(token, config.APIs.ipLookup);
+    return get<LocationResponse>(token, config.APIs.ipLookup);
   }
 
   async function userWithdraw(token: string, body: Any) {
-    return await call<WithdrawResponse>(
+    return await post<WithdrawResponse>(
       token,
       config.APIs.userBalanceWithdraw,
-      'POST',
       body,
     );
   }
 
-  async function claimRewards() {
-    return await call<ClaimRewardResponse>(
+  async function claimRewards(token: string) {
+    return await post<ClaimRewardResponse>(
+      token,
       config.APIs.userReferralClaim,
-      'POST',
     );
   }
 
@@ -129,6 +151,7 @@ const swashApiHelper = (function () {
     getActiveReferral,
     getJoinedSwash,
     getReferralRewards,
+    getReferrals,
     getWithdrawBalance,
     getIpLocation,
     userWithdraw,

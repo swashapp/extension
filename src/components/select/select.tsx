@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
 
 export function Select(
   props: PropsWithChildren<{
-    items: { value: string; description: string }[];
+    items: { value: string; description?: string }[];
     label: string;
     value: string | number;
     onChange?: (
@@ -51,7 +51,9 @@ export function Select(
             <div className="flex-row">
               <div className="select-item-value">{item.value}</div>
               &nbsp;&nbsp;&nbsp;
-              <div className="select-item-description">{item.description}</div>
+              <div className="select-item-description">
+                {item.description || ''}
+              </div>
             </div>
           </MenuItem>
         ))}

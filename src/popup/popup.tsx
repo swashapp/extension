@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+
 import browser from 'webextension-polyfill';
 
 import { LearnMore } from '../components/button/learn-more';
@@ -7,6 +8,7 @@ import { Circle } from '../components/drawing/circle';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { SwashLogo } from '../components/swash-logo/swash-logo';
 import { Switch } from '../components/switch/switch';
+import { UtilsService } from '../service/utils-service';
 
 function WelcomeToNewDataWorld() {
   return (
@@ -46,11 +48,6 @@ function MenuItem(props: {
   );
 }
 
-const purgeNumber = (num: string) => {
-  if (num.indexOf('.') < 0) return num;
-  return num.slice(0, num.indexOf('.') + 5);
-};
-
 function Popup() {
   const [dataAvailable, setDataAvailable] = useState<string>('0');
   const [unclaimedBonus, setUnclaimedBonus] = useState<string>('0');
@@ -64,7 +61,7 @@ function Popup() {
           _unclaimedBonus.toString() !== _unclaimed
             ? _unclaimedBonus.toString()
             : _unclaimed;
-        return purgeNumber(ret);
+        return UtilsService.purgeNumber(ret, 4);
       });
     });
   }, []);
@@ -78,7 +75,7 @@ function Popup() {
           typeof _dataAvailable === 'undefined'
             ? data
             : _dataAvailable;
-        return purgeNumber(_data);
+        return UtilsService.purgeNumber(_data, 4);
       });
     });
   }, []);

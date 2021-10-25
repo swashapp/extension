@@ -14,6 +14,12 @@ export type ReferralRewardResponse = {
   reward: string;
 };
 
+export type ReferralsResponse = {
+  reward: string;
+  referral: number;
+  programId: number;
+};
+
 export type MinimumWithdrawResponse = {
   sponsor: {
     minimum: string;
