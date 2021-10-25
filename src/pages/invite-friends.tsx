@@ -6,6 +6,7 @@ import {
   LinkedinShareButton,
   EmailShareButton,
 } from 'react-share';
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import TotalBonusIcon from 'url:../static/images/icons/total-bonus.svg';
@@ -35,12 +36,21 @@ import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-ad
 import { Input } from '../components/input/input';
 import { INVITE_FRIENDS_TOUR_CLASS } from '../components/invite-friends/invite-friends-tour';
 import { NumericSection } from '../components/numeric-section/numeric-section';
+import { UtilsService } from '../service/utils-service';
+
 const referralMessage =
   'Use my referral link to earn money as you surf with Swash:';
 
 export function InviteFriends(): JSX.Element {
   const [referralLink, setReferralLink] = useState<string>('');
   const [reward, setReward] = useState<number>(0);
+  const [referral, setReferral] = useState<{
+    totalReward: string;
+    totalReferral: number;
+  }>({
+    totalReward: '0',
+    totalReferral: 0,
+  });
 
   const loadReferral = useCallback(() => {
     window.helper.load().then((db) => {
@@ -61,10 +71,15 @@ export function InviteFriends(): JSX.Element {
     });
   }, []);
 
+  const loadReferrals = useCallback(() => {
+    window.helper.getReferrals().then((_referral) => setReferral(_referral));
+  }, []);
+
   useEffect(() => {
     loadReferral();
     loadActiveReferral();
-  }, [loadActiveReferral, loadReferral]);
+    loadReferrals();
+  }, [loadActiveReferral, loadReferral, loadReferrals]);
   return (
     <div className="page-container">
       <BackgroundTheme />
@@ -76,14 +91,14 @@ export function InviteFriends(): JSX.Element {
           <FlexGrid column={2} className="invite-friends-numerics card-gap">
             <NumericSection
               title="Total Bonus Earned"
-              value={'124343.9'}
+              value={UtilsService.purgeNumber(referral.totalReward)}
               layout="layout1"
               image={TotalBonusIcon}
             />
             <NumericSection
               tourClassName={INVITE_FRIENDS_TOUR_CLASS.FRIENDS}
               title="Total Invited Friends"
-              value={'123'}
+              value={referral.totalReferral}
               layout="layout2"
               image={TotalFriendsIcon}
             />

@@ -1,4 +1,4 @@
-import { ethers, Wallet } from 'ethers';
+import { BigNumber, ethers, Wallet } from 'ethers';
 import { TokenSigner } from 'jsontokens';
 import StreamrClient, { Bytes, DataUnion } from 'streamr-client';
 
@@ -171,6 +171,18 @@ const userHelper = (function () {
     return await swashApiHelper.getJoinedSwash(await generateJWT());
   }
 
+  async function getActiveReferral() {
+    return await swashApiHelper.getActiveReferral(await generateJWT());
+  }
+
+  async function getWithdrawBalance() {
+    return await swashApiHelper.getWithdrawBalance(await generateJWT());
+  }
+
+  async function claimRewards() {
+    return await swashApiHelper.claimRewards(await generateJWT());
+  }
+
   async function getUserId() {
     const profile = await storageHelper.getProfile();
     if (profile.user_id) return profile.user_id;
@@ -219,6 +231,24 @@ const userHelper = (function () {
     return '0';
   }
 
+  async function getReferrals() {
+    let totalReward = BigNumber.from(0);
+    let totalReferral = 0;
+    try {
+      const res = await swashApiHelper.getReferrals(await generateJWT());
+      res.forEach((obj) => {
+        totalReward = totalReward.add(obj.reward || '0');
+        totalReferral += obj.referral;
+      });
+    } catch (err) {
+      console.error(err.message);
+    }
+    return {
+      totalReward: ethers.utils.formatEther(totalReward.toString()),
+      totalReferral,
+    };
+  }
+
   return {
     init,
     createWallet,
@@ -236,8 +266,12 @@ const userHelper = (function () {
     withdrawToTarget,
     isJoinedSwash,
     getJoinedSwash,
+    getActiveReferral,
     getUserCountry,
     getRewards,
+    getReferrals,
+    getWithdrawBalance,
+    claimRewards,
   };
 })();
 

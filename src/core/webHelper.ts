@@ -516,7 +516,7 @@ var helper = (function () {
 
   function joinSwash() {
     const message = {
-      obj: 'swashApiHelper',
+      obj: 'userHelper',
       func: 'joinSwash',
       params: [],
     };
@@ -527,6 +527,15 @@ var helper = (function () {
     const message = {
       obj: 'userHelper',
       func: 'getRewards',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
+  function getReferrals() {
+    const message = {
+      obj: 'userHelper',
+      func: 'getReferrals',
       params: [],
     };
     return sendMessage(message);
@@ -561,7 +570,7 @@ var helper = (function () {
 
   function claimRewards() {
     const message = {
-      obj: 'swashApiHelper',
+      obj: 'userHelper',
       func: 'claimRewards',
       params: [],
     };
@@ -579,7 +588,7 @@ var helper = (function () {
 
   function getWithdrawBalance() {
     const message = {
-      obj: 'swashApiHelper',
+      obj: 'userHelper',
       func: 'getWithdrawBalance',
       params: [],
     };
@@ -588,7 +597,7 @@ var helper = (function () {
 
   function getActiveReferral() {
     const message = {
-      obj: 'swashApiHelper',
+      obj: 'userHelper',
       func: 'getActiveReferral',
       params: [],
     };
@@ -655,6 +664,7 @@ var helper = (function () {
     createAndSaveWallet,
     joinSwash,
     getRewards,
+    getReferrals,
     getCategory,
     getDataEthPairPrice,
     withdrawToTarget,

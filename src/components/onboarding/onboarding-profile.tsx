@@ -10,29 +10,29 @@ import { ToastMessage } from '../toast/toast-message';
 import { NavigationButtons } from './navigation-buttons';
 
 const genderList = [
-  { description: '', value: '' },
-  { description: 'Male', value: 'Male' },
-  { description: 'Female', value: 'Female' },
-  { description: 'Non-binary', value: 'Non-binary' },
+  { value: '' },
+  { value: 'Male' },
+  { value: 'Female' },
+  { value: 'Non-binary' },
 ];
 
 const ageList = [
-  { description: '', value: '' },
-  { description: '< 20', value: '-20' },
-  { description: '20-30', value: '20-30' },
-  { description: '30-40', value: '30-40' },
-  { description: '40-50', value: '40-50' },
-  { description: '50+', value: '50+' },
+  { value: '' },
+  { value: '-20' },
+  { value: '20-30' },
+  { value: '30-40' },
+  { value: '40-50' },
+  { value: '50+' },
 ];
 
 const incomeList = [
-  { description: '', value: '' },
-  { description: '< $12K', value: '-12K' },
-  { description: '$12K - $25K', value: '12-25K' },
-  { description: '$25K - $50K', value: '25-50K' },
-  { description: '$50K - $75K', value: '50-75K' },
-  { description: '$75K - $150K', value: '75-150K' },
-  { description: '$150K+', value: '150K+' },
+  { value: '' },
+  { value: '-12K' },
+  { value: '12-25K' },
+  { value: '25-50K' },
+  { value: '50-75K' },
+  { value: '75-150K' },
+  { value: '150K+' },
 ];
 export function OnboardingProfile(): JSX.Element {
   const stepper = useContext(StepperContext);

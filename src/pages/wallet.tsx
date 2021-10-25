@@ -23,16 +23,9 @@ import { Select } from '../components/select/select';
 import { ToastMessage } from '../components/toast/toast-message';
 import { DataTransferPopup } from '../components/wallet/data-transfer-popup';
 import { WALLET_TOUR_CLASS } from '../components/wallet/wallet-tour';
+import { UtilsService } from '../service/utils-service';
 
-const networkList = [
-  { description: 'xDai', value: 'xDai' },
-  { description: 'Mainnet', value: 'Mainnet' },
-];
-
-const purgeNumber = (num: string) => {
-  if (num.indexOf('.') < 0) return num;
-  return num.slice(0, num.indexOf('.') + 3);
-};
+const networkList = [{ value: 'xDai' }, { value: 'Mainnet' }];
 
 export function Wallet(): JSX.Element {
   const [dataAvailable, setDataAvailable] = useState<string>('$');
@@ -60,7 +53,7 @@ export function Wallet(): JSX.Element {
           _unclaimedBonus.toString() !== _unclaimed
             ? _unclaimedBonus.toString()
             : _unclaimed;
-        return purgeNumber(ret);
+        return UtilsService.purgeNumber(ret);
       });
     });
   }, []);
@@ -74,7 +67,7 @@ export function Wallet(): JSX.Element {
           typeof _dataAvailable === 'undefined'
             ? data
             : _dataAvailable;
-        return purgeNumber(_data);
+        return UtilsService.purgeNumber(_data);
       });
     });
   }, []);
@@ -368,9 +361,11 @@ export function Wallet(): JSX.Element {
               <div>
                 <FormMessage text={formState.message} type={formState.type} />
                 {network === 'Mainnet' && recipient ? (
-                  <div className="form-message-balance">{`Balance: ${purgeNumber(
+                  <div className="form-message-balance">{`Balance: ${UtilsService.purgeNumber(
                     recipientEthBalance,
-                  )} ETH, ${purgeNumber(recipientDataBalance)} DATA`}</div>
+                  )} ETH, ${UtilsService.purgeNumber(
+                    recipientDataBalance,
+                  )} DATA`}</div>
                 ) : (
                   <></>
                 )}
