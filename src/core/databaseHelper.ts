@@ -143,22 +143,17 @@ const databaseHelper = (function () {
       : 0;
   };
 
-  function insertMessage(message: Message) {
+  async function insertMessage(message: Message) {
     const currentTime = Number(new Date().getTime());
     const row = {
       createTime: currentTime,
       message: message,
     };
     //since Id is autoincrement column, so the row will be automatically generated.
-    return connection
-      .insert({
-        into: 'messages',
-        values: [row],
-      })
-      .then()
-      .catch((err) => {
-        console.error(err);
-      });
+    return await connection.insert({
+      into: 'messages',
+      values: [row],
+    });
   }
 
   async function getAllMessages() {
@@ -194,18 +189,13 @@ const databaseHelper = (function () {
       });
   }
 
-  function removeMessage(id: number) {
-    return connection
-      .remove({
-        from: 'messages',
-        where: {
-          id: id,
-        },
-      })
-      .then()
-      .catch((err) => {
-        console.error(err);
-      });
+  async function removeMessage(id: number) {
+    return await connection.remove({
+      from: 'messages',
+      where: {
+        id: id,
+      },
+    });
   }
 
   return {

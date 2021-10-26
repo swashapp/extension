@@ -333,6 +333,7 @@ const onboarding = (function () {
 
       await storageHelper.saveConfigs(configs);
       await storageHelper.saveProfile(profile);
+      await storageHelper.savePrivacyData(oldDB.privacyData);
 
       await userHelper.loadEncryptedWallet(encryptedWallet, salt);
       return true;

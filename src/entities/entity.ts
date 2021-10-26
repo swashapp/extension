@@ -44,7 +44,7 @@ export abstract class Entity<Type> {
 
   public async update(key: string, newValue: Any): Promise<void> {
     const value = await this.get();
-    commonUtils.jsonUpdate(value, newValue);
+    commonUtils.jsonUpdate(value, { [key]: newValue });
     await this.save(value);
   }
 }

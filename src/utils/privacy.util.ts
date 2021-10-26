@@ -1,4 +1,4 @@
-import { sha256 } from 'ethers/lib/utils';
+import { sha256 } from 'js-sha256';
 
 import { ObjectType } from '../enums/object.enum';
 import { Any } from '../types/any.type';

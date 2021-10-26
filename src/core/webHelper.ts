@@ -124,11 +124,11 @@ var helper = (function () {
     return sendMessage(message);
   }
 
-  function saveConfigs(data) {
+  function updateConfigs(key, value) {
     const message = {
       obj: 'storageHelper',
-      func: 'updateData',
-      params: ['configs', data],
+      func: 'updateConfigs',
+      params: [key, value],
     };
     return sendMessage(message);
   }
@@ -651,7 +651,7 @@ var helper = (function () {
     loadFilters,
     saveFilters,
     saveProfile,
-    saveConfigs,
+    updateConfigs,
     startAuth,
     removeAuth,
     isConnected,

@@ -18,7 +18,7 @@
     "clean": "shx rm -rf dist",
     "clean:deep": "shx rm -rf dist .parcel-cache",
     "precopy": "shx mkdir -p dist dist/core",
-    "copy": "shx cp -r src/core/configs src/core/modules dist/core/ && shx cp -r src/lib dist/",
+    "copy": "shx cp -r src/core/content_scripts src/core/configs src/core/modules dist/core/ && shx cp -r src/lib dist/",
     "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,json} *.{js,jsx,ts,tsx}",
     "lint:code": "eslint src/**/*.ts --fix",
     "lint:extension": "web-ext lint dist",

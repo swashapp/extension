@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { isValidElement, useCallback, useEffect, useState } from 'react';
 
 import {
   DataAccordion,
@@ -9,6 +9,8 @@ import { BackgroundTheme } from '../components/drawing/background-theme';
 import { NumericInput } from '../components/numeric-input/numeric-input';
 import { TextMasking } from '../components/text-masking/text-masking';
 import { PrivacyData } from '../types/storage/privacy-data.type';
+
+let delayOnLoad = 0;
 
 export function Data(): JSX.Element {
   const [delay, setDelay] = useState<number>(0);
@@ -23,6 +25,7 @@ export function Data(): JSX.Element {
         newMasks.push(masks[x].value);
       }
 
+      delayOnLoad = Number(db.configs.delay);
       setDelay(Number(db.configs.delay));
       setMaskItems(newMasks);
     });
@@ -72,8 +75,9 @@ export function Data(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    if (delay > 0) {
-      window.helper.saveConfigs({ delay: delay });
+    if (delay > 0 && delay !== delayOnLoad) {
+      console.log(delay);
+      window.helper.updateConfigs('delay', delay);
     }
   }, [delay]);
 

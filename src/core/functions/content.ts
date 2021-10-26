@@ -82,10 +82,14 @@ const content = (function () {
         })
         .then((result) => {
           browser.tabs.executeScript(tabId, {
-            file: '/js/content_scripts/content_script.js',
+            file: '/core/content_scripts/content_script.js',
             allFrames: false,
             runAt: 'document_start',
           });
+        })
+        .catch((err) => {
+          console.error('err');
+          console.error(err);
         });
     }
   }
