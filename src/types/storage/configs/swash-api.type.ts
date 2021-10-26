@@ -3,6 +3,8 @@ export type SwashApiConfigs = {
   APIs: {
     syncTimestamp: string;
     userJoin: string;
+    userUpdateEmail: string;
+    emailVerification: string;
     userReferralReward: string;
     userReferralClaim: string;
     userBalanceWithdraw: string;

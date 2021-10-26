@@ -81,6 +81,13 @@ const swashApiHelper = (function () {
     return call<Type>(url, req);
   }
 
+  async function put<Type>(token: string, api: string, body?: Any) {
+    let req: Any = createRequest(token, 'PUT');
+    const url = config.endpoint + api;
+    if (body) req = { ...req, body: JSON.stringify(body) };
+    return call<Type>(url, req);
+  }
+
   async function getTimestamp() {
     const resp = await fetch(config.endpoint + config.APIs.syncTimestamp, {
       method: 'GET',
@@ -107,6 +114,18 @@ const swashApiHelper = (function () {
     return get<ReferralsResponse[]>(token, config.APIs.userReferralReward, {
       details: true,
     });
+  }
+
+  async function resendCodeToEmail(token: string, body: Any) {
+    return post<Any>(token, config.APIs.emailVerification, body);
+  }
+
+  async function join(token: string, body: Any) {
+    return post<JoinResponse>(token, config.APIs.userJoin, body);
+  }
+
+  async function updateEmail(token: string, body: Any) {
+    return put<Any>(token, config.APIs.userUpdateEmail, body);
   }
 
   async function getWithdrawBalance(token: string) {
@@ -156,6 +175,9 @@ const swashApiHelper = (function () {
     getIpLocation,
     userWithdraw,
     claimRewards,
+    resendCodeToEmail,
+    join,
+    updateEmail,
   };
 })();
 

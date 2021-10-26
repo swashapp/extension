@@ -532,6 +532,33 @@ var helper = (function () {
     return sendMessage(message);
   }
 
+  function resendCodeToEmail(email) {
+    const message = {
+      obj: 'userHelper',
+      func: 'resendCodeToEmail',
+      params: [email],
+    };
+    return sendMessage(message);
+  }
+
+  function join(email) {
+    const message = {
+      obj: 'userHelper',
+      func: 'join',
+      params: [email],
+    };
+    return sendMessage(message);
+  }
+
+  function updateEmail(email) {
+    const message = {
+      obj: 'userHelper',
+      func: 'updateEmail',
+      params: [email],
+    };
+    return sendMessage(message);
+  }
+
   function getReferrals() {
     const message = {
       obj: 'userHelper',
@@ -672,5 +699,8 @@ var helper = (function () {
     getJoinedSwash,
     getWithdrawBalance,
     getActiveReferral,
+    resendCodeToEmail,
+    join,
+    updateEmail,
   };
 })();

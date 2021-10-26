@@ -110,7 +110,6 @@ const userHelper = (function () {
   }
 
   async function withdrawToTarget(
-    token: string,
     recipient: string,
     amount: string,
     useSponsor: boolean,
@@ -126,7 +125,7 @@ const userHelper = (function () {
         useSponsor: useSponsor,
         sendToMainnet: sendToMainnet,
       };
-      const data = await swashApiHelper.userWithdraw(token, body);
+      const data = await swashApiHelper.userWithdraw(await generateJWT(), body);
       if (data.tx) return data;
       else if (data.message) {
         return transportMessage(data.message);
@@ -181,6 +180,25 @@ const userHelper = (function () {
 
   async function claimRewards() {
     return await swashApiHelper.claimRewards(await generateJWT());
+  }
+
+  async function resendCodeToEmail(email: string) {
+    return await swashApiHelper.resendCodeToEmail(await generateJWT(), {
+      email,
+      resend: true,
+    });
+  }
+
+  async function join(email: string) {
+    return await swashApiHelper.join(await generateJWT(), {
+      email,
+    });
+  }
+
+  async function updateEmail(email: string) {
+    return await swashApiHelper.updateEmail(await generateJWT(), {
+      email,
+    });
   }
 
   async function getUserId() {
@@ -272,6 +290,9 @@ const userHelper = (function () {
     getReferrals,
     getWithdrawBalance,
     claimRewards,
+    resendCodeToEmail,
+    join,
+    updateEmail,
   };
 })();
 

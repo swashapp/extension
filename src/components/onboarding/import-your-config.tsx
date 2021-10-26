@@ -53,22 +53,24 @@ export function ImportYourConfig(): JSX.Element {
     window.helper
       .getJoinedSwash()
       .then((data) => {
-        // TODO: Should use both emails and id
-        // if (data.id && data.email)
-        if (data.id) stepper.changeSelectedPage('Join', 'Completed');
+        stepper.setJoin(data);
+        if (data.id && data.email)
+          stepper.changeSelectedPage('Join', 'Completed');
         setImporting(false);
         stepper.next();
       })
       .catch(() => setImporting(false));
   }, [stepper]);
   const applyConfig = useCallback(
-    (selectedFile, onboarding) => {
-      if (selectedFile?.id)
+    (selectedFile, onboarding, setLoading) => {
+      if (selectedFile?.id) {
+        setLoading(true);
         return window.helper
           .downloadFile(onboarding, selectedFile.id)
           .then((response) => {
             if (response) {
               setImporting(true);
+              setLoading(false);
               closePopup();
               return window.helper
                 .applyConfig(JSON.stringify(response))
@@ -93,7 +95,7 @@ export function ImportYourConfig(): JSX.Element {
                 });
             }
           });
-      else {
+      } else {
         closePopup();
       }
     },

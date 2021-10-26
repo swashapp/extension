@@ -12,10 +12,15 @@ interface FILE {
 }
 export function FilePicker(props: {
   onboarding: string;
-  applyConfig: (selectedFile: FILE | undefined, onboarding: string) => void;
+  applyConfig: (
+    selectedFile: FILE | undefined,
+    onboarding: string,
+    setLoading: (status: boolean) => void,
+  ) => void;
 }): JSX.Element {
   const [files, setFiles] = useState<FILE[]>([]);
   const [selectedFile, setSelectedFile] = useState<FILE>();
+  const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     const _files: FILE[] = [];
     if (props.onboarding === 'GoogleDrive' || props.onboarding === 'DropBox') {
@@ -56,7 +61,10 @@ export function FilePicker(props: {
       <div className="form-button passphrase-button">
         <Button
           link={false}
-          onClick={() => props.applyConfig(selectedFile, props.onboarding)}
+          onClick={() =>
+            props.applyConfig(selectedFile, props.onboarding, setLoading)
+          }
+          loading={loading}
           disabled={!selectedFile}
           text="Import"
         />
