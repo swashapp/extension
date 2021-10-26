@@ -46,6 +46,13 @@ button {
   line-height: 28px;
 }
 
+.input-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 75px);
+}
+
 h1,
 h2,
 h3,
@@ -1773,7 +1780,7 @@ a:hover {
 }
 
 .extension-popup-container {
-  width: 100%;
+  width: 360px;
   background-color: var(--lightest-blue);
   margin: 0;
 }
@@ -1935,7 +1942,6 @@ a:hover {
 
 .popup-welcome-text {
   margin-bottom: 16px;
-  text-align: center;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;

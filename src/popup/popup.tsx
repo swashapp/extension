@@ -92,10 +92,13 @@ function Popup() {
   }, []);
 
   useEffect(() => {
-    window.helper.isNeededOnBoarding().then((result) => {
-      if (!result) {
-        getBalanceInfo().then();
-      }
+    window.helper.load().then((db) => {
+      window.helper.isNeededOnBoarding().then((result) => {
+        if (!result) {
+          setStatus(db.configs.is_enabled);
+          getBalanceInfo().then();
+        }
+      });
     });
   }, [getBalanceInfo]);
 
@@ -117,12 +120,12 @@ function Popup() {
   }, []);
 
   const onStatusChanged = useCallback((checked: boolean) => {
-    setStatus(checked);
     if (checked) {
       window.helper.start();
     } else {
       window.helper.stop();
     }
+    setStatus(checked);
   }, []);
 
   return (
