@@ -39,10 +39,9 @@ export function OnboardingJoin(): JSX.Element {
     setToken((_token) => _token + '');
   }, []);
 
-  const [success, setSuccess] = useState<boolean>(false);
-  const onSuccess = useCallback((email: string, stayUpdate: boolean) => {
-    console.log(email, stayUpdate);
-    setSuccess(true);
+  const [email, setEmail] = useState<string>('');
+  const onSuccess = useCallback((_email: string) => {
+    setEmail(_email);
   }, []);
 
   const handleMessages = useCallback(
@@ -55,7 +54,7 @@ export function OnboardingJoin(): JSX.Element {
           stepper.back();
           break;
         case Status.SUCCESS:
-          onSuccess(event.data.email, event.data.stayUpdate);
+          onSuccess(event.data.email);
           break;
         case Status.FAIL:
           setTokenTry((count) => {
@@ -87,9 +86,10 @@ export function OnboardingJoin(): JSX.Element {
   // }, []);
   return (
     <>
-      {success ? (
+      {email ? (
         <OnboardingVerify
           key={''}
+          email={email}
           onBack={() => {
             console.log('');
           }}

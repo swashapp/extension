@@ -1,5 +1,6 @@
 export type JoinResponse = {
   id: number;
+  email?: string;
 };
 
 export type ActiveReferralResponse = {

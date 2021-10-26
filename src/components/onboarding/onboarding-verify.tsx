@@ -7,26 +7,68 @@ import { ToastMessage } from '../toast/toast-message';
 
 import { NavigationButtons } from './navigation-buttons';
 
-export function OnboardingVerify(props: { onBack: () => void }): JSX.Element {
+export function OnboardingVerify(props: {
+  email: string;
+  onBack: () => void;
+}): JSX.Element {
   const stepper = useContext(StepperContext);
   const [verificationCode, setVerificationCode] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const onSubmit = useCallback(() => {
-    setLoading(true);
-    new Promise((resolve) => setTimeout(resolve, 3000))
+  const onFailure = useCallback(() => {
+    setLoading(false);
+    toast(<ToastMessage type="error" content={<>Something went wrong!</>} />);
+  }, []);
+
+  const join = useCallback(() => {
+    window.helper
+      .join(props.email)
+      .then((res) => {
+        if (res.id && res.email) {
+          setLoading(false);
+          stepper.next();
+        } else {
+          onFailure();
+        }
+      })
+      .catch(() => onFailure());
+  }, [onFailure, props.email, stepper]);
+
+  const updateEmail = useCallback(() => {
+    window.helper
+      .updateEmail(props.email)
       .then(() => {
         setLoading(false);
         stepper.next();
       })
-      .catch(() => {
-        setLoading(false);
+      .catch(() => onFailure());
+  }, [onFailure, props.email, stepper]);
 
-        toast(
-          <ToastMessage type="error" content={<>Something went wrong!</>} />,
-        );
-      });
-  }, [stepper]);
+  const onSubmit = useCallback(() => {
+    setLoading(true);
+    if (!stepper.join.id) {
+      join();
+    } else if (!stepper.join.email) {
+      updateEmail();
+    } else {
+      stepper.next();
+    }
+  }, [join, stepper, updateEmail]);
+
+  const onResend = useCallback(() => {
+    setLoading(true);
+    window.helper
+      .resendCodeToEmail(props.email)
+      .then((res: { valid: boolean }) => {
+        if (res.valid) {
+          setLoading(false);
+          stepper.next();
+        } else {
+          onFailure();
+        }
+      })
+      .catch(() => onFailure());
+  }, [onFailure, props.email, stepper]);
   return (
     <div className="onboarding-verify-email">
       <div className="flex-column onboarding-verify-email-content">
@@ -47,7 +89,7 @@ export function OnboardingVerify(props: { onBack: () => void }): JSX.Element {
         <div className="onboarding-verify-question">
           <p>
             Don&apos;t work?{' '}
-            <a href="#" onClick={() => undefined}>
+            <a href="#" onClick={onResend}>
               Send me another code.
             </a>
           </p>
