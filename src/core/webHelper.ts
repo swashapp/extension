@@ -1,10 +1,12 @@
 /* eslint-disable */
 // @ts-nocheck
+import browser from 'webextension-polyfill';
+
 function sendMessage(message) {
   return browser.runtime.sendMessage(message);
 }
 
-var helper = (function () {
+const helper = (function () {
   function handleFilter() {
     const message = {
       obj: 'pageAction',
@@ -714,3 +716,5 @@ var helper = (function () {
     newsletterSignUp,
   };
 })();
+
+export { helper };

@@ -1,7 +1,15 @@
 import Dialog from '@material-ui/core/Dialog';
 import React, { ReactElement, useEffect } from 'react';
 
+import { helper } from '../../core/webHelper';
 import { ClosablePanel } from '../closable-panel/closable-panel';
+
+declare global {
+  interface Window {
+    helper: any;
+  }
+}
+window.helper = helper;
 
 export interface popupProps {
   content: ReactElement | null;
