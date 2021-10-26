@@ -11,7 +11,8 @@
     "typeRoots": ["node_modules/@types"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "allowJs": true
   },
   "include": ["src/**/*"]
 }
