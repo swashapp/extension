@@ -1,7 +1,9 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { StepperContext } from '../../pages/onboarding';
+import { UtilsService } from '../../service/utils-service';
+
 import { Input } from '../input/input';
 import { ToastMessage } from '../toast/toast-message';
 
@@ -17,6 +19,29 @@ export function OnboardingVerify(props: {
   const stepper = useContext(StepperContext);
   const [verificationCode, setVerificationCode] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
+
+  const [minutes, setMinutes] = useState<number>(2);
+  const [seconds, setSeconds] = useState<number>(0);
+  const triggerTimer = useCallback(() => setMinutes(2), []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      }
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(interval);
+        } else {
+          setSeconds(59);
+          setMinutes(minutes - 1);
+        }
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [minutes, seconds]);
 
   const newsletterSignUp = useCallback(() => {
     window.helper.newsletterSignUp(props.email, newsletter).then();
@@ -66,13 +91,20 @@ export function OnboardingVerify(props: {
     }
   }, [join, onVerified, stepper.join.email, stepper.join.id, updateEmail]);
 
-  const onResend = useCallback(() => {
-    setLoading(true);
-    window.helper
-      .resendCodeToEmail(props.email)
-      .then(() => setLoading(false))
-      .catch(() => onFailure());
-  }, [onFailure, props.email]);
+  const onResend = useCallback(
+    (e) => {
+      e.preventDefault();
+      setLoading(true);
+      window.helper
+        .resendCodeToEmail(props.email)
+        .then(() => {
+          triggerTimer();
+          setLoading(false);
+        })
+        .catch(() => onFailure());
+    },
+    [onFailure, props.email, triggerTimer],
+  );
   return (
     <div className="onboarding-verify-email">
       <div className="flex-column onboarding-verify-email-content">
@@ -93,9 +125,28 @@ export function OnboardingVerify(props: {
         <div className="onboarding-verify-question">
           <p>
             Don&apos;t work?{' '}
-            <a href="#" onClick={onResend}>
-              Send me another code.
-            </a>
+            {seconds === 0 && minutes === 0 ? (
+              <div
+                style={{ display: 'inline-block' }}
+                onClick={
+                  loading
+                    ? (e) => {
+                        e.preventDefault();
+                      }
+                    : onResend
+                }
+              >
+                <a style={{ color: 'var(--blue)' }} href="#">
+                  Send me another code.
+                </a>
+              </div>
+            ) : (
+              <div style={{ color: 'var(--green)', display: 'inline-block' }}>
+                {UtilsService.padWithZero(minutes) +
+                  ':' +
+                  UtilsService.padWithZero(seconds)}
+              </div>
+            )}
           </p>
         </div>
         <NavigationButtons

@@ -1779,6 +1779,15 @@ a:hover {
   margin: 0 !important;
 }
 
+.waiting-progress {
+  position: relative;
+  margin: 20% auto;
+}
+
+.waiting-progress p {
+  padding: 55px 49%;
+}
+
 .extension-popup-container {
   width: 360px;
   background-color: var(--lightest-blue);

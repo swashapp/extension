@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 
 import { StepperContext } from '../../pages/onboarding';
+import { WaitingProgressBar } from '../progress/waiting-progress';
 
 import { OnboardingVerify } from './onboarding-verify';
 
@@ -27,8 +28,7 @@ export function OnboardingJoin(): JSX.Element {
   const [token, setToken] = useState<string | null>('');
   const [tokenTry, setTokenTry] = useState<number>(0);
   const [generalTry, setGeneralTry] = useState<number>(0);
-  // const [iframeWrapperVisible, setIframeWrapperVisible] =
-  //   useState<boolean>(true);
+  const [iframeVisible, setIframeVisible] = useState<boolean>(false);
 
   const iframeSrc = useMemo(
     () => `${SWASH_DOMAIN}${SWASH_JOIN_PAGE}?token=${token}`,
@@ -77,14 +77,10 @@ export function OnboardingJoin(): JSX.Element {
   );
   useEffect(() => {
     if (!token) {
-      window.helper.generateJWT().then((_token) => setToken(_token));
+      window.helper.generateJWT().then((_token: string) => setToken(_token));
     }
     window.onmessage = handleMessages;
   }, [handleMessages, token]);
-
-  // const makeVisible = useCallback((e) => {
-  //   reloadIFrame();
-  // }, []);
   return (
     <>
       {verification.email ? (
@@ -96,15 +92,14 @@ export function OnboardingJoin(): JSX.Element {
           }}
         />
       ) : (
-        <div
-          className="onboarding-iframe-wrapper"
-          // style={{ visibility: iframeWrapperVisible ? 'visible' : 'hidden' }}
-        >
+        <div className="onboarding-iframe-wrapper">
+          {!iframeVisible ? <WaitingProgressBar /> : <></>}
           {token ? (
             <iframe
               seamless
               className="onboarding-join-iframe"
-              onLoad={reloadIFrame}
+              style={{ visibility: iframeVisible ? 'visible' : 'hidden' }}
+              onLoad={() => setIframeVisible(true)}
               title={'joinPage'}
               scrolling="no"
               frameBorder="no"
