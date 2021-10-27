@@ -95,7 +95,7 @@ export function Button(props: {
     props.loading ? props.loadingText || '' : text,
     props?.muiProps,
     props?.loading,
-    disabled ? () => undefined : onClick,
+    disabled || props.loading ? () => undefined : onClick,
     props?.className,
   );
 

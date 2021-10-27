@@ -7,13 +7,28 @@ import { ToastMessage } from '../toast/toast-message';
 
 import { NavigationButtons } from './navigation-buttons';
 
+const newsletter = 108293554;
+
 export function OnboardingVerify(props: {
   email: string;
+  stayUpdate: boolean;
   onBack: () => void;
 }): JSX.Element {
   const stepper = useContext(StepperContext);
   const [verificationCode, setVerificationCode] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
+
+  const newsletterSignUp = useCallback(() => {
+    window.helper.newsletterSignUp(props.email, newsletter).then();
+  }, [props.email]);
+
+  const onVerified = useCallback(() => {
+    setLoading(false);
+    if (props.stayUpdate) {
+      newsletterSignUp();
+    }
+    stepper.next();
+  }, [newsletterSignUp, props.stayUpdate, stepper]);
 
   const onFailure = useCallback(() => {
     setLoading(false);
@@ -22,27 +37,23 @@ export function OnboardingVerify(props: {
 
   const join = useCallback(() => {
     window.helper
-      .join(props.email)
+      .join(props.email, verificationCode)
       .then((res) => {
         if (res.id && res.email) {
-          setLoading(false);
-          stepper.next();
+          onVerified();
         } else {
           onFailure();
         }
       })
       .catch(() => onFailure());
-  }, [onFailure, props.email, stepper]);
+  }, [onFailure, onVerified, props.email, verificationCode]);
 
   const updateEmail = useCallback(() => {
     window.helper
-      .updateEmail(props.email)
-      .then(() => {
-        setLoading(false);
-        stepper.next();
-      })
+      .updateEmail(props.email, verificationCode)
+      .then(() => onVerified())
       .catch(() => onFailure());
-  }, [onFailure, props.email, stepper]);
+  }, [onFailure, onVerified, props.email, verificationCode]);
 
   const onSubmit = useCallback(() => {
     setLoading(true);
@@ -51,24 +62,17 @@ export function OnboardingVerify(props: {
     } else if (!stepper.join.email) {
       updateEmail();
     } else {
-      stepper.next();
+      onVerified();
     }
-  }, [join, stepper, updateEmail]);
+  }, [join, onVerified, stepper.join.email, stepper.join.id, updateEmail]);
 
   const onResend = useCallback(() => {
     setLoading(true);
     window.helper
       .resendCodeToEmail(props.email)
-      .then((res: { valid: boolean }) => {
-        if (res.valid) {
-          setLoading(false);
-          stepper.next();
-        } else {
-          onFailure();
-        }
-      })
+      .then(() => setLoading(false))
       .catch(() => onFailure());
-  }, [onFailure, props.email, stepper]);
+  }, [onFailure, props.email]);
   return (
     <div className="onboarding-verify-email">
       <div className="flex-column onboarding-verify-email-content">

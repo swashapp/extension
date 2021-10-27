@@ -39,10 +39,11 @@ export function OnboardingJoin(): JSX.Element {
     setToken((_token) => _token + '');
   }, []);
 
-  const [email, setEmail] = useState<string>('');
-  const onSuccess = useCallback((_email: string) => {
-    setEmail(_email);
-  }, []);
+  const [verification, setVerification] = useState<{
+    email: string;
+    stayUpdate: boolean;
+    status?: Status;
+  }>({ email: '', stayUpdate: false });
 
   const handleMessages = useCallback(
     (event) => {
@@ -54,7 +55,7 @@ export function OnboardingJoin(): JSX.Element {
           stepper.back();
           break;
         case Status.SUCCESS:
-          onSuccess(event.data.email);
+          setVerification(event.data);
           break;
         case Status.FAIL:
           setTokenTry((count) => {
@@ -72,7 +73,7 @@ export function OnboardingJoin(): JSX.Element {
           break;
       }
     },
-    [onSuccess, reloadIFrame, stepper],
+    [reloadIFrame, stepper],
   );
   useEffect(() => {
     if (!token) {
@@ -86,10 +87,10 @@ export function OnboardingJoin(): JSX.Element {
   // }, []);
   return (
     <>
-      {email ? (
+      {verification.email ? (
         <OnboardingVerify
           key={''}
-          email={email}
+          {...verification}
           onBack={() => {
             console.log('');
           }}

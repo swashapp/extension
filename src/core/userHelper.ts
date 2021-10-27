@@ -189,15 +189,17 @@ const userHelper = (function () {
     });
   }
 
-  async function join(email: string) {
+  async function join(email: string, code: string) {
     return await swashApiHelper.join(await generateJWT(), {
       email,
+      code,
     });
   }
 
-  async function updateEmail(email: string) {
+  async function updateEmail(email: string, code: string) {
     return await swashApiHelper.updateEmail(await generateJWT(), {
       email,
+      code,
     });
   }
 
