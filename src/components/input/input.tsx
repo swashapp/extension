@@ -15,6 +15,7 @@ export function Input(props: InputProps & { label?: string }): JSX.Element {
         className={`input ${props.className}`}
         id={'input-' + props.name}
         inputProps={{
+          className: props.endAdornment ? 'input-ellipsis' : '',
           style: props.label
             ? {}
             : props.placeholder
