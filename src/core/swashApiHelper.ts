@@ -117,7 +117,7 @@ const swashApiHelper = (function () {
   }
 
   async function resendCodeToEmail(token: string, body: Any) {
-    return post<Any>(token, config.APIs.emailVerification, body);
+    return put<Any>(token, config.APIs.emailVerification, body);
   }
 
   async function join(token: string, body: Any) {

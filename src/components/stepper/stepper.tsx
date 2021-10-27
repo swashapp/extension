@@ -12,10 +12,9 @@ import React from 'react';
 
 import SwipeableViews from 'react-swipeable-views';
 
+import { UtilsService } from '../../service/utils-service';
 import { FlexGrid } from '../flex-grid/flex-grid';
 import { SwashLogo } from '../swash-logo/swash-logo';
-
-const padWithZero = (num: number) => String(num).padStart(2, '0');
 
 export default forwardRef(function Stepper(
   props: PropsWithChildren<{
@@ -65,7 +64,7 @@ export default forwardRef(function Stepper(
         <div className="stepper-with-numbers">
           <div className={'stepper'}>
             <div className={'stepper-step-number'}>
-              {padWithZero(activeStep + 1)}
+              {UtilsService.padWithZero(activeStep + 1)}
             </div>
             <MobileStepper
               className={'stepper-mobile'}
@@ -79,7 +78,9 @@ export default forwardRef(function Stepper(
                 className: 'stepper-linear-progress',
               }}
             />
-            <div className={'stepper-step-number'}>{padWithZero(steps)}</div>
+            <div className={'stepper-step-number'}>
+              {UtilsService.padWithZero(steps)}
+            </div>
           </div>
         </div>
       </FlexGrid>

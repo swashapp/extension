@@ -185,7 +185,6 @@ const userHelper = (function () {
   async function resendCodeToEmail(email: string) {
     return await swashApiHelper.resendCodeToEmail(await generateJWT(), {
       email,
-      resend: true,
     });
   }
 

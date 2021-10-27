@@ -6,4 +6,8 @@ export class UtilsService {
       num.indexOf('.') + (precision === 0 ? -1 : precision) + 1,
     );
   }
+
+  static padWithZero(num: number): string {
+    return String(num).padStart(2, '0');
+  }
 }

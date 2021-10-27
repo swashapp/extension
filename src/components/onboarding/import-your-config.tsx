@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 
 import { toast } from 'react-toastify';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -174,6 +174,13 @@ export function ImportYourConfig(): JSX.Element {
       content: <SignIn3Box onImport={onImport} />,
     });
   }, [onImport]);
+
+  useEffect(() => {
+    return () => {
+      if (window.browser.runtime.onMessage.hasListener(togglePopup))
+        window.browser.runtime.onMessage.removeListener(togglePopup);
+    };
+  }, [togglePopup]);
 
   return (
     <>
