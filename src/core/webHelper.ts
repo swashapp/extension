@@ -541,20 +541,29 @@ var helper = (function () {
     return sendMessage(message);
   }
 
-  function join(email) {
+  function join(email, code) {
     const message = {
       obj: 'userHelper',
       func: 'join',
-      params: [email],
+      params: [email, code],
     };
     return sendMessage(message);
   }
 
-  function updateEmail(email) {
+  function updateEmail(email, code) {
     const message = {
       obj: 'userHelper',
       func: 'updateEmail',
-      params: [email],
+      params: [email, code],
+    };
+    return sendMessage(message);
+  }
+
+  function newsletterSignUp(email, newsletter) {
+    const message = {
+      obj: 'swashApiHelper',
+      func: 'newsletterSignUp',
+      params: [email, newsletter],
     };
     return sendMessage(message);
   }
@@ -588,7 +597,7 @@ var helper = (function () {
 
   function withdrawToTarget(recipient, amount, useSponsor, sendToMainnet) {
     const message = {
-      obj: 'swashApiHelper',
+      obj: 'userHelper',
       func: 'withdrawToTarget',
       params: [recipient, amount, useSponsor, sendToMainnet],
     };
@@ -702,5 +711,6 @@ var helper = (function () {
     resendCodeToEmail,
     join,
     updateEmail,
+    newsletterSignUp,
   };
 })();

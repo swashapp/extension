@@ -128,6 +128,10 @@ const swashApiHelper = (function () {
     return put<Any>(token, config.APIs.userUpdateEmail, body);
   }
 
+  async function newsletterSignUp(email: string, newsletter: number) {
+    return post<Any>('', config.APIs.newsletterSignUp, { email, newsletter });
+  }
+
   async function getWithdrawBalance(token: string) {
     const data = await get<MinimumWithdrawResponse>(
       token,
@@ -178,6 +182,7 @@ const swashApiHelper = (function () {
     resendCodeToEmail,
     join,
     updateEmail,
+    newsletterSignUp,
   };
 })();
 
