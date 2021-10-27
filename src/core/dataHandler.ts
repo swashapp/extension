@@ -141,28 +141,38 @@ const dataHandler = (function () {
       modules[message.header.module].anonymityLevel;
     message.header.version = browserUtils.getVersion();
 
-    message.identity.uid = privacyUtils.anonymiseIdentity(
+    const uid = privacyUtils.anonymiseIdentity(
       configs.Id,
       message,
       modules[message.header.module],
     );
-    message.identity.country =
-      profile.country || (await userHelper.getUserCountry());
-    message.identity.city = profile.city || '';
-    message.identity.gender = profile.gender;
-    message.identity.age = profile.age;
-    message.identity.income = profile.income;
-    message.identity.agent = await browserUtils.getUserAgent();
-    message.identity.platform = await browserUtils.getPlatformInfo();
-    message.identity.language = browserUtils.getBrowserLanguage();
+    const country = profile.country || (await userHelper.getUserCountry());
+    const city = profile.city || '';
+    const gender = profile.gender;
+    const age = profile.age;
+    const income = profile.income;
+    const agent = await browserUtils.getUserAgent();
+    const platform = await browserUtils.getPlatformInfo();
+    const language = browserUtils.getBrowserLanguage();
+
+    message.identity = {
+      uid,
+      country,
+      city,
+      gender,
+      age,
+      income,
+      agent,
+      platform,
+      language,
+    };
 
     enforcePolicy(message, privacyData);
-    prepareAndSend(
-      message,
-      modules[message.header.module],
-      delay,
-      tabId,
-    ).then();
+    prepareAndSend(message, modules[message.header.module], delay, tabId).catch(
+      (err) => {
+        console.error(`An error occurred during preparing message, ${err}`);
+      },
+    );
   }
   function enforcePolicy(message: Message, privacyData: Any) {
     const data = message.data.out;

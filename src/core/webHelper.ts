@@ -1,10 +1,12 @@
 /* eslint-disable */
 // @ts-nocheck
+import browser from 'webextension-polyfill';
+
 function sendMessage(message) {
   return browser.runtime.sendMessage(message);
 }
 
-var helper = (function () {
+const helper = (function () {
   function handleFilter() {
     const message = {
       obj: 'pageAction',
@@ -124,11 +126,11 @@ var helper = (function () {
     return sendMessage(message);
   }
 
-  function saveConfigs(data) {
+  function updateConfigs(key, value) {
     const message = {
       obj: 'storageHelper',
-      func: 'updateData',
-      params: ['configs', data],
+      func: 'updateConfigs',
+      params: [key, value],
     };
     return sendMessage(message);
   }
@@ -651,7 +653,7 @@ var helper = (function () {
     loadFilters,
     saveFilters,
     saveProfile,
-    saveConfigs,
+    updateConfigs,
     startAuth,
     removeAuth,
     isConnected,
@@ -714,3 +716,5 @@ var helper = (function () {
     newsletterSignUp,
   };
 })();
+
+export { helper };

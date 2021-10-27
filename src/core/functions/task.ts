@@ -75,7 +75,7 @@ const task = (function () {
         })
         .then((result) => {
           browser.tabs.executeScript(tabId, {
-            file: '/js/content_scripts/task_script.js',
+            file: '/core/content_scripts/task_script.js',
             allFrames: false,
             runAt: 'document_end',
           });

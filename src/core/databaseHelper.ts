@@ -1,24 +1,21 @@
 import { Connection, DATA_TYPE } from 'jsstore';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import JsStoreWorker from 'jsstore/dist/jsstore.worker.min';
+import browser from 'webextension-polyfill';
 
 import { MessageRecord } from '../types/db.type';
 import { Message } from '../types/message.type';
 
-// This will ensure that we are using only one instance.
-// Otherwise due to multiple instance multiple worker will be created.
 const databaseHelper = (function () {
-  'use strict';
-
   const dbName = 'SwashDBV3';
   let connection: Connection;
   async function init() {
     if (!connection) {
-      connection = new Connection(new Worker(JsStoreWorker));
+      const url = browser.runtime.getURL('lib/jsstore.worker.js');
+      const worker = new Worker(url);
+      connection = new Connection(worker);
       await initJsStore();
     }
   }
+
   function getDbSchema() {
     const tblMessage = {
       name: 'messages',
@@ -62,6 +59,7 @@ const databaseHelper = (function () {
   }
 
   async function initJsStore() {
+    console.log('Trying to initialize database');
     const isDbCreated = await connection.initDb(getDbSchema());
     if (isDbCreated) {
       console.log('Message database created');
@@ -145,22 +143,17 @@ const databaseHelper = (function () {
       : 0;
   };
 
-  function insertMessage(message: Message) {
+  async function insertMessage(message: Message) {
     const currentTime = Number(new Date().getTime());
     const row = {
       createTime: currentTime,
       message: message,
     };
     //since Id is autoincrement column, so the row will be automatically generated.
-    return connection
-      .insert({
-        into: 'messages',
-        values: [row],
-      })
-      .then()
-      .catch((err) => {
-        console.error(err);
-      });
+    return await connection.insert({
+      into: 'messages',
+      values: [row],
+    });
   }
 
   async function getAllMessages() {
@@ -196,18 +189,13 @@ const databaseHelper = (function () {
       });
   }
 
-  function removeMessage(id: number) {
-    return connection
-      .remove({
-        from: 'messages',
-        where: {
-          id: id,
-        },
-      })
-      .then()
-      .catch((err) => {
-        console.error(err);
-      });
+  async function removeMessage(id: number) {
+    return await connection.remove({
+      from: 'messages',
+      where: {
+        id: id,
+      },
+    });
   }
 
   return {

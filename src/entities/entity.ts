@@ -10,6 +10,7 @@ export abstract class Entity<Type> {
   protected readonly name;
 
   protected constructor(name: string) {
+    console.log(`Initializing ${name} local storage`);
     this.name = name;
   }
 
@@ -20,8 +21,10 @@ export abstract class Entity<Type> {
     if (!(this.name in _value)) {
       await browser.storage.local.set({ [this.name]: value });
       this.cache = value;
+      console.log(`${this.name} local storage is created`);
     } else {
       this.cache = _value[this.name];
+      console.log(`${this.name} local storage is loaded`);
     }
   }
 
@@ -44,7 +47,7 @@ export abstract class Entity<Type> {
 
   public async update(key: string, newValue: Any): Promise<void> {
     const value = await this.get();
-    commonUtils.jsonUpdate(value, newValue);
+    commonUtils.jsonUpdate(value, { [key]: newValue });
     await this.save(value);
   }
 }

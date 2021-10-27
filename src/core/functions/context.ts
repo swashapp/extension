@@ -73,7 +73,7 @@ const context = (function () {
         })
         .then((result) => {
           browser.tabs.executeScript(tabId, {
-            file: '/js/content_scripts/context_script.js',
+            file: '/core/content_scripts/context_script.js',
             allFrames: false,
             runAt: 'document_start',
           });

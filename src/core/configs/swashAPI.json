@@ -1,5 +1,5 @@
 {
-  "endpoint": "https://api.swashapp.io/v1",
+  "endpoint": "https://api.swashapp.io/v2",
   "APIs": {
     "syncTimestamp": "/sync/timestamp",
     "userJoin": "/user/join",

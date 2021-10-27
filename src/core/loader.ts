@@ -194,6 +194,7 @@ const loader = (function () {
   }
 
   async function reload() {
+    console.log('Reloading the extension');
     storageHelper.getAll().then(async (db) => {
       clearInterval(dbHelperInterval);
       dbHelperInterval = setInterval(async function () {
