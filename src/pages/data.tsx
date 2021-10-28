@@ -1,4 +1,4 @@
-import React, { isValidElement, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import {
   DataAccordion,
@@ -18,17 +18,24 @@ export function Data(): JSX.Element {
   const [dataItems, setDataItems] = useState<DataItem[] | null>(null);
 
   const loadSettings = useCallback(() => {
-    window.helper.load().then((db) => {
-      const masks = db.privacyData;
-      const newMasks = [];
-      for (const x in masks) {
-        newMasks.push(masks[x].value);
-      }
+    window.helper
+      .load()
+      .then(
+        (db: {
+          privacyData: { value: string }[];
+          configs: { delay: string };
+        }) => {
+          const masks = db.privacyData;
+          const newMasks = [];
+          for (const x in masks) {
+            newMasks.push(masks[x].value);
+          }
 
-      delayOnLoad = Number(db.configs.delay);
-      setDelay(Number(db.configs.delay));
-      setMaskItems(newMasks);
-    });
+          delayOnLoad = Number(db.configs.delay);
+          setDelay(Number(db.configs.delay));
+          setMaskItems(newMasks);
+        },
+      );
   }, []);
 
   useEffect(() => {
