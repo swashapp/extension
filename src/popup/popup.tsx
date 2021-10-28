@@ -8,7 +8,15 @@ import { Circle } from '../components/drawing/circle';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { SwashLogo } from '../components/swash-logo/swash-logo';
 import { Switch } from '../components/switch/switch';
+import { helper } from '../core/webHelper';
 import { UtilsService } from '../service/utils-service';
+
+declare global {
+  interface Window {
+    helper: any;
+  }
+}
+window.helper = helper;
 
 function WelcomeToNewDataWorld() {
   return (

@@ -1,5 +1,4 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-
 import { toast } from 'react-toastify';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
@@ -13,6 +12,7 @@ import GoogleDriveLogo from 'url:../../static/images/logos/google-drive.png';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import ThreeBoxLogo from 'url:../../static/images/logos/three-box.png';
+import browser from 'webextension-polyfill';
 
 import { StepperContext } from '../../pages/onboarding';
 import { Button } from '../button/button';
@@ -153,17 +153,17 @@ export function ImportYourConfig(): JSX.Element {
   }, [onImport]);
 
   const importFromGoogleDrive = useCallback(() => {
-    if (!window.browser.runtime.onMessage.hasListener(togglePopup))
-      window.browser.runtime.onMessage.addListener(togglePopup);
-    window.browser.tabs.getCurrent().then((tab) => {
+    if (!browser.runtime.onMessage.hasListener(togglePopup))
+      browser.runtime.onMessage.addListener(togglePopup);
+    browser.tabs.getCurrent().then((tab) => {
       window.helper.startOnBoarding('GoogleDrive', tab.id).then();
     });
   }, [togglePopup]);
 
   const importFromDropBox = useCallback(() => {
-    if (!window.browser.runtime.onMessage.hasListener(togglePopup))
-      window.browser.runtime.onMessage.addListener(togglePopup);
-    window.browser.tabs.getCurrent().then((tab) => {
+    if (!browser.runtime.onMessage.hasListener(togglePopup))
+      browser.runtime.onMessage.addListener(togglePopup);
+    browser.tabs.getCurrent().then((tab) => {
       window.helper.startOnBoarding('DropBox', tab.id).then();
     });
   }, [togglePopup]);
@@ -177,8 +177,8 @@ export function ImportYourConfig(): JSX.Element {
 
   useEffect(() => {
     return () => {
-      if (window.browser.runtime.onMessage.hasListener(togglePopup))
-        window.browser.runtime.onMessage.removeListener(togglePopup);
+      if (browser.runtime.onMessage.hasListener(togglePopup))
+        browser.runtime.onMessage.removeListener(togglePopup);
     };
   }, [togglePopup]);
 
