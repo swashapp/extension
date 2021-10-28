@@ -1,40 +1,16 @@
-import { NamedExoticComponent } from 'react';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import dataBlackIcon from 'url:../static/images/icons/sidenav/data-black.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import dataIcon from 'url:../static/images/icons/sidenav/data.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import donationsBlackIcon from 'url:../static/images/icons/sidenav/donations-black.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import donationsIcon from 'url:../static/images/icons/sidenav/donations.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import helpBlackIcon from 'url:../static/images/icons/sidenav/help-black.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import helpIcon from 'url:../static/images/icons/sidenav/help.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import inviteFriendsBlackIcon from 'url:../static/images/icons/sidenav/invite-friends-black.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import inviteFriendsIcon from 'url:../static/images/icons/sidenav/invite-friends.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import settingsBlackIcon from 'url:../static/images/icons/sidenav/settings-black.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import settingsIcon from 'url:../static/images/icons/sidenav/settings.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import walletBlackIcon from 'url:../static/images/icons/sidenav/wallet-black.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import walletIcon from 'url:../static/images/icons/sidenav/wallet.png';
+const dataBlackIcon = '/static/images/icons/sidenav/data-black.svg';
+const dataIcon = '/static/images/icons/sidenav/data.png';
+const donationsBlackIcon = '/static/images/icons/sidenav/donations-black.svg';
+const donationsIcon = '/static/images/icons/sidenav/donations.png';
+const helpBlackIcon = '/static/images/icons/sidenav/help-black.svg';
+const helpIcon = '/static/images/icons/sidenav/help.png';
+const inviteFriendsBlackIcon =
+  '/static/images/icons/sidenav/invite-friends-black.svg';
+const inviteFriendsIcon = '/static/images/icons/sidenav/invite-friends.png';
+const settingsBlackIcon = '/static/images/icons/sidenav/settings-black.svg';
+const settingsIcon = '/static/images/icons/sidenav/settings.png';
+const walletBlackIcon = '/static/images/icons/sidenav/wallet-black.svg';
+const walletIcon = '/static/images/icons/sidenav/wallet.png';
 
 import { Data } from '../pages/data';
 import { Help } from '../pages/help';

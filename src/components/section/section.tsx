@@ -1,11 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import Done from 'url:../../static/images/shape/done.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import RightArrowHead from 'url:../../static/images/shape/right-arrow-head.svg';
+
+const Done = '/static/images/shape/done.svg';
+const RightArrowHead = '/static/images/shape/right-arrow-head.svg';
 
 type SectionItem = {
   text: string;

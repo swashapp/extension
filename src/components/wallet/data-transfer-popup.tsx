@@ -1,15 +1,13 @@
 import React, { useCallback, useMemo, useState } from 'react';
-
 import { toast } from 'react-toastify';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import RightArrow from 'url:../../static/images/shape/right-arrow.svg';
 
 import { Button } from '../button/button';
 import { showPopup, closePopup } from '../popup/popup';
 import { ToastMessage } from '../toast/toast-message';
 
 import { DataTransferCompleted } from './data-transfer-completed';
+
+const RightArrow = '/static/images/shape/right-arrow.svg';
 
 function DataTransferField(props: {
   ellipsis?: boolean;

@@ -1,8 +1,6 @@
 import React from 'react';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import removeIcon from 'url:../../static/images/shape/remove.svg';
+const removeIcon = '/static/images/shape/remove.svg';
 
 export function RemoveButton(props: { onClick: () => void }): JSX.Element {
   return (

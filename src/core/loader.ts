@@ -1,11 +1,8 @@
 import browser from 'webextension-polyfill';
 
-import { Tabs } from 'webextension-polyfill/namespaces/tabs';
-
 import { Any } from '../types/any.type';
 import { Filter } from '../types/storage/filter.type';
 import { Module } from '../types/storage/module.type';
-
 import { commonUtils } from '../utils/common.util';
 
 import { configManager } from './configManager';
@@ -21,10 +18,6 @@ import { pageAction } from './pageAction';
 import { storageHelper } from './storageHelper';
 import { swashApiHelper } from './swashApiHelper';
 import { userHelper } from './userHelper';
-
-import Tab = Tabs.Tab;
-import OnActivatedActiveInfoType = Tabs.OnActivatedActiveInfoType;
-import OnUpdatedChangeInfoType = Tabs.OnUpdatedChangeInfoType;
 
 const loader = (function () {
   let dbHelperInterval: NodeJS.Timer;
@@ -89,16 +82,12 @@ const loader = (function () {
     updateSchedule().then();
   }
 
-  function changeIconOnUpdated(
-    tabId: number,
-    changeInfo: OnUpdatedChangeInfoType,
-    tabInfo: Tab,
-  ) {
+  function changeIconOnUpdated(tabId: number, changeInfo: Any, tabInfo: Any) {
     if (!changeInfo.url || !tabInfo.active) return;
     pageAction.loadIcons(tabInfo.url);
   }
 
-  function changeIconOnActivated(activeInfo: OnActivatedActiveInfoType) {
+  function changeIconOnActivated(activeInfo: Any) {
     browser.tabs.get(activeInfo.tabId).then((tabInfo) => {
       if (tabInfo.url) {
         pageAction.loadIcons(tabInfo.url);

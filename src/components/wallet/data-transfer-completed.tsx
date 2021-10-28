@@ -1,9 +1,8 @@
 import React from 'react';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import completedIcon from 'url:../../static/images/icons/progress-completed.png';
 
 import { Circle } from '../drawing/circle';
+
+const completedIcon = '/static/images/icons/progress-completed.png';
 
 export function DataTransferCompleted(props: {
   transactionId: string;

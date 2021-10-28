@@ -1,17 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import DropboxLogo from 'url:../../static/images/logos/dropbox.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import FileLogo from 'url:../../static/images/logos/file.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import GoogleDriveLogo from 'url:../../static/images/logos/google-drive.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import ThreeBoxLogo from 'url:../../static/images/logos/three-box.png';
 import browser from 'webextension-polyfill';
 
 import { StepperContext } from '../../pages/onboarding';
@@ -23,6 +11,11 @@ import { closePopup, showPopup } from '../popup/popup';
 import { ToastMessage } from '../toast/toast-message';
 
 import { ImportingConfig } from './importing-config';
+
+const DropboxLogo = '/static/images/logos/dropbox.png';
+const FileLogo = '/static/images/logos/file.png';
+const GoogleDriveLogo = '/static/images/logos/google-drive.png';
+const ThreeBoxLogo = '/static/images/logos/three-box.png';
 
 function ImportCard(props: {
   icon: string;

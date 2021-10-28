@@ -41,10 +41,12 @@
   }
 
   .numeric-layout1-image {
-    background: url('../images/background/stat3.png') no-repeat center center;
+    background: url('/static/images/background/stat3.png') no-repeat center
+      center;
   }
 
   .numeric-layout2-image {
-    background: url('../images/background/stat3.png') no-repeat center center;
+    background: url('/static/images/background/stat3.png') no-repeat center
+      center;
   }
 }

@@ -3,8 +3,6 @@ import IdentityWallet from 'identity-wallet';
 import { sha256 } from 'js-sha256';
 import { JSONPath } from 'jsonpath-plus';
 import browser from 'webextension-polyfill';
-import { Tabs } from 'webextension-polyfill/namespaces/tabs';
-import { WebRequest } from 'webextension-polyfill/namespaces/webRequest';
 
 import { OnboardingPageValues } from '../enums/onboarding.enum';
 import { Any } from '../types/any.type';
@@ -22,9 +20,6 @@ import { loader } from './loader';
 import { memberManager } from './memberManager';
 import { storageHelper } from './storageHelper';
 import { userHelper } from './userHelper';
-
-import OnRemovedRemoveInfoType = Tabs.OnRemovedRemoveInfoType;
-import OnBeforeRequestDetailsType = WebRequest.OnBeforeRequestDetailsType;
 
 const onboarding = (function () {
   let oauthTabId = 0;
@@ -176,7 +171,7 @@ const onboarding = (function () {
     }
   }
 
-  function handleRemoved(tid: number, removeInfo: OnRemovedRemoveInfoType) {
+  function handleRemoved(tid: number, removeInfo: Any) {
     if (oauthTabId === tid && oauthWinId === removeInfo.windowId) {
       browser.tabs.onRemoved.removeListener(handleRemoved);
       browser.tabs.sendMessage(parentId, { onboarding: obName }).then();
@@ -220,7 +215,7 @@ const onboarding = (function () {
     }
   }
 
-  function extractOnBoardingAccessToken(details: OnBeforeRequestDetailsType) {
+  function extractOnBoardingAccessToken(details: Any) {
     for (const onboardingIndex in onboardingTools) {
       const onboarding = onboardingTools[onboardingIndex];
       if (details.url.startsWith(getCallBackURL(onboarding.name))) {

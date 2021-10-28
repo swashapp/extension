@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill';
-import { Tabs } from 'webextension-polyfill/namespaces/tabs';
 
 import { FilterType } from '../enums/filter.enum';
+import { Any } from '../types/any.type';
 import { Filter } from '../types/storage/filter.type';
 import { browserUtils } from '../utils/browser.util';
 import { filterUtils } from '../utils/filter.util';
@@ -9,10 +9,8 @@ import { filterUtils } from '../utils/filter.util';
 import { memberManager } from './memberManager';
 import { storageHelper } from './storageHelper';
 
-import Tab = Tabs.Tab;
-
 const pageAction = (function () {
-  async function isDomainFiltered(tabInfo: Tab) {
+  async function isDomainFiltered(tabInfo: Any) {
     if (!tabInfo.url) return;
     const domain = new URL(tabInfo.url);
     const f = {
@@ -105,7 +103,7 @@ const pageAction = (function () {
     });
   }
 
-  function addFilter(tab: Tab) {
+  function addFilter(tab: Any) {
     if (!tab.url) return;
     const domain = new URL(tab.url);
     if (
@@ -137,7 +135,7 @@ const pageAction = (function () {
     });
   }
 
-  function removeFilter(tab: Tab) {
+  function removeFilter(tab: Any) {
     if (!tab.url) return;
     const domain = new URL(tab.url);
     const f = {

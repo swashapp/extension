@@ -1,7 +1,5 @@
 import browser from 'webextension-polyfill';
 
-import { Runtime } from 'webextension-polyfill/namespaces/runtime';
-
 import { configManager } from './core/configManager';
 import { databaseHelper } from './core/databaseHelper';
 import { dataHandler } from './core/dataHandler';
@@ -21,9 +19,6 @@ import { Any } from './types/any.type';
 import { browserUtils } from './utils/browser.util';
 import { privacyUtils } from './utils/privacy.util';
 
-import MessageSender = Runtime.MessageSender;
-import OnInstalledDetailsType = Runtime.OnInstalledDetailsType;
-
 async function initConfigs() {
   await memberManager.init();
   await dataHandler.init();
@@ -33,7 +28,7 @@ async function initConfigs() {
   await swashApiHelper.init();
 }
 
-async function installSwash(info: OnInstalledDetailsType) {
+async function installSwash(info: Any) {
   console.log('Start installing...');
   await initConfigs();
   if (info.reason === 'update' || info.reason === 'install') {

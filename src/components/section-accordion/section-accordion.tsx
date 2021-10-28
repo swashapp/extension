@@ -5,9 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { Markup } from 'interweave';
 import { PropsWithChildren, useState } from 'react';
 import React from 'react';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import Expand from 'url:../../static/images/shape/expand.svg';
+
+const Expand = '/static/images/shape/expand.svg';
 
 type AccordionItem = {
   title: string;

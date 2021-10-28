@@ -5,33 +5,17 @@ import { withStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { PropsWithChildren, useState } from 'react';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import General from 'url:../../static/images/icons/general-category.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import Music from 'url:../../static/images/icons/music-category.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import News from 'url:../../static/images/icons/news-category.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import Search from 'url:../../static/images/icons/search-category.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import Shopping from 'url:../../static/images/icons/shopping-category.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import Social from 'url:../../static/images/icons/social-category.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import Travel from 'url:../../static/images/icons/travel-category.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import Expand from 'url:../../static/images/shape/expand.svg';
-
 import { RemoveButton } from '../button/remove';
 import { ProgressBar } from '../progress/progress';
+
+const General = '/static/images/icons/general-category.svg';
+const Music = '/static/images/icons/music-category.svg';
+const News = '/static/images/icons/news-category.svg';
+const Search = '/static/images/icons/search-category.svg';
+const Shopping = '/static/images/icons/shopping-category.svg';
+const Social = '/static/images/icons/social-category.svg';
+const Travel = '/static/images/icons/travel-category.svg';
+const Expand = '/static/images/shape/expand.svg';
 
 const Icons = {
   Search,
