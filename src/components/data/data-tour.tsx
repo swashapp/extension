@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { SidenavContext } from '../../pages/app';
 
 import Tour, { TOUR_NAME } from '../tour/tour';
 
@@ -9,9 +11,11 @@ export enum DATA_TOUR_CLASS {
 }
 
 export function DataTour(): JSX.Element {
+  const sidenav = useContext(SidenavContext);
   return (
     <Tour
       tourName={TOUR_NAME.DATA}
+      onStart={() => sidenav.setOpen(true)}
       steps={[
         {
           header: 'Data',

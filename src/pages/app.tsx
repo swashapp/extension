@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { ToastContainer } from 'react-toastify';
@@ -20,42 +20,68 @@ import { RouteToPages } from '../paths';
 import { Onboarding } from './onboarding';
 import { Wallet } from './wallet';
 
+export const SidenavContext = React.createContext<{
+  isOpen: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}>({
+  isOpen: false,
+  setOpen: () => undefined,
+});
+
 function RouteComponent(
   ExtensionComponent: () => JSX.Element,
   activeIndex: number,
 ) {
   const [sidenavOpen, setSidenavOpen] = useState<boolean>(false);
+  const [tourOn, setTourOn] = useState<boolean>(false);
+  useEffect(() => {
+    const search = window.location.hash.split('?');
+    if (search) {
+      const _tour = new URLSearchParams(search[1]).get('tour');
+      if (_tour) {
+        setTourOn(true);
+      }
+    }
+  }, []);
   return (
-    <>
-      <SidenavButton
-        sidenavOpen={sidenavOpen}
-        setSidenavOpen={setSidenavOpen}
-      />
-      <div className="sidenav-and-content">
-        <div
-          className={`sidenav ${
-            sidenavOpen ? 'open-sidenav' : 'close-sidenav'
-          }`}
-        >
-          <Sidenav
-            activeIndex={activeIndex}
-            onClose={() => setSidenavOpen(false)}
-          />
+    <div key={window.location.hash}>
+      <SidenavContext.Provider
+        value={{
+          isOpen: sidenavOpen,
+          setOpen: setSidenavOpen,
+        }}
+      >
+        <SidenavButton isTourOn={tourOn} />
+        <div className="sidenav-and-content">
+          <div
+            className={`sidenav ${
+              sidenavOpen ? 'open-sidenav' : 'close-sidenav'
+            }`}
+          >
+            <Sidenav
+              activeIndex={activeIndex}
+              onClose={() => setSidenavOpen(false)}
+            />
+          </div>
+          <div
+            className={`content ${
+              sidenavOpen ? 'content-open-sidenav' : 'content-close-sidenav'
+            }`}
+          >
+            <ExtensionComponent />
+          </div>
+          <WalletTour />
+          <InviteFriendsTour />
+          <SettingsTour />
+          <DataTour />
+          <HelpTour />
         </div>
         <div
-          className={`content ${
-            sidenavOpen ? 'content-open-sidenav' : 'content-close-sidenav'
-          }`}
-        >
-          <ExtensionComponent />
-        </div>
-        <WalletTour />
-        <InviteFriendsTour />
-        <SettingsTour />
-        <DataTour />
-        <HelpTour />
-      </div>
-    </>
+          className="tour-fake-div"
+          style={{ display: tourOn ? 'block' : 'none' }}
+        />
+      </SidenavContext.Provider>
+    </div>
   );
 }
 

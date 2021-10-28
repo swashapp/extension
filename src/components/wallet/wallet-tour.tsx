@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { SidenavContext } from '../../pages/app';
 
 import Tour, { TOUR_NAME } from '../tour/tour';
 
@@ -9,9 +11,11 @@ export enum WALLET_TOUR_CLASS {
 }
 
 export function WalletTour(): JSX.Element {
+  const sidenav = useContext(SidenavContext);
   return (
     <Tour
       tourName={TOUR_NAME.WALLET}
+      onStart={() => sidenav.setOpen(true)}
       steps={[
         {
           header: 'Swash Wallet',

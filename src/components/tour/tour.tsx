@@ -9,6 +9,8 @@ import React, {
 } from 'react';
 import Joyride, { ACTIONS, EVENTS, STATUS, Step } from 'react-joyride';
 
+import { RouteToPages } from '../../paths';
+
 import { TourNavigationButtons } from './tour-navigation-buttons';
 
 const tourStyles = {
@@ -65,6 +67,7 @@ export default forwardRef(function Tour(
   props: PropsWithChildren<{
     steps: (Step & { header: string })[];
     tourName: TOUR_NAME;
+    onStart?: () => void;
   }>,
   ref,
 ) {
@@ -91,6 +94,7 @@ export default forwardRef(function Tour(
           return { ...state, stepIndex: 0 };
         // Stop the tour
         case 'STOP':
+          window.location.hash = RouteToPages.help;
           return { ...state, run: false };
         // Update the steps for next / back button click
         case 'NEXT_OR_PREV':
@@ -163,6 +167,11 @@ export default forwardRef(function Tour(
     back,
     stop,
   }));
+  useEffect(() => {
+    if (tourState.stepIndex === 0 && tourState.run) {
+      props.onStart && props.onStart();
+    }
+  }, [props, tourState.run, tourState.stepIndex]);
 
   return (
     <TourContext.Provider

@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { SidenavContext } from '../../pages/app';
 
 import Tour, { TOUR_NAME } from '../tour/tour';
 
@@ -9,9 +11,11 @@ export enum HELP_TOUR_CLASS {
 }
 
 export function HelpTour(): JSX.Element {
+  const sidenav = useContext(SidenavContext);
   return (
     <Tour
       tourName={TOUR_NAME.HELP}
+      onStart={() => sidenav.setOpen(true)}
       steps={[
         {
           header: 'Help',

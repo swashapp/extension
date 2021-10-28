@@ -33,7 +33,7 @@ export function Help(): JSX.Element {
 
   useEffect(() => {
     setTour(LocalStorageService.load(STORAGE_KEY.TOUR));
-  }, [loadActiveReferral]);
+  }, []);
 
   const helpData = useMemo(() => {
     return searchText === ''
