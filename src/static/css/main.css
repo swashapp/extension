@@ -589,6 +589,10 @@ a:hover {
   margin-top: 16px;
 }
 
+.data-accordion-content pre {
+  white-space: pre-wrap;
+}
+
 .popup-paper {
   background: var(--white);
   box-shadow: 0 10px 20px rgba(44, 62, 62, 0.04),
@@ -1798,6 +1802,7 @@ a:hover {
 
 .extension-popup-body {
   overflow: hidden;
+  height: 600px;
 }
 
 .extension-popup {
