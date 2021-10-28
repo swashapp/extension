@@ -13,6 +13,7 @@ import GoogleDriveLogo from 'url:../static/images/logos/google-drive.png';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import ThreeBoxLogo from 'url:../static/images/logos/three-box.png';
+import browser from 'webextension-polyfill';
 
 import { Button } from '../components/button/button';
 import { BackgroundTheme } from '../components/drawing/background-theme';
@@ -61,16 +62,16 @@ export function Settings(): JSX.Element {
       });
     }
 
-    if (window.browser.runtime.onMessage.hasListener(onboardingUpload))
-      window.browser.runtime.onMessage.removeListener(onboardingUpload);
+    if (browser.runtime.onMessage.hasListener(onboardingUpload))
+      browser.runtime.onMessage.removeListener(onboardingUpload);
   }, []);
 
   const onboardingOAuth = useCallback(
     (onboarding) => {
-      if (!window.browser.runtime.onMessage.hasListener(onboardingUpload))
-        window.browser.runtime.onMessage.addListener(onboardingUpload);
+      if (!browser.runtime.onMessage.hasListener(onboardingUpload))
+        browser.runtime.onMessage.addListener(onboardingUpload);
 
-      window.browser.tabs.getCurrent().then((tab) => {
+      browser.tabs.getCurrent().then((tab) => {
         window.helper.startOnBoarding(onboarding, tab.id).then();
       });
     },

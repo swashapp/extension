@@ -21,9 +21,10 @@
   "description": "Get paid for your data as you browse the web. Gain control and help create a better, more dignified internet.",
 
   "icons": {
-    "48": "static/images/icons/green_mark_48.png",
-    "96": "static/images/icons/green_mark_96.png",
-    "128": "static/images/icons/green_mark_128.png"
+    "16": "static/images/swash/active-16.png",
+    "48": "static/images/swash/active-48.png",
+    "96": "static/images/swash/active-96.png",
+    "128": "static/images/swash/active-128.png"
   },
 
   "manifest_version": 2,
