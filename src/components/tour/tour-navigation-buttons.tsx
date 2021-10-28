@@ -1,6 +1,6 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 
-import { RouteToPages } from '../../paths';
+import { SidenavContext } from '../../pages/app';
 
 import {
   LocalStorageService,
@@ -16,21 +16,26 @@ export function TourNavigationButtons(props: {
   end?: boolean;
 }): JSX.Element {
   const tour = useContext(TourContext);
+  const sidenav = useContext(SidenavContext);
 
   const onEnd = useCallback(() => {
     tour.stop();
     LocalStorageService.save(STORAGE_KEY.TOUR, { [props.tourName]: true });
-    window.location.hash = RouteToPages.help;
   }, [tour, props.tourName]);
 
   const onBack = useCallback(() => {
     if (props.start) {
       tour.stop();
-      window.location.hash = RouteToPages.help;
     } else {
       tour.back();
     }
   }, [props.start, tour]);
+
+  useEffect(() => {
+    return () => {
+      props.start && sidenav.setOpen(false);
+    };
+  }, [props.start, sidenav]);
 
   return (
     <div className="flex-row tour-nav-buttons">

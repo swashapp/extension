@@ -1,23 +1,24 @@
 import { IconButton } from '@material-ui/core';
-import React, { Dispatch, SetStateAction } from 'react';
+
+import React, { useContext } from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import SidenavIcon from 'url:../../static/images/shape/sidenav.png';
 
+import { SidenavContext } from '../../pages/app';
+
 import { SwashLogo } from '../swash-logo/swash-logo';
 
-export function SidenavButton(props: {
-  sidenavOpen: boolean;
-  setSidenavOpen: Dispatch<SetStateAction<boolean>>;
-}): JSX.Element {
+export function SidenavButton(props: { isTourOn: boolean }): JSX.Element {
+  const sidenav = useContext(SidenavContext);
   return (
     <div
       className={`sidenav-button-container ${
-        props.sidenavOpen ? 'close-sidenav-button' : 'open-sidenav-button'
-      }`}
+        sidenav.isOpen ? 'close-sidenav-button' : 'open-sidenav-button'
+      } ${props.isTourOn ? 'sidenav-button' : 'sidenav-button-animation'}`}
     >
       <SwashLogo />
-      <IconButton onClick={() => props.setSidenavOpen(true)}>
+      <IconButton onClick={() => sidenav.setOpen(true)}>
         <img src={SidenavIcon} alt={'#'} />
       </IconButton>
     </div>

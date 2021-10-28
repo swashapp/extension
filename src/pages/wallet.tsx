@@ -244,21 +244,21 @@ export function Wallet(): JSX.Element {
               />
             </FlexGrid>
             <div className="simple-card">
-              <div
-                className={`wallet-title ${WALLET_TOUR_CLASS.WALLET_ADDRESS}`}
-              >
+              <div className="wallet-title">
                 <h6>Your wallet address</h6>
                 <div className="wallet-title-question-mark">
                   <img src={QuestionGrayIcon} width={16} height={16} />
                 </div>
               </div>
-              <Input
-                label="Wallet Address"
-                value={walletAddress}
-                disabled={true}
-                onChange={(e) => setWalletAddress(e.target.value)}
-                endAdornment={<CopyEndAdornment value={walletAddress} />}
-              />
+              <div className={WALLET_TOUR_CLASS.WALLET_ADDRESS}>
+                <Input
+                  label="Wallet Address"
+                  value={walletAddress}
+                  disabled={true}
+                  onChange={(e) => setWalletAddress(e.target.value)}
+                  endAdornment={<CopyEndAdornment value={walletAddress} />}
+                />
+              </div>
             </div>
           </div>
           <div className="simple-card">
