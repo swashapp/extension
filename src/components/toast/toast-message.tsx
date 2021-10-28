@@ -1,16 +1,11 @@
 import React, { ReactElement } from 'react';
 import { PropsWithChildren } from 'react';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import ErrorIcon from 'url:../../static/images/icons/error.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import SuccessIcon from 'url:../../static/images/icons/success.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import WarningIcon from 'url:../../static/images/icons/warning.png';
 
 import { ToastPanel } from './toast-panel';
+
+const ErrorIcon = '/static/images/icons/error.png';
+const SuccessIcon = '/static/images/icons/success.png';
+const WarningIcon = '/static/images/icons/warning.png';
 
 const Messages = {
   success: {

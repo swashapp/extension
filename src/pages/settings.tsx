@@ -1,18 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import DropboxLogo from 'url:../static/images/logos/dropbox.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import FileLogo from 'url:../static/images/logos/file.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import GoogleDriveLogo from 'url:../static/images/logos/google-drive.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import ThreeBoxLogo from 'url:../static/images/logos/three-box.png';
 import browser from 'webextension-polyfill';
 
 import { Button } from '../components/button/button';
@@ -25,6 +12,11 @@ import { Export3Box } from '../components/passphrase-popup/export-3box';
 import { showPopup } from '../components/popup/popup';
 import { SETTINGS_TOUR_CLASS } from '../components/settings/settings-tour';
 import { ToastMessage } from '../components/toast/toast-message';
+
+const DropboxLogo = '/static/images/logos/dropbox.png';
+const FileLogo = '/static/images/logos/file.png';
+const GoogleDriveLogo = '/static/images/logos/google-drive.png';
+const ThreeBoxLogo = '/static/images/logos/three-box.png';
 
 export function Settings(): JSX.Element {
   const [reveal, setReveal] = useState<boolean>(false);

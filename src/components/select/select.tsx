@@ -2,12 +2,11 @@ import { makeStyles, MenuItem } from '@material-ui/core';
 import MuiSelect from '@material-ui/core/Select';
 import React from 'react';
 import { PropsWithChildren } from 'react';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import smallArrow from 'url:../../static/images/shape/small-arrow.svg';
 
 import { InputBase } from '../input-base/input-base';
 import { Label } from '../label/label';
+
+const smallArrow = '/static/images/shape/small-arrow.svg';
 
 const useStyles = makeStyles(() => ({
   icon: {

@@ -1,9 +1,7 @@
 import { IconButton, InputAdornment, makeStyles } from '@material-ui/core';
 import React from 'react';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import searchIcon from 'url:../../../static/images/shape/search.svg';
+const searchIcon = '/static/images/shape/search.svg';
 
 const useStyles = makeStyles(() => ({
   icon: {

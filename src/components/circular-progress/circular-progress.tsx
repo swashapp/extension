@@ -1,11 +1,7 @@
 import React from 'react';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import completedIcon from 'url:../../static/images/icons/progress-completed.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import uploadingIcon from 'url:../../static/images/icons/uploading.png';
+const completedIcon = '/static/images/icons/progress-completed.png';
+const uploadingIcon = '/static/images/icons/uploading.png';
 
 import { Circle } from '../drawing/circle';
 

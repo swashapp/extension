@@ -1,13 +1,8 @@
 import { InputAdornment, makeStyles } from '@material-ui/core';
-
 import React from 'react';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import innerSpin from 'url:../../../static/images/shape/inner-spin.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import outerSpin from 'url:../../../static/images/shape/outer-spin.svg';
+const innerSpin = '/static/images/shape/inner-spin.svg';
+const outerSpin = '/static/images/shape/outer-spin.svg';
 
 const useStyles = makeStyles(() => ({
   icon: {

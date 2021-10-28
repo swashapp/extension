@@ -364,7 +364,7 @@ a:hover {
   justify-content: center;
   width: 64px;
   height: 64px;
-  background: url('../images/background/numeric-back.png') no-repeat center
+  background: url('/static/images/background/numeric-back.png') no-repeat center
     center;
 }
 
@@ -398,11 +398,11 @@ a:hover {
 }
 
 .numeric-layout1-image {
-  background: url('../images/background/stat1.png') no-repeat center center;
+  background: url('/static/images/background/stat1.png') no-repeat center center;
 }
 
 .numeric-layout2-image {
-  background: url('../images/background/stat2.png') no-repeat center center;
+  background: url('/static/images/background/stat2.png') no-repeat center center;
 }
 
 .section-container {
@@ -653,7 +653,7 @@ a:hover {
 }
 
 .react-joyride__beacon {
-  background: url('../images/shape/question.svg') no-repeat center center;
+  background: url('/static/images/shape/question.svg') no-repeat center center;
   right: -10px;
   /* top: 10px; */
   visibility: visible;
@@ -786,7 +786,8 @@ a:hover {
 .welcome-container {
   overflow: hidden;
   border-radius: 20px;
-  background: url('../images/background/welcome.png') no-repeat center center;
+  background: url('/static/images/background/welcome.png') no-repeat center
+    center;
   background-size: cover;
   padding: 20px;
   margin: 20px;
@@ -808,7 +809,7 @@ a:hover {
 }
 
 .circle-colorful {
-  background: url('../images/background/circle-pattern.webp');
+  background: url('/static/images/background/circle-pattern.webp');
   background-size: cover;
   border-radius: 50%;
 }
@@ -1073,8 +1074,8 @@ a:hover {
 
 .win-data-prize {
   height: 100%;
-  background: url('../images/background/win-data-prize.png') no-repeat center
-    center;
+  background: url('/static/images/background/win-data-prize.png') no-repeat
+    center center;
   background-size: cover;
 
   overflow: hidden;
@@ -1728,15 +1729,16 @@ a:hover {
 }
 
 .help-wallet-earnings-image {
-  background: url('../images/background/help-earnings.jpg') no-repeat center
-    center;
+  background: url('/static/images/background/help-earnings.jpg') no-repeat
+    center center;
   width: 400px;
   height: 200px;
   background-size: 400px 200px;
 }
 
 .help-getting-started-image {
-  background: url('../images/background/help-popup.jpg') no-repeat center center;
+  background: url('/static/images/background/help-popup.jpg') no-repeat center
+    center;
   width: 300px;
   height: 200px;
   background-size: 300px 200px;
@@ -1897,52 +1899,56 @@ a:hover {
 }
 
 .popup-wallet-icon {
-  background: url('../images/icons/sidenav/wallet-black.svg') no-repeat center
-    center;
+  background: url('/static/images/icons/sidenav/wallet-black.svg') no-repeat
+    center center;
 }
 
 .extension-popup-menu-item:hover .popup-wallet-icon {
-  background: url('../images/icons/sidenav/wallet.png') no-repeat center center;
-}
-
-.popup-settings-icon {
-  background: url('../images/icons/sidenav/settings-black.svg') no-repeat center
+  background: url('/static/images/icons/sidenav/wallet.png') no-repeat center
     center;
 }
 
+.popup-settings-icon {
+  background: url('/static/images/icons/sidenav/settings-black.svg') no-repeat
+    center center;
+}
+
 .extension-popup-menu-item:hover .popup-settings-icon {
-  background: url('../images/icons/sidenav/settings.png') no-repeat center
+  background: url('/static/images/icons/sidenav/settings.png') no-repeat center
     center;
 }
 
 .popup-exclude-icon {
-  background: url('../images/icons/sidenav/exclude-black.svg') no-repeat center
-    center;
+  background: url('/static/images/icons/sidenav/exclude-black.svg') no-repeat
+    center center;
 }
 
 .extension-popup-menu-item:hover .popup-exclude-icon {
-  background: url('../images/icons/sidenav/exclude.svg') no-repeat center center;
-}
-
-.popup-excluded {
-  background: url('../images/icons/sidenav/exclude.svg') no-repeat center center;
-}
-
-.popup-help-icon {
-  background: url('../images/icons/sidenav/support-black.svg') no-repeat center
+  background: url('/static/images/icons/sidenav/exclude.svg') no-repeat center
     center;
 }
 
+.popup-excluded {
+  background: url('/static/images/icons/sidenav/exclude.svg') no-repeat center
+    center;
+}
+
+.popup-help-icon {
+  background: url('/static/images/icons/sidenav/support-black.svg') no-repeat
+    center center;
+}
+
 .extension-popup-menu-item:hover .popup-help-icon {
-  background: url('../images/icons/sidenav/support.svg') no-repeat center center;
+  background: url('/static/images/icons/sidenav/support.svg') no-repeat center
+    center;
 }
 
 .popup-welcome-container {
   position: relative;
   overflow: hidden;
   border-radius: 20px;
-  background: url('../images/background/welcome-popup.png') no-repeat center
-    center;
+  background: url('/static/images/background/welcome-popup.png') no-repeat
+    center center;
   background-size: cover;
   padding: 24px 0 24px 24px;
   margin-top: 24px;

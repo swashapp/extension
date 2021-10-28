@@ -1,12 +1,9 @@
 import React, { useContext } from 'react';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import AlreadyHaveWalletIcon from 'url:../../static/images/icons/already-have-wallet.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import StartNewWalletIcon from 'url:../../static/images/icons/start-new-wallet.svg';
 
 import { StepperContext } from '../../pages/onboarding';
+
+const AlreadyHaveWalletIcon = '/static/images/icons/already-have-wallet.svg';
+const StartNewWalletIcon = '/static/images/icons/start-new-wallet.svg';
 
 import { Button } from '../button/button';
 import { FlexGrid } from '../flex-grid/flex-grid';

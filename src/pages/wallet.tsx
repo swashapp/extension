@@ -1,16 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import DataBonusIcon from 'url:../static/images/icons/data-bonus.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import DataEarningsIcon from 'url:../static/images/icons/data-earnings.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import QuestionGrayIcon from 'url:../static/images/shape/question-gray.png';
-
 import { Button } from '../components/button/button';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
@@ -24,6 +14,10 @@ import { ToastMessage } from '../components/toast/toast-message';
 import { DataTransferPopup } from '../components/wallet/data-transfer-popup';
 import { WALLET_TOUR_CLASS } from '../components/wallet/wallet-tour';
 import { UtilsService } from '../service/utils-service';
+
+const DataBonusIcon = '/static/images/icons/data-bonus.svg';
+const DataEarningsIcon = '/static/images/icons/data-earnings.svg';
+const QuestionGrayIcon = '/static/images/shape/question-gray.png';
 
 const networkList = [{ value: 'xDai' }, { value: 'Mainnet' }];
 

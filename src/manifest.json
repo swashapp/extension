@@ -12,8 +12,8 @@
   "browser_action": {
     "browser_style": false,
     "default_icon": {
-      "19": "static/images/icons/green_mark_19.png",
-      "38": "static/images/icons/green_mark_38.png"
+      "16": "static/images/swash/active-16.png",
+      "48": "static/images/swash/active-48.png"
     },
     "default_title": "Swash"
   },

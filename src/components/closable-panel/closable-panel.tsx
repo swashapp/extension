@@ -1,7 +1,6 @@
 import React, { PropsWithChildren, ReactElement, useState } from 'react';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import CloseIcon from 'url:../../static/images/shape/close.svg';
+
+const CloseIcon = '/static/images/shape/close.svg';
 
 export function ClosablePanel(
   props: PropsWithChildren<{

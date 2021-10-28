@@ -7,36 +7,23 @@ import {
   EmailShareButton,
 } from 'react-share';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import TotalBonusIcon from 'url:../static/images/icons/total-bonus.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import TotalFriendsIcon from 'url:../static/images/icons/total-friends.svg';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import EmailLogo from 'url:../static/images/logos/email.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import FacebookLogo from 'url:../static/images/logos/facebook.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import LinkedInLogo from 'url:../static/images/logos/linkedin.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import TwitterLogo from 'url:../static/images/logos/twitter.png';
-
 import { LearnMore } from '../components/button/learn-more';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { Circle } from '../components/drawing/circle';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
-
 import { IconButton } from '../components/icon-button/icon-button';
 import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-adornment';
 import { Input } from '../components/input/input';
 import { INVITE_FRIENDS_TOUR_CLASS } from '../components/invite-friends/invite-friends-tour';
 import { NumericSection } from '../components/numeric-section/numeric-section';
 import { UtilsService } from '../service/utils-service';
+
+const TotalBonusIcon = '/static/images/icons/total-bonus.svg';
+const TotalFriendsIcon = '/static/images/icons/total-friends.svg';
+const EmailLogo = '/static/images/logos/email.png';
+const FacebookLogo = '/static/images/logos/facebook.png';
+const LinkedInLogo = '/static/images/logos/linkedin.png';
+const TwitterLogo = '/static/images/logos/twitter.png';
 
 const referralMessage =
   'Use my referral link to earn money as you surf with Swash:';
