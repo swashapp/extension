@@ -25,7 +25,7 @@ export function Settings(): JSX.Element {
   const loadSettings = useCallback(async () => {
     return window.helper
       .getWalletPrivateKey()
-      .then((key) => setPrivateKey(key));
+      .then((key: string) => setPrivateKey(key));
   }, []);
 
   useEffect(() => {
@@ -36,8 +36,8 @@ export function Settings(): JSX.Element {
 
   const onboardingUpload = useCallback((request) => {
     if (request.onboarding) {
-      window.helper.uploadFile(request.onboarding).then((response) => {
-        if (response === false)
+      window.helper.uploadFile(request.onboarding).then((response: boolean) => {
+        if (!response)
           toast(
             <ToastMessage
               type="error"

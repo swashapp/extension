@@ -890,6 +890,12 @@ a:hover {
   width: 100% !important;
 }
 
+.onboarding-page-container {
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
 .page-container {
   min-height: 900px;
   overflow: hidden;
@@ -1783,7 +1789,7 @@ a:hover {
 
 .waiting-progress {
   position: relative;
-  margin: 20% auto;
+  margin: 10% auto 0 auto;
 }
 
 .waiting-progress p {
