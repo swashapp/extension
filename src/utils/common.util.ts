@@ -1,6 +1,4 @@
 const commonUtils = (function () {
-  'use strict';
-
   function jsonUpdate(src, newObj) {
     if (Array.isArray(newObj)) {
       src.length = 0;
@@ -92,7 +90,9 @@ const commonUtils = (function () {
   }
 
   async function dlJson<Type>(url: string): Promise<Type> {
-    return await (await fetch(url, { cache: 'no-store' })).json();
+    const response = await fetch(url, { cache: 'no-store' });
+    if (response.status > 201) throw new Error(`Failed to fetch ${url}`);
+    return await response.json();
   }
 
   return {

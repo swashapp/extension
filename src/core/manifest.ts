@@ -1,8 +1,6 @@
 import browser from 'webextension-polyfill';
 
 const ssConfig = (function () {
-  'use strict';
-
   return {
     name: browser.runtime.getManifest().name,
     description: browser.runtime.getManifest().description,

@@ -517,26 +517,13 @@ const contentScript = (function () {
   };
 })();
 
-/*if (window.wrappedJSObject) {
-	if(typeof window.wrappedJSObject.surfStreamrContentMessage === 'undefined') {	
-		window.wrappedJSObject.surfStreamrContentMessage = {
-			obj: "Content",
-			func: "injectCollectors",
-			params: [window.location.href]
-		}
-
-		browser.runtime.sendMessage(window.wrappedJSObject.surfStreamrContentMessage).then(contentScript.handleResponse, contentScript.handleError);  
-	}
-}
-else */ {
-  if (typeof window.surfStreamrContentMessage === 'undefined') {
-    window.surfStreamrContentMessage = {
-      obj: 'content',
-      func: 'injectCollectors',
-      params: [window.location.href],
-    };
-    browser.runtime
-      .sendMessage(window.surfStreamrContentMessage)
-      .then(contentScript.handleResponse, contentScript.handleError);
-  }
+if (typeof window.swashContentMessage === 'undefined') {
+  window.swashContentMessage = {
+    obj: 'content',
+    func: 'injectCollectors',
+    params: [window.location.href],
+  };
+  browser.runtime
+    .sendMessage(window.swashContentMessage)
+    .then(contentScript.handleResponse, contentScript.handleError);
 }

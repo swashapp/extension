@@ -120,40 +120,48 @@ const loader = (function () {
   }
 
   function loadFunctions() {
+    console.log('Loading functions');
     for (const func of functions) {
       func.load();
     }
   }
 
   function unloadFunctions() {
+    console.log('Unloading functions');
     for (const func of functions) {
       func.unload();
     }
   }
 
   function functionsLoadModule(module: Module) {
+    console.log('Loading functions module');
     for (const func of functions) {
       func.loadModule(module);
     }
   }
 
   function functionsUnLoadModule(module: Module) {
+    console.log('Unloading functions module');
     for (const func of functions) {
       func.unloadModule(module);
     }
   }
 
   function start() {
+    console.log('Trying to start extension');
     storageHelper.updateConfigs('is_enabled', true).then(() => {
       init(true);
       loadFunctions();
+      console.log('Extension started successfully');
     });
   }
 
   function stop() {
+    console.log('Trying to stop extension');
     storageHelper.updateConfigs('is_enabled', false).then(() => {
       init(false);
       unloadFunctions();
+      console.log('Extension stopped successfully');
     });
   }
 
@@ -163,6 +171,7 @@ const loader = (function () {
   }
 
   async function load() {
+    console.log('Loading the extension configuration');
     storageHelper.getAll().then(async (db) => {
       dbHelperInterval = setInterval(async function () {
         await databaseHelper.init();
@@ -183,7 +192,7 @@ const loader = (function () {
   }
 
   async function reload() {
-    console.log('Reloading the extension');
+    console.log('Reloading the extension configuration');
     storageHelper.getAll().then(async (db) => {
       clearInterval(dbHelperInterval);
       dbHelperInterval = setInterval(async function () {
@@ -204,6 +213,7 @@ const loader = (function () {
   }
 
   function configModule(moduleName: string, settings: Any) {
+    console.log('Configuring extension modules');
     return storageHelper.saveModuleSettings(moduleName, settings).then((x) => {
       storageHelper.getAll().then((db) => {
         const module = db.modules[moduleName];

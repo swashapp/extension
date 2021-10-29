@@ -21,7 +21,6 @@ import { stream } from './stream';
 import { userHelper } from './userHelper';
 
 const dataHandler = (function () {
-  'use strict';
   const streams: { [key: string]: Stream } = {};
   let streamConfig: StreamConfigs;
 

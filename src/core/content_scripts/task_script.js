@@ -200,14 +200,14 @@ const taskScript = (function () {
   };
 })();
 
-if (typeof window.surfStreamrTaskMessage === 'undefined') {
-  window.surfStreamrTaskMessage = {
+if (typeof window.swashTaskMessage === 'undefined') {
+  window.swashTaskMessage = {
     obj: 'task',
     func: 'injectTasks',
     params: [window.location.href],
   };
 
   browser.runtime
-    .sendMessage(surfStreamrTaskMessage)
+    .sendMessage(swashTaskMessage)
     .then(taskScript.handleResponse, taskScript.handleError);
 }
