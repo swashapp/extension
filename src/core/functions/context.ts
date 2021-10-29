@@ -6,8 +6,6 @@ import { commonUtils } from '../../utils/common.util';
 import { storageHelper } from '../storageHelper';
 
 const context = (function () {
-  'use strict';
-
   const cfilter = { urls: [], properties: ['status'] };
 
   function initModule(module) {}

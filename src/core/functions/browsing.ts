@@ -7,8 +7,6 @@ import { dataHandler } from '../dataHandler';
 import { storageHelper } from '../storageHelper';
 
 const browsing = (function () {
-  'use strict';
-
   const callbacks = {};
 
   function initModule(module) {}

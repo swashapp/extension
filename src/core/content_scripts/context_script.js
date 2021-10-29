@@ -75,14 +75,14 @@ const contextScript = (function () {
   };
 })();
 
-if (typeof window.surfStreamrContextMessage === 'undefined') {
-  window.surfStreamrContextMessage = {
+if (typeof window.swashContextMessage === 'undefined') {
+  window.swashContextMessage = {
     obj: 'context',
     func: 'injectAttrCollectors',
     params: [window.location.href],
   };
 
   browser.runtime
-    .sendMessage(window.surfStreamrContextMessage)
+    .sendMessage(window.swashContextMessage)
     .then(contextScript.handleResponse, contextScript.handleError);
 }

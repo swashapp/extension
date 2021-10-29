@@ -1,14 +1,23 @@
 {
+  "name": "Swash",
+  "version": "1.3.2",
+  "description": "Get paid for your data as you browse the web. Gain control and help create a better, more dignified internet.",
+  "homepage_url": "https://swashapp.io/",
+  "manifest_version": 2,
+  "icons": {
+    "16": "static/images/swash/active-16.png",
+    "48": "static/images/swash/active-48.png",
+    "96": "static/images/swash/active-96.png",
+    "128": "static/images/swash/active-128.png"
+  },
   "applications": {
     "gecko": {
       "id": "authsaz@gmail.com"
     }
   },
-
   "background": {
     "scripts": ["background.ts"]
   },
-
   "browser_action": {
     "browser_style": false,
     "default_icon": {
@@ -17,34 +26,15 @@
     },
     "default_title": "Swash"
   },
-
-  "description": "Get paid for your data as you browse the web. Gain control and help create a better, more dignified internet.",
-
-  "icons": {
-    "16": "static/images/swash/active-16.png",
-    "48": "static/images/swash/active-48.png",
-    "96": "static/images/swash/active-96.png",
-    "128": "static/images/swash/active-128.png"
-  },
-
-  "manifest_version": 2,
-
-  "name": "Swash",
-
-  "homepage_url": "https://swashapp.io/",
-
   "permissions": [
-    "clipboardRead",
     "storage",
-    "bookmarks",
     "tabs",
-    "webRequest",
     "<all_urls>",
-    "webRequestBlocking",
-    "downloads"
+    "clipboardRead",
+    "bookmarks",
+    "downloads",
+    "webRequest",
+    "webRequestBlocking"
   ],
-
-  "content_security_policy": "script-src 'self' https://www.youtube.com/ https://s.ytimg.com/; object-src 'self';",
-
-  "version": "1.3.2"
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self';"
 }

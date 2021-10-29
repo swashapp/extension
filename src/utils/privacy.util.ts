@@ -8,7 +8,6 @@ import { Module } from '../types/storage/module.type';
 import { commonUtils } from './common.util';
 
 const privacyUtils = (function () {
-  'use strict';
   let basicIdentity = '';
   const moduleIdentity: Any = {};
   const categoryIdentity: Any = {};

@@ -7,8 +7,6 @@ import { dataHandler } from '../dataHandler';
 import { storageHelper } from '../storageHelper';
 
 const task = (function () {
-  'use strict';
-
   const cfilter = { urls: [], properties: ['status'] };
 
   function initModule(module) {}

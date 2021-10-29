@@ -2,7 +2,6 @@ import { FilterType } from '../enums/filter.enum';
 import { Filter } from '../types/storage/filter.type';
 
 const filterUtils = (function () {
-  'use strict';
   function regexFilter(input: string, regex: string) {
     return !!input.match(regex);
   }

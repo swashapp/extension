@@ -7,8 +7,6 @@ import { commonUtils } from '../../utils/common.util';
 import { storageHelper } from '../storageHelper';
 
 const content = (function () {
-  'use strict';
-
   const cfilter = { urls: [], properties: ['status'] };
 
   async function initModule(module) {
@@ -88,7 +86,6 @@ const content = (function () {
           });
         })
         .catch((err) => {
-          console.error('err');
           console.error(err);
         });
     }
