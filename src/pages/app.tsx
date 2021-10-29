@@ -23,9 +23,11 @@ import { Wallet } from './wallet';
 export const SidenavContext = React.createContext<{
   isOpen: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  startTour: () => void;
 }>({
   isOpen: false,
   setOpen: () => undefined,
+  startTour: () => undefined,
 });
 
 function RouteComponent(
@@ -34,21 +36,13 @@ function RouteComponent(
 ) {
   const [sidenavOpen, setSidenavOpen] = useState<boolean>(false);
   const [tourOn, setTourOn] = useState<boolean>(false);
-  useEffect(() => {
-    const search = window.location.hash.split('?');
-    if (search) {
-      const _tour = new URLSearchParams(search[1]).get('tour');
-      if (_tour) {
-        setTourOn(true);
-      }
-    }
-  }, []);
   return (
     <div key={window.location.hash}>
       <SidenavContext.Provider
         value={{
           isOpen: sidenavOpen,
           setOpen: setSidenavOpen,
+          startTour: () => setTourOn(true),
         }}
       >
         <SidenavButton isTourOn={tourOn} />

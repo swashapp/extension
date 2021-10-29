@@ -22,7 +22,7 @@ export function Help(): JSX.Element {
   const [tour, setTour] = useState<{ [key: string]: unknown }>({});
 
   const loadActiveReferral = useCallback(() => {
-    window.helper.getActiveReferral().then((referral) => {
+    window.helper.getActiveReferral().then((referral: { reward: number }) => {
       if (referral.reward) setReward(referral.reward);
     });
   }, []);

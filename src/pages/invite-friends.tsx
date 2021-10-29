@@ -40,7 +40,7 @@ export function InviteFriends(): JSX.Element {
   });
 
   const loadReferral = useCallback(() => {
-    window.helper.load().then((db) => {
+    window.helper.load().then((db: { profile: { user_id: string } }) => {
       if (!db.profile.user_id) {
         setTimeout(() => loadReferral(), 5000);
         return;
@@ -53,13 +53,17 @@ export function InviteFriends(): JSX.Element {
   }, []);
 
   const loadActiveReferral = useCallback(() => {
-    window.helper.getActiveReferral().then((referral) => {
+    window.helper.getActiveReferral().then((referral: { reward: number }) => {
       if (referral.reward) setReward(referral.reward);
     });
   }, []);
 
   const loadReferrals = useCallback(() => {
-    window.helper.getReferrals().then((_referral) => setReferral(_referral));
+    window.helper
+      .getReferrals()
+      .then((_referral: { totalReward: string; totalReferral: number }) =>
+        setReferral(_referral),
+      );
   }, []);
 
   useEffect(() => {

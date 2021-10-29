@@ -2,7 +2,9 @@ import React from 'react';
 
 const removeIcon = '/static/images/shape/remove.svg';
 
-export function RemoveButton(props: { onClick: () => void }): JSX.Element {
+export function RemoveButton(props: {
+  onClick: (e: React.MouseEvent) => void;
+}): JSX.Element {
   return (
     <div onClick={props.onClick} className="remove-button">
       <div className="remove-icon">

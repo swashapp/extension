@@ -303,6 +303,8 @@ a:hover {
   transition: 0.6s;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  user-select: none;
 }
 
 .icon-button-container:hover {
@@ -703,7 +705,7 @@ a:hover {
 }
 
 .sidenav > div {
-  max-width: 256px;
+  width: 256px;
   height: 100%;
   background-color: var(--white);
 }
@@ -724,6 +726,7 @@ a:hover {
 }
 
 .sidenav-close-button {
+  margin-right: 26px;
   cursor: pointer;
   user-select: none;
   visibility: hidden;

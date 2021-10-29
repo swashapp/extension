@@ -25,7 +25,6 @@ export function Wallet(): JSX.Element {
   const [dataAvailable, setDataAvailable] = useState<string>('$');
   const [minimumWithdraw, setMinimumWithdraw] = useState<number>(99999999);
   const [gasLimit, setGasLimit] = useState<number>(99999999);
-  const [amount, setAmount] = useState<string>('0');
   const [claiming, setClaiming] = useState<boolean>(false);
   const [recipientEthBalance, setRecipientEthBalance] = useState<string>('$');
   const [recipientDataBalance, setRecipientDataBalance] = useState<string>('$');
@@ -41,7 +40,7 @@ export function Wallet(): JSX.Element {
   }, []);
 
   const getUnclaimedBonus = useCallback(() => {
-    window.helper.getRewards().then((_unclaimedBonus) => {
+    window.helper.getRewards().then((_unclaimedBonus: number | string) => {
       setUnclaimedBonus((_unclaimed) => {
         const ret =
           _unclaimedBonus.toString() !== _unclaimed
@@ -53,7 +52,7 @@ export function Wallet(): JSX.Element {
   }, []);
 
   const getDataAvailable = useCallback(() => {
-    window.helper.getAvailableBalance().then((_dataAvailable) => {
+    window.helper.getAvailableBalance().then((_dataAvailable: any) => {
       setDataAvailable((data) => {
         const _data =
           _dataAvailable.error ||
@@ -84,7 +83,7 @@ export function Wallet(): JSX.Element {
     setClaiming(true);
     window.helper
       .claimRewards()
-      .then((result) => {
+      .then((result: { tx?: string }) => {
         if (result.tx) {
           getBalanceInfo().then();
           toast(
@@ -116,7 +115,7 @@ export function Wallet(): JSX.Element {
         message: '',
         type: 'warning',
       };
-      if (!amount.match(/^[0-9]+(\.[0-9]+)?$/)) {
+      if (!dataAvailable.match(/^[0-9]+(\.[0-9]+)?$/)) {
         ret = { message: 'Amount value is not valid', type: 'error' };
       } else if (!recipient.match(/^0x[a-fA-F0-9]{40}$/)) {
         ret = { message: 'Recipient address is not valid', type: 'error' };
@@ -146,7 +145,6 @@ export function Wallet(): JSX.Element {
       }
       return ret;
     }, [
-      amount,
       dataAvailable,
       gasLimit,
       isMessageNeeded,
@@ -182,14 +180,16 @@ export function Wallet(): JSX.Element {
 
   useEffect(() => {
     if (recipient.length === 42) {
-      window.helper.getWithdrawBalance().then((response) => {
-        if (response.minimum) {
-          setMinimumWithdraw(response.minimum);
-        }
-        if (response.gas) {
-          setGasLimit(response.gas.toFixed(3));
-        }
-      });
+      window.helper
+        .getWithdrawBalance()
+        .then((response: { minimum: number; gas: number }) => {
+          if (response.minimum) {
+            setMinimumWithdraw(response.minimum);
+          }
+          if (response.gas) {
+            setGasLimit(Number(response.gas.toFixed(3)));
+          }
+        });
       if (recipient.match(/^0x[a-fA-F0-9]{40}$/g)) {
         const getBalanceOfRecipient = async () => {
           const DataBalance = await window.helper.getDataBalance(recipient);
@@ -336,8 +336,9 @@ export function Wallet(): JSX.Element {
                 <Input
                   label="Amount"
                   name="amount"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
+                  value={dataAvailable}
+                  disabled={true}
+                  onChange={(e) => setDataAvailable(e.target.value)}
                 />
                 <Select
                   items={networkList}
@@ -376,7 +377,7 @@ export function Wallet(): JSX.Element {
                   closable: false,
                   content: (
                     <DataTransferPopup
-                      amount={amount}
+                      amount={dataAvailable}
                       recipient={recipient}
                       onSuccess={getBalanceInfo}
                       useSponsor={Number(dataAvailable) > minimumWithdraw}

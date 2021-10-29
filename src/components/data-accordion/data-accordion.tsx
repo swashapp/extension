@@ -130,7 +130,12 @@ export function DataAccordion(
                         </div>
                       </div>
                     </div>
-                    <RemoveButton onClick={() => props.onRemove(item)} />
+                    <RemoveButton
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        props.onRemove(item);
+                      }}
+                    />
                   </div>
                   <div className="data-accordion-progress">
                     <ProgressBar value={item.percentage} />
