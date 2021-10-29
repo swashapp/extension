@@ -10,7 +10,7 @@ export function Export3Box(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(false);
   const [mnemonic, setMnemonic] = useState<string>('');
   const getMnemonic = useCallback(() => {
-    window.helper.get3BoxMnemonic().then((_mnemonic) => {
+    window.helper.get3BoxMnemonic().then((_mnemonic: string) => {
       let passphrase = _mnemonic;
       if (!_mnemonic) {
         passphrase = bip39.generateMnemonic();

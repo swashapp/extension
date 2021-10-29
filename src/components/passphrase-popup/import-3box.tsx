@@ -25,30 +25,32 @@ export function Import3Box(props: {
   const applyConfig = useCallback(() => {
     if (selectedFile) {
       setLoading(true);
-      return window.helper.applyConfig(selectedFile.conf).then((result) => {
-        window.helper
-          .save3BoxMnemonic(props.mnemonic)
-          .then(() => {
-            if (result) {
-              props.onImport();
-              closePopup();
-              toast(
-                <ToastMessage
-                  type="success"
-                  content={<>Config file is imported successfully</>}
-                />,
-              );
-            } else {
-              toast(
-                <ToastMessage
-                  type="error"
-                  content={<>Can not import this config file</>}
-                />,
-              );
-            }
-          })
-          .finally(() => setLoading(false));
-      });
+      return window.helper
+        .applyConfig(selectedFile.conf)
+        .then((result: string) => {
+          window.helper
+            .save3BoxMnemonic(props.mnemonic)
+            .then(() => {
+              if (result) {
+                props.onImport();
+                closePopup();
+                toast(
+                  <ToastMessage
+                    type="success"
+                    content={<>Config file is imported successfully</>}
+                  />,
+                );
+              } else {
+                toast(
+                  <ToastMessage
+                    type="error"
+                    content={<>Can not import this config file</>}
+                  />,
+                );
+              }
+            })
+            .finally(() => setLoading(false));
+        });
     }
   }, [props, selectedFile]);
 

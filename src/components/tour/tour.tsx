@@ -2,12 +2,15 @@ import React, {
   forwardRef,
   PropsWithChildren,
   useCallback,
+  useContext,
   useEffect,
   useImperativeHandle,
   useMemo,
   useReducer,
 } from 'react';
 import Joyride, { ACTIONS, EVENTS, STATUS, Step } from 'react-joyride';
+
+import { SidenavContext } from '../../pages/app';
 
 import { RouteToPages } from '../../paths';
 
@@ -160,6 +163,13 @@ export default forwardRef(function Tour(
       }
     }
   }, [props.tourName, start]);
+
+  const sidenav = useContext(SidenavContext);
+  useEffect(() => {
+    if (tourState.run) {
+      sidenav.startTour();
+    }
+  }, [sidenav, tourState.run]);
 
   useImperativeHandle(ref, () => ({
     start,
