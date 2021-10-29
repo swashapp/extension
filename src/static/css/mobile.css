@@ -298,10 +298,6 @@
     margin: 20px;
   }
 
-  .data-transfer-button {
-    width: 152px;
-  }
-
   .wallet-data-transfer-content {
     flex-direction: column;
     gap: 30px;
@@ -463,5 +459,17 @@
   .tour-fake-div {
     width: 100%;
     height: 300px !important;
+  }
+  .tour-nav-buttons {
+    gap: 16px;
+  }
+  .tour-nav-buttons .form-button {
+    width: 100%;
+  }
+  .wallet-data-transfer-buttons {
+    gap: 16px;
+  }
+  .wallet-data-transfer-buttons .form-button {
+    width: 100%;
   }
 }

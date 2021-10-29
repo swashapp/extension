@@ -48,7 +48,7 @@ export function DataTransferPopup(props: {
         props.useSponsor,
         props.sendToMainnet,
       )
-      .then((result) => {
+      .then((result: { tx: string; reason: string }) => {
         if (result.tx) {
           props.onSuccess().then();
           toast(
@@ -93,14 +93,14 @@ export function DataTransferPopup(props: {
       </div>
       <div className="flex-row wallet-data-transfer-buttons">
         <Button
-          className="form-button data-transfer-button"
+          className="form-button"
           link={false}
           color="secondary"
           text="Cancel"
           onClick={() => closePopup()}
         />
         <Button
-          className="data-transfer-confirm-button data-transfer-button"
+          className="form-button"
           link={false}
           text={'Confirm and Send'}
           loadingText={'Sending...'}
