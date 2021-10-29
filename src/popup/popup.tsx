@@ -57,13 +57,13 @@ function MenuItem(props: {
 }
 
 function Popup() {
-  const [dataAvailable, setDataAvailable] = useState<string>('0');
-  const [unclaimedBonus, setUnclaimedBonus] = useState<string>('0');
+  const [dataAvailable, setDataAvailable] = useState<string>('$');
+  const [unclaimedBonus, setUnclaimedBonus] = useState<string>('$');
   const [status, setStatus] = useState<boolean>(false);
   const [excluded, setExcluded] = useState<boolean>(false);
 
   const getUnclaimedBonus = useCallback(() => {
-    window.helper.getRewards().then((_unclaimedBonus) => {
+    window.helper.getRewards().then((_unclaimedBonus: string | number) => {
       setUnclaimedBonus((_unclaimed) => {
         const ret =
           _unclaimedBonus.toString() !== _unclaimed
@@ -75,7 +75,7 @@ function Popup() {
   }, []);
 
   const getDataAvailable = useCallback(() => {
-    window.helper.getAvailableBalance().then((_dataAvailable) => {
+    window.helper.getAvailableBalance().then((_dataAvailable: any) => {
       setDataAvailable((data) => {
         const _data =
           _dataAvailable.error ||
@@ -94,14 +94,14 @@ function Popup() {
   }, [getDataAvailable, getUnclaimedBonus]);
 
   useEffect(() => {
-    window.helper.isCurrentDomainFiltered().then((filtered) => {
+    window.helper.isCurrentDomainFiltered().then((filtered: any) => {
       if (filtered) setExcluded(true);
     });
   }, []);
 
   useEffect(() => {
-    window.helper.load().then((db) => {
-      window.helper.isNeededOnBoarding().then((result) => {
+    window.helper.load().then((db: { configs: { is_enabled: boolean } }) => {
+      window.helper.isNeededOnBoarding().then((result: any) => {
         if (!result) {
           setStatus(db.configs.is_enabled);
           getBalanceInfo().then();
@@ -111,7 +111,7 @@ function Popup() {
   }, [getBalanceInfo]);
 
   const showPageOnTab = useCallback((url_to_show: string) => {
-    window.helper.isNeededOnBoarding().then((result) => {
+    window.helper.isNeededOnBoarding().then((result: any) => {
       if (result)
         url_to_show = browser.runtime.getURL('dashboard/index.html#/');
       return browser.windows
