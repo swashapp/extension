@@ -81,7 +81,7 @@ export function DataTransferPopup(props: {
 
   return (
     <div className="wallet-data-transfer-container">
-      <h6>Confirm DATA Transfer</h6>
+      <h6>Confirm SWASH Transfer</h6>
       <div className="flex-row wallet-data-transfer-content">
         <DataTransferField label="Send" value={props.amount} />
         <img src={RightArrow} alt="-->" />

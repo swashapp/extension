@@ -16,6 +16,7 @@ import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-ad
 import { Input } from '../components/input/input';
 import { INVITE_FRIENDS_TOUR_CLASS } from '../components/invite-friends/invite-friends-tour';
 import { NumericSection } from '../components/numeric-section/numeric-section';
+import { Banner } from '../components/sidenav/welcome-to-new-data-world';
 import { UtilsService } from '../service/utils-service';
 
 const TotalBonusIcon = '/static/images/icons/total-bonus.svg';
@@ -71,6 +72,9 @@ export function InviteFriends(): JSX.Element {
     loadActiveReferral();
     loadReferrals();
   }, [loadActiveReferral, loadReferral, loadReferrals]);
+
+  const [banner, setBanner] = useState<Banner>({});
+  useEffect(() => window.helper.loadBanner().then(setBanner), []);
   return (
     <div className="page-container">
       <BackgroundTheme />
@@ -102,7 +106,7 @@ export function InviteFriends(): JSX.Element {
               <div className="simple-card">
                 <h6>Get More Data Bonus</h6>
                 <p>
-                  Share your referral link and earn {reward} DATA for every
+                  Share your referral link and earn {reward} SWASH for every
                   friend you bring to Swash!
                 </p>
                 <Input
@@ -165,15 +169,18 @@ export function InviteFriends(): JSX.Element {
                 <Circle className={'win-data-prize-circle3'} color={'black'} />
                 <div className="flex-column win-data-prize-content">
                   <div className="win-data-prize-title">
-                    <h5>Win 1000 DATA prize every month!</h5>
+                    <h5>{banner.prize?.title || ''}</h5>
                   </div>
                   <div className="flex-column justify-space-between">
                     <div className="win-data-prize-text">
-                      Bring the most new users in a month, you’ll receive a 1000
-                      DATA prize!
+                      {banner.prize?.text || ''}
                     </div>
                     <div className="win-data-prize-button">
-                      <LearnMore size="small" position="WinDataPrize" />
+                      <LearnMore
+                        size="small"
+                        position="WinDataPrize"
+                        link={banner.prize?.link || ''}
+                      />
                     </div>
                   </div>
                 </div>

@@ -21,6 +21,13 @@ export type ReferralsResponse = {
   programId: number;
 };
 
+export type BannerResponse = {
+  type: string;
+  title: string;
+  text: string;
+  link: string;
+};
+
 export type MinimumWithdrawResponse = {
   sponsor: {
     minimum: string;

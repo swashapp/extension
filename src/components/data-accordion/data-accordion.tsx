@@ -15,6 +15,7 @@ const Search = '/static/images/icons/search-category.svg';
 const Shopping = '/static/images/icons/shopping-category.svg';
 const Social = '/static/images/icons/social-category.svg';
 const Travel = '/static/images/icons/travel-category.svg';
+const Beauty = '/static/images/icons/beauty-category.svg';
 const Expand = '/static/images/shape/expand.svg';
 
 const Icons = {
@@ -25,6 +26,7 @@ const Icons = {
   Social,
   Music,
   News,
+  Beauty,
 };
 
 export interface DataItem {

@@ -126,20 +126,12 @@ const HelpData = [
       "target={'_blank'}" +
       "rel={'noopener noreferrer'}" +
       'href={' +
-      'https://etherscan.io/token/0x0cf0ee63788a0849fe5297f3407f701e122cc023' +
+      'https://etherscan.io/token/0xa130e3a33a4d84b04c3918c4e5762223ae252f80' +
       '}' +
       '>' +
-      'DATA' +
+      'SWASH' +
       '</a>' +
-      '-' +
-      '<a' +
-      "target={'_blank'}" +
-      "rel={'noopener noreferrer'}" +
-      "href={'https://streamr.network/'}" +
-      '>' +
-      'Streamr' +
-      '</a>' +
-      '’s native cryptocurrency. For more information on Swash’s' +
+      ' native cryptocurrency. For more information on Swash’s' +
       ' connection to Streamr, check out the ' +
       '<a' +
       "target={'_blank'}" +
@@ -159,11 +151,11 @@ const HelpData = [
       'Your earnings are divided into two:' +
       '<br />' +
       '<br />' +
-      '<em>DATA Earnings</em> - This is the total amount you’ve earned' +
+      '<em>SWASH Earnings</em> - This is the total amount you’ve earned' +
       ' by surfing the web.' +
       '<br />' +
       '<br />' +
-      '<em>DATA Referral bonus</em> - This is the total amount you have' +
+      '<em>SWASH Referral bonus</em> - This is the total amount you have' +
       ' received in referral bonuses.' +
       '<br />' +
       '<br />' +
@@ -192,7 +184,7 @@ const HelpData = [
       '<br />' +
       '<br />' +
       '<p>' +
-      'When you withdraw your DATA, you can then exchange them for' +
+      'When you withdraw your SWASH, you can then exchange them for' +
       ' other cryptocurrencies or fiat currencies through various' +
       ' exchanges.' +
       '<br />' +
@@ -218,9 +210,9 @@ const HelpData = [
       '</a>' +
       '</li>' +
       '<li>' +
-      'Add DATA as a token in your Metamask xDai wallet using the' +
-      " 'Add Token' button. You can find the DATA Token Contract Address " +
-      "<a href='https://blockscout.com/xdai/mainnet/tokens/0xE4a2620edE1058D61BEe5F45F6414314fdf10548/token-holders'>" +
+      'Add SWASH as a token in your Metamask xDai wallet using the' +
+      " 'Add Token' button. You can find the SWASH Token Contract Address " +
+      "<a href='https://blockscout.com/xdai/mainnet/tokens/0x84e2c67cbefae6b5148fca7d02b341b12ff4b5bb'>" +
       ' here' +
       '</a>' +
       '</li>' +
@@ -231,10 +223,10 @@ const HelpData = [
       '</li>' +
       '</ol>' +
       '<p>' +
-      '🎉 Bonus: Once received, you can also put your DATA to work by' +
+      '🎉 Bonus: Once received, you can also put your SWASH to work by' +
       ' trading or staking liquidity on the ' +
-      "<a href='https://info.honeyswap.org/pair/0x0110f008b8815cf00514d54ea11bfa8bb555c69b'>" +
-      'DATA/ xDAI pool' +
+      "<a href='https://info.honeyswap.org/pair/0x0110f008b8815cf00514d54ea11bfa8bb555c69b#/pair/0xfd8fe4c85e5c2e56207ffb50b0e9eb43116f282f'>" +
+      'SWASH/ xDAI pool' +
       '</a>' +
       " on <a href='https://app.honeyswap.org/#/swap'>Honeyswap</a> 🐝" +
       '<br/><br />' +
@@ -288,14 +280,7 @@ const HelpData = [
       ' option to ‘Invite a friend’. Here is where you can find your' +
       ' unique referral link to share Swash with others. For every new' +
       ' installation of Swash made using your referral link, you’ll' +
-      ' receive $REWARD DATA.' +
-      '<br />' +
-      '<br />' +
-      'Whoever invites the most new people to Swash using their' +
-      ' referral link will be rewarded with 1000 DATA each month.' +
-      ' Winners are announced on ' +
-      "<a href={'https://t.me/swashapp_group'}> Telegram</a> and " +
-      "<a href={'https://twitter.com/swashapp'}>Twitter</a>." +
+      ' receive $REWARD SWASH.' +
       '<br />' +
       '<br />' +
       'You can also use the social icons to share your referral link' +

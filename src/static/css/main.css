@@ -593,6 +593,7 @@ a:hover {
 
 .data-accordion-content pre {
   white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .popup-paper {
@@ -1803,6 +1804,7 @@ a:hover {
   width: 360px;
   background-color: var(--lightest-blue);
   margin: 0;
+  height: inherit;
 }
 
 .extension-popup-body {
@@ -1816,6 +1818,7 @@ a:hover {
     0 0 1px rgba(0, 0, 0, 0.04);
   background-color: var(--white);
   padding: 24px;
+  height: inherit;
 }
 
 .extension-popup-logo-and-switch {

@@ -119,6 +119,28 @@ const loader = (function () {
     }
   }
 
+  function loadBanner() {
+    console.log('Loading banner');
+    swashApiHelper.getBanner().then((res) => {
+      if (res.length > 0) {
+        const banner: {
+          [key: string]: {
+            type: string;
+            title: string;
+            text: string;
+            link: string;
+          };
+        } = {};
+        res.forEach((item) => {
+          if (!banner[item.type]) banner[item.type] = item;
+        });
+        storageHelper.getBanner().then((_banner) => {
+          storageHelper.saveBanner({ ..._banner, ...banner });
+        });
+      }
+    });
+  }
+
   function loadFunctions() {
     console.log('Loading functions');
     for (const func of functions) {
@@ -152,6 +174,7 @@ const loader = (function () {
     storageHelper.updateConfigs('is_enabled', true).then(() => {
       init(true);
       loadFunctions();
+      loadBanner();
       console.log('Extension started successfully');
     });
   }
@@ -184,6 +207,7 @@ const loader = (function () {
       if (db.configs.is_enabled) {
         init(true);
         loadFunctions();
+        loadBanner();
       } else {
         init(false);
         unloadFunctions();
@@ -208,6 +232,7 @@ const loader = (function () {
       if (db.configs.is_enabled) {
         init(true);
         loadFunctions();
+        loadBanner();
       }
     });
   }
