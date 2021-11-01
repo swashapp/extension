@@ -6,6 +6,7 @@ export type SwashApiConfigs = {
     userUpdateEmail: string;
     emailVerification: string;
     newsletterSignUp: string;
+    banner: string;
     userReferralReward: string;
     userReferralClaim: string;
     userBalanceWithdraw: string;

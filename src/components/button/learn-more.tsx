@@ -5,6 +5,7 @@ import { Button } from './button';
 export function LearnMore(props: {
   position: string;
   size?: 'small' | 'large';
+  link?: string;
 }): JSX.Element {
   return (
     <Button
@@ -12,7 +13,7 @@ export function LearnMore(props: {
       size={props.size || 'large'}
       color={'white'}
       link={{
-        url: 'https://medium.com/swashapp/the-dawn-of-a-new-age-of-data-eff0d8b2f0a4',
+        url: props.link || '',
         newTab: true,
         external: true,
       }}

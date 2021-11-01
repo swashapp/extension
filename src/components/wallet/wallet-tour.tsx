@@ -46,7 +46,8 @@ export function WalletTour(): JSX.Element {
           placement: 'right',
           content: (
             <>
-              Your public wallet address is like an account number. If you want
+              Your public wallet address is like an account number. You can
+              share it to receive crypto into your wallet.
             </>
           ),
         },

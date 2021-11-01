@@ -6,6 +6,7 @@
     "userUpdateEmail": "/user/email",
     "emailVerification": "/email/verification",
     "newsletterSignUp": "/public/newsletter/signup",
+    "banner": "/public/banner",
     "userReferralReward": "/user/referral/reward",
     "userReferralClaim": "/user/referral/claim",
     "userBalanceWithdraw": "/user/balance/withdraw",

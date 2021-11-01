@@ -1,4 +1,7 @@
+import { Banner } from 'types/storage/banner.type';
 import browser from 'webextension-polyfill';
+
+import { BannerEntity } from '../entities/banner.entity';
 
 import { ConfigEntity } from '../entities/config.entity';
 import { FilterEntity } from '../entities/filter.entity';
@@ -83,6 +86,14 @@ const storageHelper = (function () {
     return (await PrivacyDataEntity.getInstance()).save(privacyData);
   }
 
+  async function saveBanner(banner: Banner) {
+    return (await BannerEntity.getInstance()).save(banner);
+  }
+
+  async function getBanner() {
+    return (await BannerEntity.getInstance()).get();
+  }
+
   function updateFunctionSettings(
     module: Module,
     functionName: ModuleFunction,
@@ -124,6 +135,8 @@ const storageHelper = (function () {
     getPrivacyData,
     savePrivacyData,
     saveModuleSettings,
+    saveBanner,
+    getBanner,
   };
 })();
 export { storageHelper };

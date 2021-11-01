@@ -79,6 +79,15 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function loadBanner() {
+    const message = {
+      obj: 'storageHelper',
+      func: 'getBanner',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
   function save(data) {}
 
   function saveFilters(data) {
@@ -714,6 +723,7 @@ const helper = (function () {
     join,
     updateEmail,
     newsletterSignUp,
+    loadBanner,
   };
 })();
 

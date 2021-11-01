@@ -141,8 +141,8 @@ export function Settings(): JSX.Element {
           <div className="simple-card">
             <h6>Private key</h6>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac
-              eleifend ante.
+              Think of your private key like a password. Do not share it with
+              anyone and make sure to store it securely offline.
             </p>
             <div className={SETTINGS_TOUR_CLASS.PRIVATE_KEY}>
               <Input

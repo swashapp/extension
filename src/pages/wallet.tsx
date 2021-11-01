@@ -299,8 +299,8 @@ export function Wallet(): JSX.Element {
                             Swash will cover the cost for you! 🎉
                             <br />
                             <br />
-                            You can also put your DATA to work by trading or
-                            staking liquidity on the DATA/ xDAI pool on{' '}
+                            You can also put your SWASH to work by trading or
+                            staking liquidity on the SWASH/ xDAI pool on{' '}
                             <a
                               href="https://honeyswap.org"
                               style={{
@@ -360,7 +360,7 @@ export function Wallet(): JSX.Element {
                     recipientEthBalance,
                   )} ETH, ${UtilsService.purgeNumber(
                     recipientDataBalance,
-                  )} DATA`}</div>
+                  )} SWASH`}</div>
                 ) : (
                   <></>
                 )}
