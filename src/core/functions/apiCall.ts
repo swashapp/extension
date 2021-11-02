@@ -33,6 +33,50 @@ const apiCall = (function () {
       module.apiCall.apiConfig.redirect_url = getCallBackURL(module.name);
   }
 
+  async function load() {
+    const modules = await storageHelper.getModules();
+    for (const module in modules) {
+      if (modules[module].functions.includes('apiCall')) {
+        loadModule(modules[module]);
+      }
+    }
+  }
+
+  async function unload() {
+    const modules = await storageHelper.getModules();
+    for (const module in modules) {
+      if (modules[module].functions.includes('apiCall')) {
+        unloadModule(modules[module]);
+      }
+    }
+  }
+
+  function loadModule(module) {
+    unloadModule(module);
+    if (module.is_enabled) {
+      if (module.functions.includes('apiCall')) {
+        fetchApis(module.name);
+        const crURL = getCallBackURL(module.name);
+        callbacks[module.name] = { interval: -1, apiCalls: [] };
+        callbacks[module.name].interval = setInterval(function (x) {
+          fetchApis(module.name);
+        }, API_CALL_INTERVAL);
+      }
+    }
+  }
+
+  function unloadModule(module) {
+    if (module.functions.includes('apiCall')) {
+      if (callbacks[module.name]) {
+        clearInterval(callbacks[module.name].interval);
+        if (callbacks[module.name].apiCalls) {
+          for (const s of callbacks[module.name].apiCalls) clearTimeout(s);
+        }
+      }
+      callbacks[module.name] = {};
+    }
+  }
+
   function getCallBackURL(moduleName) {
     const cbURL =
       'https://callbacks.swashapp.io/' +
@@ -255,26 +299,6 @@ const apiCall = (function () {
     return fetch(url, req);
   }
 
-  function unload() {
-    storageHelper.getModules().then((modules) => {
-      for (const module in modules) {
-        if (modules[module].functions.includes('apiCall')) {
-          unloadModule(modules[module]);
-        }
-      }
-    });
-  }
-
-  function load() {
-    storageHelper.getModules().then((modules) => {
-      for (const module in modules) {
-        if (modules[module].functions.includes('apiCall')) {
-          loadModule(modules[module]);
-        }
-      }
-    });
-  }
-
   function sendMessage(module, data, msg) {
     dataHandler.handle({
       origin: module.apiCall.apiConfig.api_endpoint + data.URI,
@@ -332,39 +356,13 @@ const apiCall = (function () {
       });
   }
 
-  function unloadModule(module) {
-    if (module.functions.includes('apiCall')) {
-      if (callbacks[module.name]) {
-        clearInterval(callbacks[module.name].interval);
-        if (callbacks[module.name].apiCalls) {
-          for (const s of callbacks[module.name].apiCalls) clearTimeout(s);
-        }
-      }
-      callbacks[module.name] = {};
-    }
-  }
-
-  function loadModule(module) {
-    unloadModule(module);
-    if (module.is_enabled) {
-      if (module.functions.includes('apiCall')) {
-        fetchApis(module.name);
-        const crURL = getCallBackURL(module.name);
-        callbacks[module.name] = { interval: -1, apiCalls: [] };
-        callbacks[module.name].interval = setInterval(function (x) {
-          fetchApis(module.name);
-        }, API_CALL_INTERVAL);
-      }
-    }
-  }
-
   return {
     init,
     initModule,
     load,
     unload,
-    unloadModule,
     loadModule,
+    unloadModule,
     startOauth,
     getCallBackURL,
     isConnected,

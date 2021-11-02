@@ -10,17 +10,30 @@ const context = (function () {
 
   function initModule(module) {}
 
-  function unload() {
+  async function load() {
+    const modules = await storageHelper.getModules();
+    for (const module in modules) {
+      loadModule(modules[module]);
+    }
+  }
+
+  async function unload() {
     if (browser.tabs.onUpdated.hasListener(registerContextScripts))
       browser.tabs.onUpdated.removeListener(registerContextScripts);
   }
 
-  function load() {
-    storageHelper.getModules().then((modules) => {
-      for (const module in modules) {
-        loadModule(modules[module]);
+  function loadModule(module) {
+    if (module.is_enabled) {
+      if (module.functions.includes('context')) {
+        for (const item of module.contex.context_matches) {
+          cfilter.urls.push(item);
+        }
+        if (browser.tabs.onUpdated.hasListener(registerContextScripts))
+          browser.tabs.onUpdated.removeListener(registerContextScripts);
+        if (cfilter.urls.length > 0)
+          browser.tabs.onUpdated.addListener(registerContextScripts);
       }
-    });
+    }
   }
 
   function unloadModule(module) {
@@ -37,20 +50,6 @@ const context = (function () {
         browser.tabs.onUpdated.removeListener(registerContextScripts);
       if (cfilter.urls.length > 0)
         browser.tabs.onUpdated.addListener(registerContextScripts);
-    }
-  }
-
-  function loadModule(module) {
-    if (module.is_enabled) {
-      if (module.functions.includes('context')) {
-        for (const item of module.contex.context_matches) {
-          cfilter.urls.push(item);
-        }
-        if (browser.tabs.onUpdated.hasListener(registerContextScripts))
-          browser.tabs.onUpdated.removeListener(registerContextScripts);
-        if (cfilter.urls.length > 0)
-          browser.tabs.onUpdated.addListener(registerContextScripts);
-      }
     }
   }
 
@@ -103,9 +102,9 @@ const context = (function () {
     initModule,
     load,
     unload,
-    unloadModule,
     loadModule,
-    injectAttrCollectors: injectAttrCollectors,
+    unloadModule,
+    injectAttrCollectors,
   };
 })();
 export { context };

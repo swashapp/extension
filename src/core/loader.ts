@@ -144,17 +144,17 @@ const loader = (function () {
     });
   }
 
-  function loadFunctions() {
+  async function loadFunctions() {
     console.log('Loading functions');
     for (const func of functions) {
-      func.load();
+      await func.load();
     }
   }
 
-  function unloadFunctions() {
+  async function unloadFunctions() {
     console.log('Unloading functions');
     for (const func of functions) {
-      func.unload();
+      await func.unload();
     }
   }
 
@@ -172,28 +172,26 @@ const loader = (function () {
     }
   }
 
-  function start() {
+  async function start() {
     console.log('Trying to start extension');
-    storageHelper.updateConfigs('is_enabled', true).then(() => {
-      init(true);
-      loadFunctions();
-      loadNotifications();
-      console.log('Extension started successfully');
-    });
+    await storageHelper.updateConfigs('is_enabled', true);
+    init(true);
+    await loadFunctions();
+    loadNotifications();
+    console.log('Extension started successfully');
   }
 
-  function stop() {
+  async function stop() {
     console.log('Trying to stop extension');
-    storageHelper.updateConfigs('is_enabled', false).then(() => {
-      init(false);
-      unloadFunctions();
-      console.log('Extension stopped successfully');
-    });
+    await storageHelper.updateConfigs('is_enabled', false);
+    init(false);
+    await unloadFunctions();
+    console.log('Extension stopped successfully');
   }
 
-  function restart() {
-    stop();
-    start();
+  async function restart() {
+    await stop();
+    await start();
   }
 
   async function load() {
@@ -209,40 +207,39 @@ const loader = (function () {
       );
       if (db.configs.is_enabled) {
         init(true);
-        loadFunctions();
+        await loadFunctions();
         loadNotifications();
       } else {
         init(false);
-        unloadFunctions();
+        await unloadFunctions();
       }
     });
   }
 
   async function reload() {
     console.log('Reloading the extension configuration');
-    storageHelper.getAll().then(async (db) => {
-      clearInterval(dbHelperInterval);
-      dbHelperInterval = setInterval(async function () {
-        await databaseHelper.init();
-        await dataHandler.sendDelayedMessages();
-      }, 10000);
-      init(false);
-      await userHelper.loadEncryptedWallet(
-        db.profile.encryptedWallet,
-        db.configs.salt,
-      );
-      unloadFunctions();
-      if (db.configs.is_enabled) {
-        init(true);
-        loadFunctions();
-        loadNotifications();
-      }
-    });
+    const db = await storageHelper.getAll();
+    clearInterval(dbHelperInterval);
+    dbHelperInterval = setInterval(async function () {
+      await databaseHelper.init();
+      await dataHandler.sendDelayedMessages();
+    }, 10000);
+    init(false);
+    await userHelper.loadEncryptedWallet(
+      db.profile.encryptedWallet,
+      db.configs.salt,
+    );
+    await unloadFunctions();
+    if (db.configs.is_enabled) {
+      init(true);
+      await loadFunctions();
+      loadNotifications();
+    }
   }
 
   function configModule(moduleName: string, settings: Any) {
     console.log('Configuring extension modules');
-    return storageHelper.saveModuleSettings(moduleName, settings).then((x) => {
+    return storageHelper.saveModuleSettings(moduleName, settings).then(() => {
       storageHelper.getAll().then((db) => {
         const module = db.modules[moduleName];
         functionsUnLoadModule(module);

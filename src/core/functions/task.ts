@@ -11,17 +11,30 @@ const task = (function () {
 
   function initModule(module) {}
 
-  function unload() {
+  async function load() {
+    const modules = await storageHelper.getModules();
+    for (const module in modules) {
+      loadModule(modules[module]);
+    }
+  }
+
+  async function unload() {
     if (browser.tabs.onUpdated.hasListener(registerTaskScripts))
       browser.tabs.onUpdated.removeListener(registerTaskScripts);
   }
 
-  function load() {
-    storageHelper.getModules().then((modules) => {
-      for (const module in modules) {
-        loadModule(modules[module]);
+  function loadModule(module) {
+    if (module.is_enabled) {
+      if (module.functions.includes('task')) {
+        for (const item of module.task.task_matches) {
+          cfilter.urls.push(item);
+        }
+        if (browser.tabs.onUpdated.hasListener(registerTaskScripts))
+          browser.tabs.onUpdated.removeListener(registerTaskScripts);
+        if (cfilter.urls.length > 0)
+          browser.tabs.onUpdated.addListener(registerTaskScripts);
       }
-    });
+    }
   }
 
   function unloadModule(module) {
@@ -38,20 +51,6 @@ const task = (function () {
         browser.tabs.onUpdated.removeListener(registerTaskScripts);
       if (cfilter.urls.length > 0)
         browser.tabs.onUpdated.addListener(registerTaskScripts);
-    }
-  }
-
-  function loadModule(module) {
-    if (module.is_enabled) {
-      if (module.functions.includes('task')) {
-        for (const item of module.task.task_matches) {
-          cfilter.urls.push(item);
-        }
-        if (browser.tabs.onUpdated.hasListener(registerTaskScripts))
-          browser.tabs.onUpdated.removeListener(registerTaskScripts);
-        if (cfilter.urls.length > 0)
-          browser.tabs.onUpdated.addListener(registerTaskScripts);
-      }
     }
   }
 
@@ -145,10 +144,10 @@ const task = (function () {
     initModule,
     load,
     unload,
-    unloadModule,
     loadModule,
-    injectTasks: injectTasks,
-    manageTask: manageTask,
+    unloadModule,
+    injectTasks,
+    manageTask,
   };
 })();
 export { task };
