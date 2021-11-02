@@ -7,7 +7,7 @@ import { Button } from '../button/button';
 import { FlexGrid } from '../flex-grid/flex-grid';
 import { FilePicker } from '../passphrase-popup/file-picker';
 import { SignIn3Box } from '../passphrase-popup/sign-in-3box';
-import { closePopup, showPopup } from '../popup/popup';
+import { showPopup } from '../popup/popup';
 import { ToastMessage } from '../toast/toast-message';
 
 import { ImportingConfig } from './importing-config';
@@ -42,58 +42,27 @@ function ImportCard(props: {
 export function ImportYourConfig(): JSX.Element {
   const stepper = useContext(StepperContext);
   const [importing, setImporting] = useState<boolean>(false);
+  const onImportFailed = useCallback(() => {
+    setImporting(false);
+    toast(
+      <ToastMessage
+        type="error"
+        content={<>Can not import this config file</>}
+      />,
+    );
+  }, []);
   const onImport = useCallback(() => {
     window.helper
       .getJoinedSwash()
-      .then((data) => {
+      .then((data: { id: number; email: string }) => {
         stepper.setJoin(data);
         if (data.id && data.email)
           stepper.changeSelectedPage('Join', 'Completed');
         setImporting(false);
         stepper.next();
       })
-      .catch(() => setImporting(false));
-  }, [stepper]);
-  const applyConfig = useCallback(
-    (selectedFile, onboarding, setLoading) => {
-      if (selectedFile?.id) {
-        setLoading(true);
-        return window.helper
-          .downloadFile(onboarding, selectedFile.id)
-          .then((response) => {
-            if (response) {
-              setImporting(true);
-              setLoading(false);
-              closePopup();
-              return window.helper
-                .applyConfig(JSON.stringify(response))
-                .then((result) => {
-                  if (result) {
-                    onImport();
-                    toast(
-                      <ToastMessage
-                        type="success"
-                        content={<>Config file is imported successfully</>}
-                      />,
-                    );
-                  } else {
-                    setImporting(false);
-                    toast(
-                      <ToastMessage
-                        type="error"
-                        content={<>Can not import this config file</>}
-                      />,
-                    );
-                  }
-                });
-            }
-          });
-      } else {
-        closePopup();
-      }
-    },
-    [onImport],
-  );
+      .catch(onImportFailed);
+  }, [onImportFailed, stepper]);
   const togglePopup = useCallback(
     (message: { onboarding: string }) => {
       showPopup({
@@ -101,12 +70,14 @@ export function ImportYourConfig(): JSX.Element {
         content: (
           <FilePicker
             onboarding={message.onboarding}
-            applyConfig={applyConfig}
+            onBeforeImport={() => setImporting(true)}
+            onImport={onImport}
+            onImportFailed={onImportFailed}
           />
         ),
       });
     },
-    [applyConfig],
+    [onImport, onImportFailed],
   );
   const importFromFile = useCallback(() => {
     const input = document.createElement('input');
@@ -122,17 +93,11 @@ export function ImportYourConfig(): JSX.Element {
 
         reader.onload = function () {
           setImporting(true);
-          window.helper.applyConfig(reader.result).then((response) => {
+          window.helper.applyConfig(reader.result).then((response: any) => {
             if (response) {
               onImport();
             } else {
-              setImporting(false);
-              toast(
-                <ToastMessage
-                  type="error"
-                  content={<>The configuration file could not be imported</>}
-                />,
-              );
+              onImportFailed();
             }
           });
         };
@@ -143,7 +108,7 @@ export function ImportYourConfig(): JSX.Element {
       }
     };
     input.click();
-  }, [onImport]);
+  }, [onImport, onImportFailed]);
 
   const importFromGoogleDrive = useCallback(() => {
     if (!browser.runtime.onMessage.hasListener(togglePopup))
@@ -164,9 +129,15 @@ export function ImportYourConfig(): JSX.Element {
   const importFrom3Box = useCallback(() => {
     showPopup({
       closable: true,
-      content: <SignIn3Box onImport={onImport} />,
+      content: (
+        <SignIn3Box
+          onBeforeImport={() => setImporting(true)}
+          onImport={onImport}
+          onImportFailed={onImportFailed}
+        />
+      ),
     });
-  }, [onImport]);
+  }, [onImport, onImportFailed]);
 
   useEffect(() => {
     return () => {

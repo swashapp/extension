@@ -1,10 +1,12 @@
-import bip39 from 'bip39';
+import * as bip39 from 'bip39';
 
 import React, { useCallback, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { Button } from '../button/button';
 import { FormMessage } from '../form-message/form-message';
 import { closePopup } from '../popup/popup';
+import { ToastMessage } from '../toast/toast-message';
 
 export function Export3Box(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(false);
@@ -29,8 +31,16 @@ export function Export3Box(): JSX.Element {
       const seed = '0x'.concat(bytes.toString('hex').substring(0, 32));
       window.helper
         .writeTo3BoxSpace(seed)
-        .then(() => closePopup())
-        .finally(() => setLoading(false));
+        .then(() => {
+          setLoading(false);
+          closePopup();
+        })
+        .catch(() => {
+          setLoading(false);
+          toast(
+            <ToastMessage type="error" content={<>Something went wrong!</>} />,
+          );
+        });
     });
   }, [mnemonic]);
 
@@ -41,9 +51,9 @@ export function Export3Box(): JSX.Element {
         phrase to access your 3Box backups. Save them somewhere safe and secret.
         <br />
         <br />
-        <div className="passphrase-export-mnemonic">{mnemonic}</div>
-        <br />
       </p>
+      <div className="passphrase-export-mnemonic">{mnemonic}</div>
+      <br />
       <FormMessage
         type="warning"
         text="This feature is experimental and so may not work perfectly all the time. It may change or be removed in the future. Use it at your own risk."
@@ -52,6 +62,7 @@ export function Export3Box(): JSX.Element {
         <Button
           link={false}
           onClick={backupConfig}
+          disabled={!mnemonic}
           loading={loading}
           loadingText="Uploading"
           text="Export"

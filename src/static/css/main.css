@@ -1810,7 +1810,7 @@ a:hover {
 
 .extension-popup-body {
   overflow: hidden;
-  height: 600px;
+  max-height: 600px;
 }
 
 .extension-popup {

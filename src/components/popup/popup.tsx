@@ -31,9 +31,13 @@ function Modal(props: {
       {...props}
       maxWidth={false}
       open={true}
-      onBackdropClick={
-        props.closeOnBackDropClick ? () => closePopup() : () => undefined
-      }
+      onClose={(event, reason) => {
+        if (reason === 'backdropClick') {
+          if (props.closeOnBackDropClick) {
+            closePopup();
+          }
+        }
+      }}
       className="popup"
       BackdropProps={{ style: { background: 'rgba(0, 32, 48, 0.7)' } }}
       PaperProps={{ className: 'popup-paper' }}

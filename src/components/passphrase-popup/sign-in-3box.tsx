@@ -1,4 +1,4 @@
-import bip39 from 'bip39';
+import * as bip39 from 'bip39';
 
 import React, { useCallback, useMemo, useState } from 'react';
 
@@ -9,7 +9,11 @@ import { showPopup } from '../popup/popup';
 
 import { Import3Box } from './import-3box';
 
-export function SignIn3Box(props: { onImport: () => void }): JSX.Element {
+export function SignIn3Box(props: {
+  onBeforeImport: () => void;
+  onImport: () => void;
+  onImportFailed: () => void;
+}): JSX.Element {
   const [loading, setLoading] = useState<boolean>(false);
   const [mnemonic, setMnemonic] = useState<string>('');
 
@@ -22,34 +26,46 @@ export function SignIn3Box(props: { onImport: () => void }): JSX.Element {
   const signIn3Box = useCallback(() => {
     setLoading(true);
     if (isMnemonicValid) {
-      bip39.mnemonicToSeed(mnemonic).then((bytes) => {
-        const seed = '0x'.concat(bytes.toString('hex').substring(0, 32));
-        window.helper.getFrom3BoxSpace(seed).then((result) => {
-          const files = [];
-          const fileList = JSON.parse(result);
-          for (const fileIndex in fileList) {
-            if (fileList[fileIndex]) {
-              const file = {
-                key: fileIndex,
-                conf: fileList[fileIndex],
-              };
-              files.push(file);
+      bip39
+        .mnemonicToSeed(mnemonic)
+        .then((bytes) => {
+          const seed = '0x'.concat(bytes.toString('hex').substring(0, 32));
+          window.helper.getFrom3BoxSpace(seed).then((result: any) => {
+            setLoading(false);
+            const files = [];
+            const fileList = JSON.parse(result);
+            for (const fileIndex in fileList) {
+              if (fileList[fileIndex]) {
+                const file = {
+                  key: fileIndex,
+                  conf: fileList[fileIndex],
+                };
+                files.push(file);
+              }
             }
-          }
-          showPopup({
-            closable: true,
-            content: (
-              <Import3Box
-                files={files}
-                mnemonic={mnemonic}
-                onImport={props.onImport}
-              />
-            ),
+            showPopup({
+              closable: true,
+              content: (
+                <Import3Box
+                  files={files}
+                  mnemonic={mnemonic}
+                  onBeforeImport={props.onBeforeImport}
+                  onImport={props.onImport}
+                  onImportFailed={props.onImportFailed}
+                />
+              ),
+            });
           });
-        });
-      });
+        })
+        .catch(() => setLoading(false));
     }
-  }, [isMnemonicValid, mnemonic, props.onImport]);
+  }, [
+    isMnemonicValid,
+    mnemonic,
+    props.onBeforeImport,
+    props.onImport,
+    props.onImportFailed,
+  ]);
 
   return (
     <div className="passphrase-container">
@@ -57,15 +73,17 @@ export function SignIn3Box(props: { onImport: () => void }): JSX.Element {
         If you ever change browsers or move computers, you will need this seed
         phrase to access your 3Box backups. Save them somewhere safe and secret.
         <br />
-        <br />
-        <Input
-          name="mnemonic"
-          value={mnemonic}
-          multiline
-          onChange={(e) => setMnemonic(e.target.value)}
-        />
-        <br />
       </p>
+      <br />
+      <Input
+        label="Seed"
+        name="mnemonic"
+        value={mnemonic}
+        multiline
+        onChange={(e) => setMnemonic(e.target.value)}
+      />
+      <br />
+      <br />
       <FormMessage
         type="warning"
         text="This feature is experimental and so may not work perfectly all the time. It may change or be removed in the future. Use it at your own risk."
