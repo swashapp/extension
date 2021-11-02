@@ -11,7 +11,44 @@ const browsing = (function () {
 
   function initModule(module) {}
 
+  async function load() {
+    const modules = await storageHelper.getModules();
+    for (const module in modules) {
+      loadModule(modules[module]);
+    }
+  }
+
+  async function unload() {
+    const modules = await storageHelper.getModules();
+    for (const module in modules) {
+      unloadModule(modules[module]);
+    }
+  }
+
+  function loadModule(module) {
+    if (module.is_enabled) {
+      if (module.functions.includes('browsing')) {
+        module.browsing.items.forEach((data) => {
+          if (data.is_enabled) {
+            load_collector(module, data);
+          }
+        });
+      }
+    }
+  }
+
+  function unloadModule(module) {
+    if (module.functions.includes('browsing')) {
+      module.browsing.items.forEach((data) => {
+        if (callbacks[module.name + '_' + data.name]) {
+          unload_collector(module, data);
+        }
+      });
+    }
+  }
+
   function inspectStatusCode(moduleName, data, requestDetails) {}
+
   function inspectReferrer(moduleName, data, requestDetails, origin) {
     if (
       requestDetails.type != 'main_frame' ||
@@ -140,44 +177,6 @@ const browsing = (function () {
       return message;
     }
     return null;
-  }
-
-  function load() {
-    storageHelper.getModules().then((modules) => {
-      for (const module in modules) {
-        loadModule(modules[module]);
-      }
-    });
-  }
-
-  function unload() {
-    storageHelper.getModules().then((modules) => {
-      for (const module in modules) {
-        unloadModule(modules[module]);
-      }
-    });
-  }
-
-  function loadModule(module) {
-    if (module.is_enabled) {
-      if (module.functions.includes('browsing')) {
-        module.browsing.items.forEach((data) => {
-          if (data.is_enabled) {
-            load_collector(module, data);
-          }
-        });
-      }
-    }
-  }
-
-  function unloadModule(module) {
-    if (module.functions.includes('browsing')) {
-      module.browsing.items.forEach((data) => {
-        if (callbacks[module.name + '_' + data.name]) {
-          unload_collector(module, data);
-        }
-      });
-    }
   }
 
   function load_collector(module, data) {
@@ -402,8 +401,8 @@ const browsing = (function () {
     initModule,
     load,
     unload,
-    unloadModule,
     loadModule,
+    unloadModule,
   };
 })();
 export { browsing };

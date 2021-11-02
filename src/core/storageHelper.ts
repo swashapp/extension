@@ -30,7 +30,15 @@ const storageHelper = (function () {
   }
 
   async function saveAll(db: Any) {
-    return browser.storage.local.set(db);
+    const result = browser.storage.local.set(db);
+    await (await ConfigEntity.getInstance()).get(false);
+    await (await ModuleEntity.getInstance()).get(false);
+    await (await OnboardingEntity.getInstance()).get(false);
+    await (await ProfileEntity.getInstance()).get(false);
+    await (await FilterEntity.getInstance()).get(false);
+    await (await PrivacyDataEntity.getInstance()).get(false);
+    await (await NotificationsEntity.getInstance()).get(false);
+    return result;
   }
 
   async function getConfigs() {

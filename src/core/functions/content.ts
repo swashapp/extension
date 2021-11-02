@@ -18,17 +18,30 @@ const content = (function () {
     }
   }
 
-  function unload() {
+  async function load() {
+    const modules = await storageHelper.getModules();
+    for (const module in modules) {
+      loadModule(modules[module]);
+    }
+  }
+
+  async function unload() {
     if (browser.tabs.onUpdated.hasListener(registerContentScripts))
       browser.tabs.onUpdated.removeListener(registerContentScripts);
   }
 
-  function load() {
-    storageHelper.getModules().then((modules) => {
-      for (const module in modules) {
-        loadModule(modules[module]);
+  function loadModule(module) {
+    if (module.is_enabled) {
+      if (module.functions.includes('content')) {
+        for (const item of module.content.content_matches) {
+          cfilter.urls.push(item);
+        }
+        if (browser.tabs.onUpdated.hasListener(registerContentScripts))
+          browser.tabs.onUpdated.removeListener(registerContentScripts);
+        if (cfilter.urls.length > 0)
+          browser.tabs.onUpdated.addListener(registerContentScripts);
       }
-    });
+    }
   }
 
   function unloadModule(module) {
@@ -45,20 +58,6 @@ const content = (function () {
         browser.tabs.onUpdated.removeListener(registerContentScripts);
       if (cfilter.urls.length > 0)
         browser.tabs.onUpdated.addListener(registerContentScripts);
-    }
-  }
-
-  function loadModule(module) {
-    if (module.is_enabled) {
-      if (module.functions.includes('content')) {
-        for (const item of module.content.content_matches) {
-          cfilter.urls.push(item);
-        }
-        if (browser.tabs.onUpdated.hasListener(registerContentScripts))
-          browser.tabs.onUpdated.removeListener(registerContentScripts);
-        if (cfilter.urls.length > 0)
-          browser.tabs.onUpdated.addListener(registerContentScripts);
-      }
     }
   }
 
@@ -122,8 +121,8 @@ const content = (function () {
     initModule,
     load,
     unload,
-    unloadModule,
     loadModule,
+    unloadModule,
     injectCollectors,
   };
 })();
