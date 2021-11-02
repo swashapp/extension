@@ -79,10 +79,10 @@ const helper = (function () {
     return sendMessage(message);
   }
 
-  function loadBanner() {
+  function loadNotifications() {
     const message = {
       obj: 'storageHelper',
-      func: 'getBanner',
+      func: 'getNotifications',
       params: [],
     };
     return sendMessage(message);
@@ -723,7 +723,7 @@ const helper = (function () {
     join,
     updateEmail,
     newsletterSignUp,
-    loadBanner,
+    loadNotifications,
   };
 })();
 

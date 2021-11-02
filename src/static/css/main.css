@@ -619,6 +619,7 @@ a:hover {
 }
 
 .closable-panel-icon {
+  z-index: 100;
   cursor: pointer;
   user-select: none;
   width: 24px;

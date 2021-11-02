@@ -1,11 +1,10 @@
-import { Banner } from 'types/storage/banner.type';
+import { Notifications } from 'types/storage/notifications.type';
 import browser from 'webextension-polyfill';
-
-import { BannerEntity } from '../entities/banner.entity';
 
 import { ConfigEntity } from '../entities/config.entity';
 import { FilterEntity } from '../entities/filter.entity';
 import { ModuleEntity } from '../entities/module.entity';
+import { NotificationsEntity } from '../entities/notifications.entity';
 import { OnboardingEntity } from '../entities/onboarding.entity';
 import { PrivacyDataEntity } from '../entities/privacy-data.entity';
 import { ProfileEntity } from '../entities/profile.entity';
@@ -86,12 +85,12 @@ const storageHelper = (function () {
     return (await PrivacyDataEntity.getInstance()).save(privacyData);
   }
 
-  async function saveBanner(banner: Banner) {
-    return (await BannerEntity.getInstance()).save(banner);
+  async function saveNotifications(notifications: Notifications) {
+    return (await NotificationsEntity.getInstance()).save(notifications);
   }
 
-  async function getBanner() {
-    return (await BannerEntity.getInstance()).get();
+  async function getNotifications() {
+    return (await NotificationsEntity.getInstance()).get();
   }
 
   function updateFunctionSettings(
@@ -135,8 +134,8 @@ const storageHelper = (function () {
     getPrivacyData,
     savePrivacyData,
     saveModuleSettings,
-    saveBanner,
-    getBanner,
+    saveNotifications,
+    getNotifications,
   };
 })();
 export { storageHelper };
