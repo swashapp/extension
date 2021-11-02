@@ -4,12 +4,8 @@ import React, { useCallback, useState } from 'react';
 //@ts-ignore
 import FileBrowser from 'react-keyed-file-browser';
 
-import { toast } from 'react-toastify';
-
 import { Button } from '../button/button';
 import { closePopup } from '../popup/popup';
-
-import { ToastMessage } from '../toast/toast-message';
 
 interface FILE {
   key: string;
@@ -18,38 +14,29 @@ interface FILE {
 export function Import3Box(props: {
   files: FILE[];
   mnemonic: string;
+  onBeforeImport: () => void;
   onImport: () => void;
+  onImportFailed: () => void;
 }): JSX.Element {
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedFile, setSelectedFile] = useState<FILE>();
   const applyConfig = useCallback(() => {
     if (selectedFile) {
       setLoading(true);
+      props.onBeforeImport();
       return window.helper
         .applyConfig(selectedFile.conf)
         .then((result: string) => {
-          window.helper
-            .save3BoxMnemonic(props.mnemonic)
-            .then(() => {
-              if (result) {
-                props.onImport();
-                closePopup();
-                toast(
-                  <ToastMessage
-                    type="success"
-                    content={<>Config file is imported successfully</>}
-                  />,
-                );
-              } else {
-                toast(
-                  <ToastMessage
-                    type="error"
-                    content={<>Can not import this config file</>}
-                  />,
-                );
-              }
-            })
-            .finally(() => setLoading(false));
+          window.helper.save3BoxMnemonic(props.mnemonic).then(() => {
+            if (result) {
+              setLoading(false);
+              closePopup();
+              props.onImport();
+            } else {
+              setLoading(false);
+              props.onImportFailed();
+            }
+          });
         });
     }
   }, [props, selectedFile]);

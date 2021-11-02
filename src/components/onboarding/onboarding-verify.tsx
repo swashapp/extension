@@ -63,7 +63,7 @@ export function OnboardingVerify(props: {
   const join = useCallback(() => {
     window.helper
       .join(props.email, verificationCode)
-      .then((res) => {
+      .then((res: { id: number; email: string }) => {
         if (res.id && res.email) {
           onVerified();
         } else {
