@@ -16,7 +16,7 @@ import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-ad
 import { Input } from '../components/input/input';
 import { INVITE_FRIENDS_TOUR_CLASS } from '../components/invite-friends/invite-friends-tour';
 import { NumericSection } from '../components/numeric-section/numeric-section';
-import { Banner } from '../components/sidenav/welcome-to-new-data-world';
+import { Notifications } from '../components/sidenav/welcome-to-new-data-world';
 import { UtilsService } from '../service/utils-service';
 
 const TotalBonusIcon = '/static/images/icons/total-bonus.svg';
@@ -73,8 +73,8 @@ export function InviteFriends(): JSX.Element {
     loadReferrals();
   }, [loadActiveReferral, loadReferral, loadReferrals]);
 
-  const [banner, setBanner] = useState<Banner>({});
-  useEffect(() => window.helper.loadBanner().then(setBanner), []);
+  const [notifications, setNotifications] = useState<Notifications>({});
+  useEffect(() => window.helper.loadNotifications().then(setNotifications), []);
   return (
     <div className="page-container">
       <BackgroundTheme />
@@ -169,18 +169,22 @@ export function InviteFriends(): JSX.Element {
                 <Circle className={'win-data-prize-circle3'} color={'black'} />
                 <div className="flex-column win-data-prize-content">
                   <div className="win-data-prize-title">
-                    <h5>{banner.prize?.title || ''}</h5>
+                    <h5>{notifications.prize?.title || ''}</h5>
                   </div>
                   <div className="flex-column justify-space-between">
                     <div className="win-data-prize-text">
-                      {banner.prize?.text || ''}
+                      {notifications.prize?.text || ''}
                     </div>
                     <div className="win-data-prize-button">
-                      <LearnMore
-                        size="small"
-                        position="WinDataPrize"
-                        link={banner.prize?.link || ''}
-                      />
+                      {notifications.prize ? (
+                        <LearnMore
+                          size="small"
+                          position="WinDataPrize"
+                          link={notifications.prize?.link || ''}
+                        />
+                      ) : (
+                        <></>
+                      )}
                     </div>
                   </div>
                 </div>

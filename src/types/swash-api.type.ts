@@ -21,7 +21,7 @@ export type ReferralsResponse = {
   programId: number;
 };
 
-export type BannerResponse = {
+export type NotificationsResponse = {
   type: string;
   title: string;
   text: string;

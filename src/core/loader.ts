@@ -119,11 +119,11 @@ const loader = (function () {
     }
   }
 
-  function loadBanner() {
-    console.log('Loading banner');
-    swashApiHelper.getBanner().then((res) => {
+  function loadNotifications() {
+    console.log('Loading notifications');
+    swashApiHelper.getNotifications().then((res) => {
       if (res.length > 0) {
-        const banner: {
+        const notifications: {
           [key: string]: {
             type: string;
             title: string;
@@ -132,10 +132,13 @@ const loader = (function () {
           };
         } = {};
         res.forEach((item) => {
-          if (!banner[item.type]) banner[item.type] = item;
+          if (!notifications[item.type]) notifications[item.type] = item;
         });
-        storageHelper.getBanner().then((_banner) => {
-          storageHelper.saveBanner({ ..._banner, ...banner });
+        storageHelper.getNotifications().then((_notifications) => {
+          storageHelper.saveNotifications({
+            ..._notifications,
+            ...notifications,
+          });
         });
       }
     });
@@ -174,7 +177,7 @@ const loader = (function () {
     storageHelper.updateConfigs('is_enabled', true).then(() => {
       init(true);
       loadFunctions();
-      loadBanner();
+      loadNotifications();
       console.log('Extension started successfully');
     });
   }
@@ -207,7 +210,7 @@ const loader = (function () {
       if (db.configs.is_enabled) {
         init(true);
         loadFunctions();
-        loadBanner();
+        loadNotifications();
       } else {
         init(false);
         unloadFunctions();
@@ -232,7 +235,7 @@ const loader = (function () {
       if (db.configs.is_enabled) {
         init(true);
         loadFunctions();
-        loadBanner();
+        loadNotifications();
       }
     });
   }

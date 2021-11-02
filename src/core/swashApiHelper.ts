@@ -12,7 +12,7 @@ import {
   ReferralRewardResponse,
   WithdrawResponse,
   ReferralsResponse,
-  BannerResponse,
+  NotificationsResponse,
 } from '../types/swash-api.type';
 
 import { configManager } from './configManager';
@@ -133,8 +133,8 @@ const swashApiHelper = (function () {
     return post<Any>('', config.APIs.newsletterSignUp, { email, newsletter });
   }
 
-  async function getBanner() {
-    return get<BannerResponse[]>('', config.APIs.banner);
+  async function getNotifications() {
+    return get<NotificationsResponse[]>('', config.APIs.notifications);
   }
 
   async function getWithdrawBalance(token: string) {
@@ -188,7 +188,7 @@ const swashApiHelper = (function () {
     join,
     updateEmail,
     newsletterSignUp,
-    getBanner,
+    getNotifications,
   };
 })();
 

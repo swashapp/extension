@@ -6,7 +6,7 @@ import browser from 'webextension-polyfill';
 import { LearnMore } from '../components/button/learn-more';
 import { Circle } from '../components/drawing/circle';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
-import { Banner } from '../components/sidenav/welcome-to-new-data-world';
+import { Notifications } from '../components/sidenav/welcome-to-new-data-world';
 import { SwashLogo } from '../components/swash-logo/swash-logo';
 import { Switch } from '../components/switch/switch';
 import { helper } from '../core/webHelper';
@@ -20,18 +20,20 @@ declare global {
 window.helper = helper;
 
 function WelcomeToNewDataWorld() {
-  const [banner, setBanner] = useState<Banner>({});
-  useEffect(() => window.helper.loadBanner().then(setBanner), []);
+  const [notifications, setNotifications] = useState<Notifications>({});
+  useEffect(() => window.helper.loadNotifications().then(setNotifications), []);
   return (
     <>
-      {banner.general && banner.general.title ? (
+      {notifications.general && notifications.general.title ? (
         <div className="popup-welcome-container">
-          <div className="popup-welcome-text title">{banner.general.title}</div>
+          <div className="popup-welcome-text title">
+            {notifications.general.title}
+          </div>
           <Circle className={'popup-welcome-circle1'} border={'black'} />
           <Circle className={'popup-welcome-circle2'} color={'black'} />
           <Circle className={'popup-welcome-circle3'} border={'black'} />
           <div className="popup-learn-more-button">
-            <LearnMore position="Popup" link={banner.general.link} />
+            <LearnMore position="Popup" link={notifications.general.link} />
           </div>
         </div>
       ) : (
