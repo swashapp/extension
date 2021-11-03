@@ -108,33 +108,36 @@ function Popup() {
     });
   }, []);
 
-  useEffect(() => {
-    window.helper.load().then((db: { configs: { is_enabled: boolean } }) => {
-      window.helper.isNeededOnBoarding().then((result: any) => {
-        if (!result) {
-          setStatus(db.configs.is_enabled);
-          getBalanceInfo().then();
-        }
-      });
-    });
-  }, [getBalanceInfo]);
-
+  const [needOnBoarding, setNeedOnBoarding] = useState<boolean>(true);
   const showPageOnTab = useCallback((url_to_show: string) => {
-    window.helper.isNeededOnBoarding().then((result: any) => {
-      if (result)
-        url_to_show = browser.runtime.getURL('dashboard/index.html#/');
-      return browser.windows
-        .getAll({
-          populate: true,
-          windowTypes: ['normal'],
-        })
-        .then(() => {
-          browser.tabs.create({ url: url_to_show, active: true }).then(() => {
-            window.close();
-          });
+    return browser.windows
+      .getAll({
+        populate: true,
+        windowTypes: ['normal'],
+      })
+      .then(() => {
+        browser.tabs.create({ url: url_to_show, active: true }).then(() => {
+          window.close();
         });
-    });
+      });
   }, []);
+  useEffect(
+    () =>
+      window.helper.isNeededOnBoarding().then((_needOnBoarding: boolean) => {
+        setNeedOnBoarding(_needOnBoarding);
+        if (_needOnBoarding) {
+          window.helper.openOnboarding();
+        } else {
+          window.helper
+            .load()
+            .then((db: { configs: { is_enabled: boolean } }) => {
+              setStatus(db.configs.is_enabled);
+              getBalanceInfo().then();
+            });
+        }
+      }),
+    [getBalanceInfo, showPageOnTab],
+  );
 
   const onStatusChanged = useCallback((checked: boolean) => {
     if (checked) {
@@ -146,66 +149,74 @@ function Popup() {
   }, []);
 
   return (
-    <div className="extension-popup-container">
-      <div className="flex-column extension-popup">
-        <div className="flex-row extension-popup-logo-and-switch">
-          <SwashLogo className="extension-popup-logo" />
-          <div className="flex-row extension-popup-switch">
-            <div className="extension-popup-switch-label">
-              {status ? 'ON' : 'OFF'}
+    <>
+      {needOnBoarding ? (
+        <></>
+      ) : (
+        <div className="extension-popup-container">
+          <div className="flex-column extension-popup">
+            <div className="flex-row extension-popup-logo-and-switch">
+              <SwashLogo className="extension-popup-logo" />
+              <div className="flex-row extension-popup-switch">
+                <div className="extension-popup-switch-label">
+                  {status ? 'ON' : 'OFF'}
+                </div>
+                <Switch
+                  checked={!status}
+                  onChange={(e) => onStatusChanged(!e.target.checked)}
+                />
+              </div>
             </div>
-            <Switch
-              checked={!status}
-              onChange={(e) => onStatusChanged(!e.target.checked)}
+            <FlexGrid
+              column={2}
+              className="flex-row form-item-gap extension-popup-numerics"
+            >
+              <NumericStats value={dataAvailable} label="Data Earnings" />
+              <NumericStats value={unclaimedBonus} label="Referral Bonus" />
+            </FlexGrid>
+            <MenuItem
+              text="Wallet"
+              iconClassName="popup-wallet-icon"
+              onClick={() =>
+                showPageOnTab(
+                  browser.runtime.getURL('dashboard/index.html#/wallet'),
+                )
+              }
             />
+            <MenuItem
+              text="Settings"
+              iconClassName="popup-settings-icon"
+              onClick={() =>
+                showPageOnTab(
+                  browser.runtime.getURL('dashboard/index.html#/settings'),
+                )
+              }
+            />
+            <MenuItem
+              text="Exclude Current Domain"
+              iconClassName={`popup-exclude-icon ${
+                excluded ? 'popup-excluded' : ''
+              }`}
+              onClick={() => {
+                window.helper.handleFilter().then(() => {
+                  setExcluded(true);
+                });
+              }}
+            />
+            <MenuItem
+              text="Help"
+              iconClassName="popup-help-icon"
+              onClick={() =>
+                showPageOnTab(
+                  browser.runtime.getURL('dashboard/index.html#/help'),
+                )
+              }
+            />
+            <WelcomeToNewDataWorld />
           </div>
         </div>
-        <FlexGrid
-          column={2}
-          className="flex-row form-item-gap extension-popup-numerics"
-        >
-          <NumericStats value={dataAvailable} label="Data Earnings" />
-          <NumericStats value={unclaimedBonus} label="Referral Bonus" />
-        </FlexGrid>
-        <MenuItem
-          text="Wallet"
-          iconClassName="popup-wallet-icon"
-          onClick={() =>
-            showPageOnTab(
-              browser.runtime.getURL('dashboard/index.html#/wallet'),
-            )
-          }
-        />
-        <MenuItem
-          text="Settings"
-          iconClassName="popup-settings-icon"
-          onClick={() =>
-            showPageOnTab(
-              browser.runtime.getURL('dashboard/index.html#/settings'),
-            )
-          }
-        />
-        <MenuItem
-          text="Exclude Current Domain"
-          iconClassName={`popup-exclude-icon ${
-            excluded ? 'popup-excluded' : ''
-          }`}
-          onClick={() => {
-            window.helper.handleFilter().then(() => {
-              setExcluded(true);
-            });
-          }}
-        />
-        <MenuItem
-          text="Help"
-          iconClassName="popup-help-icon"
-          onClick={() =>
-            showPageOnTab(browser.runtime.getURL('dashboard/index.html#/help'))
-          }
-        />
-        <WelcomeToNewDataWorld />
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 

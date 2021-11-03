@@ -9,4 +9,4 @@ export const RouteToPages = {
   help: `/help`,
 };
 
-export const WebsitePath = 'https://www.swashapp.io';
+export const WebsitePath = 'https://swashapp.io';
