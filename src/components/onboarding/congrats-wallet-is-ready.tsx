@@ -1,17 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 
-import { RouteToPages } from '../../paths';
+import { AppContext } from '../../pages/app';
+
 import { Button } from '../button/button';
 import { CircularProgress } from '../circular-progress/circular-progress';
-import { Link } from '../link/link';
 
 export function CongratsWalletIsReady(props: {
   type: 'imported' | 'created';
 }): JSX.Element {
-  useEffect(() => {
-    window.helper.submitOnBoarding().then();
-  }, []);
-
+  const app = useContext(AppContext);
+  const [loading, setLoading] = useState<boolean>(false);
   return (
     <div className="onboarding-progress-card">
       <CircularProgress type="completed" />
@@ -27,9 +25,18 @@ export function CongratsWalletIsReady(props: {
         <></>
       )}
       <div className="onboarding-progress-button  congrats-button">
-        <Link url={RouteToPages.wallet}>
-          <Button text="Use Swash" link={false} />
-        </Link>
+        <Button
+          text="Use Swash"
+          loading={loading}
+          link={false}
+          onClick={() => {
+            setLoading(true);
+            window.helper.submitOnBoarding().then(() => {
+              setLoading(false);
+              app.forceUpdate();
+            });
+          }}
+        />
       </div>
     </div>
   );

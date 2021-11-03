@@ -1,5 +1,11 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
@@ -79,32 +85,64 @@ function RouteComponent(
   );
 }
 
+export const AppContext = React.createContext<{
+  forceUpdate: () => void;
+}>({
+  forceUpdate: () => undefined,
+});
+
 export default function App(): JSX.Element {
   useEffect(() => injectStyle(), []);
+  const [needOnBoarding, setNeedOnBoarding] = useState<boolean>(true);
+  const [trigger, setTrigger] = useState<number>(0);
+  useEffect(
+    () => window.helper.isNeededOnBoarding().then(setNeedOnBoarding),
+    [trigger],
+  );
+
+  const forceUpdate = useCallback(() => setTrigger((t: number) => t + 1), []);
+
   return (
     <div className="main-container">
-      <Switch>
-        <Route
-          exact
-          path={RouteToPages.home}
-          component={() => RouteComponent(Wallet, 0)}
+      <AppContext.Provider
+        value={{
+          forceUpdate,
+        }}
+      >
+        {needOnBoarding ? (
+          <Switch>
+            <Route
+              exact
+              path={RouteToPages.onboarding}
+              component={Onboarding}
+            />
+            <Redirect to={RouteToPages.onboarding} />
+          </Switch>
+        ) : (
+          <Switch>
+            <Route
+              exact
+              path={RouteToPages.home}
+              component={() => RouteComponent(Wallet, 0)}
+            />
+            {SidenavItems.map((link, index) => (
+              <Route
+                key={link.title + index}
+                path={link.route}
+                component={() => RouteComponent(link.component, index)}
+              />
+            ))}
+            <Redirect to={RouteToPages.wallet} />
+          </Switch>
+        )}
+        <Popup />
+        <ToastContainer
+          toastClassName="toast-panel-container"
+          autoClose={3000}
+          closeButton={false}
+          hideProgressBar
         />
-        <Route exact path={RouteToPages.onboarding} component={Onboarding} />
-        {SidenavItems.map((link, index) => (
-          <Route
-            key={link.title + index}
-            path={link.route}
-            component={() => RouteComponent(link.component, index)}
-          />
-        ))}
-      </Switch>
-      <Popup />
-      <ToastContainer
-        toastClassName="toast-panel-container"
-        autoClose={3000}
-        closeButton={false}
-        hideProgressBar
-      />
+      </AppContext.Provider>
     </div>
   );
 }
