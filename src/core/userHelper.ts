@@ -66,6 +66,12 @@ const userHelper = (function () {
         privateKey: wallet.privateKey,
       },
       publishWithSignature: 'never',
+      dataUnion: {
+        factoryMainnetAddress: '0xe41439bf434f9cfbf0153f5231c205d4ae0c22e3',
+        factorySidechainAddress: '0xFCE1FBFAaE61861B011B379442c8eE1DC868ABd0',
+        templateMainnetAddress: '0x67352e3f7dba907af877020ae7e9450c0029c70c',
+        templateSidechainAddress: '0xacf9e8134047edc671162d9404bf63a587435baa',
+      },
     });
     duHandler = client.getDataUnion(config.dataunionAddress);
   }
