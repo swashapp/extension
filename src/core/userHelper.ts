@@ -67,7 +67,7 @@ const userHelper = (function () {
       },
       publishWithSignature: 'never',
     });
-    duHandler = client.getDataUnion(config.communityAddress);
+    duHandler = client.getDataUnion(config.dataunionAddress);
   }
 
   async function getEthBalance(address: string) {
@@ -251,14 +251,12 @@ const userHelper = (function () {
   }
 
   async function getReferrals() {
-    let totalReward = BigNumber.from(0);
-    let totalReferral = 0;
+    let totalReward = '0';
+    let totalReferral = '0';
     try {
       const res = await swashApiHelper.getReferrals(await generateJWT());
-      res.forEach((obj) => {
-        totalReward = totalReward.add(obj.reward || '0');
-        totalReferral += obj.referral;
-      });
+      totalReward = res.reward;
+      totalReferral = res.count;
     } catch (err) {
       console.error(err.message);
     }

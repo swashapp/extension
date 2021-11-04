@@ -17,8 +17,7 @@ export type ReferralRewardResponse = {
 
 export type ReferralsResponse = {
   reward: string;
-  referral: number;
-  programId: number;
+  count: string;
 };
 
 export type NotificationsResponse = {

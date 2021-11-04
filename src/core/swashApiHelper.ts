@@ -59,14 +59,20 @@ const swashApiHelper = (function () {
   }
 
   async function call<Type>(url: string, req: Any) {
-    const resp = await fetch(url, req);
+    let message = '';
 
-    if (resp.status === OK_STATUS) {
+    try {
+      const resp = await fetch(url, req);
       const payload = await resp.json();
       if (payload.status === 'success') return payload.data as Type;
-      throw Error(payload.message);
+      if (payload.status === 'error') message = payload.message;
+    } catch (err) {
+      throw Error(`Failed to fetch ${url}`);
     }
-    throw Error(`Failed to fetch ${url}`);
+
+    if (message) {
+      throw Error(message);
+    }
   }
 
   async function get<Type>(token: string, api: string, params?: Any) {
@@ -112,7 +118,7 @@ const swashApiHelper = (function () {
   }
 
   async function getReferrals(token: string) {
-    return get<ReferralsResponse[]>(token, config.APIs.userReferralReward, {
+    return get<ReferralsResponse>(token, config.APIs.userReferralReward, {
       details: true,
     });
   }
@@ -144,11 +150,13 @@ const swashApiHelper = (function () {
     );
     const result = { minimum: 1000000, gas: 10000 };
 
-    if (data.sponsor && data.sponsor.minimum) {
-      result.minimum = Number(ethers.utils.formatEther(data.sponsor.minimum));
-    }
-    if (data.gas && data.gas.etherEquivalent) {
-      result.gas = Number(ethers.utils.formatEther(data.gas.etherEquivalent));
+    if (data) {
+      if (data.sponsor && data.sponsor.minimum) {
+        result.minimum = Number(ethers.utils.formatEther(data.sponsor.minimum));
+      }
+      if (data.gas && data.gas.etherEquivalent) {
+        result.gas = Number(ethers.utils.formatEther(data.gas.etherEquivalent));
+      }
     }
     return result;
   }

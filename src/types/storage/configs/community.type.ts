@@ -1,5 +1,5 @@
 export type CommunityConfigs = {
-  datacoinAddress: string;
-  communityAddress: string;
+  swashTokenAddress: string;
+  dataunionAddress: string;
   tokenExpiration: number;
 };

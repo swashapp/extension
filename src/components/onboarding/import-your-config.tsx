@@ -51,6 +51,18 @@ export function ImportYourConfig(): JSX.Element {
       />,
     );
   }, []);
+  const onGetJoinedFailed = useCallback(
+    (err) => {
+      if (err.message === 'user not found') {
+        stepper.setJoin({});
+        setImporting(false);
+        stepper.next();
+      } else {
+        onImportFailed();
+      }
+    },
+    [onImportFailed, stepper],
+  );
   const onImport = useCallback(() => {
     window.helper
       .getJoinedSwash()
@@ -61,8 +73,8 @@ export function ImportYourConfig(): JSX.Element {
         setImporting(false);
         stepper.next();
       })
-      .catch(onImportFailed);
-  }, [onImportFailed, stepper]);
+      .catch(onGetJoinedFailed);
+  }, [onGetJoinedFailed, stepper]);
   const togglePopup = useCallback(
     (message: { onboarding: string }) => {
       showPopup({
