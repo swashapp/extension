@@ -70,9 +70,7 @@ const swashApiHelper = (function () {
       throw Error(`Failed to fetch ${url}`);
     }
 
-    if (message) {
-      throw Error(message);
-    }
+    throw Error(message);
   }
 
   async function get<Type>(token: string, api: string, params?: Any) {
@@ -150,14 +148,13 @@ const swashApiHelper = (function () {
     );
     const result = { minimum: 1000000, gas: 10000 };
 
-    if (data) {
-      if (data.sponsor && data.sponsor.minimum) {
-        result.minimum = Number(ethers.utils.formatEther(data.sponsor.minimum));
-      }
-      if (data.gas && data.gas.etherEquivalent) {
-        result.gas = Number(ethers.utils.formatEther(data.gas.etherEquivalent));
-      }
+    if (data.sponsor && data.sponsor.minimum) {
+      result.minimum = Number(ethers.utils.formatEther(data.sponsor.minimum));
     }
+    if (data.gas && data.gas.etherEquivalent) {
+      result.gas = Number(ethers.utils.formatEther(data.gas.etherEquivalent));
+    }
+
     return result;
   }
 
