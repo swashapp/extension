@@ -84,13 +84,7 @@ export function OnboardingJoin(): JSX.Element {
   return (
     <>
       {verification.email ? (
-        <OnboardingVerify
-          key={''}
-          {...verification}
-          onBack={() => {
-            console.log('');
-          }}
-        />
+        <OnboardingVerify key={''} {...verification} onBack={stepper.back} />
       ) : (
         <div className="onboarding-iframe-wrapper">
           {!iframeVisible ? <WaitingProgressBar /> : <></>}

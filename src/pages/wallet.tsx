@@ -8,7 +8,7 @@ import { FormMessage } from '../components/form-message/form-message';
 import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-adornment';
 import { Input } from '../components/input/input';
 import { NumericSection } from '../components/numeric-section/numeric-section';
-import { showPopup } from '../components/popup/popup';
+import { closePopup, showPopup } from '../components/popup/popup';
 import { Select } from '../components/select/select';
 import { ToastMessage } from '../components/toast/toast-message';
 import { DataTransferPopup } from '../components/wallet/data-transfer-popup';
@@ -289,6 +289,7 @@ export function Wallet(): JSX.Element {
                               style={{
                                 color: 'var(--blue)',
                               }}
+                              onClick={closePopup}
                             >
                               Help section
                             </a>{' '}
@@ -303,9 +304,11 @@ export function Wallet(): JSX.Element {
                             staking liquidity on the SWASH/ xDAI pool on{' '}
                             <a
                               href="https://honeyswap.org"
+                              target="_blank"
                               style={{
                                 color: 'var(--blue)',
                               }}
+                              rel="noreferrer"
                             >
                               Honeyswap
                             </a>{' '}
