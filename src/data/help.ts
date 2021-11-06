@@ -1,5 +1,6 @@
 const DataIcon = '/static/images/icons/help/data.png';
 const GettingStartedIcon = '/static/images/icons/help/getting-started.png';
+const InviteFriendsIcon = '/static/images/icons/help/invite-friends.png';
 const SettingsIcon = '/static/images/icons/help/settings.png';
 const UsefulLinksIcon = '/static/images/icons/help/useful-links.png';
 const WalletIcon = '/static/images/icons/help/wallet.png';
@@ -17,17 +18,17 @@ const HelpData = [
     icon: WelcomeIcon,
     content:
       "<div class='title1'>Welcome to the world’s first digital Data Union!</div>" +
-      '<br/><br/>' +
+      '<br/>' +
       '<p>' +
       'You are now part of a game-changing movement to create a better internet.' +
-      '<br />' +
+      '<br /><br />' +
       'Before you dive in, make sure you get the latest updates by joining' +
       ' the chat on <a href="https://t.me/swashapp_group">Telegram</a>' +
       ' or by following Swash on ' +
       '<a href="https://twitter.com/swashapp">Twitter</a>.' +
       '</p>' +
-      '<br/><br/>' +
-      "<div class='title2'>So, what is Swash?</div>" +
+      '<br/>' +
+      '<i>So, what is Swash?</i>' +
       '<br/><br/>' +
       '<p>' +
       '<a' +
@@ -191,6 +192,7 @@ const HelpData = [
       '<br />' +
       '</p>' +
       "<div class='title2'>xDai (recommended):</div>" +
+      '<br />' +
       '<p>' +
       'Using xDai is faster and Swash will cover the cost for you! 🎉' +
       '<br />' +
@@ -228,6 +230,7 @@ const HelpData = [
       '<br/><br />' +
       '</p>' +
       "<div class='title2'>Ethereum:</div>" +
+      '<br />' +
       '<p>' +
       'If you choose to withdraw using Ethereum:' +
       '<br />' +
@@ -264,28 +267,37 @@ const HelpData = [
       '</p>',
   },
   {
+    title: 'Invite Friends',
+    icon: InviteFriendsIcon,
+    content:
+      '<p>Invite your friends to Swash to earn even more and grow the community!' +
+      '<br />' +
+      '<br />' +
+      'This section is divided into two:' +
+      '<br />' +
+      '<br />' +
+      '<i>Total Bonus Earned</i> - The amount you have earned from referrals' +
+      '<br />' +
+      '<br />' +
+      '<i>Total Invited Friends</i> - The number of people who have used your referral link to install Swash' +
+      '<br />' +
+      '<br />' +
+      'The current referral program rewards you 1 SWASH for every new person you bring' +
+      ' plus a 1000 SWASH prize for the person who makes the most referrals in a month. ' +
+      '<br />' +
+      '<br />' +
+      'This program is live until the 100K SWASH budget is met and there will be different kinds of referral programs in future.' +
+      '<br />' +
+      '<br />' +
+      'You can also find your referral link to copy and share plus a way to share your link directly on Twitter, Facebook, LinkedIn, and email.' +
+      '<br />' +
+      '<br />' +
+      'The more people who join, the more value that gets returned to everyone!</p>',
+  },
+  {
     title: 'Settings',
     icon: SettingsIcon,
     content:
-      "<div class='title1' id='invite-a-friend'>" +
-      'Invite a friend' +
-      '</div>' +
-      '<br /><br />' +
-      '<p>' +
-      'The first thing you will see in your Swash settings is the' +
-      ' option to ‘Invite a friend’. Here is where you can find your' +
-      ' unique referral link to share Swash with others. For every new' +
-      ' installation of Swash made using your referral link, you’ll' +
-      ' receive $REWARD SWASH.' +
-      '<br />' +
-      '<br />' +
-      'You can also use the social icons to share your referral link' +
-      ' directly on Twitter, Facebook, LinkedIn, and email.' +
-      '<br />' +
-      '<br />' +
-      'The more people who join, the more value returned to everyone.' +
-      ' </p>' +
-      '<br /><br />' +
       "<div class='title2' id='backup-your-wallet-settings'>" +
       'Backup your wallet settings' +
       '</div>' +
@@ -305,7 +317,15 @@ const HelpData = [
       'If you don’t do this but you lose access to your wallet, you' +
       ' won’t be able to access your earnings and Swash won’t be able to' +
       ' help you!' +
-      ' </p>',
+      ' </p>' +
+      '<br />' +
+      '<br />' +
+      "<div class='title2' id='private-key'>" +
+      'Private key' +
+      '</div>' +
+      '<br /><br />' +
+      '<p>Think of your private key like a password. It should <u>not</u> be shared with anyone.' +
+      ' If you share it, the person who has it can access all of your SWASH earnings!</p>',
   },
   {
     title: 'Data',
