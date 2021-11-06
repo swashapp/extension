@@ -33,10 +33,10 @@ export function InviteFriends(): JSX.Element {
   const [reward, setReward] = useState<number>(0);
   const [referral, setReferral] = useState<{
     totalReward: string;
-    totalReferral: number;
+    totalReferral: string;
   }>({
-    totalReward: '0',
-    totalReferral: 0,
+    totalReward: '$',
+    totalReferral: '$',
   });
 
   const loadReferral = useCallback(() => {
@@ -61,7 +61,7 @@ export function InviteFriends(): JSX.Element {
   const loadReferrals = useCallback(() => {
     window.helper
       .getReferrals()
-      .then((_referral: { totalReward: string; totalReferral: number }) =>
+      .then((_referral: { totalReward: string; totalReferral: string }) =>
         setReferral(_referral),
       );
   }, []);
