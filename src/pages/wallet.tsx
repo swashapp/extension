@@ -236,13 +236,13 @@ export function Wallet(): JSX.Element {
             <FlexGrid column={2} className={'wallet-numerics card-gap'}>
               <NumericSection
                 tourClassName={WALLET_TOUR_CLASS.DATA_EARNINGS}
-                title="Data Earnings"
+                title="SWASH Earnings"
                 value={dataAvailable}
                 layout="layout1"
                 image={DataEarningsIcon}
               />
               <NumericSection
-                title="Data Referral Bonus"
+                title="SWASH Referral Bonus"
                 value={unclaimedBonus}
                 layout={
                   <Button
@@ -293,6 +293,8 @@ export function Wallet(): JSX.Element {
                   onClick={() =>
                     showPopup({
                       closable: true,
+                      closeOnBackDropClick: true,
+                      paperClassName: 'wallet-read-more',
                       content: (
                         <>
                           <div className="wallet-read-more-title">
@@ -400,6 +402,7 @@ export function Wallet(): JSX.Element {
               onClick={() =>
                 showPopup({
                   closable: false,
+                  paperClassName: 'withdraw-data-transfer',
                   content: (
                     <DataTransferPopup
                       amount={dataAvailable}

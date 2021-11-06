@@ -41,7 +41,7 @@ input,
 select,
 button {
   font-family: 'Inter', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 28px;
 }
@@ -109,7 +109,7 @@ h6 {
 p {
   margin: 0;
 
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 28px;
 }
@@ -2030,4 +2030,16 @@ a:hover {
 
 .justify-space-between {
   justify-content: space-between;
+}
+
+.wallet-read-more {
+  width: 426px;
+}
+
+.wallet-read-more h6 {
+  line-height: 0px;
+}
+
+.withdraw-data-transfer {
+  width: 828px;
 }

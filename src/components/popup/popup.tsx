@@ -5,6 +5,7 @@ import { ClosablePanel } from '../closable-panel/closable-panel';
 
 export interface popupProps {
   content: ReactElement | null;
+  paperClassName?: string;
   closable: boolean;
   closeOnBackDropClick?: boolean;
 }
@@ -25,6 +26,7 @@ export function closePopup(): void {
 function Modal(props: {
   content: ReactElement | null;
   closeOnBackDropClick?: boolean;
+  paperClassName?: string;
 }) {
   return (
     <Dialog
@@ -40,16 +42,21 @@ function Modal(props: {
       }}
       className="popup"
       BackdropProps={{ style: { background: 'rgba(0, 32, 48, 0.7)' } }}
-      PaperProps={{ className: 'popup-paper' }}
+      PaperProps={{ className: `popup-paper ${props.paperClassName}` }}
     >
       <div className="popup-content">{props.content || <></>}</div>
     </Dialog>
   );
 }
 
-function ClosablePopup(props: { content: ReactElement }) {
+function ClosablePopup(props: {
+  content: ReactElement;
+  closeOnBackDropClick?: boolean;
+  paperClassName?: string;
+}) {
   return (
     <Modal
+      {...props}
       content={
         <ClosablePanel className="closable-popup" onClose={() => closePopup()}>
           {props.content}
@@ -67,11 +74,16 @@ export function Popup(): JSX.Element {
   }, []);
   return openDialog.content ? (
     openDialog.closable ? (
-      <ClosablePopup content={openDialog.content} />
+      <ClosablePopup
+        closeOnBackDropClick={openDialog.closeOnBackDropClick}
+        paperClassName={openDialog.paperClassName}
+        content={openDialog.content}
+      />
     ) : (
       <Modal
         content={openDialog.content}
         closeOnBackDropClick={openDialog.closeOnBackDropClick}
+        paperClassName={openDialog.paperClassName}
       />
     )
   ) : (

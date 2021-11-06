@@ -171,7 +171,7 @@ function Popup() {
               column={2}
               className="flex-row form-item-gap extension-popup-numerics"
             >
-              <NumericStats value={dataAvailable} label="Data Earnings" />
+              <NumericStats value={dataAvailable} label="SWASH Earnings" />
               <NumericStats value={unclaimedBonus} label="Referral Bonus" />
             </FlexGrid>
             <MenuItem

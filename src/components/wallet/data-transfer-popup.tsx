@@ -61,6 +61,7 @@ export function DataTransferPopup(props: {
           showPopup({
             closable: false,
             closeOnBackDropClick: true,
+            paperClassName: 'withdraw-data-transfer',
             content: (
               <DataTransferCompleted
                 transactionId={result.tx}
