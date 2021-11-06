@@ -171,11 +171,15 @@ export function InviteFriends(): JSX.Element {
                 <Circle className={'win-swash-prize-circle3'} color={'black'} />
                 <div className="flex-column win-swash-prize-content">
                   <div className="win-swash-prize-title">
-                    <h5>{notifications.prize?.title || ''}</h5>
+                    <h5>
+                      {notifications.prize?.title ||
+                        'There are currently no active referral programs'}
+                    </h5>
                   </div>
                   <div className="flex-column justify-space-between">
                     <div className="win-swash-prize-text">
-                      {notifications.prize?.text || ''}
+                      {notifications.prize?.text ||
+                        "Don't worry, your earnings are not affected. Come back again later!"}
                     </div>
                     <div className="win-swash-prize-button">
                       {notifications.prize ? (
@@ -185,7 +189,7 @@ export function InviteFriends(): JSX.Element {
                           link={notifications.prize?.link || ''}
                         />
                       ) : (
-                        <></>
+                        <div style={{ height: 40 }} />
                       )}
                     </div>
                   </div>
