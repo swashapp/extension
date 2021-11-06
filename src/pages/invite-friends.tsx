@@ -61,9 +61,9 @@ export function InviteFriends(): JSX.Element {
   const loadReferrals = useCallback(() => {
     window.helper
       .getReferrals()
-      .then((_referral: { totalReward: string; totalReferral: string }) =>
-        setReferral(_referral),
-      );
+      .then((_referral: { totalReward: string; totalReferral: string }) => {
+        setReferral(_referral);
+      });
   }, []);
 
   useEffect(() => {

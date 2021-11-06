@@ -46,7 +46,7 @@ export function Export3Box(): JSX.Element {
           toast(
             <ToastMessage
               type="error"
-              content={<>{err?.message} || Something went wrong!</>}
+              content={<>{err?.message || 'Something went wrong!'}</>}
             />,
           );
         });

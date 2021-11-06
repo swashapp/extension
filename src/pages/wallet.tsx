@@ -143,7 +143,7 @@ export function Wallet(): JSX.Element {
         if (network === 'xDai') {
           ret = {
             message: 'Exchange wallets are not compatible with xDai.',
-            type: 'error',
+            type: 'warning',
           };
         } else if (Number(dataAvailable) > minimumWithdraw) {
           ret = {

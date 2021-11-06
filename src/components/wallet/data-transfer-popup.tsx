@@ -72,7 +72,7 @@ export function DataTransferPopup(props: {
           toast(
             <ToastMessage
               type="error"
-              content={<>{result.reason} || Something went wrong!</>}
+              content={<>{result.reason || 'Something went wrong!'}</>}
             />,
           );
         }
@@ -82,7 +82,7 @@ export function DataTransferPopup(props: {
         toast(
           <ToastMessage
             type="error"
-            content={<>{err?.message} || Something went wrong!</>}
+            content={<>{err?.message || 'Something went wrong!'}</>}
           />,
         );
       });

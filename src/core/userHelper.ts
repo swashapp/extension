@@ -257,15 +257,16 @@ const userHelper = (function () {
   }
 
   async function getReferrals() {
-    let totalReward = '0';
+    let totalReward = BigNumber.from('0');
     let totalReferral = '0';
     try {
       const res = await swashApiHelper.getReferrals(await generateJWT());
-      totalReward = res.reward;
+      totalReward = BigNumber.from(res.reward);
       totalReferral = res.count;
     } catch (err) {
       console.error(err.message);
     }
+
     return {
       totalReward: ethers.utils.formatEther(totalReward.toString()),
       totalReferral,

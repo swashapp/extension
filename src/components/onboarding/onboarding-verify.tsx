@@ -60,7 +60,7 @@ export function OnboardingVerify(props: {
     toast(
       <ToastMessage
         type="error"
-        content={<>{err?.message} || Something went wrong!</>}
+        content={<>{err?.message || 'Something went wrong!'}</>}
       />,
     );
   }, []);
