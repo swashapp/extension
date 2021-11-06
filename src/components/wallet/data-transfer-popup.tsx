@@ -49,6 +49,7 @@ export function DataTransferPopup(props: {
         props.sendToMainnet,
       )
       .then((result: { tx: string; reason: string }) => {
+        setLoading(false);
         if (result.tx) {
           props.onSuccess().then();
           toast(
@@ -76,7 +77,15 @@ export function DataTransferPopup(props: {
           );
         }
       })
-      .finally(() => setLoading(false));
+      .catch((err?: { message: string }) => {
+        setLoading(false);
+        toast(
+          <ToastMessage
+            type="error"
+            content={<>{err?.message} || Something went wrong!</>}
+          />,
+        );
+      });
   }, [props]);
 
   return (
@@ -100,7 +109,7 @@ export function DataTransferPopup(props: {
           onClick={() => closePopup()}
         />
         <Button
-          className="form-button"
+          className="form-button confirm-and-send"
           link={false}
           text={'Confirm and Send'}
           loadingText={'Sending...'}

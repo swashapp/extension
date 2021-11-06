@@ -28,12 +28,11 @@ export function Import3Box(props: {
         .applyConfig(selectedFile.conf)
         .then((result: string) => {
           window.helper.save3BoxMnemonic(props.mnemonic).then(() => {
+            setLoading(false);
             if (result) {
-              setLoading(false);
-              closePopup();
               props.onImport();
+              closePopup();
             } else {
-              setLoading(false);
               props.onImportFailed();
             }
           });

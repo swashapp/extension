@@ -13,7 +13,7 @@
   --dark-blue: #123c53;
   --darkest-blue: #002030;
   --pink: #ff7979;
-  --gray: #d8e1da;
+  --gray: #eeeeee;
   --warning: #f9c057;
   --error: #ff7979;
 }
@@ -1233,6 +1233,10 @@ a:hover {
   align-items: center;
 }
 
+.wallet-data-transfer-buttons .confirm-and-send {
+  width: 170px;
+}
+
 .data-transfer-popup-completed {
   margin: 120px 0;
   display: flex;
@@ -1268,7 +1272,7 @@ a:hover {
 
 .stepper-card {
   width: 828px;
-  margin: 0 auto;
+  margin: 0 auto 32px auto;
 }
 
 .verification-card {
@@ -1740,19 +1744,19 @@ a:hover {
 }
 
 .help-wallet-earnings-image {
-  background: url('/static/images/background/help-earnings.jpg') no-repeat
+  background: url('/static/images/background/help-earnings.png') no-repeat
     center center;
-  width: 400px;
-  height: 200px;
-  background-size: 400px 200px;
+  width: 418px;
+  height: 264px;
+  background-size: 418px 264px;
 }
 
 .help-getting-started-image {
-  background: url('/static/images/background/help-popup.jpg') no-repeat center
+  background: url('/static/images/background/help-popup.png') no-repeat center
     center;
   width: 300px;
-  height: 200px;
-  background-size: 300px 200px;
+  height: 486px;
+  background-size: 300px 486px;
 }
 
 .sidenav-button-container {

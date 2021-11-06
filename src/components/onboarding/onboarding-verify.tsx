@@ -55,9 +55,14 @@ export function OnboardingVerify(props: {
     stepper.next();
   }, [newsletterSignUp, props.stayUpdate, stepper]);
 
-  const onFailure = useCallback(() => {
+  const onFailure = useCallback((err?: { message: string }) => {
     setLoading(false);
-    toast(<ToastMessage type="error" content={<>Something went wrong!</>} />);
+    toast(
+      <ToastMessage
+        type="error"
+        content={<>{err?.message} || Something went wrong!</>}
+      />,
+    );
   }, []);
 
   const join = useCallback(() => {
@@ -70,7 +75,7 @@ export function OnboardingVerify(props: {
           onFailure();
         }
       })
-      .catch(() => onFailure());
+      .catch(onFailure);
   }, [onFailure, onVerified, props.email, verificationCode]);
 
   const updateEmail = useCallback(() => {

@@ -33,12 +33,21 @@ export function Export3Box(): JSX.Element {
         .writeTo3BoxSpace(seed)
         .then(() => {
           setLoading(false);
+          toast(
+            <ToastMessage
+              type="success"
+              content={<>The configuration file is exported successfully</>}
+            />,
+          );
           closePopup();
         })
-        .catch(() => {
+        .catch((err?: { message: string }) => {
           setLoading(false);
           toast(
-            <ToastMessage type="error" content={<>Something went wrong!</>} />,
+            <ToastMessage
+              type="error"
+              content={<>{err?.message} || Something went wrong!</>}
+            />,
           );
         });
     });

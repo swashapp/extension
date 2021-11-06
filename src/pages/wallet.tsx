@@ -1,3 +1,4 @@
+import { ethers } from 'ethers';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -19,7 +20,10 @@ const DataBonusIcon = '/static/images/icons/data-bonus.svg';
 const DataEarningsIcon = '/static/images/icons/data-earnings.svg';
 const QuestionGrayIcon = '/static/images/shape/question-gray.png';
 
-const networkList = [{ value: 'xDai' }, { value: 'Mainnet' }];
+const networkList = [
+  { description: 'xDai', value: 'xDai' },
+  { description: 'Mainnet', value: 'Mainnet' },
+];
 
 export function Wallet(): JSX.Element {
   const [dataAvailable, setDataAvailable] = useState<string>('$');
@@ -84,6 +88,7 @@ export function Wallet(): JSX.Element {
     window.helper
       .claimRewards()
       .then((result: { tx?: string }) => {
+        setClaiming(false);
         if (result.tx) {
           getBalanceInfo().then();
           toast(
@@ -101,7 +106,15 @@ export function Wallet(): JSX.Element {
           );
         }
       })
-      .finally(() => setClaiming(false));
+      .catch((err?: { message: string }) => {
+        setClaiming(false);
+        toast(
+          <ToastMessage
+            type="error"
+            content={<>{err?.message} || Failed to claim rewards</>}
+          />,
+        );
+      });
   }, [getBalanceInfo]);
 
   const isMessageNeeded = useMemo(
@@ -115,9 +128,16 @@ export function Wallet(): JSX.Element {
         message: '',
         type: 'warning',
       };
-      if (!dataAvailable.match(/^[0-9]+(\.[0-9]+)?$/)) {
+      if (
+        dataAvailable.length > 0 &&
+        dataAvailable !== '$' &&
+        !dataAvailable.match(/^[0-9]+(\.[0-9]+)?$/)
+      ) {
         ret = { message: 'Amount value is not valid', type: 'error' };
-      } else if (!recipient.match(/^0x[a-fA-F0-9]{40}$/)) {
+      } else if (
+        recipient.length === 42 &&
+        !ethers.utils.isAddress(recipient)
+      ) {
         ret = { message: 'Recipient address is not valid', type: 'error' };
       } else if (isMessageNeeded) {
         if (network === 'xDai') {
@@ -157,6 +177,7 @@ export function Wallet(): JSX.Element {
   const isTransferDisable = useMemo(() => {
     let ret = false;
     if (dataAvailable === '$' || Number(dataAvailable) <= 0) ret = true;
+    else if (!ethers.utils.isAddress(recipient)) ret = true;
     else if (!network) ret = true;
     else if (network === 'Mainnet') {
       if (recipientEthBalance === '$' || Number(recipientEthBalance) <= 0)
@@ -175,6 +196,7 @@ export function Wallet(): JSX.Element {
     gasLimit,
     minimumWithdraw,
     network,
+    recipient,
     recipientEthBalance,
   ]);
 
@@ -241,7 +263,7 @@ export function Wallet(): JSX.Element {
               <div className="wallet-title">
                 <h6>Your wallet address</h6>
                 <div className="wallet-title-question-mark">
-                  <img src={QuestionGrayIcon} width={16} height={16} />
+                  <img src={QuestionGrayIcon} width={16} height={16} alt={''} />
                 </div>
               </div>
               <div className={WALLET_TOUR_CLASS.WALLET_ADDRESS}>
@@ -301,7 +323,7 @@ export function Wallet(): JSX.Element {
                             <br />
                             <br />
                             You can also put your SWASH to work by trading or
-                            staking liquidity on the SWASH/ xDAI pool on{' '}
+                            staking liquidity on the SWASH/xDAI pool on{' '}
                             <a
                               href="https://honeyswap.org"
                               target="_blank"

@@ -26,8 +26,7 @@ const FacebookLogo = '/static/images/logos/facebook.png';
 const LinkedInLogo = '/static/images/logos/linkedin.png';
 const TwitterLogo = '/static/images/logos/twitter.png';
 
-const referralMessage =
-  'Use my referral link to earn money as you surf with Swash:';
+const referralMessage = 'Use my referral link to earn as you surf with Swash:';
 
 export function InviteFriends(): JSX.Element {
   const [referralLink, setReferralLink] = useState<string>('');
