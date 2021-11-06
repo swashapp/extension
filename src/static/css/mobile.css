@@ -73,11 +73,11 @@
     max-width: unset !important;
   }
 
-  .wallet-data-transfer-content {
+  .wallet-token-transfer-content {
     margin: 45px 0;
   }
 
-  .data-transfer-popup-completed {
+  .token-transfer-popup-completed {
     margin: 99px 0;
   }
 
@@ -165,38 +165,38 @@
     height: 28px;
   }
 
-  .win-data-prize-circle1 {
+  .win-swash-prize-circle1 {
     width: 79px;
     height: 79px;
     top: -20px;
     right: -22px;
   }
 
-  .win-data-prize-circle2 {
+  .win-swash-prize-circle2 {
     width: 318px;
     height: 318px;
     bottom: -229px;
     right: -179px;
   }
 
-  .win-data-prize-circle3 {
+  .win-swash-prize-circle3 {
     bottom: 55px;
     right: 40px;
   }
 
-  .win-data-prize-title {
+  .win-swash-prize-title {
     width: 164px;
   }
 
-  .win-data-prize-text {
+  .win-swash-prize-text {
     width: 208px;
   }
 
-  .win-data-prize-button {
+  .win-swash-prize-button {
     margin-top: 24px;
   }
 
-  .win-data-prize-content {
+  .win-swash-prize-content {
     margin: 20px;
   }
 
@@ -294,20 +294,20 @@
     display: none;
   }
 
-  .wallet-data-transfer-container {
+  .wallet-token-transfer-container {
     margin: 20px;
   }
 
-  .wallet-data-transfer-content {
+  .wallet-token-transfer-content {
     flex-direction: column;
     gap: 30px;
   }
 
-  .wallet-data-transfer-content > img {
+  .wallet-token-transfer-content > img {
     transform: rotate(90deg);
   }
 
-  .wallet-data-transfer-field {
+  .wallet-token-transfer-field {
     align-self: flex-start;
   }
 
@@ -466,10 +466,10 @@
   .tour-nav-buttons .form-button {
     width: 100%;
   }
-  .wallet-data-transfer-buttons {
+  .wallet-token-transfer-buttons {
     gap: 16px;
   }
-  .wallet-data-transfer-buttons .form-button {
+  .wallet-token-transfer-buttons .form-button {
     width: 100%;
   }
 }

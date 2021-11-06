@@ -12,12 +12,12 @@ import { NumericSection } from '../components/numeric-section/numeric-section';
 import { closePopup, showPopup } from '../components/popup/popup';
 import { Select } from '../components/select/select';
 import { ToastMessage } from '../components/toast/toast-message';
-import { DataTransferPopup } from '../components/wallet/data-transfer-popup';
+import { TokenTransferPopup } from '../components/wallet/token-transfer-popup';
 import { WALLET_TOUR_CLASS } from '../components/wallet/wallet-tour';
 import { UtilsService } from '../service/utils-service';
 
-const DataBonusIcon = '/static/images/icons/data-bonus.svg';
-const DataEarningsIcon = '/static/images/icons/data-earnings.svg';
+const SwashBonusIcon = '/static/images/icons/swash-bonus.svg';
+const SwashEarningsIcon = '/static/images/icons/swash-earnings.svg';
 const QuestionGrayIcon = '/static/images/shape/question-gray.png';
 
 const networkList = [
@@ -26,12 +26,14 @@ const networkList = [
 ];
 
 export function Wallet(): JSX.Element {
-  const [dataAvailable, setDataAvailable] = useState<string>('$');
+  const [tokenAvailable, setTokenAvailable] = useState<string>('$');
   const [minimumWithdraw, setMinimumWithdraw] = useState<number>(99999999);
   const [gasLimit, setGasLimit] = useState<number>(99999999);
   const [claiming, setClaiming] = useState<boolean>(false);
+  const [withdrawing, setWithdrawing] = useState<boolean>(false);
   const [recipientEthBalance, setRecipientEthBalance] = useState<string>('$');
-  const [recipientDataBalance, setRecipientDataBalance] = useState<string>('$');
+  const [recipientTokenBalance, setRecipientTokenBalance] =
+    useState<string>('$');
   const [unclaimedBonus, setUnclaimedBonus] = useState<string>('$');
   const [walletAddress, setWalletAddress] = useState<string>('');
   const [recipient, setRecipient] = useState<string>('');
@@ -55,24 +57,24 @@ export function Wallet(): JSX.Element {
     });
   }, []);
 
-  const getDataAvailable = useCallback(() => {
-    window.helper.getAvailableBalance().then((_dataAvailable: any) => {
-      setDataAvailable((data) => {
-        const _data =
-          _dataAvailable.error ||
-          _dataAvailable === '' ||
-          typeof _dataAvailable === 'undefined'
-            ? data
-            : _dataAvailable;
-        return UtilsService.purgeNumber(_data);
+  const getTokenAvailable = useCallback(() => {
+    window.helper.getAvailableBalance().then((_tokenAvailable: any) => {
+      setTokenAvailable((token) => {
+        const _token =
+          _tokenAvailable.error ||
+          _tokenAvailable === '' ||
+          typeof _tokenAvailable === 'undefined'
+            ? token
+            : _tokenAvailable;
+        return UtilsService.purgeNumber(_token);
       });
     });
   }, []);
 
   const getBalanceInfo = useCallback(async () => {
     await getUnclaimedBonus();
-    await getDataAvailable();
-  }, [getDataAvailable, getUnclaimedBonus]);
+    await getTokenAvailable();
+  }, [getTokenAvailable, getUnclaimedBonus]);
 
   useEffect(() => {
     getWalletAddress();
@@ -111,15 +113,15 @@ export function Wallet(): JSX.Element {
         toast(
           <ToastMessage
             type="error"
-            content={<>{err?.message} || Failed to claim rewards</>}
+            content={<>{err?.message || 'Failed to claim rewards'}</>}
           />,
         );
       });
   }, [getBalanceInfo]);
 
   const isMessageNeeded = useMemo(
-    () => dataAvailable !== '$' && Number(dataAvailable) > 0,
-    [dataAvailable],
+    () => tokenAvailable !== '$' && Number(tokenAvailable) > 0,
+    [tokenAvailable],
   );
 
   const formState: { message: string; type: 'error' | 'warning' | 'success' } =
@@ -129,9 +131,9 @@ export function Wallet(): JSX.Element {
         type: 'warning',
       };
       if (
-        dataAvailable.length > 0 &&
-        dataAvailable !== '$' &&
-        !dataAvailable.match(/^[0-9]+(\.[0-9]+)?$/)
+        tokenAvailable.length > 0 &&
+        tokenAvailable !== '$' &&
+        !tokenAvailable.match(/^[0-9]+(\.[0-9]+)?$/)
       ) {
         ret = { message: 'Amount value is not valid', type: 'error' };
       } else if (
@@ -145,7 +147,7 @@ export function Wallet(): JSX.Element {
             message: 'Exchange wallets are not compatible with xDai.',
             type: 'warning',
           };
-        } else if (Number(dataAvailable) > minimumWithdraw) {
+        } else if (Number(tokenAvailable) > minimumWithdraw) {
           ret = {
             message:
               'It’s on us. Swash will cover these transaction fees for you! 🎉',
@@ -165,7 +167,7 @@ export function Wallet(): JSX.Element {
       }
       return ret;
     }, [
-      dataAvailable,
+      tokenAvailable,
       gasLimit,
       isMessageNeeded,
       minimumWithdraw,
@@ -176,7 +178,7 @@ export function Wallet(): JSX.Element {
 
   const isTransferDisable = useMemo(() => {
     let ret = false;
-    if (dataAvailable === '$' || Number(dataAvailable) <= 0) ret = true;
+    if (tokenAvailable === '$' || Number(tokenAvailable) <= 0) ret = true;
     else if (!ethers.utils.isAddress(recipient)) ret = true;
     else if (!network) ret = true;
     else if (network === 'Mainnet') {
@@ -184,13 +186,13 @@ export function Wallet(): JSX.Element {
         ret = true;
       else if (
         Number(recipientEthBalance) < gasLimit &&
-        Number(dataAvailable) < minimumWithdraw
+        Number(tokenAvailable) < minimumWithdraw
       )
         ret = true;
     } else if (formState.message && formState.type === 'error') ret = true;
     return ret;
   }, [
-    dataAvailable,
+    tokenAvailable,
     formState.message,
     formState.type,
     gasLimit,
@@ -214,9 +216,9 @@ export function Wallet(): JSX.Element {
         });
       if (recipient.match(/^0x[a-fA-F0-9]{40}$/g)) {
         const getBalanceOfRecipient = async () => {
-          const DataBalance = await window.helper.getDataBalance(recipient);
+          const TokenBalance = await window.helper.getTokenBalance(recipient);
           const EthBalance = await window.helper.getEthBalance(recipient);
-          setRecipientDataBalance(DataBalance);
+          setRecipientTokenBalance(TokenBalance);
           setRecipientEthBalance(EthBalance);
         };
         getBalanceOfRecipient();
@@ -235,11 +237,11 @@ export function Wallet(): JSX.Element {
           <div className={'flex-column card-gap'}>
             <FlexGrid column={2} className={'wallet-numerics card-gap'}>
               <NumericSection
-                tourClassName={WALLET_TOUR_CLASS.DATA_EARNINGS}
+                tourClassName={WALLET_TOUR_CLASS.SWASH_EARNINGS}
                 title="SWASH Earnings"
-                value={dataAvailable}
+                value={tokenAvailable}
                 layout="layout1"
-                image={DataEarningsIcon}
+                image={SwashEarningsIcon}
               />
               <NumericSection
                 title="SWASH Referral Bonus"
@@ -256,7 +258,7 @@ export function Wallet(): JSX.Element {
                     link={false}
                   />
                 }
-                image={DataBonusIcon}
+                image={SwashBonusIcon}
               />
             </FlexGrid>
             <div className="simple-card">
@@ -363,9 +365,9 @@ export function Wallet(): JSX.Element {
                 <Input
                   label="Amount"
                   name="amount"
-                  value={dataAvailable}
+                  value={tokenAvailable}
                   disabled={true}
-                  onChange={(e) => setDataAvailable(e.target.value)}
+                  onChange={(e) => setTokenAvailable(e.target.value)}
                 />
                 <Select
                   items={networkList}
@@ -386,7 +388,7 @@ export function Wallet(): JSX.Element {
                   <div className="form-message-balance">{`Balance: ${UtilsService.purgeNumber(
                     recipientEthBalance,
                   )} ETH, ${UtilsService.purgeNumber(
-                    recipientDataBalance,
+                    recipientTokenBalance,
                   )} SWASH`}</div>
                 ) : (
                   <></>
@@ -399,21 +401,39 @@ export function Wallet(): JSX.Element {
               text="Withdraw"
               disabled={isTransferDisable}
               link={false}
-              onClick={() =>
-                showPopup({
-                  closable: false,
-                  paperClassName: 'withdraw-data-transfer',
-                  content: (
-                    <DataTransferPopup
-                      amount={dataAvailable}
-                      recipient={recipient}
-                      onSuccess={getBalanceInfo}
-                      useSponsor={Number(dataAvailable) > minimumWithdraw}
-                      sendToMainnet={network === 'Mainnet'}
-                    />
-                  ),
-                })
-              }
+              loading={withdrawing}
+              onClick={() => {
+                setWithdrawing(true);
+                window.helper
+                  .checkWithdrawAllowance(tokenAvailable)
+                  .then(() => {
+                    setWithdrawing(false);
+                    showPopup({
+                      closable: false,
+                      paperClassName: 'withdraw-token-transfer',
+                      content: (
+                        <TokenTransferPopup
+                          amount={tokenAvailable}
+                          recipient={recipient}
+                          onSuccess={getBalanceInfo}
+                          useSponsor={Number(tokenAvailable) > minimumWithdraw}
+                          sendToMainnet={network === 'Mainnet'}
+                        />
+                      ),
+                    });
+                  })
+                  .catch((err: Error) => {
+                    setWithdrawing(false);
+                    toast(
+                      <ToastMessage
+                        type="error"
+                        content={
+                          <>{err?.message || 'Failed to withdraw earnings'}</>
+                        }
+                      />,
+                    );
+                  });
+              }}
             />
           </div>
         </FlexGrid>

@@ -66,7 +66,7 @@ function MenuItem(props: {
 }
 
 function Popup() {
-  const [dataAvailable, setDataAvailable] = useState<string>('$');
+  const [tokenAvailable, setTokenAvailable] = useState<string>('$');
   const [unclaimedBonus, setUnclaimedBonus] = useState<string>('$');
   const [status, setStatus] = useState<boolean>(false);
   const [excluded, setExcluded] = useState<boolean>(false);
@@ -83,24 +83,24 @@ function Popup() {
     });
   }, []);
 
-  const getDataAvailable = useCallback(() => {
-    window.helper.getAvailableBalance().then((_dataAvailable: any) => {
-      setDataAvailable((data) => {
-        const _data =
-          _dataAvailable.error ||
-          _dataAvailable === '' ||
-          typeof _dataAvailable === 'undefined'
-            ? data
-            : _dataAvailable;
-        return UtilsService.purgeNumber(_data, 4);
+  const getTokenAvailable = useCallback(() => {
+    window.helper.getAvailableBalance().then((_tokenAvailable: any) => {
+      setTokenAvailable((token) => {
+        const _token =
+          _tokenAvailable.error ||
+          _tokenAvailable === '' ||
+          typeof _tokenAvailable === 'undefined'
+            ? token
+            : _tokenAvailable;
+        return UtilsService.purgeNumber(_token, 4);
       });
     });
   }, []);
 
   const getBalanceInfo = useCallback(async () => {
     getUnclaimedBonus();
-    getDataAvailable();
-  }, [getDataAvailable, getUnclaimedBonus]);
+    getTokenAvailable();
+  }, [getTokenAvailable, getUnclaimedBonus]);
 
   useEffect(() => {
     window.helper.isCurrentDomainFiltered().then((filtered: any) => {
@@ -171,7 +171,7 @@ function Popup() {
               column={2}
               className="flex-row form-item-gap extension-popup-numerics"
             >
-              <NumericStats value={dataAvailable} label="SWASH Earnings" />
+              <NumericStats value={tokenAvailable} label="SWASH Earnings" />
               <NumericStats value={unclaimedBonus} label="Referral Bonus" />
             </FlexGrid>
             <MenuItem
