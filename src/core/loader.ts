@@ -1,17 +1,18 @@
 import browser from 'webextension-polyfill';
 
+import { BackupEntity } from '../entities/backup.entity';
+import { ConfigEntity } from '../entities/config.entity';
+import { FilterEntity } from '../entities/filter.entity';
+import { ModuleEntity } from '../entities/module.entity';
+import { ProfileEntity } from '../entities/profile.entity';
 import { Any } from '../types/any.type';
-import { Filter } from '../types/storage/filter.type';
 import { Module } from '../types/storage/module.type';
-import { commonUtils } from '../utils/common.util';
 
 import { configManager } from './configManager';
 import { databaseHelper } from './databaseHelper';
 import { dataHandler } from './dataHandler';
 import { functions } from './functions';
 import { apiCall } from './functions/apiCall';
-import { internalFilters } from './internalFilters';
-import { ssConfig } from './manifest';
 import { memberManager } from './memberManager';
 import { onboarding } from './onboarding';
 import { pageAction } from './pageAction';
@@ -23,56 +24,54 @@ const loader = (function () {
   let dbHelperInterval: NodeJS.Timer;
   let intervalId: NodeJS.Timer;
 
-  async function createDBIfNotExist() {
-    const configs = await storageHelper.getConfigs();
-    if (!configs.Id || !configs.salt) {
-      configs.Id = commonUtils.uuid();
-      configs.salt = commonUtils.uuid();
-      return storageHelper.saveConfigs(configs);
-    }
-  }
-
   async function install() {
     try {
-      await createDBIfNotExist();
-      const db = await storageHelper.getAll();
+      const backup = await BackupEntity.getInstance();
+      const old_db = await storageHelper.getAll();
 
-      //backup old database
-      delete db._backup;
-      db._backup = JSON.stringify(db);
+      // Backup old database
+      delete old_db._backup;
+      await backup.save(JSON.stringify(old_db));
 
-      //onboarding added from version 1.0.8
-      if (!db.onboarding) db.onboarding = {};
-      //from version 1.0.9 move wallet to profile object for safety
       console.log(
-        `Update Swash from version ${db.configs.version} to ${ssConfig.version}`,
+        `Update Swash from version ${old_db.configs.version} to ${
+          browser.runtime.getManifest().version
+        }`,
       );
-      if (db.configs.version <= '1.0.8' && db.configs.encryptedWallet) {
+
+      // Updating filters
+      console.log(`Updating configs`);
+      const configs = await ConfigEntity.getInstance();
+      await configs.upgrade();
+
+      const profile = await ProfileEntity.getInstance();
+      if (old_db.configs.version <= '1.0.8' && old_db.configs.encryptedWallet) {
         console.log(`moving private key from configs to profile`);
-        db.profile.encryptedWallet = db.configs.encryptedWallet;
+        await profile.update('encryptedWallet', old_db.configs.encryptedWallet);
       }
 
-      db.configs.version = ssConfig.version;
-
-      //keeping defined filters and updating internal filters
+      // Updating filters
       console.log(`Updating exclude urls`);
-      const userFilters = db.filters.filter((filter: Filter) => {
-        return !filter.internal;
-      });
-      for (const f of internalFilters) {
-        userFilters.push(f);
-      }
-      db.filters = userFilters;
+      const filters = await FilterEntity.getInstance();
+      await filters.upgrade();
 
-      //updating modules
+      // Updating modules
       console.log(`Updating modules`);
-      db.modules = await onModulesUpdated();
+      const modules = await ModuleEntity.getInstance();
+      await modules.upgrade();
 
-      //updating configurations
-      // commonUtils.jsonUpdate(db.configs, configs);
-      return storageHelper.saveAll(db);
-    } catch (exp) {
-      console.error(exp);
+      // Updating all
+      console.log(`Updating all`);
+      await onUpdatedAll();
+
+      await userHelper.loadEncryptedWallet(
+        (await profile.get()).encryptedWallet || '',
+        (
+          await configs.get()
+        ).salt,
+      );
+    } catch (err) {
+      console.error(err);
     }
   }
 
@@ -196,24 +195,25 @@ const loader = (function () {
 
   async function load() {
     console.log('Loading the extension configuration');
-    storageHelper.getAll().then(async (db) => {
-      dbHelperInterval = setInterval(async function () {
-        await databaseHelper.init();
-        await dataHandler.sendDelayedMessages();
-      }, 10000);
-      await userHelper.loadEncryptedWallet(
-        db.profile.encryptedWallet,
-        db.configs.salt,
-      );
-      if (db.configs.is_enabled) {
-        init(true);
-        await loadFunctions();
-        loadNotifications();
-      } else {
-        init(false);
-        await unloadFunctions();
-      }
-    });
+    const db = await storageHelper.getAll();
+    dbHelperInterval = setInterval(async function () {
+      await databaseHelper.init();
+      await dataHandler.sendDelayedMessages();
+    }, 10000);
+
+    await userHelper.loadEncryptedWallet(
+      db.profile.encryptedWallet,
+      db.configs.salt,
+    );
+
+    if (db.configs.is_enabled) {
+      init(true);
+      await loadFunctions();
+      loadNotifications();
+    } else {
+      init(false);
+      await unloadFunctions();
+    }
   }
 
   async function reload() {
@@ -257,7 +257,6 @@ const loader = (function () {
       }
       dbModules[module.name] = module;
     }
-    return dbModules;
   }
 
   async function onConfigsUpdated() {
@@ -291,7 +290,6 @@ const loader = (function () {
   }
 
   return {
-    createDBIfNotExist,
     install,
     onInstalled,
     start,

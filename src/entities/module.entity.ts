@@ -83,4 +83,8 @@ export class ModuleEntity extends Entity<Modules> {
   protected async init(): Promise<void> {
     await this.create(await fetchModules());
   }
+
+  public async upgrade(): Promise<void> {
+    return this.save(await fetchModules());
+  }
 }

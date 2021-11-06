@@ -42,7 +42,7 @@ const userHelper = (function () {
   }
 
   async function getEncryptedWallet(password: Password) {
-    if (!wallet) return { error: 'Wallet is not provided' };
+    if (!wallet) throw Error('Wallet is not provided');
     const options = {
       scrypt: {
         N: 1 << 10,
@@ -137,21 +137,21 @@ const userHelper = (function () {
   }
 
   async function getAvailableBalance() {
-    if (!wallet) return { error: 'Wallet is not provided' };
+    if (!wallet) throw Error('Wallet is not provided');
     if (!client) clientConnect();
     const earnings = await duHandler.getWithdrawableEarnings(wallet.address);
     return ethers.utils.formatEther(earnings);
   }
 
   async function signWithdrawAllTo(targetAddress: string) {
-    if (!wallet || !provider) return { error: 'Wallet is not provided' };
+    if (!wallet || !provider) throw Error('Wallet is not provided');
     if (!client) clientConnect();
 
     return await duHandler.signWithdrawAllTo(targetAddress);
   }
 
   async function signWithdrawAmountTo(targetAddress: string, amount: string) {
-    if (!wallet || !provider) return { error: 'Wallet is not provided' };
+    if (!wallet || !provider) throw Error('Wallet is not provided');
     if (!client) clientConnect();
 
     const amountBN = ethers.utils.parseEther(amount);
@@ -201,6 +201,8 @@ const userHelper = (function () {
   }
 
   async function generateJWT() {
+    if (!wallet) throw Error('Wallet is not provided');
+    if (!client) clientConnect();
     const payload = {
       address: wallet.address,
       publicKey: ethers.utils.computePublicKey(wallet.publicKey, true),

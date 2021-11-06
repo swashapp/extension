@@ -31,13 +31,14 @@ async function initConfigs() {
 async function installSwash(info: Any) {
   console.log('Start installing...');
   await initConfigs();
-  if (info.reason === 'update' || info.reason === 'install') {
-    await loader.createDBIfNotExist();
+  if (info.reason === 'install') {
+    onboarding.openOnBoarding();
+  } else if (info.reason === 'update') {
+    await loader.install();
     const isNeeded = await onboarding.isNeededOnBoarding();
     if (isNeeded) {
       onboarding.openOnBoarding();
     } else {
-      await loader.install();
       await loader.onInstalled();
     }
   }

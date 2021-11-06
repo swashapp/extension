@@ -16,7 +16,27 @@ import { StreamConfigs } from '../types/storage/configs/stream.type';
 
 import { SwashApiConfigs } from '../types/storage/configs/swash-api.type';
 
+import { commonUtils } from '../utils/common.util';
+
 import { Entity } from './entity';
+
+function getStaticConfig() {
+  return {
+    name: browser.runtime.getManifest().name,
+    description: browser.runtime.getManifest().description || '',
+    path: '/',
+    privacyLevel: 'auto',
+    homepage_url: browser.runtime.getManifest().homepage_url || '',
+    version: browser.runtime.getManifest().version,
+    manifest: { ...configJson },
+    swashAPI: { ...swashAPIJson },
+    community: { ...communityJson },
+    stream: { ...streamJson },
+    onboarding: { ...onboardingJson },
+    memberManager: { ...memberManagerJson },
+    apiCall: { ...apiCallJson },
+  };
+}
 
 export class ConfigEntity extends Entity<Configs> {
   private static instance: ConfigEntity;
@@ -35,21 +55,21 @@ export class ConfigEntity extends Entity<Configs> {
 
   protected async init(): Promise<void> {
     await this.create({
-      name: browser.runtime.getManifest().name,
-      description: browser.runtime.getManifest().description || '',
-      path: '/',
+      Id: commonUtils.uuid(),
+      salt: commonUtils.uuid(),
       delay: 2,
       is_enabled: true,
-      privacyLevel: 'auto',
-      homepage_url: browser.runtime.getManifest().homepage_url || '',
-      version: browser.runtime.getManifest().version,
-      manifest: { ...configJson },
-      swashAPI: { ...swashAPIJson },
-      community: { ...communityJson },
-      stream: { ...streamJson },
-      onboarding: { ...onboardingJson },
-      memberManager: { ...memberManagerJson },
-      apiCall: { ...apiCallJson },
+      ...getStaticConfig(),
+    });
+  }
+
+  public async upgrade(): Promise<void> {
+    return this.save({
+      Id: this.cache.Id,
+      salt: this.cache.salt,
+      delay: this.cache.delay,
+      is_enabled: this.cache.is_enabled,
+      ...getStaticConfig(),
     });
   }
 

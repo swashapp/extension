@@ -1,11 +1,15 @@
 {
   "flow": {
-    "version": 1,
+    "version": 2,
     "start": "Welcome",
     "pages": {
       "Welcome": {
-        "version": 1,
-        "visible": "all",
+        "version": 2,
+        "visible": {
+          "core": {
+            "notExistInDB": "profile.encryptedWallet"
+          }
+        },
         "next": "New"
       },
       "New": {
@@ -37,7 +41,7 @@
         "next": "YourProfile"
       },
       "YourProfile": {
-        "version": 1,
+        "version": 2,
         "visible": {
           "core": {
             "notExistInDB": "profile.age"
@@ -45,7 +49,7 @@
         },
         "next": {
           "basedOnPage": "New",
-          "default": "Create"
+          "default": "Import"
         }
       },
       "Create": {

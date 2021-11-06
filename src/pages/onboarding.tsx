@@ -85,6 +85,8 @@ export function Onboarding(): JSX.Element {
 
   useEffect(() => {
     window.helper.getOnboardingFlow().then((res: string) => {
+      // eslint-disable-next-line no-debugger
+      debugger;
       const newFlow = JSON.parse(res);
       if (typeof newFlow.pages['Import'].next !== 'object') {
         newFlow.pages['Import'].next = {
@@ -92,6 +94,7 @@ export function Onboarding(): JSX.Element {
           default: 'Join',
         };
       }
+      console.log(newFlow);
       setFlow(newFlow);
     });
   }, []);
@@ -133,17 +136,27 @@ export function Onboarding(): JSX.Element {
 
   const flattenedFlow: string[] = useMemo(() => {
     const flattened = [];
+    // eslint-disable-next-line no-debugger
+    debugger;
     if (flow.start) {
       let next = flow.start;
+      if (flow.pages[flow.start].visible === 'none') next = getNextPageOf(next);
       while (next) {
         flattened.push(next);
         next = getNextPageOf(next);
       }
     }
+    console.log(
+      flattened.filter(
+        (step) => step !== 'YourProfileWarning' && step !== 'New',
+      ),
+    );
+    // eslint-disable-next-line no-debugger
+    debugger;
     return flattened.filter(
       (step) => step !== 'YourProfileWarning' && step !== 'New',
     );
-  }, [flow.start, getNextPageOf]);
+  }, [flow.pages, flow.start, getNextPageOf]);
 
   return (
     <div className="onboarding-page-container">
