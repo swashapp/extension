@@ -23,9 +23,16 @@ const HelpData = [
       'You are now part of a game-changing movement to create a better internet.' +
       '<br /><br />' +
       'Before you dive in, make sure you get the latest updates by joining' +
-      ' the chat on <a href="https://t.me/swashapp_group">Telegram</a>' +
+      ' the chat on ' +
+      '<a' +
+      '  target="_blank"' +
+      '  rel="noopener noreferrer"' +
+      '  href="https://t.me/swashapp_group">Telegram</a>' +
       ' or by following Swash on ' +
-      '<a href="https://twitter.com/swashapp">Twitter</a>.' +
+      '<a' +
+      '  target="_blank"' +
+      '  rel="noopener noreferrer"' +
+      '  href="https://twitter.com/swashapp">Twitter</a>.' +
       '</p>' +
       '<br/>' +
       '<i>So, what is Swash?</i>' +
@@ -122,18 +129,18 @@ const HelpData = [
       'The wallet page is where you can see what you’ve earned when' +
       ' using Swash. All earnings are listed in ' +
       '<a' +
-      'target="_blank"' +
-      'rel="noopener noreferrer"' +
-      'href="https://etherscan.io/token/0xa130e3a33a4d84b04c3918c4e5762223ae252f80"' +
+      '  target="_blank"' +
+      '  rel="noopener noreferrer"' +
+      '  href="https://etherscan.io/token/0xa130e3a33a4d84b04c3918c4e5762223ae252f80"' +
       '>' +
       'SWASH' +
       '</a>' +
       ' native cryptocurrency. For more information on Swash’s' +
       ' connection to Streamr, check out the ' +
       '<a' +
-      'target="_blank"' +
-      'rel="noopener noreferrer"' +
-      'href="https://swashapp.io/faq"' +
+      '  target="_blank"' +
+      '  rel="noopener noreferrer"' +
+      '  href="https://swashapp.io/faq"' +
       '>' +
       'FAQ' +
       '</a>' +
@@ -203,14 +210,20 @@ const HelpData = [
       '</p>' +
       '<ol>' +
       '<li>' +
-      '<a href="https://www.xdaichain.com/for-users/wallets/metamask/metamask-setup">' +
+      '<a' +
+      '  target="_blank"' +
+      '  rel="noopener noreferrer"' +
+      '  href="https://www.xdaichain.com/for-users/wallets/metamask/metamask-setup">' +
       ' Connect your Metamask to xDai' +
       '</a>' +
       '</li>' +
       '<li>' +
       'Add SWASH as a token in your Metamask xDai wallet using the' +
       " 'Import Token' button. You can find the SWASH Token Contract Address " +
-      '<a href="https://blockscout.com/xdai/mainnet/tokens/0x84e2c67cbefae6b5148fca7d02b341b12ff4b5bb">' +
+      '<a' +
+      '  target="_blank"' +
+      '  rel="noopener noreferrer"' +
+      '  href="https://blockscout.com/xdai/mainnet/tokens/0x84e2c67cbefae6b5148fca7d02b341b12ff4b5bb">' +
       ' here' +
       '</a>' +
       '</li>' +
@@ -223,10 +236,17 @@ const HelpData = [
       '<p>' +
       '🎉 Bonus: Once received, you can also put your SWASH to work by' +
       ' trading or staking liquidity on the ' +
-      '<a href="https://info.honeyswap.org/pair/0x0110f008b8815cf00514d54ea11bfa8bb555c69b#/pair/0xfd8fe4c85e5c2e56207ffb50b0e9eb43116f282f">' +
+      '<a' +
+      '  target="_blank"' +
+      '  rel="noopener noreferrer"' +
+      '  href="https://info.honeyswap.org/pair/0x0110f008b8815cf00514d54ea11bfa8bb555c69b#/pair/0xfd8fe4c85e5c2e56207ffb50b0e9eb43116f282f">' +
       'SWASH/ xDAI pool' +
       '</a>' +
-      ' on <a href="https://app.honeyswap.org/#/swap">Honeyswap</a> 🐝' +
+      ' on ' +
+      '<a' +
+      '  target="_blank"' +
+      '  rel="noopener noreferrer"' +
+      '  href="https://app.honeyswap.org/#/swap">Honeyswap</a> 🐝' +
       '<br/><br />' +
       '</p>' +
       "<div class='title2'>Ethereum:</div>" +
@@ -258,7 +278,10 @@ const HelpData = [
       '</ol>' +
       '<p>' +
       'Transaction fees (or ‘' +
-      '<a href="https://ethereum.org/en/developers/docs/gas/">' +
+      '<a' +
+      '  target="_blank"' +
+      '  rel="noopener noreferrer"' +
+      '  href="https://ethereum.org/en/developers/docs/gas/">' +
       'gas fees' +
       '</a>' +
       '’) are the cost of energy needed to run a transaction on' +
@@ -366,7 +389,10 @@ const HelpData = [
       '<p>' +
       'For more information on the data Swash collects, check out the' +
       ' privacy ' +
-      '<a href="https://swashapp.io/privacy-policy/extension">' +
+      '<a' +
+      ' target="_blank"' +
+      ' rel="noopener noreferrer"' +
+      ' href="https://swashapp.io/privacy-policy/extension">' +
       'policy' +
       '</a>' +
       '.' +
@@ -374,9 +400,9 @@ const HelpData = [
       '<br />' +
       'Follow ' +
       '<a' +
-      'target="_blank"' +
-      'rel="noopener noreferrer"' +
-      'href="https://swashapp.io/"' +
+      ' target="_blank"' +
+      ' rel="noopener noreferrer"' +
+      ' href="https://swashapp.io/"' +
       '>' +
       'Swash' +
       '</a>' +
