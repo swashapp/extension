@@ -136,7 +136,7 @@ export function OnboardingVerify(props: {
         </div>
         <div className="onboarding-verify-question">
           <p>
-            Don&apos;t work?{' '}
+            Doesn&apos;t work?{' '}
             {seconds === 0 && minutes === 0 ? (
               <div
                 style={{ display: 'inline-block' }}

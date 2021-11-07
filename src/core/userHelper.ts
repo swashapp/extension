@@ -183,23 +183,20 @@ const userHelper = (function () {
     sendToMainnet: boolean,
   ) {
     const signature = await signWithdrawAllTo(recipient);
-    if (typeof signature === 'string') {
-      const amountInWei = ethers.utils.parseEther(amount);
-      const body = {
-        recipient: recipient,
-        signature: signature,
-        amount: amountInWei.toString(),
-        useSponsor: useSponsor,
-        sendToMainnet: sendToMainnet,
-      };
-      const data = await swashApiHelper.userWithdraw(await generateJWT(), body);
-      if (data.tx) return data;
-      else if (data.message) {
-        return transportMessage(data.message);
-      }
-      return data;
+    const amountInWei = ethers.utils.parseEther(amount);
+    const body = {
+      recipient: recipient,
+      signature: signature,
+      amount: amountInWei.toString(),
+      useSponsor: useSponsor,
+      sendToMainnet: sendToMainnet,
+    };
+    const data = await swashApiHelper.userWithdraw(await generateJWT(), body);
+    if (data.tx) return data;
+    else if (data.message) {
+      return transportMessage(data.message);
     }
-    return signature;
+    return data;
   }
 
   async function transportMessage(message: string) {

@@ -321,10 +321,8 @@ const onboarding = (function () {
       const configs = await storageHelper.getConfigs();
       const profile = await storageHelper.getProfile();
 
-      const salt = oldDB.configs.salt;
-      configs.salt = salt;
-      const encryptedWallet = oldDB.profile.encryptedWallet;
-      profile.encryptedWallet = encryptedWallet;
+      configs.salt = oldDB.configs.salt;
+      profile.encryptedWallet = oldDB.profile.encryptedWallet;
 
       await storageHelper.saveConfigs(configs);
       await storageHelper.saveProfile(profile);
@@ -565,8 +563,9 @@ const onboarding = (function () {
     const profile = await storageHelper.getProfile();
     await userHelper.createWallet();
     if (configs.salt) {
-      const wallet = await userHelper.getEncryptedWallet(configs.salt);
-      if (typeof wallet === 'string') profile.encryptedWallet = wallet;
+      profile.encryptedWallet = await userHelper.getEncryptedWallet(
+        configs.salt,
+      );
     }
     return storageHelper.saveProfile(profile);
   }

@@ -15,7 +15,7 @@ export function OnboardingImportant(): JSX.Element {
       </div>
       <div className="simple-card">
         <p>
-          Keep the private keys in a safe place.{' '}
+          Keep your private key in a safe place.{' '}
           <b>
             You can share your wallet address but never share your private keys!
           </b>

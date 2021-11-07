@@ -39,9 +39,7 @@ const HelpData = [
       '<p>' +
       'Swash is an ecosystem of tools and services that enable people, businesses, and developers to unlock the latent value of data by pooling, securely sharing, and monetising its value.' +
       '<br/><br/>' +
-      '<br/><br/>' +
       'People share their data to earn while retaining their privacy. Businesses access high-quality, zero-party data in a sustainable and compliant way. Developers set up and build systems within a collaborative development framework with ease.' +
-      '<br/><br/>' +
       '<br/><br/>' +
       'Swash is reimagining data ownership by enabling all actors of the data economy to earn, access, build and collaborate in a liquid digital ecosystem for data.' +
       '</p>' +

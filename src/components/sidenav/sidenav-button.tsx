@@ -1,5 +1,6 @@
 import { IconButton } from '@material-ui/core';
 import React, { useContext } from 'react';
+
 import { SidenavContext } from '../../pages/app';
 import { SwashLogo } from '../swash-logo/swash-logo';
 
