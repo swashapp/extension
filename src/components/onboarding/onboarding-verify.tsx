@@ -15,6 +15,7 @@ export function OnboardingVerify(props: {
   email: string;
   stayUpdate: boolean;
   onBack: () => void;
+  joinData: { id?: number; email?: string } | null;
 }): JSX.Element {
   const stepper = useContext(StepperContext);
   const [verificationCode, setVerificationCode] = useState<string>();
@@ -87,14 +88,20 @@ export function OnboardingVerify(props: {
 
   const onSubmit = useCallback(() => {
     setLoading(true);
-    if (!stepper.join.id) {
+    if (!props.joinData?.id) {
       join();
-    } else if (!stepper.join.email) {
+    } else if (!props.joinData?.email) {
       updateEmail();
     } else {
       onVerified();
     }
-  }, [join, onVerified, stepper.join.email, stepper.join.id, updateEmail]);
+  }, [
+    join,
+    onVerified,
+    props.joinData?.email,
+    props.joinData?.id,
+    updateEmail,
+  ]);
 
   const onResend = useCallback(
     (e) => {

@@ -51,30 +51,10 @@ export function ImportYourConfig(): JSX.Element {
       />,
     );
   }, []);
-  const onGetJoinedFailed = useCallback(
-    (err) => {
-      if (err.message === 'user not found') {
-        stepper.setJoin({});
-        setImporting(false);
-        stepper.next();
-      } else {
-        onImportFailed();
-      }
-    },
-    [onImportFailed, stepper],
-  );
   const onImport = useCallback(() => {
-    window.helper
-      .getJoinedSwash()
-      .then((data: { id: number; email: string }) => {
-        stepper.setJoin(data);
-        if (data.id && data.email)
-          stepper.changeSelectedPage('Join', 'Completed');
-        setImporting(false);
-        stepper.next();
-      })
-      .catch(onGetJoinedFailed);
-  }, [onGetJoinedFailed, stepper]);
+    setImporting(false);
+    stepper.next();
+  }, [stepper]);
   const togglePopup = useCallback(
     (message: { onboarding: string }) => {
       showPopup({

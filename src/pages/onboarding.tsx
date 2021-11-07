@@ -24,14 +24,10 @@ export const StepperContext = React.createContext<{
   next: () => void;
   back: () => void;
   changeSelectedPage: (page: string, selectedPage: string) => void;
-  join: { id?: number; email?: string };
-  setJoin: Dispatch<SetStateAction<{ id?: number; email?: string }>>;
 }>({
   next: () => undefined,
   back: () => undefined,
   changeSelectedPage: () => undefined,
-  join: {},
-  setJoin: () => undefined,
 });
 
 function OnboardingStep(props: { page: string; flow: string[] }) {
@@ -74,7 +70,6 @@ interface FLOW {
 
 export function Onboarding(): JSX.Element {
   const ref = useRef<IStepper>();
-  const [join, setJoin] = useState({});
   const [flow, setFlow] = useState<FLOW>({
     pages: { Welcome: { next: '', back: '' } },
     start: '',
@@ -85,16 +80,7 @@ export function Onboarding(): JSX.Element {
 
   useEffect(() => {
     window.helper.getOnboardingFlow().then((res: string) => {
-      // eslint-disable-next-line no-debugger
-      debugger;
       const newFlow = JSON.parse(res);
-      if (typeof newFlow.pages['Import'].next !== 'object') {
-        newFlow.pages['Import'].next = {
-          basedOnPage: 'Join',
-          default: 'Join',
-        };
-      }
-      console.log(newFlow);
       setFlow(newFlow);
     });
   }, []);
@@ -136,8 +122,6 @@ export function Onboarding(): JSX.Element {
 
   const flattenedFlow: string[] = useMemo(() => {
     const flattened = [];
-    // eslint-disable-next-line no-debugger
-    debugger;
     if (flow.start) {
       let next = flow.start;
       if (flow.pages[flow.start].visible === 'none') next = getNextPageOf(next);
@@ -146,13 +130,6 @@ export function Onboarding(): JSX.Element {
         next = getNextPageOf(next);
       }
     }
-    console.log(
-      flattened.filter(
-        (step) => step !== 'YourProfileWarning' && step !== 'New',
-      ),
-    );
-    // eslint-disable-next-line no-debugger
-    debugger;
     return flattened.filter(
       (step) => step !== 'YourProfileWarning' && step !== 'New',
     );
@@ -185,8 +162,6 @@ export function Onboarding(): JSX.Element {
             next: () => ref.current?.next(),
             back: () => ref.current?.back(),
             changeSelectedPage,
-            join,
-            setJoin,
           }}
         >
           <Stepper ref={ref} flow={flattenedFlow}>

@@ -81,18 +81,45 @@ export function OnboardingJoin(): JSX.Element {
     }
     window.onmessage = handleMessages;
   }, [handleMessages, token]);
+
+  const [joinData, setJoinData] = useState<{
+    id?: number;
+    email?: string;
+  } | null>(null);
+  const onGetJoinedFailed = useCallback((err) => {
+    if (err.message === 'user not found' || err.message === 'invalid user') {
+      setJoinData({});
+    }
+  }, []);
+  useEffect(() => {
+    window.helper
+      .getJoinedSwash()
+      .then((data: { id: number; email: string }) => {
+        if (data.id && data.email) stepper.next();
+        else setJoinData(data);
+      })
+      .catch(onGetJoinedFailed);
+  }, [onGetJoinedFailed, stepper]);
   return (
     <>
       {verification.email ? (
-        <OnboardingVerify key={''} {...verification} onBack={stepper.back} />
+        <OnboardingVerify
+          key={''}
+          {...verification}
+          onBack={() => setVerification({ email: '', stayUpdate: false })}
+          joinData={joinData}
+        />
       ) : (
         <div className="onboarding-iframe-wrapper">
-          {!iframeVisible ? <WaitingProgressBar /> : <></>}
+          {!iframeVisible || joinData === null ? <WaitingProgressBar /> : <></>}
           {token ? (
             <iframe
               seamless
               className="onboarding-join-iframe"
-              style={{ visibility: iframeVisible ? 'visible' : 'hidden' }}
+              style={{
+                visibility:
+                  iframeVisible && joinData !== null ? 'visible' : 'hidden',
+              }}
               onLoad={() => setIframeVisible(true)}
               title={'joinPage'}
               scrolling="no"

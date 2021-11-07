@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { AppContext } from '../../pages/app';
 
 import { Button } from '../button/button';
 import { CircularProgress } from '../circular-progress/circular-progress';
+import { ToastMessage } from '../toast/toast-message';
 
 export function CongratsWalletIsReady(props: {
   type: 'imported' | 'created';
@@ -31,10 +33,21 @@ export function CongratsWalletIsReady(props: {
           link={false}
           onClick={() => {
             setLoading(true);
-            window.helper.submitOnBoarding().then(() => {
-              setLoading(false);
-              app.forceUpdate();
-            });
+            window.helper
+              .submitOnBoarding()
+              .then(() => {
+                setLoading(false);
+                app.forceUpdate();
+              })
+              .catch((err: { message: string }) => {
+                setLoading(false);
+                toast(
+                  <ToastMessage
+                    type="error"
+                    content={<>{err?.message || 'Something went wrong!'}</>}
+                  />,
+                );
+              });
           }}
         />
       </div>
