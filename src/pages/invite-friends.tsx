@@ -76,7 +76,7 @@ export function InviteFriends(): JSX.Element {
   useEffect(() => window.helper.loadNotifications().then(setNotifications), []);
   return (
     <div className="page-container">
-      <BackgroundTheme />
+      <BackgroundTheme layout="layout2" />
       <div className="page-content">
         <div className="page-header">
           <h2>Invite Friends</h2>
