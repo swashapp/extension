@@ -10,11 +10,6 @@
     "96": "static/images/swash/active-96.png",
     "128": "static/images/swash/active-128.png"
   },
-  "applications": {
-    "gecko": {
-      "id": "authsaz@gmail.com"
-    }
-  },
   "background": {
     "scripts": ["background.ts"]
   },

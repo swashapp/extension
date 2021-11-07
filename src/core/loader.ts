@@ -129,10 +129,12 @@ const loader = (function () {
           if (!notifications[item.type]) notifications[item.type] = item;
         });
         storageHelper.getNotifications().then((_notifications) => {
-          storageHelper.saveNotifications({
-            ..._notifications,
-            ...notifications,
-          });
+          storageHelper
+            .saveNotifications({
+              ..._notifications,
+              ...notifications,
+            })
+            .catch(console.error);
         });
       }
     });
