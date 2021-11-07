@@ -10,30 +10,28 @@ import { ToastMessage } from '../toast/toast-message';
 import { NavigationButtons } from './navigation-buttons';
 
 const genderList = [
-  { value: '' },
-  { value: 'Male' },
-  { value: 'Female' },
-  { value: 'Non-binary' },
+  { description: 'Male', value: 'Male' },
+  { description: 'Female', value: 'Female' },
+  { description: 'Non-binary', value: 'Non-binary' },
 ];
 
 const ageList = [
-  { value: '' },
-  { value: '-20' },
-  { value: '20-30' },
-  { value: '30-40' },
-  { value: '40-50' },
-  { value: '50+' },
+  { description: '< 20', value: '-20' },
+  { description: '20-30', value: '20-30' },
+  { description: '30-40', value: '30-40' },
+  { description: '40-50', value: '40-50' },
+  { description: '50+', value: '50+' },
 ];
 
 const incomeList = [
-  { value: '' },
-  { value: '-12K' },
-  { value: '12-25K' },
-  { value: '25-50K' },
-  { value: '50-75K' },
-  { value: '75-150K' },
-  { value: '150K+' },
+  { description: '< $12K', value: '-12K' },
+  { description: '$12K - $25K', value: '12-25K' },
+  { description: '$25K - $50K', value: '25-50K' },
+  { description: '$50K - $75K', value: '50-75K' },
+  { description: '$75K - $150K', value: '75-150K' },
+  { description: '$150K+', value: '150K+' },
 ];
+
 export function OnboardingProfile(): JSX.Element {
   const stepper = useContext(StepperContext);
   const [gender, setGender] = useState<string>('');
@@ -49,10 +47,13 @@ export function OnboardingProfile(): JSX.Element {
         setLoading(false);
         stepper.next();
       })
-      .catch(() => {
+      .catch((err?: { message: string }) => {
         setLoading(false);
         toast(
-          <ToastMessage type="error" content={<>Something went wrong!</>} />,
+          <ToastMessage
+            type="error"
+            content={<>{err?.message || 'Something went wrong!'}</>}
+          />,
         );
       });
   }, [age, gender, income, stepper]);
@@ -66,8 +67,8 @@ export function OnboardingProfile(): JSX.Element {
         <div>
           <div className="onboarding-profile-text">
             <p>
-              When Swash data is sold, 70% of profits are returned back to you,
-              the Swash members.
+              When Swash data is sold, the profits are redistributed back to
+              you, the Swash members.
               <br />
               <br />
               Please fill in the following profile information as accurately as

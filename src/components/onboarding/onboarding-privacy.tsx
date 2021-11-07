@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react';
 
 import { StepperContext } from '../../pages/onboarding';
 
+import { PathToUrls } from '../../paths';
+
 import { AcceptCheckBox } from './accept-checkbox';
 import { NavigationButtons } from './navigation-buttons';
 
@@ -16,7 +18,7 @@ export function OnboardingPrivacy(): JSX.Element {
       <div className="simple-card">
         <p>
           Before we start, check out the{' '}
-          <a href="" target={'_blank'}>
+          <a href={PathToUrls.terms} target={'_blank'} rel="noreferrer">
             Terms of Service
           </a>{' '}
           so you know what to expect when using Swash.
@@ -25,7 +27,7 @@ export function OnboardingPrivacy(): JSX.Element {
           Also, as Swash captures your data to then sell it on your behalf, it’s
           important that you read and understand what that involves before
           continuing. You can find everything you need to know in the{' '}
-          <a href="" target={'_blank'}>
+          <a href={PathToUrls.privacy} target={'_blank'} rel="noreferrer">
             Privacy Policy
           </a>
           .

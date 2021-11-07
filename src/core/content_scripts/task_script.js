@@ -1,13 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-const taskScript = (function () {
-  const callbacks = {};
-  let startedTasks = {};
+var taskScript = (function () {
+  var callbacks = {};
+  var startedTasks = {};
 
   function uuid() {
     function randomDigit() {
       if (crypto && crypto.getRandomValues) {
-        const rands = new Uint8Array(1);
+        var rands = new Uint8Array(1);
         crypto.getRandomValues(rands);
         return (rands[0] % 16).toString(16);
       } else {
@@ -43,7 +41,7 @@ const taskScript = (function () {
     // Otherwise, does it have any properties of its own?
     // Note that this doesn't handle
     // toString and valueOf enumeration bugs in IE < 9
-    for (const key in obj) {
+    for (var key in obj) {
       if (hasOwnProperty.call(obj, key)) return false;
     }
 
@@ -88,7 +86,7 @@ const taskScript = (function () {
   }
 
   function start_callback(task, moduleName, event) {
-    const message = {
+    let message = {
       obj: 'task',
       func: 'manageTask',
       params: [
@@ -106,9 +104,9 @@ const taskScript = (function () {
 
   function end_callback(task, moduleName, event) {
     if (!startedTasks[task.name]) return;
-    const data = {};
+    let data = {};
     task.conditions.forEach((x) => {
-      let obj = null;
+      var obj = null;
       switch (x.selector) {
         case 'window':
           obj = window;
@@ -131,7 +129,7 @@ const taskScript = (function () {
       }
     });
 
-    const message = {
+    let message = {
       obj: 'task',
       func: 'manageTask',
       params: [
@@ -156,7 +154,7 @@ const taskScript = (function () {
       // document
       document.addEventListener(event.event_name, callback);
     } else {
-      const doms = document.querySelectorAll(event.selector);
+      let doms = document.querySelectorAll(event.selector);
       if (doms) {
         if (isIterable(doms)) {
           doms.forEach((dom) => {
@@ -171,16 +169,16 @@ const taskScript = (function () {
 
   function handleResponse(message) {
     message.tasks.forEach((obj) => {
-      const startEvent = obj.startEvent;
-      const startCallback = function (x) {
+      let startEvent = obj.startEvent;
+      let startCallback = function (x) {
         start_callback(obj, message.moduleName, x);
       };
       callbacks[message.moduleName + '_' + startEvent.event_name] =
         startCallback;
       registerEvent(startEvent, startCallback);
 
-      const endEvent = obj.endEvent;
-      const endCallback = function (x) {
+      let endEvent = obj.endEvent;
+      let endCallback = function (x) {
         end_callback(obj, message.moduleName, x);
       };
       callbacks[message.moduleName + '_' + endEvent.event_name] = endCallback;

@@ -19,8 +19,9 @@ export function InviteFriendsTour(): JSX.Element {
           content: (
             <>
               If you want to bring your friends to Swash, make sure to use your
-              extension link! There’s often referrals and giveaways for members
-              who are actively growing the community, don’t miss out!
+              referral link! There are regular referral programs and giveaways
+              for members who are actively growing the community, don’t miss
+              out!
             </>
           ),
         },

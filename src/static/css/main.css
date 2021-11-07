@@ -13,7 +13,7 @@
   --dark-blue: #123c53;
   --darkest-blue: #002030;
   --pink: #ff7979;
-  --gray: #d8e1da;
+  --gray: #eeeeee;
   --warning: #f9c057;
   --error: #ff7979;
 }
@@ -41,7 +41,7 @@ input,
 select,
 button {
   font-family: 'Inter', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 28px;
 }
@@ -109,7 +109,7 @@ h6 {
 p {
   margin: 0;
 
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 28px;
 }
@@ -1087,9 +1087,9 @@ a:hover {
   margin: 0 19px;
 }
 
-.win-data-prize {
+.win-swash-prize {
   height: 100%;
-  background: url('/static/images/background/win-data-prize.png') no-repeat
+  background: url('/static/images/background/win-swash-prize.png') no-repeat
     center center;
   background-size: cover;
 
@@ -1099,42 +1099,42 @@ a:hover {
   justify-content: space-between;
 }
 
-.win-data-prize-content {
+.win-swash-prize-content {
   gap: inherit;
   margin: 32px;
 }
 
-.win-data-prize-title,
-.win-data-prize-text {
+.win-swash-prize-title,
+.win-swash-prize-text {
   width: 218px;
 }
 
-.win-data-prize-button {
+.win-swash-prize-button {
   margin-top: 42px;
   width: 125px;
 }
 
-.win-data-prize-circle1,
-.win-data-prize-circle2,
-.win-data-prize-circle3 {
+.win-swash-prize-circle1,
+.win-swash-prize-circle2,
+.win-swash-prize-circle3 {
   position: absolute;
 }
 
-.win-data-prize-circle1 {
+.win-swash-prize-circle1 {
   width: 188px;
   height: 188px;
   top: -103px;
   right: 36px;
 }
 
-.win-data-prize-circle2 {
+.win-swash-prize-circle2 {
   width: 486px;
   height: 486px;
   bottom: -292px;
   right: -317px;
 }
 
-.win-data-prize-circle3 {
+.win-swash-prize-circle3 {
   width: 34px;
   height: 34px;
   bottom: 137px;
@@ -1204,21 +1204,21 @@ a:hover {
   border-left: 4px solid var(--warning);
 }
 
-.wallet-data-transfer-container {
+.wallet-token-transfer-container {
   margin: 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.wallet-data-transfer-content {
+.wallet-token-transfer-content {
   width: 100%;
   justify-content: space-evenly;
   align-items: center;
   margin: 138px 0;
 }
 
-.wallet-data-transfer-field-label {
+.wallet-token-transfer-field-label {
   color: #8091a3;
 
   font-style: normal;
@@ -1227,24 +1227,28 @@ a:hover {
   line-height: 16px;
 }
 
-.wallet-data-transfer-buttons {
+.wallet-token-transfer-buttons {
   width: 100%;
   justify-content: space-between;
   align-items: center;
 }
 
-.data-transfer-popup-completed {
+.wallet-token-transfer-buttons .confirm-and-send {
+  width: 170px;
+}
+
+.token-transfer-popup-completed {
   margin: 120px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.data-transfer-popup-completed > h2 {
+.token-transfer-popup-completed > h2 {
   margin: 32px 0 20px 0;
 }
 
-.data-transfer-popup-completed > p {
+.token-transfer-popup-completed > p {
   color: #1f3c5a;
 }
 
@@ -1268,7 +1272,7 @@ a:hover {
 
 .stepper-card {
   width: 828px;
-  margin: 0 auto;
+  margin: 0 auto 32px auto;
 }
 
 .verification-card {
@@ -1740,19 +1744,19 @@ a:hover {
 }
 
 .help-wallet-earnings-image {
-  background: url('/static/images/background/help-earnings.jpg') no-repeat
+  background: url('/static/images/background/help-earnings.png') no-repeat
     center center;
-  width: 400px;
-  height: 200px;
-  background-size: 400px 200px;
+  width: 418px;
+  height: 264px;
+  background-size: 418px 264px;
 }
 
 .help-getting-started-image {
-  background: url('/static/images/background/help-popup.jpg') no-repeat center
+  background: url('/static/images/background/help-popup.png') no-repeat center
     center;
   width: 300px;
-  height: 200px;
-  background-size: 300px 200px;
+  height: 486px;
+  background-size: 300px 486px;
 }
 
 .sidenav-button-container {
@@ -2026,4 +2030,16 @@ a:hover {
 
 .justify-space-between {
   justify-content: space-between;
+}
+
+.wallet-read-more {
+  width: 426px;
+}
+
+.wallet-read-more h6 {
+  line-height: 0px;
+}
+
+.withdraw-token-transfer {
+  width: 828px;
 }

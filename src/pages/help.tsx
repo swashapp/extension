@@ -72,17 +72,17 @@ export function Help(): JSX.Element {
   const tourItems = useMemo(() => {
     return [
       {
-        text: 'What is Swash wallet?',
+        text: 'Understanding your Swash wallet',
         done: !!tour[TOUR_NAME.WALLET],
         link: makeTourLink(RouteToPages.wallet, TOUR_NAME.WALLET),
       },
       {
-        text: 'How backup works?',
+        text: 'How to backup your settings',
         done: !!tour[TOUR_NAME.SETTINGS],
         link: makeTourLink(RouteToPages.settings, TOUR_NAME.SETTINGS),
       },
       {
-        text: 'How referral link works?',
+        text: 'Learn about referrals',
         done: !!tour[TOUR_NAME.INVITE_FRIENDS],
         link: makeTourLink(
           RouteToPages.inviteFriends,
@@ -90,12 +90,12 @@ export function Help(): JSX.Element {
         ),
       },
       {
-        text: 'What is Swash data?',
+        text: 'Understanding Swash data',
         done: !!tour[TOUR_NAME.DATA],
         link: makeTourLink(RouteToPages.data, TOUR_NAME.DATA),
       },
       {
-        text: 'How help works?',
+        text: 'Navigating the Help section',
         done: !!tour[TOUR_NAME.HELP],
         link: makeTourLink(RouteToPages.help, TOUR_NAME.HELP),
       },

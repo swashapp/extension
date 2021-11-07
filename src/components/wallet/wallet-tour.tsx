@@ -6,7 +6,7 @@ import Tour, { TOUR_NAME } from '../tour/tour';
 
 export enum WALLET_TOUR_CLASS {
   WALLET = 'wallet-title',
-  DATA_EARNINGS = 'data-earnings',
+  SWASH_EARNINGS = 'swash-earnings',
   WALLET_ADDRESS = 'wallet-address',
 }
 
@@ -29,8 +29,8 @@ export function WalletTour(): JSX.Element {
           ),
         },
         {
-          header: 'Data Earnings',
-          target: `.${WALLET_TOUR_CLASS.DATA_EARNINGS}`,
+          header: 'SWASH Earnings',
+          target: `.${WALLET_TOUR_CLASS.SWASH_EARNINGS}`,
           placement: 'right',
           content: (
             <>

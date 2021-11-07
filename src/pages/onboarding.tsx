@@ -24,14 +24,10 @@ export const StepperContext = React.createContext<{
   next: () => void;
   back: () => void;
   changeSelectedPage: (page: string, selectedPage: string) => void;
-  join: { id?: number; email?: string };
-  setJoin: Dispatch<SetStateAction<{ id?: number; email?: string }>>;
 }>({
   next: () => undefined,
   back: () => undefined,
   changeSelectedPage: () => undefined,
-  join: {},
-  setJoin: () => undefined,
 });
 
 function OnboardingStep(props: { page: string; flow: string[] }) {
@@ -74,7 +70,6 @@ interface FLOW {
 
 export function Onboarding(): JSX.Element {
   const ref = useRef<IStepper>();
-  const [join, setJoin] = useState({});
   const [flow, setFlow] = useState<FLOW>({
     pages: { Welcome: { next: '', back: '' } },
     start: '',
@@ -86,12 +81,6 @@ export function Onboarding(): JSX.Element {
   useEffect(() => {
     window.helper.getOnboardingFlow().then((res: string) => {
       const newFlow = JSON.parse(res);
-      if (typeof newFlow.pages['Import'].next !== 'object') {
-        newFlow.pages['Import'].next = {
-          basedOnPage: 'Join',
-          default: 'Join',
-        };
-      }
       setFlow(newFlow);
     });
   }, []);
@@ -135,6 +124,7 @@ export function Onboarding(): JSX.Element {
     const flattened = [];
     if (flow.start) {
       let next = flow.start;
+      if (flow.pages[flow.start].visible === 'none') next = getNextPageOf(next);
       while (next) {
         flattened.push(next);
         next = getNextPageOf(next);
@@ -143,7 +133,7 @@ export function Onboarding(): JSX.Element {
     return flattened.filter(
       (step) => step !== 'YourProfileWarning' && step !== 'New',
     );
-  }, [flow.start, getNextPageOf]);
+  }, [flow.pages, flow.start, getNextPageOf]);
 
   return (
     <div className="onboarding-page-container">
@@ -172,8 +162,6 @@ export function Onboarding(): JSX.Element {
             next: () => ref.current?.next(),
             back: () => ref.current?.back(),
             changeSelectedPage,
-            join,
-            setJoin,
           }}
         >
           <Stepper ref={ref} flow={flattenedFlow}>

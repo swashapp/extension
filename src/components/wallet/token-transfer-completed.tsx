@@ -4,12 +4,12 @@ import { Circle } from '../drawing/circle';
 
 const completedIcon = '/static/images/icons/progress-completed.png';
 
-export function DataTransferCompleted(props: {
+export function TokenTransferCompleted(props: {
   transactionId: string;
   sendToMainnet: boolean;
 }): JSX.Element {
   return (
-    <div className="data-transfer-popup-completed">
+    <div className="token-transfer-popup-completed">
       <div className="progress-dashed">
         <Circle
           className={'progress-circle1'}

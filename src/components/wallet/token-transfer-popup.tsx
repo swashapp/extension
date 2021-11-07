@@ -5,11 +5,11 @@ import { Button } from '../button/button';
 import { showPopup, closePopup } from '../popup/popup';
 import { ToastMessage } from '../toast/toast-message';
 
-import { DataTransferCompleted } from './data-transfer-completed';
+import { TokenTransferCompleted } from './token-transfer-completed';
 
 const RightArrow = '/static/images/shape/right-arrow.svg';
 
-function DataTransferField(props: {
+function TokenTransferField(props: {
   ellipsis?: boolean;
   value: string | number;
   label: string;
@@ -24,13 +24,13 @@ function DataTransferField(props: {
     return ret;
   }, [props.ellipsis, props.value]);
   return (
-    <div className="flex-column wallet-data-transfer-field">
-      <div className="wallet-data-transfer-field-label">{props.label}</div>
+    <div className="flex-column wallet-token-transfer-field">
+      <div className="wallet-token-transfer-field-label">{props.label}</div>
       <h1>{value}</h1>
     </div>
   );
 }
-export function DataTransferPopup(props: {
+export function TokenTransferPopup(props: {
   amount: string | number;
   recipient: string;
   onSuccess: () => Promise<unknown>;
@@ -49,6 +49,7 @@ export function DataTransferPopup(props: {
         props.sendToMainnet,
       )
       .then((result: { tx: string; reason: string }) => {
+        setLoading(false);
         if (result.tx) {
           props.onSuccess().then();
           toast(
@@ -60,8 +61,9 @@ export function DataTransferPopup(props: {
           showPopup({
             closable: false,
             closeOnBackDropClick: true,
+            paperClassName: 'withdraw-token-transfer',
             content: (
-              <DataTransferCompleted
+              <TokenTransferCompleted
                 transactionId={result.tx}
                 sendToMainnet={props.sendToMainnet}
               />
@@ -71,27 +73,35 @@ export function DataTransferPopup(props: {
           toast(
             <ToastMessage
               type="error"
-              content={<>{result.reason} || Something went wrong!</>}
+              content={<>{result.reason || 'Something went wrong!'}</>}
             />,
           );
         }
       })
-      .finally(() => setLoading(false));
+      .catch((err?: { message: string }) => {
+        setLoading(false);
+        toast(
+          <ToastMessage
+            type="error"
+            content={<>{err?.message || 'Something went wrong!'}</>}
+          />,
+        );
+      });
   }, [props]);
 
   return (
-    <div className="wallet-data-transfer-container">
+    <div className="wallet-token-transfer-container">
       <h6>Confirm SWASH Transfer</h6>
-      <div className="flex-row wallet-data-transfer-content">
-        <DataTransferField label="Send" value={props.amount} />
+      <div className="flex-row wallet-token-transfer-content">
+        <TokenTransferField label="Send" value={props.amount} />
         <img src={RightArrow} alt="-->" />
-        <DataTransferField
+        <TokenTransferField
           label="To Address"
           value={props.recipient}
           ellipsis
         />
       </div>
-      <div className="flex-row wallet-data-transfer-buttons">
+      <div className="flex-row wallet-token-transfer-buttons">
         <Button
           className="form-button"
           link={false}
@@ -100,7 +110,7 @@ export function DataTransferPopup(props: {
           onClick={() => closePopup()}
         />
         <Button
-          className="form-button"
+          className="form-button confirm-and-send"
           link={false}
           text={'Confirm and Send'}
           loadingText={'Sending...'}

@@ -26,18 +26,17 @@ const FacebookLogo = '/static/images/logos/facebook.png';
 const LinkedInLogo = '/static/images/logos/linkedin.png';
 const TwitterLogo = '/static/images/logos/twitter.png';
 
-const referralMessage =
-  'Use my referral link to earn money as you surf with Swash:';
+const referralMessage = 'Use my referral link to earn as you surf with Swash:';
 
 export function InviteFriends(): JSX.Element {
   const [referralLink, setReferralLink] = useState<string>('');
   const [reward, setReward] = useState<number>(0);
   const [referral, setReferral] = useState<{
     totalReward: string;
-    totalReferral: number;
+    totalReferral: string;
   }>({
-    totalReward: '0',
-    totalReferral: 0,
+    totalReward: '$',
+    totalReferral: '$',
   });
 
   const loadReferral = useCallback(() => {
@@ -62,9 +61,9 @@ export function InviteFriends(): JSX.Element {
   const loadReferrals = useCallback(() => {
     window.helper
       .getReferrals()
-      .then((_referral: { totalReward: string; totalReferral: number }) =>
-        setReferral(_referral),
-      );
+      .then((_referral: { totalReward: string; totalReferral: string }) => {
+        setReferral(_referral);
+      });
   }, []);
 
   useEffect(() => {
@@ -77,7 +76,7 @@ export function InviteFriends(): JSX.Element {
   useEffect(() => window.helper.loadNotifications().then(setNotifications), []);
   return (
     <div className="page-container">
-      <BackgroundTheme />
+      <BackgroundTheme layout="layout2" />
       <div className="page-content">
         <div className="page-header">
           <h2>Invite Friends</h2>
@@ -104,7 +103,7 @@ export function InviteFriends(): JSX.Element {
               className="invite-friends-bonus-cards card-gap"
             >
               <div className="simple-card">
-                <h6>Get More Data Bonus</h6>
+                <h6>Get More Swash Bonus</h6>
                 <p>
                   Share your referral link and earn {reward} SWASH for every
                   friend you bring to Swash!
@@ -159,31 +158,38 @@ export function InviteFriends(): JSX.Element {
                   </EmailShareButton>
                 </FlexGrid>
               </div>
-              <div className="simple-card win-data-prize">
+              <div className="simple-card win-swash-prize">
                 <Circle
-                  className={'win-data-prize-circle1'}
+                  className={'win-swash-prize-circle1'}
                   border={'black'}
                   dashed={'6 14'}
                 />
-                <Circle className={'win-data-prize-circle2'} border={'black'} />
-                <Circle className={'win-data-prize-circle3'} color={'black'} />
-                <div className="flex-column win-data-prize-content">
-                  <div className="win-data-prize-title">
-                    <h5>{notifications.prize?.title || ''}</h5>
+                <Circle
+                  className={'win-swash-prize-circle2'}
+                  border={'black'}
+                />
+                <Circle className={'win-swash-prize-circle3'} color={'black'} />
+                <div className="flex-column win-swash-prize-content">
+                  <div className="win-swash-prize-title">
+                    <h5>
+                      {notifications.prize?.title ||
+                        'There are currently no active referral programs'}
+                    </h5>
                   </div>
                   <div className="flex-column justify-space-between">
-                    <div className="win-data-prize-text">
-                      {notifications.prize?.text || ''}
+                    <div className="win-swash-prize-text">
+                      {notifications.prize?.text ||
+                        "Don't worry, your earnings are not affected. Come back again later!"}
                     </div>
-                    <div className="win-data-prize-button">
+                    <div className="win-swash-prize-button">
                       {notifications.prize ? (
                         <LearnMore
                           size="small"
-                          position="WinDataPrize"
+                          position="WinSwashPrize"
                           link={notifications.prize?.link || ''}
                         />
                       ) : (
-                        <></>
+                        <div style={{ height: 40 }} />
                       )}
                     </div>
                   </div>

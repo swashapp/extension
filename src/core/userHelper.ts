@@ -1,9 +1,14 @@
-import { BigNumber, ethers, Wallet } from 'ethers';
+import { BigNumber, Contract, ethers, Wallet } from 'ethers';
+import { formatEther, formatUnits } from 'ethers/lib/utils';
 import { TokenSigner } from 'jsontokens';
 import StreamrClient, { Bytes, DataUnion } from 'streamr-client';
 
 import browser from 'webextension-polyfill';
 
+import { SIDECHAIN_DU_ABI } from '../data/sidechain-dataunion-abi';
+import { WITHDRAW_MODULE_ABI } from '../data/withdraw-module-abi';
+import { ConfigEntity } from '../entities/config.entity';
+import { ProfileEntity } from '../entities/profile.entity';
 import { CommunityConfigs } from '../types/storage/configs/community.type';
 
 import { configManager } from './configManager';
@@ -17,7 +22,9 @@ const userHelper = (function () {
   let wallet: Wallet;
   let client: StreamrClient;
   let duHandler: DataUnion;
+  let withdrawContract: Contract;
   const provider = ethers.getDefaultProvider();
+  const xdaiProvider = ethers.getDefaultProvider('https://rpc.xdaichain.com/');
 
   async function init() {
     config = await configManager.getConfig('community');
@@ -37,7 +44,7 @@ const userHelper = (function () {
   }
 
   async function getEncryptedWallet(password: Password) {
-    if (!wallet) return { error: 'Wallet is not provided' };
+    if (!wallet) throw Error('Wallet is not provided');
     const options = {
       scrypt: {
         N: 1 << 10,
@@ -46,11 +53,16 @@ const userHelper = (function () {
     return await wallet.encrypt(password, options);
   }
 
-  async function loadEncryptedWallet(
-    encryptedWallet: string,
-    password: Password,
-  ) {
-    wallet = await ethers.Wallet.fromEncryptedJson(encryptedWallet, password);
+  async function loadSavedWallet() {
+    const configs = await (await ConfigEntity.getInstance()).get();
+    const profile = await (await ProfileEntity.getInstance()).get();
+
+    if (!profile.encryptedWallet) throw Error('Wallet is not in the database');
+
+    wallet = await ethers.Wallet.fromEncryptedJson(
+      profile.encryptedWallet,
+      configs.salt,
+    );
     wallet = wallet.connect(provider);
   }
 
@@ -76,28 +88,77 @@ const userHelper = (function () {
     duHandler = client.getDataUnion(config.dataunionAddress);
   }
 
+  async function initWithdrawModule() {
+    const sidechainContract = new Contract(
+      duHandler.getSidechainAddress(),
+      SIDECHAIN_DU_ABI,
+      xdaiProvider,
+    );
+    withdrawContract = new Contract(
+      await sidechainContract.withdrawModule(),
+      WITHDRAW_MODULE_ABI,
+      xdaiProvider,
+    );
+  }
+
+  async function checkWithdrawAllowance(amount: string) {
+    if (!wallet) throw Error('Wallet is not provided');
+    if (!withdrawContract) await initWithdrawModule();
+
+    if (await withdrawContract.blackListed(wallet.address))
+      throw Error('You are blacklisted');
+
+    const join = +formatUnits(
+      await withdrawContract.memberJoinTimestamp(wallet.address),
+      0,
+    );
+    const requiredAge = +formatUnits(
+      await withdrawContract.requiredMemberAgeSeconds(),
+      0,
+    );
+
+    const validDate = (join + requiredAge) * 1000;
+
+    if (Date.now() < validDate)
+      throw Error(
+        `You can not withdraw until ${new Date(validDate).toISOString()}`,
+      );
+
+    const amountBN = ethers.utils.parseEther(amount);
+    const minWithdraw = await withdrawContract.minimumWithdrawTokenWei();
+    if (amountBN.lt(minWithdraw))
+      throw Error(`Minimum withdraw is ${formatEther(minWithdraw)}`);
+  }
+
   async function getEthBalance(address: string) {
     if (!provider) return { error: 'provider is not provided' };
     const balance = await provider.getBalance(address);
     return ethers.utils.formatEther(balance);
   }
 
+  async function getTokenBalance(address: string) {
+    const mainnetTokens = await client.getTokenBalance(address);
+    const sidechainTokens = await client.getSidechainTokenBalance(address);
+    const balance = mainnetTokens.add(sidechainTokens);
+    return ethers.utils.formatEther(balance);
+  }
+
   async function getAvailableBalance() {
-    if (!wallet) return { error: 'Wallet is not provided' };
+    if (!wallet) throw Error('Wallet is not provided');
     if (!client) clientConnect();
     const earnings = await duHandler.getWithdrawableEarnings(wallet.address);
     return ethers.utils.formatEther(earnings);
   }
 
   async function signWithdrawAllTo(targetAddress: string) {
-    if (!wallet || !provider) return { error: 'Wallet is not provided' };
+    if (!wallet || !provider) throw Error('Wallet is not provided');
     if (!client) clientConnect();
 
     return await duHandler.signWithdrawAllTo(targetAddress);
   }
 
   async function signWithdrawAmountTo(targetAddress: string, amount: string) {
-    if (!wallet || !provider) return { error: 'Wallet is not provided' };
+    if (!wallet || !provider) throw Error('Wallet is not provided');
     if (!client) clientConnect();
 
     const amountBN = ethers.utils.parseEther(amount);
@@ -147,6 +208,8 @@ const userHelper = (function () {
   }
 
   async function generateJWT() {
+    if (!wallet) throw Error('Wallet is not provided');
+    if (!client) clientConnect();
     const payload = {
       address: wallet.address,
       publicKey: ethers.utils.computePublicKey(wallet.publicKey, true),
@@ -257,15 +320,16 @@ const userHelper = (function () {
   }
 
   async function getReferrals() {
-    let totalReward = '0';
+    let totalReward = BigNumber.from('0');
     let totalReferral = '0';
     try {
       const res = await swashApiHelper.getReferrals(await generateJWT());
-      totalReward = res.reward;
+      totalReward = BigNumber.from(res.reward);
       totalReferral = res.count;
     } catch (err) {
       console.error(err.message);
     }
+
     return {
       totalReward: ethers.utils.formatEther(totalReward.toString()),
       totalReferral,
@@ -278,12 +342,14 @@ const userHelper = (function () {
     getWalletAddress,
     getWalletPrivateKey,
     getEncryptedWallet,
-    loadEncryptedWallet,
+    loadSavedWallet,
+    checkWithdrawAllowance,
     signWithdrawAllTo,
     signWithdrawAmountTo,
     getAvailableBalance,
     getStreamrClient,
     getEthBalance,
+    getTokenBalance,
     transportMessage,
     generateJWT,
     withdrawToTarget,

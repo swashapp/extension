@@ -25,8 +25,8 @@ export type ConfigsManifest = {
 };
 
 export type Configs = {
-  Id?: string;
-  salt?: string;
+  Id: string;
+  salt: string;
   delay: number;
   name: string;
   description: string;

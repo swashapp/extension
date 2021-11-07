@@ -93,7 +93,7 @@ export const AppContext = React.createContext<{
 
 export default function App(): JSX.Element {
   useEffect(() => injectStyle(), []);
-  const [needOnBoarding, setNeedOnBoarding] = useState<boolean>(true);
+  const [needOnBoarding, setNeedOnBoarding] = useState<boolean>(false);
   const [trigger, setTrigger] = useState<number>(0);
   useEffect(
     () => window.helper.isNeededOnBoarding().then(setNeedOnBoarding),
@@ -120,11 +120,6 @@ export default function App(): JSX.Element {
           </Switch>
         ) : (
           <Switch>
-            <Route
-              exact
-              path={RouteToPages.home}
-              component={() => RouteComponent(Wallet, 0)}
-            />
             {SidenavItems.map((link, index) => (
               <Route
                 key={link.title + index}

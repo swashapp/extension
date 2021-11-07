@@ -43,6 +43,7 @@ function getButton(
   size: string,
   fixed: boolean,
   text: string | JSX.Element,
+  disabled: boolean,
   muiProps?: ButtonProps,
   loading?: boolean,
   onClick?: () => void,
@@ -53,6 +54,7 @@ function getButton(
       {...muiProps}
       className={`${color} ${'button-' + size} ${className}`}
       onClick={onClick}
+      disabled={disabled}
     >
       <div
         className={`button-text ${'button-' + size + '-text'} ${
@@ -93,6 +95,7 @@ export function Button(props: {
     size,
     fixed,
     props.loading ? props.loadingText || '' : text,
+    disabled,
     props?.muiProps,
     props?.loading,
     disabled || props.loading ? () => undefined : onClick,

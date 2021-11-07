@@ -1,6 +1,6 @@
-const contentScript = (function () {
-  const callbacks = {};
-  const oCallbacks = {};
+var contentScript = (function () {
+  var callbacks = {};
+  var oCallbacks = {};
 
   function querySelectorAll(node, selector) {
     while (selector && selector.length > 0 && selector[0] == '<') {
@@ -23,7 +23,7 @@ const contentScript = (function () {
   function uuid() {
     function randomDigit() {
       if (crypto && crypto.getRandomValues) {
-        const rands = new Uint8Array(1);
+        var rands = new Uint8Array(1);
         crypto.getRandomValues(rands);
         return (rands[0] % 16).toString(16);
       } else {
@@ -35,7 +35,7 @@ const contentScript = (function () {
   }
 
   function exportLogFunction(level, data, moduleName) {
-    const func = function (x) {
+    let func = function (x) {
       override_debug(x, level, data, moduleName);
     };
     if (typeof exportFunction === 'function')
@@ -43,7 +43,7 @@ const contentScript = (function () {
     else chromeExportFunction(level, data, moduleName);
   }
   function chromeExportFunction(level, data, moduleName) {
-    const code =
+    var code =
       '(' +
       function (level, data, moduleName) {
         window.console[level] = function (x) {
@@ -57,7 +57,7 @@ const contentScript = (function () {
       ',' +
       JSON.stringify(moduleName) +
       ');';
-    const script = document.createElement('script');
+    var script = document.createElement('script');
     script.textContent = code;
     (document.head || document.documentElement).appendChild(script);
     script.remove();
@@ -88,7 +88,7 @@ const contentScript = (function () {
     // Otherwise, does it have any properties of its own?
     // Note that this doesn't handle
     // toString and valueOf enumeration bugs in IE < 9
-    for (const key in obj) {
+    for (var key in obj) {
       if (hasOwnProperty.call(obj, key)) return false;
     }
 
@@ -99,7 +99,7 @@ const contentScript = (function () {
     browser.runtime.sendMessage(msg);
   }
   function override_debug(x, level, data, moduleName) {
-    const message = {
+    let message = {
       obj: 'dataHandler',
       func: 'handle',
       params: [
@@ -142,7 +142,7 @@ const contentScript = (function () {
   }
 
   function hasNextSibling(elem, selector) {
-    let sibling = elem.nextElementSibling;
+    var sibling = elem.nextElementSibling;
     if (!selector) return true;
     while (sibling) {
       if (sibling.matches(selector)) return true;
@@ -152,7 +152,7 @@ const contentScript = (function () {
   }
 
   function hasPreviousSibling(elem, selector) {
-    let sibling = elem.previousElementSibling;
+    var sibling = elem.previousElementSibling;
     if (!selector) return true;
     while (sibling) {
       if (sibling.matches(selector)) return true;
@@ -162,7 +162,7 @@ const contentScript = (function () {
   }
 
   function hasParent(elem, selector) {
-    let parent = elem.parentElement;
+    var parent = elem.parentElement;
     if (!selector) return true;
     while (parent) {
       if (parent.matches(selector)) return true;
@@ -172,7 +172,7 @@ const contentScript = (function () {
   }
 
   function hasChild(elem, selector) {
-    const childs = elem.children;
+    var childs = elem.children;
     if (!selector) return true;
     for (child of childs) {
       if (child.matches(selector)) return true;
@@ -181,7 +181,7 @@ const contentScript = (function () {
   }
 
   function hasAncestor(elem, selector) {
-    let ancestor = elem.parentElement;
+    var ancestor = elem.parentElement;
     if (!selector) return true;
     while (ancestor) {
       if (ancestor.matches(selector)) return true;
@@ -192,16 +192,16 @@ const contentScript = (function () {
 
   function hasDescendant(elem, selector) {
     if (!selector) return true;
-    const childs = querySelectorAll(elem, selector);
+    var childs = querySelectorAll(elem, selector);
     if (childs.length > 0) return true;
     return false;
   }
 
   function isCollectable(obj, conditions) {
     let res;
-    for (const condition of conditions) {
+    for (let condition of conditions) {
       res = true;
-      for (const expr of condition) {
+      for (let expr of condition) {
         switch (expr.type) {
           case 'previousSibling':
             res = expr.contain
@@ -242,7 +242,7 @@ const contentScript = (function () {
   }
 
   function getPropertyValue(obj, property) {
-    const propertyPath = property.split('.');
+    let propertyPath = property.split('.');
     let result = obj;
 
     propertyPath.forEach((prop) => {
@@ -252,10 +252,10 @@ const contentScript = (function () {
   }
 
   function public_callback(data, moduleName, event, index) {
-    const eventInfo = {
+    let eventInfo = {
       index: Number(index) + 1,
     };
-    const message = {
+    let message = {
       obj: 'dataHandler',
       func: 'handle',
       params: [
@@ -323,7 +323,7 @@ const contentScript = (function () {
           let objectIndex = 0;
           objList.forEach((obj, objId) => {
             if (x.conditions && !isCollectable(obj, x.conditions)) return;
-            const item = {};
+            let item = {};
             x.properties.forEach((y) => {
               let prop;
               if (y.selector) prop = querySelector(obj, y.selector);
@@ -365,7 +365,7 @@ const contentScript = (function () {
   }
 
   function documentReadyCallback(event, callback) {
-    const doms = querySelectorAll(document, event.selector);
+    let doms = querySelectorAll(document, event.selector);
     if (doms) {
       let objIndex = 0;
       doms.forEach((dom, domIndex) => {
@@ -393,11 +393,11 @@ const contentScript = (function () {
     cbName,
   ) {
     if (event.event_name == '.') {
-      const ev = new Event(targetEventId);
+      var ev = new Event(targetEventId);
       targetNode.dispatchEvent(ev);
       return;
     }
-    const doms = querySelectorAll(document, event.selector);
+    let doms = querySelectorAll(document, event.selector);
     if (doms) {
       let objIndex = 0;
       doms.forEach((dom, domIndex) => {
@@ -419,9 +419,9 @@ const contentScript = (function () {
   }
 
   function observeReadyCallback(event, callback, obj, cbName) {
-    const targetNode = querySelector(document, obj.observingTargetNode);
-    const targetEventId = uuid();
-    const observer = new MutationObserver(function (x, y) {
+    let targetNode = querySelector(document, obj.observingTargetNode);
+    let targetEventId = uuid();
+    let observer = new MutationObserver(function (x, y) {
       observingCallback(
         x,
         y,
@@ -441,19 +441,19 @@ const contentScript = (function () {
   }
 
   function handleResponse(messages) {
-    for (const message of messages) {
+    for (let message of messages) {
       message.content.forEach((obj) => {
         switch (obj.type) {
           case 'event':
             obj.events.forEach((event) => {
-              const callback = function (x, index) {
+              let callback = function (x, index) {
                 if (
                   (event.keyCode && event.keyCode == x.keyCode) ||
                   !event.keyCode
                 )
                   public_callback(obj, message.moduleName, x, index);
               };
-              const cbName =
+              let cbName =
                 message.moduleName +
                 '_' +
                 obj.name +

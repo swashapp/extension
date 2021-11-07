@@ -117,16 +117,11 @@ const dataHandler = (function () {
     //Return if Swash is disabled or the origin is excluded or module/collector is disabled
     const filters = db.filters;
     const modules = db.modules;
-    const collector = modules[message.header.module][
-      message.header.function
-    ].items.find((el: Any) => {
-      return el.name === message.header.collector;
-    });
+
     if (
       !db.configs.is_enabled ||
       filterUtils.filter(message.origin, filters) ||
-      !modules[message.header.module].is_enabled ||
-      !collector.is_enabled
+      !modules[message.header.module].is_enabled
     )
       return;
     const configs = db.configs;
