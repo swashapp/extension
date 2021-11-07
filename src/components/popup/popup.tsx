@@ -30,7 +30,6 @@ function Modal(props: {
 }) {
   return (
     <Dialog
-      {...props}
       maxWidth={false}
       open={true}
       onClose={(event, reason) => {

@@ -24,7 +24,6 @@ import { SidenavItems } from '../data/sidenav-items';
 import { RouteToPages } from '../paths';
 
 import { Onboarding } from './onboarding';
-import { Wallet } from './wallet';
 
 export const SidenavContext = React.createContext<{
   isOpen: boolean;
