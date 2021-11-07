@@ -1,13 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-let timeout = 0;
-let wallet = '0x0';
+var timeout = 0;
+var wallet = '0x0';
 function send_msg(msg) {
   browser.runtime.sendMessage(msg);
 }
 
 function openTransferDialog() {
-  const message = {
+  let message = {
     obj: 'transfer',
     func: 'openTransferDialog',
     params: [wallet],
@@ -16,7 +14,7 @@ function openTransferDialog() {
 }
 
 function initSwashMe() {
-  const newel = document.createElement('div');
+  var newel = document.createElement('div');
   newel.addEventListener('click', openTransferDialog);
   newel.target = '_blank';
   newel.id = 'swashMe';
@@ -30,9 +28,9 @@ function initSwashMe() {
 
 function showSwashMe(e) {
   if (timeout) clearTimeout(timeout);
-  const x = e.clientX;
-  const y = e.clientY;
-  const el = document.querySelector('#swashMe');
+  let x = e.clientX;
+  let y = e.clientY;
+  let el = document.querySelector('#swashMe');
   el.style.top = y - 40 + 'px';
   el.style.left = x - 15 + 'px';
   el.classList.add('showSwashMe');
@@ -40,17 +38,17 @@ function showSwashMe(e) {
 }
 
 function hideSwashMe() {
-  const el = document.querySelector('#swashMe');
+  let el = document.querySelector('#swashMe');
   el.style.display = 'none';
   el.classList.remove('showSwashMe');
 }
 
 function swashMe(e) {
-  const cNodes = e.target.childNodes;
+  var cNodes = e.target.childNodes;
   if (cNodes.length > 0) {
-    const text = cNodes[0].nodeValue;
+    let text = cNodes[0].nodeValue;
     if (text) {
-      const wallets = [...text.matchAll(/swash:\/\/(0x[a-fA-F0-9]{40})/)];
+      let wallets = [...text.matchAll(/swash:\/\/(0x[a-fA-F0-9]{40})/)];
       if (wallets.length > 0) {
         //TODO: show all identified wallets
         wallet = wallets[0][1];

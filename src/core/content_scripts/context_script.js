@@ -1,7 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-const contextScript = (function () {
-  const cta_callbacks = [];
+var contextScript = (function () {
+  var cta_callbacks = [];
 
   function send_msg(msg) {
     browser.runtime.sendMessage(msg);
@@ -24,8 +22,8 @@ const contextScript = (function () {
   }
 
   async function getCache() {
-    const cacheStorage = {};
-    const cacheNames = await window.caches.keys();
+    let cacheStorage = {};
+    let cacheNames = await window.caches.keys();
     cacheNames.forEach(async function (cacheName) {
       cacheStorage[cacheNames] = await window.caches.open(cacheName).keys();
     });
@@ -33,12 +31,13 @@ const contextScript = (function () {
   }
 
   async function context_attr_connect(p) {
-    const message = {};
-    for (const cta of cta_callbacks) {
+    let message = {};
+    for (let cta of cta_callbacks) {
       message[cta.name] = await cta.callback();
     }
     p.postMessage(message);
   }
+
   function handleResponse(message) {
     message.context.forEach((obj) => {
       switch (obj.name) {

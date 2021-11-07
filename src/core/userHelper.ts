@@ -7,6 +7,8 @@ import browser from 'webextension-polyfill';
 
 import { SIDECHAIN_DU_ABI } from '../data/sidechain-dataunion-abi';
 import { WITHDRAW_MODULE_ABI } from '../data/withdraw-module-abi';
+import { ConfigEntity } from '../entities/config.entity';
+import { ProfileEntity } from '../entities/profile.entity';
 import { CommunityConfigs } from '../types/storage/configs/community.type';
 
 import { configManager } from './configManager';
@@ -51,11 +53,16 @@ const userHelper = (function () {
     return await wallet.encrypt(password, options);
   }
 
-  async function loadEncryptedWallet(
-    encryptedWallet: string,
-    password: Password,
-  ) {
-    wallet = await ethers.Wallet.fromEncryptedJson(encryptedWallet, password);
+  async function loadSavedWallet() {
+    const configs = await (await ConfigEntity.getInstance()).get();
+    const profile = await (await ProfileEntity.getInstance()).get();
+
+    if (!profile.encryptedWallet) throw Error('Wallet is not in the database');
+
+    wallet = await ethers.Wallet.fromEncryptedJson(
+      profile.encryptedWallet,
+      configs.salt,
+    );
     wallet = wallet.connect(provider);
   }
 
@@ -335,7 +342,7 @@ const userHelper = (function () {
     getWalletAddress,
     getWalletPrivateKey,
     getEncryptedWallet,
-    loadEncryptedWallet,
+    loadSavedWallet,
     checkWithdrawAllowance,
     signWithdrawAllTo,
     signWithdrawAmountTo,

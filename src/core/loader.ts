@@ -64,12 +64,7 @@ const loader = (function () {
       console.log(`Updating all`);
       await onUpdatedAll();
 
-      await userHelper.loadEncryptedWallet(
-        (await profile.get()).encryptedWallet || '',
-        (
-          await configs.get()
-        ).salt,
-      );
+      await userHelper.loadSavedWallet();
     } catch (err) {
       console.error(err);
     }
@@ -201,10 +196,7 @@ const loader = (function () {
       await dataHandler.sendDelayedMessages();
     }, 10000);
 
-    await userHelper.loadEncryptedWallet(
-      db.profile.encryptedWallet,
-      db.configs.salt,
-    );
+    await userHelper.loadSavedWallet();
 
     if (db.configs.is_enabled) {
       init(true);
@@ -225,10 +217,7 @@ const loader = (function () {
       await dataHandler.sendDelayedMessages();
     }, 10000);
     init(false);
-    await userHelper.loadEncryptedWallet(
-      db.profile.encryptedWallet,
-      db.configs.salt,
-    );
+    await userHelper.loadSavedWallet();
     await unloadFunctions();
     if (db.configs.is_enabled) {
       init(true);
