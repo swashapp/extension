@@ -8,8 +8,6 @@ import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { IconButton } from '../components/icon-button/icon-button';
 import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-adornment';
 import { Input } from '../components/input/input';
-import { Export3Box } from '../components/passphrase-popup/export-3box';
-import { showPopup } from '../components/popup/popup';
 import { SETTINGS_TOUR_CLASS } from '../components/settings/settings-tour';
 import { ToastMessage } from '../components/toast/toast-message';
 
@@ -126,13 +124,7 @@ export function Settings(): JSX.Element {
                     image={ThreeBoxLogo}
                     imageSize={{ width: 31, height: 20 }}
                     link={false}
-                    onClick={() => {
-                      showPopup({
-                        closable: true,
-                        closeOnBackDropClick: true,
-                        content: <Export3Box />,
-                      });
-                    }}
+                    disabled
                   />
                 </FlexGrid>
               </FlexGrid>

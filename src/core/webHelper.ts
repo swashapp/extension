@@ -453,42 +453,6 @@ const helper = (function () {
     return sendMessage(message);
   }
 
-  function writeTo3BoxSpace(seed) {
-    const message = {
-      obj: 'onboarding',
-      func: 'writeTo3BoxSpace',
-      params: [seed],
-    };
-    return sendMessage(message);
-  }
-
-  function getFrom3BoxSpace(seed) {
-    const message = {
-      obj: 'onboarding',
-      func: 'getFrom3BoxSpace',
-      params: [seed],
-    };
-    return sendMessage(message);
-  }
-
-  function save3BoxMnemonic(mnemonic) {
-    const message = {
-      obj: 'onboarding',
-      func: 'save3BoxMnemonic',
-      params: [mnemonic],
-    };
-    return sendMessage(message);
-  }
-
-  function get3BoxMnemonic() {
-    const message = {
-      obj: 'onboarding',
-      func: 'get3BoxMnemonic',
-      params: [],
-    };
-    return sendMessage(message);
-  }
-
   function openOnBoarding() {
     const message = {
       obj: 'onboarding',
@@ -710,10 +674,6 @@ const helper = (function () {
     getFilesList,
     downloadFile,
     uploadFile,
-    writeTo3BoxSpace,
-    getFrom3BoxSpace,
-    save3BoxMnemonic,
-    get3BoxMnemonic,
     openOnBoarding,
     repeatOnboarding,
     saveProfileInOnBoarding,

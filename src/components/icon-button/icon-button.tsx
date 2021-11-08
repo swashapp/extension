@@ -7,13 +7,14 @@ function IconButtonBase(props: {
   image: string;
   imageSize?: { width?: number; height?: number };
   onClick?: () => void;
+  disabled?: boolean;
 }) {
   return (
     <div
       onClick={props.onClick}
       className={`${'icon-button-container'} ${
-        props.body ? 'icon-button-large' : 'icon-button-small'
-      }`}
+        props.disabled ? 'icon-button-container-disabled' : ''
+      } ${props.body ? 'icon-button-large' : 'icon-button-small'}`}
     >
       <div className={'icon-button-body'}>
         <img
@@ -38,6 +39,7 @@ export function IconButton(props: {
   imageSize?: { width?: number; height?: number };
   link: LinkProps | false;
   onClick?: () => void;
+  disabled?: boolean;
 }): JSX.Element {
   return props.link === false ? (
     <IconButtonBase {...props} />

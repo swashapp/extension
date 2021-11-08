@@ -6,7 +6,6 @@ import { StepperContext } from '../../pages/onboarding';
 import { Button } from '../button/button';
 import { FlexGrid } from '../flex-grid/flex-grid';
 import { FilePicker } from '../passphrase-popup/file-picker';
-import { SignIn3Box } from '../passphrase-popup/sign-in-3box';
 import { showPopup } from '../popup/popup';
 import { ToastMessage } from '../toast/toast-message';
 
@@ -21,7 +20,7 @@ function ImportCard(props: {
   icon: string;
   text: string;
   imageSize?: { width?: number; height?: number };
-  onClick: () => void;
+  onClick?: () => void;
 }) {
   return (
     <div className="import-your-config-card">
@@ -33,7 +32,12 @@ function ImportCard(props: {
       />
       <h4>{props.text}</h4>
       <div className="import-your-config-button">
-        <Button text="Import" link={false} onClick={props.onClick} />
+        <Button
+          text="Import"
+          link={false}
+          onClick={props?.onClick}
+          disabled={props.onClick === undefined}
+        />
       </div>
     </div>
   );
@@ -118,19 +122,6 @@ export function ImportYourConfig(): JSX.Element {
     });
   }, [togglePopup]);
 
-  const importFrom3Box = useCallback(() => {
-    showPopup({
-      closable: true,
-      content: (
-        <SignIn3Box
-          onBeforeImport={() => setImporting(true)}
-          onImport={onImport}
-          onImportFailed={onImportFailed}
-        />
-      ),
-    });
-  }, [onImport, onImportFailed]);
-
   useEffect(() => {
     return () => {
       if (browser.runtime.onMessage.hasListener(togglePopup))
@@ -170,7 +161,6 @@ export function ImportYourConfig(): JSX.Element {
                 text="3Box"
                 icon={ThreeBoxLogo}
                 imageSize={{ width: 31, height: 20 }}
-                onClick={importFrom3Box}
               />
             </FlexGrid>
           </FlexGrid>

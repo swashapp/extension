@@ -1,5 +1,3 @@
-import Box from '3box';
-import IdentityWallet from 'identity-wallet';
 import { sha256 } from 'js-sha256';
 import { JSONPath } from 'jsonpath-plus';
 import browser from 'webextension-polyfill';
@@ -492,49 +490,6 @@ const onboarding = (function () {
     return fetch(url, req);
   }
 
-  async function get3BoxSpace(seed: string) {
-    const getConsent = async function () {
-      return true;
-    };
-    const idWallet = new IdentityWallet(getConsent, { seed });
-    const provider = idWallet.get3idProvider();
-    const box = await Box.openBox('', provider);
-    return await box.openSpace('Swash');
-  }
-
-  async function writeTo3BoxSpace(seed: string) {
-    const space = await get3BoxSpace(seed);
-
-    const db = await storageHelper.getAll();
-    delete db.onboarding['3Box'];
-    const data = JSON.stringify(db);
-    const currentDate = new Date().toISOString().slice(0, 19);
-    return space.private.set('swash-' + currentDate + '.conf', data);
-  }
-
-  async function getFrom3BoxSpace(seed: string) {
-    const space = await get3BoxSpace(seed);
-
-    const spaceData = await space.private.all();
-    console.log(spaceData);
-    return JSON.stringify(spaceData);
-  }
-
-  function save3BoxMnemonic(mnemonic: string) {
-    const data: Any = {};
-    data['3Box'] = {};
-    data['3Box'].mnemonic = mnemonic;
-    storageHelper.saveOnboarding(data).then();
-  }
-
-  async function get3BoxMnemonic() {
-    const data = await storageHelper.getOnboarding();
-    const conf = data['3Box'];
-
-    if (conf && conf.mnemonic) return conf.mnemonic;
-    else return '';
-  }
-
   function openOnBoarding() {
     const fullURL = browser.runtime.getURL('dashboard/index.html#/onboarding');
     browser.tabs.create({
@@ -585,10 +540,6 @@ const onboarding = (function () {
     downloadFile,
     uploadFile,
     openOnBoarding,
-    writeTo3BoxSpace,
-    getFrom3BoxSpace,
-    save3BoxMnemonic,
-    get3BoxMnemonic,
     saveProfileInfo,
     createAndSaveWallet,
     repeatOnboarding,

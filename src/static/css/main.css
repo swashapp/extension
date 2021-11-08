@@ -307,8 +307,16 @@ a:hover {
   user-select: none;
 }
 
+.icon-button-container-disabled {
+  background: var(--gray) !important;
+}
+
 .icon-button-container:hover {
   box-shadow: 1px 1px 0 var(--blue);
+}
+
+.icon-button-container-disabled:hover {
+  box-shadow: unset;
 }
 
 .icon-button-body {

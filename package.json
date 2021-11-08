@@ -28,11 +28,8 @@
     "start:firefox": "run-s copy && run-p bundle run:firefox"
   },
   "dependencies": {
-    "3box": "1.17.1",
     "@material-ui/core": "^4.12.3",
-    "bip39": "^3.0.4",
     "ethers": "5.0.23",
-    "identity-wallet": "^2.0.0",
     "interweave": "^12.8.0",
     "js-sha256": "^0.9.0",
     "json-ptr": "^2.2.0",
@@ -60,7 +57,6 @@
   "devDependencies": {
     "@parcel/config-webextension": "^2.0.0",
     "@parcel/transformer-image": "2.0.0",
-    "@types/3box": "^1.22.1",
     "@types/react": "^17.0.19",
     "@types/react-copy-to-clipboard": "^5.0.2",
     "@types/react-dom": "^17.0.9",
