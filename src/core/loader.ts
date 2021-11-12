@@ -72,8 +72,8 @@ const loader = (function () {
 
   async function onInstalled() {
     await reload();
-    memberManager.tryJoin();
-    updateSchedule().then();
+    memberManager.tryJoin().catch(console.error);
+    updateSchedule().catch(console.error);
   }
 
   function changeIconOnUpdated(tabId: number, changeInfo: Any, tabInfo: Any) {

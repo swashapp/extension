@@ -1,5 +1,6 @@
 import browser from 'webextension-polyfill';
 
+import { ConfigEntity } from '../entities/config.entity';
 import { OnboardingPageValues } from '../enums/onboarding.enum';
 import { MemberManagerConfigs } from '../types/storage/configs/member-manager.type';
 
@@ -44,7 +45,7 @@ const memberManager = (function () {
         console.log(`${strategy}: user is already joined`);
         clearJoinStrategy();
         strategyInterval = memberManagerConfig.tryInterval;
-        tryJoin();
+        tryJoin().catch(console.error);
         browser.tabs
           .query({ currentWindow: true, active: true })
           .then((tabs) => {
@@ -58,7 +59,7 @@ const memberManager = (function () {
           strategyInterval *= memberManagerConfig.backoffRate;
           if (strategyInterval > memberManagerConfig.maxInterval)
             strategyInterval = memberManagerConfig.maxInterval;
-          tryJoin();
+          tryJoin().catch(console.error);
         }
       }
     });
@@ -115,8 +116,9 @@ const memberManager = (function () {
     };
   })();
 
-  function tryJoin() {
-    if (!mgmtInterval)
+  async function tryJoin() {
+    const configs = await (await ConfigEntity.getInstance()).get();
+    if (!mgmtInterval && configs.is_enabled)
       mgmtInterval = setInterval(
         strategies[memberManagerConfig.strategy],
         strategyInterval,

@@ -26,6 +26,8 @@ const userHelper = (function () {
   const provider = ethers.getDefaultProvider();
   const xdaiProvider = ethers.getDefaultProvider('https://rpc.xdaichain.com/');
 
+  const timestamp = { value: 0, updated: 0 };
+
   async function init() {
     config = await configManager.getConfig('community');
   }
@@ -207,10 +209,19 @@ const userHelper = (function () {
   async function generateJWT() {
     if (!wallet) throw Error('Wallet is not provided');
     if (!client) clientConnect();
+
+    if (
+      timestamp.updated === 0 ||
+      timestamp.updated + config.tokenExpiration < Date.now()
+    ) {
+      timestamp.value = await swashApiHelper.getTimestamp();
+      timestamp.updated = Date.now();
+    }
+
     const payload = {
       address: wallet.address,
       publicKey: ethers.utils.computePublicKey(wallet.publicKey, true),
-      timestamp: await swashApiHelper.getTimestamp(),
+      timestamp: timestamp.value,
     };
     return new TokenSigner('ES256K', wallet.privateKey.slice(2)).sign(payload);
   }

@@ -30,7 +30,7 @@ const referralMessage = 'Use my referral link to earn as you surf with Swash:';
 
 export function InviteFriends(): JSX.Element {
   const [referralLink, setReferralLink] = useState<string>('');
-  const [reward, setReward] = useState<number>(0);
+  const [reward, setReward] = useState<string>('$');
   const [referral, setReferral] = useState<{
     totalReward: string;
     totalReferral: string;
@@ -53,7 +53,7 @@ export function InviteFriends(): JSX.Element {
   }, []);
 
   const loadActiveReferral = useCallback(() => {
-    window.helper.getActiveReferral().then((referral: { reward: number }) => {
+    window.helper.getActiveReferral().then((referral: { reward: string }) => {
       if (referral.reward) setReward(referral.reward);
     });
   }, []);
