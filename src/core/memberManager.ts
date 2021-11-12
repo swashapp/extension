@@ -22,9 +22,10 @@ const memberManager = (function () {
     if (memberManagerConfig) strategyInterval = memberManagerConfig.tryInterval;
   }
 
-  function updateStatus(strategy: string) {
+  async function updateStatus(strategy: string) {
     console.log(`${strategy}: Trying to join...`);
-    userHelper.isJoinedSwash().then((status) => {
+    try {
+      const status = await userHelper.isJoinedSwash();
       joined = status;
       if (!status) {
         console.log(`${strategy}: user is not joined`);
@@ -41,7 +42,7 @@ const memberManager = (function () {
             ])
             .then();
         }
-      } else if (status) {
+      } else {
         console.log(`${strategy}: user is already joined`);
         clearJoinStrategy();
         strategyInterval = memberManagerConfig.tryInterval;
@@ -52,17 +53,18 @@ const memberManager = (function () {
             const tab = tabs[0];
             pageAction.loadIcons(tab.url);
           }, console.error);
-      } else {
-        console.log(`${strategy}: failed to get user join status`);
-        if (strategyInterval < memberManagerConfig.maxInterval) {
-          clearJoinStrategy();
-          strategyInterval *= memberManagerConfig.backoffRate;
-          if (strategyInterval > memberManagerConfig.maxInterval)
-            strategyInterval = memberManagerConfig.maxInterval;
-          tryJoin().catch(console.error);
-        }
       }
-    });
+    } catch (err) {
+      console.log(`${strategy}: failed to get user join status`);
+      if (strategyInterval < memberManagerConfig.maxInterval) {
+        clearJoinStrategy();
+        strategyInterval *= memberManagerConfig.backoffRate;
+        if (strategyInterval > memberManagerConfig.maxInterval)
+          strategyInterval = memberManagerConfig.maxInterval;
+        console.log(`Increased try join interval to ${strategyInterval}`);
+        tryJoin().catch(console.error);
+      }
+    }
   }
 
   const strategies = (function () {
@@ -75,14 +77,14 @@ const memberManager = (function () {
         messageCount >= memberManagerConfig.minimumMessageNumber &&
         lastSentDate + memberManagerConfig.sendTimeWindow >= currentTime
       ) {
-        updateStatus('FixedTimeWindowStrategy');
+        await updateStatus('FixedTimeWindowStrategy');
       }
 
       if (
         joined &&
         lastSentDate + memberManagerConfig.sendTimeWindow < currentTime
       ) {
-        updateStatus('FixedTimeWindowStrategy');
+        await updateStatus('FixedTimeWindowStrategy');
       }
     }
 
@@ -95,17 +97,17 @@ const memberManager = (function () {
         messageCount >= memberManagerConfig.minimumMessageNumber &&
         lastSentDate + messageCount * 60 * 1000 >= currentTime
       ) {
-        updateStatus('DynamicTimeWindowStrategy');
+        await updateStatus('DynamicTimeWindowStrategy');
       }
 
       if (joined && lastSentDate + messageCount * 60 * 1000 < currentTime) {
-        updateStatus('DynamicTimeWindowStrategy');
+        await updateStatus('DynamicTimeWindowStrategy');
       }
     }
 
     async function immediateJoinStrategy() {
       if (!joined) {
-        updateStatus('ImmediateJoinStrategy');
+        await updateStatus('ImmediateJoinStrategy');
       }
     }
 
