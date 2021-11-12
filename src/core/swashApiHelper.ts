@@ -16,7 +16,6 @@ import {
 } from '../types/swash-api.type';
 
 import { configManager } from './configManager';
-import { memberManager } from './memberManager';
 
 const OK_STATUS = 200;
 
