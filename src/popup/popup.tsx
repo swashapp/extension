@@ -126,7 +126,18 @@ function Popup() {
       window.helper.isNeededOnBoarding().then((_needOnBoarding: boolean) => {
         setNeedOnBoarding(_needOnBoarding);
         if (_needOnBoarding) {
-          window.helper.openOnboarding();
+          const onboardingPath = 'dashboard/index.html#/onboarding';
+          browser.tabs
+            .query({ currentWindow: true })
+            .then((tabs: browser.Tabs.Tab[]) => {
+              const tab = tabs.find((tab) => tab.url?.endsWith(onboardingPath));
+              if (tab) {
+                tab.active = true;
+                browser.tabs.update(tab.id, { active: true });
+              } else {
+                showPageOnTab(browser.runtime.getURL(onboardingPath));
+              }
+            });
         } else {
           window.helper
             .load()
@@ -172,7 +183,7 @@ function Popup() {
               className="flex-row form-item-gap extension-popup-numerics"
             >
               <NumericStats value={tokenAvailable} label="SWASH Earnings" />
-              <NumericStats value={unclaimedBonus} label="Referral Bonus" />
+              <NumericStats value={unclaimedBonus} label="SWASH Bonus" />
             </FlexGrid>
             <MenuItem
               text="Wallet"

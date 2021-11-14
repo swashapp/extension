@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { scroller } from 'react-scroll';
+
 import { Button } from '../components/button/button';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { HELP_TOUR_CLASS } from '../components/help/help-tour';
@@ -35,10 +37,25 @@ export function Help(): JSX.Element {
     setTour(LocalStorageService.load(STORAGE_KEY.TOUR));
   }, []);
 
+  const [scrollId, setScrollId] = useState<string>('');
+  useEffect(() => {
+    const search = window.location.hash.split('?');
+    if (search) {
+      const id = new URLSearchParams(search[1]).get('id');
+      scroller.scrollTo(id, {
+        duration: 1000,
+        delay: 100,
+        smooth: true,
+      });
+      setScrollId(id || '');
+    }
+  }, []);
+
   const helpData = useMemo(() => {
     return searchText === ''
       ? HelpData.map((data) => ({
           ...data,
+          expanded: scrollId === data.id,
           content: data.content.replace('$REWARD', reward.toString()),
         }))
       : [
@@ -63,7 +80,7 @@ export function Help(): JSX.Element {
             };
           }),
         ];
-  }, [searchText, reward]);
+  }, [searchText, scrollId, reward]);
 
   const makeTourLink = useCallback(
     (route: string, tourName: TOUR_NAME) => route + '?tour=' + tourName,

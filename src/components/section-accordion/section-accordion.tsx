@@ -13,6 +13,7 @@ type AccordionItem = {
   icon: string;
   content: string;
   expanded?: boolean;
+  id?: string;
 };
 
 const StyledAccordion = withStyles({
@@ -90,7 +91,10 @@ export function SectionAccordion(
                   <div className={'section-accordion-title-icon'}>
                     <img src={item.icon} alt="" />
                   </div>
-                  <div className={'title section-accordion-title-text'}>
+                  <div
+                    id={item?.id}
+                    className={'title section-accordion-title-text'}
+                  >
                     {item.title}
                   </div>
                 </div>

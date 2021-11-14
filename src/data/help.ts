@@ -10,6 +10,7 @@ export interface HELP_TYPE {
   title: string;
   content: string;
   icon: string;
+  id?: string;
 }
 
 const HelpData = [
@@ -120,6 +121,7 @@ const HelpData = [
   {
     title: 'Wallet',
     icon: WalletIcon,
+    id: 'wallet',
     content:
       '<p>' +
       'The wallet page is where you can see what you’ve earned when using Swash. All earnings are listed in Swash’s native token, or cryptocurrency, called ' +
@@ -143,7 +145,7 @@ const HelpData = [
       '<em>SWASH Earnings</em> - This is the total amount you’ve earned for the value of your data by surfing the web.' +
       '<br />' +
       '<br />' +
-      '<em>SWASH Referral bonus</em> - This is the total amount you have received in referral bonuses from inviting others to join Swash.' +
+      '<em>SWASH bonus</em> - This is the total amount you have received in referral bonuses from inviting others to join Swash.' +
       '<br />' +
       '<br />' +
       '</p>' +

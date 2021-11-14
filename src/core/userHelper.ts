@@ -129,7 +129,7 @@ const userHelper = (function () {
     const amountBN = ethers.utils.parseEther(amount);
     const minWithdraw = await withdrawContract.minimumWithdrawTokenWei();
     if (amountBN.lt(minWithdraw))
-      throw Error(`Minimum withdraw is ${formatEther(minWithdraw)}`);
+      throw Error(`Minimum withdrawal is ${formatEther(minWithdraw)}`);
   }
 
   async function getEthBalance(address: string) {

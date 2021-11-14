@@ -244,7 +244,7 @@ export function Wallet(): JSX.Element {
                 image={SwashEarningsIcon}
               />
               <NumericSection
-                title="SWASH Referral Bonus"
+                title="SWASH Bonus"
                 value={unclaimedBonus}
                 layout={
                   <Button
@@ -311,7 +311,7 @@ export function Wallet(): JSX.Element {
                             wallet properly (it only takes a few minutes!).
                             Check the{' '}
                             <a
-                              href="#/help"
+                              href="#/help?id=wallet"
                               style={{
                                 color: 'var(--blue)',
                               }}
