@@ -9,16 +9,16 @@ import { FormMessage } from '../components/form-message/form-message';
 import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-adornment';
 import { Input } from '../components/input/input';
 import { NumericSection } from '../components/numeric-section/numeric-section';
-import { closePopup, showPopup } from '../components/popup/popup';
+import { showPopup } from '../components/popup/popup';
 import { Select } from '../components/select/select';
 import { ToastMessage } from '../components/toast/toast-message';
+import { Tooltip } from '../components/tooltip/tooltip';
 import { TokenTransferPopup } from '../components/wallet/token-transfer-popup';
 import { WALLET_TOUR_CLASS } from '../components/wallet/wallet-tour';
-import { UtilsService } from '../service/utils-service';
+import { initValue, UtilsService } from '../service/utils-service';
 
 const SwashBonusIcon = '/static/images/icons/swash-bonus.svg';
 const SwashEarningsIcon = '/static/images/icons/swash-earnings.svg';
-const QuestionGrayIcon = '/static/images/shape/question-gray.png';
 
 const networkList = [
   { description: 'xDai', value: 'xDai' },
@@ -26,7 +26,7 @@ const networkList = [
 ];
 
 export function Wallet(): JSX.Element {
-  const [tokenAvailable, setTokenAvailable] = useState<string>('$');
+  const [tokenAvailable, setTokenAvailable] = useState<string>(initValue);
   const [minimumWithdraw, setMinimumWithdraw] = useState<number>(99999999);
   const [gasLimit, setGasLimit] = useState<number>(99999999);
   const [claiming, setClaiming] = useState<boolean>(false);
@@ -34,7 +34,7 @@ export function Wallet(): JSX.Element {
   const [recipientEthBalance, setRecipientEthBalance] = useState<string>('$');
   const [recipientTokenBalance, setRecipientTokenBalance] =
     useState<string>('$');
-  const [unclaimedBonus, setUnclaimedBonus] = useState<string>('$');
+  const [unclaimedBonus, setUnclaimedBonus] = useState<string>(initValue);
   const [walletAddress, setWalletAddress] = useState<string>('');
   const [recipient, setRecipient] = useState<string>('');
   const [network, setNetwork] = useState<string>('xDai');
@@ -46,7 +46,7 @@ export function Wallet(): JSX.Element {
   }, []);
 
   const getUnclaimedBonus = useCallback(() => {
-    window.helper.getRewards().then((_unclaimedBonus: number | string) => {
+    window.helper.getBonus().then((_unclaimedBonus: number | string) => {
       setUnclaimedBonus((_unclaimed) => {
         const ret =
           _unclaimedBonus.toString() !== _unclaimed
@@ -82,7 +82,9 @@ export function Wallet(): JSX.Element {
   }, [getBalanceInfo, getWalletAddress]);
 
   const isClaimDisable = useMemo(() => {
-    return unclaimedBonus === '$' || Number(unclaimedBonus) <= 0 || claiming;
+    return (
+      unclaimedBonus === initValue || Number(unclaimedBonus) <= 0 || claiming
+    );
   }, [claiming, unclaimedBonus]);
 
   const claimRewards = useCallback(() => {
@@ -120,7 +122,7 @@ export function Wallet(): JSX.Element {
   }, [getBalanceInfo]);
 
   const isMessageNeeded = useMemo(
-    () => tokenAvailable !== '$' && Number(tokenAvailable) > 0,
+    () => tokenAvailable !== initValue && Number(tokenAvailable) > 0,
     [tokenAvailable],
   );
 
@@ -132,7 +134,7 @@ export function Wallet(): JSX.Element {
       };
       if (
         tokenAvailable.length > 0 &&
-        tokenAvailable !== '$' &&
+        tokenAvailable !== initValue &&
         !tokenAvailable.match(/^[0-9]+(\.[0-9]+)?$/)
       ) {
         ret = { message: 'Amount value is not valid', type: 'error' };
@@ -142,27 +144,31 @@ export function Wallet(): JSX.Element {
       ) {
         ret = { message: 'Recipient address is not valid', type: 'error' };
       } else if (isMessageNeeded) {
-        if (network === 'xDai') {
-          ret = {
-            message: 'Exchange wallets are not compatible with xDai.',
-            type: 'warning',
-          };
-        } else if (Number(tokenAvailable) > minimumWithdraw) {
-          ret = {
-            message:
-              'It’s on us. Swash will cover these transaction fees for you! 🎉',
-            type: 'success',
-          };
-        } else if (Number(recipientEthBalance) > gasLimit) {
-          ret = {
-            message: `Transaction fee is ${gasLimit} ETH`,
-            type: 'warning',
-          };
-        } else {
-          ret = {
-            message: 'Unable to withdraw - not enough ETH for the gas fee',
-            type: 'error',
-          };
+        ret = {
+          message: 'Exchange wallets are not compatible.',
+          type: 'warning',
+        };
+        if (network === 'Mainnet') {
+          if (Number(tokenAvailable) > minimumWithdraw) {
+            ret = {
+              message:
+                'It’s on us. Swash will cover these transaction fees for you! 🎉',
+              type: 'success',
+            };
+          } else if (Number(recipientEthBalance) > gasLimit) {
+            ret = {
+              message: `Transaction fee is ${gasLimit} ETH`,
+              type: 'warning',
+            };
+          } else if (
+            recipient.length === 42 &&
+            ethers.utils.isAddress(recipient)
+          ) {
+            ret = {
+              message: 'Unable to withdraw - not enough ETH for the gas fee',
+              type: 'error',
+            };
+          }
         }
       }
       return ret;
@@ -178,11 +184,11 @@ export function Wallet(): JSX.Element {
 
   const isTransferDisable = useMemo(() => {
     let ret = false;
-    if (tokenAvailable === '$' || Number(tokenAvailable) <= 0) ret = true;
+    if (tokenAvailable === initValue || Number(tokenAvailable) <= 0) ret = true;
     else if (!ethers.utils.isAddress(recipient)) ret = true;
     else if (!network) ret = true;
     else if (network === 'Mainnet') {
-      if (recipientEthBalance === '$' || Number(recipientEthBalance) <= 0)
+      if (recipientEthBalance === initValue || Number(recipientEthBalance) <= 0)
         ret = true;
       else if (
         Number(recipientEthBalance) < gasLimit &&
@@ -239,12 +245,14 @@ export function Wallet(): JSX.Element {
               <NumericSection
                 tourClassName={WALLET_TOUR_CLASS.SWASH_EARNINGS}
                 title="SWASH Earnings"
+                tooltip="This number updates every 48 hours."
                 value={tokenAvailable}
                 layout="layout1"
                 image={SwashEarningsIcon}
               />
               <NumericSection
-                title="SWASH Referral Bonus"
+                title="SWASH Rewards"
+                tooltip="When you click ‘Claim’, your bonuses are added to your SWASH Earnings."
                 value={unclaimedBonus}
                 layout={
                   <Button
@@ -264,9 +272,11 @@ export function Wallet(): JSX.Element {
             <div className="simple-card">
               <div className="wallet-title">
                 <h6>Your wallet address</h6>
-                <div className="wallet-title-question-mark">
-                  <img src={QuestionGrayIcon} width={16} height={16} alt={''} />
-                </div>
+                <Tooltip
+                  text={
+                    'This is your unique ID in the Swash ecosystem Do not use it to send crypto to yourself.'
+                  }
+                />
               </div>
               <div className={WALLET_TOUR_CLASS.WALLET_ADDRESS}>
                 <Input
@@ -300,34 +310,36 @@ export function Wallet(): JSX.Element {
                       content: (
                         <>
                           <div className="wallet-read-more-title">
-                            <h6>Withdraw Your Earnings</h6>
+                            <h6>Withdraw your earnings</h6>
                           </div>
                           <p>
-                            You can withdraw your earnings using xDai chain or
-                            Ethereum mainnet.
+                            Withdraw your earnings using xDai chain
+                            (recommended) or Ethereum mainnet. Exchange wallets
+                            are not supported. Learn how to set up your wallet
+                            properly and get to know your withdrawal limits.
                             <br />
                             <br />
                             It’s important to make sure you have set up your
-                            wallet properly (it only takes a few minutes!).
-                            Check the{' '}
+                            wallet properly (it only takes a few minutes!). Read{' '}
                             <a
-                              href="#/help"
+                              href="https://medium.com/swashapp/everything-you-need-to-know-about-withdrawing-your-swash-f11d507978ec"
                               style={{
                                 color: 'var(--blue)',
                               }}
-                              onClick={closePopup}
+                              target="_blank"
+                              rel="noreferrer"
                             >
-                              Help section
+                              this blog
                             </a>{' '}
                             for step-by-step instructions.
                             <br />
                             <br />
-                            xDai is the recommended method as it’s faster and
-                            Swash will cover the cost for you! 🎉
+                            xDai is the recommended method as it’s faster, more
+                            efficient, and Swash will cover the cost for you! 🎉
                             <br />
                             <br />
                             You can also put your SWASH to work by trading or
-                            staking liquidity on the SWASH/xDAI pool on{' '}
+                            staking liquidity on the SWASH / xDAI pool on{' '}
                             <a
                               href="https://honeyswap.org"
                               target="_blank"
@@ -343,12 +355,7 @@ export function Wallet(): JSX.Element {
                             <br />
                             Alternatively, if you use Ethereum, you will be
                             presented with the amount needed in your wallet (in
-                            ETH) to cover the transaction fee. Exchange wallets
-                            are not currently supported.
-                            <br />
-                            <br />
-                            New earnings are available after 48 hours as an
-                            anti-fraud measure.
+                            ETH) to cover the transaction fee.
                           </p>
                         </>
                       ),
@@ -371,14 +378,14 @@ export function Wallet(): JSX.Element {
                 />
                 <Select
                   items={networkList}
-                  label="Withdraw To"
+                  label="Withdraw to"
                   value={network}
                   onChange={(e) => setNetwork(e.target.value as string)}
                 />
               </FlexGrid>
               <Input
                 name="RecipientWalletAddress"
-                label="Recipient Wallet Address"
+                label="Recipient wallet address"
                 value={recipient}
                 onChange={(e) => setRecipient(e.target.value)}
               />

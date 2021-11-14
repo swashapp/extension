@@ -13,19 +13,18 @@ export function SettingsTour(): JSX.Element {
       tourName={TOUR_NAME.SETTINGS}
       steps={[
         {
-          header: 'Backup Settings',
+          header: 'Backup your settings ⚙️',
           target: `.${SETTINGS_TOUR_CLASS.BACKUP}`,
           placement: 'right',
           content: (
             <>
-              Wait! Before you meet your Swash wallet, you need to back up your
-              settings. Save the file in a safe place so you can import it later
-              to keep your earnings safe.
+              Wait! You need to backup your settings. Save this file in a safe
+              place so you can import it later to keep your earnings safe.
             </>
           ),
         },
         {
-          header: 'Private Key',
+          header: 'Private key 🔐',
           target: `.${SETTINGS_TOUR_CLASS.PRIVATE_KEY}`,
           placement: 'right',
           content: (

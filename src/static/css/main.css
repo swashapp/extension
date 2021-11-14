@@ -388,6 +388,7 @@ a:hover {
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
+  white-space: nowrap;
 
   color: #8091a3;
 }
@@ -627,7 +628,6 @@ a:hover {
 }
 
 .closable-panel-icon {
-  z-index: 100;
   cursor: pointer;
   user-select: none;
   width: 24px;
@@ -2049,4 +2049,60 @@ a:hover {
 
 .withdraw-token-transfer {
   width: 828px;
+}
+
+.sidenav-toggles {
+  gap: 14px;
+}
+
+.tooltip-icon {
+  z-index: 2;
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  cursor: pointer;
+  user-select: none;
+  background: url('/static/images/shape/question-gray.svg') no-repeat center
+    center;
+}
+
+.tooltip-icon:hover {
+  background: url('/static/images/shape/question.svg') no-repeat center center;
+}
+
+.tooltip-popper {
+  z-index: 1;
+  max-width: 147px;
+}
+
+.swash-logo {
+  gap: 8px;
+}
+
+.swash-version {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+
+  color: #8091a3;
+  align-self: end;
+}
+
+.help-video {
+  width: 700px;
+  height: 350px;
+}
+
+.help-video-alt {
+  width: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  border: 1px solid black;
+}
+
+.help-video-alt p {
+  margin: 0 10px;
 }

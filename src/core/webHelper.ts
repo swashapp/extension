@@ -309,6 +309,15 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function getBonus() {
+    const message = {
+      obj: 'userHelper',
+      func: 'getBonus',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
   function generateJWT() {
     const message = {
       obj: 'userHelper',
@@ -680,6 +689,7 @@ const helper = (function () {
     createAndSaveWallet,
     joinSwash,
     getRewards,
+    getBonus,
     getReferrals,
     checkWithdrawAllowance,
     getCategory,

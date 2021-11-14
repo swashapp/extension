@@ -1,8 +1,11 @@
 import React, { ReactElement } from 'react';
 
+import { Tooltip } from '../tooltip/tooltip';
+
 export function NumericSection(props: {
   layout?: 'layout1' | 'layout2' | ReactElement;
   title: string;
+  tooltip?: string | ReactElement;
   value: number | string;
   image?: string;
   tourClassName?: string;
@@ -19,7 +22,10 @@ export function NumericSection(props: {
           <></>
         )}
         <div className={`numeric-title-number ${props.tourClassName}`}>
-          <div className={'numeric-title'}>{title}</div>
+          <div className="flex-row">
+            <div className={'numeric-title'}>{title}</div>
+            {props.tooltip ? <Tooltip text={props.tooltip} /> : <></>}
+          </div>
           <div className={'numeric-number title'}>{value}</div>
         </div>
       </div>

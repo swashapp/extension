@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { scroller } from 'react-scroll';
+
 import { Button } from '../components/button/button';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { HELP_TOUR_CLASS } from '../components/help/help-tour';
@@ -35,11 +37,32 @@ export function Help(): JSX.Element {
     setTour(LocalStorageService.load(STORAGE_KEY.TOUR));
   }, []);
 
+  const [scrollId, setScrollId] = useState<string>('');
+  useEffect(() => {
+    const search = window.location.hash.split('?');
+    if (search) {
+      const id = new URLSearchParams(search[1]).get('id') || '';
+      scroller.scrollTo(id, {
+        duration: 1000,
+        delay: 100,
+        smooth: true,
+      });
+      setScrollId(id);
+    }
+  }, []);
+
+  const rewardProgramText = useMemo(() => {
+    return reward === 0
+      ? 'Share your link to be in for a chance of winning the monthly 2000 SWASH prize!'
+      : `The current referral program rewards you ${reward} SWASH for every new person you bring plus a 2000 SWASH prize for the person who makes the most referrals in a month.`;
+  }, [reward]);
+
   const helpData = useMemo(() => {
     return searchText === ''
       ? HelpData.map((data) => ({
           ...data,
-          content: data.content.replace('$REWARD', reward.toString()),
+          expanded: scrollId === data.id,
+          content: data.content.replace('$REWARD_PROGRAM', rewardProgramText),
         }))
       : [
           ...HelpData.filter(
@@ -56,14 +79,14 @@ export function Help(): JSX.Element {
                   new RegExp(`${searchText}(?![^<]*>)`, 'gi'),
                   `<mark>${searchText}</mark>`,
                 )
-                .replace('$REWARD', reward.toString()),
+                .replace('$REWARD_PROGRAM', rewardProgramText),
               expanded:
                 data.content.toLowerCase().indexOf(searchText.toLowerCase()) >=
                 0,
             };
           }),
         ];
-  }, [searchText, reward]);
+  }, [searchText, scrollId, rewardProgramText]);
 
   const makeTourLink = useCallback(
     (route: string, tourName: TOUR_NAME) => route + '?tour=' + tourName,
@@ -123,7 +146,7 @@ export function Help(): JSX.Element {
               >
                 <Button
                   className="next-tour-button"
-                  text="Next Tour"
+                  text="Next tour"
                   color="secondary"
                   link={false}
                 />
@@ -137,7 +160,7 @@ export function Help(): JSX.Element {
               >
                 <Input
                   name="search"
-                  placeholder="Search something at help..."
+                  placeholder="Type in keywords here for a faster search..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   endAdornment={<SearchEndAdornment />}

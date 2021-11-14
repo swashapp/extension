@@ -114,7 +114,7 @@ export function Data(): JSX.Element {
         </div>
         <div className="flex-column card-gap">
           <div className="simple-card">
-            <h6>Text Masking</h6>
+            <h6>Text masking</h6>
             <p>
               Swash doesn’t collect any sensitive data from you, like your name,
               email, or passwords. If you really want to be sure, you can hide
@@ -124,7 +124,7 @@ export function Data(): JSX.Element {
             <TextMasking items={maskItems} setItems={setMaskItems} />
           </div>
           <div className="simple-card">
-            <h6>Your Data</h6>
+            <h6>Your data</h6>
             <p>
               The data collected as you browse is shown here before being added
               to the Swash dataset. If you want time to check the data before it
@@ -133,7 +133,7 @@ export function Data(): JSX.Element {
             </p>
             <div className={DATA_TOUR_CLASS.DELAY_DATA}>
               <NumericInput
-                label="Delay My Data By"
+                label="Delay my data by"
                 value={delay}
                 setValue={setDelay}
                 unit={delay > 1 ? 'minutes' : 'minute'}

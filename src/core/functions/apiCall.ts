@@ -123,6 +123,7 @@ const apiCall = (function () {
             return browser.windows.create({
               url: auth_url,
               type: 'popup',
+              allowScriptsToClose: true,
             });
           });
         }
