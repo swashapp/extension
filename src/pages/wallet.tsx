@@ -145,27 +145,28 @@ export function Wallet(): JSX.Element {
       ) {
         ret = { message: 'Recipient address is not valid', type: 'error' };
       } else if (isMessageNeeded) {
-        if (network === 'xDai') {
-          ret = {
-            message: 'Exchange wallets are not compatible with xDai.',
-            type: 'warning',
-          };
-        } else if (Number(tokenAvailable) > minimumWithdraw) {
-          ret = {
-            message:
-              'It’s on us. Swash will cover these transaction fees for you! 🎉',
-            type: 'success',
-          };
-        } else if (Number(recipientEthBalance) > gasLimit) {
-          ret = {
-            message: `Transaction fee is ${gasLimit} ETH`,
-            type: 'warning',
-          };
-        } else {
-          ret = {
-            message: 'Unable to withdraw - not enough ETH for the gas fee',
-            type: 'error',
-          };
+        ret = {
+          message: 'Exchange wallets are not compatible.',
+          type: 'warning',
+        };
+        if (network === 'Mainnet') {
+          if (Number(tokenAvailable) > minimumWithdraw) {
+            ret = {
+              message:
+                'It’s on us. Swash will cover these transaction fees for you! 🎉',
+              type: 'success',
+            };
+          } else if (Number(recipientEthBalance) > gasLimit) {
+            ret = {
+              message: `Transaction fee is ${gasLimit} ETH`,
+              type: 'warning',
+            };
+          } else if (recipient) {
+            ret = {
+              message: 'Unable to withdraw - not enough ETH for the gas fee',
+              type: 'error',
+            };
+          }
         }
       }
       return ret;
