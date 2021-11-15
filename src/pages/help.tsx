@@ -140,7 +140,7 @@ export function Help(): JSX.Element {
               >
                 <Button
                   className="next-tour-button"
-                  text="Next Tour"
+                  text="Next tour"
                   color="secondary"
                   link={false}
                 />
@@ -154,7 +154,7 @@ export function Help(): JSX.Element {
               >
                 <Input
                   name="search"
-                  placeholder="Search something at help..."
+                  placeholder="Type in keywords here for a faster search..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   endAdornment={<SearchEndAdornment />}

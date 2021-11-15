@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { SidenavContext } from '../../pages/app';
 
 import { SwashLogo } from '../swash-logo/swash-logo';
 
@@ -7,21 +9,23 @@ import { WelcomeToNewDataWorld } from './welcome-to-new-data-world';
 
 const CloseIcon = '/static/images/icons/sidenav/close.png';
 
-export function Sidenav(props: {
-  activeIndex?: number;
-  onClose: () => void;
-}): JSX.Element {
+export function Sidenav(props: { activeIndex?: number }): JSX.Element {
+  const sidenav = useContext(SidenavContext);
   return (
     <div className={'sidenav-container'}>
       <div>
         <div className={'sidenav-logo'}>
           <SwashLogo />
-          <div
-            className={'sidenav-close-button'}
-            onClick={() => props.onClose && props.onClose()}
-          >
-            <img width={14} height={14} src={CloseIcon} alt={'x'} />
-          </div>
+          {sidenav.isOpen ? (
+            <div
+              className={'sidenav-close-button'}
+              onClick={() => sidenav.setOpen(false)}
+            >
+              <img width={14} height={14} src={CloseIcon} alt={'x'} />
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
         <div className={'sidenav-links-container'}>
           <SidenavLinks activeIndex={props.activeIndex} />

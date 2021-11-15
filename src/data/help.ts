@@ -132,6 +132,9 @@ const HelpData = [
       '>' +
       'SWASH' +
       '</a>' +
+      '<br/>' +
+      '<br/>' +
+      'Your wallet address is your unique identifier within the Swash ecosystem.' +
       '</p>' +
       '<br/>' +
       '<br/>' +
@@ -145,7 +148,7 @@ const HelpData = [
       '<em>SWASH Earnings</em> - This is the total amount you’ve earned for the value of your data by surfing the web.' +
       '<br />' +
       '<br />' +
-      '<em>SWASH bonus</em> - This is the total amount you have received in referral bonuses from inviting others to join Swash.' +
+      '<em>SWASH Rewards</em> - This is the total amount you have received in referral bonuses from inviting others to join Swash.' +
       '<br />' +
       '<br />' +
       '</p>' +
@@ -153,13 +156,13 @@ const HelpData = [
       '<p>' +
       '<br />' +
       '<br />' +
+      'Earnings update every 48 hours.' +
+      '<br />' +
+      '<br />' +
       'Press ‘Claim’ to add your referral bonus to your SWASH earnings balance.' +
       '<br />' +
       '<br />' +
-      'Below your balances, you can find your public wallet address.' +
-      '<br />' +
-      '<br />' +
-      'You can share this wallet address with others.' +
+      'Below your balances, you can find your public wallet address. This is your unique identifier within the Swash ecosystem.' +
       '</p>' +
       '<br />' +
       '<br />' +
@@ -169,10 +172,7 @@ const HelpData = [
       '<br />' +
       '<br />' +
       '<p>' +
-      'When you withdraw your SWASH, you can then exchange it for other cryptocurrencies or fiat currencies through various exchanges.' +
-      '<br />' +
-      '<br />' +
-      'You can withdraw your earnings using the xDai chain or Ethereum mainnet.' +
+      'You can withdraw your earnings using xDai chain (recommended) or Ethereum mainnet (not recommended due to high fees!). Exchange wallets are not currently supported.' +
       '<br />' +
       '<br />' +
       '</p>' +
@@ -251,6 +251,9 @@ const HelpData = [
       'gas fees' +
       '</a>' +
       '’) are the cost of energy needed to run a transaction on Ethereum. The cost will vary depending on the Ethereum network and the cost of the particular transaction in question.' +
+      '<br />' +
+      '<br />' +
+      'Alternatively, if you use Ethereum, you will be presented with the amount needed in your wallet (in ETH) to cover the transaction fee.' +
       '</p>',
   },
   {
@@ -263,13 +266,25 @@ const HelpData = [
       'This section is divided into two:' +
       '<br />' +
       '<br />' +
-      '<i>Total Bonus Earned</i> - The amount you have earned from referrals' +
+      '<i>Referral Bonus in SWASH</i> - The amount you have earned from referrals' +
       '<br />' +
       '<br />' +
-      '<i>Total Invited Friends</i> - The number of people who have used your referral link to install Swash' +
+      '<i>Invited Friends</i> - The number of people who have used your referral link to install Swash' +
       '<br />' +
       '<br />' +
-      'The current referral program rewards you $REWARD SWASH for every new person you bring.' +
+      'The current referral program rewards you $REWARD SWASH for every new person you bring plus a 2000 SWASH prize for the person who makes the most referrals in a month.' +
+      '<br />' +
+      '<br />' +
+      'This program is live until the 100K SWASH budget is met. There will be different kinds of referral programs in future, so be sure to follow Swash official channels for the latest updates.' +
+      '<br />' +
+      '<br />' +
+      'There is an anti-fraud mechanism in place to combat fake users in the Swash ecosystem. If your referrals are not reflected it is because your activity is flagged as malicious.' +
+      '<br />' +
+      '<br />' +
+      'As fake users drain rewards from the ecosystem and are detrimental to genuine Swash members and the larger community, using malicious techniques, bots, and other fraudulent activities to cheat the system will get you blacklisted from Swash!' +
+      '<br />' +
+      '<br />' +
+      'If you’re certain your referrals are genuine but they are not reflected, reach out to the Swash team for support.' +
       '<br />' +
       '<br />' +
       'You can also find your referral link to copy and share plus a way to share your link directly on Twitter, Facebook, LinkedIn, and email.' +

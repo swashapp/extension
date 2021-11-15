@@ -17,7 +17,7 @@ import { Input } from '../components/input/input';
 import { INVITE_FRIENDS_TOUR_CLASS } from '../components/invite-friends/invite-friends-tour';
 import { NumericSection } from '../components/numeric-section/numeric-section';
 import { Notifications } from '../components/sidenav/welcome-to-new-data-world';
-import { UtilsService } from '../service/utils-service';
+import { initValue, UtilsService } from '../service/utils-service';
 
 const TotalBonusIcon = '/static/images/icons/total-bonus.svg';
 const TotalFriendsIcon = '/static/images/icons/total-friends.svg';
@@ -30,13 +30,13 @@ const referralMessage = 'Use my referral link to earn as you surf with Swash:';
 
 export function InviteFriends(): JSX.Element {
   const [referralLink, setReferralLink] = useState<string>('');
-  const [reward, setReward] = useState<string>('$');
+  const [reward, setReward] = useState<string>(initValue);
   const [referral, setReferral] = useState<{
     totalReward: string;
     totalReferral: string;
   }>({
-    totalReward: '$',
-    totalReferral: '$',
+    totalReward: initValue,
+    totalReferral: initValue,
   });
 
   const loadReferral = useCallback(() => {
@@ -84,14 +84,16 @@ export function InviteFriends(): JSX.Element {
         <div className="flex-column card-gap">
           <FlexGrid column={2} className="invite-friends-numerics card-gap">
             <NumericSection
-              title="Total Bonus Earned"
+              title="Referral Bonus in SWASH"
+              tooltip="Swash has anti-fraud measures in place to combat fake users. If you don’t see your referred friends here, it’s because it was flagged. If you’re certain they’re real, reach out."
               value={UtilsService.purgeNumber(referral.totalReward)}
               layout="layout1"
               image={TotalBonusIcon}
             />
             <NumericSection
               tourClassName={INVITE_FRIENDS_TOUR_CLASS.FRIENDS}
-              title="Total Invited Friends"
+              title="Invited Friends"
+              tooltip="You will not receive referral rewards for friends that the Swash anti-fraud measures flag as fake users."
               value={referral.totalReferral}
               layout="layout2"
               image={TotalFriendsIcon}
@@ -103,15 +105,15 @@ export function InviteFriends(): JSX.Element {
               className="invite-friends-bonus-cards card-gap"
             >
               <div className="simple-card">
-                <h6>Get More Swash Bonus</h6>
+                <h6>Get more SWASH bonus</h6>
                 <p>
-                  Share your referral link and earn {reward} SWASH for every
-                  friend you bring to Swash!
+                  Share your referral link and earn {reward} SWASH for every new
+                  friend you bring!
                 </p>
                 <Input
                   className={INVITE_FRIENDS_TOUR_CLASS.REFERRAL}
                   name="referral"
-                  label="Your Referral Link"
+                  label="Your referral link"
                   value={referralLink}
                   disabled={true}
                   onChange={(e) => setReferralLink(e.target.value)}
@@ -121,7 +123,7 @@ export function InviteFriends(): JSX.Element {
                   <div className="or-share-line">
                     <div className={'solid-line'} />
                   </div>
-                  <div className="or-share">or share</div>
+                  <div className="or-share">share</div>
                   <div className="or-share-line">
                     <div className={'solid-line'} />
                   </div>
@@ -173,13 +175,13 @@ export function InviteFriends(): JSX.Element {
                   <div className="win-swash-prize-title">
                     <h5>
                       {notifications.prize?.title ||
-                        'There are currently no active referral programs'}
+                        'Win monthly 2000 SWASH prize!'}
                     </h5>
                   </div>
                   <div className="flex-column justify-space-between">
                     <div className="win-swash-prize-text">
                       {notifications.prize?.text ||
-                        "Don't worry, your earnings are not affected. Come back again later!"}
+                        'Share your link to be in for a chance of winning the monthly 2000 SWASH prize!'}
                     </div>
                     <div className="win-swash-prize-button">
                       {notifications.prize ? (

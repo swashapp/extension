@@ -8,9 +8,9 @@ import { Circle } from '../components/drawing/circle';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { Notifications } from '../components/sidenav/welcome-to-new-data-world';
 import { SwashLogo } from '../components/swash-logo/swash-logo';
-import { Switch } from '../components/switch/switch';
+import { Toggle } from '../components/toggle/toggle';
 import { helper } from '../core/webHelper';
-import { UtilsService } from '../service/utils-service';
+import { initValue, UtilsService } from '../service/utils-service';
 
 declare global {
   interface Window {
@@ -66,9 +66,8 @@ function MenuItem(props: {
 }
 
 function Popup() {
-  const [tokenAvailable, setTokenAvailable] = useState<string>('$');
-  const [unclaimedBonus, setUnclaimedBonus] = useState<string>('$');
-  const [status, setStatus] = useState<boolean>(false);
+  const [tokenAvailable, setTokenAvailable] = useState<string>(initValue);
+  const [unclaimedBonus, setUnclaimedBonus] = useState<string>(initValue);
   const [excluded, setExcluded] = useState<boolean>(false);
 
   const getUnclaimedBonus = useCallback(() => {
@@ -139,25 +138,13 @@ function Popup() {
               }
             });
         } else {
-          window.helper
-            .load()
-            .then((db: { configs: { is_enabled: boolean } }) => {
-              setStatus(db.configs.is_enabled);
-              getBalanceInfo().then();
-            });
+          window.helper.load().then(() => {
+            getBalanceInfo().then();
+          });
         }
       }),
     [getBalanceInfo, showPageOnTab],
   );
-
-  const onStatusChanged = useCallback((checked: boolean) => {
-    if (checked) {
-      window.helper.start();
-    } else {
-      window.helper.stop();
-    }
-    setStatus(checked);
-  }, []);
 
   return (
     <>
@@ -168,22 +155,14 @@ function Popup() {
           <div className="flex-column extension-popup">
             <div className="flex-row extension-popup-logo-and-switch">
               <SwashLogo className="extension-popup-logo" />
-              <div className="flex-row extension-popup-switch">
-                <div className="extension-popup-switch-label">
-                  {status ? 'ON' : 'OFF'}
-                </div>
-                <Switch
-                  checked={!status}
-                  onChange={(e) => onStatusChanged(!e.target.checked)}
-                />
-              </div>
+              <Toggle />
             </div>
             <FlexGrid
               column={2}
               className="flex-row form-item-gap extension-popup-numerics"
             >
               <NumericStats value={tokenAvailable} label="SWASH Earnings" />
-              <NumericStats value={unclaimedBonus} label="SWASH Bonus" />
+              <NumericStats value={unclaimedBonus} label="SWASH Rewards" />
             </FlexGrid>
             <MenuItem
               text="Wallet"

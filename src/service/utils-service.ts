@@ -1,3 +1,4 @@
+export const initValue = 'SWASH';
 export class UtilsService {
   static purgeNumber(num: string, precision = 2): string {
     if (num.indexOf('.') < 0) return num;
