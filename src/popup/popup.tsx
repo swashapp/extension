@@ -136,6 +136,7 @@ function Popup() {
               } else {
                 showPageOnTab(browser.runtime.getURL(onboardingPath));
               }
+              window.close();
             });
         } else {
           window.helper.load().then(() => {
