@@ -133,10 +133,10 @@ function Popup() {
               if (tab) {
                 tab.active = true;
                 browser.tabs.update(tab.id, { active: true });
+                window.close();
               } else {
                 showPageOnTab(browser.runtime.getURL(onboardingPath));
               }
-              window.close();
             });
         } else {
           window.helper.load().then(() => {
