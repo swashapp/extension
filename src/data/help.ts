@@ -10,13 +10,14 @@ export interface HELP_TYPE {
   title: string;
   content: string;
   icon: string;
-  id?: string;
+  id: string;
 }
 
 const HelpData = [
   {
     title: 'Welcome',
     icon: WelcomeIcon,
+    id: 'welcome-title-id',
     content:
       "<div class='title1'>Welcome to the world’s first digital Data Union!</div>" +
       '<br/>' +
@@ -102,6 +103,7 @@ const HelpData = [
   {
     title: 'Getting Started',
     icon: GettingStartedIcon,
+    id: 'getting-started-title-id',
     content:
       '<p>' +
       'When you’ve installed Swash, click on the icon to make sure it’s switched on.' +
@@ -121,7 +123,7 @@ const HelpData = [
   {
     title: 'Wallet',
     icon: WalletIcon,
-    id: 'wallet',
+    id: 'wallet-title-id',
     content:
       '<p>' +
       'The wallet page is where you can see what you’ve earned when using Swash. All earnings are listed in Swash’s native token, or cryptocurrency, called ' +
@@ -259,6 +261,7 @@ const HelpData = [
   {
     title: 'Invite Friends',
     icon: InviteFriendsIcon,
+    id: 'invite-friends-title-id',
     content:
       '<p>Invite your friends to Swash to earn even more and grow the community!' +
       '<br />' +
@@ -295,6 +298,7 @@ const HelpData = [
   {
     title: 'Data',
     icon: DataIcon,
+    id: 'data-title-id',
     content:
       "<div class='title1' id='text-masking'>" +
       'Text masking' +
@@ -321,6 +325,7 @@ const HelpData = [
   {
     title: 'Settings',
     icon: SettingsIcon,
+    id: 'settings-title-id',
     content:
       "<div class='title2' id='backup-your-wallet-settings'>" +
       'Backup your wallet settings.' +
@@ -345,6 +350,7 @@ const HelpData = [
   },
   {
     title: 'Useful Links',
+    id: 'useful-links-title-id',
     content:
       '<p>' +
       'For more information on the data Swash captures, check out the ' +

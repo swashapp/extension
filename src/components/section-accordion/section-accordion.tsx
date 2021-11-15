@@ -3,8 +3,10 @@ import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import { withStyles } from '@material-ui/core/styles';
 import { Markup } from 'interweave';
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import React from 'react';
+
+import { scroller } from 'react-scroll';
 
 const Expand = '/static/images/shape/expand.svg';
 
@@ -13,7 +15,7 @@ type AccordionItem = {
   icon: string;
   content: string;
   expanded?: boolean;
-  id?: string;
+  id: string;
 };
 
 const StyledAccordion = withStyles({
@@ -56,8 +58,24 @@ export function SectionAccordion(
     items: AccordionItem[];
   }>,
 ): JSX.Element {
-  const [active, setActive] = useState(-1);
+  const [active, setActive] = useState<string>('');
 
+  const scrollTo = useCallback((id: string) => {
+    scroller.scrollTo(id, {
+      duration: 1000,
+      delay: 0,
+      smooth: true,
+    });
+  }, []);
+  const activate = useCallback((id: string) => {
+    setActive((current) => (current === id ? '' : id));
+  }, []);
+
+  useEffect(() => {
+    if (active) {
+      setTimeout(() => scrollTo(active), 1000);
+    }
+  }, [active, scrollTo]);
   return (
     <div className={'section-accordion-container'}>
       {props.items.map((item: AccordionItem, index: number) => {
@@ -66,17 +84,16 @@ export function SectionAccordion(
             key={`item-${index}`}
             className={`
               ${
-                active === index
+                active === item.id
                   ? 'section-accordion-active'
                   : 'section-accordion-inactive'
               } ${'section-accordion'} `}
           >
             <StyledAccordion
               square
-              expanded={item.expanded || active === index}
-              onChange={() =>
-                setActive((current) => (current === index ? -1 : index))
-              }
+              TransitionProps={{ unmountOnExit: true }}
+              expanded={item.expanded || active === item.id}
+              onChange={() => activate(item.id)}
             >
               <AccordionSummary
                 expandIcon={
@@ -92,7 +109,7 @@ export function SectionAccordion(
                     <img src={item.icon} alt="" />
                   </div>
                   <div
-                    id={item?.id}
+                    id={item.id}
                     className={'title section-accordion-title-text'}
                   >
                     {item.title}
