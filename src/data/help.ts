@@ -150,7 +150,7 @@ const HelpData = [
       '<em>SWASH Earnings</em> - This is the total amount you’ve earned for the value of your data by surfing the web.' +
       '<br />' +
       '<br />' +
-      '<em>SWASH Rewards</em> - This is the total amount you have received in referral bonuses from inviting others to join Swash.' +
+      '<em>SWASH Rewards</em> - This is the total amount you have received in rewards from referrals, airdrops, and everything except earnings from your data.' +
       '<br />' +
       '<br />' +
       '</p>' +
@@ -195,6 +195,13 @@ const HelpData = [
       '  href="https://www.xdaichain.com/for-users/wallets/metamask/metamask-setup">' +
       ' Connect your Metamask to xDai' +
       '</a>' +
+      '<br />' +
+      '<br />' +
+      '<iframe src="https://www.youtube.com/embed/Fahs29XBrcw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>' +
+      'Add the xDai network to MetaMask' +
+      '</iframe>' +
+      '<br />' +
+      '<br />' +
       '</li>' +
       '<li>' +
       "Add SWASH as a token in your Metamask xDai wallet using the 'Import Token' button. You can find the SWASH Token Contract Address " +
@@ -204,9 +211,33 @@ const HelpData = [
       '  href="https://blockscout.com/xdai/mainnet/tokens/0x84e2c67cbefae6b5148fca7d02b341b12ff4b5bb">' +
       'here' +
       '</a>' +
+      '<br />' +
+      '<br />' +
+      '<iframe src="https://www.youtube.com/embed/aeoJrVbkP5Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>' +
+      'Add the Swash token to MetaMask' +
+      '</iframe>' +
+      '<br />' +
+      '<br />' +
       '</li>' +
       '<li>' +
       "Copy the Metamask xDai wallet address you just created and paste it in the 'Recipient wallet address' box below and click 'Withdraw'" +
+      '<br />' +
+      '<br />' +
+      '<iframe src="https://www.youtube.com/embed/B1X8S7-WBrI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>' +
+      'Import the Swash wallet in MetaMask' +
+      '</iframe>' +
+      '<br />' +
+      '<br />' +
+      '</li>' +
+      '<li>' +
+      'Withdrawal successful!' +
+      '<br />' +
+      '<br />' +
+      '<iframe src="https://www.youtube.com/embed/WLjV46KjVk0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>' +
+      'Withdrawal successful!' +
+      '</iframe>' +
+      '<br />' +
+      '<br />' +
       '</li>' +
       '</ol>' +
       '<p>' +
@@ -223,6 +254,28 @@ const HelpData = [
       '  rel="noopener noreferrer"' +
       '  href="https://app.honeyswap.org/#/swap">Honeyswap</a> 🐝' +
       '<br/><br />' +
+      '</p>' +
+      "<div class='title2'>Understanding error messages</div>" +
+      '<br />' +
+      '<p>' +
+      'Blacklisting happens when people try to cheat referral programs or somehow generate fake data. If your behaviour is flagged, you will receive this error message when you try to withdraw.' +
+      '<br />' +
+      '<br />' +
+      '<iframe src="https://www.youtube.com/embed/gjrenrlBcTA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' +
+      '<br />' +
+      '<br />' +
+      'If you are new to Swash and have been using it for less than one month, then you will receive an error message telling you the date from when you are able to withdraw.' +
+      '<br />' +
+      '<br />' +
+      '<iframe src="https://www.youtube.com/embed/7uPTmV0QZCA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' +
+      '<br />' +
+      '<br />' +
+      'You need at least 10 $SWASH to be able to withdraw. If your balance is too low, you will receive an error message.' +
+      '<br />' +
+      '<br />' +
+      '<iframe src="https://www.youtube.com/embed/EH3uA7LIiAI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' +
+      '<br />' +
+      '<br />' +
       '</p>' +
       "<div class='title2'>Ethereum:</div>" +
       '<br />' +
@@ -275,7 +328,7 @@ const HelpData = [
       '<i>Invited Friends</i> - The number of people who have used your referral link to install Swash' +
       '<br />' +
       '<br />' +
-      'The current referral program rewards you $REWARD SWASH for every new person you bring plus a 2000 SWASH prize for the person who makes the most referrals in a month.' +
+      '$REWARD_PROGRAM' +
       '<br />' +
       '<br />' +
       'This program is live until the 100K SWASH budget is met. There will be different kinds of referral programs in future, so be sure to follow Swash official channels for the latest updates.' +

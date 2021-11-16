@@ -107,8 +107,10 @@ export function InviteFriends(): JSX.Element {
               <div className="simple-card">
                 <h6>Get more SWASH bonus</h6>
                 <p>
-                  Share your referral link and earn {reward} SWASH for every new
-                  friend you bring!
+                  {reward === initValue || reward === '0'
+                    ? 'Share your link to be in for a chance of winning the monthly 2000 SWASH prize!'
+                    : `Share your referral link and earn ${reward} SWASH for every new
+                  friend you bring!`}
                 </p>
                 <Input
                   className={INVITE_FRIENDS_TOUR_CLASS.REFERRAL}
@@ -175,13 +177,13 @@ export function InviteFriends(): JSX.Element {
                   <div className="win-swash-prize-title">
                     <h5>
                       {notifications.prize?.title ||
-                        'Win monthly 2000 SWASH prize!'}
+                        'There are currently no active referral programs'}
                     </h5>
                   </div>
                   <div className="flex-column justify-space-between">
                     <div className="win-swash-prize-text">
                       {notifications.prize?.text ||
-                        'Share your link to be in for a chance of winning the monthly 2000 SWASH prize!'}
+                        "Don't worry, your earnings are not affected. Come back again later!"}
                     </div>
                     <div className="win-swash-prize-button">
                       {notifications.prize ? (

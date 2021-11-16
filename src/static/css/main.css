@@ -2073,3 +2073,35 @@ a:hover {
   z-index: 1;
   max-width: 300px;
 }
+
+.swash-logo {
+  gap: 12px;
+}
+
+.swash-version {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 18px;
+
+  color: #1f3c5a;
+  align-self: end;
+}
+
+.help-video {
+  width: 700px;
+  height: 350px;
+}
+
+.help-video-alt {
+  width: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  border: 1px solid black;
+}
+
+.help-video-alt p {
+  margin: 0 10px;
+}

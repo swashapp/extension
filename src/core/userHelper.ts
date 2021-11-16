@@ -5,6 +5,8 @@ import StreamrClient, { Bytes, DataUnion } from 'streamr-client';
 
 import browser from 'webextension-polyfill';
 
+import { REWARD_ABI } from '../data/reward-contract-abi';
+
 import { SIDECHAIN_DU_ABI } from '../data/sidechain-dataunion-abi';
 import { WITHDRAW_MODULE_ABI } from '../data/withdraw-module-abi';
 import { ConfigEntity } from '../entities/config.entity';
@@ -23,6 +25,7 @@ const userHelper = (function () {
   let client: StreamrClient;
   let duHandler: DataUnion;
   let withdrawContract: Contract;
+  let rewardContract: Contract;
   const provider = ethers.getDefaultProvider();
   const xdaiProvider = ethers.getDefaultProvider('https://rpc.xdaichain.com/');
 
@@ -101,6 +104,28 @@ const userHelper = (function () {
       WITHDRAW_MODULE_ABI,
       xdaiProvider,
     );
+  }
+
+  async function initRewardModule() {
+    rewardContract = new Contract(
+      config.rewardContractAddress,
+      REWARD_ABI,
+      new Wallet(wallet.privateKey, xdaiProvider),
+    );
+  }
+
+  async function getBonus() {
+    if (!wallet) throw Error('Wallet is not provided');
+    if (!rewardContract) await initRewardModule();
+    let ret = '0';
+    try {
+      const reward = await rewardContract.userRewards(wallet.address);
+      ret = ethers.utils.formatEther(reward);
+    } catch (err) {
+      console.error(err);
+      console.log('Failed to fetch rewards from contract');
+    }
+    return ret;
   }
 
   async function checkWithdrawAllowance(amount: string) {
@@ -372,6 +397,7 @@ const userHelper = (function () {
     resendCodeToEmail,
     join,
     updateEmail,
+    getBonus,
   };
 })();
 

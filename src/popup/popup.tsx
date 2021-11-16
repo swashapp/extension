@@ -71,7 +71,7 @@ function Popup() {
   const [excluded, setExcluded] = useState<boolean>(false);
 
   const getUnclaimedBonus = useCallback(() => {
-    window.helper.getRewards().then((_unclaimedBonus: string | number) => {
+    window.helper.getBonus().then((_unclaimedBonus: string | number) => {
       setUnclaimedBonus((_unclaimed) => {
         const ret =
           _unclaimedBonus.toString() !== _unclaimed

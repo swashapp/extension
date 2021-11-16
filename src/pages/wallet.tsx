@@ -31,10 +31,9 @@ export function Wallet(): JSX.Element {
   const [gasLimit, setGasLimit] = useState<number>(99999999);
   const [claiming, setClaiming] = useState<boolean>(false);
   const [withdrawing, setWithdrawing] = useState<boolean>(false);
-  const [recipientEthBalance, setRecipientEthBalance] =
-    useState<string>(initValue);
+  const [recipientEthBalance, setRecipientEthBalance] = useState<string>('$');
   const [recipientTokenBalance, setRecipientTokenBalance] =
-    useState<string>(initValue);
+    useState<string>('$');
   const [unclaimedBonus, setUnclaimedBonus] = useState<string>(initValue);
   const [walletAddress, setWalletAddress] = useState<string>('');
   const [recipient, setRecipient] = useState<string>('');
@@ -47,7 +46,7 @@ export function Wallet(): JSX.Element {
   }, []);
 
   const getUnclaimedBonus = useCallback(() => {
-    window.helper.getRewards().then((_unclaimedBonus: number | string) => {
+    window.helper.getBonus().then((_unclaimedBonus: number | string) => {
       setUnclaimedBonus((_unclaimed) => {
         const ret =
           _unclaimedBonus.toString() !== _unclaimed
@@ -161,7 +160,10 @@ export function Wallet(): JSX.Element {
               message: `Transaction fee is ${gasLimit} ETH`,
               type: 'warning',
             };
-          } else if (recipient) {
+          } else if (
+            recipient.length === 42 &&
+            ethers.utils.isAddress(recipient)
+          ) {
             ret = {
               message: 'Unable to withdraw - not enough ETH for the gas fee',
               type: 'error',

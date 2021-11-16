@@ -118,7 +118,25 @@ export function SectionAccordion(
               </AccordionSummary>
               <AccordionDetails>
                 <div className={'section-accordion-content'}>
-                  <Markup content={item.content} />
+                  <Markup
+                    content={item.content}
+                    transform={(node) => {
+                      if (node.tagName === 'IFRAME') {
+                        const src = node.getAttribute('src') || '';
+                        return (
+                          <iframe
+                            className="help-video"
+                            allowFullScreen
+                            src={src}
+                            title="YouTube video player"
+                            scrolling="no"
+                            frameBorder="no"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          ></iframe>
+                        );
+                      }
+                    }}
+                  />
                 </div>
               </AccordionDetails>
             </StyledAccordion>
