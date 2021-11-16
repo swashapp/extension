@@ -1,7 +1,6 @@
 {
-  "minimumMessageNumber": 0,
-  "sendTimeWindow": 300000,
   "strategy": "immediateJoinStrategy",
+  "heartbeatInterval": 60000,
   "tryInterval": 10000,
   "maxInterval": 3600000,
   "failuresThreshold": 2,

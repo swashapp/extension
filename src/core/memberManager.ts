@@ -1,52 +1,50 @@
 import browser from 'webextension-polyfill';
 
-import { ConfigEntity } from '../entities/config.entity';
 import { OnboardingPageValues } from '../enums/onboarding.enum';
 import { MemberManagerConfigs } from '../types/storage/configs/member-manager.type';
 
+import { commonUtils } from '../utils/common.util';
+
 import { configManager } from './configManager';
-import { databaseHelper } from './databaseHelper';
 import { onboarding } from './onboarding';
 import { pageAction } from './pageAction';
+import { storageHelper } from './storageHelper';
 import { userHelper } from './userHelper';
 
 const memberManager = (function () {
   let joined: boolean | undefined;
-  let failedCount = 0;
-  let mgmtInterval: NodeJS.Timer | undefined;
+  let tryTimer: NodeJS.Timer | undefined;
+  let heartbeatTimer: NodeJS.Timer | undefined;
   let memberManagerConfig: MemberManagerConfigs;
-  let strategyInterval: number;
+  let tryInterval: number;
 
   async function init() {
     memberManagerConfig = await configManager.getConfig('memberManager');
-    if (memberManagerConfig) strategyInterval = memberManagerConfig.tryInterval;
+    if (memberManagerConfig) tryInterval = memberManagerConfig.tryInterval;
   }
 
-  async function updateStatus(strategy: string) {
-    console.log(`${strategy}: Trying to join...`);
+  async function checkJoin() {
+    console.log(`Trying to join...`);
     try {
-      const status = await userHelper.isJoinedSwash();
-      joined = status;
-      if (!status) {
-        console.log(`${strategy}: user is not joined`);
-        failedCount++;
-
-        if (failedCount > memberManagerConfig.failuresThreshold) {
-          clearJoinStrategy();
-          failedCount = 0;
-          console.log(`need to join swash again`);
-          onboarding
-            .repeatOnboarding([
-              OnboardingPageValues.Join,
-              OnboardingPageValues.Completed,
-            ])
-            .then();
-        }
-      } else {
-        console.log(`${strategy}: user is already joined`);
+      joined = await userHelper.isJoinedSwash();
+      if (!joined) {
+        console.log(`User is not joined`);
         clearJoinStrategy();
-        strategyInterval = memberManagerConfig.tryInterval;
-        tryJoin().catch(console.error);
+        console.log(`Need to join swash again`);
+        onboarding
+          .repeatOnboarding([
+            OnboardingPageValues.Join,
+            OnboardingPageValues.Completed,
+          ])
+          .then();
+      } else {
+        clearJoinStrategy();
+        console.log(`User is already joined`);
+        const profile = await storageHelper.getProfile();
+        profile.lastCheck = new Date();
+        console.log(`User last join submitted on ${profile.lastCheck}`);
+        await storageHelper.saveProfile(profile);
+        tryInterval = memberManagerConfig.tryInterval;
         browser.tabs
           .query({ currentWindow: true, active: true })
           .then((tabs) => {
@@ -55,81 +53,47 @@ const memberManager = (function () {
           }, console.error);
       }
     } catch (err) {
-      console.log(`${strategy}: failed to get user join status`);
-      if (strategyInterval < memberManagerConfig.maxInterval) {
+      console.log(`failed to get user join status`);
+      if (tryInterval < memberManagerConfig.maxInterval) {
         clearJoinStrategy();
-        strategyInterval *= memberManagerConfig.backoffRate;
-        if (strategyInterval > memberManagerConfig.maxInterval)
-          strategyInterval = memberManagerConfig.maxInterval;
-        console.log(`Increased try join interval to ${strategyInterval}`);
+        tryInterval *= memberManagerConfig.backoffRate;
+        if (tryInterval > memberManagerConfig.maxInterval)
+          tryInterval = memberManagerConfig.maxInterval;
+        console.log(`Increased try join interval to ${tryInterval}`);
         tryJoin().catch(console.error);
       }
     }
   }
 
-  const strategies = (function () {
-    async function fixedTimeWindowStrategy() {
-      const messageCount = await databaseHelper.getTotalMessageCount();
-      const lastSentDate = await databaseHelper.getLastSentDate();
-      const currentTime = new Date().getTime();
-      if (
-        !joined &&
-        messageCount >= memberManagerConfig.minimumMessageNumber &&
-        lastSentDate + memberManagerConfig.sendTimeWindow >= currentTime
-      ) {
-        await updateStatus('FixedTimeWindowStrategy');
-      }
-
-      if (
-        joined &&
-        lastSentDate + memberManagerConfig.sendTimeWindow < currentTime
-      ) {
-        await updateStatus('FixedTimeWindowStrategy');
-      }
+  async function checkHeartbeat() {
+    const profile = await storageHelper.getProfile();
+    if (profile.lastCheck && commonUtils.isToday(profile.lastCheck)) return;
+    console.log("User heartbeat didn't recorded for today");
+    try {
+      await userHelper.isJoinedSwash();
+      profile.lastCheck = new Date();
+      console.log(`User heartbeat submitted on ${profile.lastCheck}`);
+      await storageHelper.saveProfile(profile);
+    } catch (err) {
+      console.error('Failed to submit heartbeat');
     }
-
-    async function dynamicTimeWindowStrategy() {
-      const messageCount = await databaseHelper.getTotalMessageCount();
-      const lastSentDate = await databaseHelper.getLastSentDate();
-      const currentTime = new Date().getTime();
-      if (
-        !joined &&
-        messageCount >= memberManagerConfig.minimumMessageNumber &&
-        lastSentDate + messageCount * 60 * 1000 >= currentTime
-      ) {
-        await updateStatus('DynamicTimeWindowStrategy');
-      }
-
-      if (joined && lastSentDate + messageCount * 60 * 1000 < currentTime) {
-        await updateStatus('DynamicTimeWindowStrategy');
-      }
-    }
-
-    async function immediateJoinStrategy() {
-      if (!joined) {
-        await updateStatus('ImmediateJoinStrategy');
-      }
-    }
-
-    return {
-      fixedTimeWindowStrategy,
-      dynamicTimeWindowStrategy,
-      immediateJoinStrategy,
-    };
-  })();
+  }
 
   async function tryJoin() {
-    const configs = await (await ConfigEntity.getInstance()).get();
-    if (!mgmtInterval && configs.is_enabled)
-      mgmtInterval = setInterval(
-        strategies[memberManagerConfig.strategy],
-        strategyInterval,
-      );
+    if (!tryTimer && !joined) tryTimer = setInterval(checkJoin, tryInterval);
+  }
+
+  async function keepAlive() {
+    heartbeatTimer && clearInterval(heartbeatTimer);
+    heartbeatTimer = setInterval(
+      checkHeartbeat,
+      memberManagerConfig.heartbeatInterval,
+    );
   }
 
   function clearJoinStrategy() {
-    mgmtInterval && clearInterval(mgmtInterval);
-    mgmtInterval = undefined;
+    tryTimer && clearInterval(tryTimer);
+    tryTimer = undefined;
   }
 
   function isJoined() {
@@ -139,6 +103,7 @@ const memberManager = (function () {
   return {
     init,
     tryJoin,
+    keepAlive,
     isJoined,
   };
 })();

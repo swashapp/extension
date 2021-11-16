@@ -6,4 +6,5 @@ export type Profile = {
   country?: string;
   city?: string;
   user_id?: number;
+  lastCheck?: Date;
 };

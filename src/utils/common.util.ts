@@ -95,6 +95,15 @@ const commonUtils = (function () {
     return await response.json();
   }
 
+  function isToday(someDate: Date): boolean {
+    const today = new Date();
+    return (
+      someDate.getDate() == today.getDate() &&
+      someDate.getMonth() == today.getMonth() &&
+      someDate.getFullYear() == today.getFullYear()
+    );
+  }
+
   return {
     jsonUpdate,
     wildcard,
@@ -103,6 +112,7 @@ const commonUtils = (function () {
     isEmpty,
     arrayRemove,
     dlJson,
+    isToday,
   };
 })();
 

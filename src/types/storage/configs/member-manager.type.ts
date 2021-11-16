@@ -1,7 +1,6 @@
 export type MemberManagerConfigs = {
-  minimumMessageNumber: number;
-  sendTimeWindow: number;
   strategy: string;
+  heartbeatInterval: number;
   tryInterval: number;
   maxInterval: number;
   failuresThreshold: number;

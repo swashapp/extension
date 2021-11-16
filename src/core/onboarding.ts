@@ -47,7 +47,7 @@ const onboarding = (function () {
   }
 
   function isValidDB(db: Any) {
-    return db && db.profile && db.profile.encryptedWallet;
+    return db && db.configs && db.configs.salt && db.profile && db.profile.encryptedWallet;
   }
 
   async function isNeededOnBoarding() {

@@ -35,8 +35,7 @@ async function installSwash(info: Any) {
     onboarding.openOnBoarding();
   } else if (info.reason === 'update') {
     await loader.install();
-    const isNeeded = await onboarding.isNeededOnBoarding();
-    if (isNeeded) {
+    if (await onboarding.isNeededOnBoarding()) {
       onboarding.openOnBoarding();
     } else {
       await loader.onInstalled();
@@ -54,11 +53,11 @@ async function startupSwash() {
 	After a successful load of add-on,
 	the main loop will start.
 	*/
-  storageHelper.getConfigs().then((confs) => {
-    if (confs) {
-      loader.onInstalled();
-    }
-  });
+  if (await onboarding.isNeededOnBoarding()) {
+    onboarding.openOnBoarding();
+  } else if (await storageHelper.getConfigs()) {
+    await loader.onInstalled();
+  }
 }
 
 /* ***
