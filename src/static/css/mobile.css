@@ -479,8 +479,8 @@
   }
 
   .tooltip-popper {
-    max-width: calc(100% - 250px);
-    min-width: 150px;
+    width: calc(100% - 300px);
+    min-width: 90px;
   }
 
   .help-video {

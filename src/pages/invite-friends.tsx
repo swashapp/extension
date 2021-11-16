@@ -84,8 +84,8 @@ export function InviteFriends(): JSX.Element {
         <div className="flex-column card-gap">
           <FlexGrid column={2} className="invite-friends-numerics card-gap">
             <NumericSection
-              title="Referral Bonus in SWASH"
-              tooltip="Swash has anti-fraud measures in place to combat fake users. If you don’t see your referred friends here, it’s because it was flagged. If you’re certain they’re real, reach out."
+              title="SWASH Referral Bonus"
+              tooltip="Swash has anti-fraud measures to combat fake users. Only genuine referrals will be reflected here."
               value={UtilsService.purgeNumber(referral.totalReward)}
               layout="layout1"
               image={TotalBonusIcon}

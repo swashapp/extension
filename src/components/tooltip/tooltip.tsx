@@ -5,16 +5,15 @@ import React, { ReactElement } from 'react';
 const StyledTooltip = withStyles(() => ({
   tooltip: {
     position: 'relative',
-    backgroundColor: '#C6E7F1',
-    maxWidth: 300,
-    border: '1px solid #C6E7F1',
-    borderRadius: '20px',
-    fontStyle: 'normal',
-    fontSize: '10px',
-    lineHeight: '10px',
 
-    color: '#8091a3',
-    padding: '10px',
+    backgroundColor: '#E5F5FA',
+    borderRadius: '15px',
+    fontSize: '7px',
+    lineHeight: '10px',
+    boxShadow: '0 0 1px 1px rgba(0, 0, 0, 0.1)',
+
+    color: '#8091A3',
+    padding: '5px 10px',
     zIndex: 1,
   },
   tooltipPlacementRight: {
@@ -35,7 +34,7 @@ export function Tooltip(props: { text: string | ReactElement }): JSX.Element {
             flip: { enabled: false },
             offset: {
               enabled: true,
-              offset: '-8px 0px 0px -18px',
+              offset: '-7px 0px 0px -10px',
             },
           },
         },

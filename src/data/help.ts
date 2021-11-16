@@ -322,7 +322,7 @@ const HelpData = [
       'This section is divided into two:' +
       '<br />' +
       '<br />' +
-      '<i>Referral Bonus in SWASH</i> - The amount you have earned from referrals' +
+      '<i>SWASH Referral Bonus</i> - The amount you have earned from referrals' +
       '<br />' +
       '<br />' +
       '<i>Invited Friends</i> - The number of people who have used your referral link to install Swash' +

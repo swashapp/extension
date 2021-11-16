@@ -388,6 +388,7 @@ a:hover {
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
+  white-space: nowrap;
 
   color: #8091a3;
 }
@@ -2071,20 +2072,20 @@ a:hover {
 
 .tooltip-popper {
   z-index: 1;
-  max-width: 300px;
+  max-width: 147px;
 }
 
 .swash-logo {
-  gap: 12px;
+  gap: 8px;
 }
 
 .swash-version {
   font-style: normal;
   font-weight: normal;
-  font-size: 10px;
-  line-height: 18px;
+  font-size: 12px;
+  line-height: 16px;
 
-  color: #1f3c5a;
+  color: #8091a3;
   align-self: end;
 }
 
