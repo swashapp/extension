@@ -2081,9 +2081,9 @@ a:hover {
 
 .swash-version {
   font-style: normal;
-  font-weight: normal;
+  font-weight: 500;
   font-size: 12px;
-  line-height: 16px;
+  line-height: 20px;
 
   color: #8091a3;
   align-self: end;

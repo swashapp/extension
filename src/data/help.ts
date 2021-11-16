@@ -142,7 +142,6 @@ const HelpData = [
       '<br/>' +
       '<div class="title1">Balance</div>' +
       '<br/>' +
-      '<br/>' +
       '<p>' +
       'Your earnings are divided into two:' +
       '<br />' +
@@ -171,7 +170,6 @@ const HelpData = [
       "<div class='title1' id='withdrawals'>" +
       'Withdrawals' +
       '</div>' +
-      '<br />' +
       '<br />' +
       '<p>' +
       'You can withdraw your earnings using xDai chain (recommended) or Ethereum mainnet (not recommended due to high fees!). Exchange wallets are not currently supported.' +
@@ -331,9 +329,6 @@ const HelpData = [
       '$REWARD_PROGRAM' +
       '<br />' +
       '<br />' +
-      'This program is live until the 100K SWASH budget is met. There will be different kinds of referral programs in future, so be sure to follow Swash official channels for the latest updates.' +
-      '<br />' +
-      '<br />' +
       'There is an anti-fraud mechanism in place to combat fake users in the Swash ecosystem. If your referrals are not reflected it is because your activity is flagged as malicious.' +
       '<br />' +
       '<br />' +
@@ -356,7 +351,7 @@ const HelpData = [
       "<div class='title1' id='text-masking'>" +
       'Text masking' +
       '</div>' +
-      '<br /><br />' +
+      '<br />' +
       '<p>' +
       'Swash doesn’t collect any sensitive data from you, like your name, email, or passwords.' +
       '<br />' +
@@ -370,7 +365,7 @@ const HelpData = [
       "<div class='title1' id='your-data'>" +
       'Your Data' +
       '</div>' +
-      '<br /><br />' +
+      '<br />' +
       '<p>' +
       'The data collected as you browse is shown here before being added to the Swash dataset. If you want time to check the data before it gets uploaded, you can adjust the sending delay and delete anything that you don’t want to share.' +
       '</p>',
@@ -383,7 +378,7 @@ const HelpData = [
       "<div class='title2' id='backup-your-wallet-settings'>" +
       'Backup your wallet settings.' +
       '</div>' +
-      '<br /><br />' +
+      '<br />' +
       '<p>' +
       'It’s important that you download your settings as either a local file, Google Drive, Dropbox, or 3box.' +
       '<br />' +
@@ -398,7 +393,7 @@ const HelpData = [
       "<div class='title2' id='private-key'>" +
       'Private key' +
       '</div>' +
-      '<br /><br />' +
+      '<br />' +
       '<p>Think of your private key like a password. It should <u>not</u> be shared with anyone. If you share it, the person who has it can access all of your SWASH earnings!</p>',
   },
   {

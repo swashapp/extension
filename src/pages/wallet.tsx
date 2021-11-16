@@ -293,9 +293,10 @@ export function Wallet(): JSX.Element {
             <h6>Withdraw Your Earnings</h6>
             <div className="withdraw-text">
               <p>
-                Withdraw your earnings using xDai chain or Ethereum mainnet.
-                It’s important to make sure you have set up your wallet
-                properly. Click button below to read more.
+                Withdraw your earnings using xDai chain (recommended) or
+                Ethereum mainnet. Exchange wallets are not supported. Learn how
+                to set up your wallet properly and get to know your withdrawal
+                limits.
               </p>
               <div className="form-button withdraw-read-more-button">
                 <Button
@@ -313,10 +314,10 @@ export function Wallet(): JSX.Element {
                             <h6>Withdraw your earnings</h6>
                           </div>
                           <p>
-                            Withdraw your earnings using xDai chain
-                            (recommended) or Ethereum mainnet. Exchange wallets
-                            are not supported. Learn how to set up your wallet
-                            properly and get to know your withdrawal limits.
+                            You can withdraw your earnings using xDai chain
+                            (recommended) or Ethereum mainnet (not recommended
+                            due to high fees!). Exchange wallets are not
+                            currently supported.
                             <br />
                             <br />
                             It’s important to make sure you have set up your

@@ -13,7 +13,7 @@ export function InviteFriendsTour(): JSX.Element {
       tourName={TOUR_NAME.INVITE_FRIENDS}
       steps={[
         {
-          header: 'Referral link',
+          header: 'Your referral link 🤝',
           target: `.${INVITE_FRIENDS_TOUR_CLASS.REFERRAL}`,
           placement: 'right',
           content: (
@@ -26,7 +26,7 @@ export function InviteFriendsTour(): JSX.Element {
           ),
         },
         {
-          header: 'Number of friends',
+          header: 'Number of friends 👥',
           target: `.${INVITE_FRIENDS_TOUR_CLASS.FRIENDS}`,
           placement: 'right',
           content: (
