@@ -110,7 +110,7 @@ const userHelper = (function () {
     rewardContract = new Contract(
       config.rewardContractAddress,
       REWARD_ABI,
-      new Wallet(wallet.privateKey, xdaiProvider),
+      xdaiProvider,
     );
   }
 
