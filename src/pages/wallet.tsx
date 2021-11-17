@@ -290,7 +290,7 @@ export function Wallet(): JSX.Element {
             </div>
           </div>
           <div className="simple-card">
-            <h6>Withdraw Your Earnings</h6>
+            <h6>Withdraw your earnings</h6>
             <div className="withdraw-text">
               <p>
                 Withdraw your earnings using xDai chain (recommended) or

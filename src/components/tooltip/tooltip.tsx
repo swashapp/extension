@@ -8,8 +8,8 @@ const StyledTooltip = withStyles(() => ({
 
     backgroundColor: '#E5F5FA',
     borderRadius: '15px',
-    fontSize: '7px',
-    lineHeight: '10px',
+    fontSize: '10px',
+    lineHeight: '12px',
     boxShadow: '0 0 1px 1px rgba(0, 0, 0, 0.1)',
 
     color: '#8091A3',
