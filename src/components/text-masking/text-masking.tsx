@@ -47,7 +47,7 @@ export function TextMasking({
     <div className={'text-masking-container'}>
       <div className={`text-masking-input ${DATA_TOUR_CLASS.TEXT_MASKING}`}>
         <Input
-          label="Mask It"
+          label="Mask it"
           name="MaskIt"
           value={mask}
           onChange={(e) => setMask(e.target.value)}

@@ -456,20 +456,39 @@
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
   }
+
   .tour-fake-div {
     width: 100%;
     height: 300px !important;
   }
+
   .tour-nav-buttons {
     gap: 16px;
   }
+
   .tour-nav-buttons .form-button {
     width: 100%;
   }
+
   .wallet-token-transfer-buttons {
     gap: 16px;
   }
+
   .wallet-token-transfer-buttons .form-button {
+    width: 100%;
+  }
+
+  .tooltip-popper {
+    width: calc(100% - 300px);
+    min-width: 90px;
+  }
+
+  .help-video {
+    width: 100%;
+    height: 300px;
+  }
+
+  .help-video-alt {
     width: 100%;
   }
 }

@@ -47,7 +47,7 @@ const onboarding = (function () {
   }
 
   function isValidDB(db: Any) {
-    return db && db.profile && db.profile.encryptedWallet;
+    return db && db.configs && db.configs.salt && db.profile && db.profile.encryptedWallet;
   }
 
   async function isNeededOnBoarding() {
@@ -208,6 +208,7 @@ const onboarding = (function () {
         return browser.windows.create({
           url: auth_url,
           type: 'popup',
+          allowScriptsToClose: true,
         });
       }
     }

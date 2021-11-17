@@ -18,7 +18,7 @@ export function WalletTour(): JSX.Element {
       onStart={() => sidenav.setOpen(true)}
       steps={[
         {
-          header: 'Swash Wallet',
+          header: 'Meet your wallet 💰',
           target: `.${WALLET_TOUR_CLASS.WALLET}`,
           placement: 'right',
           content: (
@@ -29,25 +29,24 @@ export function WalletTour(): JSX.Element {
           ),
         },
         {
-          header: 'SWASH Earnings',
+          header: 'SWASH Earnings 💸',
           target: `.${WALLET_TOUR_CLASS.SWASH_EARNINGS}`,
           placement: 'right',
           content: (
             <>
-              Your earnings are generated when your captured data is sold. You
-              don’t need to do anything, just leave Swash switched on and surf
-              the web as normal.
+              All earnings received within the Swash ecosystem are in Swash’s
+              native token, SWASH.
             </>
           ),
         },
         {
-          header: 'Wallet Address',
+          header: 'Your wallet address 📩',
           target: `.${WALLET_TOUR_CLASS.WALLET_ADDRESS}`,
           placement: 'right',
           content: (
             <>
-              Your public wallet address is like an account number. You can
-              share it to receive crypto into your wallet.
+              Your public wallet address is your unique identifier in the Swash
+              ecosystem.
             </>
           ),
         },

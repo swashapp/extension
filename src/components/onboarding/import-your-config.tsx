@@ -46,12 +46,12 @@ function ImportCard(props: {
 export function ImportYourConfig(): JSX.Element {
   const stepper = useContext(StepperContext);
   const [importing, setImporting] = useState<boolean>(false);
-  const onImportFailed = useCallback(() => {
+  const onImportFailed = useCallback((message?: string) => {
     setImporting(false);
     toast(
       <ToastMessage
         type="error"
-        content={<>Can not import this config file</>}
+        content={<>{message || 'Can not import this config file'}</>}
       />,
     );
   }, []);
@@ -89,13 +89,18 @@ export function ImportYourConfig(): JSX.Element {
 
         reader.onload = function () {
           setImporting(true);
-          window.helper.applyConfig(reader.result).then((response: any) => {
-            if (response) {
-              onImport();
-            } else {
-              onImportFailed();
-            }
-          });
+          window.helper
+            .applyConfig(reader.result)
+            .then((response: any) => {
+              if (response) {
+                onImport();
+              } else {
+                onImportFailed();
+              }
+            })
+            .catch((err: { message?: string }) => {
+              onImportFailed(err?.message);
+            });
         };
 
         reader.onerror = function () {

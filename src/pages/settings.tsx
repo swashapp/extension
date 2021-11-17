@@ -149,7 +149,7 @@ export function Settings(): JSX.Element {
             <div className="reveal-private-key-button">
               <Button
                 color="secondary"
-                text={`${reveal ? 'Hide' : 'Reveal'} Private Key`}
+                text={`${reveal ? 'Hide' : 'Reveal'} private key`}
                 link={false}
                 onClick={() => setReveal((r) => !r)}
               />

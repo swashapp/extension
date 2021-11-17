@@ -10,12 +10,14 @@ export interface HELP_TYPE {
   title: string;
   content: string;
   icon: string;
+  id: string;
 }
 
 const HelpData = [
   {
     title: 'Welcome',
     icon: WelcomeIcon,
+    id: 'welcome-title-id',
     content:
       "<div class='title1'>Welcome to the world’s first digital Data Union!</div>" +
       '<br/>' +
@@ -101,6 +103,7 @@ const HelpData = [
   {
     title: 'Getting Started',
     icon: GettingStartedIcon,
+    id: 'getting-started-title-id',
     content:
       '<p>' +
       'When you’ve installed Swash, click on the icon to make sure it’s switched on.' +
@@ -120,6 +123,7 @@ const HelpData = [
   {
     title: 'Wallet',
     icon: WalletIcon,
+    id: 'wallet-title-id',
     content:
       '<p>' +
       'The wallet page is where you can see what you’ve earned when using Swash. All earnings are listed in Swash’s native token, or cryptocurrency, called ' +
@@ -130,11 +134,13 @@ const HelpData = [
       '>' +
       'SWASH' +
       '</a>' +
+      '<br/>' +
+      '<br/>' +
+      'Your wallet address is your unique identifier within the Swash ecosystem.' +
       '</p>' +
       '<br/>' +
       '<br/>' +
       '<div class="title1">Balance</div>' +
-      '<br/>' +
       '<br/>' +
       '<p>' +
       'Your earnings are divided into two:' +
@@ -143,7 +149,7 @@ const HelpData = [
       '<em>SWASH Earnings</em> - This is the total amount you’ve earned for the value of your data by surfing the web.' +
       '<br />' +
       '<br />' +
-      '<em>SWASH Referral bonus</em> - This is the total amount you have received in referral bonuses from inviting others to join Swash.' +
+      '<em>SWASH Rewards</em> - This is the total amount you have received in rewards from referrals, airdrops, and everything except earnings from your data.' +
       '<br />' +
       '<br />' +
       '</p>' +
@@ -151,13 +157,13 @@ const HelpData = [
       '<p>' +
       '<br />' +
       '<br />' +
+      'Earnings update every 48 hours.' +
+      '<br />' +
+      '<br />' +
       'Press ‘Claim’ to add your referral bonus to your SWASH earnings balance.' +
       '<br />' +
       '<br />' +
-      'Below your balances, you can find your public wallet address.' +
-      '<br />' +
-      '<br />' +
-      'You can share this wallet address with others.' +
+      'Below your balances, you can find your public wallet address. This is your unique identifier within the Swash ecosystem.' +
       '</p>' +
       '<br />' +
       '<br />' +
@@ -165,12 +171,8 @@ const HelpData = [
       'Withdrawals' +
       '</div>' +
       '<br />' +
-      '<br />' +
       '<p>' +
-      'When you withdraw your SWASH, you can then exchange it for other cryptocurrencies or fiat currencies through various exchanges.' +
-      '<br />' +
-      '<br />' +
-      'You can withdraw your earnings using the xDai chain or Ethereum mainnet.' +
+      'You can withdraw your earnings using xDai chain (recommended) or Ethereum mainnet (not recommended due to high fees!). Exchange wallets are not currently supported.' +
       '<br />' +
       '<br />' +
       '</p>' +
@@ -191,6 +193,13 @@ const HelpData = [
       '  href="https://www.xdaichain.com/for-users/wallets/metamask/metamask-setup">' +
       ' Connect your Metamask to xDai' +
       '</a>' +
+      '<br />' +
+      '<br />' +
+      '<iframe src="https://www.youtube.com/embed/Fahs29XBrcw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>' +
+      'Add the xDai network to MetaMask' +
+      '</iframe>' +
+      '<br />' +
+      '<br />' +
       '</li>' +
       '<li>' +
       "Add SWASH as a token in your Metamask xDai wallet using the 'Import Token' button. You can find the SWASH Token Contract Address " +
@@ -200,9 +209,33 @@ const HelpData = [
       '  href="https://blockscout.com/xdai/mainnet/tokens/0x84e2c67cbefae6b5148fca7d02b341b12ff4b5bb">' +
       'here' +
       '</a>' +
+      '<br />' +
+      '<br />' +
+      '<iframe src="https://www.youtube.com/embed/aeoJrVbkP5Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>' +
+      'Add the Swash token to MetaMask' +
+      '</iframe>' +
+      '<br />' +
+      '<br />' +
       '</li>' +
       '<li>' +
       "Copy the Metamask xDai wallet address you just created and paste it in the 'Recipient wallet address' box below and click 'Withdraw'" +
+      '<br />' +
+      '<br />' +
+      '<iframe src="https://www.youtube.com/embed/B1X8S7-WBrI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>' +
+      'Import the Swash wallet in MetaMask' +
+      '</iframe>' +
+      '<br />' +
+      '<br />' +
+      '</li>' +
+      '<li>' +
+      'Withdrawal successful!' +
+      '<br />' +
+      '<br />' +
+      '<iframe src="https://www.youtube.com/embed/WLjV46KjVk0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>' +
+      'Withdrawal successful!' +
+      '</iframe>' +
+      '<br />' +
+      '<br />' +
       '</li>' +
       '</ol>' +
       '<p>' +
@@ -219,6 +252,28 @@ const HelpData = [
       '  rel="noopener noreferrer"' +
       '  href="https://app.honeyswap.org/#/swap">Honeyswap</a> 🐝' +
       '<br/><br />' +
+      '</p>' +
+      "<div class='title2'>Understanding error messages</div>" +
+      '<br />' +
+      '<p>' +
+      'Blacklisting happens when people try to cheat referral programs or somehow generate fake data. If your behaviour is flagged, you will receive this error message when you try to withdraw.' +
+      '<br />' +
+      '<br />' +
+      '<iframe src="https://www.youtube.com/embed/gjrenrlBcTA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' +
+      '<br />' +
+      '<br />' +
+      'If you are new to Swash and have been using it for less than one month, then you will receive an error message telling you the date from when you are able to withdraw.' +
+      '<br />' +
+      '<br />' +
+      '<iframe src="https://www.youtube.com/embed/7uPTmV0QZCA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' +
+      '<br />' +
+      '<br />' +
+      'You need at least 10 $SWASH to be able to withdraw. If your balance is too low, you will receive an error message.' +
+      '<br />' +
+      '<br />' +
+      '<iframe src="https://www.youtube.com/embed/EH3uA7LIiAI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' +
+      '<br />' +
+      '<br />' +
       '</p>' +
       "<div class='title2'>Ethereum:</div>" +
       '<br />' +
@@ -249,11 +304,15 @@ const HelpData = [
       'gas fees' +
       '</a>' +
       '’) are the cost of energy needed to run a transaction on Ethereum. The cost will vary depending on the Ethereum network and the cost of the particular transaction in question.' +
+      '<br />' +
+      '<br />' +
+      'Alternatively, if you use Ethereum, you will be presented with the amount needed in your wallet (in ETH) to cover the transaction fee.' +
       '</p>',
   },
   {
     title: 'Invite Friends',
     icon: InviteFriendsIcon,
+    id: 'invite-friends-title-id',
     content:
       '<p>Invite your friends to Swash to earn even more and grow the community!' +
       '<br />' +
@@ -261,13 +320,22 @@ const HelpData = [
       'This section is divided into two:' +
       '<br />' +
       '<br />' +
-      '<i>Total Bonus Earned</i> - The amount you have earned from referrals' +
+      '<i>SWASH Referral Bonus</i> - The amount you have earned from referrals' +
       '<br />' +
       '<br />' +
-      '<i>Total Invited Friends</i> - The number of people who have used your referral link to install Swash' +
+      '<i>Invited Friends</i> - The number of people who have used your referral link to install Swash' +
       '<br />' +
       '<br />' +
-      'The current referral program rewards you $REWARD SWASH for every new person you bring.' +
+      '$REWARD_PROGRAM' +
+      '<br />' +
+      '<br />' +
+      'There is an anti-fraud mechanism in place to combat fake users in the Swash ecosystem. If your referrals are not reflected it is because your activity is flagged as malicious.' +
+      '<br />' +
+      '<br />' +
+      'As fake users drain rewards from the ecosystem and are detrimental to genuine Swash members and the larger community, using malicious techniques, bots, and other fraudulent activities to cheat the system will get you blacklisted from Swash!' +
+      '<br />' +
+      '<br />' +
+      'If you’re certain your referrals are genuine but they are not reflected, reach out to the Swash team for support.' +
       '<br />' +
       '<br />' +
       'You can also find your referral link to copy and share plus a way to share your link directly on Twitter, Facebook, LinkedIn, and email.' +
@@ -278,11 +346,12 @@ const HelpData = [
   {
     title: 'Data',
     icon: DataIcon,
+    id: 'data-title-id',
     content:
       "<div class='title1' id='text-masking'>" +
       'Text masking' +
       '</div>' +
-      '<br /><br />' +
+      '<br />' +
       '<p>' +
       'Swash doesn’t collect any sensitive data from you, like your name, email, or passwords.' +
       '<br />' +
@@ -296,7 +365,7 @@ const HelpData = [
       "<div class='title1' id='your-data'>" +
       'Your Data' +
       '</div>' +
-      '<br /><br />' +
+      '<br />' +
       '<p>' +
       'The data collected as you browse is shown here before being added to the Swash dataset. If you want time to check the data before it gets uploaded, you can adjust the sending delay and delete anything that you don’t want to share.' +
       '</p>',
@@ -304,11 +373,12 @@ const HelpData = [
   {
     title: 'Settings',
     icon: SettingsIcon,
+    id: 'settings-title-id',
     content:
       "<div class='title2' id='backup-your-wallet-settings'>" +
       'Backup your wallet settings.' +
       '</div>' +
-      '<br /><br />' +
+      '<br />' +
       '<p>' +
       'It’s important that you download your settings as either a local file, Google Drive, Dropbox, or 3box.' +
       '<br />' +
@@ -323,11 +393,12 @@ const HelpData = [
       "<div class='title2' id='private-key'>" +
       'Private key' +
       '</div>' +
-      '<br /><br />' +
+      '<br />' +
       '<p>Think of your private key like a password. It should <u>not</u> be shared with anyone. If you share it, the person who has it can access all of your SWASH earnings!</p>',
   },
   {
     title: 'Useful Links',
+    id: 'useful-links-title-id',
     content:
       '<p>' +
       'For more information on the data Swash captures, check out the ' +

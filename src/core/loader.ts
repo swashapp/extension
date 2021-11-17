@@ -72,7 +72,6 @@ const loader = (function () {
 
   async function onInstalled() {
     await reload();
-    memberManager.tryJoin().catch(console.error);
     updateSchedule().catch(console.error);
   }
 
@@ -203,11 +202,13 @@ const loader = (function () {
     if (db.configs.is_enabled) {
       init(true);
       await loadFunctions();
-      loadNotifications();
+      memberManager.tryJoin().catch(console.error);
+      memberManager.keepAlive().catch(console.error);
     } else {
       init(false);
       await unloadFunctions();
     }
+    loadNotifications();
   }
 
   async function reload() {
@@ -224,8 +225,10 @@ const loader = (function () {
     if (db.configs.is_enabled) {
       init(true);
       await loadFunctions();
-      loadNotifications();
+      memberManager.tryJoin().catch(console.error);
+      memberManager.keepAlive().catch(console.error);
     }
+    loadNotifications();
   }
 
   function configModule(moduleName: string, settings: Any) {

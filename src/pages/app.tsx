@@ -57,10 +57,7 @@ function RouteComponent(
               sidenavOpen ? 'open-sidenav' : 'close-sidenav'
             }`}
           >
-            <Sidenav
-              activeIndex={activeIndex}
-              onClose={() => setSidenavOpen(false)}
-            />
+            <Sidenav activeIndex={activeIndex} />
           </div>
           <div
             className={`content ${

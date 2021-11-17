@@ -18,7 +18,7 @@ export function DataTour(): JSX.Element {
       onStart={() => sidenav.setOpen(true)}
       steps={[
         {
-          header: 'Data',
+          header: 'Data 🌐',
           target: `.${DATA_TOUR_CLASS.SWASH_DATA}`,
           placement: 'right',
           content: (
@@ -29,7 +29,7 @@ export function DataTour(): JSX.Element {
           ),
         },
         {
-          header: 'Delay Data',
+          header: 'Delay data ⏱',
           target: `.${DATA_TOUR_CLASS.DELAY_DATA}`,
           placement: 'right',
           content: (
@@ -40,7 +40,7 @@ export function DataTour(): JSX.Element {
           ),
         },
         {
-          header: 'Text Masking',
+          header: 'Text masking 🛡',
           target: `.${DATA_TOUR_CLASS.TEXT_MASKING}`,
           placement: 'right',
           content: (

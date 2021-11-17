@@ -18,7 +18,7 @@ export function HelpTour(): JSX.Element {
       onStart={() => sidenav.setOpen(true)}
       steps={[
         {
-          header: 'Help',
+          header: 'Help ❗️',
           target: `.${HELP_TOUR_CLASS.SWASH_HELP}`,
           placement: 'right',
           content: (
@@ -29,7 +29,7 @@ export function HelpTour(): JSX.Element {
           ),
         },
         {
-          header: 'Search at Help',
+          header: 'Search Help 🔍',
           target: `.${HELP_TOUR_CLASS.SEARCH_HELP}`,
           placement: 'right',
           content: (
@@ -40,11 +40,14 @@ export function HelpTour(): JSX.Element {
           ),
         },
         {
-          header: 'Tour',
+          header: 'Tour 📍',
           target: `.${HELP_TOUR_CLASS.TOUR}`,
           placement: 'right',
           content: (
-            <>If you ever want to see this tour again, you can find it here.</>
+            <>
+              If you ever want to view this tour again, you can find it here, at
+              the top of the Help section
+            </>
           ),
         },
       ]}
