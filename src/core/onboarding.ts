@@ -2,6 +2,7 @@ import { sha256 } from 'js-sha256';
 import { JSONPath } from 'jsonpath-plus';
 import browser from 'webextension-polyfill';
 
+import { ProfileEntity } from '../entities/profile.entity';
 import { OnboardingPageValues } from '../enums/onboarding.enum';
 import { Any } from '../types/any.type';
 import {
@@ -47,7 +48,13 @@ const onboarding = (function () {
   }
 
   function isValidDB(db: Any) {
-    return db && db.configs && db.configs.salt && db.profile && db.profile.encryptedWallet;
+    return (
+      db &&
+      db.configs &&
+      db.configs.salt &&
+      db.profile &&
+      db.profile.encryptedWallet
+    );
   }
 
   async function isNeededOnBoarding() {
@@ -72,7 +79,7 @@ const onboarding = (function () {
         else onboardingFlow.pages[page]['visible'] = 'none';
       }
     }
-    if (clicked || !isOnboardingOpened) openOnBoarding();
+    if (clicked || !isOnboardingOpened) await openOnBoarding();
   }
 
   function checkNotExistInDB(currentPage: OnboardingPage, data: Any) {
@@ -491,11 +498,16 @@ const onboarding = (function () {
     return fetch(url, req);
   }
 
-  function openOnBoarding() {
+  async function openOnBoarding() {
+    const profile = await (await ProfileEntity.getInstance()).get();
+    if (profile.encryptedWallet) await userHelper.loadSavedWallet();
+
     const fullURL = browser.runtime.getURL('dashboard/index.html#/onboarding');
-    browser.tabs.create({
-      url: fullURL,
-    });
+    browser.tabs
+      .create({
+        url: fullURL,
+      })
+      .catch(console.log);
     isOnboardingOpened = true;
   }
 

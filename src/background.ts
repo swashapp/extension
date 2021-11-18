@@ -32,11 +32,11 @@ async function installSwash(info: Any) {
   console.log('Start installing...');
   await initConfigs();
   if (info.reason === 'install') {
-    onboarding.openOnBoarding();
+    await onboarding.openOnBoarding();
   } else if (info.reason === 'update') {
     await loader.install();
     if (await onboarding.isNeededOnBoarding()) {
-      onboarding.openOnBoarding();
+      await onboarding.openOnBoarding();
     } else {
       await loader.onInstalled();
     }
@@ -54,7 +54,7 @@ async function startupSwash() {
 	the main loop will start.
 	*/
   if (await onboarding.isNeededOnBoarding()) {
-    onboarding.openOnBoarding();
+    await onboarding.openOnBoarding();
   } else if (await storageHelper.getConfigs()) {
     await loader.onInstalled();
   }
