@@ -28,7 +28,6 @@ const transfer = (function () {
     return browser.windows.create({
       url: url,
       type: 'popup',
-      allowScriptsToClose: true,
     });
   }
   function listener(requestDetails) {

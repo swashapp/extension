@@ -2077,6 +2077,7 @@ a:hover {
 
 .swash-logo {
   gap: 8px;
+  align-items: flex-end;
 }
 
 .swash-version {
@@ -2086,7 +2087,7 @@ a:hover {
   line-height: 20px;
 
   color: #8091a3;
-  align-self: end;
+  align-self: center;
 }
 
 .help-video {
