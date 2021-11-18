@@ -134,8 +134,9 @@ const onboarding = (function () {
     const db = await storageHelper.getAll();
 
     if (!isValidDB(db)) return false;
-
+    const onboarding = await storageHelper.getOnboarding();
     await storageHelper.saveOnboarding({
+      ...onboarding,
       flow: onboardingFlow,
       completed: true,
     });
@@ -212,10 +213,19 @@ const onboarding = (function () {
             url: auth_url,
           });
         }
+        const agent = browserUtils.getUserAgent();
+        if (agent) {
+          if (agent.match(/firefox|fxios/i)) {
+            return browser.windows.create({
+              url: auth_url,
+              type: 'popup',
+              allowScriptsToClose: true,
+            });
+          }
+        }
         return browser.windows.create({
           url: auth_url,
           type: 'popup',
-          allowScriptsToClose: true,
         });
       }
     }
@@ -227,15 +237,15 @@ const onboarding = (function () {
       if (details.url.startsWith(getCallBackURL(onboarding.name))) {
         const rst = details.url.match(onboarding.apiConfig.access_token_regex);
         if (rst) {
-          saveOnBoardingAccessToken(onboarding, rst[1]);
+          saveOnBoardingAccessToken(onboarding, rst[1]).then();
         }
         browser.tabs.remove(details.tabId).then();
       }
     }
   }
 
-  function saveOnBoardingAccessToken(onboarding: Any, token?: string) {
-    const data: Any = {};
+  async function saveOnBoardingAccessToken(onboarding: Any, token?: string) {
+    const data: Any = await storageHelper.getOnboarding();
     data[onboarding.name] = {};
     data[onboarding.name].access_token = token;
     storageHelper.saveOnboarding(data).then();
@@ -254,8 +264,8 @@ const onboarding = (function () {
     return '';
   }
 
-  function purgeOnBoardingAccessToken(onboardingName: string) {
-    saveOnBoardingAccessToken(onboardingName);
+  async function purgeOnBoardingAccessToken(onboardingName: string) {
+    await saveOnBoardingAccessToken(onboardingName);
   }
 
   async function validateOnBoardingToken(onboardingName: string) {
@@ -271,14 +281,14 @@ const onboarding = (function () {
           apiInfo.params[apiInfo.token_param_name] = conf.access_token;
 
           return apiCall(apiInfo, conf.access_token)
-            .then((response) => {
+            .then(async (response) => {
               if (response.status !== 200) {
-                purgeOnBoardingAccessToken(onboarding);
+                await purgeOnBoardingAccessToken(onboarding);
                 return false;
               }
               return response
                 .json()
-                .then((json) => {
+                .then(async (json) => {
                   const jPointers = JSONPath({
                     path: onboarding.validateToken.required_jpath,
                     json: json,
@@ -286,16 +296,16 @@ const onboarding = (function () {
                   if (jPointers.length > 0) {
                     return true;
                   } else {
-                    purgeOnBoardingAccessToken(onboarding);
+                    await purgeOnBoardingAccessToken(onboarding);
                     return false;
                   }
                 })
-                .catch(() => {
-                  purgeOnBoardingAccessToken(onboarding);
+                .catch(async () => {
+                  await purgeOnBoardingAccessToken(onboarding);
                 });
             })
-            .catch(() => {
-              purgeOnBoardingAccessToken(onboarding);
+            .catch(async () => {
+              await purgeOnBoardingAccessToken(onboarding);
             });
         }
       }
