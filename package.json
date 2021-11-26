@@ -1,6 +1,6 @@
 {
   "name": "swash-extension",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "private": true,
   "repository": {
     "url": "https://github.com/swashapp/extension.git"
@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build:dev": "run-s clean && parcel build src/manifest.json src/dashboard/index.html src/popup/popup.html --target dev && run-s copy",
-    "build:prod": "run-s clean:deep && parcel build src/manifest.json src/dashboard/index.html src/popup/popup.html --target prod && run-s copy",
+    "build:prod": "run-s clean:deep && parcel build src/manifest.json src/dashboard/index.html src/popup/popup.html --target prod --reporter @parcel/reporter-bundle-analyzer && run-s copy",
     "bundle": "run-s copy && parcel src/manifest.json src/dashboard/index.html src/popup/popup.html --target dev",
     "clean": "shx rm -rf dist",
     "clean:deep": "shx rm -rf dist .parcel-cache",
@@ -28,9 +28,15 @@
     "start:firefox": "run-s copy && run-p bundle run:firefox"
   },
   "dependencies": {
+    "@ethersproject/address": "^5.5.0",
+    "@ethersproject/bignumber": "^5.5.0",
+    "@ethersproject/contracts": "^5.5.0",
+    "@ethersproject/providers": "^5.5.0",
+    "@ethersproject/signing-key": "^5.5.0",
+    "@ethersproject/units": "^5.5.0",
+    "@ethersproject/wallet": "^5.5.0",
     "@material-ui/core": "^4.12.3",
     "@types/react-scroll": "^1.8.3",
-    "ethers": "5.0.23",
     "interweave": "^12.8.0",
     "js-sha256": "^0.9.0",
     "json-ptr": "^2.2.0",
@@ -57,8 +63,9 @@
     "webextension-polyfill": "^0.8.0"
   },
   "devDependencies": {
-    "@parcel/config-webextension": "^2.0.0",
-    "@parcel/transformer-image": "2.0.0",
+    "@parcel/config-webextension": "^2.0.1",
+    "@parcel/reporter-bundle-analyzer": "^2.0.1",
+    "@parcel/transformer-image": "2.0.1",
     "@types/react": "^17.0.19",
     "@types/react-copy-to-clipboard": "^5.0.2",
     "@types/react-dom": "^17.0.9",
@@ -73,7 +80,7 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "npm-run-all": "^4.1.5",
-    "parcel": "^2.0.0",
+    "parcel": "^2.0.1",
     "parcel-resolver-ignore": "^2.0.0",
     "prettier": "^2.3.2",
     "shx": "^0.3.3",

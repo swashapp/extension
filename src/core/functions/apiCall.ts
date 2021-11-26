@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import { sha256 } from 'ethers/lib/utils';
+import { sha256 } from 'js-sha256';
 import { JSONPath } from 'jsonpath-plus';
 
 import browser from 'webextension-polyfill';

@@ -1,5 +1,9 @@
-import { BigNumber, Contract, ethers, Wallet } from 'ethers';
-import { formatEther, formatUnits } from 'ethers/lib/utils';
+import { BigNumber } from '@ethersproject/bignumber';
+import { Contract } from '@ethersproject/contracts';
+import { getDefaultProvider } from '@ethersproject/providers';
+import { computePublicKey } from '@ethersproject/signing-key';
+import { formatEther, formatUnits, parseEther } from '@ethersproject/units';
+import { Wallet } from '@ethersproject/wallet';
 import { TokenSigner } from 'jsontokens';
 import StreamrClient, { Bytes, DataUnion } from 'streamr-client';
 
@@ -26,8 +30,8 @@ const userHelper = (function () {
   let duHandler: DataUnion;
   let withdrawContract: Contract;
   let rewardContract: Contract;
-  const provider = ethers.getDefaultProvider();
-  const xdaiProvider = ethers.getDefaultProvider('https://rpc.xdaichain.com/');
+  const provider = getDefaultProvider();
+  const xdaiProvider = getDefaultProvider('https://rpc.xdaichain.com/');
 
   const timestamp = { value: 0, updated: 0 };
 
@@ -36,7 +40,7 @@ const userHelper = (function () {
   }
 
   function createWallet() {
-    wallet = ethers.Wallet.createRandom();
+    wallet = Wallet.createRandom();
     return wallet;
   }
 
@@ -64,7 +68,7 @@ const userHelper = (function () {
 
     if (!profile.encryptedWallet) throw Error('Wallet is not in the database');
 
-    wallet = await ethers.Wallet.fromEncryptedJson(
+    wallet = await Wallet.fromEncryptedJson(
       profile.encryptedWallet,
       configs.salt,
     );
@@ -120,7 +124,7 @@ const userHelper = (function () {
     let ret = '0';
     try {
       const reward = await rewardContract.userRewards(wallet.address);
-      ret = ethers.utils.formatEther(reward);
+      ret = formatEther(reward);
     } catch (err) {
       console.error(err);
       console.log('Failed to fetch rewards from contract');
@@ -151,7 +155,7 @@ const userHelper = (function () {
         `You can not withdraw until ${new Date(validDate).toISOString()}`,
       );
 
-    const amountBN = ethers.utils.parseEther(amount);
+    const amountBN = parseEther(amount);
     const minWithdraw = await withdrawContract.minimumWithdrawTokenWei();
     if (amountBN.lt(minWithdraw))
       throw Error(`Minimum withdrawal is ${formatEther(minWithdraw)}`);
@@ -160,21 +164,21 @@ const userHelper = (function () {
   async function getEthBalance(address: string) {
     if (!provider) return { error: 'provider is not provided' };
     const balance = await provider.getBalance(address);
-    return ethers.utils.formatEther(balance);
+    return formatEther(balance);
   }
 
   async function getTokenBalance(address: string) {
     const mainnetTokens = await client.getTokenBalance(address);
     const sidechainTokens = await client.getSidechainTokenBalance(address);
     const balance = mainnetTokens.add(sidechainTokens);
-    return ethers.utils.formatEther(balance);
+    return formatEther(balance);
   }
 
   async function getAvailableBalance() {
     if (!wallet) throw Error('Wallet is not provided');
     if (!client) clientConnect();
     const earnings = await duHandler.getWithdrawableEarnings(wallet.address);
-    return ethers.utils.formatEther(earnings);
+    return formatEther(earnings);
   }
 
   async function signWithdrawAllTo(targetAddress: string) {
@@ -188,7 +192,7 @@ const userHelper = (function () {
     if (!wallet || !provider) throw Error('Wallet is not provided');
     if (!client) clientConnect();
 
-    const amountBN = ethers.utils.parseEther(amount);
+    const amountBN = parseEther(amount);
 
     const withdrawableEarnings = await duHandler.getWithdrawableEarnings(
       wallet.address,
@@ -210,7 +214,7 @@ const userHelper = (function () {
     sendToMainnet: boolean,
   ) {
     const signature = await signWithdrawAllTo(recipient);
-    const amountInWei = ethers.utils.parseEther(amount);
+    const amountInWei = parseEther(amount);
     const body = {
       recipient: recipient,
       signature: signature,
@@ -245,7 +249,7 @@ const userHelper = (function () {
 
     const payload = {
       address: wallet.address,
-      publicKey: ethers.utils.computePublicKey(wallet.publicKey, true),
+      publicKey: computePublicKey(wallet.publicKey, true),
       timestamp: timestamp.value,
     };
     return new TokenSigner('ES256K', wallet.privateKey.slice(2)).sign(payload);
@@ -345,7 +349,7 @@ const userHelper = (function () {
       const { reward } = await swashApiHelper.getReferralRewards(
         await generateJWT(),
       );
-      return ethers.utils.formatEther(reward);
+      return formatEther(reward);
     } catch (err) {
       console.error(err.message);
     }
@@ -364,7 +368,7 @@ const userHelper = (function () {
     }
 
     return {
-      totalReward: ethers.utils.formatEther(totalReward.toString()),
+      totalReward: formatEther(totalReward.toString()),
       totalReferral,
     };
   }

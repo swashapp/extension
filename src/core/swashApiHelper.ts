@@ -1,4 +1,6 @@
-import { ethers } from 'ethers';
+import { formatEther } from '@ethersproject/units';
+
+import Browser from 'webextension-polyfill';
 
 import { Any } from '../types/any.type';
 import { SwashApiConfigs } from '../types/storage/configs/swash-api.type';
@@ -32,6 +34,7 @@ function createRequest(token: string, method = 'GET') {
     method: method,
     headers: {
       'Content-Type': 'application/json',
+      'Swash-Extension': `v${Browser.runtime.getManifest().version}`,
       Authorization: `Bearer ${token}`,
     },
   };
@@ -149,10 +152,10 @@ const swashApiHelper = (function () {
     const result = { minimum: 1000000, gas: 10000 };
 
     if (data.sponsor && data.sponsor.minimum) {
-      result.minimum = Number(ethers.utils.formatEther(data.sponsor.minimum));
+      result.minimum = Number(formatEther(data.sponsor.minimum));
     }
     if (data.gas && data.gas.etherEquivalent) {
-      result.gas = Number(ethers.utils.formatEther(data.gas.etherEquivalent));
+      result.gas = Number(formatEther(data.gas.etherEquivalent));
     }
 
     return result;
