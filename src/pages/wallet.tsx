@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import { isAddress } from '@ethersproject/address';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -138,10 +138,7 @@ export function Wallet(): JSX.Element {
         !tokenAvailable.match(/^[0-9]+(\.[0-9]+)?$/)
       ) {
         ret = { message: 'Amount value is not valid', type: 'error' };
-      } else if (
-        recipient.length === 42 &&
-        !ethers.utils.isAddress(recipient)
-      ) {
+      } else if (recipient.length === 42 && !isAddress(recipient)) {
         ret = { message: 'Recipient address is not valid', type: 'error' };
       } else if (isMessageNeeded) {
         ret = {
@@ -160,10 +157,7 @@ export function Wallet(): JSX.Element {
               message: `Transaction fee is ${gasLimit} ETH`,
               type: 'warning',
             };
-          } else if (
-            recipient.length === 42 &&
-            ethers.utils.isAddress(recipient)
-          ) {
+          } else if (recipient.length === 42 && isAddress(recipient)) {
             ret = {
               message: 'Unable to withdraw - not enough ETH for the gas fee',
               type: 'error',
@@ -185,7 +179,7 @@ export function Wallet(): JSX.Element {
   const isTransferDisable = useMemo(() => {
     let ret = false;
     if (tokenAvailable === initValue || Number(tokenAvailable) <= 0) ret = true;
-    else if (!ethers.utils.isAddress(recipient)) ret = true;
+    else if (!isAddress(recipient)) ret = true;
     else if (!network) ret = true;
     else if (network === 'Mainnet') {
       if (recipientEthBalance === initValue || Number(recipientEthBalance) <= 0)
