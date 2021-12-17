@@ -132,6 +132,7 @@ export default function App(): JSX.Element {
           autoClose={3000}
           closeButton={false}
           hideProgressBar
+          pauseOnHover
         />
       </AppContext.Provider>
     </div>

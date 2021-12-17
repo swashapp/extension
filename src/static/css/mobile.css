@@ -491,4 +491,21 @@
   .help-video-alt {
     width: 100%;
   }
+
+  .charity-body {
+    padding: 20px;
+  }
+
+  .charity-stats {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .charity-stats-details {
+    width: calc(50% - 36px);
+  }
+
+  .charity-stats-details:nth-of-type(1) {
+    width: 100%;
+  }
 }

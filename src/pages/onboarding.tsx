@@ -134,7 +134,7 @@ export function Onboarding(): JSX.Element {
   }, [flow.pages, flow.start, getNextPageOf]);
 
   return (
-    <div className="onboarding-page-container">
+    <div className="page-container">
       <Circle className={'onboarding-circle1'} border={'black'} />
       <Circle className={'onboarding-circle2'} colorfulGradient />
       <Circle
