@@ -3,30 +3,11 @@
   input,
   select,
   button {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
     line-height: 24px;
   }
 
-  h6 {
-    font-size: 18px !important;
-  }
-
-  h2 {
-    font-size: 24px !important;
-  }
-
-  h4 {
-    font-size: 18px !important;
-  }
-
-  p {
-    font-size: 14px;
-  }
-
   .page-header {
-    margin-bottom: 16px;
+    margin: 32px 0;
   }
 
   .card-gap {
@@ -93,7 +74,7 @@
   }
 
   .page-content {
-    margin: 20px;
+    margin: 32px;
   }
 
   .numeric-number {
@@ -114,56 +95,6 @@
 
   .numeric-container .form-button {
     width: 71px;
-  }
-
-  .sidenav-button-container {
-    background-color: var(--lightest-blue);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .sidenav-button {
-    transition: none;
-  }
-
-  .sidenav-button-animation {
-    transition: all 1s;
-  }
-
-  .open-sidenav {
-    width: initial;
-    /* transition: all 1s; */
-  }
-
-  .close-sidenav {
-    width: 0;
-    /* transition: all 0.5s; */
-  }
-
-  .open-sidenav-button {
-    height: initial;
-    padding: 48px 20px 4px 20px;
-    /* transition: all 1s; */
-  }
-
-  .close-sidenav-button {
-    height: 0;
-    padding: 0;
-    /* transition: all 0.5s; */
-  }
-
-  .content-open-sidenav > div {
-    width: calc(100% + 256px);
-  }
-
-  .content-close-sidenav > div {
-    width: 100%;
-  }
-
-  .sidenav-close-button {
-    visibility: visible;
   }
 
   .swash-logo {
@@ -390,25 +321,7 @@
     margin-top: 20px;
   }
 
-  .__floater__arrow {
-    display: none;
-  }
-
-  .__floater.__floater__open {
-    position: fixed !important;
-    bottom: 0;
-    left: 0;
-    top: unset;
-    transform: unset !important;
-  }
-
-  .react-joyride__tooltip {
-    position: absolute !important;
-    width: 100vw !important;
-    max-width: unset !important;
-    bottom: 0;
-    left: 0;
-    border-bottom-left-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
+  .donation-charity {
+    width: 100%;
   }
 }

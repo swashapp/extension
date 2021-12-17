@@ -516,6 +516,17 @@ a:hover {
   color: #ff7979;
 }
 
+.fav-button {
+  width: 24px;
+  height: 24px;
+
+  background: url('/static/images/shape/heart.png');
+}
+
+.fav-button:hover {
+  background: url('/static/images/shape/heart-filled.png');
+}
+
 .text-masking-container {
   width: 100%;
 }
@@ -716,7 +727,7 @@ a:hover {
 
 .sidenav > div {
   width: 256px;
-  height: 100%;
+  height: max(100vh, 100%);
   background-color: var(--white);
 }
 
@@ -907,14 +918,8 @@ a:hover {
   width: 100% !important;
 }
 
-.onboarding-page-container {
-  min-height: 100vh;
-  overflow: hidden;
-  position: relative;
-}
-
 .page-container {
-  min-height: 900px;
+  min-height: max(100vh, 900px);
   overflow: hidden;
   position: relative;
 }
@@ -2106,4 +2111,182 @@ a:hover {
 
 .help-video-alt p {
   margin: 0 10px;
+}
+
+.donation-charities {
+  gap: 24px;
+}
+
+.donation-charity {
+  width: calc(50% - 12px);
+}
+
+.charity {
+  width: 100%;
+  height: max-content;
+
+  background: #F3F9F9;
+  mix-blend-mode: normal;
+  border-radius: 12px;
+
+  overflow: hidden;
+}
+
+.charity-banner {
+  width: 100%;
+  height: 200px;
+  position: relative;
+}
+
+.charity-logo {
+  width: 80px;
+  height: 80px;
+
+  position: absolute;
+  right: 32px;
+  bottom: -40px;
+
+  background: #FFFFFF;
+  box-shadow: 0 7px 11px rgba(86, 86, 86, 0.02);
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.charity-body {
+  padding: 32px;
+}
+
+.charity-title {
+  font-style: normal;
+  font-weight: 410;
+  font-size: 24px;
+  line-height: 150%;
+
+  color: #002030;
+}
+
+.charity-location {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+
+  color: #8091A3;
+}
+
+.charity-text {
+  margin-top: 24px;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 28px;
+
+  color: #002030;
+}
+
+.charity-stats {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.charity-stats-details {
+  width: calc(33% - 40px);
+  height: 56px;
+
+  padding: 16px;
+
+  background: #FFFFFF;
+  border-radius: 12px;
+}
+
+.charity-stats-title {
+  font-style: normal;
+  font-size: 12px;
+  line-height: 16px;
+
+  color: #8091A3;
+}
+
+.charity-stats-number {
+  margin-top: 4px;
+
+  font-style: normal;
+  font-weight: 410;
+  font-size: 24px;
+  line-height: 150%;
+
+  color: #002030;
+}
+
+.charity-actions {
+  margin-top: 24px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.charity-actions-button {
+  width: 114px;
+}
+
+.charity-payment {
+  width: 362px;
+
+  padding: 32px;
+}
+
+.donate-title {
+  font-style: normal;
+  font-weight: 415;
+  font-size: 20px;
+  line-height: 150%;
+
+  color: #002030;
+}
+
+.donate-separator {
+  width: calc(100% + 64px);
+  height: 1px;
+  margin: 32px -32px;
+  border-bottom: 1px solid #e7f4f4;
+}
+
+.donate-type {
+  width: 320px;
+  margin: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.donate-item {
+  margin-top: 24px;
+}
+
+.donate-option {
+  margin-top: 16px;
+}
+
+.donate-option-grid {
+  gap: 16px;
+}
+
+.donate-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.donate-actions-cancel {
+  width: 114px;
+}
+
+.donate-actions-donate {
+  width: 131px;
 }
