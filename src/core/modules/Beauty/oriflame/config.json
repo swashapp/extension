@@ -1,7 +1,7 @@
 {
   "name": "beauty_oriflame",
   "description": "This module Captures a user shopping behaviour on oriflame",
-  "functions": ["content"],
+  "functions": ["browsing", "content"],
   "is_enabled": true,
   "privacyLevel": 1,
   "anonymityLevel": 1

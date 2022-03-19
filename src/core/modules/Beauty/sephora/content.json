@@ -1,5 +1,35 @@
 {
-  "content_matches": ["*://*.sephora.com/*"],
+  "content_matches": [
+    "*://*.sephora.de/*",
+    "*://*.sephora.ae/*",
+    "*://*.sephora.com.au/*",
+    "*://*.sephora.com.br/*",
+    "*://*.sephora.bh/*",
+    "*://*.sephora.cn/*",
+    "*://*.sephora.dk/*",
+    "*://*.sephora.es/*",
+    "*://*.sephora.com/*",
+    "*://*.sephora.gr/*",
+    "*://*.sephora.hk/*",
+    "*://*.sephora.co.id/*",
+    "*://*.sephora.it/*",
+    "*://*.sephora.com.kw/*",
+    "*://*.sephora.my/*",
+    "*://*.sephora.nz/*",
+    "*://*.sephora.om/*",
+    "*://*.sephora.ph/*",
+    "*://*.sephora.pl/*",
+    "*://*.sephora.pt/*",
+    "*://*.sephora.cz/*",
+    "*://*.sephora.ro/*",
+    "*://*.sephora.ru/*",
+    "*://*.sephora.se/*",
+    "*://*.sephora.sg/*",
+    "*://*.sephora.fr/*",
+    "*://*.sephora.co.th/*",
+    "*://*.sephora.com.tr/*",
+    "*://*.sephora.qa/*"
+  ],
   "content_mapping": {
     "win": "desktop",
     "mac": "desktop",
@@ -13,7 +43,7 @@
     {
       "name": "searchQuery",
       "description": "This item collects sephora search query",
-      "url_match": "https://www.sephora.com/*",
+      "url_match": "*://*.sephora.*/*",
       "title": "search query",
       "viewGroup": "UX",
       "type": "event",
@@ -42,7 +72,7 @@
     {
       "name": "searchResult",
       "description": "This item collects all products information in sephora web pages and search results",
-      "url_match": "https://www.sephora.com/*",
+      "url_match": "*://*.sephora.*/*",
       "title": "Search Result",
       "viewGroup": "UX",
       "type": "event",
@@ -130,7 +160,7 @@
     {
       "name": "selectedProducts",
       "description": "This item collects information about a product that has been selected (or clicked on a search result) by user",
-      "url_match": "https://www.sephora.com/*",
+      "url_match": "*://*.sephora.*/*",
       "title": "Selected Product",
       "viewGroup": "UX",
       "type": "event",
@@ -227,7 +257,7 @@
     {
       "name": "searchSuggestionSelect",
       "description": "This item collects previous search querys and search suggestions that has been selected by user",
-      "url_match": "https://www.sephora.com/*",
+      "url_match": "*://*.sephora.*/*",
       "title": "Search Suggestion",
       "viewGroup": "UX",
       "type": "event",
@@ -262,7 +292,7 @@
     {
       "name": "addToLoveList",
       "description": "This item collects all products in bathandbodyworks web pages that has been added by user to love list ",
-      "url_match": "https://www.sephora.com/*",
+      "url_match": "*://*.sephora.*/*",
       "title": "Add to Love list",
       "viewGroup": "UX",
       "type": "event",
@@ -509,7 +539,7 @@
     {
       "name": "addToBasket",
       "description": "This item collects the products that has been added to the basket by user ",
-      "url_match": "https://www.sephora.com/*",
+      "url_match": "*://*.sephora.*/*",
       "title": "Add to Basket",
       "viewGroup": "UX",
       "type": "event",
@@ -768,7 +798,7 @@
     {
       "name": "checkout",
       "description": "This item collects information about products that has been selected by user for buying ",
-      "url_match": "https://www.sephora.com/*",
+      "url_match": "*://*.sephora.*/*",
       "title": "checkout",
       "viewGroup": "UX",
       "type": "event",
@@ -857,7 +887,7 @@
     {
       "name": "clickBrands",
       "description": "This item collects the Brands in sephora that has been selected by a user",
-      "url_match": "https://www.sephora.com/*",
+      "url_match": "*://*.sephora.*/*",
       "title": "brands",
       "viewGroup": "UX",
       "type": "event",

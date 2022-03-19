@@ -1,7 +1,7 @@
 {
   "name": "beauty_faberlic",
   "description": "This module Captures a user shopping behaviour on faberlic",
-  "functions": ["content"],
+  "functions": ["browsing", "content"],
   "is_enabled": true,
   "privacyLevel": 1,
   "anonymityLevel": 1

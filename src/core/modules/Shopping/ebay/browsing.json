@@ -1,7 +1,12 @@
 {
   "browsing_filter": {
     "urls": [
-      "*://*.ebay.com/*"
+      "*://*.ebay.com/*",
+      "*://*.ebay.co.uk/*",
+      "*://*.ebay.de/*",
+      "*://*.ebay.fr/*",
+      "*://*.ebay.it/*",
+      "*://*.ebay.es/*"
     ]
   },
   "browsing_extraInfoSpec": [],
