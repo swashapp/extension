@@ -1,5 +1,12 @@
 {
-  "content_matches": ["*://*.ebay.com/*"],
+  "content_matches": [
+    "*://*.ebay.com/*",
+    "*://*.ebay.co.uk/*",
+    "*://*.ebay.de/*",
+    "*://*.ebay.fr/*",
+    "*://*.ebay.it/*",
+    "*://*.ebay.es/*"
+  ],
   "content_mapping": {
     "win": "desktop",
     "mac": "desktop",
@@ -13,7 +20,7 @@
     {
       "name": "searchQuery",
       "description": "This item collects ebay search query",
-      "url_match": "https://*.ebay.com/*",
+      "url_match": "*://*.ebay.*/*",
       "title": "search query",
       "viewGroup": "UX",
       "type": "event",
@@ -53,7 +60,7 @@
     {
       "name": "searchSuggestionSelect",
       "description": "This item collects search suggestions that has been selected by user",
-      "url_match": "https://*.ebay.com/*",
+      "url_match": "*://*.ebay.*/*",
       "title": "Search Suggestion",
       "viewGroup": "UX",
       "type": "event",
@@ -88,7 +95,7 @@
     {
       "name": "savedSearch",
       "description": "This item collects the search query that has been saved by user",
-      "url_match": "https://*.ebay.com/*",
+      "url_match": "*://*.ebay.*/*",
       "title": "Saved Searches",
       "viewGroup": "UX",
       "type": "event",
@@ -117,7 +124,7 @@
     {
       "name": "searchResult",
       "description": "This item collects search results in ebay web pages",
-      "url_match": "https://*.ebay.com/*",
+      "url_match": "*://*.ebay.*/*",
       "title": "Search Result",
       "viewGroup": "UX",
       "type": "event",
@@ -235,7 +242,7 @@
     {
       "name": "selectedProducts",
       "description": "This item collects information about a product that has been selected (or clicked on a search result) by user",
-      "url_match": "https://*.ebay.com/*",
+      "url_match": "*://*.ebay.*/*",
       "title": "Selected Product",
       "viewGroup": "UX",
       "type": "event",
@@ -476,7 +483,7 @@
     {
       "name": "addToLoveList",
       "description": "This item collects all products in ebay web pages that has been added by user to love list",
-      "url_match": "https://*.ebay.com/*",
+      "url_match": "*://*.ebay.*/*",
       "title": "Add to Love list",
       "viewGroup": "UX",
       "type": "event",
@@ -803,7 +810,7 @@
     {
       "name": "addToBasket",
       "description": "This item collects the products that has been added to the basket by user",
-      "url_match": "https://*.ebay.com/*",
+      "url_match": "*://*.ebay.*/*",
       "title": "Add to Basket",
       "viewGroup": "UX",
       "type": "event",
@@ -1171,7 +1178,7 @@
     {
       "name": "buyItNow",
       "description": "This item collects the products that has been selected by user for buying",
-      "url_match": "https://*.ebay.com/*",
+      "url_match": "*://*.ebay.*/*",
       "title": "Buy it Now",
       "viewGroup": "UX",
       "type": "event",
@@ -1406,7 +1413,7 @@
     {
       "name": "placeBid",
       "description": "This item collects the products that has been palced bid by user",
-      "url_match": "https://*.ebay.com/*",
+      "url_match": "*://*.ebay.*/*",
       "title": "Place Bid",
       "viewGroup": "UX",
       "type": "event",
@@ -1500,7 +1507,7 @@
     {
       "name": "checkout",
       "description": "This item collects information about products that has been selected by user for buying",
-      "url_match": "https://*.ebay.com/*",
+      "url_match": "*://*.ebay.*/*",
       "title": "checkout",
       "viewGroup": "UX",
       "type": "event",

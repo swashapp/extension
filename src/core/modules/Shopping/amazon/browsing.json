@@ -1,9 +1,27 @@
 {
   "browsing_filter": {
     "urls": [
-      "https://www.amazon.com/*",
-      "https://www.amazon.de/*",
-      "https://www.amazon.nl/*"
+      "*://www.amazon.com/*",
+      "*://www.amazon.eg/*",
+      "*://www.amazon.com.br/*",
+      "*://www.amazon.ca/*",
+      "*://www.amazon.com.mx/*",
+      "*://www.amazon.cn/*",
+      "*://www.amazon.in/*",
+      "*://www.amazon.co.jp/*",
+      "*://www.amazon.sg/*",
+      "*://www.amazon.ae/*",
+      "*://www.amazon.sa/*",
+      "*://www.amazon.fr/*",
+      "*://www.amazon.de/*",
+      "*://www.amazon.it/*",
+      "*://www.amazon.nl/*",
+      "*://www.amazon.pl/*",
+      "*://www.amazon.es/*",
+      "*://www.amazon.se/*",
+      "*://www.amazon.com.tr/*",
+      "*://www.amazon.co.uk/*",
+      "*://www.amazon.com.au/*"
     ]
   },
   "browsing_extraInfoSpec": [],

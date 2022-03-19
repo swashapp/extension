@@ -1,8 +1,6 @@
 {
   "browsing_filter": {
-    "urls": [
-      "*://*.target.com/*"
-    ]
+    "urls": ["*://*.target.com/*"]
   },
   "browsing_extraInfoSpec": [],
   "items": [

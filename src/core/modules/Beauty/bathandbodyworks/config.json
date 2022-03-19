@@ -1,7 +1,7 @@
 {
   "name": "beauty_bathandbodyworks",
-  "description": "This module Captures a user shopping bahaviour on bathandbodyworks",
-  "functions": ["content"],
+  "description": "This module Captures a user shopping behaviour on bathandbodyworks",
+  "functions": ["browsing", "content"],
   "is_enabled": true,
   "privacyLevel": 1,
   "anonymityLevel": 1

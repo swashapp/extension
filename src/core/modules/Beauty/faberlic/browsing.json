@@ -1,20 +1,20 @@
 {
   "browsing_filter": {
-    "urls": ["*://*.etsy.com/*"]
+    "urls": ["*://faberlic.com/*"]
   },
   "browsing_extraInfoSpec": [],
   "items": [
     {
       "name": "Page Visit",
       "title": "Visited pages",
-      "description": "This item collects all pages in Etsy that user has visited",
+      "description": "This item collects all pages in faberlic that user has visited",
       "target_listener": "inspectVisit",
       "is_enabled": true
     },
     {
       "name": "Visiting Graph",
       "title": "Visiting Graph",
-      "description": "This item collects all navigations that user has done in Etsy web pages",
+      "description": "This item collects all navigations that user has done in faberlic web pages",
       "target_listener": "inspectReferrer",
       "is_enabled": true
     }
