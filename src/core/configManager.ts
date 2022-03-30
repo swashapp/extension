@@ -25,6 +25,7 @@ const configManager = (function () {
     }
 
     async function updateConfigs(remoteManifest: ConfigsManifest) {
+      let updated = false;
       for (const [name, file] of Object.entries(remoteManifest.files)) {
         if (file.version > configs.manifest.files[name].version) {
           try {
@@ -35,6 +36,7 @@ const configManager = (function () {
               `Configuration file ${file} updated from version ${configs.manifest.files[name].version} to ${file.version}`,
             );
             configs.manifest.files[name].version = file.version;
+            updated = true;
           } catch (err) {
             console.error(
               `Error while importing configuration file ${name}: ${err}`,
@@ -42,6 +44,7 @@ const configManager = (function () {
           }
         }
       }
+      if (updated) await storageHelper.saveConfigs(configs);
     }
 
     async function updateConfig(remote: string, file: string) {
@@ -52,6 +55,7 @@ const configManager = (function () {
     }
 
     async function updateModules(remoteManifest: ConfigsManifest) {
+      let updated = false;
       for (const [name, category] of Object.entries(
         remoteManifest.categories,
       )) {
@@ -90,17 +94,21 @@ const configManager = (function () {
               modules[newModule.name] = newModule;
               configs.manifest.categories[name].modules[module].version =
                 newVersion;
-
+              updated = true;
               console.log(
-                `Module ${category}:${name} updated from version ${oldVersion} to ${newVersion}`,
+                `Module ${name}:${module} updated from version ${oldVersion} to ${newVersion}`,
               );
             } catch (err) {
               console.error(
-                `Error while importing module ${category}:${name}: ${err}`,
+                `Error while importing module ${name}:${module}: ${err}`,
               );
             }
           }
         }
+      }
+      if (updated) {
+        await storageHelper.saveConfigs(configs);
+        await storageHelper.saveModules(modules);
       }
     }
 

@@ -29,15 +29,15 @@ const loader = (function () {
       const backup = await BackupEntity.getInstance();
       const old_db = await storageHelper.getAll();
 
+      const old_version = old_db.configs.version;
+      const new_version = browser.runtime.getManifest().version;
+
+      if (old_version !== new_version) return;
+      console.log(`Updating Swash from v${old_version} to v${new_version}`);
+
       // Backup old database
       delete old_db._backup;
       await backup.save(JSON.stringify(old_db));
-
-      console.log(
-        `Update Swash from version ${old_db.configs.version} to ${
-          browser.runtime.getManifest().version
-        }`,
-      );
 
       // Updating filters
       console.log(`Updating configs`);
