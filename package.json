@@ -1,6 +1,6 @@
 {
   "name": "swash-extension",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "private": true,
   "repository": {
     "url": "https://github.com/swashapp/extension.git"
