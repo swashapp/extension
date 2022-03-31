@@ -15,6 +15,7 @@
     "build:dev": "run-s clean && parcel build src/manifest.json src/dashboard/index.html src/popup/popup.html --target dev && run-s copy",
     "build:prod": "run-s clean:deep && parcel build src/manifest.json src/dashboard/index.html src/popup/popup.html --target prod --reporter @parcel/reporter-bundle-analyzer && run-s copy",
     "bundle": "run-s copy && parcel src/manifest.json src/dashboard/index.html src/popup/popup.html --target dev",
+    "pack": "run-s build:prod && web-ext build -s dist",
     "clean": "shx rm -rf dist",
     "clean:deep": "shx rm -rf dist .parcel-cache",
     "precopy": "shx mkdir -p dist dist/core",
