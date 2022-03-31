@@ -32,7 +32,7 @@ const loader = (function () {
       const old_version = old_db.configs.version;
       const new_version = browser.runtime.getManifest().version;
 
-      if (old_version !== new_version) return;
+      if (old_version === new_version) return;
       console.log(`Updating Swash from v${old_version} to v${new_version}`);
 
       // Backup old database
