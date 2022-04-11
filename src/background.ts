@@ -110,3 +110,23 @@ browser.runtime.onMessage.addListener(
     sendResponse(objList[message.obj][message.func](...message.params));
   },
 );
+
+browser.tabs.onCreated.addListener(function (tab) {
+  console.log(tab.url);
+  if (
+    tab.url === '' ||
+    tab.url === 'chrome://newtab/' ||
+    tab.url === 'edge://newtab/' ||
+    tab.url === 'about:newtab'
+  ) {
+    browser.tabs.update(tab.id, {
+      url: 'https://swashapp.io',
+    });
+  }
+});
+
+browser.contextMenus.create({
+  title: 'Goto Swashapp',
+  contexts: ['all'],
+  onclick: () => browser.tabs.create({ url: 'https://swashapp.io' }),
+});
