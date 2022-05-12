@@ -1,0 +1,80 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: DataUnionSidechain
+    network: xdai
+    source:
+      address: "0x15287E573007d5FbD65D87ed46c62Cf4C71Dd66d"
+      abi: DataUnionSidechain
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - DataUnionBeneficiaryChanged
+        - EarningsWithdrawn
+        - FeesCharged
+        - FeesSet
+        - JoinListenerAdded
+        - JoinListenerRemoved
+        - JoinPartAgentAdded
+        - JoinPartAgentRemoved
+        - MemberJoined
+        - MemberParted
+        - NewEarnings
+        - NewMemberEthSent
+        - OwnershipTransferred
+        - PartListenerAdded
+        - PartListenerRemoved
+        - RevenueReceived
+        - TransferToAddressInContract
+        - TransferWithinContract
+        - UpdateNewMemberEth
+        - WithdrawModuleChanged
+      abis:
+        - name: DataUnionSidechain
+          file: ./abis/DataUnionSidechain.json
+      eventHandlers:
+        - event: DataUnionBeneficiaryChanged(indexed address,indexed address)
+          handler: handleDataUnionBeneficiaryChanged
+        - event: EarningsWithdrawn(indexed address,uint256)
+          handler: handleEarningsWithdrawn
+        - event: FeesCharged(uint256,uint256)
+          handler: handleFeesCharged
+        - event: FeesSet(uint256,uint256)
+          handler: handleFeesSet
+        - event: JoinListenerAdded(indexed address)
+          handler: handleJoinListenerAdded
+        - event: JoinListenerRemoved(indexed address)
+          handler: handleJoinListenerRemoved
+        - event: JoinPartAgentAdded(indexed address)
+          handler: handleJoinPartAgentAdded
+        - event: JoinPartAgentRemoved(indexed address)
+          handler: handleJoinPartAgentRemoved
+        - event: MemberJoined(indexed address)
+          handler: handleMemberJoined
+        - event: MemberParted(indexed address,indexed uint8)
+          handler: handleMemberParted
+        - event: NewEarnings(uint256,uint256)
+          handler: handleNewEarnings
+        - event: NewMemberEthSent(uint256)
+          handler: handleNewMemberEthSent
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: PartListenerAdded(indexed address)
+          handler: handlePartListenerAdded
+        - event: PartListenerRemoved(indexed address)
+          handler: handlePartListenerRemoved
+        - event: RevenueReceived(uint256)
+          handler: handleRevenueReceived
+        - event: TransferToAddressInContract(indexed address,indexed address,uint256)
+          handler: handleTransferToAddressInContract
+        - event: TransferWithinContract(indexed address,indexed address,uint256)
+          handler: handleTransferWithinContract
+        - event: UpdateNewMemberEth(uint256)
+          handler: handleUpdateNewMemberEth
+        - event: WithdrawModuleChanged(indexed address)
+          handler: handleWithdrawModuleChanged
+      file: ./src/mapping.ts

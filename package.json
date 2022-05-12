@@ -20,13 +20,19 @@
     "clean:deep": "shx rm -rf dist .parcel-cache",
     "precopy": "shx mkdir -p dist dist/core",
     "copy": "shx cp -r src/core/content_scripts src/core/configs src/core/modules dist/core/ && shx cp -r src/lib src/static dist/",
-    "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,json} *.{js,jsx,ts,tsx}",
+    "format": "prettier --write '{src,subgraph}/**/*.{js,jsx,ts,tsx,css,json}' '*.{js,jsx,ts,tsx,css,json}'",
     "lint:code": "eslint src/**/*.ts --fix",
     "lint:extension": "web-ext lint dist",
     "run:chromium": "web-ext run -t chromium --source-dir dist",
     "run:firefox": "web-ext run -t firefox-desktop --source-dir dist",
     "start:chromium": "run-s copy && run-p bundle run:chromium",
-    "start:firefox": "run-s copy && run-p bundle run:firefox"
+    "start:firefox": "run-s copy && run-p bundle run:firefox",
+    "subgraph:codegen": "graph codegen subgraph/subgraph.yaml --output-dir subgraph/generated",
+    "subgraph:build": "graph build subgraph/subgraph.yaml --output-dir subgraph/build",
+    "subgraph:deploy": "graph deploy subgraph/subgraph.yaml --node https://api.thegraph.com/deploy/ subgraph/dataunion-swash-graph --output-dir subgraph/build",
+    "subgraph:create-local": "graph create subgraph/subgraph.yaml --node http://localhost:8020/ subgraph/dataunion-swash-graph",
+    "subgraph:remove-local": "graph remove subgraph/subgraph.yaml --node http://localhost:8020/ subgraph/dataunion-swash-graph",
+    "subgraph:deploy-local": "graph deploy subgraph/subgraph.yaml --node http://localhost:8020/ --ipfs http://localhost:5001 subgraph/dataunion-swash-graph --output-dir subgraph/build"
   },
   "dependencies": {
     "@ethersproject/address": "^5.5.0",
@@ -64,6 +70,8 @@
     "webextension-polyfill": "^0.8.0"
   },
   "devDependencies": {
+    "@graphprotocol/graph-cli": "0.29.0",
+    "@graphprotocol/graph-ts": "0.26.0",
     "@parcel/config-webextension": "^2.0.1",
     "@parcel/reporter-bundle-analyzer": "^2.0.1",
     "@parcel/transformer-image": "2.0.1",

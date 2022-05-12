@@ -1,0 +1,16 @@
+type MemberStatusEntity @entity {
+  id: ID!
+  member: Bytes!
+  status: String!
+  condition: Int!
+  time: BigInt!
+}
+
+type TransferEntity @entity {
+  id: ID!
+  from: Bytes!
+  to: Bytes!
+  amount: BigInt!
+  type: String!
+  time: BigInt!
+}
