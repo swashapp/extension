@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/subgraph/node_modules
 /.pnp
 .pnp.js
 
@@ -15,6 +16,9 @@
 /dist
 /build
 /out
+/web-ext-artifacts
+/subgraph/build
+/subgraph/generated
 
 # misc
 .DS_Store
@@ -35,5 +39,3 @@ package-lock.json
 # ide
 .idea
 .vscode
-
-web-ext-artifacts
