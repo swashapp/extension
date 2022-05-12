@@ -1,0 +1,991 @@
+[
+  { "type": "constructor", "stateMutability": "nonpayable", "inputs": [] },
+  {
+    "type": "event",
+    "name": "DataUnionBeneficiaryChanged",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "current",
+        "internalType": "address",
+        "indexed": true
+      },
+      {
+        "type": "address",
+        "name": "old",
+        "internalType": "address",
+        "indexed": true
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "EarningsWithdrawn",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "member",
+        "internalType": "address",
+        "indexed": true
+      },
+      {
+        "type": "uint256",
+        "name": "amount",
+        "internalType": "uint256",
+        "indexed": false
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "FeesCharged",
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "adminFee",
+        "internalType": "uint256",
+        "indexed": false
+      },
+      {
+        "type": "uint256",
+        "name": "dataUnionFee",
+        "internalType": "uint256",
+        "indexed": false
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "FeesSet",
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "adminFee",
+        "internalType": "uint256",
+        "indexed": false
+      },
+      {
+        "type": "uint256",
+        "name": "dataUnionFee",
+        "internalType": "uint256",
+        "indexed": false
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "JoinListenerAdded",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "listener",
+        "internalType": "contract IJoinListener",
+        "indexed": true
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "JoinListenerRemoved",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "listener",
+        "internalType": "contract IJoinListener",
+        "indexed": true
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "JoinPartAgentAdded",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "agent",
+        "internalType": "address",
+        "indexed": true
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "JoinPartAgentRemoved",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "agent",
+        "internalType": "address",
+        "indexed": true
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "MemberJoined",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "member",
+        "internalType": "address",
+        "indexed": true
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "MemberParted",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "member",
+        "internalType": "address",
+        "indexed": true
+      },
+      {
+        "type": "uint8",
+        "name": "leaveConditionCode",
+        "internalType": "enum LeaveConditionCode",
+        "indexed": true
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "NewEarnings",
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "earningsPerMember",
+        "internalType": "uint256",
+        "indexed": false
+      },
+      {
+        "type": "uint256",
+        "name": "activeMemberCount",
+        "internalType": "uint256",
+        "indexed": false
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "NewMemberEthSent",
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "amountWei",
+        "internalType": "uint256",
+        "indexed": false
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "OwnershipTransferred",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "previousOwner",
+        "internalType": "address",
+        "indexed": true
+      },
+      {
+        "type": "address",
+        "name": "newOwner",
+        "internalType": "address",
+        "indexed": true
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "PartListenerAdded",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "listener",
+        "internalType": "contract IPartListener",
+        "indexed": true
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "PartListenerRemoved",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "listener",
+        "internalType": "contract IPartListener",
+        "indexed": true
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "RevenueReceived",
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "amount",
+        "internalType": "uint256",
+        "indexed": false
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "TransferToAddressInContract",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "from",
+        "internalType": "address",
+        "indexed": true
+      },
+      {
+        "type": "address",
+        "name": "to",
+        "internalType": "address",
+        "indexed": true
+      },
+      {
+        "type": "uint256",
+        "name": "amount",
+        "internalType": "uint256",
+        "indexed": false
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "TransferWithinContract",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "from",
+        "internalType": "address",
+        "indexed": true
+      },
+      {
+        "type": "address",
+        "name": "to",
+        "internalType": "address",
+        "indexed": true
+      },
+      {
+        "type": "uint256",
+        "name": "amount",
+        "internalType": "uint256",
+        "indexed": false
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "UpdateNewMemberEth",
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "value",
+        "internalType": "uint256",
+        "indexed": false
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "WithdrawModuleChanged",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "withdrawModule",
+        "internalType": "contract IWithdrawModule",
+        "indexed": true
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "activeMemberCount",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "addJoinListener",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "newListener",
+        "internalType": "contract IJoinListener"
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "addJoinPartAgent",
+    "inputs": [
+      { "type": "address", "name": "agent", "internalType": "address" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "addJoinPartAgents",
+    "inputs": [
+      { "type": "address[]", "name": "agents", "internalType": "address[]" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "addMember",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "newMember",
+        "internalType": "address payable"
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "addMembers",
+    "inputs": [
+      {
+        "type": "address[]",
+        "name": "members",
+        "internalType": "address payable[]"
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "addPartListener",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "newListener",
+        "internalType": "contract IPartListener"
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "adminFeeFraction",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "claimOwnership",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "address", "name": "", "internalType": "address" }],
+    "name": "dataUnionBeneficiary",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "dataUnionFeeFraction",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "address", "name": "", "internalType": "address" }],
+    "name": "dataUnionMainnet",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "getEarnings",
+    "inputs": [
+      { "type": "address", "name": "member", "internalType": "address" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [
+      { "type": "uint256[9]", "name": "", "internalType": "uint256[9]" }
+    ],
+    "name": "getStats",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "getWithdrawableEarnings",
+    "inputs": [
+      { "type": "address", "name": "member", "internalType": "address" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "getWithdrawn",
+    "inputs": [
+      { "type": "address", "name": "member", "internalType": "address" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "inactiveMemberCount",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "initialize",
+    "inputs": [
+      { "type": "address", "name": "initialOwner", "internalType": "address" },
+      { "type": "address", "name": "tokenAddress", "internalType": "address" },
+      {
+        "type": "address",
+        "name": "tokenMediatorAddress",
+        "internalType": "address"
+      },
+      {
+        "type": "address[]",
+        "name": "initialJoinPartAgents",
+        "internalType": "address[]"
+      },
+      {
+        "type": "address",
+        "name": "mainnetDataUnionAddress",
+        "internalType": "address"
+      },
+      {
+        "type": "uint256",
+        "name": "defaultNewMemberEth",
+        "internalType": "uint256"
+      },
+      {
+        "type": "uint256",
+        "name": "initialAdminFeeFraction",
+        "internalType": "uint256"
+      },
+      {
+        "type": "uint256",
+        "name": "initialDataUnionFeeFraction",
+        "internalType": "uint256"
+      },
+      {
+        "type": "address",
+        "name": "initialDataUnionBeneficiary",
+        "internalType": "address"
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "bool", "name": "", "internalType": "bool" }],
+    "name": "isInitialized",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "bool", "name": "", "internalType": "bool" }],
+    "name": "isJoinPartAgent",
+    "inputs": [
+      { "type": "address", "name": "agent", "internalType": "address" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "bool", "name": "", "internalType": "bool" }],
+    "name": "isMember",
+    "inputs": [
+      { "type": "address", "name": "member", "internalType": "address" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "address", "name": "", "internalType": "address" }],
+    "name": "joinListeners",
+    "inputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }]
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "joinPartAgentCount",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [
+      {
+        "type": "uint8",
+        "name": "",
+        "internalType": "enum DataUnionSidechain.ActiveStatus"
+      }
+    ],
+    "name": "joinPartAgents",
+    "inputs": [{ "type": "address", "name": "", "internalType": "address" }]
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "lifetimeMemberEarnings",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "lockModules",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [
+      {
+        "type": "uint8",
+        "name": "status",
+        "internalType": "enum DataUnionSidechain.ActiveStatus"
+      },
+      {
+        "type": "uint256",
+        "name": "earningsBeforeLastJoin",
+        "internalType": "uint256"
+      },
+      { "type": "uint256", "name": "lmeAtJoin", "internalType": "uint256" },
+      {
+        "type": "uint256",
+        "name": "withdrawnEarnings",
+        "internalType": "uint256"
+      }
+    ],
+    "name": "memberData",
+    "inputs": [{ "type": "address", "name": "", "internalType": "address" }]
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "bool", "name": "", "internalType": "bool" }],
+    "name": "modulesLocked",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "newMemberEth",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "onTokenBridged",
+    "inputs": [
+      { "type": "address", "name": "", "internalType": "address" },
+      { "type": "uint256", "name": "", "internalType": "uint256" },
+      { "type": "bytes", "name": "", "internalType": "bytes" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "onTokenTransfer",
+    "inputs": [
+      { "type": "address", "name": "", "internalType": "address" },
+      { "type": "uint256", "name": "", "internalType": "uint256" },
+      { "type": "bytes", "name": "", "internalType": "bytes" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "address", "name": "", "internalType": "address" }],
+    "name": "owner",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "address", "name": "", "internalType": "address" }],
+    "name": "partListeners",
+    "inputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "partMember",
+    "inputs": [
+      { "type": "address", "name": "member", "internalType": "address" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "partMembers",
+    "inputs": [
+      { "type": "address[]", "name": "members", "internalType": "address[]" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "address", "name": "", "internalType": "address" }],
+    "name": "pendingOwner",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "refreshRevenue",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "removeJoinListener",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "listener",
+        "internalType": "contract IJoinListener"
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "removeJoinPartAgent",
+    "inputs": [
+      { "type": "address", "name": "agent", "internalType": "address" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "removeMember",
+    "inputs": [
+      { "type": "address", "name": "member", "internalType": "address" },
+      {
+        "type": "uint8",
+        "name": "leaveConditionCode",
+        "internalType": "enum LeaveConditionCode"
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "removePartListener",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "listener",
+        "internalType": "contract IPartListener"
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "setDataUnionBeneficiary",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "newDataUnionBeneficiary",
+        "internalType": "address"
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "setFees",
+    "inputs": [
+      { "type": "uint256", "name": "newAdminFee", "internalType": "uint256" },
+      {
+        "type": "uint256",
+        "name": "newDataUnionFee",
+        "internalType": "uint256"
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "setNewMemberEth",
+    "inputs": [{ "type": "uint256", "name": "val", "internalType": "uint256" }]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "setWithdrawModule",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "newWithdrawModule",
+        "internalType": "contract IWithdrawModule"
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "bool", "name": "isValid", "internalType": "bool" }],
+    "name": "signatureIsValid",
+    "inputs": [
+      { "type": "address", "name": "signer", "internalType": "address" },
+      { "type": "address", "name": "recipient", "internalType": "address" },
+      { "type": "uint256", "name": "amount", "internalType": "uint256" },
+      { "type": "bytes", "name": "signature", "internalType": "bytes" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [
+      { "type": "address", "name": "", "internalType": "contract IERC677" }
+    ],
+    "name": "token",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "address", "name": "", "internalType": "address" }],
+    "name": "tokenMediator",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "totalAdminFees",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "totalDataUnionFees",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "totalEarnings",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "totalRevenue",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "totalWithdrawable",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "totalWithdrawn",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "transferOwnership",
+    "inputs": [
+      { "type": "address", "name": "newOwner", "internalType": "address" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "transferToMemberInContract",
+    "inputs": [
+      { "type": "address", "name": "recipient", "internalType": "address" },
+      { "type": "uint256", "name": "amount", "internalType": "uint256" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "transferWithinContract",
+    "inputs": [
+      { "type": "address", "name": "recipient", "internalType": "address" },
+      { "type": "uint256", "name": "amount", "internalType": "uint256" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "withdraw",
+    "inputs": [
+      { "type": "address", "name": "member", "internalType": "address" },
+      { "type": "uint256", "name": "amount", "internalType": "uint256" },
+      { "type": "bool", "name": "sendToMainnet", "internalType": "bool" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "withdrawAll",
+    "inputs": [
+      { "type": "address", "name": "member", "internalType": "address" },
+      { "type": "bool", "name": "sendToMainnet", "internalType": "bool" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "withdrawAllTo",
+    "inputs": [
+      { "type": "address", "name": "to", "internalType": "address" },
+      { "type": "bool", "name": "sendToMainnet", "internalType": "bool" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [
+      { "type": "uint256", "name": "withdrawn", "internalType": "uint256" }
+    ],
+    "name": "withdrawAllToSigned",
+    "inputs": [
+      { "type": "address", "name": "fromSigner", "internalType": "address" },
+      { "type": "address", "name": "to", "internalType": "address" },
+      { "type": "bool", "name": "sendToMainnet", "internalType": "bool" },
+      { "type": "bytes", "name": "signature", "internalType": "bytes" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "withdrawMembers",
+    "inputs": [
+      { "type": "address[]", "name": "members", "internalType": "address[]" },
+      { "type": "bool", "name": "sendToMainnet", "internalType": "bool" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [
+      {
+        "type": "address",
+        "name": "",
+        "internalType": "contract IWithdrawModule"
+      }
+    ],
+    "name": "withdrawModule",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "withdrawTo",
+    "inputs": [
+      { "type": "address", "name": "to", "internalType": "address" },
+      { "type": "uint256", "name": "amount", "internalType": "uint256" },
+      { "type": "bool", "name": "sendToMainnet", "internalType": "bool" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [
+      { "type": "uint256", "name": "withdrawn", "internalType": "uint256" }
+    ],
+    "name": "withdrawToSigned",
+    "inputs": [
+      { "type": "address", "name": "fromSigner", "internalType": "address" },
+      { "type": "address", "name": "to", "internalType": "address" },
+      { "type": "uint256", "name": "amount", "internalType": "uint256" },
+      { "type": "bool", "name": "sendToMainnet", "internalType": "bool" },
+      { "type": "bytes", "name": "signature", "internalType": "bytes" }
+    ]
+  },
+  { "type": "receive", "stateMutability": "payable" }
+]
