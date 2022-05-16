@@ -31,7 +31,17 @@ export function Sidenav(props: { activeIndex?: number }): JSX.Element {
           <SidenavLinks activeIndex={props.activeIndex} />
         </div>
       </div>
-      <WelcomeToNewDataWorld />
+      {/*<WelcomeToNewDataWorld />*/}
+      <div
+        className="c25b4ef591762a17"
+        data-zone="a993a4a50714411d84afb48972e27500"
+        style={{
+          width: 300,
+          height: 250,
+          display: 'inline-block',
+          margin: '0 auto',
+        }}
+      ></div>
     </div>
   );
 }
