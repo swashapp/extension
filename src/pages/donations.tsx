@@ -18,6 +18,29 @@ export function Donations(): JSX.Element {
         </div>
         <div className="flex-column card-gap">
           <div className="simple-card">
+            <div className="donation-burn">
+              <div>
+                <div className={'donation-burn-title title'}>
+                  Swash Donating Aswell
+                </div>
+                <div className="donation-burn-text">
+                  Swash will match every donation to charity made by community
+                  members and will also burn 1 $SWASH for every 1 $SWASH
+                  donated.
+                </div>
+              </div>
+              <div className={'donation-burn-stats'}>
+                <div className={'stats-box-green'}>
+                  <div className={'stats-title'}>Donated</div>
+                  <div className={'stats-number title'}>$222,222.1</div>
+                </div>
+                <div className={'stats-box-green'}>
+                  <div className={'stats-title'}>Burned</div>
+                  <div className={'stats-number title'}>$3,333.33</div>
+                </div>
+              </div>
+            </div>
+            <hr className="custom" />
             <div>
               <Input
                 name="search"
