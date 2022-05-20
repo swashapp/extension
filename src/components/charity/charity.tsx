@@ -43,19 +43,17 @@ export function Charity(props: {
         <div className={'charity-location'}>{props.location}</div>
         <div className={'charity-text'}>{props.description}</div>
         <div className={'charity-stats'}>
-          <div className={'charity-stats-details'}>
-            <div className={'charity-stats-title'}>Supporters</div>
-            <div className={'charity-stats-number title'}>
-              {props.supporters}
-            </div>
+          <div className={'stats-box'}>
+            <div className={'stats-title'}>Supporters</div>
+            <div className={'stats-number title'}>{props.supporters}</div>
           </div>
-          <div className={'charity-stats-details'}>
-            <div className={'charity-stats-title'}>Donated</div>
-            <div className={'charity-stats-number title'}>${props.donated}</div>
+          <div className={'stats-box'}>
+            <div className={'stats-title'}>Donated</div>
+            <div className={'stats-number title'}>${props.donated}</div>
           </div>
-          <div className={'charity-stats-details'}>
-            <div className={'charity-stats-title'}>By You</div>
-            <div className={'charity-stats-number title'}>${props.yours}</div>
+          <div className={'stats-box'}>
+            <div className={'stats-title'}>By You</div>
+            <div className={'stats-number title'}>${props.yours}</div>
           </div>
         </div>
         <div className={'charity-actions'}>
