@@ -94,7 +94,7 @@ h5 {
   line-height: 150%;
 }
 
-/* h6 {
+/* h6 {z
   font-weight: 410;
   font-size: 28px;
   line-height: 33px;
@@ -128,6 +128,12 @@ a {
 
 a:hover {
   color: var(--dark-green);
+}
+
+hr.custom {
+  border: 1px solid #E7F4F4;
+  width: 100%;
+  margin: 8px 0;
 }
 
 .flex-row {
@@ -2113,6 +2119,76 @@ a:hover {
   margin: 0 10px;
 }
 
+.stats-box,
+.stats-box-green {
+  width: calc(33% - 40px);
+  height: 56px;
+
+  padding: 16px;
+
+  background: #FFFFFF;
+  border-radius: 12px;
+}
+
+.stats-box-green {
+  width: calc(50% - 12px);
+  height: 64px;
+
+  background: #F3F9F9;
+}
+
+.stats-title {
+  font-style: normal;
+  font-size: 12px;
+  line-height: 16px;
+
+  color: #8091A3;
+}
+
+.stats-number {
+  margin-top: 4px;
+
+  font-style: normal;
+  font-weight: 410;
+  font-size: 24px;
+  line-height: 150%;
+
+  color: #002030;
+}
+
+.donation-burn {
+  display: flex;
+  column-gap: 74px;
+  align-items: center;
+}
+
+.donation-burn-title,
+.charity-title {
+  font-style: normal;
+  font-weight: 410;
+  font-size: 24px;
+  line-height: 150%;
+
+  color: #002030;
+}
+
+.donation-burn-text {
+  margin-top: 16px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+
+  color: #002030;
+}
+
+.donation-burn-stats {
+  width: 384px;
+  min-width: 384px;
+  display: flex;
+  column-gap: 24px;
+}
+
 .donation-charities {
   gap: 24px;
 }
@@ -2159,15 +2235,6 @@ a:hover {
   padding: 32px;
 }
 
-.charity-title {
-  font-style: normal;
-  font-weight: 410;
-  font-size: 24px;
-  line-height: 150%;
-
-  color: #002030;
-}
-
 .charity-location {
   font-style: normal;
   font-weight: normal;
@@ -2192,35 +2259,6 @@ a:hover {
   margin-top: 24px;
   display: flex;
   justify-content: space-between;
-}
-
-.charity-stats-details {
-  width: calc(33% - 40px);
-  height: 56px;
-
-  padding: 16px;
-
-  background: #FFFFFF;
-  border-radius: 12px;
-}
-
-.charity-stats-title {
-  font-style: normal;
-  font-size: 12px;
-  line-height: 16px;
-
-  color: #8091A3;
-}
-
-.charity-stats-number {
-  margin-top: 4px;
-
-  font-style: normal;
-  font-weight: 410;
-  font-size: 24px;
-  line-height: 150%;
-
-  color: #002030;
 }
 
 .charity-actions {
