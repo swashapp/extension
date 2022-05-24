@@ -21,8 +21,8 @@ const SwashBonusIcon = '/static/images/icons/swash-bonus.svg';
 const SwashEarningsIcon = '/static/images/icons/swash-earnings.svg';
 
 const networkList = [
-  { description: 'xDai', value: 'xDai' },
-  { description: 'Mainnet', value: 'Mainnet' },
+  { name: 'xDai', value: 'xDai' },
+  { name: 'Mainnet', value: 'Mainnet' },
 ];
 
 export function Wallet(): JSX.Element {
