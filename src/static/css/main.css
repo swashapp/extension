@@ -2328,3 +2328,78 @@ hr.custom {
 .donate-actions-donate {
   width: 131px;
 }
+
+.transaction-header-container {
+  align-items: center;
+}
+
+.transaction-filter-container {
+  width: 243px;
+  float: right;
+}
+
+.transaction-table-container {
+  box-shadow: none;
+  border-top: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.transaction-table-header tr th {
+  font-family: Sans Sequel, sans-serif;
+  font-style: normal;
+  font-weight: 415;
+  font-size: 14px;
+  line-height: 16px;
+  color: #002030;
+
+  padding: 16px 24px;
+}
+
+.transaction-table-body tr td {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  color: #002030;
+
+  padding: 20px 24px;
+}
+
+.transaction-table-body tr:last-child td,
+.transaction-table-body tr:last-child th {
+  border: 0
+}
+
+.transaction-table-pagination {
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.transaction-table-pagination div {
+  display: flex;
+}
+
+.transaction-table-pagination div:first-child {
+  justify-content: start;
+}
+
+.transaction-table-pagination div:last-child {
+  justify-content: end;
+}
+
+.transaction-table-pagination-pages {
+  background: #F3F9F9;
+  border-radius: 8px;
+}
+
+.transaction-table-pagination-pages ul {
+  padding: 4px;
+}
+
+.transaction-table-pagination-pages ul li > .MuiPaginationItem-root.Mui-selected,
+.transaction-table-pagination-pages ul li > .MuiPaginationItem-previousNext {
+  background: #ffffff;
+  box-shadow: 0 1px 1px rgba(44, 62, 62, 0.1);
+  border-radius: 4px;
+}

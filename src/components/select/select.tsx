@@ -24,9 +24,9 @@ const useStyles = makeStyles(() => ({
 
 export function Select(
   props: PropsWithChildren<{
-    items: { value: string; description: string }[];
+    items: { name: string; value: string }[];
     label: string;
-    value: { name?: string; value: string | number };
+    value: string | number;
     onChange?: (
       event: SelectChangeEvent<{ name?: string; value: unknown }>,
     ) => void;
@@ -42,17 +42,25 @@ export function Select(
         )}
         className={'select'}
         id={'customized-select-' + props.value}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         value={props.value}
         onChange={props.onChange}
         MenuProps={{
           disableScrollLock: true,
+          PaperProps: {
+            sx: {
+              borderRadius: '12px',
+              marginTop: '8px',
+            },
+          },
         }}
         input={<InputBase />}
       >
         {props.items.map((item, index) => (
           <MenuItem key={item.value + index} value={item.value}>
             <div className="flex-row">
-              <div className="select-item-value">{item.description}</div>
+              <div className="select-item-value">{item.name}</div>
             </div>
           </MenuItem>
         ))}

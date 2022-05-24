@@ -10,26 +10,26 @@ import { ToastMessage } from '../toast/toast-message';
 import { NavigationButtons } from './navigation-buttons';
 
 const genderList = [
-  { description: 'Male', value: 'Male' },
-  { description: 'Female', value: 'Female' },
-  { description: 'Non-binary', value: 'Non-binary' },
+  { name: 'Male', value: 'Male' },
+  { name: 'Female', value: 'Female' },
+  { name: 'Non-binary', value: 'Non-binary' },
 ];
 
 const ageList = [
-  { description: '< 20', value: '-20' },
-  { description: '20-30', value: '20-30' },
-  { description: '30-40', value: '30-40' },
-  { description: '40-50', value: '40-50' },
-  { description: '50+', value: '50+' },
+  { name: '< 20', value: '-20' },
+  { name: '20-30', value: '20-30' },
+  { name: '30-40', value: '30-40' },
+  { name: '40-50', value: '40-50' },
+  { name: '50+', value: '50+' },
 ];
 
 const incomeList = [
-  { description: '< $12K', value: '-12K' },
-  { description: '$12K - $25K', value: '12-25K' },
-  { description: '$25K - $50K', value: '25-50K' },
-  { description: '$50K - $75K', value: '50-75K' },
-  { description: '$75K - $150K', value: '75-150K' },
-  { description: '$150K+', value: '150K+' },
+  { name: '< $12K', value: '-12K' },
+  { name: '$12K - $25K', value: '12-25K' },
+  { name: '$25K - $50K', value: '25-50K' },
+  { name: '$50K - $75K', value: '50-75K' },
+  { name: '$75K - $150K', value: '75-150K' },
+  { name: '$150K+', value: '150K+' },
 ];
 
 export function OnboardingProfile(): JSX.Element {

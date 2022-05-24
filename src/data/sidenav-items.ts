@@ -3,6 +3,7 @@ import { Donations } from '../pages/donations';
 import { Help } from '../pages/help';
 import { InviteFriends } from '../pages/invite-friends';
 import { Settings } from '../pages/settings';
+import { Transactions } from '../pages/transactions';
 import { Wallet } from '../pages/wallet';
 import { RouteToPages } from '../paths';
 
@@ -15,6 +16,9 @@ const helpIcon = '/static/images/icons/sidenav/help.png';
 const inviteFriendsBlackIcon =
   '/static/images/icons/sidenav/invite-friends-black.svg';
 const inviteFriendsIcon = '/static/images/icons/sidenav/invite-friends.png';
+const transactionsBlackIcon =
+  '/static/images/icons/sidenav/transactions-black.svg';
+const transactionsIcon = '/static/images/icons/sidenav/transactions.png';
 const settingsBlackIcon = '/static/images/icons/sidenav/settings-black.svg';
 const settingsIcon = '/static/images/icons/sidenav/settings.png';
 const walletBlackIcon = '/static/images/icons/sidenav/wallet-black.svg';
@@ -51,6 +55,12 @@ export const SidenavItems = [
     icon: { active: dataIcon, inactive: dataBlackIcon },
     route: RouteToPages.data,
     component: Data,
+  },
+  {
+    title: 'Transactions',
+    icon: { active: transactionsIcon, inactive: transactionsBlackIcon },
+    route: RouteToPages.transactions,
+    component: Transactions,
   },
   {
     title: 'Settings',
