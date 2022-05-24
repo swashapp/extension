@@ -1,4 +1,4 @@
-import { MobileStepper } from '@material-ui/core';
+import { MobileStepper } from '@mui/material';
 import { Children, PropsWithChildren } from 'react';
 import {
   forwardRef,

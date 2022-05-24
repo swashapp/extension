@@ -1,5 +1,4 @@
-import { InputProps } from '@material-ui/core';
-
+import { InputProps } from '@mui/material';
 import React, { Dispatch, SetStateAction, useMemo } from 'react';
 
 import { InputBase } from '../input-base/input-base';

@@ -1,7 +1,15 @@
-import MuiAccordion from '@material-ui/core/Accordion';
-import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
-import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
-import { withStyles } from '@material-ui/core/styles';
+import {
+  Accordion,
+  accordionClasses,
+  AccordionDetails,
+  accordionDetailsClasses,
+  AccordionDetailsProps,
+  AccordionProps,
+  AccordionSummary,
+  accordionSummaryClasses,
+  AccordionSummaryProps,
+  styled,
+} from '@mui/material';
 import { Markup } from 'interweave';
 import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import React from 'react';
@@ -18,24 +26,22 @@ type AccordionItem = {
   id: string;
 };
 
-const StyledAccordion = withStyles({
-  root: {
-    width: '100%',
-    border: 'none',
-    boxShadow: 'none',
-  },
-  expanded: {},
-})(MuiAccordion);
+const StyledAccordion = styled(Accordion)(() => ({
+  width: '100%',
+  border: 'none',
+  boxShadow: 'none',
+  [`& .${accordionClasses.expanded}`]: {},
+}));
 
-const AccordionSummary = withStyles({
-  root: {
-    margin: '32px 0 32px 0',
+const StyledAccordionSummary = styled(({ ...props }: AccordionSummaryProps) => (
+  <AccordionSummary {...props} />
+))(() => ({
+  margin: '32px 0 32px 0',
+  padding: 0,
+  '&$expanded': {
     padding: 0,
-    '&$expanded': {
-      padding: 0,
-    },
   },
-  content: {
+  [`& .${accordionSummaryClasses.content}`]: {
     padding: 0,
     margin: 0,
     '&$expanded': {
@@ -43,15 +49,15 @@ const AccordionSummary = withStyles({
       margin: 0,
     },
   },
-  expanded: {},
-})(MuiAccordionSummary);
+  [`& .${accordionSummaryClasses.expanded}`]: {},
+}));
 
-const AccordionDetails = withStyles(() => ({
-  root: {
-    margin: '0 0 32px 0',
-    padding: 0,
-  },
-}))(MuiAccordionDetails);
+const StyledAccordionDetails = styled(({ ...props }: AccordionDetailsProps) => (
+  <AccordionDetails {...props} />
+))(() => ({
+  margin: '0 0 32px 0',
+  padding: 0,
+}));
 
 export function SectionAccordion(
   props: PropsWithChildren<{
@@ -77,17 +83,16 @@ export function SectionAccordion(
     }
   }, [active, scrollTo]);
   return (
-    <div className={'section-accordion-container'}>
+    <div className="section-accordion-container">
       {props.items.map((item: AccordionItem, index: number) => {
         return (
           <div
             key={`item-${index}`}
-            className={`
-              ${
-                active === item.id
-                  ? 'section-accordion-active'
-                  : 'section-accordion-inactive'
-              } ${'section-accordion'} `}
+            className={`${
+              active === item.id
+                ? 'section-accordion-active'
+                : 'section-accordion-inactive'
+            } ${'section-accordion'}`}
           >
             <StyledAccordion
               square
@@ -95,7 +100,7 @@ export function SectionAccordion(
               expanded={item.expanded || active === item.id}
               onChange={() => activate(item.id)}
             >
-              <AccordionSummary
+              <StyledAccordionSummary
                 expandIcon={
                   <img
                     className="section-accordion-expand-icon"
@@ -115,8 +120,8 @@ export function SectionAccordion(
                     {item.title}
                   </div>
                 </div>
-              </AccordionSummary>
-              <AccordionDetails>
+              </StyledAccordionSummary>
+              <StyledAccordionDetails>
                 <div className={'section-accordion-content'}>
                   <Markup
                     content={item.content}
@@ -138,7 +143,7 @@ export function SectionAccordion(
                     }}
                   />
                 </div>
-              </AccordionDetails>
+              </StyledAccordionDetails>
             </StyledAccordion>
           </div>
         );

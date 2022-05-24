@@ -1,13 +1,19 @@
-import { withStyles } from '@material-ui/core';
-import MuTooltip from '@material-ui/core/Tooltip';
+import {
+  styled,
+  Tooltip as MuiTooltip,
+  tooltipClasses,
+  TooltipProps,
+} from '@mui/material';
 import React, { ReactElement } from 'react';
 
-const StyledTooltip = withStyles(() => ({
-  tooltip: {
+const StyledTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <MuiTooltip {...props} classes={{ popper: className }} />
+))(() => ({
+  [`& .${tooltipClasses.tooltip}`]: {
     position: 'relative',
 
     backgroundColor: '#E5F5FA',
-    borderRadius: '15px',
+    borderRadius: '8px',
     fontSize: '10px',
     lineHeight: '12px',
     boxShadow: '0 0 1px 1px rgba(0, 0, 0, 0.1)',
@@ -16,12 +22,12 @@ const StyledTooltip = withStyles(() => ({
     padding: '5px 10px',
     zIndex: 1,
   },
-  tooltipPlacementRight: {
+  [`& .${tooltipClasses.tooltipPlacementRight}`]: {
     margin: 0,
     bottom: 0,
     right: 0,
   },
-}))(MuTooltip);
+}));
 
 export function Tooltip(props: { text: string | ReactElement }): JSX.Element {
   return (
@@ -30,13 +36,13 @@ export function Tooltip(props: { text: string | ReactElement }): JSX.Element {
       PopperProps={{
         className: 'tooltip-popper',
         popperOptions: {
-          modifiers: {
-            flip: { enabled: false },
-            offset: {
-              enabled: true,
-              offset: '-7px 0px 0px -10px',
+          modifiers: [
+            { name: 'flip', options: { enabled: false } },
+            {
+              name: 'offset',
+              options: { enabled: true, offset: [-7, 0, 0, -10] },
             },
-          },
+          ],
         },
       }}
       placement="right-end"

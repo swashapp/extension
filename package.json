@@ -35,6 +35,8 @@
     "subgraph:deploy-local": "graph deploy subgraph/subgraph.yaml --node http://localhost:8020/ --ipfs http://localhost:5001 subgraph/dataunion-swash-graph --output-dir subgraph/build"
   },
   "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
     "@ethersproject/address": "^5.5.0",
     "@ethersproject/bignumber": "^5.5.0",
     "@ethersproject/contracts": "^5.5.0",
@@ -42,7 +44,8 @@
     "@ethersproject/signing-key": "^5.5.0",
     "@ethersproject/units": "^5.5.0",
     "@ethersproject/wallet": "^5.5.0",
-    "@material-ui/core": "^4.12.3",
+    "@mui/material": "^5.8.0",
+    "@mui/styles": "^5.8.0",
     "@types/react-scroll": "^1.8.3",
     "interweave": "^12.8.0",
     "js-sha256": "^0.9.0",
@@ -72,6 +75,7 @@
   "devDependencies": {
     "@graphprotocol/graph-cli": "0.29.0",
     "@graphprotocol/graph-ts": "0.26.0",
+    "@mui/codemod": "^5.8.0",
     "@parcel/config-webextension": "^2.0.1",
     "@parcel/reporter-bundle-analyzer": "^2.0.1",
     "@parcel/transformer-image": "2.0.1",
@@ -92,6 +96,7 @@
     "parcel": "^2.0.1",
     "parcel-resolver-ignore": "^2.0.0",
     "prettier": "^2.3.2",
+    "process": "^0.11.10",
     "shx": "^0.3.3",
     "typescript": "^4.3.5",
     "web-ext": "^6.3.0"

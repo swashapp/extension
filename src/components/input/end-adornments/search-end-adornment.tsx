@@ -1,4 +1,5 @@
-import { IconButton, InputAdornment, makeStyles } from '@material-ui/core';
+import { IconButton, InputAdornment } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import React from 'react';
 
 const searchIcon = '/static/images/shape/search.svg';
@@ -15,7 +16,7 @@ export function SearchEndAdornment(): JSX.Element {
   const classes = useStyles();
   return (
     <InputAdornment className={classes.icon} position="end">
-      <IconButton>
+      <IconButton size="large">
         <img src={searchIcon} alt={'search'} />
       </IconButton>
     </InputAdornment>
