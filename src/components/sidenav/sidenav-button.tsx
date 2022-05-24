@@ -1,4 +1,4 @@
-import { IconButton } from '@material-ui/core';
+import { IconButton } from '@mui/material';
 import React, { useContext } from 'react';
 
 import { SidenavContext } from '../../pages/app';
@@ -18,7 +18,7 @@ export function SidenavButton(props: { isTourOn: boolean }): JSX.Element {
       <SwashLogo />
       <div className="flex-row sidenav-toggles">
         <Toggle />
-        <IconButton onClick={() => sidenav.setOpen(true)}>
+        <IconButton onClick={() => sidenav.setOpen(true)} size="large">
           <img src={SidenavIcon} alt={'#'} />
         </IconButton>
       </div>

@@ -1,4 +1,5 @@
-import { InputAdornment, makeStyles } from '@material-ui/core';
+import { InputAdornment } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import React from 'react';
 
 import { Button } from '../../button/button';

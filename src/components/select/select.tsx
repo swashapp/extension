@@ -1,5 +1,9 @@
-import { makeStyles, MenuItem } from '@material-ui/core';
-import MuiSelect from '@material-ui/core/Select';
+import {
+  Select as MuiSelect,
+  MenuItem,
+  SelectChangeEvent,
+} from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import React from 'react';
 import { PropsWithChildren } from 'react';
 
@@ -22,9 +26,9 @@ export function Select(
   props: PropsWithChildren<{
     items: { value: string; description: string }[];
     label: string;
-    value: string | number;
+    value: { name?: string; value: string | number };
     onChange?: (
-      event: React.ChangeEvent<{ name?: string; value: unknown }>,
+      event: SelectChangeEvent<{ name?: string; value: unknown }>,
     ) => void;
   }>,
 ): JSX.Element {

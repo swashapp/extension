@@ -1,4 +1,4 @@
-import { Button as MiButton } from '@material-ui/core';
+import { Button as MuiButton } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { initValue, UtilsService } from '../../service/utils-service';
@@ -10,7 +10,7 @@ import { Switch } from '../switch/switch';
 
 function Options(props: { amount: number }): JSX.Element {
   return (
-    <MiButton
+    <MuiButton
       variant="outlined"
       style={{
         width: 173,
@@ -34,7 +34,7 @@ function Options(props: { amount: number }): JSX.Element {
       >
         /month
       </span>
-    </MiButton>
+    </MuiButton>
   );
 }
 

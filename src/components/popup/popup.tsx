@@ -1,4 +1,4 @@
-import Dialog from '@material-ui/core/Dialog';
+import { Dialog } from '@mui/material';
 import React, { ReactElement, useEffect } from 'react';
 
 import { ClosablePanel } from '../closable-panel/closable-panel';

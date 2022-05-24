@@ -1,7 +1,5 @@
-import MuiAccordion from '@material-ui/core/Accordion';
-import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
-import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
-import { withStyles } from '@material-ui/core/styles';
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React from 'react';
 import { PropsWithChildren, useState } from 'react';
 
@@ -46,9 +44,9 @@ const StyledAccordion = withStyles({
     boxShadow: 'none',
   },
   expanded: {},
-})(MuiAccordion);
+})(Accordion);
 
-const AccordionSummary = withStyles({
+const StyledAccordionSummary = withStyles({
   root: {
     flexDirection: 'row-reverse',
     padding: '24px 26px 24px 20px',
@@ -66,15 +64,15 @@ const AccordionSummary = withStyles({
     },
   },
   expanded: {},
-})(MuiAccordionSummary);
+})(AccordionSummary);
 
-const AccordionDetails = withStyles(() => ({
+const StyledAccordionDetails = withStyles(() => ({
   root: {
     margin: 0,
     padding: 24,
     overflow: 'auto',
   },
-}))(MuiAccordionDetails);
+}))(AccordionDetails);
 
 export function DataAccordion(
   props: PropsWithChildren<{
@@ -103,7 +101,7 @@ export function DataAccordion(
                 setActive((current) => (current === index ? -1 : index))
               }
             >
-              <AccordionSummary
+              <StyledAccordionSummary
                 expandIcon={
                   <img
                     className="section-accordion-expand-icon"
@@ -143,12 +141,12 @@ export function DataAccordion(
                     <ProgressBar value={item.percentage} />
                   </div>
                 </div>
-              </AccordionSummary>
-              <AccordionDetails>
+              </StyledAccordionSummary>
+              <StyledAccordionDetails>
                 <div className={'data-accordion-content'}>
                   <pre>{JSON.stringify(item.msg, undefined, 2)}</pre>
                 </div>
-              </AccordionDetails>
+              </StyledAccordionDetails>
             </StyledAccordion>
           </div>
         );
