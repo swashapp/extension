@@ -1,4 +1,5 @@
-import { FormControl, InputLabel, withStyles } from '@material-ui/core';
+import { FormControl, InputLabel } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React, { ReactElement } from 'react';
 import { PropsWithChildren } from 'react';
 
@@ -10,8 +11,8 @@ const MuiLabel = withStyles(() => ({
     fontWight: 500,
     fontSize: 12,
     color: '#8091A3 !important',
-    top: 10,
-    left: 24,
+    top: 12,
+    left: 10,
   },
   focused: {
     color: '#8091A3 !important',
@@ -19,7 +20,7 @@ const MuiLabel = withStyles(() => ({
   shrink: {
     fontWight: 500,
     fontSize: 16,
-    top: 20,
+    top: 24,
   },
 }))(InputLabel);
 

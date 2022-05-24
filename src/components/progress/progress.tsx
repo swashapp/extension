@@ -1,5 +1,5 @@
-import LinearProgress from '@material-ui/core/LinearProgress';
-import { withStyles } from '@material-ui/core/styles';
+import { LinearProgress } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React from 'react';
 
 const MuiLinearProgress = withStyles(() => ({

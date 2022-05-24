@@ -1,3 +1,4 @@
+import { createTheme, ThemeProvider, Theme, StyledEngineProvider } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -11,6 +12,13 @@ import { SwashLogo } from '../components/swash-logo/swash-logo';
 import { Toggle } from '../components/toggle/toggle';
 import { helper } from '../core/webHelper';
 import { initValue, UtilsService } from '../service/utils-service';
+
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
 
 declare global {
   interface Window {
@@ -211,4 +219,13 @@ function Popup() {
   );
 }
 
-ReactDOM.render(<Popup />, document.getElementById('popup'));
+const theme = createTheme();
+
+ReactDOM.render(
+  <StyledEngineProvider injectFirst>
+    <ThemeProvider theme={theme}>
+      <Popup />
+    </ThemeProvider>
+  </StyledEngineProvider>,
+  document.getElementById('popup'),
+);

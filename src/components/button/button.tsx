@@ -1,19 +1,17 @@
 import {
-  Button as MButton,
+  Button as MuiButton,
   ButtonProps,
   CircularProgress,
-  makeStyles,
-  withStyles,
-} from '@material-ui/core';
+  styled,
+} from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import React from 'react';
 
 import { Link, LinkProps } from '../link/link';
 
-const StyledButton = withStyles(() => ({
-  root: {
-    borderRadius: 8,
-  },
-}))(MButton);
+const StyledButton = styled(MuiButton)`
+  border-radius: 8px;
+`;
 
 const useStyles = makeStyles(() => ({
   primary: {

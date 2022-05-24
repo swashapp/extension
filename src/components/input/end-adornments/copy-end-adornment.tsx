@@ -1,4 +1,5 @@
-import { IconButton, InputAdornment, makeStyles } from '@material-ui/core';
+import { IconButton, InputAdornment } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { toast } from 'react-toastify';
@@ -29,7 +30,7 @@ export function CopyEndAdornment(props: { value: string }): JSX.Element {
               />,
             )
           }
-        >
+          size="large">
           <img src={copyIcon} alt={'copy'} />
         </IconButton>
       </CopyToClipboard>

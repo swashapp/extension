@@ -1,8 +1,5 @@
-import {
-  InputBase as MuiInputBase,
-  InputBaseProps,
-  withStyles,
-} from '@material-ui/core';
+import { InputBase as MuiInputBase, InputBaseProps } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React from 'react';
 
 const BootstrapInput = withStyles((theme) => ({
@@ -19,7 +16,7 @@ const BootstrapInput = withStyles((theme) => ({
   },
   input: {
     position: 'relative',
-    padding: '38px 0 20px 24px',
+    padding: '32px 0 20px 24px',
 
     fontFamily: 'Inter',
     fontStyle: 'normal',

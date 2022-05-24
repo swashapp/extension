@@ -1,5 +1,5 @@
-import MuiCheckbox from '@material-ui/core/Checkbox';
-import { makeStyles } from '@material-ui/core/styles';
+import { Checkbox as MuiCheckbox } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import clsx from 'clsx';
 import React, { PropsWithChildren } from 'react';
 

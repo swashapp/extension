@@ -1,4 +1,4 @@
-import { InputProps } from '@material-ui/core';
+import { InputProps } from '@mui/material';
 import React from 'react';
 
 import { InputBase } from '../input-base/input-base';
