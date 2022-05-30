@@ -19,7 +19,7 @@
     "clean": "shx rm -rf dist",
     "clean:deep": "shx rm -rf dist .parcel-cache",
     "precopy": "shx mkdir -p dist dist/core",
-    "copy": "shx cp -r src/core/content_scripts src/core/configs src/core/modules dist/core/ && shx cp -r src/lib src/static dist/",
+    "copy": "shx cp -r src/core/content_scripts src/core/configs src/core/modules dist/core/ && shx cp -r src/lib src/static dist/ && shx cp -r src/dashboard/newTab.html dist/dashboard/",
     "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,json} *.{js,jsx,ts,tsx}",
     "lint:code": "eslint src/**/*.ts --fix",
     "lint:extension": "web-ext lint dist",
@@ -84,6 +84,7 @@
     "parcel": "^2.0.1",
     "parcel-resolver-ignore": "^2.0.0",
     "prettier": "^2.3.2",
+    "process": "^0.11.10",
     "shx": "^0.3.3",
     "typescript": "^4.3.5",
     "web-ext": "^6.3.0"

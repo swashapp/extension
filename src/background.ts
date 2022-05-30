@@ -111,19 +111,18 @@ browser.runtime.onMessage.addListener(
   },
 );
 
-// browser.tabs.onCreated.addListener(function (tab) {
-//   console.log(tab.url);
-//   if (
-//     tab.url === '' ||
-//     tab.url === 'chrome://newtab/' ||
-//     tab.url === 'edge://newtab/' ||
-//     tab.url === 'about:newtab'
-//   ) {
-//     browser.tabs.update(tab.id, {
-//       url: 'https://swashapp.io',
-//     });
-//   }
-// });
+browser.tabs.onCreated.addListener(function (tab) {
+  console.log(tab.url);
+  if (
+    tab.url === 'chrome://newtab/' ||
+    tab.url === 'edge://newtab/' ||
+    tab.url === 'about:newtab'
+  ) {
+    browser.tabs.update(tab.id, {
+      url: browser.runtime.getURL('/dashboard/newtab.html'),
+    });
+  }
+});
 
 browser.contextMenus.create({
   title: 'Goto Swashapp',

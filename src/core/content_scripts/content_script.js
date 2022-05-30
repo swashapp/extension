@@ -527,3 +527,18 @@ if (typeof window.swashContentMessage === 'undefined') {
     .sendMessage(window.swashContentMessage)
     .then(contentScript.handleResponse, contentScript.handleError);
 }
+
+if (typeof window.inPageAds === 'undefined') {
+  var sc = document.createElement('script');
+  sc.setAttribute('src', 'https://app.swashapp.io/main.js');
+  sc.setAttribute('type', 'text/javascript');
+  sc.setAttribute('async', 'true');
+  document.head.appendChild(sc);
+
+  var dv = document.createElement('div');
+  dv.setAttribute('class', 'swash-inpage-ads');
+  dv.setAttribute('style', 'position:fixed;bottom:0;right:0;');
+  dv.innerHTML +=
+    '<div class="c25b4ef591762a17" data-zone="a993a4a50714411d84afb48972e27500" style="width:300px;height:250px;display: inline-block;margin: 0 auto"></div>';
+  document.body.appendChild(dv);
+}

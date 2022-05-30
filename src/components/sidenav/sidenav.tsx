@@ -41,7 +41,7 @@ export function Sidenav(props: { activeIndex?: number }): JSX.Element {
           display: 'inline-block',
           margin: '0 auto',
         }}
-      ></div>
+      />
     </div>
   );
 }
