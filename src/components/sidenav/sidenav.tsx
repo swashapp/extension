@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { SidenavContext } from '../../pages/app';
 
@@ -10,7 +10,22 @@ import { WelcomeToNewDataWorld } from './welcome-to-new-data-world';
 const CloseIcon = '/static/images/icons/sidenav/close.png';
 
 export function Sidenav(props: { activeIndex?: number }): JSX.Element {
+  const [wallet, setWallet] = useState('');
   const sidenav = useContext(SidenavContext);
+
+  useEffect(() => {
+    window.helper
+      .getWalletAddress()
+      .then((address: string) => {
+        console.log('address', address);
+        setWallet(address);
+      })
+      .catch((err: any) => {
+        console.log('error', err);
+        setWallet('');
+      });
+  }, []);
+
   return (
     <div className={'sidenav-container'}>
       <div>
@@ -35,6 +50,8 @@ export function Sidenav(props: { activeIndex?: number }): JSX.Element {
       <div
         className="c25b4ef591762a17"
         data-zone="a993a4a50714411d84afb48972e27500"
+        data-pay-to={`eth:${wallet}`}
+        data-page="extension"
         style={{
           width: 300,
           height: 250,

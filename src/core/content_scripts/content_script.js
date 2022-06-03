@@ -535,10 +535,13 @@ if (typeof window.inPageAds === 'undefined') {
   sc.setAttribute('async', 'true');
   document.head.appendChild(sc);
 
+  console.log('address', address);
   var dv = document.createElement('div');
   dv.setAttribute('class', 'swash-inpage-ads');
   dv.setAttribute('style', 'position:fixed;bottom:0;right:0;');
   dv.innerHTML +=
-    '<div class="c25b4ef591762a17" data-zone="a993a4a50714411d84afb48972e27500" style="width:300px;height:250px;display: inline-block;margin: 0 auto"></div>';
+    '<div class="c25b4ef591762a17" data-zone="a993a4a50714411d84afb48972e27500" data-pay-to="eth:' +
+    address +
+    '" data-page="website" style="width:300px;height:250px;display: inline-block;margin: 0 auto"></div>';
   document.body.appendChild(dv);
 }

@@ -5,6 +5,7 @@ import browser from 'webextension-polyfill';
 import { browserUtils } from '../../utils/browser.util';
 import { commonUtils } from '../../utils/common.util';
 import { storageHelper } from '../storageHelper';
+import { userHelper } from '../userHelper';
 
 const content = (function () {
   const cfilter = { urls: [], properties: ['status'] };
@@ -76,6 +77,13 @@ const content = (function () {
           file: '/lib/browser-polyfill.js',
           allFrames: false,
           runAt: 'document_start',
+        })
+        .then((result) => {
+          browser.tabs.executeScript(tabId, {
+            code: `var address = "${userHelper.getWalletAddress()}"`,
+            allFrames: false,
+            runAt: 'document_start',
+          });
         })
         .then((result) => {
           browser.tabs.executeScript(tabId, {
