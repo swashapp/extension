@@ -47,18 +47,32 @@ export function Sidenav(props: { activeIndex?: number }): JSX.Element {
         </div>
       </div>
       {/*<WelcomeToNewDataWorld />*/}
-      <div
-        className="c25b4ef591762a17"
-        data-zone="a993a4a50714411d84afb48972e27500"
-        data-pay-to={`eth:${wallet}`}
-        data-page="extension"
-        style={{
-          width: 300,
-          height: 250,
-          display: 'inline-block',
-          margin: '0 auto',
-        }}
-      />
+      <div id="sidenav_ads" className="swash-inpage-ads">
+        <div
+          className="c25b4ef591762a17"
+          data-zone="s1"
+          data-pay-to={`eth:${wallet}`}
+          data-page="extension"
+          style={{
+            width: 120,
+            height: 240,
+            display: 'inline-block',
+            margin: '0 auto',
+          }}
+        />
+        <div
+          className="c25b4ef591762a17"
+          data-zone="s2"
+          data-pay-to={`eth:${wallet}`}
+          data-page="extension"
+          style={{
+            width: 300,
+            height: 250,
+            display: 'inline-block',
+            margin: '0 auto',
+          }}
+        />
+      </div>
     </div>
   );
 }

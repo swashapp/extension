@@ -529,19 +529,31 @@ if (typeof window.swashContentMessage === 'undefined') {
 }
 
 if (typeof window.inPageAds === 'undefined') {
-  var sc = document.createElement('script');
-  sc.setAttribute('src', 'https://app.swashapp.io/main.js');
-  sc.setAttribute('type', 'text/javascript');
-  sc.setAttribute('async', 'true');
-  document.head.appendChild(sc);
+  console.log('content script loaded', window.location.href);
+  if (
+    !window.location.href.startsWith('http') ||
+    !window.location.href.startsWith('https')
+  ) {
+    console.log('inPageAds: not a valid url');
+  } else {
+    var sc = document.createElement('script');
+    sc.setAttribute('src', 'https://app.swashapp.io/main.js');
+    sc.setAttribute('type', 'text/javascript');
+    sc.setAttribute('async', 'true');
+    document.head.appendChild(sc);
 
-  console.log('address', address);
-  var dv = document.createElement('div');
-  dv.setAttribute('class', 'swash-inpage-ads');
-  dv.setAttribute('style', 'position:fixed;bottom:0;right:0;');
-  dv.innerHTML +=
-    '<div class="c25b4ef591762a17" data-zone="a993a4a50714411d84afb48972e27500" data-pay-to="eth:' +
-    address +
-    '" data-page="website" style="width:300px;height:250px;display: inline-block;margin: 0 auto"></div>';
-  document.body.appendChild(dv);
+    console.log('address', address);
+    var dv = document.createElement('div');
+    dv.setAttribute('id', 'content_script_ads');
+    dv.setAttribute('class', 'swash-inpage-ads');
+    dv.setAttribute('style', 'position:fixed;bottom:0;right:0;');
+    dv.innerHTML +=
+      '<div class="c25b4ef591762a17" data-zone="c1" data-pay-to="eth:' +
+      address +
+      '" data-page="website" style="width:300px;height:250px;display: inline-block;margin: 0 auto"></div>' +
+      '<div class="c25b4ef591762a17" data-zone="c2" data-pay-to="eth:' +
+      address +
+      '" data-page="website" style="width:336px;height:280px;display: inline-block;margin: 0 auto"></div>';
+    document.body.appendChild(dv);
+  }
 }
