@@ -61,7 +61,7 @@ export function TokenTransferPopup(props: {
           showPopup({
             closable: false,
             closeOnBackDropClick: true,
-            paperClassName: 'withdraw-token-transfer',
+            paperClassName: 'large-popup',
             content: (
               <TokenTransferCompleted
                 transactionId={result.tx}
