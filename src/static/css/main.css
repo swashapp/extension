@@ -136,6 +136,12 @@ hr.custom {
   margin: 8px 0;
 }
 
+hr.nav {
+  border: 1px solid #E7F4F4;
+  width: calc(100% + 64px);
+  margin: -32px 0 32px 0;
+}
+
 .flex-row {
   display: flex;
   flex-direction: row;
@@ -2058,7 +2064,7 @@ hr.custom {
   line-height: 0;
 }
 
-.withdraw-token-transfer {
+.large-popup {
   width: 828px;
 }
 
@@ -2402,4 +2408,70 @@ hr.custom {
   background: #ffffff;
   box-shadow: 0 1px 1px rgba(44, 62, 62, 0.1);
   border-radius: 4px;
+}
+
+.verification-popup-container {
+  margin: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.verification-popup-content {
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 48px 0;
+}
+
+.verification-popup-content > .text {
+  margin: 20px 0 32px 0;
+}
+
+.verification-popup-content > .input {
+  align-self: center;
+  width: 413px;
+}
+
+.verification-popup-content > .question {
+  margin: 24px 0 33px 0;
+}
+
+.verification-popup-buttons {
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.verification-popup-completed {
+  margin: 120px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.verification-popup-completed > h2 {
+  margin: 32px 0 20px 0;
+}
+
+.verification-popup-completed > p {
+  color: #1f3c5a;
+}
+
+.verify-profile {
+  height: 100%;
+  background: url('/static/images/background/verify-profile.png') no-repeat
+  center center;
+  background-size: cover;
+
+  overflow: hidden;
+  position: relative;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 150%;
+
+  border-radius: 12px;
+  padding: 41px 32px;
 }
