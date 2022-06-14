@@ -2,6 +2,7 @@ import { Data } from '../pages/data';
 import { Donations } from '../pages/donations';
 import { Help } from '../pages/help';
 import { InviteFriends } from '../pages/invite-friends';
+import { Profile } from '../pages/profile';
 import { Settings } from '../pages/settings';
 import { Transactions } from '../pages/transactions';
 import { Wallet } from '../pages/wallet';
@@ -16,11 +17,13 @@ const helpIcon = '/static/images/icons/sidenav/help.png';
 const inviteFriendsBlackIcon =
   '/static/images/icons/sidenav/invite-friends-black.svg';
 const inviteFriendsIcon = '/static/images/icons/sidenav/invite-friends.png';
+const profileBlackIcon = '/static/images/icons/sidenav/profile-black.svg';
+const profileIcon = '/static/images/icons/sidenav/profile.png';
+const settingsBlackIcon = '/static/images/icons/sidenav/settings-black.svg';
+const settingsIcon = '/static/images/icons/sidenav/settings.png';
 const transactionsBlackIcon =
   '/static/images/icons/sidenav/transactions-black.svg';
 const transactionsIcon = '/static/images/icons/sidenav/transactions.png';
-const settingsBlackIcon = '/static/images/icons/sidenav/settings-black.svg';
-const settingsIcon = '/static/images/icons/sidenav/settings.png';
 const walletBlackIcon = '/static/images/icons/sidenav/wallet-black.svg';
 const walletIcon = '/static/images/icons/sidenav/wallet.png';
 
@@ -32,6 +35,12 @@ export interface SidenavItem {
 }
 
 export const SidenavItems = [
+  {
+    title: 'Profile',
+    icon: { active: profileIcon, inactive: profileBlackIcon },
+    route: RouteToPages.profile,
+    component: Profile,
+  },
   {
     title: 'Wallet',
     icon: { active: walletIcon, inactive: walletBlackIcon },

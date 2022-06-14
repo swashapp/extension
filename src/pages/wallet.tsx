@@ -412,7 +412,7 @@ export function Wallet(): JSX.Element {
                     setWithdrawing(false);
                     showPopup({
                       closable: false,
-                      paperClassName: 'withdraw-token-transfer',
+                      paperClassName: 'large-popup',
                       content: (
                         <TokenTransferPopup
                           amount={tokenAvailable}
