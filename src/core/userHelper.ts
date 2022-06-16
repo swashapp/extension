@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { Contract } from '@ethersproject/contracts';
-import { getDefaultProvider } from '@ethersproject/providers';
+import { BaseProvider, getDefaultProvider } from '@ethersproject/providers';
 import { computePublicKey } from '@ethersproject/signing-key';
 import { formatEther, formatUnits, parseEther } from '@ethersproject/units';
 import { Wallet } from '@ethersproject/wallet';
@@ -30,13 +30,15 @@ const userHelper = (function () {
   let duHandler: DataUnion;
   let withdrawContract: Contract;
   let rewardContract: Contract;
-  const provider = getDefaultProvider();
-  const xdaiProvider = getDefaultProvider('https://rpc.xdaichain.com/');
+  let provider: BaseProvider;
+  let xdaiProvider: BaseProvider;
 
   const timestamp = { value: 0, updated: 0 };
 
   async function init() {
     config = await configManager.getConfig('community');
+    provider = getDefaultProvider();
+    xdaiProvider = getDefaultProvider(config.rpcUrl);
   }
 
   function createWallet() {
@@ -92,6 +94,9 @@ const userHelper = (function () {
         factorySidechainAddress: '0xFCE1FBFAaE61861B011B379442c8eE1DC868ABd0',
         templateMainnetAddress: '0x67352e3f7dba907af877020ae7e9450c0029c70c',
         templateSidechainAddress: '0xacf9e8134047edc671162d9404bf63a587435baa',
+      },
+      sidechain: {
+        url: config.rpcUrl,
       },
     });
     duHandler = client.getDataUnion(config.dataunionAddress);
