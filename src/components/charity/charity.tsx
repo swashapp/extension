@@ -65,7 +65,7 @@ export function Charity(props: {
               showPopup({
                 closable: false,
                 closeOnBackDropClick: true,
-                paperClassName: 'charity-payment',
+                paperClassName: 'small-popup',
                 content: <Donate title={props.title} />,
               });
             }}

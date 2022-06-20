@@ -23,21 +23,15 @@ export function Profile(): JSX.Element {
         <div className="page-header">
           <h2>Profile</h2>
         </div>
-        <FlexGrid column={2} className="wallet-cards card-gap">
+        <FlexGrid column={2} className="half-cards card-gap">
           <div className="simple-card">
             <h6>Provide the following information</h6>
             <div className="flex-column form-item-gap">
-              <FlexGrid
-                className="withdraw-form-items form-item-gap"
-                column={2}
-              >
+              <FlexGrid className="half-form-items form-item-gap" column={2}>
                 <Select items={networkList} label="Birth year" value={''} />
                 <Select items={networkList} label="Marital status" value={''} />
               </FlexGrid>
-              <FlexGrid
-                className="withdraw-form-items form-item-gap"
-                column={2}
-              >
+              <FlexGrid className="half-form-items form-item-gap" column={2}>
                 <Select items={networkList} label="Household size" value={''} />
                 <Select
                   items={networkList}

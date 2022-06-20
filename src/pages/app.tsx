@@ -15,10 +15,11 @@ import { HelpTour } from '../components/help/help-tour';
 
 import { InviteFriendsTour } from '../components/invite-friends/invite-friends-tour';
 
-import { Popup } from '../components/popup/popup';
+import { Popup, showPopup } from '../components/popup/popup';
 import { SettingsTour } from '../components/settings/settings-tour';
 import { Sidenav } from '../components/sidenav/sidenav';
 import { SidenavButton } from '../components/sidenav/sidenav-button';
+import { VerificationAlert } from '../components/verification-popup/verification-alert';
 import { WalletTour } from '../components/wallet/wallet-tour';
 import { SidenavItems } from '../data/sidenav-items';
 import { RouteToPages } from '../paths';
@@ -91,8 +92,21 @@ export default function App(): JSX.Element {
   useEffect(() => injectStyle(), []);
   const [needOnBoarding, setNeedOnBoarding] = useState<boolean>(false);
   const [trigger, setTrigger] = useState<number>(0);
+
   useEffect(
-    () => window.helper.isNeededOnBoarding().then(setNeedOnBoarding),
+    () =>
+      window.helper.isNeededOnBoarding().then((status: boolean) => {
+        setNeedOnBoarding(status);
+
+        if (!status) {
+          showPopup({
+            closable: false,
+            closeOnBackDropClick: true,
+            paperClassName: 'small-popup',
+            content: <VerificationAlert />,
+          });
+        }
+      }),
     [trigger],
   );
 
