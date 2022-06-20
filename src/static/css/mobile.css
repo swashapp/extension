@@ -29,11 +29,11 @@
     gap: 16px;
   }
 
-  .wallet-cards {
+  .half-cards {
     flex-wrap: wrap;
   }
 
-  .wallet-cards > div {
+  .half-cards > div {
     width: 100% !important;
   }
 
@@ -232,11 +232,11 @@
     width: 100% !important;
   }
 
-  .withdraw-form-items {
+  .half-form-items {
     flex-wrap: wrap;
   }
 
-  .withdraw-form-items > div {
+  .half-form-items > div {
     width: 100% !important;
   }
 
