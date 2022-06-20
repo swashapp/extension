@@ -62,8 +62,8 @@ export function Donate(props: { title: string }): JSX.Element {
 
   return (
     <>
-      <div className="donate-title title">{props.title}</div>
-      <div className="donate-separator" />
+      <div className="small-popup-title title">{props.title}</div>
+      <div className="small-popup-separator" />
       <div className="donate-type">
         One-Off Payment
         <Switch
@@ -104,12 +104,12 @@ export function Donate(props: { title: string }): JSX.Element {
           <Input label="Amount to Donate" name="amount" value={100} />
         </div>
       )}
-      <div className="donate-separator" />
-      <div className="donate-actions">
+      <div className="small-popup-separator" />
+      <div className="small-popup-actions">
         <Button
           text={'Cancel'}
           color={'secondary'}
-          className="donate-actions-cancel"
+          className="small-popup-actions-cancel"
           link={false}
           onClick={() => {
             closePopup();
@@ -117,7 +117,7 @@ export function Donate(props: { title: string }): JSX.Element {
         />
         <Button
           text={'Donate Now'}
-          className="donate-actions-donate"
+          className="small-popup-actions-submit"
           link={false}
         />
       </div>

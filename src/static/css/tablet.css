@@ -14,11 +14,11 @@
     gap: 16px;
   }
 
-  .wallet-cards {
+  .half-cards {
     flex-wrap: wrap;
   }
 
-  .wallet-cards > div {
+  .half-cards > div {
     width: 100% !important;
   }
 

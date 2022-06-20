@@ -918,7 +918,7 @@ hr.nav {
   margin: 64px;
 }
 
-.wallet-cards {
+.half-cards {
   flex-wrap: nowrap;
 }
 
@@ -957,7 +957,7 @@ hr.nav {
   margin-top: 16px;
 }
 
-.withdraw-form-items {
+.half-form-items {
   flex-wrap: nowrap;
 }
 
@@ -2068,6 +2068,40 @@ hr.nav {
   width: 828px;
 }
 
+.small-popup {
+  width: 362px;
+  padding: 32px;
+}
+
+.small-popup-title {
+  font-style: normal;
+  font-weight: 415;
+  font-size: 20px;
+  line-height: 150%;
+
+  color: #002030;
+}
+
+.small-popup-separator {
+  width: calc(100% + 64px);
+  height: 1px;
+  margin: 32px -32px;
+  border-bottom: 1px solid #e7f4f4;
+}
+
+.small-popup-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.small-popup-actions-cancel {
+  width: 114px;
+}
+
+.small-popup-actions-submit {
+  width: 131px;
+}
+
 .sidenav-toggles {
   gap: 14px;
 }
@@ -2279,28 +2313,6 @@ hr.nav {
   width: 114px;
 }
 
-.charity-payment {
-  width: 362px;
-
-  padding: 32px;
-}
-
-.donate-title {
-  font-style: normal;
-  font-weight: 415;
-  font-size: 20px;
-  line-height: 150%;
-
-  color: #002030;
-}
-
-.donate-separator {
-  width: calc(100% + 64px);
-  height: 1px;
-  margin: 32px -32px;
-  border-bottom: 1px solid #e7f4f4;
-}
-
 .donate-type {
   width: 320px;
   margin: auto;
@@ -2320,19 +2332,6 @@ hr.nav {
 
 .donate-option-grid {
   gap: 16px;
-}
-
-.donate-actions {
-  display: flex;
-  justify-content: space-between;
-}
-
-.donate-actions-cancel {
-  width: 114px;
-}
-
-.donate-actions-donate {
-  width: 131px;
 }
 
 .transaction-header-container {

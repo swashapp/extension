@@ -233,7 +233,7 @@ export function Wallet(): JSX.Element {
         <div className="page-header">
           <h2>Wallet</h2>
         </div>
-        <FlexGrid column={2} className="wallet-cards card-gap">
+        <FlexGrid column={2} className="half-cards card-gap">
           <div className={'flex-column card-gap'}>
             <FlexGrid column={2} className={'wallet-numerics card-gap'}>
               <NumericSection
@@ -360,10 +360,7 @@ export function Wallet(): JSX.Element {
               </div>
             </div>
             <div className="flex-column form-item-gap">
-              <FlexGrid
-                className="withdraw-form-items form-item-gap"
-                column={2}
-              >
+              <FlexGrid className="half-form-items form-item-gap" column={2}>
                 <Input
                   label="Amount"
                   name="amount"
