@@ -54,6 +54,11 @@
               "type": "regex",
               "group": 1,
               "name": "category"
+            },
+            {
+              "type": "referrer",
+              "name": "link",
+              "default": "about:blank"
             }
           ],
           "schems": [
@@ -64,6 +69,10 @@
             {
               "jpath": "$.category",
               "type": "text"
+            },
+            {
+              "jpath": "$.link",
+              "type": "url"
             }
           ]
         }

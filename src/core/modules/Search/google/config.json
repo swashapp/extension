@@ -3,6 +3,6 @@
   "description": "This module Captures a user search queries, search results, and links clicked by the user for Google",
   "functions": ["browsing", "content"],
   "is_enabled": true,
-  "privacyLevel": 1,
+  "privacyLevel": 0,
   "anonymityLevel": 1
 }

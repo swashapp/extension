@@ -17,6 +17,7 @@ export type MessageHeader = {
 
 export type MessageIdentity = {
   uid: string;
+  sessionId: string;
   country: string;
   city: string;
   gender: string;

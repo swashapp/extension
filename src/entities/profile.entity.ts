@@ -20,4 +20,13 @@ export class ProfileEntity extends Entity<Profile> {
   protected async init(): Promise<void> {
     await this.create({});
   }
+
+  public async upgrade(): Promise<void> {
+    if (this.cache.age === '~20') {
+      await this.update('age', '-20');
+    }
+    if (this.cache.income === '~50K') {
+      await this.update('income', '25-50K');
+    }
+  }
 }

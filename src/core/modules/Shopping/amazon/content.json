@@ -68,6 +68,16 @@
               "type": "text"
             }
           ]
+        },
+        {
+          "selector": "document",
+          "properties": [
+            {
+              "property": "URL",
+              "name": "link",
+              "type": "url"
+            }
+          ]
         }
       ]
     },
@@ -1142,6 +1152,16 @@
               "property": "value",
               "name": "query",
               "type": "text"
+            }
+          ]
+        },
+        {
+          "selector": "document",
+          "properties": [
+            {
+              "property": "URL",
+              "name": "link",
+              "type": "url"
             }
           ]
         }
