@@ -29,6 +29,11 @@
               "group": 2,
               "name": "category",
               "default": "web"
+            },
+            {
+              "type": "referrer",
+              "name": "link",
+              "default": "about:blank"
             }
           ],
           "schems": [
@@ -39,6 +44,10 @@
             {
               "jpath": "$.category",
               "type": "text"
+            },
+            {
+              "jpath": "$.link",
+              "type": "url"
             }
           ]
         }

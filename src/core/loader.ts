@@ -46,9 +46,11 @@ const loader = (function () {
 
       const profile = await ProfileEntity.getInstance();
       if (old_db.configs.version <= '1.0.8' && old_db.configs.encryptedWallet) {
-        console.log(`moving private key from configs to profile`);
+        console.log(`Moving private key from configs to profile`);
         await profile.update('encryptedWallet', old_db.configs.encryptedWallet);
       }
+      console.log(`Updating profile`);
+      await profile.upgrade();
 
       // Updating filters
       console.log(`Updating exclude urls`);

@@ -24,6 +24,9 @@ const dataHandler = (function () {
   const streams: { [key: string]: Stream } = {};
   let streamConfig: StreamConfigs;
 
+  let sessionId: string = commonUtils.uuid();
+  let sessionIdLastUsage: number = Date.now();
+
   async function init() {
     streamConfig = await configManager.getConfig('stream');
   }
@@ -38,9 +41,20 @@ const dataHandler = (function () {
     const confs = await storageHelper.getConfigs();
     const time = Number(new Date().getTime()) - confs.delay * 60000;
     const rows = await databaseHelper.getReadyMessages(time);
+
+    console.log(sessionIdLastUsage, Date.now());
+    if (sessionIdLastUsage + 30 * 60000 < Date.now()) {
+      sessionId = commonUtils.uuid();
+      sessionIdLastUsage = Date.now();
+    }
+
     for (const row of rows) {
       const message = row.message;
       delete message.origin;
+
+      message.identity.sessionId = sessionId;
+      sessionIdLastUsage = Date.now();
+
       try {
         streams[message.header.category].produceNewEvent(message);
       } catch (err) {
@@ -151,6 +165,7 @@ const dataHandler = (function () {
 
     message.identity = {
       uid,
+      sessionId: '0',
       country,
       city,
       gender,

@@ -149,6 +149,13 @@ const browsing = (function () {
               new URL(requestDetails.url).searchParams.get(p.key),
             );
         }
+        if (p.type === 'link') {
+          if (p.key === 'href' || p.key === 'origin' || p.key === 'hostname')
+            val = decodeURIComponent(new URL(requestDetails.url)[p.key]);
+        }
+        if (p.type === 'referrer') {
+          val = requestDetails.originUrl || requestDetails.initiator;
+        }
         if (val) {
           retval[p.name] = val;
         } else {
