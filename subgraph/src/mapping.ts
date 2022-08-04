@@ -77,7 +77,7 @@ export function handleEarningsWithdrawn(event: EarningsWithdrawn): void {
     event.params.member,
     Address.zero(),
     event.params.amount,
-    'ToMember',
+    'FromMember',
     event.block.timestamp,
   );
 }
