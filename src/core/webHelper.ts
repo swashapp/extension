@@ -633,6 +633,15 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function getUserTransactions(type) {
+    const message = {
+      obj: 'graphApiHelper',
+      func: 'getUserTransactions',
+      params: [type],
+    };
+    return sendMessage(message);
+  }
+
   return {
     load,
     save,
@@ -704,6 +713,7 @@ const helper = (function () {
     updateEmail,
     newsletterSignUp,
     loadNotifications,
+    getUserTransactions,
   };
 })();
 

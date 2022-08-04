@@ -13,6 +13,7 @@ import { databaseHelper } from './databaseHelper';
 import { dataHandler } from './dataHandler';
 import { functions } from './functions';
 import { apiCall } from './functions/apiCall';
+import { graphApiHelper } from './graphApiHelper';
 import { memberManager } from './memberManager';
 import { onboarding } from './onboarding';
 import { pageAction } from './pageAction';
@@ -262,6 +263,7 @@ const loader = (function () {
     await onboarding.init();
     await apiCall.init();
     await swashApiHelper.init();
+    await graphApiHelper.init();
   }
 
   async function onUpdatedAll() {

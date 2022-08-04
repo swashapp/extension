@@ -1,5 +1,6 @@
+import { formatEther } from '@ethersproject/units';
 import {
-  Box,
+  CircularProgress,
   Pagination,
   Paper,
   Table,
@@ -10,42 +11,45 @@ import {
   TablePagination,
   TableRow,
 } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { Select } from '../components/select/select';
-
-function createData(time: string, transaction: string, amount: number) {
-  return { time, transaction, amount };
-}
-
-const rows = [
-  createData('Dec 17, 2021 04:00:01 AM', 'Donated to Mercy For Animals', 100.1),
-  createData(
-    'Dec 16, 2021 04:00:01 AM',
-    'Donated to Meals on Wheels America',
-    2043.0,
-  ),
-  createData('Dec 15, 2021 04:00:01 AM', 'Donated to PETA', 16.0),
-  createData('Dec 14, 2021 04:00:01 AM', 'Donated to Feeding America', 891.7),
-  createData(
-    'Dec 13, 2021 04:00:01 AM',
-    'Donated to Mercy For Animals',
-    1019.0,
-  ),
-];
+import { helper } from '../core/webHelper';
 
 const categories = [
   { name: 'Claim', value: 'Claim' },
-  { name: 'Donation', value: 'Donation' },
+  // { name: 'Donation', value: 'Donation' },
   { name: 'Withdrawal', value: 'Withdrawal' },
 ];
 
 export function Transactions(): JSX.Element {
+  const [loading, setLoading] = React.useState(false);
+  const [rows, setRows] = React.useState([]);
+  const [pageRows, setPageRows] = React.useState([]);
   const [category, setCategory] = React.useState<string>(categories[0].value);
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = React.useState(1);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  useEffect(() => {
+    setLoading(true);
+    helper
+      .getUserTransactions(category)
+      .then((data) => {
+        setRows(data);
+        setPage(1);
+        setPageRows(data.slice(0, rowsPerPage));
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [category, rowsPerPage]);
+
+  useEffect(() => {
+    console.log('page', page);
+    setPageRows(rows.slice(page * rowsPerPage, (page + 1) * rowsPerPage));
+  }, [page, rows, rowsPerPage]);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -55,7 +59,7 @@ export function Transactions(): JSX.Element {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setPage(1);
   };
 
   return (
@@ -76,33 +80,61 @@ export function Transactions(): JSX.Element {
                   />
                 </div>
               </FlexGrid>
-              <TableContainer
-                component={Paper}
-                className={'transaction-table-container'}
-              >
-                <Table
-                  sx={{ minWidth: 650 }}
-                  size="medium"
-                  aria-label="a dense table"
+              {loading ? (
+                <div className={'transaction-loading'}>
+                  <CircularProgress color={'inherit'} size={32} />
+                </div>
+              ) : (
+                <TableContainer
+                  component={Paper}
+                  className={'transaction-table-container'}
                 >
-                  <TableHead className={'transaction-table-header'}>
-                    <TableRow className={'title'}>
-                      <TableCell>Time</TableCell>
-                      <TableCell>Transaction</TableCell>
-                      <TableCell>Amount</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody className={'transaction-table-body'}>
-                    {rows.map((row) => (
-                      <TableRow key={row.time}>
-                        <TableCell>{row.time}</TableCell>
-                        <TableCell>{row.transaction}</TableCell>
-                        <TableCell>{row.amount}</TableCell>
+                  <Table
+                    sx={{ minWidth: 650 }}
+                    size="medium"
+                    aria-label="a dense table"
+                  >
+                    <TableHead className={'transaction-table-header'}>
+                      <TableRow className={'title'}>
+                        <TableCell>Time</TableCell>
+                        <TableCell>Transaction</TableCell>
+                        <TableCell>Amount</TableCell>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+                    </TableHead>
+                    <TableBody className={'transaction-table-body'}>
+                      {pageRows.map((row, index) => (
+                        <TableRow key={`${index}${row.time}`}>
+                          <TableCell>
+                            {new Date(+row.time * 1000).toLocaleString(
+                              'en-US',
+                              {
+                                day: '2-digit',
+                                month: 'short',
+                                year: 'numeric',
+                                hour: 'numeric',
+                                minute: '2-digit',
+                                second: '2-digit',
+                              },
+                            )}
+                          </TableCell>
+                          <TableCell>
+                            <a
+                              href={`https://blockscout.com/xdai/mainnet/tx/${
+                                row.id.split('-')[0]
+                              }`}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {row.id.split('-')[0]}
+                            </a>
+                          </TableCell>
+                          <TableCell>{formatEther(row.amount)}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              )}
               <FlexGrid column={2} className={'transaction-table-pagination'}>
                 <TablePagination
                   component={'div'}
@@ -119,6 +151,7 @@ export function Transactions(): JSX.Element {
                 <Pagination
                   className={'transaction-table-pagination-pages'}
                   count={rows.length / rowsPerPage}
+                  page={page}
                   onChange={handleChangePage}
                   shape="rounded"
                 />

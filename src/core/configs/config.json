@@ -6,6 +6,9 @@
     "swashAPI": {
       "version": 1
     },
+    "graphAPI": {
+      "version": 1
+    },
     "community": {
       "version": 3
     },

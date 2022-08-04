@@ -1,5 +1,6 @@
 export enum ConfigFiles {
   SwashAPI = 'swashAPI',
+  GraphAPI = 'graphAPI',
   Community = 'community',
   Stream = 'stream',
   Onboarding = 'onboarding',
