@@ -8,6 +8,7 @@ import { content } from './core/functions/content';
 import { context } from './core/functions/context';
 import { task } from './core/functions/task';
 import { transfer } from './core/functions/transfer';
+import { graphApiHelper } from './core/graphApiHelper';
 import { loader } from './core/loader';
 import { memberManager } from './core/memberManager';
 import { onboarding } from './core/onboarding';
@@ -26,6 +27,7 @@ async function initConfigs() {
   await onboarding.init();
   await apiCall.init();
   await swashApiHelper.init();
+  await graphApiHelper.init();
 }
 
 async function installSwash(info: Any) {
@@ -48,7 +50,6 @@ async function startupSwash() {
 
   //Now the configuration is available
   await initConfigs();
-
   /* ***
 	After a successful load of add-on,
 	the main loop will start.
@@ -103,6 +104,7 @@ browser.runtime.onMessage.addListener(
       transfer: transfer,
       onboarding: onboarding,
       swashApiHelper: swashApiHelper,
+      graphApiHelper: graphApiHelper,
       configManager: configManager,
     };
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
