@@ -633,6 +633,24 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function getUserProfile() {
+    const message = {
+      obj: 'userHelper',
+      func: 'getUserProfile',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
+  function setUserProfile(profile) {
+    const message = {
+      obj: 'userHelper',
+      func: 'setUserProfile',
+      params: [profile],
+    };
+    return sendMessage(message);
+  }
+
   function getUserTransactions(type) {
     const message = {
       obj: 'graphApiHelper',
@@ -714,6 +732,8 @@ const helper = (function () {
     newsletterSignUp,
     loadNotifications,
     getUserTransactions,
+    getUserProfile,
+    setUserProfile,
   };
 })();
 

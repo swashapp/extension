@@ -55,7 +55,7 @@ export function TokenTransferPopup(props: {
           toast(
             <ToastMessage
               type="success"
-              content={<>Successfully approved.</>}
+              content={<>Approved successfully.</>}
             />,
           );
           showPopup({
