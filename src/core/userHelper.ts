@@ -17,6 +17,8 @@ import { ConfigEntity } from '../entities/config.entity';
 import { ProfileEntity } from '../entities/profile.entity';
 import { CommunityConfigs } from '../types/storage/configs/community.type';
 
+import { Profile } from '../types/storage/profile.type';
+
 import { configManager } from './configManager';
 import { storageHelper } from './storageHelper';
 import { swashApiHelper } from './swashApiHelper';
@@ -272,6 +274,9 @@ const userHelper = (function () {
     const data = await swashApiHelper.getJoinedSwash(await generateJWT());
     if (data.id) {
       await updateUserId(data.id);
+
+      if (data.email) await updateUserEmail(data.email);
+      if (data.phone) await updateUserPhone(data.phone);
       return true;
     }
     return false;
@@ -323,6 +328,20 @@ const userHelper = (function () {
     const profile = await storageHelper.getProfile();
     if (profile.user_id == null || profile.user_id !== user_id) {
       profile.user_id = user_id;
+      await storageHelper.saveProfile(profile);
+    }
+  }
+  async function updateUserEmail(email: string) {
+    const profile = await storageHelper.getProfile();
+    if (profile.email == null || profile.email !== email) {
+      profile.email = email;
+      await storageHelper.saveProfile(profile);
+    }
+  }
+  async function updateUserPhone(phone: string) {
+    const profile = await storageHelper.getProfile();
+    if (profile.phone == null || profile.phone !== phone) {
+      profile.phone = phone;
       await storageHelper.saveProfile(profile);
     }
   }
@@ -378,6 +397,34 @@ const userHelper = (function () {
     };
   }
 
+  async function getUserProfile() {
+    const profile = await storageHelper.getProfile();
+    return {
+      user_id: profile.user_id,
+      email: profile.email,
+      phone: profile.phone,
+      country: profile.country,
+      city: profile.city,
+      age: profile.age,
+      income: profile.income,
+      birthYear: profile.birthYear,
+      maritalStatus: profile.maritalStatus,
+      householdSize: profile.householdSize,
+      employmentStatus: profile.employmentStatus,
+      occupationIndustry: profile.occupationIndustry,
+    };
+  }
+
+  async function setUserProfile(newProfile: Profile) {
+    const profile = await storageHelper.getProfile();
+    profile.birthYear = newProfile.birthYear;
+    profile.maritalStatus = newProfile.maritalStatus;
+    profile.householdSize = newProfile.householdSize;
+    profile.employmentStatus = newProfile.employmentStatus;
+    profile.occupationIndustry = newProfile.occupationIndustry;
+    await storageHelper.saveProfile(profile);
+  }
+
   return {
     init,
     createWallet,
@@ -407,6 +454,8 @@ const userHelper = (function () {
     join,
     updateEmail,
     getBonus,
+    getUserProfile,
+    setUserProfile,
   };
 })();
 
