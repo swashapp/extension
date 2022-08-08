@@ -1826,7 +1826,8 @@ hr.nav {
 }
 
 .waiting-progress p {
-  padding: 55px 49%;
+  padding: 55px 0;
+  text-align: center;
 }
 
 .extension-popup-container {
@@ -2066,6 +2067,8 @@ hr.nav {
 
 .large-popup {
   width: 828px;
+  height: max-content;
+  overflow: hidden;
 }
 
 .small-popup {
@@ -2418,52 +2421,14 @@ hr.nav {
   align-items: center;
 }
 
-.verification-popup-container {
-  margin: 32px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.verification-popup-content {
+.verification-iframe-wrapper {
   width: 100%;
-  justify-content: space-evenly;
-  align-items: center;
-  margin: 48px 0;
+  margin: 0 !important;
 }
 
-.verification-popup-content > .text {
-  margin: 20px 0 32px 0;
-}
-
-.verification-popup-content > .input {
-  align-self: center;
-  width: 413px;
-}
-
-.verification-popup-content > .question {
-  margin: 24px 0 33px 0;
-}
-
-.verification-popup-buttons {
+.verification-iframe {
   width: 100%;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.verification-popup-completed {
-  margin: 120px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.verification-popup-completed > h2 {
-  margin: 32px 0 20px 0;
-}
-
-.verification-popup-completed > p {
-  color: #1f3c5a;
+  height: 480px;
 }
 
 .verify-profile {

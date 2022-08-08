@@ -184,9 +184,11 @@ export function Profile(): JSX.Element {
                   <ForwardEndAdornment
                     onClick={() => {
                       showPopup({
+                        id: 'verify-email',
                         closable: false,
+                        closeOnBackDropClick: true,
                         paperClassName: 'large-popup',
-                        content: <VerificationPopup title={'Email'} />,
+                        content: <VerificationPopup title={'email'} />,
                       });
                     }}
                   />
@@ -200,9 +202,11 @@ export function Profile(): JSX.Element {
                   <ForwardEndAdornment
                     onClick={() => {
                       showPopup({
+                        id: 'verify-phone',
                         closable: false,
+                        closeOnBackDropClick: true,
                         paperClassName: 'large-popup',
-                        content: <VerificationPopup title={'Mobile'} />,
+                        content: <VerificationPopup title={'mobile'} />,
                       });
                     }}
                   />

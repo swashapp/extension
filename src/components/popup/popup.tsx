@@ -8,6 +8,7 @@ export interface popupProps {
   paperClassName?: string;
   closable: boolean;
   closeOnBackDropClick?: boolean;
+  id?: string;
 }
 
 let _item: popupProps = { content: null, closable: false };
@@ -27,9 +28,11 @@ function Modal(props: {
   content: ReactElement | null;
   closeOnBackDropClick?: boolean;
   paperClassName?: string;
+  id?: string;
 }) {
   return (
     <Dialog
+      id={props.id}
       maxWidth={false}
       open={true}
       onClose={(event, reason) => {
@@ -52,6 +55,7 @@ function ClosablePopup(props: {
   content: ReactElement;
   closeOnBackDropClick?: boolean;
   paperClassName?: string;
+  id?: string;
 }) {
   return (
     <Modal
@@ -77,12 +81,14 @@ export function Popup(): JSX.Element {
         closeOnBackDropClick={openDialog.closeOnBackDropClick}
         paperClassName={openDialog.paperClassName}
         content={openDialog.content}
+        id={openDialog.id}
       />
     ) : (
       <Modal
         content={openDialog.content}
         closeOnBackDropClick={openDialog.closeOnBackDropClick}
         paperClassName={openDialog.paperClassName}
+        id={openDialog.id}
       />
     )
   ) : (
