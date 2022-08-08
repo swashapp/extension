@@ -9,13 +9,13 @@ const useStyles = makeStyles(() => ({
   bottom: {
     color: 'var(--gray)',
     position: 'absolute',
-    left: '50%',
+    left: 'calc(50% - 25px)',
   },
   top: {
     color: 'var(--blue)',
     animationDuration: '550ms',
     position: 'absolute',
-    left: '50%',
+    left: 'calc(50% - 25px)',
   },
   circle: {
     strokeLinecap: 'round',
