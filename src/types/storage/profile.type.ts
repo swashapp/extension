@@ -8,10 +8,10 @@ export type Profile = {
   user_id?: number;
   email?: string;
   phone?: string;
-  birthYear?: string;
-  maritalStatus?: string;
-  householdSize?: string;
-  employmentStatus?: string;
-  occupationIndustry?: string;
+  birth?: string;
+  marital?: string;
+  household?: string;
+  employment?: string;
+  industry?: string;
   lastCheck?: Date;
 };

@@ -399,6 +399,24 @@ const userHelper = (function () {
 
   async function getUserProfile() {
     const profile = await storageHelper.getProfile();
+
+    if (
+      !profile.birth ||
+      !profile.marital ||
+      !profile.household ||
+      !profile.employment ||
+      !profile.industry
+    ) {
+      const data = await swashApiHelper.getAdditionalInfo(await generateJWT());
+      if (data.birth) profile.birth = data.birth;
+      if (data.marital) profile.marital = data.marital;
+      if (data.household) profile.household = data.household;
+      if (data.employment) profile.employment = data.employment;
+      if (data.industry) profile.industry = data.industry;
+
+      await storageHelper.saveProfile(profile);
+    }
+
     return {
       user_id: profile.user_id,
       email: profile.email,
@@ -407,22 +425,26 @@ const userHelper = (function () {
       city: profile.city,
       age: profile.age,
       income: profile.income,
-      birthYear: profile.birthYear,
-      maritalStatus: profile.maritalStatus,
-      householdSize: profile.householdSize,
-      employmentStatus: profile.employmentStatus,
-      occupationIndustry: profile.occupationIndustry,
+      birth: profile.birth,
+      marital: profile.marital,
+      household: profile.household,
+      employment: profile.employment,
+      industry: profile.industry,
     };
   }
 
-  async function setUserProfile(newProfile: Profile) {
+  async function updateUserProfile(newProfile: Profile) {
+    const data = {
+      birth: newProfile.birth,
+      marital: newProfile.marital,
+      household: newProfile.household,
+      employment: newProfile.employment,
+      industry: newProfile.industry,
+    };
+
+    await swashApiHelper.updateAdditionalInfo(await generateJWT(), data);
     const profile = await storageHelper.getProfile();
-    profile.birthYear = newProfile.birthYear;
-    profile.maritalStatus = newProfile.maritalStatus;
-    profile.householdSize = newProfile.householdSize;
-    profile.employmentStatus = newProfile.employmentStatus;
-    profile.occupationIndustry = newProfile.occupationIndustry;
-    await storageHelper.saveProfile(profile);
+    await storageHelper.saveProfile({ ...profile, ...data });
   }
 
   return {
@@ -455,7 +477,7 @@ const userHelper = (function () {
     updateEmail,
     getBonus,
     getUserProfile,
-    setUserProfile,
+    updateUserProfile,
   };
 })();
 

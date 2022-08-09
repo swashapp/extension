@@ -642,10 +642,10 @@ const helper = (function () {
     return sendMessage(message);
   }
 
-  function setUserProfile(profile) {
+  function updateUserProfile(profile) {
     const message = {
       obj: 'userHelper',
-      func: 'setUserProfile',
+      func: 'updateUserProfile',
       params: [profile],
     };
     return sendMessage(message);
@@ -733,7 +733,7 @@ const helper = (function () {
     loadNotifications,
     getUserTransactions,
     getUserProfile,
-    setUserProfile,
+    updateUserProfile,
   };
 })();
 
