@@ -72,7 +72,7 @@ export function Profile(): JSX.Element {
   const [email, setEmail] = React.useState(undefined);
   const [phone, setPhone] = React.useState(undefined);
 
-  const [year, setYear] = React.useState('');
+  const [birth, setBirth] = React.useState('');
   const [marital, setMarital] = React.useState('');
   const [household, setHousehold] = React.useState('');
   const [employment, setEmployment] = React.useState('');
@@ -83,23 +83,23 @@ export function Profile(): JSX.Element {
       setEmail(profile.email);
       setPhone(profile.phone);
 
-      setYear(profile.birthYear || '');
-      setMarital(profile.maritalStatus || '');
-      setHousehold(profile.householdSize || '');
-      setEmployment(profile.employmentStatus || '');
-      setIndustry(profile.occupationIndustry || '');
+      setBirth(profile.birth || '');
+      setMarital(profile.marital || '');
+      setHousehold(profile.household || '');
+      setEmployment(profile.employment || '');
+      setIndustry(profile.industry || '');
     });
   }, []);
 
   const onSubmit = useCallback(() => {
     setLoading(true);
     helper
-      .setUserProfile({
-        birthYear: year,
-        maritalStatus: marital,
-        householdSize: household,
-        employmentStatus: employment,
-        occupationIndustry: industry,
+      .updateUserProfile({
+        birth,
+        marital,
+        household,
+        employment,
+        industry,
       })
       .finally(() => {
         setTimeout(() => {
@@ -112,7 +112,7 @@ export function Profile(): JSX.Element {
           );
         }, 500);
       });
-  }, [employment, household, industry, marital, year]);
+  }, [employment, household, industry, marital, birth]);
 
   return (
     <div className="page-container">
@@ -129,8 +129,8 @@ export function Profile(): JSX.Element {
                 <Select
                   items={birthYearList}
                   label="Birth year"
-                  value={year}
-                  onChange={(e) => setYear(e.target.value as string)}
+                  value={birth}
+                  onChange={(e) => setBirth(e.target.value as string)}
                 />
                 <Select
                   items={maritalStatus}

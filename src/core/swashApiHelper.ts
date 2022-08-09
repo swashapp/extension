@@ -180,6 +180,14 @@ const swashApiHelper = (function () {
     );
   }
 
+  async function getAdditionalInfo(token: string) {
+    return get<Any>(token, config.APIs.userAdditionalInfo);
+  }
+
+  async function updateAdditionalInfo(token: string, body: Any) {
+    return post<Any>(token, config.APIs.userAdditionalInfo, body);
+  }
+
   return {
     init,
     getDataEthPairPrice,
@@ -197,6 +205,8 @@ const swashApiHelper = (function () {
     updateEmail,
     newsletterSignUp,
     getNotifications,
+    getAdditionalInfo,
+    updateAdditionalInfo,
   };
 })();
 
