@@ -13,6 +13,7 @@ const newsletter = 108293554;
 
 export function OnboardingVerify(props: {
   email: string;
+  requestId: string;
   stayUpdate: boolean;
   onBack: () => void;
   joinData: { id?: number; email?: string } | null;
@@ -68,7 +69,7 @@ export function OnboardingVerify(props: {
 
   const join = useCallback(() => {
     window.helper
-      .join(props.email, verificationCode)
+      .join(props.requestId, verificationCode)
       .then((res: { id: number; email: string }) => {
         if (res.id && res.email) {
           onVerified();
@@ -77,14 +78,14 @@ export function OnboardingVerify(props: {
         }
       })
       .catch(onFailure);
-  }, [onFailure, onVerified, props.email, verificationCode]);
+  }, [onFailure, onVerified, props.requestId, verificationCode]);
 
   const updateEmail = useCallback(() => {
     window.helper
-      .updateEmail(props.email, verificationCode)
+      .updateEmail(props.requestId, verificationCode)
       .then(() => onVerified())
       .catch(() => onFailure());
-  }, [onFailure, onVerified, props.email, verificationCode]);
+  }, [onFailure, onVerified, props.requestId, verificationCode]);
 
   const onSubmit = useCallback(() => {
     setLoading(true);

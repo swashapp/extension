@@ -206,7 +206,7 @@ export function Profile(): JSX.Element {
                         closable: false,
                         closeOnBackDropClick: true,
                         paperClassName: 'large-popup',
-                        content: <VerificationPopup title={'mobile'} />,
+                        content: <VerificationPopup title={'phone'} />,
                       });
                     }}
                   />

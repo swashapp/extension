@@ -304,16 +304,18 @@ const userHelper = (function () {
     });
   }
 
-  async function join(email: string, code: string) {
+  async function join(requestId: string, code: string) {
     return await swashApiHelper.join(await generateJWT(), {
-      email,
+      type: 'email',
+      requestId,
       code,
     });
   }
 
-  async function updateEmail(email: string, code: string) {
-    return await swashApiHelper.updateEmail(await generateJWT(), {
-      email,
+  async function updateEmail(requestId: string, code: string) {
+    return await swashApiHelper.updateVerifiedInfo(await generateJWT(), {
+      type: 'email',
+      requestId,
       code,
     });
   }

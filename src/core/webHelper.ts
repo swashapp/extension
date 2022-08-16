@@ -525,20 +525,20 @@ const helper = (function () {
     return sendMessage(message);
   }
 
-  function join(email, code) {
+  function join(requestId, code) {
     const message = {
       obj: 'userHelper',
       func: 'join',
-      params: [email, code],
+      params: [requestId, code],
     };
     return sendMessage(message);
   }
 
-  function updateEmail(email, code) {
+  function updateEmail(requestId, code) {
     const message = {
       obj: 'userHelper',
       func: 'updateEmail',
-      params: [email, code],
+      params: [requestId, code],
     };
     return sendMessage(message);
   }

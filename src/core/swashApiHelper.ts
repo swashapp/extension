@@ -132,10 +132,6 @@ const swashApiHelper = (function () {
     return post<JoinResponse>(token, config.APIs.userJoin, body);
   }
 
-  async function updateEmail(token: string, body: Any) {
-    return put<Any>(token, config.APIs.userUpdateEmail, body);
-  }
-
   async function newsletterSignUp(email: string, newsletter: number) {
     return post<Any>('', config.APIs.newsletterSignUp, { email, newsletter });
   }
@@ -180,6 +176,10 @@ const swashApiHelper = (function () {
     );
   }
 
+  async function updateVerifiedInfo(token: string, body: Any) {
+    return post<Any>(token, config.APIs.userVerifiedInfo, body);
+  }
+
   async function getAdditionalInfo(token: string) {
     return get<Any>(token, config.APIs.userAdditionalInfo);
   }
@@ -202,9 +202,9 @@ const swashApiHelper = (function () {
     claimRewards,
     resendCodeToEmail,
     join,
-    updateEmail,
     newsletterSignUp,
     getNotifications,
+    updateVerifiedInfo,
     getAdditionalInfo,
     updateAdditionalInfo,
   };

@@ -1,18 +1,22 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
+import { toast } from 'react-toastify';
+
 import { closePopup } from '../popup/popup';
 import { WaitingProgressBar } from '../progress/waiting-progress';
+import { ToastMessage } from '../toast/toast-message';
 
-const SWASH_DOMAIN = 'https://swashapp.io';
+const SWASH_DOMAIN = 'http://localhost:3000';
 const SWASH_JOIN_PAGE = '/user/profile-verification';
 
 const enum Status {
   CANCEL = 'CANCEL',
   SUCCESS = 'SUCCESS',
+  ERROR = 'ERROR',
 }
 
 export function VerificationPopup(props: {
-  title: 'mobile' | 'email';
+  title: 'phone' | 'email';
 }): JSX.Element {
   const [token, setToken] = useState<string | null>('');
   const [iframeVisible, setIframeVisible] = useState<boolean>(false);
@@ -25,6 +29,9 @@ export function VerificationPopup(props: {
         break;
       case Status.SUCCESS:
         closePopup();
+        break;
+      case Status.ERROR:
+        toast(<ToastMessage type="error" content={event.data.message} />);
         break;
     }
   }, []);
