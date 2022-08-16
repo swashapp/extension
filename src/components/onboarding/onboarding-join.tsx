@@ -11,7 +11,7 @@ import { WaitingProgressBar } from '../progress/waiting-progress';
 
 import { OnboardingVerify } from './onboarding-verify';
 
-const SWASH_DOMAIN = 'https://swashapp.io';
+const SWASH_DOMAIN = 'http://localhost:3000';
 const SWASH_JOIN_PAGE = '/user/verify-email';
 const MAX_TOKEN_TRY_COUNT = 3;
 const MAX_GENERAL_TRY_COUNT = 3;
@@ -31,7 +31,7 @@ export function OnboardingJoin(): JSX.Element {
   const [iframeVisible, setIframeVisible] = useState<boolean>(false);
 
   const iframeSrc = useMemo(
-    () => `${SWASH_DOMAIN}${SWASH_JOIN_PAGE}?token=${token}`,
+    () => `${SWASH_DOMAIN}${SWASH_JOIN_PAGE}?token=${token}&v=2`,
     [token],
   );
 
@@ -41,9 +41,10 @@ export function OnboardingJoin(): JSX.Element {
 
   const [verification, setVerification] = useState<{
     email: string;
+    requestId: string;
     stayUpdate: boolean;
     status?: Status;
-  }>({ email: '', stayUpdate: false });
+  }>({ email: '', requestId: '', stayUpdate: false });
 
   const handleMessages = useCallback(
     (event) => {
@@ -55,6 +56,7 @@ export function OnboardingJoin(): JSX.Element {
           stepper.back();
           break;
         case Status.SUCCESS:
+          console.log(event.data);
           setVerification(event.data);
           break;
         case Status.FAIL:
@@ -106,7 +108,9 @@ export function OnboardingJoin(): JSX.Element {
         <OnboardingVerify
           key={''}
           {...verification}
-          onBack={() => setVerification({ email: '', stayUpdate: false })}
+          onBack={() =>
+            setVerification({ email: '', requestId: '', stayUpdate: false })
+          }
           joinData={joinData}
         />
       ) : (

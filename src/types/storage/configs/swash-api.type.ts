@@ -10,6 +10,7 @@ export type SwashApiConfigs = {
     userReferralReward: string;
     userReferralClaim: string;
     userBalanceWithdraw: string;
+    userVerifiedInfo: string;
     userAdditionalInfo: string;
     balanceWithdraw: string;
     referralActive: string;
