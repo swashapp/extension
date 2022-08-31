@@ -11,7 +11,7 @@ import { WaitingProgressBar } from '../progress/waiting-progress';
 
 import { OnboardingVerify } from './onboarding-verify';
 
-const SWASH_DOMAIN = 'http://localhost:3000';
+const SWASH_DOMAIN = 'https://swashapp.io';
 const SWASH_JOIN_PAGE = '/user/verify-email';
 const MAX_TOKEN_TRY_COUNT = 3;
 const MAX_GENERAL_TRY_COUNT = 3;

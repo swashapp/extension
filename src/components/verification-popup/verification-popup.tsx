@@ -6,7 +6,7 @@ import { closePopup } from '../popup/popup';
 import { WaitingProgressBar } from '../progress/waiting-progress';
 import { ToastMessage } from '../toast/toast-message';
 
-const SWASH_DOMAIN = 'http://localhost:3000';
+const SWASH_DOMAIN = 'https://swashapp.io';
 const SWASH_JOIN_PAGE = '/user/profile-verification';
 
 const enum Status {
