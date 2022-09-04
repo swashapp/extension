@@ -19,7 +19,7 @@ import { Popup, showPopup } from '../components/popup/popup';
 import { SettingsTour } from '../components/settings/settings-tour';
 import { Sidenav } from '../components/sidenav/sidenav';
 import { SidenavButton } from '../components/sidenav/sidenav-button';
-import { VerificationAlert } from '../components/verification-popup/verification-alert';
+import { VerificationAlert } from '../components/verification/verification-alert';
 import { WalletTour } from '../components/wallet/wallet-tour';
 import { SidenavItems } from '../data/sidenav-items';
 import { RouteToPages } from '../paths';

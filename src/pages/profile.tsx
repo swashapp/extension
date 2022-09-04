@@ -5,13 +5,16 @@ import { toast } from 'react-toastify';
 import { Button } from '../components/button/button';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
-import { ForwardEndAdornment } from '../components/input/end-adornments/forward-end-adornment';
-import { Input } from '../components/input/input';
 import { showPopup } from '../components/popup/popup';
 import { Select } from '../components/select/select';
 import { ToastMessage } from '../components/toast/toast-message';
-import { VerificationPopup } from '../components/verification-popup/verification-popup';
+import { VerificationPopup } from '../components/verification/verification-popup';
+import { VerifiedInfoBox } from '../components/verification/verified-info-box';
 import { helper } from '../core/webHelper';
+
+const successfulJob = '/static/images/icons/successful-job.png';
+const checkIcon = '/static/images/shape/check.svg';
+const exclamationIcon = '/static/images/shape/exclamation.svg';
 
 const birthYearList: { name: string; value: string }[] = [];
 
@@ -118,8 +121,26 @@ export function Profile(): JSX.Element {
     <div className="page-container">
       <BackgroundTheme />
       <div className="page-content">
-        <div className="page-header">
-          <h2>Profile</h2>
+        <div className="page-header profile-header">
+          <h2>My profile</h2>
+          <div className="profile-verification-container">
+            {phone ? (
+              <div className="profile-status-verified">
+                <img src={checkIcon} width={12} height={12} alt={'verified'} />
+                Verified
+              </div>
+            ) : (
+              <div className="profile-status-unverified">
+                <img
+                  src={exclamationIcon}
+                  width={12}
+                  height={12}
+                  alt={'unverified'}
+                />
+                Unverified
+              </div>
+            )}
+          </div>
         </div>
         <FlexGrid column={2} className="half-cards card-gap">
           <div className="simple-card">
@@ -160,57 +181,60 @@ export function Profile(): JSX.Element {
                 onChange={(e) => setIndustry(e.target.value as string)}
               />
             </div>
-            <Button
-              className="form-button"
-              color="primary"
-              text="Submit"
-              link={false}
-              onClick={onSubmit}
-              loading={loading}
-            />
+            <div className="form-button-right">
+              <Button
+                className="form-button"
+                color="primary"
+                text="Submit"
+                link={false}
+                onClick={onSubmit}
+                loading={loading}
+              />
+            </div>
           </div>
           <div className="flex-column card-gap">
             <div className="verify-profile title">
-              To withdraw your earnings and receive 100 SWASH bonus, please
-              verify your profile.
+              {!phone ? (
+                <div className="verify-profile-verified">
+                  <img
+                    src={successfulJob}
+                    width={98}
+                    height={98}
+                    alt={'verified'}
+                  />
+                  Congrats! You are a verified Swash member!
+                </div>
+              ) : (
+                'To withdraw your earnings and receive 100 SWASH bonus, please verify your profile.'
+              )}
             </div>
             <div className="simple-card">
               <h6>Contact information</h6>
-              <Input
-                label="Email Address"
-                value={email ? email : 'Not provided'}
-                disabled={true}
-                endAdornment={
-                  <ForwardEndAdornment
-                    onClick={() => {
-                      showPopup({
-                        id: 'verify-email',
-                        closable: false,
-                        closeOnBackDropClick: true,
-                        paperClassName: 'large-popup',
-                        content: <VerificationPopup title={'email'} />,
-                      });
-                    }}
-                  />
-                }
+              <VerifiedInfoBox
+                title={'Email address'}
+                value={email ? email : undefined}
+                onClick={() => {
+                  showPopup({
+                    id: 'verify-email',
+                    closable: false,
+                    closeOnBackDropClick: true,
+                    paperClassName: 'large-popup',
+                    content: <VerificationPopup title={'email'} />,
+                  });
+                }}
               />
-              <Input
-                label="Phone number"
-                value={phone ? phone : 'Not provided'}
-                disabled={true}
-                endAdornment={
-                  <ForwardEndAdornment
-                    onClick={() => {
-                      showPopup({
-                        id: 'verify-phone',
-                        closable: false,
-                        closeOnBackDropClick: true,
-                        paperClassName: 'large-popup',
-                        content: <VerificationPopup title={'phone'} />,
-                      });
-                    }}
-                  />
-                }
+              <VerifiedInfoBox
+                title={'Phone number'}
+                value={phone ? phone : undefined}
+                onClick={() => {
+                  showPopup({
+                    id: 'verify-phone',
+                    closable: false,
+                    closeOnBackDropClick: true,
+                    paperClassName: 'large-popup',
+                    content: <VerificationPopup title={'phone'} />,
+                  });
+                }}
               />
             </div>
           </div>
