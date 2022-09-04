@@ -26,7 +26,7 @@ export function CongratsWalletIsReady(props: {
       ) : (
         <></>
       )}
-      <div className="onboarding-progress-button  congrats-button">
+      <div className="onboarding-progress-button congrats-button">
         <Button
           text="Use Swash"
           loading={loading}
