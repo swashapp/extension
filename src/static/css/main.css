@@ -533,6 +533,7 @@ hr.nav {
   height: 24px;
 
   background: url('/static/images/shape/heart.png');
+  cursor: pointer;
 }
 
 .fav-button:hover {
