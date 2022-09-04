@@ -11,9 +11,6 @@ export function Charity(props: {
   title: string;
   location: string;
   description: string;
-  supporters: number;
-  donated: number;
-  yours: number;
 }): JSX.Element {
   return (
     <div className={'charity'}>
@@ -42,20 +39,6 @@ export function Charity(props: {
         <div className={'charity-title title'}>{props.title}</div>
         <div className={'charity-location'}>{props.location}</div>
         <div className={'charity-text'}>{props.description}</div>
-        <div className={'charity-stats'}>
-          <div className={'stats-box'}>
-            <div className={'stats-title'}>Supporters</div>
-            <div className={'stats-number title'}>{props.supporters}</div>
-          </div>
-          <div className={'stats-box'}>
-            <div className={'stats-title'}>Donated</div>
-            <div className={'stats-number title'}>${props.donated}</div>
-          </div>
-          <div className={'stats-box'}>
-            <div className={'stats-title'}>By You</div>
-            <div className={'stats-number title'}>${props.yours}</div>
-          </div>
-        </div>
         <div className={'charity-actions'}>
           <Button
             text={'Donate'}

@@ -29,16 +29,6 @@ export function Donations(): JSX.Element {
                   donated.
                 </div>
               </div>
-              <div className={'donation-burn-stats'}>
-                <div className={'stats-box-green'}>
-                  <div className={'stats-title'}>Donated</div>
-                  <div className={'stats-number title'}>$222,222.1</div>
-                </div>
-                <div className={'stats-box-green'}>
-                  <div className={'stats-title'}>Burned</div>
-                  <div className={'stats-number title'}>$3,333.33</div>
-                </div>
-              </div>
             </div>
             <hr className="custom" />
             <div>
@@ -63,9 +53,6 @@ export function Donations(): JSX.Element {
                 description={
                   'People for the Ethical Treatment of Animals (PETA) is the largest animal rights organization in the world.'
                 }
-                supporters={255}
-                donated={1559}
-                yours={150}
               />
               <Charity
                 banner={'/static/images/image.png'}
@@ -75,9 +62,6 @@ export function Donations(): JSX.Element {
                 description={
                   'People for the Ethical Treatment of Animals (PETA) is the largest animal rights organization in the world.'
                 }
-                supporters={255}
-                donated={1559}
-                yours={150}
               />
               <Charity
                 banner={'/static/images/image.png'}
@@ -87,9 +71,6 @@ export function Donations(): JSX.Element {
                 description={
                   'People for the Ethical Treatment of Animals (PETA) is the largest animal rights organization in the world.'
                 }
-                supporters={255}
-                donated={1559}
-                yours={150}
               />
               <Charity
                 banner={'/static/images/image.png'}
@@ -99,9 +80,6 @@ export function Donations(): JSX.Element {
                 description={
                   'People for the Ethical Treatment of Animals (PETA) is the largest animal rights organization in the world.'
                 }
-                supporters={255}
-                donated={1559}
-                yours={150}
               />
               <Charity
                 banner={'/static/images/image.png'}
@@ -111,9 +89,6 @@ export function Donations(): JSX.Element {
                 description={
                   'People for the Ethical Treatment of Animals (PETA) is the largest animal rights organization in the world.'
                 }
-                supporters={255}
-                donated={1559}
-                yours={150}
               />
             </FlexGrid>
           </div>
