@@ -13,5 +13,6 @@ export type Profile = {
   household?: string;
   employment?: string;
   industry?: string;
+  lastBalance?: string;
   lastCheck?: Date;
 };

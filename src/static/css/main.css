@@ -528,15 +528,21 @@ hr.nav {
   color: #ff7979;
 }
 
-.fav-button {
+.fav-button,
+.fav-button-enabled {
   width: 24px;
   height: 24px;
 
-  background: url('/static/images/shape/heart.png');
   cursor: pointer;
 }
 
-.fav-button:hover {
+.fav-button,
+.fav-button-enabled:hover {
+  background: url('/static/images/shape/heart.png');
+}
+
+.fav-button:hover,
+.fav-button-enabled {
   background: url('/static/images/shape/heart-filled.png');
 }
 
@@ -2083,6 +2089,11 @@ hr.nav {
   padding: 32px;
 }
 
+.custom-popup {
+  width: auto;
+  padding: 32px;
+}
+
 .small-popup-title {
   font-style: normal;
   font-weight: 415;
@@ -2292,6 +2303,64 @@ hr.nav {
 
 .donate-option-grid {
   gap: 16px;
+}
+
+.donate-popup {
+  width: 362px;
+}
+
+.donate-completed {
+  width: 764px;
+  text-align: center;
+}
+
+.donate-percent-option {
+  width: 173px;
+  height: 72px;
+  border-radius: 12px;
+  background: #FFFFFF;
+  mix-blend-mode: normal;
+  box-sizing: border-box;
+  text-transform: none;
+}
+
+.donate-confirmation-header {
+  display: flex;
+  align-items: center;
+}
+
+.donate-confirmation-header > img {
+  width: 16px;
+  height: 16px;
+
+  margin-right: 12px;
+  transform: rotate(180deg);
+
+  cursor: pointer;
+}
+
+.donate-confirmation-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.donate-confirmation-row {
+  display: flex;
+  justify-content: space-between;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.donate-confirmation-name {
+  color: #8091A3;
+}
+
+.donate-confirmation-value {
+  color: #002030;
 }
 
 .transaction-header-container {

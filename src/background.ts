@@ -1,5 +1,6 @@
 import browser from 'webextension-polyfill';
 
+import { charityHelper } from './core/charityHelper';
 import { configManager } from './core/configManager';
 import { databaseHelper } from './core/databaseHelper';
 import { dataHandler } from './core/dataHandler';
@@ -28,6 +29,7 @@ async function initConfigs() {
   await apiCall.init();
   await swashApiHelper.init();
   await graphApiHelper.init();
+  await charityHelper.init();
 }
 
 async function installSwash(info: Any) {
@@ -106,6 +108,7 @@ browser.runtime.onMessage.addListener(
       swashApiHelper: swashApiHelper,
       graphApiHelper: graphApiHelper,
       configManager: configManager,
+      charityHelper: charityHelper,
     };
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

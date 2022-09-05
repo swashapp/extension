@@ -1,6 +1,7 @@
 import { Notifications } from 'types/storage/notifications.type';
 import browser from 'webextension-polyfill';
 
+import { CharityEntity } from '../entities/charity.entity';
 import { ConfigEntity } from '../entities/config.entity';
 import { FilterEntity } from '../entities/filter.entity';
 import { ModuleEntity } from '../entities/module.entity';
@@ -9,6 +10,7 @@ import { OnboardingEntity } from '../entities/onboarding.entity';
 import { PrivacyDataEntity } from '../entities/privacy-data.entity';
 import { ProfileEntity } from '../entities/profile.entity';
 import { Any } from '../types/any.type';
+import { Charity } from '../types/storage/charity.type';
 import { Configs } from '../types/storage/configs.type';
 import { Filter } from '../types/storage/filter.type';
 import { Module, ModuleFunction, Modules } from '../types/storage/module.type';
@@ -38,6 +40,7 @@ const storageHelper = (function () {
     await (await FilterEntity.getInstance()).get(false);
     await (await PrivacyDataEntity.getInstance()).get(false);
     await (await NotificationsEntity.getInstance()).get(false);
+    await (await CharityEntity.getInstance()).get(false);
     return result;
   }
 
@@ -101,6 +104,14 @@ const storageHelper = (function () {
     return (await NotificationsEntity.getInstance()).get();
   }
 
+  async function saveCharities(charities: Charity[]) {
+    return (await CharityEntity.getInstance()).save(charities);
+  }
+
+  async function getCharities() {
+    return (await CharityEntity.getInstance()).get();
+  }
+
   function updateFunctionSettings(
     module: Module,
     functionName: ModuleFunction,
@@ -144,6 +155,8 @@ const storageHelper = (function () {
     saveModuleSettings,
     saveNotifications,
     getNotifications,
+    saveCharities,
+    getCharities,
   };
 })();
 export { storageHelper };

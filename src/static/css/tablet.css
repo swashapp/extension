@@ -46,18 +46,6 @@
     flex-wrap: nowrap;
   }
 
-  .popup .MuiDialog-container {
-    align-items: flex-end;
-  }
-
-  .popup-paper {
-    margin: 0 !important;
-    border-bottom-left-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-    width: 100%;
-    max-width: unset !important;
-  }
-
   .wallet-token-transfer-content {
     margin: 115px 0;
   }
