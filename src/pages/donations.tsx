@@ -1,10 +1,27 @@
+import { formatEther } from '@ethersproject/units';
+import {
+  CircularProgress,
+  Pagination,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
+import { Button } from '../components/button/button';
 import { Charity } from '../components/charity/charity';
+import { StopDonation } from '../components/donate/stop-donation';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { SearchEndAdornment } from '../components/input/end-adornments/search-end-adornment';
 import { Input } from '../components/input/input';
+import { showPopup } from '../components/popup/popup';
+import { Select } from '../components/select/select';
 import { helper } from '../core/webHelper';
 import { Charity as CharityType } from '../types/storage/charity.type';
 
@@ -67,16 +84,105 @@ const charities = [
 
 export function Donations(): JSX.Element {
   const [metadata, setMetadata] = useState<CharityType[]>([]);
+  const [onGoing, setOngoing] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>('');
 
   useEffect(() => {
-    helper.getCharityMetadata().then(setMetadata);
+    helper.getCharityMetadata().then((meta) => {
+      setMetadata(meta);
+
+      const index = meta.findIndex((charity: CharityType) => charity.auto_pay);
+      if (index >= 0) setOngoing(true);
+    });
   }, []);
 
   return (
     <div className="page-container">
       <BackgroundTheme layout="layout3" />
       <div className="page-content">
+        {onGoing ? (
+          <div className="flex-column card-gap donation-bottom-margin">
+            <div className="simple-card">
+              <div className="flex-column card-gap">
+                <div className={'transaction-header-container'}>
+                  <h2>Ongoing Donations</h2>
+                </div>
+                {metadata.map((charity) => {
+                  if (charity.auto_pay) {
+                    const data = charities.find(
+                      (item) => item.id === charity.id,
+                    );
+
+                    return (
+                      <div key={charity.id} className="ongoing-top-page">
+                        <div className="ongoing-top-about">
+                          <div className="ongoing-top-logo">
+                            <img
+                              src={data?.icon}
+                              alt={''}
+                              style={{
+                                height: 'fit-content',
+                                width: 'fit-content',
+                              }}
+                            />
+                          </div>
+                          <div className="ongoing-top-body">
+                            <div className="charity-title title">
+                              {data?.name}
+                            </div>
+                            <div className="charity-location">
+                              {data?.location}
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="donate-confirmation-name">
+                            Payment Method
+                          </div>
+                          <div className="donate-confirmation-value">
+                            Ongoing Payement
+                          </div>
+                        </div>
+                        <div>
+                          <div className="donate-confirmation-name">
+                            Donating
+                          </div>
+                          <div className="donate-confirmation-value">
+                            {charity.percentage}%/day
+                          </div>
+                        </div>
+                        <div>
+                          <Button
+                            color={'white'}
+                            text={'Stop Donating'}
+                            link={false}
+                            className={'charity-actions-stop'}
+                            onClick={() => {
+                              showPopup({
+                                closable: false,
+                                closeOnBackDropClick: true,
+                                paperClassName: 'custom-popup',
+                                content: (
+                                  <StopDonation
+                                    id={charity.id}
+                                    title={data?.name || ''}
+                                    percent={charity.percentage}
+                                  />
+                                ),
+                              });
+                            }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  }
+                })}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
         <div className="page-header">
           <h2>Donations</h2>
         </div>
@@ -84,7 +190,7 @@ export function Donations(): JSX.Element {
           <div className="simple-card">
             <div className="donation-burn">
               <div>
-                <div className={'donation-burn-title title'}>
+                <div className="donation-burn-title title">
                   Swash Donating Aswell
                 </div>
                 <div className="donation-burn-text">
