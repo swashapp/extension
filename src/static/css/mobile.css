@@ -496,6 +496,19 @@
     width: 100%;
   }
 
+  .donate-popup,
+  .donate-completed {
+    width: unset;
+  }
+
+  .donate-option-item {
+    width: calc(25% - 16px);
+  }
+
+  .donate-percent-option {
+    width: 100%;
+  }
+
   .charity-body {
     padding: 20px;
   }

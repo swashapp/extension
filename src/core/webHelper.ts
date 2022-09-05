@@ -651,6 +651,33 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function getCharityMetadata() {
+    const message = {
+      obj: 'charityHelper',
+      func: 'getCharityMetadata',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
+  function toggleCharityLike(id) {
+    const message = {
+      obj: 'charityHelper',
+      func: 'toggleCharityLike',
+      params: [id],
+    };
+    return sendMessage(message);
+  }
+
+  function addCharityAutoPayment(id, wallet, percent) {
+    const message = {
+      obj: 'charityHelper',
+      func: 'addCharityAutoPayment',
+      params: [id, wallet, percent],
+    };
+    return sendMessage(message);
+  }
+
   function getUserTransactions(type) {
     const message = {
       obj: 'graphApiHelper',
@@ -734,6 +761,9 @@ const helper = (function () {
     getUserTransactions,
     getUserProfile,
     updateUserProfile,
+    getCharityMetadata,
+    toggleCharityLike,
+    addCharityAutoPayment,
   };
 })();
 

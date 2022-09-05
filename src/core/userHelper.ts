@@ -220,7 +220,7 @@ const userHelper = (function () {
     useSponsor: boolean,
     sendToMainnet: boolean,
   ) {
-    const signature = await signWithdrawAllTo(recipient);
+    const signature = await signWithdrawAmountTo(recipient, amount);
     const amountInWei = parseEther(amount);
     const body = {
       recipient: recipient,

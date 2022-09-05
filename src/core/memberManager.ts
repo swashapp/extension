@@ -5,6 +5,7 @@ import { MemberManagerConfigs } from '../types/storage/configs/member-manager.ty
 
 import { commonUtils } from '../utils/common.util';
 
+import { charityHelper } from './charityHelper';
 import { configManager } from './configManager';
 import { onboarding } from './onboarding';
 import { pageAction } from './pageAction';
@@ -44,6 +45,8 @@ const memberManager = (function () {
         profile.lastCheck = new Date();
         console.log(`User last join submitted on ${profile.lastCheck}`);
         await storageHelper.saveProfile(profile);
+        keepAlive().catch(console.error);
+        charityHelper.startAutoPayment().catch(console.error);
         tryInterval = memberManagerConfig.tryInterval;
         browser.tabs
           .query({ currentWindow: true, active: true })
@@ -103,7 +106,6 @@ const memberManager = (function () {
   return {
     init,
     tryJoin,
-    keepAlive,
     isJoined,
   };
 })();

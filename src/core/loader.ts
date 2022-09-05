@@ -206,7 +206,6 @@ const loader = (function () {
       init(true);
       await loadFunctions();
       memberManager.tryJoin().catch(console.error);
-      memberManager.keepAlive().catch(console.error);
     } else {
       init(false);
       await unloadFunctions();
@@ -229,7 +228,6 @@ const loader = (function () {
       init(true);
       await loadFunctions();
       memberManager.tryJoin().catch(console.error);
-      memberManager.keepAlive().catch(console.error);
     }
     loadNotifications();
   }

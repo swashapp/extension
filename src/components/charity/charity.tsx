@@ -1,16 +1,21 @@
 import React from 'react';
 
+import { helper } from '../../core/webHelper';
+import { Charity } from '../../types/storage/charity.type';
 import { Button } from '../button/button';
 import { FavButton } from '../button/fav';
 import { Donate } from '../donate/donate';
 import { showPopup } from '../popup/popup';
 
 export function Charity(props: {
+  id: number;
   banner: string;
   logo: string;
   title: string;
   location: string;
   description: string;
+  wallet: string;
+  metadata?: Charity;
 }): JSX.Element {
   return (
     <div className={'charity'}>
@@ -48,14 +53,21 @@ export function Charity(props: {
               showPopup({
                 closable: false,
                 closeOnBackDropClick: true,
-                paperClassName: 'small-popup',
-                content: <Donate title={props.title} />,
+                paperClassName: 'custom-popup',
+                content: (
+                  <Donate
+                    id={props.id}
+                    title={props.title}
+                    address={props.wallet}
+                  />
+                ),
               });
             }}
           />
           <FavButton
-            onClick={() => {
-              console.log('');
+            enable={props.metadata?.fav || false}
+            onClick={async () => {
+              await helper.toggleCharityLike(props.id);
             }}
           />
         </div>
