@@ -1,9 +1,9 @@
 @media only screen and (max-width: 768px) {
-    .donate-option-item {
-        width: calc(50% - 8px);
-    }
+  .donate-option-item {
+    width: calc(50% - 8px);
+  }
 
-    .donation-charity {
-        width: 100%;
-    }
+  .donation-charity {
+    width: 100%;
+  }
 }
