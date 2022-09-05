@@ -131,13 +131,13 @@ a:hover {
 }
 
 hr.custom {
-  border: 1px solid #E7F4F4;
+  border: 1px solid #e7f4f4;
   width: 100%;
   margin: 8px 0;
 }
 
 hr.nav {
-  border: 1px solid #E7F4F4;
+  border: 1px solid #e7f4f4;
   width: calc(100% + 64px);
   margin: -32px 0 32px 0;
 }
@@ -2196,7 +2196,7 @@ hr.nav {
 }
 
 .ongoing-top-page {
-  background: #F3F9F9;
+  background: #f3f9f9;
   mix-blend-mode: normal;
   border-radius: 12px;
   padding: 24px;
@@ -2206,7 +2206,7 @@ hr.nav {
   width: 80px;
   height: 80px;
 
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0 7px 11px rgba(86, 86, 86, 0.02);
   border-radius: 12px;
 
@@ -2252,7 +2252,7 @@ hr.nav {
   width: 100%;
   height: max-content;
 
-  background: #F3F9F9;
+  background: #f3f9f9;
   mix-blend-mode: normal;
   border-radius: 12px;
 
@@ -2273,7 +2273,7 @@ hr.nav {
   right: 32px;
   bottom: -40px;
 
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0 7px 11px rgba(86, 86, 86, 0.02);
   border-radius: 12px;
 
@@ -2292,7 +2292,7 @@ hr.nav {
   font-size: 12px;
   line-height: 16px;
 
-  color: #8091A3;
+  color: #8091a3;
 }
 
 .charity-text {
@@ -2356,7 +2356,7 @@ hr.nav {
   width: 173px;
   height: 72px;
   border-radius: 12px;
-  background: #FFFFFF;
+  background: #ffffff;
   mix-blend-mode: normal;
   box-sizing: border-box;
   text-transform: none;
@@ -2397,7 +2397,7 @@ hr.nav {
 }
 
 .donate-confirmation-name {
-  color: #8091A3;
+  color: #8091a3;
 }
 
 .donate-confirmation-value {
@@ -2442,7 +2442,7 @@ hr.nav {
 
 .transaction-table-body tr:last-child td,
 .transaction-table-body tr:last-child th {
-  border: 0
+  border: 0;
 }
 
 .transaction-table-pagination {
@@ -2464,7 +2464,7 @@ hr.nav {
 }
 
 .transaction-table-pagination-pages {
-  background: #F3F9F9;
+  background: #f3f9f9;
   border-radius: 8px;
 }
 
@@ -2472,7 +2472,10 @@ hr.nav {
   padding: 4px;
 }
 
-.transaction-table-pagination-pages ul li > .MuiPaginationItem-root.Mui-selected,
+.transaction-table-pagination-pages
+  ul
+  li
+  > .MuiPaginationItem-root.Mui-selected,
 .transaction-table-pagination-pages ul li > .MuiPaginationItem-previousNext {
   background: #ffffff;
   box-shadow: 0 1px 1px rgba(44, 62, 62, 0.1);
@@ -2501,7 +2504,7 @@ hr.nav {
 .verify-profile {
   height: 100%;
   background: url('/static/images/background/verify-profile.png') no-repeat
-  center center;
+    center center;
   background-size: cover;
 
   overflow: hidden;
@@ -2533,7 +2536,7 @@ hr.nav {
 }
 
 .profile-verification-container {
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 100px;
 
   padding: 6px;
@@ -2556,11 +2559,11 @@ hr.nav {
 
   font-size: 12px;
   line-height: 12px;
-  color: #59F28B;
+  color: #59f28b;
 }
 
 .profile-status-unverified {
-  color: #FF7979;
+  color: #ff7979;
 }
 
 .profile-status-verified > img,
@@ -2576,7 +2579,7 @@ hr.nav {
   align-items: center;
 
   mix-blend-mode: normal;
-  border: 1px solid #E9EDEF;
+  border: 1px solid #e9edef;
   border-radius: 12px;
 
   padding: 21px 24px;
@@ -2587,7 +2590,7 @@ hr.nav {
 .verified-info-title {
   font-size: 12px;
   line-height: 16px;
-  color: #8091A3;
+  color: #8091a3;
 }
 
 .verified-info-value {
@@ -2603,7 +2606,7 @@ hr.nav {
 
   font-size: 12px;
   line-height: 20px;
-  color: #FF7979;
+  color: #ff7979;
 }
 
 .verified-info-action {

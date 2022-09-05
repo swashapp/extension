@@ -30,7 +30,8 @@ export function CopyEndAdornment(props: { value: string }): JSX.Element {
               />,
             )
           }
-          size="large">
+          size="large"
+        >
           <img src={copyIcon} alt={'copy'} />
         </IconButton>
       </CopyToClipboard>

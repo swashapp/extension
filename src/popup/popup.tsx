@@ -1,4 +1,9 @@
-import { createTheme, ThemeProvider, Theme, StyledEngineProvider } from '@mui/material';
+import {
+  createTheme,
+  ThemeProvider,
+  Theme,
+  StyledEngineProvider,
+} from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -13,12 +18,10 @@ import { Toggle } from '../components/toggle/toggle';
 import { helper } from '../core/webHelper';
 import { initValue, UtilsService } from '../service/utils-service';
 
-
 declare module '@mui/styles/defaultTheme' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends Theme {}
 }
-
 
 declare global {
   interface Window {
