@@ -67,6 +67,23 @@ const charityHelper = (function () {
     if (sum < 100) await storageHelper.saveCharities(charities);
   }
 
+  async function delCharityAutoPayment(id: number) {
+    const charities = await storageHelper.getCharities();
+    const index = charities.findIndex((charity) => charity.id === id);
+
+    if (index >= 0) {
+      if (charities[index].fav) {
+        charities[index].auto_pay = false;
+        charities[index].wallet = '';
+        charities[index].percentage = '0';
+      } else {
+        charities.splice(index, 1);
+      }
+    }
+
+    await storageHelper.saveCharities(charities);
+  }
+
   async function paymentToCharities() {
     const profile = await storageHelper.getProfile();
     const balance = await userHelper.getAvailableBalance();
@@ -126,6 +143,7 @@ const charityHelper = (function () {
     toggleCharityLike,
     addCharityAutoPayment,
     startAutoPayment,
+    delCharityAutoPayment,
   };
 })();
 

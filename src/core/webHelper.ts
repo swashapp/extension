@@ -678,6 +678,15 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function delCharityAutoPayment(id) {
+    const message = {
+      obj: 'charityHelper',
+      func: 'delCharityAutoPayment',
+      params: [id],
+    };
+    return sendMessage(message);
+  }
+
   function getUserTransactions(type) {
     const message = {
       obj: 'graphApiHelper',
@@ -764,6 +773,7 @@ const helper = (function () {
     getCharityMetadata,
     toggleCharityLike,
     addCharityAutoPayment,
+    delCharityAutoPayment,
   };
 })();
 

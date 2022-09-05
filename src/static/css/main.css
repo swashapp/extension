@@ -929,6 +929,7 @@ hr.nav {
 
 .page-content {
   margin: 64px;
+  z-index: 1;
 }
 
 .half-cards {
@@ -2186,6 +2187,39 @@ hr.nav {
   align-items: center;
 }
 
+.ongoing-top-page,
+.ongoing-top-about {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ongoing-top-page {
+  background: #F3F9F9;
+  mix-blend-mode: normal;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.ongoing-top-logo {
+  width: 80px;
+  height: 80px;
+
+  background: #FFFFFF;
+  box-shadow: 0 7px 11px rgba(86, 86, 86, 0.02);
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ongoing-top-body {
+  min-width: 267px;
+  margin-left: 24px;
+}
+
 .donation-burn-title,
 .charity-title {
   font-style: normal;
@@ -2280,8 +2314,12 @@ hr.nav {
   align-items: center;
 }
 
-.charity-actions-button {
+.charity-actions-donate {
   width: 114px;
+}
+
+.charity-actions-stop {
+  width: 145px;
 }
 
 .donate-type {
@@ -2348,7 +2386,10 @@ hr.nav {
 .donate-confirmation-row {
   display: flex;
   justify-content: space-between;
+}
 
+.donate-confirmation-name,
+.donate-confirmation-value {
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -2567,4 +2608,8 @@ hr.nav {
 
 .verified-info-action {
   height: 30px;
+}
+
+.donation-bottom-margin {
+  margin-bottom: 48px;
 }
