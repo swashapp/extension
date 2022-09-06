@@ -142,27 +142,22 @@ export function ImportYourConfig(): JSX.Element {
           <h2>Import your configuration</h2>
           <p>Choose an option to import your settings file</p>
           <FlexGrid column={2} className="import-your-config-cards card-gap">
-            <FlexGrid column={2} className="import-your-config-2cards card-gap">
-              <ImportCard
-                text="Local File"
-                icon={FileLogo}
-                onClick={importFromFile}
-              />
-              <ImportCard
-                text="Dropbox"
-                icon={DropboxLogo}
-                onClick={importFromDropBox}
-              />
-            </FlexGrid>
-            <FlexGrid column={2} className="import-your-config-2cards card-gap">
-              <ImportCard
-                text="Google Drive"
-                icon={GoogleDriveLogo}
-                imageSize={{ width: 27 }}
-                onClick={importFromGoogleDrive}
-              />
-              <></>
-            </FlexGrid>
+            <ImportCard
+              text="Local File"
+              icon={FileLogo}
+              onClick={importFromFile}
+            />
+            <ImportCard
+              text="Dropbox"
+              icon={DropboxLogo}
+              onClick={importFromDropBox}
+            />
+            <ImportCard
+              text="Google Drive"
+              icon={GoogleDriveLogo}
+              imageSize={{ width: 27 }}
+              onClick={importFromGoogleDrive}
+            />
           </FlexGrid>
         </div>
       )}

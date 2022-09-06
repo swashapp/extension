@@ -90,36 +90,25 @@ export function Settings(): JSX.Element {
                 column={2}
                 className="settings-backup-buttons form-item-gap"
               >
-                <FlexGrid
-                  column={2}
-                  className="settings-2backup-buttons form-item-gap"
-                >
-                  <IconButton
-                    body="Local File"
-                    image={FileLogo}
-                    link={false}
-                    onClick={() => window.helper.saveConfig().then()}
-                  />
-                  <IconButton
-                    body="Dropbox"
-                    image={DropboxLogo}
-                    link={false}
-                    onClick={() => onboardingOAuth('DropBox')}
-                  />
-                </FlexGrid>
-                <FlexGrid
-                  column={2}
-                  className="settings-2backup-buttons form-item-gap"
-                >
-                  <IconButton
-                    body="Google Drive"
-                    image={GoogleDriveLogo}
-                    imageSize={{ width: 27 }}
-                    link={false}
-                    onClick={() => onboardingOAuth('GoogleDrive')}
-                  />
-                  <></>
-                </FlexGrid>
+                <IconButton
+                  body="Local File"
+                  image={FileLogo}
+                  link={false}
+                  onClick={() => window.helper.saveConfig().then()}
+                />
+                <IconButton
+                  body="Dropbox"
+                  image={DropboxLogo}
+                  link={false}
+                  onClick={() => onboardingOAuth('DropBox')}
+                />
+                <IconButton
+                  body="Google Drive"
+                  image={GoogleDriveLogo}
+                  imageSize={{ width: 27 }}
+                  link={false}
+                  onClick={() => onboardingOAuth('GoogleDrive')}
+                />
               </FlexGrid>
             </div>
           </div>
