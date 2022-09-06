@@ -17,24 +17,29 @@ const enum Status {
 
 export function VerificationPopup(props: {
   title: 'phone' | 'email';
+  callback?: () => void;
 }): JSX.Element {
   const [token, setToken] = useState<string | null>('');
   const [iframeVisible, setIframeVisible] = useState<boolean>(false);
 
-  const handleMessages = useCallback((event) => {
-    const status = event.data.status;
-    switch (status) {
-      case Status.CANCEL:
-        closePopup();
-        break;
-      case Status.SUCCESS:
-        closePopup();
-        break;
-      case Status.ERROR:
-        toast(<ToastMessage type="error" content={event.data.message} />);
-        break;
-    }
-  }, []);
+  const handleMessages = useCallback(
+    (event) => {
+      const status = event.data.status;
+      switch (status) {
+        case Status.CANCEL:
+          closePopup();
+          break;
+        case Status.SUCCESS:
+          props.callback && props.callback();
+          closePopup();
+          break;
+        case Status.ERROR:
+          toast(<ToastMessage type="error" content={event.data.message} />);
+          break;
+      }
+    },
+    [props],
+  );
 
   useEffect(() => {
     if (!token) {
@@ -61,7 +66,7 @@ export function VerificationPopup(props: {
             visibility: iframeVisible ? 'visible' : 'hidden',
           }}
           onLoad={() => setIframeVisible(true)}
-          title={'joinPage'}
+          title={'profile verification'}
           scrolling="no"
           frameBorder="no"
           src={iframeSrc}

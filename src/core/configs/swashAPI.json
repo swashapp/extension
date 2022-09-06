@@ -15,6 +15,6 @@
     "balanceWithdraw": "/balance/withdraw",
     "referralActive": "/referral/active",
     "ipLookup": "/tools/ip/lookup",
-    "charityList": "/charity/list"
+    "charityList": "/charity"
   }
 }

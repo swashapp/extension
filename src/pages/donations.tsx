@@ -1,17 +1,4 @@
-import { formatEther } from '@ethersproject/units';
-import {
-  CircularProgress,
-  Pagination,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TablePagination,
-  TableRow,
-} from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { Button } from '../components/button/button';
 import { Charity } from '../components/charity/charity';
@@ -21,80 +8,29 @@ import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { SearchEndAdornment } from '../components/input/end-adornments/search-end-adornment';
 import { Input } from '../components/input/input';
 import { showPopup } from '../components/popup/popup';
-import { Select } from '../components/select/select';
 import { helper } from '../core/webHelper';
 import { Charity as CharityType } from '../types/storage/charity.type';
 
-const charities = [
-  {
-    id: 1,
-    name: 'Mercy For Animals',
-    category: 'Animal',
-    banner: '/static/images/image.png',
-    location: 'Los Angeles, CA',
-    icon: '/static/images/logo.png',
-    website: 'https://donate.com',
-    address: '0x0000000000000000000000000000000000000000',
-    description:
-      'People for the Ethical Treatment of Animals (PETA) is the largest animal rights organization in the world.',
-    mission:
-      'People for the Ethical Treatment of Animals (PETA) is the largest animal rights organization in the world.',
-    program:
-      'People for the Ethical Treatment of Animals (PETA) is the largest animal rights organization in the world.',
-    result:
-      'People for the Ethical Treatment of Animals (PETA) is the largest animal rights organization in the world.',
-  },
-  {
-    id: 2,
-    name: 'Mercy For Animals',
-    category: 'Animal',
-    banner: '/static/images/image.png',
-    location: 'Los Angeles, CA',
-    icon: '/static/images/logo.png',
-    website: 'https://donate.com',
-    address: '0x0000000000000000000000000000000000000000',
-    description:
-      'People for the Ethical Treatment of Animals (PETA) is the largest animal rights organization in the world.',
-    mission:
-      'People for the Ethical Treatment of Animals (PETA) is the largest animal rights organization in the world.',
-    program:
-      'People for the Ethical Treatment of Animals (PETA) is the largest animal rights organization in the world.',
-    result:
-      'People for the Ethical Treatment of Animals (PETA) is the largest animal rights organization in the world.',
-  },
-  {
-    id: 3,
-    name: 'Mercy For Animals',
-    category: 'Animal',
-    banner: '/static/images/image.png',
-    location: 'Los Angeles, CA',
-    icon: '/static/images/logo.png',
-    website: 'https://donate.com',
-    address: '0x0000000000000000000000000000000000000000',
-    description:
-      'People for the Ethical Treatment of Animals (PETA) is the largest animal rights organization in the world.',
-    mission:
-      'People for the Ethical Treatment of Animals (PETA) is the largest animal rights organization in the world.',
-    program:
-      'People for the Ethical Treatment of Animals (PETA) is the largest animal rights organization in the world.',
-    result:
-      'People for the Ethical Treatment of Animals (PETA) is the largest animal rights organization in the world.',
-  },
-];
-
 export function Donations(): JSX.Element {
+  const [charities, setCharities] = useState<any[]>([]);
   const [metadata, setMetadata] = useState<CharityType[]>([]);
   const [onGoing, setOngoing] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>('');
 
-  useEffect(() => {
+  const fetchMetadata = useCallback(() => {
     helper.getCharityMetadata().then((meta) => {
       setMetadata(meta);
+      setOngoing(false);
 
       const index = meta.findIndex((charity: CharityType) => charity.auto_pay);
       if (index >= 0) setOngoing(true);
     });
   }, []);
+
+  useEffect(() => {
+    fetchMetadata();
+    helper.getCharities().then(setCharities);
+  }, [fetchMetadata]);
 
   return (
     <div className="page-container">
@@ -167,6 +103,7 @@ export function Donations(): JSX.Element {
                                     id={charity.id}
                                     title={data?.name || ''}
                                     percent={charity.percentage}
+                                    callback={fetchMetadata}
                                   />
                                 ),
                               });
@@ -220,12 +157,13 @@ export function Donations(): JSX.Element {
                   key={charity.id}
                   id={charity.id}
                   banner={charity.banner}
-                  logo={charity.icon}
+                  logo={charity.logo}
                   title={charity.name}
                   location={charity.location}
                   description={charity.description}
                   wallet={charity.address}
                   metadata={metadata.find((item) => item.id === charity.id)}
+                  callback={fetchMetadata}
                 />
               ))}
             </FlexGrid>

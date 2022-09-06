@@ -188,6 +188,10 @@ const swashApiHelper = (function () {
     return post<Any>(token, config.APIs.userAdditionalInfo, body);
   }
 
+  async function getCharities(token: string) {
+    return get<Any>(token, config.APIs.charityList);
+  }
+
   return {
     init,
     getDataEthPairPrice,
@@ -207,6 +211,7 @@ const swashApiHelper = (function () {
     updateVerifiedInfo,
     getAdditionalInfo,
     updateAdditionalInfo,
+    getCharities,
   };
 })();
 

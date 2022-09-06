@@ -1,3 +1,4 @@
+import { CircularProgress } from '@mui/material';
 import React from 'react';
 
 const arrowIcon = '/static/images/shape/arrow.svg';
@@ -6,13 +7,16 @@ const errorIcon = '/static/images/shape/error.svg';
 export function VerifiedInfoBox(props: {
   title: string;
   value?: string;
+  loading?: boolean;
   onClick: () => void;
 }): JSX.Element {
   return (
     <div className="verified-info-box" onClick={props.onClick}>
       <div>
         <div className="verified-info-title">{props.title}</div>
-        {props.value ? (
+        {props.loading ? (
+          <CircularProgress color={'inherit'} size={16} />
+        ) : props.value ? (
           <div className="verified-info-value">{props.value}</div>
         ) : (
           <div className="verified-info-unverified">

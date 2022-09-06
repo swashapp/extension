@@ -615,6 +615,15 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function isJoinedSwash() {
+    const message = {
+      obj: 'userHelper',
+      func: 'isJoinedSwash',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
   function getWithdrawBalance() {
     const message = {
       obj: 'userHelper',
@@ -647,6 +656,15 @@ const helper = (function () {
       obj: 'userHelper',
       func: 'updateUserProfile',
       params: [profile],
+    };
+    return sendMessage(message);
+  }
+
+  function getCharities() {
+    const message = {
+      obj: 'charityHelper',
+      func: 'getCharities',
+      params: [],
     };
     return sendMessage(message);
   }
@@ -760,6 +778,7 @@ const helper = (function () {
     withdrawToTarget,
     claimRewards,
     getJoinedSwash,
+    isJoinedSwash,
     getWithdrawBalance,
     getActiveReferral,
     resendCodeToEmail,
@@ -770,6 +789,7 @@ const helper = (function () {
     getUserTransactions,
     getUserProfile,
     updateUserProfile,
+    getCharities,
     getCharityMetadata,
     toggleCharityLike,
     addCharityAutoPayment,

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { helper } from '../../core/webHelper';
 import { initValue, UtilsService } from '../../service/utils-service';
@@ -9,6 +9,7 @@ export function StopDonation(props: {
   id: number;
   title: string;
   percent: string;
+  callback?: () => void;
 }): JSX.Element {
   const [tokenAvailable, setTokenAvailable] = useState<string>(initValue);
 
@@ -72,7 +73,10 @@ export function StopDonation(props: {
           className="small-popup-actions-submit"
           link={false}
           onClick={() => {
-            helper.delCharityAutoPayment(props.id).then(closePopup);
+            helper
+              .delCharityAutoPayment(props.id)
+              .then(() => props.callback && props.callback())
+              .then(closePopup);
           }}
         />
       </div>
