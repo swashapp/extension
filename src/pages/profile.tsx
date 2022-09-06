@@ -8,6 +8,7 @@ import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { showPopup } from '../components/popup/popup';
 import { Select } from '../components/select/select';
 import { ToastMessage } from '../components/toast/toast-message';
+import { Tooltip } from '../components/tooltip/tooltip';
 import { VerificationPopup } from '../components/verification/verification-popup';
 import { VerifiedInfoBox } from '../components/verification/verified-info-box';
 import { helper } from '../core/webHelper';
@@ -141,6 +142,7 @@ export function Profile(): JSX.Element {
       <div className="page-content">
         <div className="page-header profile-header">
           <h2>My profile</h2>
+          <Tooltip text={''} />
           <div className="profile-verification-container">
             {phone ? (
               <div className="profile-status-verified">
@@ -162,7 +164,7 @@ export function Profile(): JSX.Element {
         </div>
         <FlexGrid column={2} className="half-cards card-gap">
           <div className="simple-card">
-            <h6>Provide the following information</h6>
+            <h6>Complete your profile</h6>
             <div className="flex-column form-item-gap">
               <FlexGrid className="half-form-items form-item-gap" column={2}>
                 <Select

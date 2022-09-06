@@ -93,7 +93,7 @@ export function InviteFriends(): JSX.Element {
             <NumericSection
               tourClassName={INVITE_FRIENDS_TOUR_CLASS.FRIENDS}
               title="Invited Friends"
-              tooltip="You will not receive referral rewards for friends that the Swash anti-fraud measures flag as fake users."
+              tooltip="You will not receive referral rewards for friends that are flagged as fake by Swash’s anti-fraud measures."
               value={referral.totalReferral}
               layout="layout2"
               image={TotalFriendsIcon}
@@ -105,12 +105,11 @@ export function InviteFriends(): JSX.Element {
               className="invite-friends-bonus-cards card-gap"
             >
               <div className="simple-card">
-                <h6>Get more SWASH bonus</h6>
+                <h6>BONUS! Get more SWASH tokens when you invite a friend</h6>
                 <p>
                   {reward === initValue || reward === '0'
                     ? 'Share your link to be in for a chance of winning the monthly 2000 SWASH prize!'
-                    : `Share your referral link and earn ${reward} SWASH for every new
-                  friend you bring!`}
+                    : `Share your referral link and earn ${reward} SWASH for every new friend you bring!`}
                 </p>
                 <Input
                   className={INVITE_FRIENDS_TOUR_CLASS.REFERRAL}

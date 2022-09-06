@@ -624,6 +624,15 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function isVerificationNeeded() {
+    const message = {
+      obj: 'userHelper',
+      func: 'isVerificationNeeded',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
   function getWithdrawBalance() {
     const message = {
       obj: 'userHelper',
@@ -705,10 +714,10 @@ const helper = (function () {
     return sendMessage(message);
   }
 
-  function getUserTransactions(type) {
+  function getUserHistory(type) {
     const message = {
       obj: 'graphApiHelper',
-      func: 'getUserTransactions',
+      func: 'getUserHistory',
       params: [type],
     };
     return sendMessage(message);
@@ -779,6 +788,7 @@ const helper = (function () {
     claimRewards,
     getJoinedSwash,
     isJoinedSwash,
+    isVerificationNeeded,
     getWithdrawBalance,
     getActiveReferral,
     resendCodeToEmail,
@@ -786,7 +796,7 @@ const helper = (function () {
     updateEmail,
     newsletterSignUp,
     loadNotifications,
-    getUserTransactions,
+    getUserHistory,
     getUserProfile,
     updateUserProfile,
     getCharities,

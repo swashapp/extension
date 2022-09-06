@@ -36,6 +36,7 @@ const userHelper = (function () {
   let xdaiProvider: BaseProvider;
 
   const timestamp = { value: 0, updated: 0 };
+  let lastPopup = 0;
 
   async function init() {
     config = await configManager.getConfig('community');
@@ -282,6 +283,17 @@ const userHelper = (function () {
     return false;
   }
 
+  async function isVerificationNeeded() {
+    console.log(`Last verification popup ${new Date(lastPopup)}`);
+    if (lastPopup < Date.now() - 3600 * 24 * 1000) {
+      lastPopup = Date.now();
+      const profile = await storageHelper.getProfile();
+      return profile.phone === undefined;
+    } else {
+      return false;
+    }
+  }
+
   async function getJoinedSwash() {
     return await swashApiHelper.getJoinedSwash(await generateJWT());
   }
@@ -467,6 +479,7 @@ const userHelper = (function () {
     generateJWT,
     withdrawToTarget,
     isJoinedSwash,
+    isVerificationNeeded,
     getJoinedSwash,
     getActiveReferral,
     getUserCountry,

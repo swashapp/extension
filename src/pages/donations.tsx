@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Button } from '../components/button/button';
 import { Charity } from '../components/charity/charity';
@@ -32,6 +32,17 @@ export function Donations(): JSX.Element {
     helper.getCharities().then(setCharities);
   }, [fetchMetadata]);
 
+  const charityData = useMemo(() => {
+    if (searchText === '') return charities;
+    else
+      return charities.filter(
+        (charity) =>
+          charity.name.toLowerCase().indexOf(searchText.toLowerCase()) >= 0 ||
+          charity.description.toLowerCase().indexOf(searchText.toLowerCase()) >=
+            0,
+      );
+  }, [charities, searchText]);
+
   return (
     <div className="page-container">
       <BackgroundTheme layout="layout3" />
@@ -41,7 +52,7 @@ export function Donations(): JSX.Element {
             <div className="simple-card">
               <div className="flex-column card-gap">
                 <div className={'transaction-header-container'}>
-                  <h2>Ongoing Donations</h2>
+                  <h2>Ongoing donations</h2>
                 </div>
                 {metadata.map((charity) => {
                   if (charity.auto_pay) {
@@ -73,18 +84,18 @@ export function Donations(): JSX.Element {
                         </div>
                         <div>
                           <div className="donate-confirmation-name">
-                            Payment Method
+                            Donation Type
                           </div>
                           <div className="donate-confirmation-value">
-                            Ongoing Payement
+                            Ongoing Donation
                           </div>
                         </div>
                         <div>
                           <div className="donate-confirmation-name">
-                            Donating
+                            Donation Amount
                           </div>
                           <div className="donate-confirmation-value">
-                            {charity.percentage}%/day
+                            {charity.percentage}% per day
                           </div>
                         </div>
                         <div>
@@ -127,13 +138,15 @@ export function Donations(): JSX.Element {
           <div className="simple-card">
             <div className="donation-burn">
               <div>
-                <div className="donation-burn-title title">
-                  Swash Donating Aswell
-                </div>
+                <div className="donation-burn-title title">Data for Good</div>
                 <div className="donation-burn-text">
-                  Swash will match every donation to charity made by community
-                  members and will also burn 1 $SWASH for every 1 $SWASH
-                  donated.
+                  Data for Good enables you to automatically donate the value of
+                  your data to a social good organisation of your choice. Read
+                  more about Data for Good{' '}
+                  <a href={''} target={'_blank'} rel="noreferrer">
+                    here
+                  </a>
+                  .
                 </div>
               </div>
             </div>
@@ -141,7 +154,7 @@ export function Donations(): JSX.Element {
             <div>
               <Input
                 name="search"
-                placeholder="Search Charity..."
+                placeholder="Search the list of charities"
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
                 endAdornment={<SearchEndAdornment />}
@@ -152,7 +165,7 @@ export function Donations(): JSX.Element {
               className={'donation-charities'}
               innerClassName={'donation-charity'}
             >
-              {charities.map((charity) => (
+              {charityData.map((charity) => (
                 <Charity
                   key={charity.id}
                   id={charity.id}

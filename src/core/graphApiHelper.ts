@@ -55,7 +55,7 @@ const graphApiHelper = (function () {
     return getTransferEntities(condition);
   }
 
-  async function getUserTransactions(type: 'Withdrawal' | 'Claim') {
+  async function getUserHistory(type: 'Withdrawal' | 'Claim') {
     if (type === 'Withdrawal') {
       return getWithdrawals();
     } else if (type === 'Claim') {
@@ -65,7 +65,7 @@ const graphApiHelper = (function () {
 
   return {
     init,
-    getUserTransactions,
+    getUserHistory,
   };
 })();
 

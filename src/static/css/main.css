@@ -2213,6 +2213,8 @@ hr.nav {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  overflow: hidden;
 }
 
 .ongoing-top-body {
@@ -2280,6 +2282,8 @@ hr.nav {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  overflow: hidden;
 }
 
 .charity-body {
@@ -2331,6 +2335,16 @@ hr.nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.donate-type-enabled,
+.donate-type-disabled {
+  display: flex;
+  align-items: center;
+}
+
+.donate-type-disabled {
+  color: #b6bec6;
 }
 
 .donate-item {
@@ -2568,9 +2582,12 @@ hr.nav {
   color: #ff7979;
 }
 
-.profile-status-verified > img,
-.profile-status-unverified > img {
+.profile-status-verified > img {
   margin-right: 6px;
+}
+
+.profile-status-unverified > img {
+  margin-right: 2px;
 }
 
 .verified-info-box {

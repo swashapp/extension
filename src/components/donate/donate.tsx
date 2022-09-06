@@ -9,6 +9,7 @@ import { FlexGrid } from '../flex-grid/flex-grid';
 import { Input } from '../input/input';
 import { closePopup } from '../popup/popup';
 import { Switch } from '../switch/switch';
+import { Tooltip } from '../tooltip/tooltip';
 
 const RightArrow = '/static/images/shape/right-arrow.svg';
 const completedIcon = '/static/images/icons/progress-completed.png';
@@ -38,7 +39,7 @@ function Options(props: {
           color: '#8091A3',
         }}
       >
-        /day
+        per day
       </span>
     </MuiButton>
   );
@@ -52,7 +53,7 @@ export function Donate(props: {
 }): JSX.Element {
   const [confirm, setConfirm] = useState(false);
   const [thanks, setThanks] = useState(false);
-  const [isOneOff, setIsOneOff] = useState(true);
+  const [isOngoing, setIsOngoing] = useState(false);
   const [tokenAvailable, setTokenAvailable] = useState<string>(initValue);
   const [amount, setAmount] = useState<string>('0');
   const [percent, setPercent] = useState<number>(5);
@@ -80,36 +81,32 @@ export function Donate(props: {
     return (
       <>
         <div className="donate-type">
-          Ongoing Payment
+          <div className={`donate-type-${isOngoing ? 'disabled' : 'enabled'}`}>
+            One-Off Donation
+          </div>
           <Switch
-            checked={isOneOff}
+            invert
+            checked={isOngoing}
             onChange={(e, checked) => {
-              setIsOneOff(checked);
+              setIsOngoing(checked);
             }}
           />
-          One-Off Payment
+          <div className={`donate-type-${isOngoing ? 'enabled' : 'disabled'}`}>
+            Ongoing Donation
+          </div>
         </div>
         <div className="donate-item">
           <Input
-            label="Current Balance"
+            label="Available Balance"
             name="balance"
             value={tokenAvailable}
             disabled={true}
           />
         </div>
-        {isOneOff ? (
-          <div className="donate-option">
-            <Input
-              label="Amount to Donate"
-              name="amount"
-              value={amount}
-              onChange={(event) => setAmount(event.target.value)}
-            />
-          </div>
-        ) : (
+        {isOngoing ? (
           <div className="donate-item">
-            Please select how much you want donate every new month. You can
-            always cancel your donation.
+            Please select what percentage of your earnings you would like to
+            donate every day. You can cancel your donation at any time.
             <div className="donate-option">
               <FlexGrid
                 column={2}
@@ -117,32 +114,41 @@ export function Donate(props: {
                 innerClassName="donate-option-item"
               >
                 <Options
-                  amount={5}
+                  amount={25}
                   onClick={setPercent}
-                  selected={percent === 5}
+                  selected={percent === 25}
                 />
                 <Options
-                  amount={10}
+                  amount={50}
                   onClick={setPercent}
-                  selected={percent === 10}
+                  selected={percent === 50}
                 />
                 <Options
-                  amount={15}
+                  amount={75}
                   onClick={setPercent}
-                  selected={percent === 15}
+                  selected={percent === 75}
                 />
                 <Options
-                  amount={20}
+                  amount={100}
                   onClick={setPercent}
-                  selected={percent === 20}
+                  selected={percent === 100}
                 />
               </FlexGrid>
             </div>
           </div>
+        ) : (
+          <div className="donate-option">
+            <Input
+              label="Donation Amount"
+              name="amount"
+              value={amount}
+              onChange={(event) => setAmount(event.target.value)}
+            />
+          </div>
         )}
       </>
     );
-  }, [amount, isOneOff, percent, tokenAvailable]);
+  }, [amount, isOngoing, percent, tokenAvailable]);
 
   const confirmPage = useMemo(() => {
     return (
@@ -152,26 +158,26 @@ export function Donate(props: {
           <div className="donate-confirmation-value">{props.title}</div>
         </div>
         <div className="donate-confirmation-row">
-          <div className="donate-confirmation-name">Payment Method</div>
+          <div className="donate-confirmation-name">Donation Type</div>
           <div className="donate-confirmation-value">
-            {isOneOff ? 'One-Off Payment' : 'Ongoing Payment'}
+            {isOngoing ? 'Ongoing Donation' : 'One-Off Donation'}
           </div>
         </div>
         <div className="donate-confirmation-row">
-          <div className="donate-confirmation-name">Current Balance</div>
+          <div className="donate-confirmation-name">Available Balance</div>
           <div className="donate-confirmation-value">
             {tokenAvailable} SWASH
           </div>
         </div>
         <div className="donate-confirmation-row">
-          <div className="donate-confirmation-name">Amount to Donate</div>
+          <div className="donate-confirmation-name">Donation Amount</div>
           <div className="donate-confirmation-value">
-            {isOneOff ? `${amount} SWASH` : `${percent}%/day`}
+            {isOngoing ? `${amount} SWASH` : `${percent}% per day`}
           </div>
         </div>
       </div>
     );
-  }, [amount, isOneOff, percent, props.title, tokenAvailable]);
+  }, [amount, isOngoing, percent, props.title, tokenAvailable]);
 
   if (thanks)
     return (
@@ -189,9 +195,8 @@ export function Donate(props: {
         </div>
         <h2>Thank you!</h2>
         <p>
-          Thank you very much for your donation to {props.title} charity!
-          <br />
-          You can always change your charities list on the Donations page.
+          Thank you for your donation to {props.title}! Manage your donations
+          anytime on the Donations page.
         </p>
       </div>
     );
@@ -232,18 +237,18 @@ export function Donate(props: {
             onClick={() => {
               if (!confirm) setConfirm(true);
               else {
-                if (isOneOff) {
-                  helper
-                    .withdrawToTarget(props.address, amount, false, false)
-                    .then(() => setThanks(true))
-                    .then(() => props.callback && props.callback());
-                } else {
+                if (isOngoing) {
                   helper
                     .addCharityAutoPayment(
                       props.id,
                       props.address,
                       percent.toString(),
                     )
+                    .then(() => setThanks(true))
+                    .then(() => props.callback && props.callback());
+                } else {
+                  helper
+                    .withdrawToTarget(props.address, amount, false, false)
                     .then(() => setThanks(true))
                     .then(() => props.callback && props.callback());
                 }
