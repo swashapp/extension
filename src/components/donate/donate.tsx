@@ -48,6 +48,7 @@ export function Donate(props: {
   id: number;
   title: string;
   address: string;
+  callback?: () => void;
 }): JSX.Element {
   const [confirm, setConfirm] = useState(false);
   const [thanks, setThanks] = useState(false);
@@ -225,7 +226,7 @@ export function Donate(props: {
             }}
           />
           <Button
-            text={'Donate Now'}
+            text={confirm ? 'Confirm' : 'Next'}
             className="small-popup-actions-submit"
             link={false}
             onClick={() => {
@@ -234,7 +235,8 @@ export function Donate(props: {
                 if (isOneOff) {
                   helper
                     .withdrawToTarget(props.address, amount, false, false)
-                    .then(() => setThanks(true));
+                    .then(() => setThanks(true))
+                    .then(() => props.callback && props.callback());
                 } else {
                   helper
                     .addCharityAutoPayment(
@@ -242,7 +244,8 @@ export function Donate(props: {
                       props.address,
                       percent.toString(),
                     )
-                    .then(() => setThanks(true));
+                    .then(() => setThanks(true))
+                    .then(() => props.callback && props.callback());
                 }
               }
             }}

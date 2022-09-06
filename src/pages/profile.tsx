@@ -71,6 +71,7 @@ const occupationalIndustry = [
 
 export function Profile(): JSX.Element {
   const [loading, setLoading] = React.useState(false);
+  const [emailLoading, setEmailLoading] = React.useState(false);
 
   const [email, setEmail] = React.useState(undefined);
   const [phone, setPhone] = React.useState(undefined);
@@ -81,18 +82,35 @@ export function Profile(): JSX.Element {
   const [employment, setEmployment] = React.useState('');
   const [industry, setIndustry] = React.useState('');
 
-  useEffect(() => {
+  const fetchProfile = useCallback(() => {
+    setEmailLoading(true);
     helper.getUserProfile().then((profile) => {
-      setEmail(profile.email);
-      setPhone(profile.phone);
+      if (!profile.email) {
+        setTimeout(fetchProfile, 3000);
+      } else {
+        setEmailLoading(false);
+        setEmail(profile.email);
+        setPhone(profile.phone);
 
-      setBirth(profile.birth || '');
-      setMarital(profile.marital || '');
-      setHousehold(profile.household || '');
-      setEmployment(profile.employment || '');
-      setIndustry(profile.industry || '');
+        setBirth(profile.birth || '');
+        setMarital(profile.marital || '');
+        setHousehold(profile.household || '');
+        setEmployment(profile.employment || '');
+        setIndustry(profile.industry || '');
+      }
     });
   }, []);
+
+  const updateData = useCallback(() => {
+    setEmailLoading(true);
+    helper.isJoinedSwash().then(() => {
+      fetchProfile();
+    });
+  }, [fetchProfile]);
+
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
 
   const onSubmit = useCallback(() => {
     setLoading(true);
@@ -194,7 +212,7 @@ export function Profile(): JSX.Element {
           </div>
           <div className="flex-column card-gap">
             <div className="verify-profile title">
-              {!phone ? (
+              {phone ? (
                 <div className="verify-profile-verified">
                   <img
                     src={successfulJob}
@@ -213,26 +231,38 @@ export function Profile(): JSX.Element {
               <VerifiedInfoBox
                 title={'Email address'}
                 value={email ? email : undefined}
+                loading={emailLoading}
                 onClick={() => {
                   showPopup({
                     id: 'verify-email',
                     closable: false,
                     closeOnBackDropClick: true,
                     paperClassName: 'large-popup',
-                    content: <VerificationPopup title={'email'} />,
+                    content: (
+                      <VerificationPopup
+                        title={'email'}
+                        callback={updateData}
+                      />
+                    ),
                   });
                 }}
               />
               <VerifiedInfoBox
                 title={'Phone number'}
                 value={phone ? phone : undefined}
+                loading={emailLoading}
                 onClick={() => {
                   showPopup({
                     id: 'verify-phone',
                     closable: false,
                     closeOnBackDropClick: true,
                     paperClassName: 'large-popup',
-                    content: <VerificationPopup title={'phone'} />,
+                    content: (
+                      <VerificationPopup
+                        title={'phone'}
+                        callback={updateData}
+                      />
+                    ),
                   });
                 }}
               />

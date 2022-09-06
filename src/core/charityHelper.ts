@@ -1,12 +1,17 @@
 import { parseEther } from '@ethersproject/units';
 
 import { storageHelper } from './storageHelper';
+import { swashApiHelper } from './swashApiHelper';
 import { userHelper } from './userHelper';
 
 const charityHelper = (function () {
   let paymentInterval: NodeJS.Timer | undefined;
 
   async function init() {}
+
+  async function getCharities() {
+    return swashApiHelper.getCharities(await userHelper.generateJWT());
+  }
 
   async function getCharityMetadata() {
     return storageHelper.getCharities();
@@ -139,6 +144,7 @@ const charityHelper = (function () {
 
   return {
     init,
+    getCharities,
     getCharityMetadata,
     toggleCharityLike,
     addCharityAutoPayment,

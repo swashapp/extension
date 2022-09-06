@@ -17,6 +17,7 @@ export function Charity(props: {
   description: string;
   wallet: string;
   metadata?: Charity;
+  callback?: () => void;
 }): JSX.Element {
   return (
     <div className={'charity'}>
@@ -62,6 +63,7 @@ export function Charity(props: {
                       id={props.id}
                       title={props.title}
                       percent={props.metadata?.percentage || '0'}
+                      callback={props.callback}
                     />
                   ),
                 });
@@ -82,6 +84,7 @@ export function Charity(props: {
                       id={props.id}
                       title={props.title}
                       address={props.wallet}
+                      callback={props.callback}
                     />
                   ),
                 });
