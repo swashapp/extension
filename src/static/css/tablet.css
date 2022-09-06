@@ -36,10 +36,11 @@
 
   .settings-backup-buttons {
     flex-wrap: wrap;
+    place-content: space-between;
   }
 
   .settings-backup-buttons > div {
-    width: 100% !important;
+    width: calc(50% - 8px) !important;
   }
 
   .settings-2backup-buttons {

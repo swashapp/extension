@@ -1,4 +1,8 @@
 @media only screen and (max-width: 768px) {
+  .settings-backup-buttons > div {
+    width: 100% !important;
+  }
+
   .donate-option-item {
     width: calc(50% - 8px);
   }

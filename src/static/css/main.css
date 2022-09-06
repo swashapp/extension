@@ -1190,6 +1190,11 @@ hr.nav {
 
 .settings-backup-buttons {
   flex-wrap: nowrap;
+  place-content: center;
+}
+
+.settings-backup-buttons > div {
+  width: 25% !important;
 }
 
 .settings-2backup-buttons {
@@ -1827,6 +1832,11 @@ hr.nav {
 
 .import-your-config-cards {
   flex-wrap: nowrap;
+  place-content: center;
+}
+
+.import-your-config-cards > div {
+  width: 183px !important;
 }
 
 .onboarding-iframe-wrapper {

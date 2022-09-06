@@ -9,7 +9,6 @@ import { FlexGrid } from '../flex-grid/flex-grid';
 import { Input } from '../input/input';
 import { closePopup } from '../popup/popup';
 import { Switch } from '../switch/switch';
-import { Tooltip } from '../tooltip/tooltip';
 
 const RightArrow = '/static/images/shape/right-arrow.svg';
 const completedIcon = '/static/images/icons/progress-completed.png';
