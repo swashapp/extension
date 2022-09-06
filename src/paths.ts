@@ -6,7 +6,7 @@ export const RouteToPages = {
   donations: `/donations`,
   inviteFriends: `/invite-friends`,
   data: `/data`,
-  transactions: `/transactions`,
+  history: `/history`,
   settings: `/settings`,
   help: `/help`,
 };

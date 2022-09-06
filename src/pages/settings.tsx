@@ -14,7 +14,6 @@ import { ToastMessage } from '../components/toast/toast-message';
 const DropboxLogo = '/static/images/logos/dropbox.png';
 const FileLogo = '/static/images/logos/file.png';
 const GoogleDriveLogo = '/static/images/logos/google-drive.png';
-const ThreeBoxLogo = '/static/images/logos/three-box.png';
 
 export function Settings(): JSX.Element {
   const [reveal, setReveal] = useState<boolean>(false);
@@ -119,13 +118,7 @@ export function Settings(): JSX.Element {
                     link={false}
                     onClick={() => onboardingOAuth('GoogleDrive')}
                   />
-                  <IconButton
-                    body="3Box"
-                    image={ThreeBoxLogo}
-                    imageSize={{ width: 31, height: 20 }}
-                    link={false}
-                    disabled
-                  />
+                  <></>
                 </FlexGrid>
               </FlexGrid>
             </div>
@@ -138,7 +131,7 @@ export function Settings(): JSX.Element {
             </p>
             <div className={SETTINGS_TOUR_CLASS.PRIVATE_KEY}>
               <Input
-                label="Private Key"
+                label="Private key"
                 value={privateKey}
                 type={reveal ? 'text' : 'password'}
                 disabled={true}

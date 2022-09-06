@@ -99,11 +99,14 @@ export default function App(): JSX.Element {
         setNeedOnBoarding(status);
 
         if (!status) {
-          showPopup({
-            closable: false,
-            closeOnBackDropClick: true,
-            paperClassName: 'small-popup',
-            content: <VerificationAlert />,
+          window.helper.isVerificationNeeded().then((needed: boolean) => {
+            if (needed)
+              showPopup({
+                closable: false,
+                closeOnBackDropClick: true,
+                paperClassName: 'small-popup',
+                content: <VerificationAlert />,
+              });
           });
         }
       }),

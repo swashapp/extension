@@ -24,7 +24,7 @@ const categories = [
   { name: 'Withdrawal', value: 'Withdrawal' },
 ];
 
-export function Transactions(): JSX.Element {
+export function History(): JSX.Element {
   const [loading, setLoading] = React.useState(false);
   const [rows, setRows] = React.useState([]);
   const [pageRows, setPageRows] = React.useState([]);
@@ -35,7 +35,7 @@ export function Transactions(): JSX.Element {
   useEffect(() => {
     setLoading(true);
     helper
-      .getUserTransactions(category)
+      .getUserHistory(category)
       .then((data) => {
         setRows(data);
         setPage(1);
@@ -70,7 +70,10 @@ export function Transactions(): JSX.Element {
           <div className="simple-card">
             <div className="flex-column card-gap">
               <FlexGrid column={2} className={'transaction-header-container'}>
-                <h2>Transactions</h2>
+                <div>
+                  <h2>History</h2>Monitor your withdrawal and claim history
+                  using the table below.
+                </div>
                 <div className={'transaction-filter-container'}>
                   <Select
                     label={'Filter by'}

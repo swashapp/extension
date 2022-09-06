@@ -43,8 +43,8 @@ export function StopDonation(props: {
           <div className="donate-confirmation-value">{props.title}</div>
         </div>
         <div className="donate-confirmation-row">
-          <div className="donate-confirmation-name">Payment Method</div>
-          <div className="donate-confirmation-value">Ongoing Payment</div>
+          <div className="donate-confirmation-name">Donation Type</div>
+          <div className="donate-confirmation-value">Ongoing Donation</div>
         </div>
         <div className="donate-confirmation-row">
           <div className="donate-confirmation-name">Current Balance</div>

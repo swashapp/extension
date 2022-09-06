@@ -21,7 +21,7 @@ const SwashBonusIcon = '/static/images/icons/swash-bonus.svg';
 const SwashEarningsIcon = '/static/images/icons/swash-earnings.svg';
 
 const networkList = [
-  { name: 'xDai', value: 'xDai' },
+  { name: 'Gnosis Chain', value: 'Gnosis Chain' },
   { name: 'Mainnet', value: 'Mainnet' },
 ];
 
@@ -37,7 +37,7 @@ export function Wallet(): JSX.Element {
   const [unclaimedBonus, setUnclaimedBonus] = useState<string>(initValue);
   const [walletAddress, setWalletAddress] = useState<string>('');
   const [recipient, setRecipient] = useState<string>('');
-  const [network, setNetwork] = useState<string>('xDai');
+  const [network, setNetwork] = useState<string>('Gnosis Chain');
 
   const getWalletAddress = useCallback(() => {
     window.helper
@@ -287,7 +287,7 @@ export function Wallet(): JSX.Element {
             <h6>Withdraw your earnings</h6>
             <div className="withdraw-text">
               <p>
-                Withdraw your earnings using xDai chain (recommended) or
+                Withdraw your earnings using Gnosis Chain (recommended) or
                 Ethereum mainnet. Exchange wallets are not supported. Learn how
                 to set up your wallet properly and get to know your withdrawal
                 limits.
@@ -308,7 +308,7 @@ export function Wallet(): JSX.Element {
                             <h6>Withdraw your earnings</h6>
                           </div>
                           <p>
-                            You can withdraw your earnings using xDai chain
+                            You can withdraw your earnings using Gnosis Chain
                             (recommended) or Ethereum mainnet (not recommended
                             due to high fees!). Exchange wallets are not
                             currently supported.
@@ -329,12 +329,14 @@ export function Wallet(): JSX.Element {
                             for step-by-step instructions.
                             <br />
                             <br />
-                            xDai is the recommended method as it’s faster, more
-                            efficient, and Swash will cover the cost for you! 🎉
+                            Gnosis Chain is the recommended method as it’s
+                            faster, more efficient, and Swash will cover the
+                            cost for you! 🎉
                             <br />
                             <br />
                             You can also put your SWASH to work by trading or
-                            staking liquidity on the SWASH / xDAI pool on{' '}
+                            staking liquidity on the SWASH / Gnosis Chain pool
+                            on{' '}
                             <a
                               href="https://honeyswap.org"
                               target="_blank"

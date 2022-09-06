@@ -1,4 +1,4 @@
-import { parseEther } from '@ethersproject/units';
+import { formatEther, parseEther } from '@ethersproject/units';
 
 import { storageHelper } from './storageHelper';
 import { swashApiHelper } from './swashApiHelper';
@@ -115,12 +115,12 @@ const charityHelper = (function () {
           } is ${amount.toString()} wei SWASH`,
         );
 
-        // await userHelper.withdrawToTarget(
-        //   charity.wallet,
-        //   formatEther(amount),
-        //   false,
-        //   false,
-        // );
+        await userHelper.withdrawToTarget(
+          charity.wallet,
+          formatEther(amount),
+          false,
+          false,
+        );
         console.log(`Successfully donated to charity`);
       }
 
@@ -139,7 +139,7 @@ const charityHelper = (function () {
 
   async function startAutoPayment() {
     paymentInterval && clearInterval(paymentInterval);
-    paymentInterval = setInterval(paymentToCharities, 60000);
+    paymentInterval = setInterval(paymentToCharities, 5 * 60000);
   }
 
   return {

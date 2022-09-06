@@ -380,7 +380,7 @@ const HelpData = [
       '</div>' +
       '<br />' +
       '<p>' +
-      'It’s important that you download your settings as either a local file, Google Drive, Dropbox, or 3box.' +
+      'It’s important that you download your settings as either a local file, Google Drive, or Dropbox.' +
       '<br />' +
       '<br />' +
       'You can then use this file to connect Swash on other devices and browsers, so keep it in a safe place. Even if you don’t think you’ll do this, it’s highly recommended that you backup your settings anyway.' +

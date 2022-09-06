@@ -19,7 +19,7 @@ export function CongratsWalletIsReady(props: {
       <p>
         {props.type === 'imported'
           ? 'Configuration is imported successfully.'
-          : 'Your Swash wallet is created.'}
+          : 'Your Swash wallet has been created.'}
       </p>
       {props.type === 'created' ? (
         <p>Now you are part of the world’s first digital Data Union!</p>

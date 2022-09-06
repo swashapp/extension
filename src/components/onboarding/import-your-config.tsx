@@ -14,7 +14,6 @@ import { ImportingConfig } from './importing-config';
 const DropboxLogo = '/static/images/logos/dropbox.png';
 const FileLogo = '/static/images/logos/file.png';
 const GoogleDriveLogo = '/static/images/logos/google-drive.png';
-const ThreeBoxLogo = '/static/images/logos/three-box.png';
 
 function ImportCard(props: {
   icon: string;
@@ -162,11 +161,7 @@ export function ImportYourConfig(): JSX.Element {
                 imageSize={{ width: 27 }}
                 onClick={importFromGoogleDrive}
               />
-              <ImportCard
-                text="3Box"
-                icon={ThreeBoxLogo}
-                imageSize={{ width: 31, height: 20 }}
-              />
+              <></>
             </FlexGrid>
           </FlexGrid>
         </div>
