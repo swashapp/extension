@@ -10,17 +10,18 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 
-import { DataTour } from '../components/data/data-tour';
-import { HelpTour } from '../components/help/help-tour';
-
-import { InviteFriendsTour } from '../components/invite-friends/invite-friends-tour';
-
+import { DataTour } from '../components/components-tour/data-tour';
+import { DonationTour } from '../components/components-tour/donation-tour';
+import { HelpTour } from '../components/components-tour/help-tour';
+import { HistoryTour } from '../components/components-tour/history-tour';
+import { InviteFriendsTour } from '../components/components-tour/invite-friends-tour';
+import { ProfileTour } from '../components/components-tour/profile-tour';
+import { SettingsTour } from '../components/components-tour/settings-tour';
+import { WalletTour } from '../components/components-tour/wallet-tour';
 import { Popup, showPopup } from '../components/popup/popup';
-import { SettingsTour } from '../components/settings/settings-tour';
 import { Sidenav } from '../components/sidenav/sidenav';
 import { SidenavButton } from '../components/sidenav/sidenav-button';
 import { VerificationAlert } from '../components/verification/verification-alert';
-import { WalletTour } from '../components/wallet/wallet-tour';
 import { SidenavItems } from '../data/sidenav-items';
 import { RouteToPages } from '../paths';
 
@@ -67,10 +68,13 @@ function RouteComponent(
           >
             <ExtensionComponent />
           </div>
+          <ProfileTour />
           <WalletTour />
           <InviteFriendsTour />
           <SettingsTour />
+          <DonationTour />
           <DataTour />
+          <HistoryTour />
           <HelpTour />
         </div>
         <div

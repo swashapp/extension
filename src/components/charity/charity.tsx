@@ -4,6 +4,7 @@ import { helper } from '../../core/webHelper';
 import { Charity } from '../../types/storage/charity.type';
 import { Button } from '../button/button';
 import { FavButton } from '../button/fav';
+import { DONATION_TOUR_CLASS } from '../components-tour/donation-tour';
 import { Donate } from '../donate/donate';
 import { StopDonation } from '../donate/stop-donation';
 import { showPopup } from '../popup/popup';
@@ -73,7 +74,9 @@ export function Charity(props: {
             <Button
               text={'Donate'}
               link={false}
-              className={'charity-actions-donate'}
+              className={`charity-actions-donate ${
+                props.id === 1 ? DONATION_TOUR_CLASS.MAKE_DONATION : ''
+              }`}
               onClick={() => {
                 showPopup({
                   closable: false,

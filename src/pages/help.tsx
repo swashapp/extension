@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { scroller } from 'react-scroll';
 
 import { Button } from '../components/button/button';
+import { HELP_TOUR_CLASS } from '../components/components-tour/help-tour';
 import { BackgroundTheme } from '../components/drawing/background-theme';
-import { HELP_TOUR_CLASS } from '../components/help/help-tour';
 import { SearchEndAdornment } from '../components/input/end-adornments/search-end-adornment';
 import { Input } from '../components/input/input';
 import { SectionAccordion } from '../components/section-accordion/section-accordion';
@@ -95,6 +95,11 @@ export function Help(): JSX.Element {
   const tourItems = useMemo(() => {
     return [
       {
+        text: 'Verify your profile',
+        done: !!tour[TOUR_NAME.PROFILE],
+        link: makeTourLink(RouteToPages.profile, TOUR_NAME.PROFILE),
+      },
+      {
         text: 'Understanding your Swash wallet',
         done: !!tour[TOUR_NAME.WALLET],
         link: makeTourLink(RouteToPages.wallet, TOUR_NAME.WALLET),
@@ -103,6 +108,11 @@ export function Help(): JSX.Element {
         text: 'How to backup your settings',
         done: !!tour[TOUR_NAME.SETTINGS],
         link: makeTourLink(RouteToPages.settings, TOUR_NAME.SETTINGS),
+      },
+      {
+        text: 'Donations',
+        done: !!tour[TOUR_NAME.DONATIONS],
+        link: makeTourLink(RouteToPages.donations, TOUR_NAME.DONATIONS),
       },
       {
         text: 'Learn about referrals',
@@ -116,6 +126,11 @@ export function Help(): JSX.Element {
         text: 'Understanding Swash data',
         done: !!tour[TOUR_NAME.DATA],
         link: makeTourLink(RouteToPages.data, TOUR_NAME.DATA),
+      },
+      {
+        text: 'History',
+        done: !!tour[TOUR_NAME.HISTORY],
+        link: makeTourLink(RouteToPages.history, TOUR_NAME.HISTORY),
       },
       {
         text: 'Navigating the Help section',

@@ -2464,6 +2464,7 @@ hr.nav {
   color: #002030;
 
   padding: 20px 24px;
+  white-space: nowrap !important;
 }
 
 .transaction-table-body tr:last-child td,

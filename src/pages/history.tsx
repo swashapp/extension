@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import React, { useEffect } from 'react';
 
+import { HISTORY_TOUR_CLASS } from '../components/components-tour/history-tour';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { Select } from '../components/select/select';
@@ -69,8 +70,8 @@ export function History(): JSX.Element {
         <div className="flex-column card-gap">
           <div className="simple-card">
             <div className="flex-column card-gap">
-              <FlexGrid column={2} className={'transaction-header-container'}>
-                <div>
+              <FlexGrid column={2} className="transaction-header-container">
+                <div className={HISTORY_TOUR_CLASS.ARCHIVES}>
                   <h2>History</h2>Monitor your withdrawal and claim history
                   using the table below.
                 </div>

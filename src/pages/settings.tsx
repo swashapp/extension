@@ -3,12 +3,12 @@ import { toast } from 'react-toastify';
 import browser from 'webextension-polyfill';
 
 import { Button } from '../components/button/button';
+import { SETTINGS_TOUR_CLASS } from '../components/components-tour/settings-tour';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { IconButton } from '../components/icon-button/icon-button';
 import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-adornment';
 import { Input } from '../components/input/input';
-import { SETTINGS_TOUR_CLASS } from '../components/settings/settings-tour';
 import { ToastMessage } from '../components/toast/toast-message';
 
 const DropboxLogo = '/static/images/logos/dropbox.png';

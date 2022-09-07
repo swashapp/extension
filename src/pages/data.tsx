@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
+import { DATA_TOUR_CLASS } from '../components/components-tour/data-tour';
 import {
   DataAccordion,
   DataItem,
 } from '../components/data-accordion/data-accordion';
-import { DATA_TOUR_CLASS } from '../components/data/data-tour';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { NumericInput } from '../components/numeric-input/numeric-input';
 import { TextMasking } from '../components/text-masking/text-masking';

@@ -1,6 +1,9 @@
+const ProfileIcon = '/static/images/icons/help/profile.png';
 const DataIcon = '/static/images/icons/help/data.png';
 const GettingStartedIcon = '/static/images/icons/help/getting-started.png';
+const DonationsIcon = '/static/images/icons/help/donations.png';
 const InviteFriendsIcon = '/static/images/icons/help/invite-friends.png';
+const HistoryIcon = '/static/images/icons/help/history.png';
 const SettingsIcon = '/static/images/icons/help/settings.png';
 const UsefulLinksIcon = '/static/images/icons/help/useful-links.png';
 const WalletIcon = '/static/images/icons/help/wallet.png';
@@ -121,6 +124,24 @@ const HelpData = [
       '</p>',
   },
   {
+    title: 'Profile',
+    icon: ProfileIcon,
+    id: 'profile-title-id',
+    content:
+      '<p>' +
+      'The Profile page is where you can introduce yourself to Swash.' +
+      '<br />' +
+      '<br />' +
+      'By sharing some basic information about yourself, we can confirm that you’re human and not a robot.' +
+      '<br />' +
+      '<br />' +
+      'This improves the quality of Swash’s dataset even more so, when the data is purchased, you will receive even more value for the data you contributed.' +
+      '<br />' +
+      '<br />' +
+      'What’s more, when you verify your email address and phone number, you will receive a 100 SWASH reward!' +
+      '</p>',
+  },
+  {
     title: 'Wallet',
     icon: WalletIcon,
     id: 'wallet-title-id',
@@ -172,14 +193,14 @@ const HelpData = [
       '</div>' +
       '<br />' +
       '<p>' +
-      'You can withdraw your earnings using xDai chain (recommended) or Ethereum mainnet (not recommended due to high fees!). Exchange wallets are not currently supported.' +
+      'You can withdraw your earnings using Gnosis Chain (recommended) or Ethereum mainnet (not recommended due to high fees!). Exchange wallets are not currently supported.' +
       '<br />' +
       '<br />' +
       '</p>' +
-      "<div class='title2'>xDai (recommended):</div>" +
+      "<div class='title2'>Gnosis Chain (recommended):</div>" +
       '<br />' +
       '<p>' +
-      'Using xDai is faster and Swash will cover the cost for you! 🎉' +
+      'Using Gnosis Chain is faster and Swash will cover the cost for you! 🎉' +
       '<br />' +
       '<br />' +
       'Set up your wallet according to the following instructions to receive your earnings (it only takes a few minutes!):' +
@@ -190,19 +211,19 @@ const HelpData = [
       '<a' +
       '  target="_blank"' +
       '  rel="noopener noreferrer"' +
-      '  href="https://www.xdaichain.com/for-users/wallets/metamask/metamask-setup">' +
-      ' Connect your Metamask to xDai' +
+      '  href="https://docs.gnosischain.com/tools/wallets/metamask">' +
+      ' Connect your Metamask to Gnosis Chain' +
       '</a>' +
       '<br />' +
       '<br />' +
       '<iframe src="https://www.youtube.com/embed/Fahs29XBrcw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>' +
-      'Add the xDai network to MetaMask' +
+      'Add the Gnosis Chain network to MetaMask' +
       '</iframe>' +
       '<br />' +
       '<br />' +
       '</li>' +
       '<li>' +
-      "Add SWASH as a token in your Metamask xDai wallet using the 'Import Token' button. You can find the SWASH Token Contract Address " +
+      "Add SWASH as a token in your Metamask Gnosis Chain wallet using the 'Import Token' button. You can find the SWASH Token Contract Address " +
       '<a' +
       '  target="_blank"' +
       '  rel="noopener noreferrer"' +
@@ -218,7 +239,7 @@ const HelpData = [
       '<br />' +
       '</li>' +
       '<li>' +
-      "Copy the Metamask xDai wallet address you just created and paste it in the 'Recipient wallet address' box below and click 'Withdraw'" +
+      "Copy the Metamask Gnosis Chain wallet address you just created and paste it in the 'Recipient wallet address' box below and click 'Withdraw'" +
       '<br />' +
       '<br />' +
       '<iframe src="https://www.youtube.com/embed/B1X8S7-WBrI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>' +
@@ -244,7 +265,7 @@ const HelpData = [
       '  target="_blank"' +
       '  rel="noopener noreferrer"' +
       '  href="https://info.honeyswap.org/pair/0x0110f008b8815cf00514d54ea11bfa8bb555c69b#/pair/0xfd8fe4c85e5c2e56207ffb50b0e9eb43116f282f">' +
-      'SWASH/xDAI pool' +
+      'SWASH/Gnosis Chain pool' +
       '</a>' +
       ' on ' +
       '<a' +
@@ -310,6 +331,22 @@ const HelpData = [
       '</p>',
   },
   {
+    title: 'Donations',
+    icon: DonationsIcon,
+    id: 'donations-title-id',
+    content:
+      '<p>With Swash’s donations feature, Data for Good, you can automatically donate the value of your data to a social good organisation of your choice.' +
+      '<br />' +
+      '<br />' +
+      'The Data for Good feature allows for you to search and browse the list of charities, filter by relevant tags, and determine whether you want to make a one-off donation or set up a recurring one with a percentage of your Swash earnings each month.' +
+      '<br />' +
+      '<br />' +
+      'What’s more, as part of the <a href="https://medium.com/swashapp/unveiling-swash-smoke-community-driven-mechanisms-to-burn-10-of-the-total-swash-supply-1da467237e51" target="_blank" rel="noopener noreferrer">Swash Smoke token burn campaign</a>, for every 1 $SWASH donated by the community through Data for Good, the Swash team will burn 1 $SWASH until the max cap of 5,000,000 has been reached!' +
+      '<br />' +
+      '<br />' +
+      'New charities will be added, so keep an eye on the Donations page and the <a href="https://medium.com/swashapp" target="_blank" rel="noopener noreferrer">Swash blog</a> for the latest updates.</p>',
+  },
+  {
     title: 'Invite Friends',
     icon: InviteFriendsIcon,
     id: 'invite-friends-title-id',
@@ -368,6 +405,15 @@ const HelpData = [
       '<br />' +
       '<p>' +
       'The data collected as you browse is shown here before being added to the Swash dataset. If you want time to check the data before it gets uploaded, you can adjust the sending delay and delete anything that you don’t want to share.' +
+      '</p>',
+  },
+  {
+    title: 'History',
+    icon: HistoryIcon,
+    id: 'history-title-id',
+    content:
+      '<p>' +
+      'The History section displays the entire history of your transactions on Swash so you can easily track when you made claims and withdrawals.' +
       '</p>',
   },
   {

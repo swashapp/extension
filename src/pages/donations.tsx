@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Button } from '../components/button/button';
 import { Charity } from '../components/charity/charity';
+import { DONATION_TOUR_CLASS } from '../components/components-tour/donation-tour';
 import { StopDonation } from '../components/donate/stop-donation';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
@@ -29,7 +30,7 @@ export function Donations(): JSX.Element {
 
   useEffect(() => {
     fetchMetadata();
-    helper.getCharities().then(setCharities);
+    setTimeout(() => helper.getCharities().then(setCharities), 300);
   }, [fetchMetadata]);
 
   const charityData = useMemo(() => {
@@ -153,6 +154,7 @@ export function Donations(): JSX.Element {
             <hr className="custom" />
             <div>
               <Input
+                className={DONATION_TOUR_CLASS.SEARCH_CHARITY}
                 name="search"
                 placeholder="Search the list of charities"
                 value={searchText}
@@ -162,7 +164,7 @@ export function Donations(): JSX.Element {
             </div>
             <FlexGrid
               column={2}
-              className={'donation-charities'}
+              className={`donation-charities`}
               innerClassName={'donation-charity'}
             >
               {charityData.map((charity) => (

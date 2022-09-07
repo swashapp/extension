@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 
 import { RemoveButton } from '../button/remove';
-import { DATA_TOUR_CLASS } from '../data/data-tour';
+import { DATA_TOUR_CLASS } from '../components-tour/data-tour';
 import { AddEndAdornment } from '../input/end-adornments/add-end-adornment';
 import { Input } from '../input/input';
 

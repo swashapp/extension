@@ -3,6 +3,20 @@
     width: 100% !important;
   }
 
+  .transaction-header-container {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .transaction-header-container > div {
+    width: 100% !important;
+  }
+
+  .transaction-filter-container {
+    float: unset;
+    width: 100%;
+  }
+
   .donate-option-item {
     width: calc(50% - 8px);
   }
