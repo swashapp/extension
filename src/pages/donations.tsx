@@ -35,13 +35,20 @@ export function Donations(): JSX.Element {
 
   const charityData = useMemo(() => {
     if (searchText === '') return charities;
-    else
+    else {
+      const keyword = searchText.toLowerCase();
       return charities.filter(
         (charity) =>
-          charity.name.toLowerCase().indexOf(searchText.toLowerCase()) >= 0 ||
-          charity.description.toLowerCase().indexOf(searchText.toLowerCase()) >=
-            0,
+          charity.name.toLowerCase().indexOf(keyword) >= 0 ||
+          charity.category.toLowerCase().indexOf(keyword) >= 0 ||
+          charity.location.toLowerCase().indexOf(keyword) >= 0 ||
+          charity.address.toLowerCase().indexOf(keyword) >= 0 ||
+          charity.description.toLowerCase().indexOf(keyword) >= 0 ||
+          charity.mission.toLowerCase().indexOf(keyword) >= 0 ||
+          charity.program.toLowerCase().indexOf(keyword) >= 0 ||
+          charity.result.toLowerCase().indexOf(keyword) >= 0,
       );
+    }
   }, [charities, searchText]);
 
   return (
