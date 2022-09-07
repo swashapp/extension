@@ -268,7 +268,7 @@ export function Wallet(): JSX.Element {
                 <h6>Your wallet address</h6>
                 <Tooltip
                   text={
-                    'This is your unique ID in the Swash ecosystem Do not use it to send crypto to yourself.'
+                    'This is your unique ID in the Swash ecosystem. Do not use it to send crypto to yourself.'
                   }
                 />
               </div>

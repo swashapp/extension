@@ -498,6 +498,14 @@
     width: 100%;
   }
 
+  .profile-simple-card {
+    height: unset;
+  }
+
+  .profile-submit-badge {
+    width: calc(100% - 50px);
+  }
+
   .donate-popup,
   .donate-completed {
     width: unset;

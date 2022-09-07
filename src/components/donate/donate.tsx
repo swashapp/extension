@@ -38,6 +38,7 @@ function Options(props: {
           color: '#8091A3',
         }}
       >
+        {' '}
         per day
       </span>
     </MuiButton>
@@ -81,7 +82,7 @@ export function Donate(props: {
       <>
         <div className="donate-type">
           <div className={`donate-type-${isOngoing ? 'disabled' : 'enabled'}`}>
-            One-Off Donation
+            One-off Donation
           </div>
           <Switch
             invert
@@ -159,7 +160,7 @@ export function Donate(props: {
         <div className="donate-confirmation-row">
           <div className="donate-confirmation-name">Donation Type</div>
           <div className="donate-confirmation-value">
-            {isOngoing ? 'Ongoing Donation' : 'One-Off Donation'}
+            {isOngoing ? 'Ongoing Donation' : 'One-off Donation'}
           </div>
         </div>
         <div className="donate-confirmation-row">
@@ -171,7 +172,7 @@ export function Donate(props: {
         <div className="donate-confirmation-row">
           <div className="donate-confirmation-name">Donation Amount</div>
           <div className="donate-confirmation-value">
-            {isOngoing ? `${amount} SWASH` : `${percent}% per day`}
+            {isOngoing ? `${percent}% per day` : `${amount} SWASH`}
           </div>
         </div>
       </div>

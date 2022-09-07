@@ -2533,6 +2533,12 @@ hr.nav {
   height: 480px;
 }
 
+.profile-simple-card {
+  height: calc(100% - 64px);
+  gap: 12px;
+  justify-content: space-between;
+}
+
 .verify-profile {
   height: 100%;
   background: url('/static/images/background/verify-profile.png') no-repeat
@@ -2599,7 +2605,7 @@ hr.nav {
 }
 
 .profile-status-verified > img {
-  margin-right: 6px;
+  margin-right: 2px;
 }
 
 .profile-status-unverified > img {

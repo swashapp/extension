@@ -159,6 +159,10 @@
     display: none;
   }
 
+  .profile-simple-card {
+    height: unset;
+  }
+
   .wallet-token-transfer-container {
     margin: 20px;
   }

@@ -33,8 +33,9 @@ export function DonationTour(): JSX.Element {
           placement: 'top',
           content: (
             <>
-              When you make a donation, you can choose whether you want to do a
-              one-off donation or an ongoing one.
+              When you make a donation, you can choose whether you want to do it
+              as a one-off donation, or if you want to donate a percentage every
+              month.
             </>
           ),
         },

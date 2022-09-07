@@ -1,3 +1,4 @@
+import { Badge } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 
 import { toast } from 'react-toastify';
@@ -9,7 +10,6 @@ import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { showPopup } from '../components/popup/popup';
 import { Select } from '../components/select/select';
 import { ToastMessage } from '../components/toast/toast-message';
-import { Tooltip } from '../components/tooltip/tooltip';
 import { VerificationPopup } from '../components/verification/verification-popup';
 import { VerifiedInfoBox } from '../components/verification/verified-info-box';
 import { helper } from '../core/webHelper';
@@ -142,8 +142,7 @@ export function Profile(): JSX.Element {
       <BackgroundTheme />
       <div className="page-content">
         <div className="page-header profile-header">
-          <h2>My profile</h2>
-          <Tooltip text={''} />
+          <h2>Profile</h2>
           <div className="profile-verification-container">
             {phone ? (
               <div className="profile-status-verified">
@@ -164,8 +163,14 @@ export function Profile(): JSX.Element {
           </div>
         </div>
         <FlexGrid column={2} className="half-cards card-gap">
-          <div className={`simple-card ${PROFILE_TOUR_CLASS.COMPLETE_PROFILE}`}>
-            <h6>Complete your profile</h6>
+          <div
+            className={`simple-card profile-simple-card ${PROFILE_TOUR_CLASS.COMPLETE_PROFILE}`}
+          >
+            <div>
+              <h6>Complete your profile</h6>
+              Tell Swash you’re human by verifying your profile. Only members
+              who verify can withdraw their earnings.
+            </div>
             <div className="flex-column form-item-gap">
               <FlexGrid className="half-form-items form-item-gap" column={2}>
                 <Select
@@ -203,14 +208,34 @@ export function Profile(): JSX.Element {
               />
             </div>
             <div className="form-button-right">
-              <Button
-                className="form-button"
-                color="primary"
-                text="Submit"
-                link={false}
-                onClick={onSubmit}
-                loading={loading}
-              />
+              <Badge
+                badgeContent={'+100 SWASH'}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                className="profile-submit-badge"
+                sx={{
+                  '& .MuiBadge-badge': {
+                    padding: '5px 9px',
+                    color: 'white',
+                    backgroundColor: 'var(--green)',
+                    fontWeight: 600,
+                  },
+                }}
+              >
+                <Button
+                  className="form-button"
+                  color="primary"
+                  text="Submit"
+                  link={false}
+                  onClick={onSubmit}
+                  loading={loading}
+                  disabled={
+                    !birth || !marital || !household || !employment || !industry
+                  }
+                />
+              </Badge>
             </div>
           </div>
           <div className="flex-column card-gap">
