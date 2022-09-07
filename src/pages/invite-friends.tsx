@@ -8,13 +8,13 @@ import {
 } from 'react-share';
 
 import { LearnMore } from '../components/button/learn-more';
+import { INVITE_FRIENDS_TOUR_CLASS } from '../components/components-tour/invite-friends-tour';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { Circle } from '../components/drawing/circle';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { IconButton } from '../components/icon-button/icon-button';
 import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-adornment';
 import { Input } from '../components/input/input';
-import { INVITE_FRIENDS_TOUR_CLASS } from '../components/invite-friends/invite-friends-tour';
 import { NumericSection } from '../components/numeric-section/numeric-section';
 import { Notifications } from '../components/sidenav/welcome-to-new-data-world';
 import { initValue, UtilsService } from '../service/utils-service';

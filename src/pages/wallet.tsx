@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '../components/button/button';
+import { WALLET_TOUR_CLASS } from '../components/components-tour/wallet-tour';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { FormMessage } from '../components/form-message/form-message';
@@ -14,7 +15,6 @@ import { Select } from '../components/select/select';
 import { ToastMessage } from '../components/toast/toast-message';
 import { Tooltip } from '../components/tooltip/tooltip';
 import { TokenTransferPopup } from '../components/wallet/token-transfer-popup';
-import { WALLET_TOUR_CLASS } from '../components/wallet/wallet-tour';
 import { initValue, UtilsService } from '../service/utils-service';
 
 const SwashBonusIcon = '/static/images/icons/swash-bonus.svg';

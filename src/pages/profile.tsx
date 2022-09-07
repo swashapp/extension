@@ -3,6 +3,7 @@ import React, { useCallback, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '../components/button/button';
+import { PROFILE_TOUR_CLASS } from '../components/components-tour/profile-tour';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { showPopup } from '../components/popup/popup';
@@ -163,7 +164,7 @@ export function Profile(): JSX.Element {
           </div>
         </div>
         <FlexGrid column={2} className="half-cards card-gap">
-          <div className="simple-card">
+          <div className={`simple-card ${PROFILE_TOUR_CLASS.COMPLETE_PROFILE}`}>
             <h6>Complete your profile</h6>
             <div className="flex-column form-item-gap">
               <FlexGrid className="half-form-items form-item-gap" column={2}>
@@ -228,7 +229,7 @@ export function Profile(): JSX.Element {
                 'To withdraw your earnings and receive 100 SWASH bonus, please verify your profile.'
               )}
             </div>
-            <div className="simple-card">
+            <div className={`simple-card ${PROFILE_TOUR_CLASS.VERIFY_PROFILE}`}>
               <h6>Contact information</h6>
               <VerifiedInfoBox
                 title={'Email address'}

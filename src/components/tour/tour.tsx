@@ -49,10 +49,13 @@ const tourStyles = {
 };
 
 export enum TOUR_NAME {
+  PROFILE = 'profile',
   WALLET = 'wallet',
   INVITE_FRIENDS = 'friends',
   SETTINGS = 'settings',
+  DONATIONS = 'donations',
   DATA = 'data',
+  HISTORY = 'history',
   HELP = 'help',
 }
 

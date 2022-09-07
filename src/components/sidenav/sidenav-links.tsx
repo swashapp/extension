@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 import { SidenavItem, SidenavItems } from '../../data/sidenav-items';
 import { RouteToPages } from '../../paths';
-import { DATA_TOUR_CLASS } from '../data/data-tour';
-import { HELP_TOUR_CLASS } from '../help/help-tour';
-import { WALLET_TOUR_CLASS } from '../wallet/wallet-tour';
+import { DATA_TOUR_CLASS } from '../components-tour/data-tour';
+import { HELP_TOUR_CLASS } from '../components-tour/help-tour';
+import { WALLET_TOUR_CLASS } from '../components-tour/wallet-tour';
 
 export function SidenavLinks(props: { activeIndex?: number }): JSX.Element {
   const [active, setActive] = useState<number>(props.activeIndex || 0);
