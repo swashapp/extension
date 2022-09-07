@@ -44,8 +44,10 @@ export function Charity(props: {
         </div>
       </div>
       <div className={'charity-body'}>
-        <div className={'charity-title title'}>{props.title}</div>
-        <div className={'charity-location'}>{props.location}</div>
+        <div>
+          <div className={'charity-title title'}>{props.title}</div>
+          <div className={'charity-location'}>{props.location}</div>
+        </div>
         <div className={'charity-text'}>{props.description}</div>
         <div className={'charity-actions'}>
           {props.metadata?.auto_pay ? (

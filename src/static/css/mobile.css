@@ -512,6 +512,7 @@
   }
 
   .charity-body {
+    height: calc(100% - 240px);
     padding: 20px;
   }
 }

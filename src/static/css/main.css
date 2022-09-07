@@ -2262,7 +2262,7 @@ hr.nav {
 
 .charity {
   width: 100%;
-  height: max-content;
+  height: 100%;
 
   background: #f3f9f9;
   mix-blend-mode: normal;
@@ -2297,7 +2297,12 @@ hr.nav {
 }
 
 .charity-body {
+  height: calc(100% - 264px);
   padding: 32px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .charity-location {
@@ -2319,7 +2324,7 @@ hr.nav {
 
   color: #002030;
 
-  height: 120px;
+  min-height: 120px;
 }
 
 .charity-actions {
