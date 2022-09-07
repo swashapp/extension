@@ -135,10 +135,13 @@ const HelpData = [
       'By sharing some basic information about yourself, we can confirm that you’re human and not a robot.' +
       '<br />' +
       '<br />' +
-      'This improves the quality of Swash’s dataset even more so, when the data is purchased, you will receive even more value for the data you contributed.' +
+      'Swash is <a href="https://ico.org.uk/ESDWebPages/Entry/ZB125042" target="_blank" rel="noopener noreferrer">registered</a> with the <a href="https://ico.org.uk/" target="_blank" rel="noopener noreferrer">Information Commissioner’s Office</a> in the United Kingdom and has completed a <a href="https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/accountability-and-governance/data-protection-impact-assessments/" target="_blank" rel="noopener noreferrer">Data Protection Impact Assessment</a>. If you want to learn more about how your data is used, you can always check out the <a href="https://swashapp.io/privacy-policy/extension" target="_blank" rel="noopener noreferrer">privacy policy</a>.' +
       '<br />' +
       '<br />' +
-      'What’s more, when you verify your email address and phone number, you will receive a 100 SWASH reward!' +
+      'What’s more, when you verify your profile, you will receive a 100 SWASH reward!' +
+      '<br />' +
+      '<br />' +
+      'NOTE: Only verified Data Union members can claim their reward tokens.' +
       '</p>',
   },
   {

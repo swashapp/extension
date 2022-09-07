@@ -18,8 +18,8 @@ export function ProfileTour(): JSX.Element {
           placement: 'right',
           content: (
             <>
-              Tell Swash you’re human by verifying your profile, so you’ll be
-              able to earn even more from the value of your data.
+              Become a verified Data Union member! Only verified members can
+              withdraw their earnings.
             </>
           ),
         },
