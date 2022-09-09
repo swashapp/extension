@@ -624,10 +624,28 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function isVerified() {
+    const message = {
+      obj: 'userHelper',
+      func: 'isVerified',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
   function isVerificationNeeded() {
     const message = {
       obj: 'userHelper',
       func: 'isVerificationNeeded',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
+  function isAccountInitialized() {
+    const message = {
+      obj: 'userHelper',
+      func: 'isAccountInitialized',
       params: [],
     };
     return sendMessage(message);
@@ -788,7 +806,9 @@ const helper = (function () {
     claimRewards,
     getJoinedSwash,
     isJoinedSwash,
+    isVerified,
     isVerificationNeeded,
+    isAccountInitialized,
     getWithdrawBalance,
     getActiveReferral,
     resendCodeToEmail,

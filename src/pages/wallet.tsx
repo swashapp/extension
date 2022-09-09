@@ -289,8 +289,7 @@ export function Wallet(): JSX.Element {
               <p>
                 Withdraw your earnings using Gnosis Chain (recommended) or
                 Ethereum mainnet. Exchange wallets are not supported. Learn how
-                to set up your wallet properly and get to know your withdrawal
-                limits.
+                to set up your wallet and get to know your withdrawal limits.
               </p>
               <div className="form-button withdraw-read-more-button">
                 <Button

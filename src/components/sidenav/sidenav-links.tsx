@@ -1,13 +1,16 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { helper } from '../../core/webHelper';
 import { SidenavItem, SidenavItems } from '../../data/sidenav-items';
 import { RouteToPages } from '../../paths';
 import { DATA_TOUR_CLASS } from '../components-tour/data-tour';
 import { HELP_TOUR_CLASS } from '../components-tour/help-tour';
 import { WALLET_TOUR_CLASS } from '../components-tour/wallet-tour';
+import { VerificationBadge } from '../verification/verification-badge';
 
 export function SidenavLinks(props: { activeIndex?: number }): JSX.Element {
+  const [verified, setVerified] = useState<boolean>(false);
   const [active, setActive] = useState<number>(props.activeIndex || 0);
   const getTourClass = useCallback((index: number) => {
     let ret = '';
@@ -28,6 +31,23 @@ export function SidenavLinks(props: { activeIndex?: number }): JSX.Element {
       ret = HELP_TOUR_CLASS.SWASH_HELP;
     return ret;
   }, []);
+
+  const checkVerification = useCallback(() => {
+    helper.isAccountInitialized().then((initiated: boolean) => {
+      if (initiated) {
+        helper.isVerified().then((verified: boolean) => {
+          setVerified(verified);
+        });
+      } else {
+        setTimeout(checkVerification, 3000, true);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    checkVerification();
+  }, [checkVerification]);
+
   return (
     <>
       {SidenavItems.map((item: SidenavItem, index: number) => {
@@ -59,6 +79,11 @@ export function SidenavLinks(props: { activeIndex?: number }): JSX.Element {
                   )}
                 </div>
                 <div className="sidenav-title">{item.title}</div>
+                {item.title === 'Profile' ? (
+                  <VerificationBadge verified={verified} short darkBackground />
+                ) : (
+                  <></>
+                )}
               </div>
             </Link>
           </div>

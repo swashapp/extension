@@ -42,7 +42,7 @@ export function InviteFriends(): JSX.Element {
   const loadReferral = useCallback(() => {
     window.helper.load().then((db: { profile: { user_id: string } }) => {
       if (!db.profile.user_id) {
-        setTimeout(() => loadReferral(), 5000);
+        setTimeout(() => loadReferral(), 3000);
         return;
       }
       const _referralLink = db.profile.user_id

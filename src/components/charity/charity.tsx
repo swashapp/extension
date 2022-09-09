@@ -14,6 +14,7 @@ export function Charity(props: {
   banner: string;
   logo: string;
   title: string;
+  website: string;
   location: string;
   description: string;
   wallet: string;
@@ -50,52 +51,60 @@ export function Charity(props: {
         </div>
         <div className={'charity-text'}>{props.description}</div>
         <div className={'charity-actions'}>
-          {props.metadata?.auto_pay ? (
+          <div>
+            {props.metadata?.auto_pay ? (
+              <Button
+                color={'white'}
+                text={'Stop Donating'}
+                link={false}
+                className={'charity-actions-stop'}
+                onClick={() => {
+                  showPopup({
+                    closable: false,
+                    closeOnBackDropClick: true,
+                    paperClassName: 'custom-popup',
+                    content: (
+                      <StopDonation
+                        id={props.id}
+                        title={props.title}
+                        percent={props.metadata?.percentage || '0'}
+                        callback={props.callback}
+                      />
+                    ),
+                  });
+                }}
+              />
+            ) : (
+              <Button
+                text={'Donate'}
+                link={false}
+                className={`charity-actions-donate ${
+                  props.id === 1 ? DONATION_TOUR_CLASS.MAKE_DONATION : ''
+                }`}
+                onClick={() => {
+                  showPopup({
+                    closable: false,
+                    closeOnBackDropClick: true,
+                    paperClassName: 'custom-popup',
+                    content: (
+                      <Donate
+                        id={props.id}
+                        title={props.title}
+                        address={props.wallet}
+                        callback={props.callback}
+                      />
+                    ),
+                  });
+                }}
+              />
+            )}
             <Button
-              color={'white'}
-              text={'Stop Donating'}
-              link={false}
-              className={'charity-actions-stop'}
-              onClick={() => {
-                showPopup({
-                  closable: false,
-                  closeOnBackDropClick: true,
-                  paperClassName: 'custom-popup',
-                  content: (
-                    <StopDonation
-                      id={props.id}
-                      title={props.title}
-                      percent={props.metadata?.percentage || '0'}
-                      callback={props.callback}
-                    />
-                  ),
-                });
-              }}
+              color={'lightBlue'}
+              text={'Website'}
+              link={{ url: props.website, newTab: true, external: true }}
+              className={'charity-actions-website'}
             />
-          ) : (
-            <Button
-              text={'Donate'}
-              link={false}
-              className={`charity-actions-donate ${
-                props.id === 1 ? DONATION_TOUR_CLASS.MAKE_DONATION : ''
-              }`}
-              onClick={() => {
-                showPopup({
-                  closable: false,
-                  closeOnBackDropClick: true,
-                  paperClassName: 'custom-popup',
-                  content: (
-                    <Donate
-                      id={props.id}
-                      title={props.title}
-                      address={props.wallet}
-                      callback={props.callback}
-                    />
-                  ),
-                });
-              }}
-            />
-          )}
+          </div>
           <FavButton
             enable={props.metadata?.fav || false}
             onClick={async () => {

@@ -34,6 +34,16 @@ const useStyles = makeStyles(() => ({
     color: 'var(--black)',
     '&:hover': { background: 'var(--gray)', color: 'var(--black)' },
   },
+  lightBlue: {
+    background: '#E5F5FA',
+    border: '1px solid #00A9D8',
+    color: '#00A9D8',
+    '&:hover': {
+      background: 'var(--black)',
+      border: 'unset',
+      color: 'var(--white)',
+    },
+  },
 }));
 
 function getButton(
@@ -68,7 +78,7 @@ function getButton(
 
 export function Button(props: {
   className?: string;
-  color?: 'primary' | 'secondary' | 'white';
+  color?: 'primary' | 'secondary' | 'white' | 'lightBlue';
   size?: 'small' | 'large';
   fixed?: boolean;
   text: string | JSX.Element;

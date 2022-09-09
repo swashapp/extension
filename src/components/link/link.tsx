@@ -1,4 +1,4 @@
-import React, { ReactElement, PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { Link as RLink } from 'react-router-dom';
 
 export interface LinkProps {
@@ -9,7 +9,7 @@ export interface LinkProps {
 }
 
 export function Link(
-  props: PropsWithChildren<LinkProps & { children: ReactElement }>,
+  props: PropsWithChildren<LinkProps & { children: JSX.Element | string }>,
 ): JSX.Element {
   const { url, newTab = false, className = '' } = props;
 

@@ -1958,7 +1958,7 @@ hr.nav {
 }
 
 .popup-wallet-icon,
-.popup-settings-icon,
+.popup-profile-icon,
 .popup-exclude-icon,
 .popup-help-icon {
   width: 24px;
@@ -1975,13 +1975,13 @@ hr.nav {
     center;
 }
 
-.popup-settings-icon {
-  background: url('/static/images/icons/sidenav/settings-black.svg') no-repeat
+.popup-profile-icon {
+  background: url('/static/images/icons/sidenav/profile-black.svg') no-repeat
     center center;
 }
 
-.extension-popup-menu-item:hover .popup-settings-icon {
-  background: url('/static/images/icons/sidenav/settings.png') no-repeat center
+.extension-popup-menu-item:hover .popup-profile-icon {
+  background: url('/static/images/icons/sidenav/profile.png') no-repeat center
     center;
 }
 
@@ -2343,6 +2343,11 @@ hr.nav {
   width: 145px;
 }
 
+.charity-actions-website {
+  width: 114px;
+  margin-left: 14px;
+}
+
 .donate-type {
   width: 320px;
   margin: auto;
@@ -2577,8 +2582,20 @@ hr.nav {
   background: #ffffff;
   border-radius: 100px;
 
-  padding: 6px;
+  padding: 6px 12px;
   margin-left: 16px;
+}
+
+.verified-dark-background {
+  background: #E7FCEE;
+}
+
+.unverified-dark-background {
+  background: rgba(255,121,121,0.17);
+}
+
+.profile-status-short {
+  padding: 6px 6px;
 }
 
 .profile-status-verified,
@@ -2604,12 +2621,15 @@ hr.nav {
   color: #ff7979;
 }
 
-.profile-status-verified > img {
+.profile-status-verified > img,
+.profile-status-unverified > img {
+  margin-left: -2px;
   margin-right: 2px;
 }
 
-.profile-status-unverified > img {
-  margin-right: 2px;
+.profile-status-short > .profile-status-verified > img,
+.profile-status-short > .profile-status-unverified > img {
+  margin: unset;
 }
 
 .verified-info-box {
