@@ -1,5 +1,5 @@
 import { Badge } from '@mui/material';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 
 import { toast } from 'react-toastify';
 
@@ -10,13 +10,14 @@ import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { showPopup } from '../components/popup/popup';
 import { Select } from '../components/select/select';
 import { ToastMessage } from '../components/toast/toast-message';
+import { VerificationBadge } from '../components/verification/verification-badge';
 import { VerificationPopup } from '../components/verification/verification-popup';
 import { VerifiedInfoBox } from '../components/verification/verified-info-box';
 import { helper } from '../core/webHelper';
 
+import { AppContext } from './app';
+
 const successfulJob = '/static/images/icons/successful-job.png';
-const checkIcon = '/static/images/shape/check.svg';
-const exclamationIcon = '/static/images/shape/exclamation.svg';
 
 const birthYearList: { name: string; value: string }[] = [];
 
@@ -72,6 +73,8 @@ const occupationalIndustry = [
 ];
 
 export function Profile(): JSX.Element {
+  const app = useContext(AppContext);
+
   const [loading, setLoading] = React.useState(false);
   const [emailLoading, setEmailLoading] = React.useState(false);
 
@@ -84,29 +87,34 @@ export function Profile(): JSX.Element {
   const [employment, setEmployment] = React.useState('');
   const [industry, setIndustry] = React.useState('');
 
-  const fetchProfile = useCallback(() => {
-    setEmailLoading(true);
-    helper.getUserProfile().then((profile) => {
-      if (!profile.email) {
-        setTimeout(fetchProfile, 3000);
-      } else {
-        setEmailLoading(false);
-        setEmail(profile.email);
-        setPhone(profile.phone);
+  const fetchProfile = useCallback(
+    (forceUpdate?: boolean) => {
+      setEmailLoading(true);
+      helper.getUserProfile().then((profile) => {
+        if (!profile.email) {
+          setTimeout(fetchProfile, 3000, true);
+        } else {
+          setEmailLoading(false);
+          setEmail(profile.email);
+          setPhone(profile.phone);
 
-        setBirth(profile.birth || '');
-        setMarital(profile.marital || '');
-        setHousehold(profile.household || '');
-        setEmployment(profile.employment || '');
-        setIndustry(profile.industry || '');
-      }
-    });
-  }, []);
+          setBirth(profile.birth || '');
+          setMarital(profile.marital || '');
+          setHousehold(profile.household || '');
+          setEmployment(profile.employment || '');
+          setIndustry(profile.industry || '');
+
+          if (forceUpdate) app.forceUpdate();
+        }
+      });
+    },
+    [app],
+  );
 
   const updateData = useCallback(() => {
     setEmailLoading(true);
     helper.isJoinedSwash().then(() => {
-      fetchProfile();
+      fetchProfile(true);
     });
   }, [fetchProfile]);
 
@@ -143,24 +151,7 @@ export function Profile(): JSX.Element {
       <div className="page-content">
         <div className="page-header profile-header">
           <h2>Profile</h2>
-          <div className="profile-verification-container">
-            {phone ? (
-              <div className="profile-status-verified">
-                <img src={checkIcon} width={12} height={12} alt={'verified'} />
-                Verified
-              </div>
-            ) : (
-              <div className="profile-status-unverified">
-                <img
-                  src={exclamationIcon}
-                  width={12}
-                  height={12}
-                  alt={'unverified'}
-                />
-                Unverified
-              </div>
-            )}
-          </div>
+          <VerificationBadge verified={!!phone} />
         </div>
         <FlexGrid column={2} className="half-cards card-gap">
           <div
@@ -208,26 +199,11 @@ export function Profile(): JSX.Element {
               />
             </div>
             <div className="form-button-right">
-              <Badge
-                badgeContent={'+100 SWASH'}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                className="profile-submit-badge"
-                sx={{
-                  '& .MuiBadge-badge': {
-                    padding: '5px 9px',
-                    color: 'white',
-                    backgroundColor: 'var(--green)',
-                    fontWeight: 600,
-                  },
-                }}
-              >
+              {industry ? (
                 <Button
                   className="form-button"
                   color="primary"
-                  text="Submit"
+                  text="Update"
                   link={false}
                   onClick={onSubmit}
                   loading={loading}
@@ -235,7 +211,40 @@ export function Profile(): JSX.Element {
                     !birth || !marital || !household || !employment || !industry
                   }
                 />
-              </Badge>
+              ) : (
+                <Badge
+                  badgeContent={'+100 SWASH'}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                  }}
+                  className="profile-submit-badge"
+                  sx={{
+                    '& .MuiBadge-badge': {
+                      padding: '5px 9px',
+                      color: 'white',
+                      backgroundColor: 'var(--green)',
+                      fontWeight: 600,
+                    },
+                  }}
+                >
+                  <Button
+                    className="form-button"
+                    color="primary"
+                    text="Submit"
+                    link={false}
+                    onClick={onSubmit}
+                    loading={loading}
+                    disabled={
+                      !birth ||
+                      !marital ||
+                      !household ||
+                      !employment ||
+                      !industry
+                    }
+                  />
+                </Badge>
+              )}
             </div>
           </div>
           <div className="flex-column card-gap">

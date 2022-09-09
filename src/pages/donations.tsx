@@ -8,6 +8,7 @@ import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { SearchEndAdornment } from '../components/input/end-adornments/search-end-adornment';
 import { Input } from '../components/input/input';
+import { Link } from '../components/link/link';
 import { showPopup } from '../components/popup/popup';
 import { helper } from '../core/webHelper';
 import { Charity as CharityType } from '../types/storage/charity.type';
@@ -42,7 +43,7 @@ export function Donations(): JSX.Element {
           charity.name.toLowerCase().indexOf(keyword) >= 0 ||
           charity.category.toLowerCase().indexOf(keyword) >= 0 ||
           charity.location.toLowerCase().indexOf(keyword) >= 0 ||
-          charity.address.toLowerCase().indexOf(keyword) >= 0 ||
+          charity.website.toLowerCase().indexOf(keyword) >= 0 ||
           charity.description.toLowerCase().indexOf(keyword) >= 0 ||
           charity.mission.toLowerCase().indexOf(keyword) >= 0 ||
           charity.program.toLowerCase().indexOf(keyword) >= 0 ||
@@ -73,8 +74,8 @@ export function Donations(): JSX.Element {
                         <div className="ongoing-top-about">
                           <div className="ongoing-top-logo">
                             <img
-                              src={data?.icon}
-                              alt={''}
+                              src={data?.logo}
+                              alt={data.name}
                               style={{
                                 height: 'fit-content',
                                 width: 'fit-content',
@@ -150,10 +151,17 @@ export function Donations(): JSX.Element {
                 <div className="donation-burn-text">
                   Data for Good enables you to automatically donate the value of
                   your data to a social good organisation of your choice. Read
-                  more about Data for Good{' '}
-                  <a href={''} target={'_blank'} rel="noreferrer">
+                  more about Data for Good and what it means for the Swash
+                  community{' '}
+                  <Link
+                    url={
+                      'https://medium.com/swashapp/introducing-data-for-good-philanthropy-in-web-3-2ce57da289e7'
+                    }
+                    external
+                    newTab
+                  >
                     here
-                  </a>
+                  </Link>
                   .
                 </div>
               </div>
@@ -174,20 +182,23 @@ export function Donations(): JSX.Element {
               className={`donation-charities`}
               innerClassName={'donation-charity'}
             >
-              {charityData.map((charity) => (
-                <Charity
-                  key={charity.id}
-                  id={charity.id}
-                  banner={charity.banner}
-                  logo={charity.logo}
-                  title={charity.name}
-                  location={charity.location}
-                  description={charity.description}
-                  wallet={charity.address}
-                  metadata={metadata.find((item) => item.id === charity.id)}
-                  callback={fetchMetadata}
-                />
-              ))}
+              {charityData.map((charity) => {
+                return (
+                  <Charity
+                    key={charity.id}
+                    id={charity.id}
+                    banner={charity.banner}
+                    logo={charity.logo}
+                    title={charity.name}
+                    website={charity.website}
+                    location={charity.location}
+                    description={charity.description}
+                    wallet={charity.address}
+                    metadata={metadata.find((item) => item.id === charity.id)}
+                    callback={fetchMetadata}
+                  />
+                );
+              })}
             </FlexGrid>
           </div>
         </div>

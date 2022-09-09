@@ -97,24 +97,33 @@ export default function App(): JSX.Element {
   const [needOnBoarding, setNeedOnBoarding] = useState<boolean>(false);
   const [trigger, setTrigger] = useState<number>(0);
 
+  const checkVerification = useCallback((shouldTry: boolean) => {
+    if (!shouldTry) return;
+
+    window.helper.isAccountInitialized().then((initiated: boolean) => {
+      if (initiated) {
+        window.helper.isVerificationNeeded().then((needed: boolean) => {
+          if (needed)
+            showPopup({
+              closable: false,
+              closeOnBackDropClick: true,
+              paperClassName: 'small-popup',
+              content: <VerificationAlert />,
+            });
+        });
+      } else {
+        setTimeout(checkVerification, 3000, true);
+      }
+    });
+  }, []);
+
   useEffect(
     () =>
       window.helper.isNeededOnBoarding().then((status: boolean) => {
         setNeedOnBoarding(status);
-
-        if (!status) {
-          window.helper.isVerificationNeeded().then((needed: boolean) => {
-            if (needed)
-              showPopup({
-                closable: false,
-                closeOnBackDropClick: true,
-                paperClassName: 'small-popup',
-                content: <VerificationAlert />,
-              });
-          });
-        }
+        checkVerification(!status);
       }),
-    [trigger],
+    [checkVerification, trigger],
   );
 
   const forceUpdate = useCallback(() => setTrigger((t: number) => t + 1), []);

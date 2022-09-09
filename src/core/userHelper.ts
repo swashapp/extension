@@ -283,15 +283,24 @@ const userHelper = (function () {
     return false;
   }
 
+  async function isVerified() {
+    const profile = await storageHelper.getProfile();
+    return profile.phone !== undefined;
+  }
+
   async function isVerificationNeeded() {
     console.log(`Last verification popup ${new Date(lastPopup)}`);
     if (lastPopup < Date.now() - 3600 * 24 * 1000) {
       lastPopup = Date.now();
-      const profile = await storageHelper.getProfile();
-      return profile.phone === undefined;
+      return !(await isVerified());
     } else {
       return false;
     }
+  }
+
+  async function isAccountInitialized() {
+    const profile = await storageHelper.getProfile();
+    return profile.user_id !== undefined;
   }
 
   async function getJoinedSwash() {
@@ -479,7 +488,9 @@ const userHelper = (function () {
     generateJWT,
     withdrawToTarget,
     isJoinedSwash,
+    isVerified,
     isVerificationNeeded,
+    isAccountInitialized,
     getJoinedSwash,
     getActiveReferral,
     getUserCountry,

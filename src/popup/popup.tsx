@@ -15,6 +15,7 @@ import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { Notifications } from '../components/sidenav/welcome-to-new-data-world';
 import { SwashLogo } from '../components/swash-logo/swash-logo';
 import { Toggle } from '../components/toggle/toggle';
+import { VerificationBadge } from '../components/verification/verification-badge';
 import { helper } from '../core/webHelper';
 import { initValue, UtilsService } from '../service/utils-service';
 
@@ -67,16 +68,19 @@ function MenuItem(props: {
   onClick: () => void;
   iconClassName: string;
   text: string;
+  badge?: JSX.Element;
 }) {
   return (
     <div onClick={props.onClick} className="flex-row extension-popup-menu-item">
       <div className={props.iconClassName} />
       <div className="extension-popup-menu-item-text">{props.text}</div>
+      {props.badge ? props.badge : ''}
     </div>
   );
 }
 
 function Popup() {
+  const [verified, setVerified] = useState<boolean>(false);
   const [tokenAvailable, setTokenAvailable] = useState<string>(initValue);
   const [unclaimedBonus, setUnclaimedBonus] = useState<string>(initValue);
   const [excluded, setExcluded] = useState<boolean>(false);
@@ -152,6 +156,10 @@ function Popup() {
         } else {
           window.helper.load().then(() => {
             getBalanceInfo().then();
+
+            window.helper.isVerified().then((status: boolean) => {
+              setVerified(status);
+            });
           });
         }
       }),
@@ -177,20 +185,27 @@ function Popup() {
               <NumericStats value={unclaimedBonus} label="SWASH Rewards" />
             </FlexGrid>
             <MenuItem
+              text="Profile"
+              iconClassName="popup-profile-icon"
+              onClick={() =>
+                showPageOnTab(
+                  browser.runtime.getURL('dashboard/index.html#/profile'),
+                )
+              }
+              badge={
+                verified === undefined ? (
+                  <></>
+                ) : (
+                  <VerificationBadge verified={verified} darkBackground />
+                )
+              }
+            />
+            <MenuItem
               text="Wallet"
               iconClassName="popup-wallet-icon"
               onClick={() =>
                 showPageOnTab(
                   browser.runtime.getURL('dashboard/index.html#/wallet'),
-                )
-              }
-            />
-            <MenuItem
-              text="Settings"
-              iconClassName="popup-settings-icon"
-              onClick={() =>
-                showPageOnTab(
-                  browser.runtime.getURL('dashboard/index.html#/settings'),
                 )
               }
             />
