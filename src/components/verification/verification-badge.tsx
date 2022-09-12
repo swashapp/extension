@@ -4,12 +4,14 @@ const checkIcon = '/static/images/shape/check.svg';
 const exclamationIcon = '/static/images/shape/exclamation.svg';
 
 export function VerificationBadge(props: {
-  verified: boolean;
+  verified?: boolean;
   darkBackground?: boolean;
   short?: boolean;
 }): JSX.Element {
   const darkBackground = props.darkBackground ? props.darkBackground : false;
   const short = props.short ? props.short : false;
+
+  if (props.verified === undefined) return <></>;
 
   return (
     <div

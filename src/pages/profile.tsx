@@ -77,6 +77,7 @@ export function Profile(): JSX.Element {
 
   const [loading, setLoading] = React.useState(false);
   const [emailLoading, setEmailLoading] = React.useState(false);
+  const [submitted, setSubmitted] = React.useState(false);
 
   const [email, setEmail] = React.useState(undefined);
   const [phone, setPhone] = React.useState(undefined);
@@ -95,8 +96,8 @@ export function Profile(): JSX.Element {
           setTimeout(fetchProfile, 3000, true);
         } else {
           setEmailLoading(false);
-          setEmail(profile.email);
-          setPhone(profile.phone);
+          setEmail(profile.email || '');
+          setPhone(profile.phone || '');
 
           setBirth(profile.birth || '');
           setMarital(profile.marital || '');
@@ -104,6 +105,7 @@ export function Profile(): JSX.Element {
           setEmployment(profile.employment || '');
           setIndustry(profile.industry || '');
 
+          if (profile.industry) setSubmitted(true);
           if (forceUpdate) app.forceUpdate();
         }
       });
@@ -135,6 +137,7 @@ export function Profile(): JSX.Element {
       .finally(() => {
         setTimeout(() => {
           setLoading(false);
+          setSubmitted(true);
           toast(
             <ToastMessage
               type="success"
@@ -151,7 +154,9 @@ export function Profile(): JSX.Element {
       <div className="page-content">
         <div className="page-header profile-header">
           <h2>Profile</h2>
-          <VerificationBadge verified={!!phone} />
+          <VerificationBadge
+            verified={phone === undefined ? phone : phone !== ''}
+          />
         </div>
         <FlexGrid column={2} className="half-cards card-gap">
           <div
@@ -199,7 +204,7 @@ export function Profile(): JSX.Element {
               />
             </div>
             <div className="form-button-right">
-              {industry ? (
+              {submitted ? (
                 <Button
                   className="form-button"
                   color="primary"
