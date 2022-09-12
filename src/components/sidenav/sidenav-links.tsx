@@ -10,7 +10,7 @@ import { WALLET_TOUR_CLASS } from '../components-tour/wallet-tour';
 import { VerificationBadge } from '../verification/verification-badge';
 
 export function SidenavLinks(props: { activeIndex?: number }): JSX.Element {
-  const [verified, setVerified] = useState<boolean>(false);
+  const [verified, setVerified] = useState<boolean | undefined>(undefined);
   const [active, setActive] = useState<number>(props.activeIndex || 0);
   const getTourClass = useCallback((index: number) => {
     let ret = '';

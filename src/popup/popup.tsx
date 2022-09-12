@@ -80,7 +80,7 @@ function MenuItem(props: {
 }
 
 function Popup() {
-  const [verified, setVerified] = useState<boolean>(false);
+  const [verified, setVerified] = useState<boolean | undefined>(undefined);
   const [tokenAvailable, setTokenAvailable] = useState<string>(initValue);
   const [unclaimedBonus, setUnclaimedBonus] = useState<string>(initValue);
   const [excluded, setExcluded] = useState<boolean>(false);

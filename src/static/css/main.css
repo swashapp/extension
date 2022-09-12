@@ -813,6 +813,7 @@ hr.nav {
 
 .sidenav-icon {
   margin-right: 16px;
+  height: 24px;
 }
 
 .sidenav-border {
@@ -2614,11 +2615,11 @@ hr.nav {
 
   font-size: 12px;
   line-height: 12px;
-  color: #59f28b;
+  color: #26f168;
 }
 
 .profile-status-unverified {
-  color: #ff7979;
+  color: #fc3333;
 }
 
 .profile-status-verified > img,
