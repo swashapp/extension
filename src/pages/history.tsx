@@ -48,7 +48,6 @@ export function History(): JSX.Element {
   }, [category, rowsPerPage]);
 
   useEffect(() => {
-    console.log('page', page);
     setPageRows(rows.slice(page * rowsPerPage, (page + 1) * rowsPerPage));
   }, [page, rows, rowsPerPage]);
 

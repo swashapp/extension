@@ -11,9 +11,6 @@ export function DonationTour(): JSX.Element {
   return (
     <Tour
       tourName={TOUR_NAME.DONATIONS}
-      // onStart={() =>
-      //   setTimeout(() => scrollTo({ top: 0, behavior: 'smooth' }), 500)
-      // }
       steps={[
         {
           header: 'Search for a charity 🐼',

@@ -3,5 +3,6 @@
   "swashTokenAddress": "0xa130e3a33a4d84b04c3918c4e5762223ae252f80",
   "dataunionAddress": "0x71575955651204be38b8e0e1eea759dc1ea0adc1",
   "rewardContractAddress": "0x78fc309A5561CF98592C8F2d8802EA482e3637D8",
-  "tokenExpiration": 540000
+  "tokenExpiration": 540000,
+  "validationPopupInterval": 86400000
 }

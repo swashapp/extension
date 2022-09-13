@@ -4,4 +4,5 @@ export type CommunityConfigs = {
   dataunionAddress: string;
   rewardContractAddress: string;
   tokenExpiration: number;
+  validationPopupInterval: number;
 };

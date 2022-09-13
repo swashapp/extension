@@ -3,6 +3,7 @@ import browser from 'webextension-polyfill';
 import apiCallJson from '../core/configs/apiCall.json';
 import communityJson from '../core/configs/community.json';
 import configJson from '../core/configs/config.json';
+import donationJson from '../core/configs/donation.json';
 import graphAPIJson from '../core/configs/graphAPI.json';
 import memberManagerJson from '../core/configs/memberManager.json';
 import onboardingJson from '../core/configs/onboarding.json';
@@ -32,6 +33,7 @@ function getStaticConfig() {
     manifest: { ...configJson },
     swashAPI: { ...swashAPIJson },
     graphAPI: { ...graphAPIJson },
+    donation: { ...donationJson },
     community: { ...communityJson },
     stream: { ...streamJson },
     onboarding: { ...onboardingJson },

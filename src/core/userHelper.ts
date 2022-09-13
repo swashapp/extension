@@ -290,7 +290,7 @@ const userHelper = (function () {
 
   async function isVerificationNeeded() {
     console.log(`Last verification popup ${new Date(lastPopup)}`);
-    if (lastPopup < Date.now() - 3600 * 24 * 1000) {
+    if (lastPopup < Date.now() - config.validationPopupInterval) {
       lastPopup = Date.now();
       return !(await isVerified());
     } else {

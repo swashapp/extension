@@ -42,7 +42,6 @@ const dataHandler = (function () {
     const time = Number(new Date().getTime()) - confs.delay * 60000;
     const rows = await databaseHelper.getReadyMessages(time);
 
-    console.log(sessionIdLastUsage, Date.now());
     if (sessionIdLastUsage + 30 * 60000 < Date.now()) {
       sessionId = commonUtils.uuid();
       sessionIdLastUsage = Date.now();

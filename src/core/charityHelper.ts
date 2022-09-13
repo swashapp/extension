@@ -1,13 +1,19 @@
 import { formatEther, parseEther } from '@ethersproject/units';
 
+import { DonationConfigs } from '../types/storage/configs/donation.type';
+
+import { configManager } from './configManager';
 import { storageHelper } from './storageHelper';
 import { swashApiHelper } from './swashApiHelper';
 import { userHelper } from './userHelper';
 
 const charityHelper = (function () {
+  let config: DonationConfigs;
   let paymentInterval: NodeJS.Timer | undefined;
 
-  async function init() {}
+  async function init() {
+    config = await configManager.getConfig('donation');
+  }
 
   async function getCharities() {
     return swashApiHelper.getCharities(await userHelper.generateJWT());
@@ -139,7 +145,7 @@ const charityHelper = (function () {
 
   async function startAutoPayment() {
     paymentInterval && clearInterval(paymentInterval);
-    paymentInterval = setInterval(paymentToCharities, 5 * 60000);
+    paymentInterval = setInterval(paymentToCharities, config.paymentInterval);
   }
 
   return {
