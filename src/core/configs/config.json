@@ -9,8 +9,11 @@
     "graphAPI": {
       "version": 1
     },
+    "donation": {
+      "version": 1
+    },
     "community": {
-      "version": 3
+      "version": 4
     },
     "stream": {
       "version": 1

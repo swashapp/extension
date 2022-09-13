@@ -8,6 +8,7 @@ import { ProfileEntity } from '../entities/profile.entity';
 import { Any } from '../types/any.type';
 import { Module } from '../types/storage/module.type';
 
+import { charityHelper } from './charityHelper';
 import { configManager } from './configManager';
 import { databaseHelper } from './databaseHelper';
 import { dataHandler } from './dataHandler';
@@ -262,6 +263,7 @@ const loader = (function () {
     await apiCall.init();
     await swashApiHelper.init();
     await graphApiHelper.init();
+    await charityHelper.init();
   }
 
   async function onUpdatedAll() {

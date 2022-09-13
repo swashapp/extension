@@ -1,5 +1,6 @@
 import { ApiConfigs } from './configs/api.type';
 import { CommunityConfigs } from './configs/community.type';
+import { DonationConfigs } from './configs/donation.type';
 import { GraphApiConfigs } from './configs/graph-api.type';
 import { MemberManagerConfigs } from './configs/member-manager.type';
 import { OnboardingConfigs } from './configs/onboarding.type';
@@ -39,6 +40,7 @@ export type Configs = {
   manifest: ConfigsManifest;
   swashAPI: SwashApiConfigs;
   graphAPI: GraphApiConfigs;
+  donation: DonationConfigs;
   community: CommunityConfigs;
   stream: StreamConfigs;
   onboarding: OnboardingConfigs;
