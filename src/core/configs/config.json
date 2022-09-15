@@ -13,13 +13,13 @@
       "version": 1
     },
     "community": {
-      "version": 4
+      "version": 5
     },
     "stream": {
       "version": 1
     },
     "onboarding": {
-      "version": 1
+      "version": 2
     },
     "memberManager": {
       "version": 3

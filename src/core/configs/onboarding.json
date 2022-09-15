@@ -22,7 +22,7 @@
         "next": "PrivacyPolicy"
       },
       "PrivacyPolicy": {
-        "version": 1,
+        "version": 2,
         "visible": "all",
         "next": "OnBoardingResponsibility"
       },
