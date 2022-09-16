@@ -56,7 +56,7 @@ export function Donations(): JSX.Element {
     <div className="page-container">
       <BackgroundTheme layout="layout3" />
       <div className="page-content">
-        {onGoing ? (
+        {onGoing && charities.length > 0 ? (
           <div className="flex-column card-gap donation-bottom-margin">
             <div className="simple-card">
               <div className="flex-column card-gap">
@@ -75,7 +75,7 @@ export function Donations(): JSX.Element {
                           <div className="ongoing-top-logo">
                             <img
                               src={data?.logo}
-                              alt={data.name}
+                              alt={data?.name}
                               style={{
                                 height: 'fit-content',
                                 width: 'fit-content',

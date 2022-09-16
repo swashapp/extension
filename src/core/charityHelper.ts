@@ -54,6 +54,19 @@ const charityHelper = (function () {
     const charities = await storageHelper.getCharities();
     const index = charities.findIndex((charity) => charity.id === id);
 
+    let sum = 0;
+    for (const charity of charities) {
+      sum += +charity.percentage;
+    }
+    sum += +percent;
+
+    if (index >= 0) {
+      sum -= +charities[index];
+    }
+
+    console.log(`Sum of donation is ${sum}%`);
+    if (sum > 100) throw Error('On-going donation exceed your daily reward');
+
     if (index >= 0) {
       charities[index].auto_pay = true;
       charities[index].wallet = wallet;
@@ -68,14 +81,8 @@ const charityHelper = (function () {
       });
     }
 
-    let sum = 0;
-
-    for (const charity of charities) {
-      sum += +charity.percentage;
-    }
-
-    console.log(`Sum of donation is ${sum}%`);
-    if (sum < 100) await storageHelper.saveCharities(charities);
+    console.log(`Save the charities info`);
+    await storageHelper.saveCharities(charities);
   }
 
   async function delCharityAutoPayment(id: number) {

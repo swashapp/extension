@@ -1,6 +1,8 @@
 import { Button as MuiButton } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
+import { toast } from 'react-toastify';
+
 import { helper } from '../../core/webHelper';
 import { initValue, UtilsService } from '../../service/utils-service';
 import { Button } from '../button/button';
@@ -9,6 +11,7 @@ import { FlexGrid } from '../flex-grid/flex-grid';
 import { Input } from '../input/input';
 import { closePopup } from '../popup/popup';
 import { Switch } from '../switch/switch';
+import { ToastMessage } from '../toast/toast-message';
 
 const RightArrow = '/static/images/shape/right-arrow.svg';
 const completedIcon = '/static/images/icons/progress-completed.png';
@@ -245,6 +248,14 @@ export function Donate(props: {
                       percent.toString(),
                     )
                     .then(() => setThanks(true))
+                    .catch((err) =>
+                      toast(
+                        <ToastMessage
+                          type="error"
+                          content={<>{err.toString()}</>}
+                        />,
+                      ),
+                    )
                     .then(() => props.callback && props.callback());
                 } else {
                   helper
