@@ -24,4 +24,9 @@
   .donation-charity {
     width: 100%;
   }
+
+  .welcome-container {
+    position: unset;
+    width: unset;
+  }
 }

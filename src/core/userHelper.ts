@@ -307,8 +307,8 @@ const userHelper = (function () {
     return await swashApiHelper.getJoinedSwash(await generateJWT());
   }
 
-  async function getActiveReferral() {
-    return await swashApiHelper.getActiveReferral(await generateJWT());
+  async function getLatestPrograms() {
+    return await swashApiHelper.getLatestPrograms(await generateJWT());
   }
 
   async function getWithdrawBalance() {
@@ -492,7 +492,7 @@ const userHelper = (function () {
     isVerificationNeeded,
     isAccountInitialized,
     getJoinedSwash,
-    getActiveReferral,
+    getLatestPrograms,
     getUserCountry,
     getRewards,
     getReferrals,

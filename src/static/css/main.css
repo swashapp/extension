@@ -841,6 +841,8 @@ hr.nav {
   margin: 20px;
 
   bottom: 0;
+  position: fixed;
+  width: 176px;
 }
 
 .welcome-text {

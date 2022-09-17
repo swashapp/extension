@@ -1,5 +1,5 @@
 import { Badge } from '@mui/material';
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 
 import { toast } from 'react-toastify';
 
@@ -74,6 +74,7 @@ const occupationalIndustry = [
 
 export function Profile(): JSX.Element {
   const app = useContext(AppContext);
+  const [reward, setReward] = useState<string>('');
 
   const [loading, setLoading] = React.useState(false);
   const [emailLoading, setEmailLoading] = React.useState(false);
@@ -120,9 +121,18 @@ export function Profile(): JSX.Element {
     });
   }, [fetchProfile]);
 
+  const loadActiveProfile = useCallback(() => {
+    window.helper
+      .getLatestPrograms()
+      .then((data: { profile: { reward: string } }) => {
+        if (data.profile.reward) setReward(data.profile.reward);
+      });
+  }, []);
+
   useEffect(() => {
     fetchProfile();
-  }, [fetchProfile]);
+    loadActiveProfile();
+  }, [fetchProfile, loadActiveProfile]);
 
   const onSubmit = useCallback(() => {
     setLoading(true);
@@ -134,17 +144,19 @@ export function Profile(): JSX.Element {
         employment,
         industry,
       })
-      .finally(() => {
-        setTimeout(() => {
-          setLoading(false);
-          setSubmitted(true);
-          toast(
-            <ToastMessage
-              type="success"
-              content={<>{'Saved profile successfully'}</>}
-            />,
-          );
-        }, 500);
+      .then(() => {
+        setLoading(false);
+        setSubmitted(true);
+        toast(
+          <ToastMessage
+            type="success"
+            content={<>{'Saved profile successfully'}</>}
+          />,
+        );
+      })
+      .catch((err) => {
+        setLoading(false);
+        toast(<ToastMessage type="error" content={<>{err}</>} />);
       });
   }, [employment, household, industry, marital, birth]);
 
@@ -216,9 +228,21 @@ export function Profile(): JSX.Element {
                     !birth || !marital || !household || !employment || !industry
                   }
                 />
+              ) : reward === '' || reward === '0' ? (
+                <Button
+                  className="form-button"
+                  color="primary"
+                  text="Submit"
+                  link={false}
+                  onClick={onSubmit}
+                  loading={loading}
+                  disabled={
+                    !birth || !marital || !household || !employment || !industry
+                  }
+                />
               ) : (
                 <Badge
-                  badgeContent={'+100 SWASH'}
+                  badgeContent={`+${reward} SWASH`}
                   anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'left',
@@ -265,7 +289,10 @@ export function Profile(): JSX.Element {
                   Congrats! You are a verified Swash member!
                 </div>
               ) : (
-                'To withdraw your earnings and receive 100 SWASH bonus, please verify your profile.'
+                <>
+                  To withdraw your earnings and receive {reward} SWASH bonus,
+                  please verify your profile.
+                </>
               )}
             </div>
             <div className={`simple-card ${PROFILE_TOUR_CLASS.VERIFY_PROFILE}`}>

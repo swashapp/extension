@@ -523,4 +523,9 @@
     height: calc(100% - 240px);
     padding: 20px;
   }
+
+  .welcome-container {
+    position: unset;
+    width: unset;
+  }
 }

@@ -13,6 +13,7 @@ export type SwashApiConfigs = {
     userVerifiedInfo: string;
     userAdditionalInfo: string;
     balanceWithdraw: string;
+    latestPrograms: string;
     referralActive: string;
     ipLookup: string;
     charityList: string;
