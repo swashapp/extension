@@ -6,7 +6,6 @@ import { Any } from '../types/any.type';
 import { SwashApiConfigs } from '../types/storage/configs/swash-api.type';
 
 import {
-  ActiveReferralResponse,
   ClaimRewardResponse,
   JoinResponse,
   LocationResponse,
@@ -15,6 +14,7 @@ import {
   WithdrawResponse,
   ReferralsResponse,
   NotificationsResponse,
+  LatestPrograms,
 } from '../types/swash-api.type';
 
 import { configManager } from './configManager';
@@ -106,8 +106,8 @@ const swashApiHelper = (function () {
     throw Error('Could not update timestamp');
   }
 
-  async function getActiveReferral(token: string) {
-    return get<ActiveReferralResponse>(token, config.APIs.referralActive);
+  async function getLatestPrograms(token: string) {
+    return get<LatestPrograms>(token, config.APIs.latestPrograms);
   }
 
   async function getJoinedSwash(token: string) {
@@ -196,7 +196,7 @@ const swashApiHelper = (function () {
     init,
     getDataEthPairPrice,
     getTimestamp,
-    getActiveReferral,
+    getLatestPrograms,
     getJoinedSwash,
     getReferralRewards,
     getReferrals,

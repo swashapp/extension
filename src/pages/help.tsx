@@ -21,12 +21,21 @@ import {
 export function Help(): JSX.Element {
   const [searchText, setSearchText] = useState<string>('');
   const [reward, setReward] = useState<number>(0);
+  const [preward, setPReward] = useState<number>(0);
   const [tour, setTour] = useState<{ [key: string]: unknown }>({});
 
   const loadActiveReferral = useCallback(() => {
-    window.helper.getActiveReferral().then((referral: { reward: number }) => {
-      if (referral.reward) setReward(referral.reward);
-    });
+    window.helper
+      .getLatestPrograms()
+      .then(
+        (data: {
+          referral: { reward: number };
+          profile: { reward: number };
+        }) => {
+          if (data.referral.reward) setReward(data.referral.reward);
+          if (data.profile.reward) setPReward(data.profile.reward);
+        },
+      );
   }, []);
 
   useEffect(() => {
@@ -62,7 +71,9 @@ export function Help(): JSX.Element {
       ? HelpData.map((data) => ({
           ...data,
           expanded: scrollId === data.id,
-          content: data.content.replace('$REWARD_PROGRAM', rewardProgramText),
+          content: data.content
+            .replace('$REWARD_PROGRAM', rewardProgramText)
+            .replace('$REWARD_PROFILE', `${preward}`),
         }))
       : [
           ...HelpData.filter(
@@ -86,7 +97,7 @@ export function Help(): JSX.Element {
             };
           }),
         ];
-  }, [searchText, scrollId, rewardProgramText]);
+  }, [searchText, scrollId, rewardProgramText, preward]);
 
   const makeTourLink = useCallback(
     (route: string, tourName: TOUR_NAME) => route + '?tour=' + tourName,

@@ -24,10 +24,10 @@ export function ProfileTour(): JSX.Element {
           ),
         },
         {
-          header: 'Get your 100 SWASH 🏆',
+          header: 'Get your profile reward 🏆',
           target: `.${PROFILE_TOUR_CLASS.VERIFY_PROFILE}`,
           placement: 'right',
-          content: <>Verify your profile to earn a 100 SWASH bonus!</>,
+          content: <>Complete your profile to earn some SWASH bonus!</>,
         },
       ]}
     />

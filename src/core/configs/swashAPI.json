@@ -13,6 +13,7 @@
     "userVerifiedInfo": "/user/info/verified",
     "userAdditionalInfo": "/user/info/additional",
     "balanceWithdraw": "/balance/withdraw",
+    "latestPrograms": "/reward/latest",
     "referralActive": "/referral/active",
     "ipLookup": "/tools/ip/lookup",
     "charityList": "/charity"

@@ -660,10 +660,10 @@ const helper = (function () {
     return sendMessage(message);
   }
 
-  function getActiveReferral() {
+  function getLatestPrograms() {
     const message = {
       obj: 'userHelper',
-      func: 'getActiveReferral',
+      func: 'getLatestPrograms',
       params: [],
     };
     return sendMessage(message);
@@ -810,7 +810,7 @@ const helper = (function () {
     isVerificationNeeded,
     isAccountInitialized,
     getWithdrawBalance,
-    getActiveReferral,
+    getLatestPrograms,
     resendCodeToEmail,
     join,
     updateEmail,

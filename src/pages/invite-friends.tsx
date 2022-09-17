@@ -53,9 +53,11 @@ export function InviteFriends(): JSX.Element {
   }, []);
 
   const loadActiveReferral = useCallback(() => {
-    window.helper.getActiveReferral().then((referral: { reward: string }) => {
-      if (referral.reward) setReward(referral.reward);
-    });
+    window.helper
+      .getLatestPrograms()
+      .then((data: { referral: { reward: string } }) => {
+        if (data.referral.reward) setReward(data.referral.reward);
+      });
   }, []);
 
   const loadReferrals = useCallback(() => {

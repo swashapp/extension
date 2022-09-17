@@ -4,12 +4,17 @@ export type JoinResponse = {
   phone?: string;
 };
 
-export type ActiveReferralResponse = {
+export type RewardResponseDTO = {
   start: Date;
   expire: Date;
   total: number;
   current: number;
   reward: number;
+};
+
+export type LatestPrograms = {
+  referral: RewardResponseDTO;
+  profile: RewardResponseDTO;
 };
 
 export type ReferralRewardResponse = {
