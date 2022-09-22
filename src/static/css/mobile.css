@@ -426,11 +426,10 @@
 
   .import-your-config-cards {
     flex-wrap: wrap;
-    place-content: space-between;
   }
 
   .import-your-config-cards > div {
-    width: calc(50% - 8px) !important;
+    width: 100% !important;
   }
 
   .import-your-config > p {

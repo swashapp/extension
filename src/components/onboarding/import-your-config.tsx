@@ -5,14 +5,16 @@ import browser from 'webextension-polyfill';
 import { StepperContext } from '../../pages/onboarding';
 import { Button } from '../button/button';
 import { FlexGrid } from '../flex-grid/flex-grid';
-import { FilePicker } from '../passphrase-popup/file-picker';
 import { showPopup } from '../popup/popup';
 import { ToastMessage } from '../toast/toast-message';
 
+import { FilePicker } from './file-picker';
+import { ImportPrivateKey } from './import-private-key';
 import { ImportingConfig } from './importing-config';
 
 const DropboxLogo = '/static/images/logos/dropbox.png';
 const FileLogo = '/static/images/logos/file.png';
+const KeyLogo = '/static/images/logos/key.png';
 const GoogleDriveLogo = '/static/images/logos/google-drive.png';
 
 function ImportCard(props: {
@@ -45,6 +47,7 @@ function ImportCard(props: {
 export function ImportYourConfig(): JSX.Element {
   const stepper = useContext(StepperContext);
   const [importing, setImporting] = useState<boolean>(false);
+
   const onImportFailed = useCallback((message?: string) => {
     setImporting(false);
     toast(
@@ -54,14 +57,17 @@ export function ImportYourConfig(): JSX.Element {
       />,
     );
   }, []);
+
   const onImport = useCallback(() => {
     setImporting(false);
     stepper.next();
   }, [stepper]);
+
   const togglePopup = useCallback(
     (message: { onboarding: string }) => {
       showPopup({
         closable: true,
+        closeOnBackDropClick: true,
         content: (
           <FilePicker
             onboarding={message.onboarding}
@@ -74,6 +80,7 @@ export function ImportYourConfig(): JSX.Element {
     },
     [onImport, onImportFailed],
   );
+
   const importFromFile = useCallback(() => {
     const input = document.createElement('input');
     input.type = 'file';
@@ -110,6 +117,20 @@ export function ImportYourConfig(): JSX.Element {
     input.click();
   }, [onImport, onImportFailed]);
 
+  const importFromPrivateKey = useCallback(() => {
+    return showPopup({
+      closable: true,
+      closeOnBackDropClick: true,
+      content: (
+        <ImportPrivateKey
+          onBeforeImport={() => setImporting(true)}
+          onImport={onImport}
+          onImportFailed={onImportFailed}
+        />
+      ),
+    });
+  }, [onImport, onImportFailed]);
+
   const importFromGoogleDrive = useCallback(() => {
     if (!browser.runtime.onMessage.hasListener(togglePopup))
       browser.runtime.onMessage.addListener(togglePopup);
@@ -142,22 +163,31 @@ export function ImportYourConfig(): JSX.Element {
           <h2>Import your configuration</h2>
           <p>Choose an option to import your settings file</p>
           <FlexGrid column={2} className="import-your-config-cards card-gap">
-            <ImportCard
-              text="Local File"
-              icon={FileLogo}
-              onClick={importFromFile}
-            />
-            <ImportCard
-              text="Dropbox"
-              icon={DropboxLogo}
-              onClick={importFromDropBox}
-            />
-            <ImportCard
-              text="Google Drive"
-              icon={GoogleDriveLogo}
-              imageSize={{ width: 27 }}
-              onClick={importFromGoogleDrive}
-            />
+            <FlexGrid column={2} className="import-your-config-2cards card-gap">
+              <ImportCard
+                text="Local File"
+                icon={FileLogo}
+                onClick={importFromFile}
+              />
+              <ImportCard
+                text="Private Key"
+                icon={KeyLogo}
+                onClick={importFromPrivateKey}
+              />
+            </FlexGrid>
+            <FlexGrid column={2} className="import-your-config-2cards card-gap">
+              <ImportCard
+                text="Dropbox"
+                icon={DropboxLogo}
+                onClick={importFromDropBox}
+              />
+              <ImportCard
+                text="Google Drive"
+                icon={GoogleDriveLogo}
+                imageSize={{ width: 27 }}
+                onClick={importFromGoogleDrive}
+              />
+            </FlexGrid>
           </FlexGrid>
         </div>
       )}

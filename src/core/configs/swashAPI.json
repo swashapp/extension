@@ -10,6 +10,7 @@
     "userReferralReward": "/user/referral",
     "userReferralClaim": "/user/claim",
     "userBalanceWithdraw": "/user/withdraw",
+    "userDonateCharity": "/user/donate",
     "userVerifiedInfo": "/user/info/verified",
     "userAdditionalInfo": "/user/info/additional",
     "balanceWithdraw": "/balance/withdraw",

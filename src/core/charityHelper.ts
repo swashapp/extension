@@ -65,7 +65,7 @@ const charityHelper = (function () {
     }
 
     console.log(`Sum of donation is ${sum}%`);
-    if (sum > 100) throw Error('On-going donation exceed your daily reward');
+    if (sum > 100) throw Error('Ongoing donation exceed your daily reward');
 
     if (index >= 0) {
       charities[index].auto_pay = true;
@@ -128,12 +128,7 @@ const charityHelper = (function () {
           } is ${amount.toString()} wei SWASH`,
         );
 
-        await userHelper.withdrawToTarget(
-          charity.wallet,
-          formatEther(amount),
-          false,
-          false,
-        );
+        await userHelper.donateToTarget(charity.wallet, formatEther(amount));
         console.log(`Successfully donated to charity`);
       }
 
