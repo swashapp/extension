@@ -1239,6 +1239,10 @@ hr.nav {
   color: #6b7883;
 }
 
+.toast-text::first-letter {
+  text-transform: capitalize;
+}
+
 .toast-message-success {
   border-left: 4px solid var(--green);
 }
@@ -1835,11 +1839,6 @@ hr.nav {
 
 .import-your-config-cards {
   flex-wrap: nowrap;
-  place-content: center;
-}
-
-.import-your-config-cards > div {
-  width: 183px !important;
 }
 
 .onboarding-iframe-wrapper {
@@ -2064,19 +2063,7 @@ hr.nav {
   width: 125px;
 }
 
-.passphrase-export-mnemonic {
-  display: block;
-  margin-top: 10px;
-  width: 100%;
-  text-align: center;
-  font-weight: bold;
-  border: solid #e6e6e6 1px;
-  border-radius: 4px;
-  padding: 10px 0;
-  background: #f7f7f7;
-}
-
-.passphrase-button {
+.onboarding-popup-gap {
   margin-top: 24px;
 }
 

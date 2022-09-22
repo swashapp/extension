@@ -49,6 +49,11 @@ const userHelper = (function () {
     return wallet;
   }
 
+  function importWallet(privateKey: string) {
+    wallet = new Wallet(privateKey);
+    return wallet;
+  }
+
   function getWalletAddress() {
     return wallet.address;
   }
@@ -215,7 +220,7 @@ const userHelper = (function () {
     );
   }
 
-  async function withdrawToTarget(
+  async function getWithdrawBody(
     recipient: string,
     amount: string,
     useSponsor: boolean,
@@ -223,14 +228,37 @@ const userHelper = (function () {
   ) {
     const signature = await signWithdrawAmountTo(recipient, amount);
     const amountInWei = parseEther(amount);
-    const body = {
+    return {
       recipient: recipient,
       signature: signature,
       amount: amountInWei.toString(),
       useSponsor: useSponsor,
       sendToMainnet: sendToMainnet,
     };
-    const data = await swashApiHelper.userWithdraw(await generateJWT(), body);
+  }
+
+  async function withdrawToTarget(
+    recipient: string,
+    amount: string,
+    useSponsor: boolean,
+    sendToMainnet: boolean,
+  ) {
+    const data = await swashApiHelper.userWithdraw(
+      await generateJWT(),
+      await getWithdrawBody(recipient, amount, useSponsor, sendToMainnet),
+    );
+    if (data.tx) return data;
+    else if (data.message) {
+      return transportMessage(data.message);
+    }
+    return data;
+  }
+
+  async function donateToTarget(recipient: string, amount: string) {
+    const data = await swashApiHelper.userDonate(
+      await generateJWT(),
+      await getWithdrawBody(recipient, amount, false, false),
+    );
     if (data.tx) return data;
     else if (data.message) {
       return transportMessage(data.message);
@@ -473,6 +501,7 @@ const userHelper = (function () {
   return {
     init,
     createWallet,
+    importWallet,
     getWalletAddress,
     getWalletPrivateKey,
     getEncryptedWallet,
@@ -487,6 +516,7 @@ const userHelper = (function () {
     transportMessage,
     generateJWT,
     withdrawToTarget,
+    donateToTarget,
     isJoinedSwash,
     isVerified,
     isVerificationNeeded,

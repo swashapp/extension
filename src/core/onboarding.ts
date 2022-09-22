@@ -548,6 +548,18 @@ const onboarding = (function () {
     return storageHelper.saveProfile(profile);
   }
 
+  async function importAndSaveWallet(privateKey: string) {
+    const configs = await storageHelper.getConfigs();
+    const profile = await storageHelper.getProfile();
+    await userHelper.importWallet(privateKey);
+    if (configs.salt) {
+      profile.encryptedWallet = await userHelper.getEncryptedWallet(
+        configs.salt,
+      );
+    }
+    return storageHelper.saveProfile(profile);
+  }
+
   return {
     init,
     isNeededOnBoarding,
@@ -565,6 +577,7 @@ const onboarding = (function () {
     openOnBoarding,
     saveProfileInfo,
     createAndSaveWallet,
+    importAndSaveWallet,
     repeatOnboarding,
   };
 })();

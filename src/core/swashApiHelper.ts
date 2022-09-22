@@ -169,6 +169,14 @@ const swashApiHelper = (function () {
     );
   }
 
+  async function userDonate(token: string, body: Any) {
+    return await post<WithdrawResponse>(
+      token,
+      config.APIs.userDonateCharity,
+      body,
+    );
+  }
+
   async function claimRewards(token: string) {
     return await post<ClaimRewardResponse>(
       token,
@@ -203,6 +211,7 @@ const swashApiHelper = (function () {
     getWithdrawBalance,
     getIpLocation,
     userWithdraw,
+    userDonate,
     claimRewards,
     resendCodeToEmail,
     join,

@@ -259,7 +259,7 @@ export function Donate(props: {
                     .then(() => props.callback && props.callback());
                 } else {
                   helper
-                    .withdrawToTarget(props.address, amount, false, false)
+                    .donateToTarget(props.address, amount)
                     .then(() => setThanks(true))
                     .then(() => props.callback && props.callback());
                 }

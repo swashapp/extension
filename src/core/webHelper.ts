@@ -498,6 +498,15 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function importAndSaveWallet(privateKey) {
+    const message = {
+      obj: 'onboarding',
+      func: 'importAndSaveWallet',
+      params: [privateKey],
+    };
+    return sendMessage(message);
+  }
+
   function joinSwash() {
     const message = {
       obj: 'userHelper',
@@ -593,6 +602,15 @@ const helper = (function () {
       obj: 'userHelper',
       func: 'withdrawToTarget',
       params: [recipient, amount, useSponsor, sendToMainnet],
+    };
+    return sendMessage(message);
+  }
+
+  function donateToTarget(recipient, amount) {
+    const message = {
+      obj: 'userHelper',
+      func: 'donateToTarget',
+      params: [recipient, amount],
     };
     return sendMessage(message);
   }
@@ -795,6 +813,7 @@ const helper = (function () {
     repeatOnboarding,
     saveProfileInOnBoarding,
     createAndSaveWallet,
+    importAndSaveWallet,
     joinSwash,
     getRewards,
     getBonus,
@@ -803,6 +822,7 @@ const helper = (function () {
     getCategory,
     getDataEthPairPrice,
     withdrawToTarget,
+    donateToTarget,
     claimRewards,
     getJoinedSwash,
     isJoinedSwash,

@@ -76,7 +76,7 @@ export function FilePicker(props: {
   }, [props.onboarding]);
 
   return (
-    <div className="passphrase-container">
+    <div>
       <h5>Select a file</h5>
       <FileBrowser
         files={files}

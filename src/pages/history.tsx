@@ -21,7 +21,7 @@ import { helper } from '../core/webHelper';
 
 const categories = [
   { name: 'Claim', value: 'Claim' },
-  // { name: 'Donation', value: 'Donation' },
+  { name: 'Donation', value: 'Donation' },
   { name: 'Withdrawal', value: 'Withdrawal' },
 ];
 
