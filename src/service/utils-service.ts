@@ -8,6 +8,11 @@ export class UtilsService {
     );
   }
 
+  static purgeString(tx: string, len = 10): string {
+    if (tx.length < len * 2) return tx;
+    return tx.substring(0, len) + '...' + tx.substring(tx.length - len);
+  }
+
   static padWithZero(num: number): string {
     return String(num).padStart(2, '0');
   }

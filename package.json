@@ -1,6 +1,6 @@
 {
   "name": "swash-extension",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "private": true,
   "repository": {
     "url": "https://github.com/swashapp/extension.git"
@@ -73,8 +73,8 @@
     "webextension-polyfill": "^0.8.0"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "0.29.0",
-    "@graphprotocol/graph-ts": "0.26.0",
+    "@graphprotocol/graph-cli": "0.33.1",
+    "@graphprotocol/graph-ts": "0.27.0",
     "@mui/codemod": "^5.8.0",
     "@parcel/config-webextension": "2.4.1",
     "@parcel/reporter-bundle-analyzer": "2.4.1",

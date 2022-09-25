@@ -11,17 +11,20 @@ import {
   TablePagination,
   TableRow,
 } from '@mui/material';
-import React, { useEffect } from 'react';
+import { Utils } from 'jsstore/dist/ts/worker/keystore/utils_logic';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { HISTORY_TOUR_CLASS } from '../components/components-tour/history-tour';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { Select } from '../components/select/select';
 import { helper } from '../core/webHelper';
+import { UtilsService } from '../service/utils-service';
 
 const categories = [
   { name: 'Claim', value: 'Claim' },
   { name: 'Donation', value: 'Donation' },
+  { name: 'Management', value: 'Management' },
   { name: 'Withdrawal', value: 'Withdrawal' },
 ];
 
@@ -32,9 +35,11 @@ export function History(): JSX.Element {
   const [category, setCategory] = React.useState<string>(categories[0].value);
   const [page, setPage] = React.useState(1);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [charities, setCharities] = useState<any[]>([]);
 
   useEffect(() => {
     setLoading(true);
+
     helper
       .getUserHistory(category)
       .then((data) => {
@@ -45,10 +50,11 @@ export function History(): JSX.Element {
       .finally(() => {
         setLoading(false);
       });
+    helper.getCharities().then(setCharities);
   }, [category, rowsPerPage]);
 
   useEffect(() => {
-    setPageRows(rows.slice(page * rowsPerPage, (page + 1) * rowsPerPage));
+    setPageRows(rows.slice((page - 1) * rowsPerPage, page * rowsPerPage));
   }, [page, rows, rowsPerPage]);
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -61,6 +67,32 @@ export function History(): JSX.Element {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(1);
   };
+
+  const getMessage = useCallback(
+    (item: { amount?: string; to?: string; status?: string }) => {
+      if (category === 'Claim') {
+        return `Claimed ${formatEther(
+          item?.amount || '0',
+        )} $SWASH from your Rewards`;
+      } else if (category === 'Donation') {
+        const charity = charities.find(
+          (value) => value.address.toLowerCase() === item?.to?.toLowerCase(),
+        );
+        return `Donated ${formatEther(item?.amount || '0')} $SWASH to ${
+          charity ? charity?.name : item?.to
+        }`;
+      } else if (category === 'Management') {
+        return `${
+          item?.status === 'Joined' ? item.status : 'Left'
+        } the Swash Data Union`;
+      } else if (category === 'Withdrawal') {
+        return `Withdrew ${formatEther(
+          item?.amount || '0',
+        )} $SWASH to ${UtilsService.purgeString(item?.to || '', 6)}`;
+      }
+    },
+    [category, charities],
+  );
 
   return (
     <div className="page-container">
@@ -100,40 +132,51 @@ export function History(): JSX.Element {
                     <TableHead className={'transaction-table-header'}>
                       <TableRow className={'title'}>
                         <TableCell>Time</TableCell>
+                        <TableCell>Description</TableCell>
                         <TableCell>Transaction</TableCell>
-                        <TableCell>Amount</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody className={'transaction-table-body'}>
-                      {pageRows.map((row, index) => (
-                        <TableRow key={`${index}${row.time}`}>
-                          <TableCell>
-                            {new Date(+row.time * 1000).toLocaleString(
-                              'en-US',
-                              {
-                                day: '2-digit',
-                                month: 'short',
-                                year: 'numeric',
-                                hour: 'numeric',
-                                minute: '2-digit',
-                                second: '2-digit',
-                              },
-                            )}
-                          </TableCell>
-                          <TableCell>
-                            <a
-                              href={`https://blockscout.com/xdai/mainnet/tx/${
-                                row.id.split('-')[0]
-                              }`}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              {row.id.split('-')[0]}
-                            </a>
-                          </TableCell>
-                          <TableCell>{formatEther(row.amount)}</TableCell>
-                        </TableRow>
-                      ))}
+                      {pageRows.map(
+                        (
+                          row: {
+                            id: string;
+                            time: string;
+                            amount?: string;
+                            to?: string;
+                            status?: string;
+                          },
+                          index,
+                        ) => (
+                          <TableRow key={`${index}${row.time}`}>
+                            <TableCell>
+                              {new Date(+row.time * 1000).toLocaleString(
+                                'en-US',
+                                {
+                                  day: '2-digit',
+                                  month: 'short',
+                                  year: 'numeric',
+                                  hour: 'numeric',
+                                  minute: '2-digit',
+                                  second: '2-digit',
+                                },
+                              )}
+                            </TableCell>
+                            <TableCell>{getMessage(row)}</TableCell>
+                            <TableCell>
+                              <a
+                                href={`https://blockscout.com/xdai/mainnet/tx/${
+                                  row.id.split('-')[0]
+                                }`}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                {UtilsService.purgeString(row.id.split('-')[0])}
+                              </a>
+                            </TableCell>
+                          </TableRow>
+                        ),
+                      )}
                     </TableBody>
                   </Table>
                 </TableContainer>
@@ -143,7 +186,7 @@ export function History(): JSX.Element {
                   component={'div'}
                   count={rows.length}
                   rowsPerPage={rowsPerPage}
-                  page={page}
+                  page={page - 1}
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
                   rowsPerPageOptions={[5, 10, 25]}
@@ -153,7 +196,7 @@ export function History(): JSX.Element {
                 />
                 <Pagination
                   className={'transaction-table-pagination-pages'}
-                  count={rows.length / rowsPerPage}
+                  count={Math.ceil(rows.length / rowsPerPage)}
                   page={page}
                   onChange={handleChangePage}
                   shape="rounded"
