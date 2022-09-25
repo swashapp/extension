@@ -1,5 +1,7 @@
+import { Any } from '../types/any.type';
 import { GraphApiConfigs } from '../types/storage/configs/graph-api.type';
 
+import { charityHelper } from './charityHelper';
 import { configManager } from './configManager';
 import { userHelper } from './userHelper';
 
@@ -21,6 +23,24 @@ const graphApiHelper = (function () {
     return (await response.json()).data;
   }
 
+  async function getMemberStatusEntities(condition: string) {
+    const response = await executeQuery(`
+    {
+      memberStatusEntities(
+        first: 1000, 
+        skip: 0, 
+        ${condition}
+        orderBy: time,
+        orderDirection: desc
+      ) {
+        id
+        time
+        status
+      }
+    }`);
+    return response.memberStatusEntities;
+  }
+
   async function getTransferEntities(condition: string) {
     const response = await executeQuery(`
     {
@@ -33,18 +53,11 @@ const graphApiHelper = (function () {
       ) {
         id
         time
+        to
         amount
       }
     }`);
     return response.transferEntities;
-  }
-
-  async function getWithdrawals() {
-    const condition = `where: {
-      from: "${userHelper.getWalletAddress().toLowerCase()}",
-      type: "FromMember"
-    }`;
-    return getTransferEntities(condition);
   }
 
   async function getClaims() {
@@ -55,12 +68,50 @@ const graphApiHelper = (function () {
     return getTransferEntities(condition);
   }
 
-  async function getUserHistory(type: 'Withdrawal' | 'Claim') {
-    if (type === 'Withdrawal') {
-      return getWithdrawals();
-    } else if (type === 'Claim') {
+  async function getDonations() {
+    const charities: Any[] = await charityHelper.getCharities();
+    const condition = `where: {
+      from: "${userHelper.getWalletAddress().toLowerCase()}",
+      to_in: ["${charities
+        .map((charity) => charity.address.toLowerCase())
+        .join('","')}"]
+      type: "FromMember"
+    }`;
+    return getTransferEntities(condition);
+  }
+
+  async function getManagement() {
+    const condition = `where: {
+      member: "${userHelper.getWalletAddress().toLowerCase()}",
+    }`;
+    return getMemberStatusEntities(condition);
+  }
+
+  async function getWithdrawals() {
+    const charities: Any[] = await charityHelper.getCharities();
+    const condition = `where: {
+      from: "${userHelper.getWalletAddress().toLowerCase()}",
+      to_not_in: ["${charities
+        .map((charity) => charity.address.toLowerCase())
+        .join('","')}"]
+      type: "FromMember"
+    }`;
+    return getTransferEntities(condition);
+  }
+
+  async function getUserHistory(
+    type: 'Claim' | 'Donation' | 'Management' | 'Withdrawal',
+  ) {
+    if (type === 'Claim') {
       return getClaims();
+    } else if (type === 'Donation') {
+      return getDonations();
+    } else if (type === 'Management') {
+      return getManagement();
+    } else if (type === 'Withdrawal') {
+      return getWithdrawals();
     }
+    return [];
   }
 
   return {

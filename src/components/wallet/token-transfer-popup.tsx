@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
+import { UtilsService } from '../../service/utils-service';
 import { Button } from '../button/button';
 import { showPopup, closePopup } from '../popup/popup';
 import { ToastMessage } from '../toast/toast-message';
@@ -17,9 +18,7 @@ function TokenTransferField(props: {
   const value = useMemo(() => {
     let ret = props.value.toString();
     if (props.ellipsis) {
-      const firstPart = ret.substring(0, 6);
-      const lastPart = ret.substring(ret.length - 6, ret.length);
-      ret = firstPart + '...' + lastPart;
+      ret = UtilsService.purgeString(value, 6);
     }
     return ret;
   }, [props.ellipsis, props.value]);
