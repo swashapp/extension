@@ -54,6 +54,7 @@ export function Donate(props: {
   address: string;
   callback?: () => void;
 }): JSX.Element {
+  const [loading, setLoading] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const [thanks, setThanks] = useState(false);
   const [isOngoing, setIsOngoing] = useState(false);
@@ -236,6 +237,7 @@ export function Donate(props: {
           <Button
             text={confirm ? 'Confirm' : 'Next'}
             className="small-popup-actions-submit"
+            loading={loading}
             link={false}
             onClick={() => {
               if (!confirm) setConfirm(true);
@@ -258,9 +260,24 @@ export function Donate(props: {
                     )
                     .then(() => props.callback && props.callback());
                 } else {
+                  setLoading(true);
                   helper
                     .donateToTarget(props.address, amount)
-                    .then(() => setThanks(true))
+                    .then(
+                      () => {
+                        setLoading(false);
+                        setThanks(true);
+                      },
+                      (err) => {
+                        setLoading(false);
+                        toast(
+                          <ToastMessage
+                            type="error"
+                            content={<>{err.toString()}</>}
+                          />,
+                        );
+                      },
+                    )
                     .then(() => props.callback && props.callback());
                 }
               }
