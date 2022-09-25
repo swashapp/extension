@@ -71,23 +71,26 @@ export function History(): JSX.Element {
   const getMessage = useCallback(
     (item: { amount?: string; to?: string; status?: string }) => {
       if (category === 'Claim') {
-        return `Claimed ${formatEther(
-          item?.amount || '0',
+        return `Claimed ${UtilsService.purgeNumber(
+          formatEther(item?.amount || '0'),
+          4,
         )} $SWASH from your Rewards`;
       } else if (category === 'Donation') {
         const charity = charities.find(
           (value) => value.address.toLowerCase() === item?.to?.toLowerCase(),
         );
-        return `Donated ${formatEther(item?.amount || '0')} $SWASH to ${
-          charity ? charity?.name : item?.to
-        }`;
+        return `Donated ${UtilsService.purgeNumber(
+          formatEther(item?.amount || '0'),
+          4,
+        )} $SWASH to ${charity ? charity?.name : item?.to}`;
       } else if (category === 'Management') {
         return `${
           item?.status === 'Joined' ? item.status : 'Left'
         } the Swash Data Union`;
       } else if (category === 'Withdrawal') {
-        return `Withdrew ${formatEther(
-          item?.amount || '0',
+        return `Withdrew ${UtilsService.purgeNumber(
+          formatEther(item?.amount || '0'),
+          4,
         )} $SWASH to ${UtilsService.purgeString(item?.to || '', 6)}`;
       }
     },
@@ -103,8 +106,8 @@ export function History(): JSX.Element {
             <div className="flex-column card-gap">
               <FlexGrid column={2} className="transaction-header-container">
                 <div className={HISTORY_TOUR_CLASS.ARCHIVES}>
-                  <h2>History</h2>Monitor your transaction history using the
-                  table below.
+                  <h2>History</h2>Monitor your latest 1000 transactions history
+                  using the table below.
                 </div>
                 <div className={'transaction-filter-container'}>
                   <Select
