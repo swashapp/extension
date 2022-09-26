@@ -18,7 +18,7 @@ function TokenTransferField(props: {
   const value = useMemo(() => {
     let ret = props.value.toString();
     if (props.ellipsis) {
-      ret = UtilsService.purgeString(value, 6);
+      ret = UtilsService.purgeString(ret, 6);
     }
     return ret;
   }, [props.ellipsis, props.value]);
