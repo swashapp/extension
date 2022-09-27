@@ -1,3 +1,4 @@
+import { BigNumber } from '@ethersproject/bignumber';
 import { formatEther, parseEther } from '@ethersproject/units';
 
 import { DonationConfigs } from '../types/storage/configs/donation.type';
@@ -106,19 +107,25 @@ const charityHelper = (function () {
     const profile = await storageHelper.getProfile();
     const balance = await userHelper.getAvailableBalance();
 
-    if (profile.lastBalance && +balance > +profile.lastBalance) {
+    const lastBn = parseEther(profile.lastBalance || '0');
+    const balanceBn = parseEther(balance);
+
+    if (profile.lastBalance && balanceBn.gt(lastBn)) {
       console.log(
         `User balance is ${balance} SWASH and last balance check is ${profile.lastBalance}`,
       );
 
       const charities = await storageHelper.getCharities();
-      const earnings = parseEther(balance).sub(parseEther(profile.lastBalance));
+      const earnings = balanceBn.sub(lastBn);
+      let spent = BigNumber.from('0');
 
       console.log(
         `User had ${earnings.toString()} wei SWASH earnings since last run`,
       );
 
       for (const charity of charities) {
+        if (!charity.wallet) continue;
+
         const amount = earnings
           .mul(parseEther(charity.percentage))
           .div(parseEther('100'));
@@ -128,11 +135,25 @@ const charityHelper = (function () {
           } is ${amount.toString()} wei SWASH`,
         );
 
-        await userHelper.donateToTarget(charity.wallet, formatEther(amount));
-        console.log(`Successfully donated to charity`);
+        if (amount.toString() !== '0') {
+          try {
+            await userHelper.donateToTarget(
+              charity.wallet,
+              formatEther(amount),
+            );
+            spent = spent.add(amount);
+            console.log(`Successfully donated to the charity`);
+          } catch (err) {
+            console.log(`Failed to donate to the charity`);
+          }
+        }
       }
 
-      profile.lastBalance = await userHelper.getAvailableBalance();
+      try {
+        profile.lastBalance = await userHelper.getAvailableBalance();
+      } catch (err) {
+        profile.lastBalance = formatEther(balanceBn.sub(spent));
+      }
       console.log(`Last balance is ${profile.lastBalance} SWASH`);
       await storageHelper.saveCharities(charities);
     } else {
