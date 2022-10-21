@@ -106,8 +106,8 @@ export function History(): JSX.Element {
             <div className="flex-column card-gap">
               <FlexGrid column={2} className="transaction-header-container">
                 <div className={HISTORY_TOUR_CLASS.ARCHIVES}>
-                  <h2>History</h2>Monitor your latest 1000 transactions history
-                  using the table below.
+                  <h2>History</h2>Monitor your withdrawal, claim, donation, and
+                  Data Union history using the table below.
                 </div>
                 <div className={'transaction-filter-container'}>
                   <Select

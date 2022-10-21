@@ -657,6 +657,10 @@ hr.nav {
   transition: opacity 1s ease-out;
 }
 
+.closable-panel-hide {
+  display: none;
+}
+
 .closable-panel-icon {
   cursor: pointer;
   user-select: none;
