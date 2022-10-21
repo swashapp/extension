@@ -163,10 +163,23 @@ const userHelper = (function () {
 
     const validDate = (join + requiredAge) * 1000;
 
-    if (Date.now() < validDate)
+    if (Date.now() < validDate) {
       throw Error(
-        `You can not withdraw until ${new Date(validDate).toISOString()}`,
+        `You can not withdraw until ${new Date(validDate).toLocaleDateString(
+          'en-uk',
+          {
+            year: 'numeric',
+            month: 'numeric',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            timeZoneName: 'short',
+            hourCycle: 'h24',
+          },
+        )}`,
       );
+    }
 
     const amountBN = parseEther(amount);
     const minWithdraw = await withdrawContract.minimumWithdrawTokenWei();

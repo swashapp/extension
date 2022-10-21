@@ -9,17 +9,21 @@ export function ClosablePanel(
     children: ReactElement;
   }>,
 ): JSX.Element {
+  const [hide, setHide] = useState<boolean>(false);
   const [close, setClose] = useState<boolean>(false);
   return (
     <div
       className={`closable-panel-container ${
         close ? 'closable-panel-close' : 'closable-panel-open'
-      } ${props.className}`}
+      } ${hide ? 'closable-panel-hide' : ''} ${props.className}`}
     >
       <div
         onClick={() => {
           props.onClose && props.onClose();
           setClose(true);
+          setTimeout(() => {
+            setHide(true);
+          }, 1000);
         }}
         className="closable-panel-icon"
       >
