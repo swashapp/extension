@@ -79,7 +79,7 @@ function MenuItem(props: {
   );
 }
 
-function Popup() {
+function Index() {
   const [verified, setVerified] = useState<boolean | undefined>(undefined);
   const [tokenAvailable, setTokenAvailable] = useState<string>(initValue);
   const [unclaimedBonus, setUnclaimedBonus] = useState<string>(initValue);
@@ -242,7 +242,7 @@ const theme = createTheme();
 ReactDOM.render(
   <StyledEngineProvider injectFirst>
     <ThemeProvider theme={theme}>
-      <Popup />
+      <Index />
     </ThemeProvider>
   </StyledEngineProvider>,
   document.getElementById('popup'),
