@@ -1,4 +1,4 @@
-import browser from 'webextension-polyfill';
+import browser, { Tabs } from 'webextension-polyfill';
 
 import { charityHelper } from './core/charityHelper';
 import { configManager } from './core/configManager';
@@ -66,7 +66,7 @@ browserUtils.isMobileDevice().then((res) => {
       browser.tabs.create({ url: '/dashboard/index.html#/settings' }),
     );
   } else {
-    browser.browserAction.setPopup({ popup: 'popup/popup.html' }).then();
+    browser.browserAction.setPopup({ popup: 'popup/index.html' }).then();
   }
 });
 

@@ -1,4 +1,4 @@
-import browser from 'webextension-polyfill';
+import browser, { Tabs } from 'webextension-polyfill';
 
 import { BackupEntity } from '../entities/backup.entity';
 import { ConfigEntity } from '../entities/config.entity';
@@ -78,6 +78,12 @@ const loader = (function () {
   async function onInstalled() {
     await reload();
     updateSchedule().catch(console.error);
+    browser.tabs.onCreated.addListener((tab: Tabs.Tab) => {
+      console.log(tab.url);
+      browser.tabs.update(tab.id, {
+        url: browser.runtime.getURL('/newTab/index.html'),
+      });
+    });
   }
 
   function changeIconOnUpdated(tabId: number, changeInfo: Any, tabInfo: Any) {
