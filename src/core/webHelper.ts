@@ -759,6 +759,24 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function joinAdServer() {
+    const message = {
+      obj: 'sAdsHelper',
+      func: 'joinServer',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
+  function getAdsSlots() {
+    const message = {
+      obj: 'sAdsHelper',
+      func: 'getAdsSlots',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
   return {
     load,
     save,
@@ -844,6 +862,8 @@ const helper = (function () {
     toggleCharityLike,
     addCharityAutoPayment,
     delCharityAutoPayment,
+    joinAdServer,
+    getAdsSlots,
   };
 })();
 

@@ -18,6 +18,7 @@ import { graphApiHelper } from './graphApiHelper';
 import { memberManager } from './memberManager';
 import { onboarding } from './onboarding';
 import { pageAction } from './pageAction';
+import { sAdsHelper } from './sAdsHelper';
 import { storageHelper } from './storageHelper';
 import { swashApiHelper } from './swashApiHelper';
 import { userHelper } from './userHelper';
@@ -255,7 +256,7 @@ const loader = (function () {
     }
   }
 
-  async function onConfigsUpdated() {
+  async function initiateConfigs() {
     await memberManager.init();
     await dataHandler.init();
     await userHelper.init();
@@ -264,11 +265,12 @@ const loader = (function () {
     await swashApiHelper.init();
     await graphApiHelper.init();
     await charityHelper.init();
+    await sAdsHelper.init();
   }
 
   async function onUpdatedAll() {
     console.log('Loading updated configs');
-    await onConfigsUpdated();
+    await initiateConfigs();
 
     console.log('Loading updated modules');
     await onModulesUpdated();
@@ -296,6 +298,7 @@ const loader = (function () {
     reload,
     restart,
     configModule,
+    initiateConfigs,
   };
 })();
 export { loader };

@@ -11,7 +11,6 @@ import { task } from './core/functions/task';
 import { transfer } from './core/functions/transfer';
 import { graphApiHelper } from './core/graphApiHelper';
 import { loader } from './core/loader';
-import { memberManager } from './core/memberManager';
 import { onboarding } from './core/onboarding';
 import { pageAction } from './core/pageAction';
 import { storageHelper } from './core/storageHelper';
@@ -21,20 +20,9 @@ import { Any } from './types/any.type';
 import { browserUtils } from './utils/browser.util';
 import { privacyUtils } from './utils/privacy.util';
 
-async function initConfigs() {
-  await memberManager.init();
-  await dataHandler.init();
-  await userHelper.init();
-  await onboarding.init();
-  await apiCall.init();
-  await swashApiHelper.init();
-  await graphApiHelper.init();
-  await charityHelper.init();
-}
-
 async function installSwash(info: Any) {
   console.log('Start installing...');
-  await initConfigs();
+  await loader.initiateConfigs();
   if (info.reason === 'install') {
     await onboarding.openOnBoarding();
   } else if (info.reason === 'update') {
@@ -51,7 +39,7 @@ async function startupSwash() {
   console.log('Start loading...');
 
   //Now the configuration is available
-  await initConfigs();
+  await loader.initiateConfigs();
   /* ***
 	After a successful load of add-on,
 	the main loop will start.
