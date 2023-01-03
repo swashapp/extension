@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import { helper } from '../core/webHelper';
+
 async function getImages() {
   const url = new URL('https://api.unsplash.com/photos/random');
   url.searchParams.set('count', '10');
@@ -45,14 +47,19 @@ function calculateWidth(screenWidth = 1920, pixelRatio = 1): number {
 }
 
 export default function NewTab(): JSX.Element {
+  const [wallet, setWallet] = useState('');
+  const [uuid, setUuid] = useState('');
   const [bg, setBg] = useState('');
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
     getImages().then(async (response) => {
-      console.log(buildLink(response[0].src));
       setBg(buildLink(response[0].src));
-      console.log('setted');
+    });
+
+    helper.getAdsSlots('512', '512').then((resp) => {
+      setWallet(resp.id);
+      setUuid(resp.uuid);
     });
 
     const interval = setInterval(() => setTime(new Date()), 1000);
@@ -73,7 +80,20 @@ export default function NewTab(): JSX.Element {
         <div className={'item'}></div>
         <div className={'item'}></div>
         <div className={'item'}></div>
-        <div className={'item-ads'}></div>
+        <div className={'item-ads'}>
+          <div
+            className="c25b4ef591762a17"
+            data-zone={uuid}
+            data-pay-to={wallet}
+            data-page="extension"
+            style={{
+              width: 512,
+              height: 512,
+              display: 'inline-block',
+              margin: '0 auto',
+            }}
+          />
+        </div>
         <div className={'item-search'}>
           <form className={'search-form'} role="search">
             <input

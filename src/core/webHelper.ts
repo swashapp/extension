@@ -768,11 +768,11 @@ const helper = (function () {
     return sendMessage(message);
   }
 
-  function getAdsSlots() {
+  function getAdsSlots(width, height) {
     const message = {
       obj: 'sAdsHelper',
       func: 'getAdsSlots',
-      params: [],
+      params: [width, height],
     };
     return sendMessage(message);
   }

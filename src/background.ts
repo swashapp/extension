@@ -13,6 +13,7 @@ import { graphApiHelper } from './core/graphApiHelper';
 import { loader } from './core/loader';
 import { onboarding } from './core/onboarding';
 import { pageAction } from './core/pageAction';
+import { sAdsHelper } from './core/sAdsHelper';
 import { storageHelper } from './core/storageHelper';
 import { swashApiHelper } from './core/swashApiHelper';
 import { userHelper } from './core/userHelper';
@@ -97,6 +98,7 @@ browser.runtime.onMessage.addListener(
       graphApiHelper: graphApiHelper,
       configManager: configManager,
       charityHelper: charityHelper,
+      sAdsHelper: sAdsHelper,
     };
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
