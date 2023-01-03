@@ -50,6 +50,10 @@
 
     grid-column: 1;
     grid-row: 2 / 4;
+
+    display: flex;
+    justify-content: start;
+    align-items: end;
 }
 
 .item-clock {

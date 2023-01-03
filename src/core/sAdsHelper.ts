@@ -1,14 +1,17 @@
 import { userHelper } from './userHelper';
 
 const sAdsHelper = (function () {
-  let reg = {};
+  let info: {
+    foreignId: string;
+    zones: { name: string; width: string; height: string; uuid: string }[];
+  } = { foreignId: '', zones: [] };
 
   async function init() {
     return;
   }
 
   async function joinServer() {
-    const resp = await fetch('https://app.swashapp.io/auth/swash-register', {
+    const resp = await fetch('https://app.swashapp.io/auth/foreign/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -19,15 +22,18 @@ const sAdsHelper = (function () {
     });
 
     if (resp.status === 200) {
-      reg = await resp.json();
+      info = await resp.json();
     } else throw new Error('Can not register user on swash sAds');
   }
 
-  async function getAdsSlots() {
-    if (Object.keys(reg).length === 0) await joinServer();
-    console.log(`sAdId Reg:`);
-    console.log(reg);
-    return reg;
+  async function getAdsSlots(width: string, height: string) {
+    if (info.foreignId === '') await joinServer();
+    console.log(`ForeignID Reg: ${info.foreignId}`);
+    const found = info.zones.find(
+      (item) => item.width === width && item.height === height,
+    );
+    console.log(`Found Slot: ${found}`);
+    return { id: info.foreignId, uuid: found?.uuid };
   }
 
   return {
