@@ -527,4 +527,12 @@
     position: unset;
     width: unset;
   }
+
+  .earn-more-new-tab-cards {
+    flex-wrap: wrap;
+  }
+
+  .earn-more-new-tab-cards > div {
+    width: 100% !important;
+  }
 }
