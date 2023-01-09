@@ -147,6 +147,11 @@ hr.nav {
   flex-direction: row;
 }
 
+.flex-align-center {
+  align-items: center;
+  align-content: center;
+}
+
 .flex-column {
   display: flex;
   flex-direction: column;
@@ -1063,7 +1068,7 @@ hr.nav {
   height: 67px;
   top: 13px;
   right: 55%;
-  z-index: 3;
+  z-index: 1;
 }
 
 .on-line-circle3 {
@@ -1071,7 +1076,7 @@ hr.nav {
   height: 90px;
   top: 0;
   right: 12%;
-  z-index: 2;
+  z-index: 1;
 }
 
 .on-line-container {
@@ -2670,4 +2675,23 @@ hr.nav {
 
 .donation-bottom-margin {
   margin-bottom: 48px;
+}
+
+.earn-more-new-tab-cards {
+  flex-wrap: nowrap;
+}
+
+.earn-more-new-tab-description {
+  width: auto;
+  max-width: calc(100% - 40px)
+}
+
+.earn-more-new-tab-image {
+  width: 100%;
+  height: 100%;
+}
+
+.earn-more-new-tab-image > img {
+  width: auto;
+  height: 100%;
 }

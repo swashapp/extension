@@ -1,5 +1,6 @@
 import { Data } from '../pages/data';
 import { Donations } from '../pages/donations';
+import { EarnMore } from '../pages/earn-more';
 import { Help } from '../pages/help';
 import { History } from '../pages/history';
 import { InviteFriends } from '../pages/invite-friends';
@@ -12,6 +13,8 @@ const dataBlackIcon = '/static/images/icons/sidenav/data-black.svg';
 const dataIcon = '/static/images/icons/sidenav/data.png';
 const donationsBlackIcon = '/static/images/icons/sidenav/donations-black.svg';
 const donationsIcon = '/static/images/icons/sidenav/donations.png';
+const earnMoreBlackIcon = '/static/images/icons/sidenav/earn-more-black.svg';
+const earnMoreIcon = '/static/images/icons/sidenav/earn-more.png';
 const helpBlackIcon = '/static/images/icons/sidenav/help-black.svg';
 const helpIcon = '/static/images/icons/sidenav/help.png';
 const inviteFriendsBlackIcon =
@@ -45,6 +48,12 @@ export const SidenavItems = [
     icon: { active: walletIcon, inactive: walletBlackIcon },
     route: RouteToPages.wallet,
     component: Wallet,
+  },
+  {
+    title: 'Earn More',
+    icon: { active: earnMoreIcon, inactive: earnMoreBlackIcon },
+    route: RouteToPages.earnMore,
+    component: EarnMore,
   },
   {
     title: 'Donations',

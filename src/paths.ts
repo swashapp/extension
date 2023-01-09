@@ -3,6 +3,7 @@ export const RouteToPages = {
   onboarding: `/onboarding`,
   profile: `/profile`,
   wallet: `/wallet`,
+  earnMore: `/earn-more`,
   donations: `/donations`,
   inviteFriends: `/invite-friends`,
   data: `/data`,
