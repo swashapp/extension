@@ -16,6 +16,7 @@ import { functions } from './functions';
 import { apiCall } from './functions/apiCall';
 import { graphApiHelper } from './graphApiHelper';
 import { memberManager } from './memberManager';
+import { newTabHelper } from './newTabHelper';
 import { onboarding } from './onboarding';
 import { pageAction } from './pageAction';
 import { sAdsHelper } from './sAdsHelper';
@@ -278,6 +279,7 @@ const loader = (function () {
     await graphApiHelper.init();
     await charityHelper.init();
     await sAdsHelper.init();
+    await newTabHelper.init();
   }
 
   async function onUpdatedAll() {

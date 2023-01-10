@@ -5,6 +5,7 @@ import { CharityEntity } from '../entities/charity.entity';
 import { ConfigEntity } from '../entities/config.entity';
 import { FilterEntity } from '../entities/filter.entity';
 import { ModuleEntity } from '../entities/module.entity';
+import { NewTabEntity } from '../entities/new-tab.entity';
 import { NotificationsEntity } from '../entities/notifications.entity';
 import { OnboardingEntity } from '../entities/onboarding.entity';
 import { PrivacyDataEntity } from '../entities/privacy-data.entity';
@@ -14,6 +15,7 @@ import { Charity } from '../types/storage/charity.type';
 import { Configs } from '../types/storage/configs.type';
 import { Filter } from '../types/storage/filter.type';
 import { Module, ModuleFunction, Modules } from '../types/storage/module.type';
+import { NewTab } from '../types/storage/new-tab.type';
 import { Onboarding } from '../types/storage/onboarding.type';
 import { PrivacyData } from '../types/storage/privacy-data.type';
 import { Profile } from '../types/storage/profile.type';
@@ -41,6 +43,7 @@ const storageHelper = (function () {
     await (await PrivacyDataEntity.getInstance()).get(false);
     await (await NotificationsEntity.getInstance()).get(false);
     await (await CharityEntity.getInstance()).get(false);
+    await (await NewTabEntity.getInstance()).get(false);
     return result;
   }
 
@@ -112,6 +115,14 @@ const storageHelper = (function () {
     return (await CharityEntity.getInstance()).get();
   }
 
+  async function saveNewTab(newTab: NewTab) {
+    return (await NewTabEntity.getInstance()).save(newTab);
+  }
+
+  async function getNewTab() {
+    return (await NewTabEntity.getInstance()).get();
+  }
+
   function updateFunctionSettings(
     module: Module,
     functionName: ModuleFunction,
@@ -157,6 +168,8 @@ const storageHelper = (function () {
     getNotifications,
     saveCharities,
     getCharities,
+    saveNewTab,
+    getNewTab,
   };
 })();
 export { storageHelper };

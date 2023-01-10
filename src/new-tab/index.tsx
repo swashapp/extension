@@ -6,6 +6,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { HashRouter as Router } from 'react-router-dom';
 
 import '../static/css/new-tab/main.css';
 
@@ -27,10 +28,12 @@ window.helper = helper;
 const theme = createTheme();
 
 ReactDOM.render(
-  <StyledEngineProvider injectFirst>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
-  </StyledEngineProvider>,
+  <Router>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </StyledEngineProvider>
+  </Router>,
   document.getElementById('newTab'),
 );

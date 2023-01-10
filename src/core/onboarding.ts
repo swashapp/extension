@@ -512,12 +512,16 @@ const onboarding = (function () {
     const profile = await (await ProfileEntity.getInstance()).get();
     if (profile.encryptedWallet) await userHelper.loadSavedWallet();
 
-    const fullURL = browser.runtime.getURL('dashboard/index.html#/onboarding');
-    browser.tabs
-      .create({
-        url: fullURL,
-      })
-      .catch(console.log);
+    if (!isOnboardingOpened) {
+      const fullURL = browser.runtime.getURL(
+        'dashboard/index.html#/onboarding',
+      );
+      browser.tabs
+        .create({
+          url: fullURL,
+        })
+        .catch(console.log);
+    }
     isOnboardingOpened = true;
   }
 
