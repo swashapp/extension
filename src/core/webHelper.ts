@@ -777,6 +777,24 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function updateNewTabStatus(status) {
+    const message = {
+      obj: 'newTabHelper',
+      func: 'updateStatus',
+      params: [status],
+    };
+    return sendMessage(message);
+  }
+
+  function getNewTabStatus() {
+    const message = {
+      obj: 'newTabHelper',
+      func: 'getStatus',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
   function addSite(rank, title, url, icon) {
     const message = {
       obj: 'newTabHelper',
@@ -900,6 +918,8 @@ const helper = (function () {
     delCharityAutoPayment,
     joinAdServer,
     getAdsSlots,
+    updateNewTabStatus,
+    getNewTabStatus,
     addSite,
     getSites,
     setBackground,

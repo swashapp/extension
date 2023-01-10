@@ -1,3 +1,5 @@
+import browser, { Tabs } from 'webextension-polyfill';
+
 import { NewTab } from '../types/storage/new-tab.type';
 
 import { configManager } from './configManager';
@@ -8,6 +10,33 @@ const newTabHelper = (function () {
   async function init() {
     newTabConfig = await configManager.getConfig('newTab');
     return;
+  }
+
+  function newTabListener(tab: Tabs.Tab) {
+    if (
+      tab.url === 'chrome://newtab/' ||
+      tab.url === 'edge://newtab/' ||
+      tab.url === 'about:newtab'
+    ) {
+      browser.tabs.update(tab.id, {
+        url: browser.runtime.getURL('/new-tab/index.html'),
+      });
+    }
+  }
+
+  async function updateStatus(status: boolean) {
+    const db = await storageHelper.getNewTab();
+    db.status = status;
+    await storageHelper.saveNewTab(db);
+
+    if (status) browser.tabs.onCreated.addListener(newTabListener);
+    else if (browser.tabs.onCreated.hasListener(newTabListener)) {
+      browser.tabs.onCreated.removeListener(newTabListener);
+    }
+  }
+
+  async function getStatus() {
+    return (await storageHelper.getNewTab()).status;
   }
 
   async function addSite(
@@ -36,6 +65,8 @@ const newTabHelper = (function () {
 
   return {
     init,
+    updateStatus,
+    getStatus,
     addSite,
     getSites,
     setBackground,

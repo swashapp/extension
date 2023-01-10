@@ -1,8 +1,9 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { Switch } from '../components/switch/switch';
+import { helper } from '../core/webHelper';
 
 export function EarnMore(): JSX.Element {
   const [fullAds, setFullAds] = useState<boolean>(false);
@@ -23,10 +24,15 @@ export function EarnMore(): JSX.Element {
         break;
       case 'ntx':
         setNtx(value);
+        helper.updateNewTabStatus(value).then();
         break;
       default:
         break;
     }
+  }, []);
+
+  useEffect(() => {
+    helper.getNewTabStatus().then(setNtx);
   }, []);
 
   return (
