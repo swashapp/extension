@@ -79,18 +79,6 @@ const loader = (function () {
   async function onInstalled() {
     await reload();
     updateSchedule().catch(console.error);
-    browser.tabs.onCreated.addListener((tab: Tabs.Tab) => {
-      console.log(tab.url);
-      if (
-        tab.url === 'chrome://newtab/' ||
-        tab.url === 'edge://newtab/' ||
-        tab.url === 'about:newtab'
-      ) {
-        browser.tabs.update(tab.id, {
-          url: browser.runtime.getURL('/new-tab/index.html'),
-        });
-      }
-    });
   }
 
   function changeIconOnUpdated(tabId: number, changeInfo: Any, tabInfo: Any) {
