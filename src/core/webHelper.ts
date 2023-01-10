@@ -777,6 +777,42 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function addSite(rank, title, url, icon) {
+    const message = {
+      obj: 'newTabHelper',
+      func: 'addSite',
+      params: [rank, title, url, icon],
+    };
+    return sendMessage(message);
+  }
+
+  function getSites() {
+    const message = {
+      obj: 'newTabHelper',
+      func: 'getSites',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
+  function setBackground(background) {
+    const message = {
+      obj: 'newTabHelper',
+      func: 'setBackground',
+      params: [background],
+    };
+    return sendMessage(message);
+  }
+
+  function getBackground() {
+    const message = {
+      obj: 'newTabHelper',
+      func: 'getBackground',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
   return {
     load,
     save,
@@ -864,6 +900,10 @@ const helper = (function () {
     delCharityAutoPayment,
     joinAdServer,
     getAdsSlots,
+    addSite,
+    getSites,
+    setBackground,
+    getBackground,
   };
 })();
 

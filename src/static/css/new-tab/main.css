@@ -1,5 +1,15 @@
 @import '../fonts.css';
 
+body,
+input,
+select,
+button {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 28px;
+}
+
 .container {
     width: calc(100vw - 40px);
     height: calc(100vh - 40px);
@@ -23,21 +33,32 @@
     grid-auto-rows: minmax(100px, auto);
 }
 
-.item {
-    border: darkred solid 1px;
+.item-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.item-copyright {
+    display: flex;
+    justify-content: flex-end;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+
+    color: white;
+    filter: drop-shadow(1px 1px 1px black);
 }
 
 .item-fav {
-    border: darkred solid 1px;
-
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .item-search {
-    border: darkred solid 1px;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -46,8 +67,6 @@
 }
 
 .item-ads {
-    border: darkred solid 1px;
-
     grid-column: 1;
     grid-row: 2 / 4;
 
@@ -57,12 +76,35 @@
 }
 
 .item-clock {
-    border: darkred solid 1px;
-
     display: flex;
     flex-direction: column;
     justify-content: end;
     align-items: end;
+}
+
+.item-actions > div {
+    cursor: pointer;
+    filter: drop-shadow(1px 1px 1px black);
+}
+
+.item-actions-customise {
+    display: flex;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+
+    gap: 10px;
+    color: white;
+}
+
+.item-actions > div > img,
+.item-actions-customise > div > img {
+    object-fit: cover;
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
 }
 
 .fav-sites {
@@ -70,6 +112,10 @@
     gap: 20px;
     grid-template-columns: repeat(5, 1fr);
     grid-auto-rows: minmax(72px, auto);
+}
+
+.site-box {
+    position: relative;
 }
 
 .fav-site {
@@ -82,6 +128,40 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    cursor: pointer;
+}
+
+.remove-site {
+    width: 15px;
+    height: 15px;
+
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.remove-site > img {
+    display: none;
+}
+
+.site-box > a:hover + .remove-site,
+.remove-site:hover {
+    background: red;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.site-box > a:hover + .remove-site > img,
+.remove-site:hover > img {
+    width: 10px;
+    height: 10px;
+
+    display: inline-block;
+    transform: rotate(45deg);
 }
 
 .search-form {
@@ -146,9 +226,100 @@
     text-align: left;
 
     color: white;
-    filter: drop-shadow(1px 1px 4px black);
+    filter: drop-shadow(1px 1px 1px black);
 }
 
 .date {
     border-top: white solid 1px;
+}
+
+.small-popup {
+    width: 362px;
+    padding: 24px;
+}
+
+.large-popup {
+    width: 720px;
+    padding: 24px;
+}
+
+.popup-title {
+    font-style: normal;
+    font-weight: 415;
+    font-size: 20px;
+    line-height: 150%;
+
+    color: #002030;
+}
+
+.popup-separator {
+    width: calc(100% + 48px);
+    height: 1px;
+    margin: 12px -24px;
+    border-bottom: 1px solid #e7f4f4;
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.popup-content-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.popup-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.popup-actions-cancel {
+    width: 114px;
+}
+
+.popup-actions-submit {
+    width: 131px;
+}
+
+.customisation-nav {
+    width: 244px;
+    margin-top: -12px;
+
+    border-right: 1px solid #e7f4f4;
+}
+
+.settings-option {
+    cursor: pointer;
+    margin-left: -24px;
+    padding: 12px 24px;
+
+    border-bottom: 1px solid #e7f4f4;
+}
+
+.customisation-content {
+    width: 476px;
+    max-height: 260px;
+    overflow: auto;
+}
+
+.bg-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    gap: 10px;
+    padding: 0 30px;
+}
+
+.bg-option {
+    width: 120px;
+    height: 80px;
+
+    border: 1px solid #e7f4f4;
+    border-radius: 15px;
+
+    cursor: pointer;
 }

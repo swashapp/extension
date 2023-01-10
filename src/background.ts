@@ -11,6 +11,7 @@ import { task } from './core/functions/task';
 import { transfer } from './core/functions/transfer';
 import { graphApiHelper } from './core/graphApiHelper';
 import { loader } from './core/loader';
+import { newTabHelper } from './core/newTabHelper';
 import { onboarding } from './core/onboarding';
 import { pageAction } from './core/pageAction';
 import { sAdsHelper } from './core/sAdsHelper';
@@ -81,24 +82,25 @@ browser.runtime.onMessage.addListener(
   (message: Any, sender: MessageSender, sendResponse: Any) => {
     if (sender.tab) message.params.push(sender.tab.id);
     const objList = {
-      storageHelper: storageHelper,
-      databaseHelper: databaseHelper,
-      privacyUtils: privacyUtils,
-      apiCall: apiCall,
-      loader: loader,
-      content: content,
-      dataHandler: dataHandler,
-      context: context,
-      task: task,
-      userHelper: userHelper,
-      pageAction: pageAction,
-      transfer: transfer,
-      onboarding: onboarding,
-      swashApiHelper: swashApiHelper,
-      graphApiHelper: graphApiHelper,
-      configManager: configManager,
-      charityHelper: charityHelper,
-      sAdsHelper: sAdsHelper,
+      storageHelper,
+      databaseHelper,
+      privacyUtils,
+      apiCall,
+      loader,
+      content,
+      dataHandler,
+      context,
+      task,
+      userHelper,
+      pageAction,
+      transfer,
+      onboarding,
+      swashApiHelper,
+      graphApiHelper,
+      configManager,
+      charityHelper,
+      sAdsHelper,
+      newTabHelper,
     };
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
