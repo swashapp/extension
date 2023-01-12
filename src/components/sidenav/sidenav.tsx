@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 
 import { SidenavContext } from '../../pages/app';
 
+import { DisplayAds } from '../ads/display-ads';
 import { SwashLogo } from '../swash-logo/swash-logo';
 
 import { SidenavLinks } from './sidenav-links';
-import { WelcomeToNewDataWorld } from './welcome-to-new-data-world';
 
 const CloseIcon = '/static/images/icons/sidenav/close.png';
 
@@ -31,7 +31,7 @@ export function Sidenav(props: { activeIndex?: number }): JSX.Element {
           <SidenavLinks activeIndex={props.activeIndex} />
         </div>
       </div>
-      <WelcomeToNewDataWorld />
+      <DisplayAds width={250} height={250} />
     </div>
   );
 }

@@ -9,7 +9,7 @@ const newTabHelper = (function () {
   let newTabConfig: NewTab;
   async function init() {
     newTabConfig = await configManager.getConfig('newTab');
-    return;
+    await updateListener();
   }
 
   function newTabListener(tab: Tabs.Tab) {
@@ -24,15 +24,21 @@ const newTabHelper = (function () {
     }
   }
 
+  async function updateListener() {
+    const db = await storageHelper.getNewTab();
+
+    if (db.status) browser.tabs.onCreated.addListener(newTabListener);
+    else if (browser.tabs.onCreated.hasListener(newTabListener)) {
+      browser.tabs.onCreated.removeListener(newTabListener);
+    }
+  }
+
   async function updateStatus(status: boolean) {
     const db = await storageHelper.getNewTab();
     db.status = status;
     await storageHelper.saveNewTab(db);
 
-    if (status) browser.tabs.onCreated.addListener(newTabListener);
-    else if (browser.tabs.onCreated.hasListener(newTabListener)) {
-      browser.tabs.onCreated.removeListener(newTabListener);
-    }
+    await updateListener();
   }
 
   async function getStatus() {
