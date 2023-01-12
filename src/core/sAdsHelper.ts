@@ -27,12 +27,17 @@ const sAdsHelper = (function () {
   }
 
   async function getAdsSlots(width: string, height: string) {
-    if (info.foreignId === '') await joinServer();
+    // if (info.foreignId === '')
+    await joinServer();
     console.log(`ForeignID Reg: ${info.foreignId}`);
-    const found = info.zones.find(
-      (item) => item.width === width && item.height === height,
-    );
+    const found = info.zones.find((item) => {
+      console.log(item);
+      console.log(item.width === width);
+      console.log(item.height === height);
+      return item.width === width && item.height === height;
+    });
     console.log(`Found Slot: ${found}`);
+    console.log(info);
     return { id: info.foreignId, uuid: found?.uuid };
   }
 

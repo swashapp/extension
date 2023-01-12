@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import browser from 'webextension-polyfill';
 
+import { DisplayAds } from '../components/ads/display-ads';
 import { AddSite } from '../components/new-tab/add-site';
 import { Customisation } from '../components/new-tab/customisation';
 import { Popup, showPopup } from '../components/popup/popup';
@@ -53,8 +54,6 @@ function calculateWidth(screenWidth = 1920, pixelRatio = 1): number {
 }
 
 export default function NewTab(): JSX.Element {
-  const [wallet, setWallet] = useState('');
-  const [uuid, setUuid] = useState('');
   const [bg, setBg] = useState('');
   const [style, setStyle] = useState({});
   const [sites, setSites] = useState([]);
@@ -88,10 +87,6 @@ export default function NewTab(): JSX.Element {
   useEffect(() => {
     updateBackground().then();
 
-    helper.getAdsSlots('512', '512').then((resp) => {
-      setWallet(resp.id);
-      setUuid(resp.uuid);
-    });
     updateSites();
     const interval = setInterval(() => setTime(new Date()), 1000);
 
@@ -253,18 +248,7 @@ export default function NewTab(): JSX.Element {
           {bg === 'unsplash' ? `Photo by ${credit.userName} on Unsplash` : ''}
         </div>
         <div className={'item-ads'}>
-          <div
-            className="c25b4ef591762a17"
-            data-zone={uuid}
-            data-pay-to={wallet}
-            data-page="extension"
-            style={{
-              width: 512,
-              height: 512,
-              display: 'inline-block',
-              margin: '0 auto',
-            }}
-          />
+          <DisplayAds width={300} height={250} />
         </div>
         <div className={'item-search'}>
           {hide ? (
