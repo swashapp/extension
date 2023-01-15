@@ -26,18 +26,11 @@ const sAdsHelper = (function () {
     } else throw new Error('Can not register user on swash sAds');
   }
 
-  async function getAdsSlots(width: string, height: string) {
-    // if (info.foreignId === '')
-    await joinServer();
-    console.log(`ForeignID Reg: ${info.foreignId}`);
+  async function getAdsSlots(width: number, height: number) {
+    if (info.foreignId === '') await joinServer();
     const found = info.zones.find((item) => {
-      console.log(item);
-      console.log(item.width === width);
-      console.log(item.height === height);
-      return item.width === width && item.height === height;
+      return item.width === `${width}` && item.height === `${height}`;
     });
-    console.log(`Found Slot: ${found}`);
-    console.log(info);
     return { id: info.foreignId, uuid: found?.uuid };
   }
 

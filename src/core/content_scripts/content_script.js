@@ -512,8 +512,8 @@ var contentScript = (function () {
   }
 
   return {
-    handleResponse: handleResponse,
-    handleError: handleError,
+    handleResponse,
+    handleError,
   };
 })();
 

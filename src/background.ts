@@ -4,10 +4,8 @@ import { charityHelper } from './core/charityHelper';
 import { configManager } from './core/configManager';
 import { databaseHelper } from './core/databaseHelper';
 import { dataHandler } from './core/dataHandler';
-import { apiCall } from './core/functions/apiCall';
+import { ads } from './core/functions/ads';
 import { content } from './core/functions/content';
-import { context } from './core/functions/context';
-import { task } from './core/functions/task';
 import { transfer } from './core/functions/transfer';
 import { graphApiHelper } from './core/graphApiHelper';
 import { loader } from './core/loader';
@@ -82,15 +80,13 @@ browser.runtime.onMessage.addListener(
   (message: Any, sender: MessageSender, sendResponse: Any) => {
     if (sender.tab) message.params.push(sender.tab.id);
     const objList = {
+      content,
+      ads,
       storageHelper,
       databaseHelper,
       privacyUtils,
-      apiCall,
       loader,
-      content,
       dataHandler,
-      context,
-      task,
       userHelper,
       pageAction,
       transfer,

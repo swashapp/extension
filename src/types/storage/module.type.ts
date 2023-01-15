@@ -5,7 +5,8 @@ export type ModuleFunction =
   | 'content'
   | 'apiCall'
   | 'context'
-  | 'task';
+  | 'task'
+  | 'ads';
 
 export type Modules = {
   [key: string]: Module;
@@ -25,4 +26,5 @@ export type Module = {
   context?: Any;
   apiCall?: Any;
   task?: Any;
+  ads?: Any;
 };
