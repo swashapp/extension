@@ -1,5 +1,6 @@
 import browser, { Tabs } from 'webextension-polyfill';
 
+import { adsHelper } from './core/adsHelper';
 import { charityHelper } from './core/charityHelper';
 import { configManager } from './core/configManager';
 import { databaseHelper } from './core/databaseHelper';
@@ -12,7 +13,6 @@ import { loader } from './core/loader';
 import { newTabHelper } from './core/newTabHelper';
 import { onboarding } from './core/onboarding';
 import { pageAction } from './core/pageAction';
-import { sAdsHelper } from './core/sAdsHelper';
 import { storageHelper } from './core/storageHelper';
 import { swashApiHelper } from './core/swashApiHelper';
 import { userHelper } from './core/userHelper';
@@ -95,8 +95,8 @@ browser.runtime.onMessage.addListener(
       graphApiHelper,
       configManager,
       charityHelper,
-      sAdsHelper,
       newTabHelper,
+      adsHelper,
     };
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

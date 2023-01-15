@@ -1,6 +1,9 @@
+import { AdsTypeStatus } from '../types/storage/ads-config.type';
+
+import { storageHelper } from './storageHelper';
 import { userHelper } from './userHelper';
 
-const sAdsHelper = (function () {
+const adsHelper = (function () {
   let info: {
     foreignId: string;
     zones: { name: string; width: string; height: string; uuid: string }[];
@@ -34,11 +37,23 @@ const sAdsHelper = (function () {
     return { id: info.foreignId, uuid: found?.uuid };
   }
 
+  async function updateAdsStatus(config: AdsTypeStatus) {
+    const db = await storageHelper.getAdsConfig();
+    db.status = { ...db.status, ...config };
+    await storageHelper.saveAdsConfig(db);
+  }
+
+  async function getAdsStatus() {
+    return (await storageHelper.getAdsConfig()).status;
+  }
+
   return {
     init,
     joinServer,
     getAdsSlots,
+    updateAdsStatus,
+    getAdsStatus,
   };
 })();
 
-export { sAdsHelper };
+export { adsHelper };
