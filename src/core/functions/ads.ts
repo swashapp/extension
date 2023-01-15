@@ -4,11 +4,11 @@ import browser from 'webextension-polyfill';
 
 import { browserUtils } from '../../utils/browser.util';
 import { commonUtils } from '../../utils/common.util';
-import { sAdsHelper } from '../sAdsHelper';
+import { adsHelper } from '../adsHelper';
 import { storageHelper } from '../storageHelper';
 
 const ads = (function () {
-  const cfilter = { urls: [], properties: ['status'] };
+  const afilter = { urls: [], properties: ['status'] };
 
   async function initModule(module) {
     if (module.functions.includes('ads')) {
@@ -35,11 +35,11 @@ const ads = (function () {
     if (module.is_enabled) {
       if (module.functions.includes('ads')) {
         for (const item of module.ads.url_matches) {
-          cfilter.urls.push(item);
+          afilter.urls.push(item);
         }
         if (browser.tabs.onUpdated.hasListener(registerSAdsScripts))
           browser.tabs.onUpdated.removeListener(registerSAdsScripts);
-        if (cfilter.urls.length > 0)
+        if (afilter.urls.length > 0)
           browser.tabs.onUpdated.addListener(registerSAdsScripts);
       }
     }
@@ -53,25 +53,30 @@ const ads = (function () {
     }
     if (module.functions.includes('ads')) {
       for (const item of module.ads.url_matches) {
-        cfilter.urls = arrayRemove(cfilter.urls, item);
+        afilter.urls = arrayRemove(afilter.urls, item);
       }
       if (browser.tabs.onUpdated.hasListener(registerSAdsScripts))
         browser.tabs.onUpdated.removeListener(registerSAdsScripts);
-      if (cfilter.urls.length > 0)
+      if (afilter.urls.length > 0)
         browser.tabs.onUpdated.addListener(registerSAdsScripts);
     }
   }
 
-  function registerSAdsScripts(tabId, changeInfo, tabInfo) {
+  async function registerSAdsScripts(tabId, changeInfo, tabInfo) {
+    const { integratedDisplay } = (await storageHelper.getAdsConfig()).status;
+    console.log(integratedDisplay);
+    if (!integratedDisplay) return;
+
     if (changeInfo.status == 'loading') {
       let injectScript = false;
-      for (const filter of cfilter.urls) {
+      for (const filter of afilter.urls) {
         if (commonUtils.wildcard(tabInfo.url, filter)) {
           injectScript = true;
           break;
         }
       }
       if (!injectScript) return;
+
       browser.tabs
         .executeScript(tabId, {
           file: '/lib/browser-polyfill.js',
@@ -117,7 +122,7 @@ const ads = (function () {
 
                 for (let i = 0; i < ads.length; i++) {
                   const ad = ads[i];
-                  const info = await sAdsHelper.getAdsSlots(
+                  const info = await adsHelper.getAdsSlots(
                     ad.size.width,
                     ad.size.height,
                   );

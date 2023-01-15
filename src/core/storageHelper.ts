@@ -1,6 +1,7 @@
 import { Notifications } from 'types/storage/notifications.type';
 import browser from 'webextension-polyfill';
 
+import { AdsEntity } from '../entities/ads.entity';
 import { CharityEntity } from '../entities/charity.entity';
 import { ConfigEntity } from '../entities/config.entity';
 import { FilterEntity } from '../entities/filter.entity';
@@ -11,6 +12,7 @@ import { OnboardingEntity } from '../entities/onboarding.entity';
 import { PrivacyDataEntity } from '../entities/privacy-data.entity';
 import { ProfileEntity } from '../entities/profile.entity';
 import { Any } from '../types/any.type';
+import { AdsConfig } from '../types/storage/ads-config.type';
 import { Charity } from '../types/storage/charity.type';
 import { Configs } from '../types/storage/configs.type';
 import { Filter } from '../types/storage/filter.type';
@@ -45,6 +47,7 @@ const storageHelper = (function () {
     await (await NotificationsEntity.getInstance()).get(false);
     await (await CharityEntity.getInstance()).get(false);
     await (await NewTabEntity.getInstance()).get(false);
+    await (await AdsEntity.getInstance()).get(false);
     return result;
   }
 
@@ -124,6 +127,14 @@ const storageHelper = (function () {
     return (await NewTabEntity.getInstance()).get();
   }
 
+  async function saveAdsConfig(ads: AdsConfig) {
+    return (await AdsEntity.getInstance()).save(ads);
+  }
+
+  async function getAdsConfig() {
+    return (await AdsEntity.getInstance()).get();
+  }
+
   function updateFunctionSettings(
     module: Module,
     functionName: ModuleFunction,
@@ -171,6 +182,8 @@ const storageHelper = (function () {
     getCharities,
     saveNewTab,
     getNewTab,
+    saveAdsConfig,
+    getAdsConfig,
   };
 })();
 export { storageHelper };

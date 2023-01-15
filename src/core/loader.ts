@@ -8,6 +8,7 @@ import { ProfileEntity } from '../entities/profile.entity';
 import { Any } from '../types/any.type';
 import { Module } from '../types/storage/module.type';
 
+import { adsHelper } from './adsHelper';
 import { charityHelper } from './charityHelper';
 import { configManager } from './configManager';
 import { databaseHelper } from './databaseHelper';
@@ -19,7 +20,6 @@ import { memberManager } from './memberManager';
 import { newTabHelper } from './newTabHelper';
 import { onboarding } from './onboarding';
 import { pageAction } from './pageAction';
-import { sAdsHelper } from './sAdsHelper';
 import { storageHelper } from './storageHelper';
 import { swashApiHelper } from './swashApiHelper';
 import { userHelper } from './userHelper';
@@ -266,7 +266,7 @@ const loader = (function () {
     await swashApiHelper.init();
     await graphApiHelper.init();
     await charityHelper.init();
-    await sAdsHelper.init();
+    await adsHelper.init();
     await newTabHelper.init();
   }
 

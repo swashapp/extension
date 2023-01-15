@@ -761,7 +761,7 @@ const helper = (function () {
 
   function joinAdServer() {
     const message = {
-      obj: 'sAdsHelper',
+      obj: 'adsHelper',
       func: 'joinServer',
       params: [],
     };
@@ -770,7 +770,7 @@ const helper = (function () {
 
   function getAdsSlots(width, height) {
     const message = {
-      obj: 'sAdsHelper',
+      obj: 'adsHelper',
       func: 'getAdsSlots',
       params: [width, height],
     };
@@ -826,6 +826,24 @@ const helper = (function () {
     const message = {
       obj: 'newTabHelper',
       func: 'getBackground',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
+  function updateAdsStatus(status) {
+    const message = {
+      obj: 'adsHelper',
+      func: 'updateAdsStatus',
+      params: [status],
+    };
+    return sendMessage(message);
+  }
+
+  function getAdsStatus() {
+    const message = {
+      obj: 'adsHelper',
+      func: 'getAdsStatus',
       params: [],
     };
     return sendMessage(message);
@@ -924,6 +942,8 @@ const helper = (function () {
     getSites,
     setBackground,
     getBackground,
+    updateAdsStatus,
+    getAdsStatus,
   };
 })();
 

@@ -4,36 +4,39 @@ import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { Switch } from '../components/switch/switch';
 import { helper } from '../core/webHelper';
+import { AdsTypeStatus } from '../types/storage/ads-config.type';
 
 export function EarnMore(): JSX.Element {
-  const [fullAds, setFullAds] = useState<boolean>(false);
-  const [pushAds, setPushAds] = useState<boolean>(false);
-  const [displayAds, setDisplayAds] = useState<boolean>(false);
+  const [ads, setAds] = useState<AdsTypeStatus>({
+    fullScreen: false,
+    pushNotification: false,
+    integratedDisplay: false,
+  });
   const [ntx, setNtx] = useState<boolean>(false);
 
-  const onToggleClick = useCallback((name, value) => {
-    switch (name) {
-      case 'fullAds':
-        setFullAds(value);
-        break;
-      case 'pushAds':
-        setPushAds(value);
-        break;
-      case 'displayAds':
-        setDisplayAds(value);
-        break;
-      case 'ntx':
-        setNtx(value);
-        helper.updateNewTabStatus(value).then();
-        break;
-      default:
-        break;
-    }
+  const updateValues = useCallback(() => {
+    helper.getNewTabStatus().then(setNtx);
+    helper.getAdsStatus().then(setAds);
   }, []);
 
+  const onToggleClick = useCallback(
+    (name, value) => {
+      switch (name) {
+        case 'ntx':
+          helper.updateNewTabStatus(value).then();
+          break;
+        default:
+          helper.updateAdsStatus({ ...ads, [name]: value }).then();
+          break;
+      }
+      updateValues();
+    },
+    [ads, updateValues],
+  );
+
   useEffect(() => {
-    helper.getNewTabStatus().then(setNtx);
-  }, []);
+    updateValues();
+  }, [updateValues]);
 
   return (
     <div className="page-container">
@@ -55,22 +58,26 @@ export function EarnMore(): JSX.Element {
             </p>
             <div className="flex-row flex-align-center form-item-gap">
               <Switch
-                checked={!fullAds}
-                onChange={(e) => onToggleClick('fullAds', !e.target.checked)}
+                checked={!ads.fullScreen}
+                onChange={(e) => onToggleClick('fullScreen', !e.target.checked)}
               />
               Receive full page ads when opening a new tab
             </div>
             <div className="flex-row flex-align-center form-item-gap">
               <Switch
-                checked={!pushAds}
-                onChange={(e) => onToggleClick('pushAds', !e.target.checked)}
+                checked={!ads.pushNotification}
+                onChange={(e) =>
+                  onToggleClick('pushNotification', !e.target.checked)
+                }
               />
               Receive ads as push notifications
             </div>
             <div className="flex-row flex-align-center form-item-gap">
               <Switch
-                checked={!displayAds}
-                onChange={(e) => onToggleClick('displayAds', !e.target.checked)}
+                checked={!ads.integratedDisplay}
+                onChange={(e) =>
+                  onToggleClick('integratedDisplay', !e.target.checked)
+                }
               />
               Receive integrated display ads
             </div>
