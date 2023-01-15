@@ -1,0 +1,35 @@
+{
+  "url_matches": ["*://*/*"],
+  "url_excludes": [
+    "moz-extension://*/*",
+    "*://www.google.com/?*",
+    "*://www.google.com/search?*"
+  ],
+  "os_mapping": {
+    "win": "desktop",
+    "mac": "desktop",
+    "android": "desktop",
+    "cros": "desktop",
+    "openbsd": "desktop",
+    "ios": "desktop",
+    "ipados": "desktop"
+  },
+  "desktop": [
+    {
+      "name": "displayAd",
+      "title": "Display advertisement",
+      "description": "This item add an advertisement to page being visited",
+      "url_match": "*://*/*",
+      "type": "sticky",
+      "is_enabled": true,
+      "size": {
+        "width": 300,
+        "height": 250
+      },
+      "position": {
+        "bottom": 0,
+        "right": 0
+      }
+    }
+  ]
+}

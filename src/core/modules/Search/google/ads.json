@@ -1,0 +1,42 @@
+{
+  "url_matches": ["*://www.google.com/?*", "*://www.google.com/search?*"],
+  "url_excludes": [""],
+  "os_mapping": {
+    "win": "desktop",
+    "mac": "desktop",
+    "android": "mobile",
+    "cros": "desktop",
+    "openbsd": "desktop",
+    "ios": "mobile",
+    "ipados": "desktop"
+  },
+  "desktop": [
+    {
+      "name": "displayFirstPageAd",
+      "title": "Display advertisement on Google first page",
+      "description": "This item add an advertisement to home page of Google",
+      "url_match": "*://www.google.com/?*",
+      "type": "embedded",
+      "is_enabled": true,
+      "size": {
+        "width": 300,
+        "height": 250
+      },
+      "selector": ".o3j99.qarstb"
+    },
+    {
+      "name": "displayResultPageAd",
+      "title": "Display advertisement on Google result page",
+      "description": "This item add an advertisement to result page of Google",
+      "url_match": "*://www.google.com/search?*",
+      "type": "embedded",
+      "is_enabled": true,
+      "size": {
+        "width": 300,
+        "height": 250
+      },
+      "selector": "#rhs"
+    }
+  ],
+  "mobile": []
+}

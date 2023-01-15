@@ -27,6 +27,7 @@ const storageHelper = (function () {
     'apiCall',
     'context',
     'task',
+    'ads',
   ];
 
   async function getAll() {

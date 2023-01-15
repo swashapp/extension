@@ -1,7 +1,7 @@
 {
   "name": "search_google",
   "description": "This module Captures a user search queries, search results, and links clicked by the user for Google",
-  "functions": ["browsing", "content"],
+  "functions": ["browsing", "content", "ads"],
   "is_enabled": true,
   "privacyLevel": 0,
   "anonymityLevel": 1

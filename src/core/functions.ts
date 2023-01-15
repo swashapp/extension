@@ -1,16 +1,6 @@
-import { apiCall } from './functions/apiCall';
+import { ads } from './functions/ads';
 import { browsing } from './functions/browsing';
 import { content } from './functions/content';
-import { context } from './functions/context';
-import { task } from './functions/task';
-import { transfer } from './functions/transfer';
 
-const functions = [
-  browsing,
-  content,
-  apiCall,
-  context,
-  task,
-  //transfer
-];
+const functions = [browsing, content, ads];
 export { functions };

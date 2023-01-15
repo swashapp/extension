@@ -13,15 +13,17 @@ export function DisplayAds(props: {
   const [iframeVisible, setIframeVisible] = useState<boolean>(false);
 
   useEffect(() => {
-    helper.getAdsSlots(`${props.width}`, `${props.height}`).then((resp) => {
+    helper.getAdsSlots(props.width, props.height).then((resp) => {
       setUuid(resp.uuid);
-      console.log(resp);
     });
   }, [props.height, props.width]);
 
   const iframeSrc = useMemo(() => {
-    console.log(uuid);
-    return `${SWASH_DOMAIN}${SWASH_JOIN_PAGE}?id=${uuid}&w=${props.width}&h=${props.height}`;
+    const url = new URL(`${SWASH_DOMAIN}${SWASH_JOIN_PAGE}`);
+    url.searchParams.set('id', uuid);
+    url.searchParams.set('w', `${props.width}`);
+    url.searchParams.set('h', `${props.height}`);
+    return url.toString();
   }, [props.height, props.width, uuid]);
 
   return (
