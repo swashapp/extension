@@ -36,15 +36,13 @@ const newTabHelper = (function () {
 
   async function getUnsplashImage(width: string) {
     if (unsplashImages.length < 3) {
-      const url = new URL('https://api.unsplash.com/photos/random');
+      const url = new URL(
+        'https://d34s39bh8oxiy5.cloudfront.net/photos/random',
+      );
       url.searchParams.set('count', '30');
       url.searchParams.set('w', width);
 
-      const res = await fetch(url.toString(), {
-        headers: {
-          Authorization: `Client-ID oreT5F-CEO3BsJuOu8OUD9w1a-9Q5My0yXWa4MJqbsE`,
-        },
-      });
+      const res = await fetch(url.toString());
       const body = await res.json();
 
       body.forEach((item: any) => {
