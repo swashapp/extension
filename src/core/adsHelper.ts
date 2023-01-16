@@ -17,10 +17,12 @@ const adsHelper = (function () {
 
   async function addNewTab(tab: Tabs.Tab) {
     if (
-      tab.url === '' ||
       tab.url === 'chrome://newtab/' ||
       tab.url === 'edge://newtab/' ||
-      tab.url === 'about:newtab'
+      tab.url === 'about:newtab' ||
+      tab.pendingUrl === 'chrome://newtab/' ||
+      tab.pendingUrl === 'edge://newtab/' ||
+      tab.pendingUrl === 'about:newtab'
     ) {
       await browser.tabs.update(tab.id, {
         url: browser.runtime.getURL('/new-tab/index.html'),
