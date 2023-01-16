@@ -164,7 +164,7 @@ export function Profile(): JSX.Element {
     <div className="page-container">
       <BackgroundTheme />
       <div className="page-content">
-        <div className="page-header profile-header">
+        <div className="page-header badge-header">
           <h2>Profile</h2>
           <VerificationBadge
             verified={phone === undefined ? phone : phone !== ''}

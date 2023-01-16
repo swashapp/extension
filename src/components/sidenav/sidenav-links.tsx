@@ -81,6 +81,8 @@ export function SidenavLinks(props: { activeIndex?: number }): JSX.Element {
                 <div className="sidenav-title">{item.title}</div>
                 {item.title === 'Profile' ? (
                   <VerificationBadge verified={verified} short darkBackground />
+                ) : item.title === 'Earn More' ? (
+                  <div className={'beta-badge'}>Beta</div>
                 ) : (
                   <></>
                 )}

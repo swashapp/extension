@@ -1,3 +1,5 @@
+import browser, { Tabs } from 'webextension-polyfill';
+
 import { AdsTypeStatus } from '../types/storage/ads-config.type';
 
 import { storageHelper } from './storageHelper';
@@ -10,7 +12,29 @@ const adsHelper = (function () {
   } = { foreignId: '', zones: [] };
 
   async function init() {
-    return;
+    await updateFullScreenListener();
+  }
+
+  async function addNewTab(tab: Tabs.Tab) {
+    if (
+      tab.url === '' ||
+      tab.url === 'chrome://newtab/' ||
+      tab.url === 'edge://newtab/' ||
+      tab.url === 'about:newtab'
+    ) {
+      await browser.tabs.update(tab.id, {
+        url: browser.runtime.getURL('/new-tab/index.html'),
+      });
+    }
+  }
+
+  async function updateFullScreenListener() {
+    const { fullScreen } = (await storageHelper.getAdsConfig()).status;
+
+    if (fullScreen) browser.tabs.onCreated.addListener(addNewTab);
+    else if (browser.tabs.onCreated.hasListener(addNewTab)) {
+      browser.tabs.onCreated.removeListener(addNewTab);
+    }
   }
 
   async function joinServer() {
@@ -41,8 +65,11 @@ const adsHelper = (function () {
 
   async function updateAdsStatus(config: AdsTypeStatus) {
     const db = await storageHelper.getAdsConfig();
+    const fullscreenChanged = db.status.fullScreen !== config.fullScreen;
     db.status = { ...db.status, ...config };
     await storageHelper.saveAdsConfig(db);
+
+    if (fullscreenChanged) await updateFullScreenListener();
   }
 
   async function getAdsStatus() {

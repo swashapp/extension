@@ -89,7 +89,6 @@ export function Donate(props: {
             One-off Donation
           </div>
           <Switch
-            invert
             checked={isOngoing}
             onChange={(e, checked) => {
               setIsOngoing(checked);

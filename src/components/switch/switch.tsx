@@ -1,18 +1,15 @@
 import { styled, Switch as MuiSwitch, SwitchProps } from '@mui/material';
 import React from 'react';
 
-const CustomSwitch = styled((props: SwitchProps & { invert: boolean }) => {
-  const _props = { ...props } as Partial<SwitchProps & { invert: boolean }>;
-  delete _props.invert;
-
+const CustomSwitch = styled((props: SwitchProps) => {
   return (
     <MuiSwitch
       focusVisibleClassName=".Mui-focusVisible"
       disableRipple
-      {..._props}
+      {...props}
     />
   );
-})(({ theme, invert }) => ({
+})(({ theme }) => ({
   width: 32,
   height: 20,
   padding: 0,
@@ -32,7 +29,7 @@ const CustomSwitch = styled((props: SwitchProps & { invert: boolean }) => {
       color: 'var(--white)',
       '& + .MuiSwitch-track': {
         opacity: 1,
-        backgroundColor: invert ? 'var(--light-green)' : 'var(--gray)',
+        backgroundColor: 'var(--light-green)',
       },
     },
   },
@@ -48,12 +45,11 @@ const CustomSwitch = styled((props: SwitchProps & { invert: boolean }) => {
   '& .MuiSwitch-track': {
     borderRadius: 12,
     opacity: 1,
-    backgroundColor: invert ? 'var(--gray)' : 'var(--light-green)',
+    backgroundColor: 'var(--gray)',
     boxSizing: 'border-box',
   },
 }));
 
-export function Switch(props: SwitchProps & { invert?: boolean }): JSX.Element {
-  const invert = props.invert ? props.invert : false;
-  return <CustomSwitch {...props} invert={invert} />;
+export function Switch(props: SwitchProps): JSX.Element {
+  return <CustomSwitch {...props} />;
 }
