@@ -33,8 +33,8 @@ export function Toggle(): JSX.Element {
         {status ? 'ON' : 'OFF'}
       </div>
       <Switch
-        checked={!status}
-        onChange={(e) => onStatusChanged(!e.target.checked)}
+        checked={status}
+        onChange={(e) => onStatusChanged(e.target.checked)}
       />
     </div>
   );

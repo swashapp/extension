@@ -2,50 +2,69 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
+import { showPopup } from '../components/popup/popup';
 import { Switch } from '../components/switch/switch';
+import { VerificationAlert } from '../components/verification/verification-alert';
+import { VerifiedUsersOnly } from '../components/verification/verified-users-only';
 import { helper } from '../core/webHelper';
 import { AdsTypeStatus } from '../types/storage/ads-config.type';
 
 export function EarnMore(): JSX.Element {
+  const [verified, setVerified] = useState<boolean | undefined>(undefined);
   const [ads, setAds] = useState<AdsTypeStatus>({
     fullScreen: false,
     pushNotification: false,
     integratedDisplay: false,
   });
-  const [ntx, setNtx] = useState<boolean>(false);
 
   const updateValues = useCallback(() => {
-    helper.getNewTabStatus().then(setNtx);
     helper.getAdsStatus().then(setAds);
   }, []);
 
   const onToggleClick = useCallback(
     (name, value) => {
-      switch (name) {
-        case 'ntx':
-          helper.updateNewTabStatus(value).then();
-          break;
-        default:
-          helper.updateAdsStatus({ ...ads, [name]: value }).then();
-          break;
-      }
+      helper.updateAdsStatus({ ...ads, [name]: value }).then();
       updateValues();
     },
     [ads, updateValues],
   );
 
+  const checkVerification = useCallback(() => {
+    helper.isAccountInitialized().then((initiated: boolean) => {
+      if (initiated) {
+        helper.isVerified().then((verified: boolean) => {
+          setVerified(verified);
+        });
+      } else {
+        setTimeout(checkVerification, 3000, true);
+      }
+    });
+  }, []);
+
   useEffect(() => {
+    checkVerification();
     updateValues();
-  }, [updateValues]);
+  }, [checkVerification, updateValues]);
 
   return (
     <div className="page-container">
       <BackgroundTheme />
       <div className="page-content">
-        <div className="page-header">
+        <div className="page-header badge-header">
           <h2>Earn More</h2>
+          <div className={'beta-badge'}>Beta</div>
         </div>
         <div className="flex-column card-gap">
+          {verified === false ? (
+            showPopup({
+              closable: false,
+              closeOnBackDropClick: false,
+              paperClassName: 'small-popup',
+              content: <VerifiedUsersOnly />,
+            })
+          ) : (
+            <></>
+          )}
           <div className="simple-card">
             <h6>Earn More</h6>
             <p>
@@ -58,25 +77,25 @@ export function EarnMore(): JSX.Element {
             </p>
             <div className="flex-row flex-align-center form-item-gap">
               <Switch
-                checked={!ads.fullScreen}
-                onChange={(e) => onToggleClick('fullScreen', !e.target.checked)}
+                checked={ads.fullScreen}
+                onChange={(e) => onToggleClick('fullScreen', e.target.checked)}
               />
               Receive full page ads when opening a new tab
             </div>
             <div className="flex-row flex-align-center form-item-gap">
               <Switch
-                checked={!ads.pushNotification}
+                checked={ads.pushNotification}
                 onChange={(e) =>
-                  onToggleClick('pushNotification', !e.target.checked)
+                  onToggleClick('pushNotification', e.target.checked)
                 }
               />
               Receive ads as push notifications
             </div>
             <div className="flex-row flex-align-center form-item-gap">
               <Switch
-                checked={!ads.integratedDisplay}
+                checked={ads.integratedDisplay}
                 onChange={(e) =>
-                  onToggleClick('integratedDisplay', !e.target.checked)
+                  onToggleClick('integratedDisplay', e.target.checked)
                 }
               />
               Receive integrated display ads
@@ -99,13 +118,6 @@ export function EarnMore(): JSX.Element {
                   the Swash News section. Tailor results to your favourite
                   sources in NTX settings.
                 </p>
-                <div className="flex-row flex-align-center form-item-gap">
-                  <Switch
-                    checked={!ntx}
-                    onChange={(e) => onToggleClick('ntx', !e.target.checked)}
-                  />
-                  Yes, I want to give my new tab a glow up
-                </div>
               </div>
               <div className="simple-card flex-row flex-align-center earn-more-new-tab-image">
                 <img

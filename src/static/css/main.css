@@ -155,6 +155,8 @@ hr.nav {
 .flex-column {
   display: flex;
   flex-direction: column;
+
+  position: relative;
 }
 
 .solid-line {
@@ -2561,7 +2563,7 @@ hr.nav {
   padding: 41px 32px;
 }
 
-.profile-header {
+.badge-header {
   display: flex;
   align-items: center;
 }
@@ -2677,6 +2679,16 @@ hr.nav {
   margin-bottom: 48px;
 }
 
+.beta-badge {
+  font-style: italic;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #59F28B;
+
+  margin-left: 8px;
+}
+
 .earn-more-new-tab-cards {
   flex-wrap: nowrap;
 }
@@ -2696,3 +2708,11 @@ hr.nav {
   max-width: 500px;
   height: auto;
 }
+
+/*.overlay {*/
+/*  width: 100%;*/
+/*  height: 100%;*/
+/*  z-index: 10;*/
+/*  background: rgba(0, 32, 48, 0.7);*/
+/*  position: absolute;*/
+/*}*/
