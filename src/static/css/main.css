@@ -2683,7 +2683,7 @@ hr.nav {
 
 .earn-more-new-tab-description {
   width: auto;
-  max-width: calc(100% - 40px)
+  max-width: calc(100% - 40px);
 }
 
 .earn-more-new-tab-image {
