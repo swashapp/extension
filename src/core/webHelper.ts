@@ -759,20 +759,29 @@ const helper = (function () {
     return sendMessage(message);
   }
 
-  function joinAdServer() {
-    const message = {
-      obj: 'adsHelper',
-      func: 'joinServer',
-      params: [],
-    };
-    return sendMessage(message);
-  }
-
   function getAdsSlots(width, height) {
     const message = {
       obj: 'adsHelper',
       func: 'getAdsSlots',
       params: [width, height],
+    };
+    return sendMessage(message);
+  }
+
+  function updateAdsStatus(status) {
+    const message = {
+      obj: 'adsHelper',
+      func: 'updateAdsStatus',
+      params: [status],
+    };
+    return sendMessage(message);
+  }
+
+  function getAdsStatus() {
+    const message = {
+      obj: 'adsHelper',
+      func: 'getAdsStatus',
+      params: [],
     };
     return sendMessage(message);
   }
@@ -831,20 +840,11 @@ const helper = (function () {
     return sendMessage(message);
   }
 
-  function updateAdsStatus(status) {
+  function getUnsplashImage(width) {
     const message = {
-      obj: 'adsHelper',
-      func: 'updateAdsStatus',
-      params: [status],
-    };
-    return sendMessage(message);
-  }
-
-  function getAdsStatus() {
-    const message = {
-      obj: 'adsHelper',
-      func: 'getAdsStatus',
-      params: [],
+      obj: 'newTabHelper',
+      func: 'getUnsplashImage',
+      params: [width],
     };
     return sendMessage(message);
   }
@@ -934,16 +934,16 @@ const helper = (function () {
     toggleCharityLike,
     addCharityAutoPayment,
     delCharityAutoPayment,
-    joinAdServer,
     getAdsSlots,
+    updateAdsStatus,
+    getAdsStatus,
     updateNewTabStatus,
     getNewTabStatus,
     addSite,
     getSites,
     setBackground,
     getBackground,
-    updateAdsStatus,
-    getAdsStatus,
+    getUnsplashImage,
   };
 })();
 

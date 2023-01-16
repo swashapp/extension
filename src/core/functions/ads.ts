@@ -64,7 +64,6 @@ const ads = (function () {
 
   async function registerSAdsScripts(tabId, changeInfo, tabInfo) {
     const { integratedDisplay } = (await storageHelper.getAdsConfig()).status;
-    console.log(integratedDisplay);
     if (!integratedDisplay) return;
 
     if (changeInfo.status == 'loading') {

@@ -7,51 +7,18 @@ import { AddSite } from '../components/new-tab/add-site';
 import { Customisation } from '../components/new-tab/customisation';
 import { Popup, showPopup } from '../components/popup/popup';
 import { helper } from '../core/webHelper';
-import { Site } from '../types/storage/new-tab.type';
-
-async function getImages() {
-  const url = new URL('https://api.unsplash.com/photos/random');
-  url.searchParams.set('count', '10');
-  url.searchParams.set(
-    'w',
-    String(calculateWidth(window.innerWidth, window.devicePixelRatio)),
-  );
-
-  const res = await fetch(url.toString(), {
-    headers: {
-      Authorization: `Client-ID oreT5F-CEO3BsJuOu8OUD9w1a-9Q5My0yXWa4MJqbsE`,
-    },
-  });
-  const body = await res.json();
-
-  return body.map((item: any) => ({
-    src: item.urls.raw,
-    credit: {
-      imageLink: item.links.html,
-      location: item.location ? item.location.title : null,
-      userName: item.user.name,
-      userLink: item.user.links.html,
-    },
-  }));
-}
+import {
+  Site,
+  UnsplashCredit,
+  UnsplashResponse,
+} from '../types/storage/new-tab.type';
 
 const buildLink = (src: string): string => {
   const url = new URL(src);
-  url.searchParams.set('q', '85');
-  url.searchParams.set(
-    'w',
-    String(calculateWidth(window.innerWidth, window.devicePixelRatio)),
-  );
+  url.searchParams.set('q', '75');
+  url.searchParams.set('w', window.innerWidth.toString());
   return String(url);
 };
-
-function calculateWidth(screenWidth = 1920, pixelRatio = 1): number {
-  screenWidth = screenWidth * pixelRatio;
-  screenWidth = Math.max(screenWidth, 1920);
-  screenWidth = Math.min(screenWidth, 3840);
-  screenWidth = Math.ceil(screenWidth / 240) * 240;
-  return screenWidth;
-}
 
 export default function NewTab(): JSX.Element {
   const [bg, setBg] = useState('');
@@ -59,7 +26,7 @@ export default function NewTab(): JSX.Element {
   const [sites, setSites] = useState([]);
   const [time, setTime] = useState(new Date());
   const [hide, setHide] = useState(false);
-  const [credit, setCredit] = useState({
+  const [credit, setCredit] = useState<UnsplashCredit>({
     imageLink: '',
     location: '',
     userName: '',
@@ -74,10 +41,14 @@ export default function NewTab(): JSX.Element {
     helper.getBackground().then((_bg) => {
       setBg(_bg);
       if (bg === 'unsplash') {
-        getImages().then(async (response) => {
-          setCredit(response[0].credit);
-          setStyle({ backgroundImage: `url("${buildLink(response[0].src)}")` });
-        });
+        helper
+          .getUnsplashImage(window.innerWidth.toString())
+          .then(async (response: UnsplashResponse) => {
+            setCredit(response.credit);
+            setStyle({
+              backgroundImage: `url("${buildLink(response.src)}")`,
+            });
+          });
       } else {
         setStyle({ background: `${_bg}` });
       }
