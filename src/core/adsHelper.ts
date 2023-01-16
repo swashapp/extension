@@ -54,6 +54,8 @@ const adsHelper = (function () {
   }
 
   async function getAdsSlots(width: number, height: number) {
+    if (!(await userHelper.isVerified())) return;
+
     if (info.foreignId === '') await joinServer();
     const found = info.zones.find((item) => {
       return (
@@ -64,6 +66,8 @@ const adsHelper = (function () {
   }
 
   async function updateAdsStatus(config: AdsTypeStatus) {
+    if (!(await userHelper.isVerified())) return;
+
     const db = await storageHelper.getAdsConfig();
     const fullscreenChanged = db.status.fullScreen !== config.fullScreen;
     db.status = { ...db.status, ...config };

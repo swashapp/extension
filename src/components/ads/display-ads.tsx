@@ -14,7 +14,7 @@ export function DisplayAds(props: {
 
   useEffect(() => {
     helper.getAdsSlots(props.width, props.height).then((resp) => {
-      setUuid(resp.uuid);
+      setUuid(resp.uuid || '');
     });
   }, [props.height, props.width]);
 

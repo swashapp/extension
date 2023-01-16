@@ -6,6 +6,7 @@ import { browserUtils } from '../../utils/browser.util';
 import { commonUtils } from '../../utils/common.util';
 import { adsHelper } from '../adsHelper';
 import { storageHelper } from '../storageHelper';
+import { userHelper } from '../userHelper';
 
 const ads = (function () {
   const afilter = { urls: [], properties: ['status'] };
@@ -63,6 +64,8 @@ const ads = (function () {
   }
 
   async function registerSAdsScripts(tabId, changeInfo, tabInfo) {
+    if (!(await userHelper.isVerified())) return;
+
     const { integratedDisplay } = (await storageHelper.getAdsConfig()).status;
     if (!integratedDisplay) return;
 
