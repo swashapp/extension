@@ -32,7 +32,9 @@ const adsHelper = (function () {
   async function getAdsSlots(width: number, height: number) {
     if (info.foreignId === '') await joinServer();
     const found = info.zones.find((item) => {
-      return item.width === `${width}` && item.height === `${height}`;
+      return (
+        item.width === width.toString() && item.height === height.toString()
+      );
     });
     return { id: info.foreignId, uuid: found?.uuid };
   }

@@ -2692,6 +2692,7 @@ hr.nav {
 }
 
 .earn-more-new-tab-image > img {
-  width: auto;
-  height: 100%;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
 }

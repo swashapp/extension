@@ -10,3 +10,15 @@ export type NewTab = {
   topSites: boolean;
   sites: Site[];
 };
+
+export type UnsplashCredit = {
+  imageLink: string;
+  location: string | null;
+  userName: string;
+  userLink: string;
+};
+
+export type UnsplashResponse = {
+  src: string;
+  credit: UnsplashCredit;
+};
