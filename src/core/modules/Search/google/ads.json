@@ -19,8 +19,8 @@
       "type": "embedded",
       "is_enabled": true,
       "size": {
-        "width": 300,
-        "height": 250
+        "width": 980,
+        "height": 120
       },
       "selector": ".o3j99.qarstb"
     },
@@ -33,7 +33,7 @@
       "is_enabled": true,
       "size": {
         "width": 300,
-        "height": 250
+        "height": 600
       },
       "selector": "#rhs"
     }

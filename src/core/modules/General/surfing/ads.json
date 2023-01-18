@@ -23,8 +23,8 @@
       "type": "sticky",
       "is_enabled": true,
       "size": {
-        "width": 300,
-        "height": 250
+        "width": 240,
+        "height": 400
       },
       "position": {
         "bottom": 0,

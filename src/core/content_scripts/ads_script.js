@@ -13,7 +13,6 @@ var adsScript = (function () {
     div.id = `SwashAds${size.width}x${size.height}`;
     div.style.width = `${size.width}px`;
     div.style.height = `${size.height}px`;
-    div.style.border = '1px solid red';
 
     div.innerHTML = `<iframe seamless="true" title="ads" scrolling="no" frameBorder="no" style="width: ${
       size.width
