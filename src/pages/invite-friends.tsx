@@ -16,7 +16,6 @@ import { IconButton } from '../components/icon-button/icon-button';
 import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-adornment';
 import { Input } from '../components/input/input';
 import { NumericSection } from '../components/numeric-section/numeric-section';
-import { Notifications } from '../components/sidenav/welcome-to-new-data-world';
 import { initValue, UtilsService } from '../service/utils-service';
 
 const TotalBonusIcon = '/static/images/icons/total-bonus.svg';
@@ -27,6 +26,16 @@ const LinkedInLogo = '/static/images/logos/linkedin.png';
 const TwitterLogo = '/static/images/logos/twitter.png';
 
 const referralMessage = 'Use my referral link to earn as you surf with Swash:';
+
+interface Notification {
+  title: string;
+  text: string;
+  link: string;
+}
+export interface Notifications {
+  general?: Notification;
+  prize?: Notification;
+}
 
 export function InviteFriends(): JSX.Element {
   const [referralLink, setReferralLink] = useState<string>('');

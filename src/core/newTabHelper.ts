@@ -3,6 +3,8 @@ import { NewTab, UnsplashResponse } from '../types/storage/new-tab.type';
 import { configManager } from './configManager';
 import { storageHelper } from './storageHelper';
 
+const unsplashProxy = 'https://d34s39bh8oxiy5.cloudfront.net';
+
 const newTabHelper = (function () {
   let newTabConfig: NewTab;
   const unsplashImages: UnsplashResponse[] = [];
@@ -36,9 +38,7 @@ const newTabHelper = (function () {
 
   async function getUnsplashImage(width: string) {
     if (unsplashImages.length < 3) {
-      const url = new URL(
-        'https://d34s39bh8oxiy5.cloudfront.net/photos/random',
-      );
+      const url = new URL(`${unsplashProxy}/photos/random`);
       url.searchParams.set('count', '30');
       url.searchParams.set('w', width);
 
@@ -46,9 +46,10 @@ const newTabHelper = (function () {
       const body = await res.json();
 
       body.forEach((item: any) => {
+        console.log(item);
         unsplashImages.push({
           src: item.urls.raw,
-          credit: {
+          copyright: {
             imageLink: item.links.html,
             location: item.location ? item.location.title : null,
             userName: item.user.name,

@@ -1,5 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { debounce } from '@mui/material';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
+import { ToastContainer } from 'react-toastify';
+import { injectStyle } from 'react-toastify/dist/inject-style';
 import browser from 'webextension-polyfill';
 
 import { DisplayAds } from '../components/ads/display-ads';
@@ -9,13 +12,13 @@ import { Popup, showPopup } from '../components/popup/popup';
 import { helper } from '../core/webHelper';
 import {
   Site,
-  UnsplashCredit,
+  UnsplashCopyright,
   UnsplashResponse,
 } from '../types/storage/new-tab.type';
 
-const buildLink = (src: string): string => {
+const addUnsplashParams = (src: string): string => {
   const url = new URL(src);
-  url.searchParams.set('q', '75');
+  url.searchParams.set('q', '70');
   url.searchParams.set('w', window.innerWidth.toString());
   return String(url);
 };
@@ -26,7 +29,8 @@ export default function NewTab(): JSX.Element {
   const [sites, setSites] = useState([]);
   const [time, setTime] = useState(new Date());
   const [hide, setHide] = useState(false);
-  const [credit, setCredit] = useState<UnsplashCredit>({
+  const [suggestion, setSuggestion] = useState<string[]>([]);
+  const [copyright, setCopyright] = useState<UnsplashCopyright>({
     imageLink: '',
     location: '',
     userName: '',
@@ -44,9 +48,9 @@ export default function NewTab(): JSX.Element {
         helper
           .getUnsplashImage(window.innerWidth.toString())
           .then(async (response: UnsplashResponse) => {
-            setCredit(response.credit);
+            setCopyright(response.copyright);
             setStyle({
-              backgroundImage: `url("${buildLink(response.src)}")`,
+              backgroundImage: `url("${addUnsplashParams(response.src)}")`,
             });
           });
       } else {
@@ -54,17 +58,6 @@ export default function NewTab(): JSX.Element {
       }
     });
   }, [bg]);
-
-  useEffect(() => {
-    updateBackground().then();
-
-    updateSites();
-    const interval = setInterval(() => setTime(new Date()), 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [updateBackground, updateSites]);
 
   const openSwashDashboard = useCallback(() => {
     browser.tabs
@@ -87,7 +80,6 @@ export default function NewTab(): JSX.Element {
   }, []);
 
   const toggleVisibility = useCallback(() => {
-    console.log(hide);
     setHide(!hide);
   }, [hide]);
 
@@ -99,6 +91,35 @@ export default function NewTab(): JSX.Element {
       content: <Customisation onBackgroundChange={updateBackground} />,
     });
   }, [updateBackground]);
+
+  const onSearchInput = useCallback((value) => {
+    const _api = new URL('http://suggestqueries.google.com/complete/search');
+    _api.searchParams.set('output', 'toolbar');
+    _api.searchParams.set('q', value);
+
+    fetch(_api.toString())
+      .then(async (resp) => {
+        const txt = await resp.text();
+        const parser = new DOMParser();
+
+        const xml = parser.parseFromString(txt, 'text/xml');
+        const nodes = xml.getElementsByTagName('suggestion');
+
+        const keywords: string[] = [];
+        for (let i = 0; i < nodes.length; i++) {
+          const data = nodes[i].getAttribute('data');
+          if (data) keywords.push(data);
+        }
+
+        setSuggestion(keywords);
+      })
+      .catch(() => setSuggestion([]));
+  }, []);
+
+  const onInputDebounce = useMemo(
+    () => debounce(onSearchInput, 500),
+    [onSearchInput],
+  );
 
   const addSite = useCallback(
     (rank) => {
@@ -158,10 +179,24 @@ export default function NewTab(): JSX.Element {
     });
   }
 
+  useEffect(() => {
+    injectStyle();
+  }, []);
+
+  useEffect(() => {
+    updateBackground().then();
+
+    updateSites();
+    const interval = setInterval(() => setTime(new Date()), 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [updateBackground, updateSites]);
+
   return (
     <>
       <div className={'container'} style={{ ...style }}>
-        <Popup />
         <div className={'row-1'}>
           <div className={'item-actions'}>
             {/*<div>*/}
@@ -218,11 +253,11 @@ export default function NewTab(): JSX.Element {
               <>
                 Photo by{' '}
                 <a
-                  href={`${credit.userLink}?utm_source=Swash&utm_medium=referral`}
+                  href={`${copyright.userLink}?utm_source=Swash&utm_medium=referral`}
                   target={'_blank'}
                   rel={'noreferrer'}
                 >
-                  {credit.userName}
+                  {copyright.userName}
                 </a>{' '}
                 on{' '}
                 <a
@@ -247,23 +282,42 @@ export default function NewTab(): JSX.Element {
             ) : (
               <>
                 <form
-                  className={'search-form'}
-                  role="search"
-                  action="https://www.google.com/search"
+                  className={`search-form ${
+                    suggestion.length > 0 ? 'active' : ''
+                  }`}
+                  role={'search'}
+                  action={'https://www.google.com/search'}
                 >
                   <input
-                    className={'search-input'}
-                    type="search"
-                    id="query"
-                    name="q"
-                    placeholder="Search..."
-                    aria-label="Search through site content"
+                    type={'search'}
+                    id={'q'}
+                    name={'q'}
+                    autoComplete={'off'}
+                    placeholder={'Search on Google...'}
+                    onChange={(event) => onInputDebounce(event.target.value)}
+                    onBlur={() => onSearchInput('')}
                   />
-                  <button className={'search-button'}>
-                    <svg className={'search-svg'} viewBox="0 0 1024 1024">
+                  <div className="suggested-list">
+                    {suggestion.map((item, index) => (
+                      <li
+                        key={`item-${index}`}
+                        onClick={() => {
+                          const s = new URL('https://www.google.com/search');
+                          s.searchParams.set('q', item);
+                          window.location.href = s.toString();
+                        }}
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </div>
+                  <button className="search-button">
+                    <svg className={'search-svg'} viewBox={'0 0 1024 1024'}>
                       <path
-                        className="path1"
-                        d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"
+                        className={'path1'}
+                        d={
+                          'M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z'
+                        }
                       ></path>
                     </svg>
                   </button>
@@ -303,6 +357,14 @@ export default function NewTab(): JSX.Element {
           </div>
         </div>
       </div>
+      <ToastContainer
+        toastClassName={'toast-panel-container'}
+        autoClose={3000}
+        closeButton={false}
+        hideProgressBar
+        pauseOnHover
+      />
+      <Popup />
     </>
   );
 }
