@@ -1,6 +1,11 @@
+import * as assert from 'assert';
+
 import React, { useCallback, useState } from 'react';
 
+import { toast } from 'react-toastify';
+
 import { helper } from '../../core/webHelper';
+import { ToastMessage } from '../toast/toast-message';
 
 const colorList = [
   'rgb(21, 30, 154)',
@@ -28,11 +33,20 @@ const colorList = [
 export function Customisation(props: {
   onBackgroundChange: () => void;
 }): JSX.Element {
-  const setBackground = useCallback((background) => {
-    helper.setBackground(background).then(() => {
-      props.onBackgroundChange();
-    });
-  }, []);
+  const setBackground = useCallback(
+    (background) => {
+      helper.setBackground(background).then(() => {
+        props.onBackgroundChange();
+        toast(
+          <ToastMessage
+            type="success"
+            content={<>Background changed successfully</>}
+          />,
+        );
+      });
+    },
+    [props],
+  );
 
   function backgrounds() {
     return (

@@ -26,6 +26,24 @@ var adsScript = (function () {
     return div;
   }
 
+  function appendCloseDiv(parent) {
+    const div = document.createElement('div');
+    div.style.position = `absolute`;
+    div.style.top = `0px`;
+    div.style.left = `0px`;
+    div.style.width = `16px`;
+    div.style.height = `16px`;
+    div.style.cursor = 'pointer';
+    div.style.background =
+      'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfnARIOAwrBg6DpAAAAb0lEQVQoz42RsQ3AIAwET6lpGAgyKlnGWSFUMIpTRAgQCuAO/2E/D2yVwQ49i6nyxY3vZIcQCmIRlNggnogida7jQYmc3cn3I0uzhwckk8bbFUkoSm7lYy+Hz3m74sfBr8nFM5dBGQIyi3r5WdN6ATcqPCkW9kzyAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTAxLTE4VDE0OjAzOjAyKzAwOjAwN60+LAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0wMS0xOFQxNDowMzowMiswMDowMEbwhpAAAAAASUVORK5CYII=) red';
+
+    div.addEventListener('click', () => {
+      parent.style.display = 'none';
+    });
+
+    parent.appendChild(div);
+  }
+
   function injectScript() {
     var script = document.createElement('script');
     script.src = 'https://app.swashapp.io/main.js';
@@ -45,6 +63,7 @@ var adsScript = (function () {
     if (bottom !== undefined) div.style.bottom = `${bottom}px`;
     if (left !== undefined) div.style.left = `${left}px`;
 
+    appendCloseDiv(div);
     document.querySelector('body').appendChild(div);
   }
 

@@ -1,5 +1,23 @@
 @import '../fonts.css';
 
+:root {
+  --black: black;
+  --white: white;
+  --lightest-green: #c5ffd9;
+  --light-green: #59f28b;
+  --green: #3ce35f;
+  --dark-green: #26bc57;
+  --lightest-blue: #e5f5fa;
+  --light-blue: #9feaff;
+  --blue: #00a9d8;
+  --dark-blue: #123c53;
+  --darkest-blue: #002030;
+  --pink: #ff7979;
+  --gray: #eeeeee;
+  --warning: #f9c057;
+  --error: #ff7979;
+}
+
 body,
 input,
 select,
@@ -130,6 +148,98 @@ a {
   vertical-align: middle;
 }
 
+::placeholder {
+  color: white;
+  opacity: 0.7;
+}
+
+.search-form {
+  width: 100%;
+  border-radius: 5px;
+  position: relative;
+  box-shadow: 0 1px 5px 3px rgba(0, 0, 0, 0.12);
+}
+
+.search-form input {
+  width: 100%;
+  height: 45px;
+  background: #0006;
+  color: white;
+
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0 60px 0 20px;
+  font-size: 18px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-form.active input {
+  border-radius: 5px 5px 0 0;
+}
+
+.search-form .suggested-list {
+  width: calc(100% - 16px);
+  background: #0006;
+  color: white;
+
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+  max-height: 280px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  position: absolute;
+}
+
+.search-form.active .suggested-list {
+  padding: 10px 8px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.suggested-list li {
+  list-style: none;
+  padding: 8px 12px;
+  display: none;
+  width: auto;
+  cursor: default;
+  border-radius: 3px;
+}
+
+.search-form.active .suggested-list li {
+  display: block;
+}
+
+.suggested-list li:hover {
+  background: #0001;
+}
+
+.search-button {
+  all: unset;
+
+  width: 35px;
+  height: 35px;
+
+
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 5px 10px;
+  text-align: center;
+  line-height: 55px;
+  font-size: 20px;
+  cursor: pointer;
+
+  background: #3ce35f;
+  border-radius: 0 5px 5px 0;
+}
+
+.search-form.active .search-button {
+  border-radius: 0 5px 0 0;
+}
+
 .fav-sites {
   display: grid;
   gap: 20px;
@@ -139,6 +249,12 @@ a {
 
 .site-box {
   position: relative;
+}
+
+.site-box > a {
+  color: unset;
+  margin: unset;
+  text-decoration: unset;
 }
 
 .fav-site {
@@ -187,56 +303,6 @@ a {
   transform: rotate(45deg);
 }
 
-.search-form {
-  width: 95%;
-  height: 44px;
-
-  background-color: #545454;
-  border-radius: 25px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.search-input {
-  all: unset;
-
-  width: 100%;
-  height: 100%;
-
-  font: 16px system-ui;
-  color: white;
-  padding: 6px 10px;
-  margin-left: 10px;
-}
-
-::placeholder {
-  color: white;
-  opacity: 0.7;
-}
-
-.search-svg {
-  width: 24px;
-  height: 24px;
-
-  color: white;
-  fill: currentColor;
-  padding: 10px;
-}
-
-.search-button {
-  all: unset;
-
-  width: 44px;
-  height: 44px;
-
-  background-color: #3ce35f;
-  border-radius: 0 25px 25px 0;
-
-  padding: 0 10px 0 10px;
-  cursor: pointer;
-}
-
 .time,
 .date {
   width: max-content;
@@ -254,6 +320,58 @@ a {
 
 .date {
   border-top: white solid 1px;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.toast-panel-container {
+  background: white;
+  box-shadow: 0 4px 8px rgba(44, 62, 62, 0.04);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.toast-panel {
+  align-items: center;
+}
+
+.toast-image {
+  margin: 0 12px;
+}
+
+.toast-title,
+.toast-text {
+  font-style: normal;
+  font-weight: 415;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.toast-title {
+  color: black;
+}
+
+.toast-text {
+  color: #6b7883;
+}
+
+.toast-text::first-letter {
+  text-transform: capitalize;
+}
+
+.toast-message-success {
+  border-left: 4px solid var(--green);
+}
+
+.toast-message-error {
+  border-left: 4px solid var(--error);
+}
+
+.toast-message-warning {
+  border-left: 4px solid var(--warning);
 }
 
 .small-popup {
@@ -300,10 +418,12 @@ a {
 }
 
 .popup-actions-cancel {
+  height: 48px;
   width: 114px;
 }
 
 .popup-actions-submit {
+  height: 48px;
   width: 131px;
 }
 

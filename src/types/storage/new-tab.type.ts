@@ -11,7 +11,7 @@ export type NewTab = {
   sites: Site[];
 };
 
-export type UnsplashCredit = {
+export type UnsplashCopyright = {
   imageLink: string;
   location: string | null;
   userName: string;
@@ -20,5 +20,5 @@ export type UnsplashCredit = {
 
 export type UnsplashResponse = {
   src: string;
-  credit: UnsplashCredit;
+  copyright: UnsplashCopyright;
 };
