@@ -11,6 +11,7 @@ import { Customisation } from '../components/new-tab/customisation';
 import { Popup, showPopup } from '../components/popup/popup';
 import { helper } from '../core/webHelper';
 import {
+  SearchEngine,
   Site,
   UnsplashCopyright,
   UnsplashResponse,
@@ -26,6 +27,7 @@ const addUnsplashParams = (src: string): string => {
 export default function NewTab(): JSX.Element {
   const [bg, setBg] = useState('');
   const [style, setStyle] = useState({});
+  const [search, setSearch] = useState<SearchEngine>();
   const [sites, setSites] = useState([]);
   const [time, setTime] = useState(new Date());
   const [hide, setHide] = useState(false);
@@ -36,10 +38,6 @@ export default function NewTab(): JSX.Element {
     userName: '',
     userLink: '',
   });
-
-  const updateSites = useCallback(() => {
-    helper.getSites().then(setSites);
-  }, []);
 
   const updateBackground = useCallback(async () => {
     helper.getBackground().then((_bg) => {
@@ -58,6 +56,16 @@ export default function NewTab(): JSX.Element {
       }
     });
   }, [bg]);
+
+  const updateSearchEngine = useCallback(async () => {
+    helper.getSearchEngine().then((_search) => {
+      setSearch(_search);
+    });
+  }, []);
+
+  const updateSites = useCallback(() => {
+    helper.getSites().then(setSites);
+  }, []);
 
   const openSwashDashboard = useCallback(() => {
     browser.tabs
@@ -88,7 +96,12 @@ export default function NewTab(): JSX.Element {
       closable: false,
       closeOnBackDropClick: true,
       paperClassName: 'large-popup',
-      content: <Customisation onBackgroundChange={updateBackground} />,
+      content: (
+        <Customisation
+          onBackgroundChange={updateBackground}
+          onSearchEngineChange={updateSearchEngine}
+        />
+      ),
     });
   }, [updateBackground]);
 
@@ -185,8 +198,9 @@ export default function NewTab(): JSX.Element {
 
   useEffect(() => {
     updateBackground().then();
-
+    updateSearchEngine().then();
     updateSites();
+
     const interval = setInterval(() => setTime(new Date()), 1000);
 
     return () => {
@@ -286,14 +300,14 @@ export default function NewTab(): JSX.Element {
                     suggestion.length > 0 ? 'active' : ''
                   }`}
                   role={'search'}
-                  action={'https://www.google.com/search'}
+                  action={search?.url}
                 >
                   <input
                     type={'search'}
-                    id={'q'}
-                    name={'q'}
+                    id={search?.params || 'q'}
+                    name={search?.params || 'q'}
                     autoComplete={'off'}
-                    placeholder={'Search on Google...'}
+                    placeholder={`Search on ${search?.name}...`}
                     onChange={(event) => onInputDebounce(event.target.value)}
                     onBlur={() => onSearchInput('')}
                   />
@@ -302,8 +316,8 @@ export default function NewTab(): JSX.Element {
                       <li
                         key={`item-${index}`}
                         onClick={() => {
-                          const s = new URL('https://www.google.com/search');
-                          s.searchParams.set('q', item);
+                          const s = new URL(search?.url || '');
+                          s.searchParams.set(search?.params || 'q', item);
                           window.location.href = s.toString();
                         }}
                       >
@@ -349,7 +363,6 @@ export default function NewTab(): JSX.Element {
                     weekday: 'long',
                     day: '2-digit',
                     month: 'long',
-                    year: 'numeric',
                   })}
                 </div>
               </>

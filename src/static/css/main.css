@@ -2563,6 +2563,11 @@ hr.nav {
   padding: 41px 32px;
 }
 
+.beta-badge-header {
+  display: flex;
+  align-items: flex-end;
+}
+
 .badge-header {
   display: flex;
   align-items: center;
@@ -2679,7 +2684,8 @@ hr.nav {
   margin-bottom: 48px;
 }
 
-.beta-badge {
+.beta-badge,
+.beta-badge-page {
   font-style: italic;
   font-weight: 500;
   font-size: 12px;
@@ -2687,6 +2693,14 @@ hr.nav {
   color: #59f28b;
 
   margin-left: 8px;
+}
+
+.beta-badge {
+  margin-top: 4px;
+}
+
+.beta-badge-page {
+  margin-bottom: 8px;
 }
 
 .earn-more-new-tab-cards {

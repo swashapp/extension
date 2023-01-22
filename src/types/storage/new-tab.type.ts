@@ -4,9 +4,17 @@ export type Site = {
   icon: string;
 };
 
+export type SearchEngine = {
+  name: string;
+  url: string;
+  params: string;
+  logo: string;
+};
+
 export type NewTab = {
   status: boolean;
   background: string;
+  searchEngine: SearchEngine;
   topSites: boolean;
   sites: Site[];
 };

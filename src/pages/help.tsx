@@ -121,6 +121,11 @@ export function Help(): JSX.Element {
         link: makeTourLink(RouteToPages.settings, TOUR_NAME.SETTINGS),
       },
       {
+        text: 'Earn More',
+        done: !!tour[TOUR_NAME.EARN_MORE],
+        link: makeTourLink(RouteToPages.earnMore, TOUR_NAME.EARN_MORE),
+      },
+      {
         text: 'Donations',
         done: !!tour[TOUR_NAME.DONATIONS],
         link: makeTourLink(RouteToPages.donations, TOUR_NAME.DONATIONS),

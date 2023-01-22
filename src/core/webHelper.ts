@@ -831,6 +831,24 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function setSearchEngine(searchEngine) {
+    const message = {
+      obj: 'newTabHelper',
+      func: 'setSearchEngine',
+      params: [searchEngine],
+    };
+    return sendMessage(message);
+  }
+
+  function getSearchEngine() {
+    const message = {
+      obj: 'newTabHelper',
+      func: 'getSearchEngine',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
   return {
     load,
     save,
@@ -924,6 +942,8 @@ const helper = (function () {
     setBackground,
     getBackground,
     getUnsplashImage,
+    setSearchEngine,
+    getSearchEngine,
   };
 })();
 

@@ -1,10 +1,9 @@
-import * as assert from 'assert';
-
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { toast } from 'react-toastify';
 
 import { helper } from '../../core/webHelper';
+import { SearchEngine } from '../../types/storage/new-tab.type';
 import { ToastMessage } from '../toast/toast-message';
 
 const colorList = [
@@ -30,9 +29,27 @@ const colorList = [
   'rgb(0, 0, 0)',
 ];
 
+const searchEnginesList: SearchEngine[] = [
+  {
+    name: 'Google',
+    url: 'https://www.google.com/search',
+    params: 'q',
+    logo: '/static/images/logos/google.png',
+  },
+  {
+    name: 'Bing',
+    url: 'https://www.bing.com/search',
+    params: 'q',
+    logo: '/static/images/logos/bing.png',
+  },
+];
+
 export function Customisation(props: {
   onBackgroundChange: () => void;
+  onSearchEngineChange: () => void;
 }): JSX.Element {
+  const [page, setPage] = useState('Background');
+
   const setBackground = useCallback(
     (background) => {
       helper.setBackground(background).then(() => {
@@ -48,14 +65,31 @@ export function Customisation(props: {
     [props],
   );
 
-  function backgrounds() {
+  const setSearchEngine = useCallback(
+    (searchEngine: SearchEngine) => {
+      helper.setSearchEngine(searchEngine).then(() => {
+        props.onSearchEngineChange();
+        toast(
+          <ToastMessage
+            type="success"
+            content={<>Search engine changed successfully</>}
+          />,
+        );
+      });
+    },
+    [props],
+  );
+
+  const backgrounds = useMemo(() => {
     return (
-      <div className={'bg-options'}>
+      <div className={'cs-options'}>
         <div
-          className={'bg-option'}
+          className={'cs-option'}
           style={{
             backgroundImage: 'url(/static/images/logos/unsplash.png)',
             backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center center',
           }}
           onClick={() => {
             setBackground('unsplash');
@@ -64,16 +98,49 @@ export function Customisation(props: {
         {colorList.map((color, index) => (
           <div
             key={`color-${index}`}
-            className={'bg-option'}
+            className={'cs-option'}
             style={{ background: color }}
             onClick={() => {
               setBackground(color);
             }}
-          ></div>
+          />
         ))}
       </div>
     );
-  }
+  }, [setBackground]);
+
+  const searchEngines = useMemo(() => {
+    return (
+      <div className={'cs-options'}>
+        {searchEnginesList.map((search, index) => (
+          <div
+            key={`search-${index}`}
+            className={'cs-option-2'}
+            style={{
+              backgroundImage: `url(${search.logo})`,
+              backgroundSize: 'contain',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center center',
+            }}
+            onClick={() => {
+              setSearchEngine(search);
+            }}
+          />
+        ))}
+      </div>
+    );
+  }, []);
+
+  const loadSettings = useCallback(() => {
+    switch (page) {
+      case 'Background':
+        return backgrounds;
+      case 'Search Engine':
+        return searchEngines;
+      default:
+        return <></>;
+    }
+  }, [backgrounds, page, searchEngines]);
 
   return (
     <>
@@ -81,9 +148,20 @@ export function Customisation(props: {
       <div className="popup-separator" />
       <div className="popup-content-sidenav">
         <div className={'customisation-nav'}>
-          <div className={'settings-option'}>Background</div>
+          <div
+            className={'settings-option'}
+            onClick={() => setPage('Background')}
+          >
+            Background
+          </div>
+          <div
+            className={'settings-option'}
+            onClick={() => setPage('Search Engine')}
+          >
+            Search Engine
+          </div>
         </div>
-        <div className={'customisation-content'}>{backgrounds()}</div>
+        <div className={'customisation-content'}>{loadSettings()}</div>
       </div>
     </>
   );
