@@ -12,6 +12,7 @@ import { injectStyle } from 'react-toastify/dist/inject-style';
 
 import { DataTour } from '../components/components-tour/data-tour';
 import { DonationTour } from '../components/components-tour/donation-tour';
+import { EarnMoreTour } from '../components/components-tour/earn-more-tour';
 import { HelpTour } from '../components/components-tour/help-tour';
 import { HistoryTour } from '../components/components-tour/history-tour';
 import { InviteFriendsTour } from '../components/components-tour/invite-friends-tour';
@@ -69,6 +70,7 @@ function RouteComponent(
             <ExtensionComponent />
           </div>
           <ProfileTour />
+          <EarnMoreTour />
           <WalletTour />
           <InviteFriendsTour />
           <SettingsTour />

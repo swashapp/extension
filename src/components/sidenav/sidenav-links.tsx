@@ -5,6 +5,7 @@ import { helper } from '../../core/webHelper';
 import { SidenavItem, SidenavItems } from '../../data/sidenav-items';
 import { RouteToPages } from '../../paths';
 import { DATA_TOUR_CLASS } from '../components-tour/data-tour';
+import { EARN_MORE_TOUR_CLASS } from '../components-tour/earn-more-tour';
 import { HELP_TOUR_CLASS } from '../components-tour/help-tour';
 import { WALLET_TOUR_CLASS } from '../components-tour/wallet-tour';
 import { VerificationBadge } from '../verification/verification-badge';
@@ -19,6 +20,11 @@ export function SidenavLinks(props: { activeIndex?: number }): JSX.Element {
       SidenavItems.findIndex((item) => item.route === RouteToPages.wallet)
     )
       ret = WALLET_TOUR_CLASS.WALLET;
+    else if (
+      index ===
+      SidenavItems.findIndex((item) => item.route === RouteToPages.earnMore)
+    )
+      ret = EARN_MORE_TOUR_CLASS.EARN_MORE;
     else if (
       index ===
       SidenavItems.findIndex((item) => item.route === RouteToPages.data)

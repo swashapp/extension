@@ -17,8 +17,8 @@ export function HistoryTour(): JSX.Element {
           placement: 'bottom',
           content: (
             <>
-              All of your withdrawal and claim history will be logged here for
-              your reference.
+              All of your withdrawal, claim, donation, and Data Union history
+              will be logged here for your reference.
             </>
           ),
         },

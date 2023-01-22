@@ -1,6 +1,7 @@
 const ProfileIcon = '/static/images/icons/help/profile.png';
 const DataIcon = '/static/images/icons/help/data.png';
 const GettingStartedIcon = '/static/images/icons/help/getting-started.png';
+const EarnMoreIcon = '/static/images/icons/help/earn-more.png';
 const DonationsIcon = '/static/images/icons/help/donations.png';
 const InviteFriendsIcon = '/static/images/icons/help/invite-friends.png';
 const HistoryIcon = '/static/images/icons/help/history.png';
@@ -26,48 +27,28 @@ const HelpData = [
       '<br/>' +
       '<p>' +
       'You are now part of a game-changing movement to create a better internet.' +
-      '<br /><br />' +
-      'Before you dive in, make sure you get the latest updates by joining the chat on ' +
-      '<a' +
-      '  target="_blank"' +
-      '  rel="noopener noreferrer"' +
-      '  href="https://t.me/swashapp_group">Telegram</a>' +
-      ' or by following Swash on ' +
-      '<a' +
-      '  target="_blank"' +
-      '  rel="noopener noreferrer"' +
-      '  href="https://twitter.com/swashapp">Twitter</a>.' +
-      '</p>' +
+      '<br />' +
+      '<br />' +
+      'Before you dive in, get the latest updates by following Swash’s <a target="_blank rel="noopener noreferrer href="https://linktr.ee/swash_app">socials</a>, and joining the chat on <a target="_blank rel="noopener noreferrer href="https://t.me/swashapp_group">Telegram</a> or <a target="_blank rel="noopener noreferrer href="https://discord.gg/TsZ4FrBaqu">Discord</a> to speak to a member of the team</p>' +
       '<br/>' +
       '<i>So, what is Swash?</i>' +
-      '<br/><br/>' +
+      '<br/>' +
+      '<br/>' +
       '<p>' +
       'Swash is an ecosystem of tools and services that enable people, businesses, and developers to unlock the latent value of data by pooling, securely sharing, and monetising its value.' +
-      '<br/><br/>' +
+      '<br/>' +
+      '<br/>' +
       'People share their data to earn while retaining their privacy. Businesses access high-quality, zero-party data in a sustainable and compliant way. Developers set up and build systems within a collaborative development framework with ease.' +
-      '<br/><br/>' +
+      '<br/>' +
+      '<br/>' +
       'Swash is reimagining data ownership by enabling all actors of the data economy to earn, access, build and collaborate in a liquid digital ecosystem for data.' +
       '</p>' +
       '<br/>' +
       '<div class="title1">The Swash app</b>' +
       '<br/><br/>' +
       '<p>' +
-      '<a' +
-      '  target="_blank"' +
-      '  rel="noopener noreferrer"' +
-      '  href="https://swashapp.io/"' +
-      '>' +
-      'The Swash app' +
-      '</a>' +
-      ' is an ' +
-      '<a' +
-      '  target="_blank"' +
-      '  rel="noopener noreferrer"' +
-      '  href="https://medium.com/swashapp/weve-open-sourced-swash-to-make-data-unions-a-reality-7049e92c364b"' +
-      '>' +
-      'open-source' +
-      '</a>' +
-      ' solution that makes it possible for you to monetise your surfing data. Simply install, browse, and earn - that’s it. Swash does all the rest for you and rewards you for the value of your data.' +
+      '<a target="_blank rel="noopener noreferrer href="https://swashapp.io/"> The Swash app </a> is an ' +
+      '<a target="_blank rel="noopener noreferrer href="https://medium.com/swashapp/weve-open-sourced-swash-to-make-data-unions-a-reality-7049e92c364b">open-source</a> solution that makes it possible for you to monetise your surfing data. Simply install, browse, and earn - that’s it. Swash does all the rest for you and rewards you for the value of your data.' +
       '<br />' +
       '<br />' +
       'The current ecosystem doesn’t acknowledge that, without people, the digital economy wouldn’t exist. A small number of companies enjoy the profits that are created by collecting, using, and selling our data in shady ways without any consequences.' +
@@ -86,22 +67,7 @@ const HelpData = [
       '<br />' +
       '<br />' +
       'In this section, you’ll find a walkthrough of each feature within the Swash extension. If you have any questions, check out the ' +
-      '<a' +
-      '  target="_blank"' +
-      '  rel="noopener noreferrer"' +
-      '  href="https://swashapp.io/faq"' +
-      '>' +
-      'Swash FAQ' +
-      '</a>' +
-      ', or ' +
-      '<a' +
-      '  target="_blank"' +
-      '  rel="noopener noreferrer"' +
-      '  href="https://swashapp.io/contact"' +
-      '>' +
-      'get in touch' +
-      '</a>' +
-      ' with the team.</p>',
+      '<a target="_blank rel="noopener noreferrer href="https://swashapp.io/faq" >Swash FAQ</a>, or <a target="_blank" rel="noopener noreferrer href="https://swashapp.io/contact">get in touch</a></target></a> with the team.</p>',
   },
   {
     title: 'Getting Started',
@@ -135,7 +101,11 @@ const HelpData = [
       'By sharing some basic information about yourself, we can confirm that you’re human and not a robot.' +
       '<br />' +
       '<br />' +
-      'Swash is <a href="https://ico.org.uk/ESDWebPages/Entry/ZB125042" target="_blank" rel="noopener noreferrer">registered</a> with the <a href="https://ico.org.uk/" target="_blank" rel="noopener noreferrer">Information Commissioner’s Office</a> in the United Kingdom and has completed a <a href="https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/accountability-and-governance/data-protection-impact-assessments/" target="_blank" rel="noopener noreferrer">Data Protection Impact Assessment</a>. If you want to learn more about how your data is used, you can always check out the <a href="https://swashapp.io/privacy-policy/extension" target="_blank" rel="noopener noreferrer">privacy policy</a>.' +
+      'Swash is <a href="https://ico.org.uk/ESDWebPages/Entry/ZB125042" target="_blank" rel="noopener noreferrer">registered</a> with the <a href="https://ico.org.uk/" target="_blank" rel="noopener noreferrer">Information Commissioner’s Office</a> in the United Kingdom and has completed a <a href="https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/accountability-and-governance/data-protection-impact-assessments/" target="_blank" rel="noopener noreferrer">Data Protection Impact Assessment</a>. Swash is also an accredited member of the <a target="_blank rel="noopener noreferrer href="https://bit.ly/3W48Mgx">DMA</a>.' +
+      '<br />' +
+      '<br />' +
+      'If you want to learn more about how your data is used, you can always check out the ' +
+      '<a href="https://swashapp.io/privacy-policy/extension" target="_blank" rel="noopener noreferrer">privacy policy</a>.' +
       '<br />' +
       '<br />' +
       'What’s more, when you verify your profile, you will receive a $REWARD_PROFILE SWASH reward!' +
@@ -150,14 +120,7 @@ const HelpData = [
     id: 'wallet-title-id',
     content:
       '<p>' +
-      'The wallet page is where you can see what you’ve earned when using Swash. All earnings are listed in Swash’s native token, or cryptocurrency, called ' +
-      '<a' +
-      '  target="_blank"' +
-      '  rel="noopener noreferrer"' +
-      '  href="https://etherscan.io/token/0xa130e3a33a4d84b04c3918c4e5762223ae252f80"' +
-      '>' +
-      'SWASH' +
-      '</a>' +
+      'The wallet page is where you can see what you’ve earned when using Swash. All earnings are listed in Swash’s native token, or cryptocurrency, called <a target="_blank" rel="noopener noreferrer" href="https://etherscan.io/token/0xa130e3a33a4d84b04c3918c4e5762223ae252f80">SWASH</a>' +
       '<br/>' +
       '<br/>' +
       'Your wallet address is your unique identifier within the Swash ecosystem.' +
@@ -211,12 +174,7 @@ const HelpData = [
       '</p>' +
       '<ol>' +
       '<li>' +
-      '<a' +
-      '  target="_blank"' +
-      '  rel="noopener noreferrer"' +
-      '  href="https://docs.gnosischain.com/tools/wallets/metamask">' +
-      ' Connect your Metamask to Gnosis Chain' +
-      '</a>' +
+      '<a target="_blank rel="noopener noreferrer href="https://docs.gnosischain.com/tools/wallets/metamask">Connect your Metamask to Gnosis Chain</a>' +
       '<br />' +
       '<br />' +
       '<iframe src="https://www.youtube.com/embed/Fahs29XBrcw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>' +
@@ -226,13 +184,7 @@ const HelpData = [
       '<br />' +
       '</li>' +
       '<li>' +
-      "Add SWASH as a token in your Metamask Gnosis Chain wallet using the 'Import Token' button. You can find the SWASH Token Contract Address " +
-      '<a' +
-      '  target="_blank"' +
-      '  rel="noopener noreferrer"' +
-      '  href="https://blockscout.com/xdai/mainnet/tokens/0x84e2c67cbefae6b5148fca7d02b341b12ff4b5bb">' +
-      'here' +
-      '</a>' +
+      'Add SWASH as a token in your Metamask Gnosis Chain wallet using the "Import Token" button. You can find the SWASH Token Contract Address <a target="_blank rel="noopener noreferrer href="https://blockscout.com/xdai/mainnet/tokens/0x84e2c67cbefae6b5148fca7d02b341b12ff4b5bb">here</a>' +
       '<br />' +
       '<br />' +
       '<iframe src="https://www.youtube.com/embed/aeoJrVbkP5Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>' +
@@ -264,17 +216,7 @@ const HelpData = [
       '</ol>' +
       '<p>' +
       '🎉 Bonus: Once received, you can also put your SWASH to work by trading or staking liquidity on the ' +
-      '<a' +
-      '  target="_blank"' +
-      '  rel="noopener noreferrer"' +
-      '  href="https://info.honeyswap.org/pair/0x0110f008b8815cf00514d54ea11bfa8bb555c69b#/pair/0xfd8fe4c85e5c2e56207ffb50b0e9eb43116f282f">' +
-      'SWASH/Gnosis Chain pool' +
-      '</a>' +
-      ' on ' +
-      '<a' +
-      '  target="_blank"' +
-      '  rel="noopener noreferrer"' +
-      '  href="https://app.honeyswap.org/#/swap">Honeyswap</a> 🐝' +
+      '<a target="_blank rel="noopener noreferrer href="https://info.honeyswap.org/pair/0x0110f008b8815cf00514d54ea11bfa8bb555c69b#/pair/0xfd8fe4c85e5c2e56207ffb50b0e9eb43116f282f">SWASH/Gnosis Chain pool</a> on <a target="_blank rel="noopener noreferrer href="https://app.honeyswap.org/#/swap">Honeyswap</a> 🐝' +
       '<br/><br />' +
       '</p>' +
       "<div class='title2'>Understanding error messages</div>" +
@@ -320,17 +262,36 @@ const HelpData = [
       '</li>' +
       '</ol>' +
       '<p>' +
-      'Transaction fees (or ‘' +
-      '<a' +
-      '  target="_blank"' +
-      '  rel="noopener noreferrer"' +
-      '  href="https://ethereum.org/en/developers/docs/gas/">' +
-      'gas fees' +
-      '</a>' +
-      '’) are the cost of energy needed to run a transaction on Ethereum. The cost will vary depending on the Ethereum network and the cost of the particular transaction in question.' +
+      'Transaction fees (or ‘<a target="_blank rel="noopener noreferrer href="https://ethereum.org/en/developers/docs/gas/">gas fees</a>’) are the cost of energy needed to run a transaction on Ethereum. The cost will vary depending on the Ethereum network and the cost of the particular transaction in question.' +
       '<br />' +
       '<br />' +
       'Alternatively, if you use Ethereum, you will be presented with the amount needed in your wallet (in ETH) to cover the transaction fee.' +
+      '</p>',
+  },
+  {
+    title: 'Earn More',
+    icon: EarnMoreIcon,
+    id: 'earn-more-title-id',
+    content:
+      '<p>Currently in beta, Swash’s Earn More feature enables verified Swash app members to turboboost their earnings by opting in for new ways to earn online.' +
+      '<br />' +
+      '<br />' +
+      'Now live with <a href="https://bit.ly/3WyGXxu" target="_blank" rel="noopener noreferrer">Swash ads</a> and a fully customisable New Tab Experience, new ways to Earn More will be added to this page over time, including surveys, videos, and technical and commercial product integrations with our partners.\n' +
+      '<br />' +
+      '<br />' +
+      'Be sure to verify your profile to be eligible to earn from Swash ads.' +
+      '</p>' +
+      '<br />' +
+      '<br />' +
+      '<div class="title1">New Tab Experience</div>' +
+      '<br />' +
+      '<p>With the Swash New Tab Experience (NTX), you can not-only earn from full page and integrated news ads, you can also fully customise your view to include widgets, jokes, gifs, and more.' +
+      '<br />' +
+      '<br />' +
+      'Check out the latest news by scrolling down the Swash News section. Tailor results to your favourite sources in NTX settings.' +
+      '<br />' +
+      '<br />' +
+      'Show us your customised NTX by tagging @swashapp on Twitter and using the hashtag ‘#SwashNTX’!' +
       '</p>',
   },
   {
@@ -416,7 +377,7 @@ const HelpData = [
     id: 'history-title-id',
     content:
       '<p>' +
-      'The History section displays the entire history of your transactions on Swash so you can easily track when you made claims and withdrawals.' +
+      'The History section displays the entire history of your transactions on Swash so you can easily track when you made claims and withdrawals, when you donated, and when you joined or left the Data Union.' +
       '</p>',
   },
   {
@@ -429,7 +390,7 @@ const HelpData = [
       '</div>' +
       '<br />' +
       '<p>' +
-      'It’s important that you download your settings as either a local file, Google Drive, or Dropbox.' +
+      'It’s important that you download your settings as either a local file, private key, Google Drive, or Dropbox.' +
       '<br />' +
       '<br />' +
       'You can then use this file to connect Swash on other devices and browsers, so keep it in a safe place. Even if you don’t think you’ll do this, it’s highly recommended that you backup your settings anyway.' +
@@ -487,6 +448,14 @@ const HelpData = [
       '<a' +
       '  target="_blank"' +
       '  rel="noopener noreferrer"' +
+      '  href="https://discord.gg/TsZ4FrBaqu"' +
+      '>' +
+      'Discord' +
+      '</a>' +
+      '<br />' +
+      '<a' +
+      '  target="_blank"' +
+      '  rel="noopener noreferrer"' +
       '  href="https://medium.com/swashapp"' +
       '>' +
       'Blog' +
@@ -506,6 +475,22 @@ const HelpData = [
       '  href="https://www.linkedin.com/company/swashapp/"' +
       '>' +
       'Linkedin' +
+      '</a>' +
+      '<br />' +
+      '<a' +
+      '  target="_blank"' +
+      '  rel="noopener noreferrer"' +
+      '  href="https://www.tiktok.com/@swashapp"' +
+      '>' +
+      'TikTok' +
+      '</a>' +
+      '<br />' +
+      '<a' +
+      '  target="_blank"' +
+      '  rel="noopener noreferrer"' +
+      '  href="https://www.instagram.com/swashapp.io/"' +
+      '>' +
+      'Instagram' +
       '</a>' +
       '<br />' +
       '<a' +

@@ -21,6 +21,12 @@ export class NewTabEntity extends Entity<NewTab> {
     await this.create({
       status: false,
       background: 'rgb(36, 36, 36)',
+      searchEngine: {
+        name: 'Google',
+        url: 'https://www.google.com/search',
+        params: 'q',
+        logo: '/static/images/logos/google.png',
+      },
       topSites: false,
       sites: [
         { title: '', url: '', icon: '' },

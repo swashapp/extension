@@ -1,4 +1,8 @@
-import { NewTab, UnsplashResponse } from '../types/storage/new-tab.type';
+import {
+  NewTab,
+  SearchEngine,
+  UnsplashResponse,
+} from '../types/storage/new-tab.type';
 
 import { configManager } from './configManager';
 import { storageHelper } from './storageHelper';
@@ -62,6 +66,15 @@ const newTabHelper = (function () {
     return unsplashImages.pop();
   }
 
+  async function setSearchEngine(searchEngine: SearchEngine) {
+    const db = await storageHelper.getNewTab();
+    db.searchEngine = searchEngine;
+    await storageHelper.saveNewTab(db);
+  }
+  async function getSearchEngine() {
+    return (await storageHelper.getNewTab()).searchEngine;
+  }
+
   return {
     init,
     addSite,
@@ -69,6 +82,8 @@ const newTabHelper = (function () {
     setBackground,
     getBackground,
     getUnsplashImage,
+    setSearchEngine,
+    getSearchEngine,
   };
 })();
 

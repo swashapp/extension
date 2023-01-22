@@ -27,7 +27,7 @@ export function ProfileTour(): JSX.Element {
           header: 'Get your profile reward 🏆',
           target: `.${PROFILE_TOUR_CLASS.VERIFY_PROFILE}`,
           placement: 'right',
-          content: <>Complete your profile to earn some SWASH bonus!</>,
+          content: <>Verify your profile to tell Swash you’re not a bot!</>,
         },
       ]}
     />

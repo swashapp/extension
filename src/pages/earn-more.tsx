@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
+import { EARN_MORE_TOUR_CLASS } from '../components/components-tour/earn-more-tour';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { showPopup } from '../components/popup/popup';
@@ -49,9 +50,9 @@ export function EarnMore(): JSX.Element {
     <div className="page-container">
       <BackgroundTheme />
       <div className="page-content">
-        <div className="page-header badge-header">
+        <div className="page-header beta-badge-header">
           <h2>Earn More</h2>
-          <div className={'beta-badge'}>Beta</div>
+          <div className={'beta-badge-page'}>Beta</div>
         </div>
         {verified === undefined ? (
           <></>
@@ -88,7 +89,9 @@ export function EarnMore(): JSX.Element {
               })
             )}
             <div className="simple-card">
-              <h6>Earn More</h6>
+              <h6 className={EARN_MORE_TOUR_CLASS.AMPLIFY_EARNINGS}>
+                Earn More
+              </h6>
               <p>
                 Currently in beta, Swash’s Earn More feature enables verified
                 Swash app members to turbo boost their earnings by opting in for
@@ -127,8 +130,10 @@ export function EarnMore(): JSX.Element {
             </div>
             <div className="simple-card">
               <FlexGrid column={2} className="earn-more-new-tab-cards card-gap">
-                <div className="simple-card">
-                  <h6>Get the New Tab Experience</h6>
+                <div className="simple-card ">
+                  <h6 className={EARN_MORE_TOUR_CLASS.NEW_TAB}>
+                    Get the New Tab Experience
+                  </h6>
                   <p className="earn-more-new-tab-description">
                     Are you ready to level up your browser?
                     <br />
