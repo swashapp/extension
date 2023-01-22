@@ -3,15 +3,26 @@
   "url_excludes": [
     "moz-extension://*/*",
     "*://www.google.com/?*",
-    "*://www.google.com/search?*"
+    "*://www.google.com/search?*",
+    "*://mail.google.com/*",
+    "*://accounts.google.com/*",
+    "*://outlook.live.com/*",
+    "*://login.live.com/*",
+    "*://mail.yahoo.com/*",
+    "*://login.yahoo.com/*",
+    "*://mail.aol.com/*",
+    "*://login.aol.com/*",
+    "*://www.icloud.com/mail/*",
+    "*://mail.yandex.com/*",
+    "*://passport.yandex.com/*"
   ],
   "os_mapping": {
     "win": "desktop",
     "mac": "desktop",
-    "android": "desktop",
+    "android": "mobile",
     "cros": "desktop",
     "openbsd": "desktop",
-    "ios": "desktop",
+    "ios": "mobile",
     "ipados": "desktop"
   },
   "desktop": [
