@@ -2,6 +2,7 @@
 // @ts-nocheck
 import browser from 'webextension-polyfill';
 
+import { AdsEntity } from '../../entities/ads.entity';
 import { browserUtils } from '../../utils/browser.util';
 import { commonUtils } from '../../utils/common.util';
 import { adsHelper } from '../adsHelper';
@@ -101,6 +102,7 @@ const ads = (function () {
   }
 
   async function getAdsInfo(url) {
+    const { paused } = await storageHelper.getAdsConfig();
     const modules = await storageHelper.getModules();
     const messages = [];
     for (const module of Object.values(modules)) {
@@ -116,10 +118,24 @@ const ads = (function () {
           if (!excluded) {
             for (const item of module.ads.url_matches) {
               if (commonUtils.wildcard(url, item)) {
-                const ads = module.ads.items.filter(function (item) {
+                const allAds = module.ads.items.filter(function (item) {
                   return (
                     item.is_enabled && commonUtils.wildcard(url, item.url_match)
                   );
+                });
+
+                const ads = allAds.filter((ad) => {
+                  if (Object.keys(paused).includes(ad.name)) {
+                    for (const item of paused[ad.name]) {
+                      const { domain, until } = item;
+                      if (domain && commonUtils.wildcard(url, domain)) {
+                        return false;
+                      } else if (until && until > new Date().getTime()) {
+                        return false;
+                      }
+                    }
+                  }
+                  return true;
                 });
 
                 for (let i = 0; i < ads.length; i++) {
@@ -141,13 +157,49 @@ const ads = (function () {
         }
       }
     }
+    const adsEntity = await AdsEntity.getInstance();
+    await adsEntity.removeOldPause();
+
     return messages;
   }
+
+  async function pauseAds(type, value) {
+    const adsEntity = await AdsEntity.getInstance();
+    const time = value.split(' ');
+
+    const now = new Date().getTime();
+    let until = +time[0];
+
+    switch (time[1].toLocaleLowerCase()) {
+      case 'minute':
+      case 'minutes':
+        until *= 60;
+        break;
+      case 'hour':
+      case 'hours':
+        until *= 3600;
+        break;
+      default:
+        break;
+    }
+
+    await adsEntity.addPaused(type, { until: now + until * 1000 });
+  }
+
+  async function excludeDomain(type, domain) {
+    const adsEntity = await AdsEntity.getInstance();
+
+    const url = new URL(domain);
+    await adsEntity.addPaused(type, { domain: `${url.origin}/*` });
+  }
+
   return {
     initModule,
     load,
     unload,
     getAdsInfo,
+    pauseAds,
+    excludeDomain,
   };
 })();
 export { ads };
