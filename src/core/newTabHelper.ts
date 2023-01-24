@@ -1,4 +1,5 @@
 import {
+  DateTime,
   NewTab,
   SearchEngine,
   UnsplashResponse,
@@ -16,6 +17,10 @@ const newTabHelper = (function () {
     newTabConfig = await configManager.getConfig('newTab');
   }
 
+  async function getConfig() {
+    return await storageHelper.getNewTab();
+  }
+
   async function addSite(
     rank: number,
     title: string,
@@ -26,18 +31,11 @@ const newTabHelper = (function () {
     db.sites[rank] = { title, url, icon };
     await storageHelper.saveNewTab(db);
   }
-  async function getSites() {
-    return (await storageHelper.getNewTab()).sites;
-  }
 
   async function setBackground(background: string) {
     const db = await storageHelper.getNewTab();
     db.background = background;
     await storageHelper.saveNewTab(db);
-  }
-
-  async function getBackground() {
-    return (await storageHelper.getNewTab()).background;
   }
 
   async function getUnsplashImage(width: string) {
@@ -71,19 +69,25 @@ const newTabHelper = (function () {
     db.searchEngine = searchEngine;
     await storageHelper.saveNewTab(db);
   }
-  async function getSearchEngine() {
-    return (await storageHelper.getNewTab()).searchEngine;
+
+  async function setDatetime(datetime: DateTime) {
+    const db = await storageHelper.getNewTab();
+    db.datetime = datetime;
+    await storageHelper.saveNewTab(db);
+  }
+  async function getDatetime() {
+    return (await storageHelper.getNewTab()).datetime;
   }
 
   return {
     init,
+    getConfig,
     addSite,
-    getSites,
     setBackground,
-    getBackground,
     getUnsplashImage,
     setSearchEngine,
-    getSearchEngine,
+    setDatetime,
+    getDatetime,
   };
 })();
 

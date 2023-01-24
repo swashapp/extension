@@ -786,6 +786,15 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function getNewTabConfig() {
+    const message = {
+      obj: 'newTabHelper',
+      func: 'getConfig',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
   function addSite(rank, title, url, icon) {
     const message = {
       obj: 'newTabHelper',
@@ -795,29 +804,11 @@ const helper = (function () {
     return sendMessage(message);
   }
 
-  function getSites() {
-    const message = {
-      obj: 'newTabHelper',
-      func: 'getSites',
-      params: [],
-    };
-    return sendMessage(message);
-  }
-
   function setBackground(background) {
     const message = {
       obj: 'newTabHelper',
       func: 'setBackground',
       params: [background],
-    };
-    return sendMessage(message);
-  }
-
-  function getBackground() {
-    const message = {
-      obj: 'newTabHelper',
-      func: 'getBackground',
-      params: [],
     };
     return sendMessage(message);
   }
@@ -840,10 +831,19 @@ const helper = (function () {
     return sendMessage(message);
   }
 
-  function getSearchEngine() {
+  function setDatetime(datetime) {
     const message = {
       obj: 'newTabHelper',
-      func: 'getSearchEngine',
+      func: 'setDatetime',
+      params: [datetime],
+    };
+    return sendMessage(message);
+  }
+
+  function getDatetime() {
+    const message = {
+      obj: 'newTabHelper',
+      func: 'getDatetime',
       params: [],
     };
     return sendMessage(message);
@@ -937,13 +937,13 @@ const helper = (function () {
     getAdsSlots,
     updateAdsStatus,
     getAdsStatus,
+    getNewTabConfig,
     addSite,
-    getSites,
     setBackground,
-    getBackground,
     getUnsplashImage,
     setSearchEngine,
-    getSearchEngine,
+    setDatetime,
+    getDatetime,
   };
 })();
 

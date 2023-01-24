@@ -35,6 +35,10 @@ export class NewTabEntity extends Entity<NewTab> {
         { title: '', url: '', icon: '' },
         { title: '', url: '', icon: '' },
       ],
+      datetime: {
+        seconds: false,
+        h24: true,
+      },
     });
   }
 

@@ -60,6 +60,7 @@ a {
 .row-2,
 .row-3 {
   display: flex;
+  width: inherit;
 }
 
 .row-1 {
@@ -91,8 +92,7 @@ a {
   line-height: 24px;
 
   color: white;
-  /*filter: drop-shadow(1px 1px 1px black);*/
-  -webkit-text-stroke: 1px black;
+  filter: drop-shadow(1px 1px 1px black);
 }
 
 .item-search {
@@ -130,8 +130,7 @@ a {
 
 .item-actions > div {
   cursor: pointer;
-  /*filter: drop-shadow(1px 1px 1px black);*/
-  -webkit-text-stroke: 1px black;
+  filter: drop-shadow(1px 1px 1px black);
 }
 
 .item-actions-customise {
@@ -318,19 +317,18 @@ a {
   text-align: left;
 
   color: white;
-  /*filter: drop-shadow(1px 1px 1px black);*/
-  -webkit-text-stroke: 1px black;
+  filter: drop-shadow(1px 1px 1px black);
 }
 
 .time {
-  font-size: 120px;
-  line-height: 128px;
+  font-size: 90px;
+  line-height: 98px;
 }
 
 .date {
   border-top: white solid 1px;
-  font-size: 60px;
-  line-height: 68px;
+  font-size: 50px;
+  line-height: 56px;
 }
 
 .flex-row {
@@ -438,6 +436,10 @@ a {
   width: 131px;
 }
 
+.customisation-container {
+  width: max-content;
+}
+
 .customisation-nav {
   width: 244px;
   margin-top: -12px;
@@ -448,7 +450,7 @@ a {
 .settings-option {
   cursor: pointer;
   margin-left: -24px;
-  padding: 12px 24px;
+  padding: 12px 24px 18px 24px;
 
   border-bottom: 1px solid #e7f4f4;
 }
@@ -466,6 +468,12 @@ a {
 
   gap: 10px;
   padding: 0 30px;
+}
+
+.cs-options-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .cs-option {
@@ -486,4 +494,11 @@ a {
   border-radius: 15px;
 
   cursor: pointer;
+}
+
+.cs-option-3 {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
 }

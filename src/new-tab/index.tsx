@@ -9,6 +9,7 @@ import ReactDOM from 'react-dom';
 import { HashRouter as Router } from 'react-router-dom';
 
 import '../static/css/new-tab/main.css';
+import '../static/css/new-tab/mobile.css';
 import '../static/css/new-tab/smobile.css';
 
 import { helper } from '../core/webHelper';
