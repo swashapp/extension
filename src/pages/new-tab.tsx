@@ -10,6 +10,8 @@ import { AddSite } from '../components/new-tab/add-site';
 import { Customisation } from '../components/new-tab/customisation';
 import { Popup, showPopup } from '../components/popup/popup';
 import { helper } from '../core/webHelper';
+import { NewTab as NTXConfig } from '../types/storage/new-tab.type';
+
 import {
   SearchEngine,
   Site,
@@ -28,8 +30,9 @@ export default function NewTab(): JSX.Element {
   const [bg, setBg] = useState('');
   const [style, setStyle] = useState({});
   const [search, setSearch] = useState<SearchEngine>();
-  const [sites, setSites] = useState([]);
+  const [sites, setSites] = useState<Site[]>([]);
   const [time, setTime] = useState(new Date());
+  const [timeFormat, setTimeFormat] = useState<Intl.DateTimeFormatOptions>();
   const [hide, setHide] = useState(false);
   const [suggestion, setSuggestion] = useState<string[]>([]);
   const [copyright, setCopyright] = useState<UnsplashCopyright>({
@@ -39,32 +42,37 @@ export default function NewTab(): JSX.Element {
     userLink: '',
   });
 
-  const updateBackground = useCallback(async () => {
-    helper.getBackground().then((_bg) => {
-      setBg(_bg);
-      if (bg === 'unsplash') {
-        helper
-          .getUnsplashImage(window.innerWidth.toString())
-          .then(async (response: UnsplashResponse) => {
-            setCopyright(response.copyright);
-            setStyle({
-              backgroundImage: `url("${addUnsplashParams(response.src)}")`,
+  const getConfigs = useCallback((cache = true) => {
+    helper.getNewTabConfig().then((config: NTXConfig) => {
+      const { background, searchEngine, sites, datetime } = config;
+      setSearch(searchEngine);
+      setSites(sites);
+
+      if (!cache) {
+        setBg(background);
+        if (background === 'unsplash') {
+          helper
+            .getUnsplashImage(window.innerWidth.toString())
+            .then(async (response: UnsplashResponse) => {
+              setCopyright(response.copyright);
+              setStyle({
+                backgroundImage: `url("${addUnsplashParams(response.src)}")`,
+              });
             });
-          });
-      } else {
-        setStyle({ background: `${_bg}` });
+        } else {
+          setStyle({ background: `${background}` });
+        }
       }
-    });
-  }, [bg]);
 
-  const updateSearchEngine = useCallback(async () => {
-    helper.getSearchEngine().then((_search) => {
-      setSearch(_search);
-    });
-  }, []);
+      const format: Intl.DateTimeFormatOptions = {
+        hour: '2-digit',
+        minute: '2-digit',
+      };
 
-  const updateSites = useCallback(() => {
-    helper.getSites().then(setSites);
+      format['hourCycle'] = datetime.h24 ? 'h24' : 'h12';
+      if (datetime.seconds) format['second'] = '2-digit';
+      setTimeFormat(format);
+    });
   }, []);
 
   const openSwashDashboard = useCallback(() => {
@@ -96,14 +104,9 @@ export default function NewTab(): JSX.Element {
       closable: false,
       closeOnBackDropClick: true,
       paperClassName: 'large-popup',
-      content: (
-        <Customisation
-          onBackgroundChange={updateBackground}
-          onSearchEngineChange={updateSearchEngine}
-        />
-      ),
+      content: <Customisation onChange={getConfigs} />,
     });
-  }, [updateBackground]);
+  }, [getConfigs]);
 
   const onSearchInput = useCallback((value) => {
     const _api = new URL('http://suggestqueries.google.com/complete/search');
@@ -140,19 +143,19 @@ export default function NewTab(): JSX.Element {
         closable: false,
         closeOnBackDropClick: true,
         paperClassName: 'small-popup',
-        content: <AddSite rank={rank} onSave={updateSites} />,
+        content: <AddSite rank={rank} onSave={getConfigs} />,
       });
     },
-    [updateSites],
+    [getConfigs],
   );
 
   const removeSite = useCallback(
     (rank) => {
       helper.addSite(rank, '', '', '').then(() => {
-        updateSites();
+        getConfigs();
       });
     },
-    [updateSites],
+    [getConfigs],
   );
 
   function getSites() {
@@ -197,16 +200,14 @@ export default function NewTab(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    updateBackground().then();
-    updateSearchEngine().then();
-    updateSites();
+    getConfigs(false);
 
     const interval = setInterval(() => setTime(new Date()), 1000);
 
     return () => {
       clearInterval(interval);
     };
-  }, [updateBackground, updateSites]);
+  }, [getConfigs]);
 
   return (
     <>
@@ -351,12 +352,7 @@ export default function NewTab(): JSX.Element {
             ) : (
               <>
                 <div className={'time'}>
-                  {time.toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hourCycle: 'h24',
-                  })}
+                  {time.toLocaleTimeString([], timeFormat)}
                 </div>
                 <div className={'date'}>
                   {time.toLocaleDateString([], {

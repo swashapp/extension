@@ -11,12 +11,18 @@ export type SearchEngine = {
   logo: string;
 };
 
+export type DateTime = {
+  seconds: boolean;
+  h24: boolean;
+};
+
 export type NewTab = {
   status: boolean;
   background: string;
   searchEngine: SearchEngine;
   topSites: boolean;
   sites: Site[];
+  datetime: DateTime;
 };
 
 export type UnsplashCopyright = {

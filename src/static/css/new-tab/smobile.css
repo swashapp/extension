@@ -5,6 +5,7 @@
 
   .row-1 {
     flex-direction: column;
+    justify-content: flex-start;
     gap: 20px;
   }
 
@@ -26,11 +27,18 @@
     gap: 10px;
   }
 
+  .customisation-container {
+    width: inherit;
+    overflow-x: scroll;
+  }
+
   .customisation-nav {
-    width: calc(100% + 48px);
+    width: max-content;
     border-right: unset;
     border-bottom: 1px solid #e7f4f4;
     margin-left: -24px;
+
+    display: flex;
   }
 
   .settings-option {
@@ -50,6 +58,11 @@
 }
 
 @media only screen and (max-width: 468px) {
+  .cs-option {
+    width: 200px;
+    height: 100px;
+  }
+
   .fav-sites {
     transform: scale(0.75);
   }
