@@ -1,5 +1,5 @@
 var adsScript = (function () {
-  const CLOSE_TEXT = 'Close this ads only';
+  const CLOSE_TEXT = 'Close this ad only';
   const FILTER_TEXT = 'Forever on this site';
 
   const pauseOptions = ['15 minutes', '60 minutes', CLOSE_TEXT, FILTER_TEXT];
