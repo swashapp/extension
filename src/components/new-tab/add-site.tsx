@@ -54,7 +54,12 @@ export function AddSite(props: {
             try {
               const _url = new URL(url);
               helper
-                .addSite(props.rank, title, url, `${_url.origin}/favicon.ico`)
+                .addSite(
+                  props.rank,
+                  title,
+                  url,
+                  `https://www.google.com/s2/favicons?sz=64&domain_url=${_url.origin}`,
+                )
                 .then(() => {
                   props.onSave();
                   closePopup();

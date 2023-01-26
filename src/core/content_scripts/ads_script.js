@@ -206,7 +206,7 @@ var adsScript = (function () {
 
     div.style.background = 'rgb(245, 245, 245)';
     div.style.position = 'fixed';
-    div.style.zIndex = '10';
+    div.style.zIndex = Number.MAX_SAFE_INTEGER;
     if (top !== undefined) div.style.top = `${top}px`;
     if (right !== undefined) div.style.right = `${right}px`;
     if (bottom !== undefined) div.style.bottom = `${bottom}px`;

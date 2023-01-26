@@ -4,6 +4,8 @@
     "moz-extension://*/*",
     "*://www.google.com/?*",
     "*://www.google.com/search?*",
+    "*://docs.google.com/*",
+    "*://drive.google.com/*",
     "*://mail.google.com/*",
     "*://accounts.google.com/*",
     "*://outlook.live.com/*",
@@ -14,7 +16,14 @@
     "*://login.aol.com/*",
     "*://www.icloud.com/mail/*",
     "*://mail.yandex.com/*",
-    "*://passport.yandex.com/*"
+    "*://passport.yandex.com/*",
+    "*://www.facebook.com/login*",
+    "*://www.facebook.com/v3.2/dialog/oauth*",
+    "*://twitter.com/login*",
+    "*://twitter.com/account*",
+    "*://www.amazon.com/ap/signin*",
+    "*://*.amazon.com/oauth?*",
+    "*://*.amazon.com/console/*"
   ],
   "os_mapping": {
     "win": "desktop",
