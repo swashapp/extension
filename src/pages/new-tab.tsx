@@ -158,7 +158,8 @@ export default function NewTab(): JSX.Element {
     [getConfigs],
   );
 
-  function getSites() {
+  const getSites = useMemo(() => {
+    console.log(sites);
     return sites.map((value: Site, index) => {
       if (value.title) {
         return (
@@ -193,7 +194,7 @@ export default function NewTab(): JSX.Element {
         );
       }
     });
-  }
+  }, [addSite, removeSite, sites]);
 
   useEffect(() => {
     injectStyle();
@@ -214,51 +215,36 @@ export default function NewTab(): JSX.Element {
       <div className={'container'} style={{ ...style }}>
         <div className={'row-1'}>
           <div className={'item-actions'}>
-            {/*<div>*/}
-            {/*  <img src={'/static/images/icons/new-tab/settings.png'} alt={''} />*/}
-            {/*</div>*/}
             <div>
               <img
-                src={'/static/images/icons/new-tab/swash.png'}
+                src={'/static/images/icons/new-tab/swash.svg'}
                 alt={''}
                 onClick={openSwashDashboard}
               />
             </div>
-            {/*<div>*/}
-            {/*  <img*/}
-            {/*    src={'/static/images/icons/new-tab/link-folder.png'}*/}
-            {/*    alt={''}*/}
-            {/*  />*/}
-            {/*</div>*/}
-            {/*<div>*/}
-            {/*  <img*/}
-            {/*    src={'/static/images/icons/new-tab/download-box.png'}*/}
-            {/*    alt={''}*/}
-            {/*  />*/}
-            {/*</div>*/}
             <div>
               <img
-                src={'/static/images/icons/new-tab/page.png'}
+                src={'/static/images/icons/new-tab/page.svg'}
                 alt={''}
                 onClick={toggleFullScreen}
               />
             </div>
             <div>
               <img
-                src={'/static/images/icons/new-tab/eye.png'}
+                src={'/static/images/icons/new-tab/eye.svg'}
                 alt={''}
                 onClick={toggleVisibility}
               />
             </div>
             <div>
-              <img src={'/static/images/icons/new-tab/line.png'} alt={''} />
+              <img src={'/static/images/icons/new-tab/line.svg'} alt={''} />
             </div>
             <div
               className={'item-actions-customise'}
               onClick={openCustomisation}
             >
               <div>
-                <img src={'/static/images/icons/new-tab/window.png'} alt={''} />
+                <img src={'/static/images/icons/new-tab/window.svg'} alt={''} />
               </div>
               <div>Customise</div>
             </div>
@@ -337,7 +323,7 @@ export default function NewTab(): JSX.Element {
                     </svg>
                   </button>
                 </form>
-                <div className={'fav-sites'}>{getSites()}</div>
+                <div className={'fav-sites'}>{getSites}</div>
               </>
             )}
           </div>

@@ -265,7 +265,7 @@ a {
   width: 72px;
   height: 72px;
 
-  border-radius: 20px;
+  border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.4);
 
   display: flex;
@@ -273,6 +273,11 @@ a {
   align-items: center;
 
   cursor: pointer;
+}
+
+.fav-site > img {
+  max-width: 75%;
+  height: auto;
 }
 
 .remove-site {
