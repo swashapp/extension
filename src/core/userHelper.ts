@@ -1,3 +1,4 @@
+import { Bytes, DataUnion, DataUnionClient } from '@dataunions/client';
 import { BigNumber } from '@ethersproject/bignumber';
 import { Contract } from '@ethersproject/contracts';
 import { BaseProvider, getDefaultProvider } from '@ethersproject/providers';
@@ -5,7 +6,7 @@ import { computePublicKey } from '@ethersproject/signing-key';
 import { formatEther, formatUnits, parseEther } from '@ethersproject/units';
 import { Wallet } from '@ethersproject/wallet';
 import { TokenSigner } from 'jsontokens';
-import StreamrClient, { Bytes, DataUnion } from 'streamr-client';
+import { StreamrClient } from 'streamr-client';
 
 import browser from 'webextension-polyfill';
 
@@ -90,24 +91,19 @@ const userHelper = (function () {
     return client;
   }
 
-  function clientConnect() {
+  async function clientConnect() {
     if (!wallet) return;
     client = new StreamrClient({
       auth: {
         privateKey: wallet.privateKey,
       },
-      publishWithSignature: 'never',
-      dataUnion: {
-        factoryMainnetAddress: '0xe41439bf434f9cfbf0153f5231c205d4ae0c22e3',
-        factorySidechainAddress: '0xFCE1FBFAaE61861B011B379442c8eE1DC868ABd0',
-        templateMainnetAddress: '0x67352e3f7dba907af877020ae7e9450c0029c70c',
-        templateSidechainAddress: '0xacf9e8134047edc671162d9404bf63a587435baa',
-      },
-      sidechain: {
-        url: config.rpcUrl,
-      },
     });
-    duHandler = client.getDataUnion(config.dataunionAddress);
+
+    const duClient = new DataUnionClient({
+      auth: { privateKey: wallet.privateKey },
+      chain: 'gnosis',
+    });
+    duHandler = await duClient.getDataUnion(config.dataunionAddress);
   }
 
   async function initWithdrawModule() {
@@ -202,21 +198,21 @@ const userHelper = (function () {
 
   async function getAvailableBalance() {
     if (!wallet) throw Error('Wallet is not provided');
-    if (!client) clientConnect();
+    if (!client) await clientConnect();
     const earnings = await duHandler.getWithdrawableEarnings(wallet.address);
     return formatEther(earnings);
   }
 
   async function signWithdrawAllTo(targetAddress: string) {
     if (!wallet || !provider) throw Error('Wallet is not provided');
-    if (!client) clientConnect();
+    if (!client) await clientConnect();
 
     return await duHandler.signWithdrawAllTo(targetAddress);
   }
 
   async function signWithdrawAmountTo(targetAddress: string, amount: string) {
     if (!wallet || !provider) throw Error('Wallet is not provided');
-    if (!client) clientConnect();
+    if (!client) await clientConnect();
 
     const amountBN = parseEther(amount);
 
@@ -286,7 +282,7 @@ const userHelper = (function () {
 
   async function generateJWT() {
     if (!wallet) throw Error('Wallet is not provided');
-    if (!client) clientConnect();
+    if (!client) await clientConnect();
 
     if (
       timestamp.updated === 0 ||
