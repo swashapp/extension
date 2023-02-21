@@ -5,6 +5,7 @@ import { Checkbox } from '../checkbox/checkbox';
 export function AcceptCheckBox(props: {
   value: boolean;
   setValue: Dispatch<SetStateAction<boolean>>;
+  text?: JSX.Element;
 }): JSX.Element {
   return (
     <div className="flex-row accept-checkbox">
@@ -16,7 +17,7 @@ export function AcceptCheckBox(props: {
         onClick={() => props.setValue((a) => !a)}
         className="accept-checkbox-text"
       >
-        I have read it and I agree
+        {props.text ? props.text : <>I have read it and I agree</>}
       </div>
     </div>
   );

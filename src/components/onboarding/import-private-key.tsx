@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { toast } from 'react-toastify';
 
+import { helper } from '../../core/webHelper';
 import { Button } from '../button/button';
 import { ShowEndAdornment } from '../input/end-adornments/show-end-adornment';
 import { Input } from '../input/input';
@@ -22,7 +23,7 @@ export function ImportPrivateKey(props: {
       setLoading(true);
       props.onBeforeImport();
       setLoading(false);
-      window.helper
+      helper
         .importAndSaveWallet(privateKey)
         .then(() => {
           closePopup();

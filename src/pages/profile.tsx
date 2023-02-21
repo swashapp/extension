@@ -122,11 +122,9 @@ export function Profile(): JSX.Element {
   }, [fetchProfile]);
 
   const loadActiveProfile = useCallback(() => {
-    window.helper
-      .getLatestPrograms()
-      .then((data: { profile: { reward: string } }) => {
-        if (data.profile.reward) setReward(data.profile.reward);
-      });
+    helper.getLatestPrograms().then((data: { profile: { reward: string } }) => {
+      if (data.profile.reward) setReward(data.profile.reward);
+    });
   }, []);
 
   useEffect(() => {

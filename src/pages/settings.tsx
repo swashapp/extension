@@ -10,6 +10,7 @@ import { IconButton } from '../components/icon-button/icon-button';
 import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-adornment';
 import { Input } from '../components/input/input';
 import { ToastMessage } from '../components/toast/toast-message';
+import { helper } from '../core/webHelper';
 
 const DropboxLogo = '/static/images/logos/dropbox.png';
 const FileLogo = '/static/images/logos/file.png';
@@ -20,7 +21,7 @@ export function Settings(): JSX.Element {
   const [privateKey, setPrivateKey] = useState<string>('');
 
   const loadSettings = useCallback(async () => {
-    return window.helper
+    return helper
       .getWalletPrivateKey()
       .then((key: string) => setPrivateKey(key));
   }, []);
@@ -33,7 +34,7 @@ export function Settings(): JSX.Element {
 
   const onboardingUpload = useCallback((request) => {
     if (request.onboarding) {
-      window.helper.uploadFile(request.onboarding).then((response: boolean) => {
+      helper.uploadFile(request.onboarding).then((response: boolean) => {
         if (!response)
           toast(
             <ToastMessage
@@ -61,7 +62,7 @@ export function Settings(): JSX.Element {
         browser.runtime.onMessage.addListener(onboardingUpload);
 
       browser.tabs.getCurrent().then((tab) => {
-        window.helper.startOnBoarding(onboarding, tab.id).then();
+        helper.startOnBoarding(onboarding, tab.id).then();
       });
     },
     [onboardingUpload],
@@ -94,7 +95,7 @@ export function Settings(): JSX.Element {
                   body="Local File"
                   image={FileLogo}
                   link={false}
-                  onClick={() => window.helper.saveConfig().then()}
+                  onClick={() => helper.saveConfig().then()}
                 />
                 <IconButton
                   body="Dropbox"

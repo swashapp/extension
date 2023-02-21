@@ -16,6 +16,7 @@ import { IconButton } from '../components/icon-button/icon-button';
 import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-adornment';
 import { Input } from '../components/input/input';
 import { NumericSection } from '../components/numeric-section/numeric-section';
+import { helper } from '../core/webHelper';
 import { initValue, UtilsService } from '../service/utils-service';
 
 const TotalBonusIcon = '/static/images/icons/total-bonus.svg';
@@ -49,7 +50,7 @@ export function InviteFriends(): JSX.Element {
   });
 
   const loadReferral = useCallback(() => {
-    window.helper.load().then((db: { profile: { user_id: string } }) => {
+    helper.load().then((db: { profile: { user_id: string } }) => {
       if (!db.profile.user_id) {
         setTimeout(() => loadReferral(), 3000);
         return;
@@ -62,7 +63,7 @@ export function InviteFriends(): JSX.Element {
   }, []);
 
   const loadActiveReferral = useCallback(() => {
-    window.helper
+    helper
       .getLatestPrograms()
       .then((data: { referral: { reward: string } }) => {
         if (data.referral.reward) setReward(data.referral.reward);
@@ -70,7 +71,7 @@ export function InviteFriends(): JSX.Element {
   }, []);
 
   const loadReferrals = useCallback(() => {
-    window.helper
+    helper
       .getReferrals()
       .then((_referral: { totalReward: string; totalReferral: string }) => {
         setReferral(_referral);
@@ -84,7 +85,7 @@ export function InviteFriends(): JSX.Element {
   }, [loadActiveReferral, loadReferral, loadReferrals]);
 
   const [notifications, setNotifications] = useState<Notifications>({});
-  useEffect(() => window.helper.loadNotifications().then(setNotifications), []);
+  useEffect(() => helper.loadNotifications().then(setNotifications), []);
   return (
     <div className="page-container">
       <BackgroundTheme layout="layout2" />

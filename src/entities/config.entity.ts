@@ -9,7 +9,6 @@ import memberManagerJson from '../core/configs/memberManager.json';
 import onboardingJson from '../core/configs/onboarding.json';
 import streamJson from '../core/configs/stream.json';
 import swashAPIJson from '../core/configs/swashAPI.json';
-import { Configs } from '../types/storage/configs.type';
 import { ApiConfigs } from '../types/storage/configs/api.type';
 import { CommunityConfigs } from '../types/storage/configs/community.type';
 import { MemberManagerConfigs } from '../types/storage/configs/member-manager.type';
@@ -17,6 +16,7 @@ import { OnboardingConfigs } from '../types/storage/configs/onboarding.type';
 import { StreamConfigs } from '../types/storage/configs/stream.type';
 
 import { SwashApiConfigs } from '../types/storage/configs/swash-api.type';
+import { Configs } from '../types/storage/configs.type';
 
 import { commonUtils } from '../utils/common.util';
 
@@ -62,7 +62,7 @@ export class ConfigEntity extends Entity<Configs> {
       Id: commonUtils.uuid(),
       salt: commonUtils.uuid(),
       delay: 2,
-      is_enabled: true,
+      is_enabled: false,
       ...getStaticConfig(),
     });
   }

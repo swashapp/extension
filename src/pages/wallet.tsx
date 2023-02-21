@@ -15,6 +15,7 @@ import { Select } from '../components/select/select';
 import { ToastMessage } from '../components/toast/toast-message';
 import { Tooltip } from '../components/tooltip/tooltip';
 import { TokenTransferPopup } from '../components/wallet/token-transfer-popup';
+import { helper } from '../core/webHelper';
 import { initValue, UtilsService } from '../service/utils-service';
 
 const SwashBonusIcon = '/static/images/icons/swash-bonus.svg';
@@ -40,13 +41,13 @@ export function Wallet(): JSX.Element {
   const [network, setNetwork] = useState<string>('Gnosis Chain');
 
   const getWalletAddress = useCallback(() => {
-    window.helper
+    helper
       .getWalletAddress()
       .then((address: string) => setWalletAddress(address));
   }, []);
 
   const getUnclaimedBonus = useCallback(() => {
-    window.helper.getBonus().then((_unclaimedBonus: number | string) => {
+    helper.getBonus().then((_unclaimedBonus: number | string) => {
       setUnclaimedBonus((_unclaimed) => {
         const ret =
           _unclaimedBonus.toString() !== _unclaimed
@@ -58,7 +59,7 @@ export function Wallet(): JSX.Element {
   }, []);
 
   const getTokenAvailable = useCallback(() => {
-    window.helper.getAvailableBalance().then((_tokenAvailable: any) => {
+    helper.getAvailableBalance().then((_tokenAvailable: any) => {
       setTokenAvailable((token) => {
         const _token =
           _tokenAvailable.error ||
@@ -89,7 +90,7 @@ export function Wallet(): JSX.Element {
 
   const claimRewards = useCallback(() => {
     setClaiming(true);
-    window.helper
+    helper
       .claimRewards()
       .then((result: { tx?: string }) => {
         setClaiming(false);
@@ -204,7 +205,7 @@ export function Wallet(): JSX.Element {
 
   useEffect(() => {
     if (recipient.length === 42) {
-      window.helper
+      helper
         .getWithdrawBalance()
         .then((response: { minimum: number; gas: number }) => {
           if (response.minimum) {
@@ -216,8 +217,8 @@ export function Wallet(): JSX.Element {
         });
       if (recipient.match(/^0x[a-fA-F0-9]{40}$/g)) {
         const getBalanceOfRecipient = async () => {
-          const TokenBalance = await window.helper.getTokenBalance(recipient);
-          const EthBalance = await window.helper.getEthBalance(recipient);
+          const TokenBalance = await helper.getTokenBalance(recipient);
+          const EthBalance = await helper.getEthBalance(recipient);
           setRecipientTokenBalance(TokenBalance);
           setRecipientEthBalance(EthBalance);
         };
@@ -404,7 +405,7 @@ export function Wallet(): JSX.Element {
               loading={withdrawing}
               onClick={() => {
                 setWithdrawing(true);
-                window.helper
+                helper
                   .checkWithdrawAllowance(tokenAvailable)
                   .then(() => {
                     setWithdrawing(false);

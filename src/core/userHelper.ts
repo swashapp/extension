@@ -326,7 +326,16 @@ const userHelper = (function () {
 
   async function isVerified() {
     const profile = await storageHelper.getProfile();
-    return profile.phone !== undefined;
+    if (profile.phone === undefined) {
+      const data = await swashApiHelper.getVerifiedInfo(await generateJWT());
+      if (data.email) await updateUserEmail(data.email);
+      if (data.phone) {
+        await updateUserPhone(data.phone);
+        return true;
+      }
+      return false;
+    }
+    return true;
   }
 
   async function isVerificationNeeded() {

@@ -23,6 +23,7 @@ import { Popup, showPopup } from '../components/popup/popup';
 import { Sidenav } from '../components/sidenav/sidenav';
 import { SidenavButton } from '../components/sidenav/sidenav-button';
 import { VerificationAlert } from '../components/verification/verification-alert';
+import { helper } from '../core/webHelper';
 import { SidenavItems } from '../data/sidenav-items';
 import { RouteToPages } from '../paths';
 
@@ -102,9 +103,9 @@ export default function App(): JSX.Element {
   const checkVerification = useCallback((shouldTry: boolean) => {
     if (!shouldTry) return;
 
-    window.helper.isAccountInitialized().then((initiated: boolean) => {
+    helper.isAccountInitialized().then((initiated: boolean) => {
       if (initiated) {
-        window.helper.isVerificationNeeded().then((needed: boolean) => {
+        helper.isVerificationNeeded().then((needed: boolean) => {
           if (needed)
             showPopup({
               closable: false,

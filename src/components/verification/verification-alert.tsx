@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
+import { helper } from '../../core/webHelper';
 import { RouteToPages } from '../../paths';
 import { Button } from '../button/button';
 import { closePopup } from '../popup/popup';
@@ -8,11 +9,9 @@ export function VerificationAlert(): JSX.Element {
   const [reward, setReward] = useState<string>('');
 
   const loadActiveProfile = useCallback(() => {
-    window.helper
-      .getLatestPrograms()
-      .then((data: { profile: { reward: string } }) => {
-        if (data.profile.reward) setReward(data.profile.reward);
-      });
+    helper.getLatestPrograms().then((data: { profile: { reward: string } }) => {
+      if (data.profile.reward) setReward(data.profile.reward);
+    });
   }, []);
 
   useEffect(() => {

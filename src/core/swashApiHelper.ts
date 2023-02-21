@@ -184,6 +184,10 @@ const swashApiHelper = (function () {
     );
   }
 
+  async function getVerifiedInfo(token: string) {
+    return get<Any>(token, config.APIs.userVerifiedInfo);
+  }
+
   async function updateVerifiedInfo(token: string, body: Any) {
     return post<Any>(token, config.APIs.userVerifiedInfo, body);
   }
@@ -217,6 +221,7 @@ const swashApiHelper = (function () {
     join,
     newsletterSignUp,
     getNotifications,
+    getVerifiedInfo,
     updateVerifiedInfo,
     getAdditionalInfo,
     updateAdditionalInfo,

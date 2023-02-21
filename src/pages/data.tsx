@@ -8,6 +8,7 @@ import {
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { NumericInput } from '../components/numeric-input/numeric-input';
 import { TextMasking } from '../components/text-masking/text-masking';
+import { helper } from '../core/webHelper';
 import { PrivacyData } from '../types/storage/privacy-data.type';
 
 let delayOnLoad = 0;
@@ -18,7 +19,7 @@ export function Data(): JSX.Element {
   const [dataItems, setDataItems] = useState<DataItem[] | null>(null);
 
   const loadSettings = useCallback(() => {
-    window.helper
+    helper
       .load()
       .then(
         (db: {
@@ -44,8 +45,8 @@ export function Data(): JSX.Element {
 
   useEffect(() => {
     async function loader() {
-      const retMessages = await window.helper.loadMessages();
-      const db = await window.helper.load();
+      const retMessages = await helper.loadMessages();
+      const db = await helper.load();
       const delay = db.configs.delay * 60000;
       const currentTime = Number(new Date().getTime());
       const messages = [];
@@ -68,7 +69,7 @@ export function Data(): JSX.Element {
           msg: msg,
           msgId: retMessages[msgId].id,
           category: msg.header.category,
-          // icon: (await window.helper.getCategory(msg.header.category)).icon,
+          // icon: (await helper.getCategory(msg.header.category)).icon,
           link: host,
           title: msg.header.module,
         });
@@ -84,7 +85,7 @@ export function Data(): JSX.Element {
   useEffect(() => {
     if (delay > 0 && delay !== delayOnLoad) {
       console.log(delay);
-      window.helper.updateConfigs('delay', delay);
+      helper.updateConfigs('delay', delay);
     }
   }, [delay]);
 
@@ -94,12 +95,12 @@ export function Data(): JSX.Element {
       maskItems.forEach((item) => {
         data.push({ value: item });
       });
-      window.helper.savePrivacyData(data);
+      helper.savePrivacyData(data);
     }
   }, [maskItems]);
 
   const deleteMsg = useCallback((message) => {
-    window.helper.cancelSending(message.msgId);
+    helper.cancelSending(message.msgId);
     setDataItems((items) =>
       (items || []).filter((msg) => msg.msgId !== message.msgId),
     );

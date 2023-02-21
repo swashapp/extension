@@ -1,14 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
+import { helper } from '../../core/webHelper';
 import { Switch } from '../switch/switch';
 
 export function Toggle(): JSX.Element {
   const [status, setStatus] = useState<boolean>(false);
   const onStatusChanged = useCallback((checked: boolean) => {
     if (checked) {
-      window.helper.start();
+      helper.start();
     } else {
-      window.helper.stop();
+      helper.stop();
     }
     setStatus(checked);
   }, []);
@@ -17,11 +18,9 @@ export function Toggle(): JSX.Element {
     () =>
       window.helper.isNeededOnBoarding().then((_needOnBoarding: boolean) => {
         if (!_needOnBoarding) {
-          window.helper
-            .load()
-            .then((db: { configs: { is_enabled: boolean } }) => {
-              setStatus(db.configs.is_enabled);
-            });
+          helper.load().then((db: { configs: { is_enabled: boolean } }) => {
+            setStatus(db.configs.is_enabled);
+          });
         }
       }),
     [],
