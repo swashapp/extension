@@ -8,9 +8,10 @@ import { HELP_TOUR_CLASS } from '../components/components-tour/help-tour';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { SearchEndAdornment } from '../components/input/end-adornments/search-end-adornment';
 import { Input } from '../components/input/input';
-import { SectionAccordion } from '../components/section-accordion/section-accordion';
 import { Section } from '../components/section/section';
+import { SectionAccordion } from '../components/section-accordion/section-accordion';
 import { TOUR_NAME } from '../components/tour/tour';
+import { helper } from '../core/webHelper';
 import HelpData from '../data/help';
 import { RouteToPages } from '../paths';
 import {
@@ -25,7 +26,7 @@ export function Help(): JSX.Element {
   const [tour, setTour] = useState<{ [key: string]: unknown }>({});
 
   const loadActiveReferral = useCallback(() => {
-    window.helper
+    helper
       .getLatestPrograms()
       .then(
         (data: {

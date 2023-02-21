@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 //@ts-ignore
 import FileBrowser from 'react-keyed-file-browser';
 
+import { helper } from '../../core/webHelper';
 import { Button } from '../button/button';
 import { closePopup } from '../popup/popup';
 
@@ -24,14 +25,14 @@ export function FilePicker(props: {
   const applyConfig = useCallback(() => {
     if (selectedFile?.id) {
       setLoading(true);
-      return window.helper
+      return helper
         .downloadFile(props.onboarding, selectedFile.id)
         .then((response: any) => {
           if (response) {
             props.onBeforeImport();
             setLoading(false);
             closePopup();
-            return window.helper
+            return helper
               .applyConfig(JSON.stringify(response))
               .then((result: any) => {
                 if (result) {
@@ -50,7 +51,7 @@ export function FilePicker(props: {
   useEffect(() => {
     const _files: FILE[] = [];
     if (props.onboarding === 'GoogleDrive' || props.onboarding === 'DropBox') {
-      window.helper
+      helper
         .getFilesList(props.onboarding)
         .then((status: { files: any[]; entries: any[] }) => {
           let fileList = [];

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { toast } from 'react-toastify';
 
+import { helper } from '../../core/webHelper';
 import { closePopup } from '../popup/popup';
 import { WaitingProgressBar } from '../progress/waiting-progress';
 import { ToastMessage } from '../toast/toast-message';
@@ -31,7 +32,9 @@ export function VerificationPopup(props: {
           break;
         case Status.SUCCESS:
           props.callback && props.callback();
-          closePopup();
+          helper.start().then(() => {
+            closePopup();
+          });
           break;
         case Status.ERROR:
           toast(<ToastMessage type="error" content={event.data.message} />);
@@ -43,7 +46,7 @@ export function VerificationPopup(props: {
 
   useEffect(() => {
     if (!token) {
-      window.helper.generateJWT().then((_token: string) => setToken(_token));
+      helper.generateJWT().then((_token: string) => setToken(_token));
     }
     window.onmessage = handleMessages;
   }, [handleMessages, token]);

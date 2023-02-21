@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import browser from 'webextension-polyfill';
 
+import { helper } from '../../core/webHelper';
 import { StepperContext } from '../../pages/onboarding';
 import { Button } from '../button/button';
 import { FlexGrid } from '../flex-grid/flex-grid';
@@ -95,7 +96,7 @@ export function ImportYourConfig(): JSX.Element {
 
         reader.onload = function () {
           setImporting(true);
-          window.helper
+          helper
             .applyConfig(reader.result)
             .then((response: any) => {
               if (response) {
@@ -135,7 +136,7 @@ export function ImportYourConfig(): JSX.Element {
     if (!browser.runtime.onMessage.hasListener(togglePopup))
       browser.runtime.onMessage.addListener(togglePopup);
     browser.tabs.getCurrent().then((tab) => {
-      window.helper.startOnBoarding('GoogleDrive', tab.id).then();
+      helper.startOnBoarding('GoogleDrive', tab.id).then();
     });
   }, [togglePopup]);
 
@@ -143,7 +144,7 @@ export function ImportYourConfig(): JSX.Element {
     if (!browser.runtime.onMessage.hasListener(togglePopup))
       browser.runtime.onMessage.addListener(togglePopup);
     browser.tabs.getCurrent().then((tab) => {
-      window.helper.startOnBoarding('DropBox', tab.id).then();
+      helper.startOnBoarding('DropBox', tab.id).then();
     });
   }, [togglePopup]);
 

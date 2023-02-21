@@ -6,6 +6,7 @@ import React, {
   useState,
 } from 'react';
 
+import { helper } from '../../core/webHelper';
 import { StepperContext } from '../../pages/onboarding';
 import { WaitingProgressBar } from '../progress/waiting-progress';
 
@@ -79,7 +80,7 @@ export function OnboardingJoin(): JSX.Element {
   );
   useEffect(() => {
     if (!token) {
-      window.helper.generateJWT().then((_token: string) => setToken(_token));
+      helper.generateJWT().then((_token: string) => setToken(_token));
     }
     window.onmessage = handleMessages;
   }, [handleMessages, token]);
@@ -94,7 +95,7 @@ export function OnboardingJoin(): JSX.Element {
     }
   }, []);
   useEffect(() => {
-    window.helper
+    helper
       .getJoinedSwash()
       .then((data: { id: number; email: string }) => {
         if (data.id && data.email) stepper.next();

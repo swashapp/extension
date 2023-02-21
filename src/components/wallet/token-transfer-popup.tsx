@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
+import { helper } from '../../core/webHelper';
 import { UtilsService } from '../../service/utils-service';
 import { Button } from '../button/button';
 import { showPopup, closePopup } from '../popup/popup';
@@ -40,7 +41,7 @@ export function TokenTransferPopup(props: {
 
   const withdraw = useCallback(() => {
     setLoading(true);
-    window.helper
+    helper
       .withdrawToTarget(
         props.recipient,
         props.amount,

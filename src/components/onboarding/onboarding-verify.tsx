@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
+import { helper } from '../../core/webHelper';
 import { StepperContext } from '../../pages/onboarding';
 import { UtilsService } from '../../service/utils-service';
 
@@ -46,7 +47,7 @@ export function OnboardingVerify(props: {
   }, [minutes, seconds]);
 
   const newsletterSignUp = useCallback(() => {
-    window.helper.newsletterSignUp(props.email, newsletter).then();
+    helper.newsletterSignUp(props.email, newsletter).then();
   }, [props.email]);
 
   const onVerified = useCallback(() => {
@@ -68,7 +69,7 @@ export function OnboardingVerify(props: {
   }, []);
 
   const join = useCallback(() => {
-    window.helper
+    helper
       .join(props.requestId, verificationCode)
       .then((res: { id: number; email: string }) => {
         if (res.id && res.email) {
@@ -81,7 +82,7 @@ export function OnboardingVerify(props: {
   }, [onFailure, onVerified, props.requestId, verificationCode]);
 
   const updateEmail = useCallback(() => {
-    window.helper
+    helper
       .updateEmail(props.requestId, verificationCode)
       .then(() => onVerified())
       .catch(() => onFailure());
@@ -108,7 +109,7 @@ export function OnboardingVerify(props: {
     (e) => {
       e.preventDefault();
       setLoading(true);
-      window.helper
+      helper
         .resendCodeToEmail(props.email)
         .then(() => {
           triggerTimer();

@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
+import { helper } from '../../core/webHelper';
 import { AppContext } from '../../pages/app';
 
 import { Button } from '../button/button';
-import { CircularProgress } from '../circular-progress/circular-progress';
 import { ToastMessage } from '../toast/toast-message';
 
 export function CongratsWalletIsReady(props: {
@@ -12,29 +12,51 @@ export function CongratsWalletIsReady(props: {
 }): JSX.Element {
   const app = useContext(AppContext);
   const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    setLoading(true);
+    helper
+      .isJoinedSwash()
+      .then(() => {
+        helper.submitOnBoarding().then();
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
   return (
-    <div className="onboarding-progress-card">
-      <CircularProgress type="completed" />
+    <div className="onboarding-progress-card onboarding-congratz-card">
       <h2>Congratulations!</h2>
       <p>
         {props.type === 'imported'
           ? 'Configuration is imported successfully.'
           : 'Your Swash wallet has been created.'}
       </p>
-      {props.type === 'created' ? (
-        <p>Now you are part of the world’s first digital Data Union!</p>
-      ) : (
-        <></>
-      )}
+      <p className={'onboarding-congratz-message'}>
+        When you use Swash, you’re in control of the data you share. You can
+        always control what data Swash collects in the ‘Data’ page of the
+        extension, or pause data collection by turning the toggle off anytime
+        from the Swash popup window.
+        <br />
+        <br />
+        <img
+          src={'/static/images/gif/turn-on-swash.gif'}
+          alt={'turn on swash'}
+        />
+        <br />
+        Swash can only collect your data if you press the button below.
+      </p>
+
       <div className="onboarding-progress-button congrats-button">
         <Button
-          text="Use Swash"
+          text="Turn Swash On"
           loading={loading}
           link={false}
           onClick={() => {
             setLoading(true);
-            window.helper
-              .submitOnBoarding()
+            helper
+              .start()
               .then(() => {
                 setLoading(false);
                 app.forceUpdate();

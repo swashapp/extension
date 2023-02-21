@@ -17,6 +17,7 @@ import { OnboardingProfile } from '../components/onboarding/onboarding-profile';
 import { OnboardingStart } from '../components/onboarding/onboarding-start';
 import Stepper from '../components/stepper/stepper';
 import { IStepper } from '../components/stepper/stepper.type';
+import { helper } from '../core/webHelper';
 
 export const StepperContext = React.createContext<{
   next: () => void;
@@ -77,7 +78,7 @@ export function Onboarding(): JSX.Element {
   }>({});
 
   useEffect(() => {
-    window.helper.getOnboardingFlow().then((res: string) => {
+    helper.getOnboardingFlow().then((res: string) => {
       const newFlow = JSON.parse(res);
       setFlow(newFlow);
     });

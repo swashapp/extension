@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 
+import { helper } from '../../core/webHelper';
 import { StepperContext } from '../../pages/onboarding';
 
 import { FlexGrid } from '../flex-grid/flex-grid';
@@ -41,7 +42,7 @@ export function OnboardingProfile(): JSX.Element {
 
   const onSubmit = useCallback(() => {
     setLoading(true);
-    window.helper
+    helper
       .saveProfileInOnBoarding(gender, age, income)
       .then(() => {
         setLoading(false);

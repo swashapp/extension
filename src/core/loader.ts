@@ -190,11 +190,6 @@ const loader = (function () {
     console.log('Extension stopped successfully');
   }
 
-  async function restart() {
-    await stop();
-    await start();
-  }
-
   async function load() {
     console.log('Loading the extension configuration');
     const db = await storageHelper.getAll();
@@ -298,7 +293,6 @@ const loader = (function () {
     stop,
     load,
     reload,
-    restart,
     configModule,
     initiateConfigs,
   };

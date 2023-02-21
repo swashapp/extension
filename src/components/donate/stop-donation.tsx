@@ -14,7 +14,7 @@ export function StopDonation(props: {
   const [tokenAvailable, setTokenAvailable] = useState<string>(initValue);
 
   const getTokenAvailable = useCallback(() => {
-    window.helper.getAvailableBalance().then((_tokenAvailable: any) => {
+    helper.getAvailableBalance().then((_tokenAvailable: any) => {
       const _token =
         _tokenAvailable.error ||
         _tokenAvailable === '' ||

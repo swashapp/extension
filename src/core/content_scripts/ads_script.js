@@ -18,11 +18,6 @@ var adsScript = (function () {
   }
 
   function injectHeaders() {
-    const script = document.createElement('script');
-    script.src = 'https://app.swashapp.io/main.js';
-    script.type = 'text/javascript';
-    script.async = true;
-
     const style = document.createElement('style');
     style.innerHTML = `
       .sticky-flex-center {
@@ -113,7 +108,6 @@ var adsScript = (function () {
       }
     `;
 
-    document.querySelector('head').appendChild(script);
     document.querySelector('head').appendChild(style);
   }
 

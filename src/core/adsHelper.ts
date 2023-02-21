@@ -56,7 +56,8 @@ const adsHelper = (function () {
   }
 
   async function getAdsSlots(width: number, height: number) {
-    if (!(await userHelper.isVerified())) return;
+    const { is_enabled } = await storageHelper.getConfigs();
+    if (!is_enabled || !(await userHelper.isVerified())) return;
 
     if (info.foreignId === '') await joinServer();
     const found = info.zones.find((item) => {

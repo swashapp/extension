@@ -63,7 +63,7 @@ export function Donate(props: {
   const [percent, setPercent] = useState<number>(5);
 
   const getTokenAvailable = useCallback(() => {
-    window.helper.getAvailableBalance().then((_tokenAvailable: any) => {
+    helper.getAvailableBalance().then((_tokenAvailable: any) => {
       const _token =
         _tokenAvailable.error ||
         _tokenAvailable === '' ||
