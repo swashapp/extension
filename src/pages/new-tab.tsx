@@ -213,6 +213,16 @@ export default function NewTab(): JSX.Element {
   return (
     <>
       <div className={'container'} style={{ ...style }}>
+        <div className={'full-ads'}>
+          <DisplayAds
+            width={1920}
+            height={1080}
+            divWidth={'100%'}
+            divHeight={'100%'}
+            // scale={window.innerWidth / 1920}
+            // scale={0.5}
+          />
+        </div>
         <div className={'row-1'}>
           <div className={'item-actions'}>
             <div>
@@ -329,9 +339,10 @@ export default function NewTab(): JSX.Element {
           </div>
         </div>
         <div className={'row-3'}>
-          <div className={'item-ads'}>
-            <DisplayAds width={300} height={250} />
-          </div>
+          {/*<div className={'item-ads'}>*/}
+          {/*  <DisplayAds width={300} height={250} />*/}
+          {/*</div>*/}
+          <div style={{ zIndex: -1, width: 100 }}></div>
           <div className={'item-clock'}>
             {hide ? (
               <></>

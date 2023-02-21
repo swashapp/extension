@@ -8,23 +8,27 @@ const SWASH_JOIN_PAGE = '/user/ads/view';
 export function DisplayAds(props: {
   width: number;
   height: number;
+  divWidth?: number | string;
+  divHeight?: number | string;
+  scale?: number;
 }): JSX.Element {
+  const { width, height, divWidth, divHeight, scale = 1 } = props;
   const [uuid, setUuid] = useState('');
   const [iframeVisible, setIframeVisible] = useState<boolean>(false);
 
   useEffect(() => {
-    helper.getAdsSlots(props.width, props.height).then((resp) => {
+    helper.getAdsSlots(width, height).then((resp) => {
       setUuid(resp.uuid || '');
     });
-  }, [props.height, props.width]);
+  }, [height, width]);
 
   const iframeSrc = useMemo(() => {
     const url = new URL(`${SWASH_DOMAIN}${SWASH_JOIN_PAGE}`);
     url.searchParams.set('id', uuid);
-    url.searchParams.set('w', `${props.width}`);
-    url.searchParams.set('h', `${props.height}`);
+    url.searchParams.set('w', `${width}`);
+    url.searchParams.set('h', `${height}`);
     return url.toString();
-  }, [props.height, props.width, uuid]);
+  }, [height, width, uuid]);
 
   return (
     <>
@@ -35,8 +39,9 @@ export function DisplayAds(props: {
           seamless
           style={{
             visibility: !iframeVisible || uuid !== '' ? 'visible' : 'hidden',
-            width: props.width,
-            height: props.height,
+            width: divWidth || width,
+            height: divHeight || height,
+            transform: `scale(${scale})`,
           }}
           onLoad={() => setIframeVisible(true)}
           title={'ads'}
