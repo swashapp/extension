@@ -56,11 +56,24 @@ a {
   gap: 10px;
 }
 
+.full-ads {
+  width: calc(100vw + 20px);
+  height: calc(100vh + 10px);
+
+  position: absolute;
+  top: -20px;
+  left: -20px;
+
+  z-index: 0;
+}
+
 .row-1,
 .row-2,
 .row-3 {
   display: flex;
   width: inherit;
+
+  z-index: 1;
 }
 
 .row-1 {
