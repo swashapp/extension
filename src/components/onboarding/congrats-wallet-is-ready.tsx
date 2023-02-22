@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { helper } from '../../core/webHelper';
 import { AppContext } from '../../pages/app';
 
+import { RouteToPages } from '../../paths';
 import { Button } from '../button/button';
 import { ToastMessage } from '../toast/toast-message';
 
@@ -26,11 +28,24 @@ export function CongratsWalletIsReady(props: {
   }, []);
 
   return (
-    <div className="onboarding-progress-card onboarding-congratz-card">
+    <div className="onboarding-progress-card onboarding-congrats-card">
+      <div
+        className={'close-button'}
+        onClick={() => {
+          app.forceUpdate();
+        }}
+      >
+        <img
+          src={'/static/images/shape/cross.svg'}
+          alt={'close'}
+          width={10}
+          height={10}
+        />
+      </div>
       <h2>Congratulations!</h2>
       <p>
         {props.type === 'imported'
-          ? 'Configuration is imported successfully.'
+          ? 'Configuration imported successfully.'
           : 'Your Swash wallet has been created.'}
       </p>
       <p className={'onboarding-congratz-message'}>
