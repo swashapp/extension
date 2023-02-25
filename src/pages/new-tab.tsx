@@ -159,14 +159,18 @@ export default function NewTab(): JSX.Element {
   );
 
   const getSites = useMemo(() => {
-    console.log(sites);
     return sites.map((value: Site, index) => {
       if (value.title) {
+        const _url = new URL(value.url)
+        let icon = value.icon;
+
+        if (!icon.startsWith('https://www.google.com'))
+          icon = `https://www.google.com/s2/favicons?sz=64&domain_url=${_url.origin}`
         return (
           <div className={'site-box'} key={`site-${index}`}>
             <a href={value.url}>
               <div className={'fav-site'}>
-                <img src={value.icon} alt={value.title} />
+                <img src={icon} alt={value.title} />
               </div>
             </a>
             <div className={'remove-site'}>
@@ -213,16 +217,16 @@ export default function NewTab(): JSX.Element {
   return (
     <>
       <div className={'container'} style={{ ...style }}>
-        <div className={'full-ads'}>
-          <DisplayAds
-            width={1920}
-            height={1080}
-            divWidth={'100%'}
-            divHeight={'100%'}
-            // scale={window.innerWidth / 1920}
-            // scale={0.5}
-          />
-        </div>
+        {/*<div className={'full-ads'}>*/}
+        {/*  <DisplayAds*/}
+        {/*    width={1920}*/}
+        {/*    height={1080}*/}
+        {/*    divWidth={'100%'}*/}
+        {/*    divHeight={'100%'}*/}
+        {/*    // scale={window.innerWidth / 1920}*/}
+        {/*    // scale={0.5}*/}
+        {/*  />*/}
+        {/*</div>*/}
         <div className={'row-1'}>
           <div className={'item-actions'}>
             <div>
@@ -322,16 +326,6 @@ export default function NewTab(): JSX.Element {
                       </li>
                     ))}
                   </div>
-                  <button className="search-button">
-                    <svg className={'search-svg'} viewBox={'0 0 1024 1024'}>
-                      <path
-                        className={'path1'}
-                        d={
-                          'M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z'
-                        }
-                      ></path>
-                    </svg>
-                  </button>
                 </form>
                 <div className={'fav-sites'}>{getSites}</div>
               </>
@@ -339,9 +333,9 @@ export default function NewTab(): JSX.Element {
           </div>
         </div>
         <div className={'row-3'}>
-          {/*<div className={'item-ads'}>*/}
-          {/*  <DisplayAds width={300} height={250} />*/}
-          {/*</div>*/}
+          <div className={'item-ads'}>
+            <DisplayAds width={300} height={250} />
+          </div>
           <div style={{ zIndex: -1, width: 100 }}></div>
           <div className={'item-clock'}>
             {hide ? (
