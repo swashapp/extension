@@ -1,4 +1,3 @@
-import { debounce } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { ToastContainer } from 'react-toastify';
@@ -34,7 +33,6 @@ export default function NewTab(): JSX.Element {
   const [time, setTime] = useState(new Date());
   const [timeFormat, setTimeFormat] = useState<Intl.DateTimeFormatOptions>();
   const [hide, setHide] = useState(false);
-  const [suggestion, setSuggestion] = useState<string[]>([]);
   const [copyright, setCopyright] = useState<UnsplashCopyright>({
     imageLink: '',
     location: '',
@@ -107,35 +105,6 @@ export default function NewTab(): JSX.Element {
       content: <Customisation onChange={getConfigs} />,
     });
   }, [getConfigs]);
-
-  const onSearchInput = useCallback((value) => {
-    const _api = new URL('http://suggestqueries.google.com/complete/search');
-    _api.searchParams.set('output', 'toolbar');
-    _api.searchParams.set('q', value);
-
-    fetch(_api.toString())
-      .then(async (resp) => {
-        const txt = await resp.text();
-        const parser = new DOMParser();
-
-        const xml = parser.parseFromString(txt, 'text/xml');
-        const nodes = xml.getElementsByTagName('suggestion');
-
-        const keywords: string[] = [];
-        for (let i = 0; i < nodes.length; i++) {
-          const data = nodes[i].getAttribute('data');
-          if (data) keywords.push(data);
-        }
-
-        setSuggestion(keywords);
-      })
-      .catch(() => setSuggestion([]));
-  }, []);
-
-  const onInputDebounce = useMemo(
-    () => debounce(onSearchInput, 500),
-    [onSearchInput],
-  );
 
   const addSite = useCallback(
     (rank) => {
@@ -297,9 +266,7 @@ export default function NewTab(): JSX.Element {
             ) : (
               <>
                 <form
-                  className={`search-form ${
-                    suggestion.length > 0 ? 'active' : ''
-                  }`}
+                  className={`search-form`}
                   role={'search'}
                   action={search?.url}
                 >
@@ -309,23 +276,7 @@ export default function NewTab(): JSX.Element {
                     name={search?.params || 'q'}
                     autoComplete={'off'}
                     placeholder={`Search on ${search?.name}...`}
-                    onChange={(event) => onInputDebounce(event.target.value)}
-                    onBlur={() => onSearchInput('')}
                   />
-                  <div className="suggested-list">
-                    {suggestion.map((item, index) => (
-                      <li
-                        key={`item-${index}`}
-                        onClick={() => {
-                          const s = new URL(search?.url || '');
-                          s.searchParams.set(search?.params || 'q', item);
-                          window.location.href = s.toString();
-                        }}
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </div>
                 </form>
                 <div className={'fav-sites'}>{getSites}</div>
               </>

@@ -193,48 +193,6 @@ a {
   text-align: center;
 }
 
-.search-form.active input {
-  border-radius: 5px 5px 0 0;
-}
-
-.search-form .suggested-list {
-  width: calc(100% - 16px);
-  background: #0006;
-  color: white;
-
-  padding: 0;
-  opacity: 0;
-  pointer-events: none;
-  max-height: 280px;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  position: absolute;
-}
-
-.search-form.active .suggested-list {
-  padding: 10px 8px;
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.suggested-list li {
-  list-style: none;
-  padding: 8px 12px;
-  display: none;
-  width: auto;
-  cursor: default;
-  border-radius: 3px;
-}
-
-.search-form.active .suggested-list li {
-  display: block;
-}
-
-.suggested-list li:hover {
-  background: #0001;
-}
-
 .fav-sites {
   display: grid;
   gap: 20px;
