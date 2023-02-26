@@ -1,11 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { helper } from '../../core/webHelper';
 import { AppContext } from '../../pages/app';
 
-import { RouteToPages } from '../../paths';
 import { Button } from '../button/button';
 import { ToastMessage } from '../toast/toast-message';
 
