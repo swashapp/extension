@@ -17,6 +17,7 @@ import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-ad
 import { Input } from '../components/input/input';
 import { NumericSection } from '../components/numeric-section/numeric-section';
 import { helper } from '../core/webHelper';
+import { WebsitePath } from '../paths';
 import { initValue, UtilsService } from '../service/utils-service';
 
 const TotalBonusIcon = '/static/images/icons/total-bonus.svg';
@@ -56,7 +57,7 @@ export function InviteFriends(): JSX.Element {
         return;
       }
       const _referralLink = db.profile.user_id
-        ? `https://swashapp.io/referral/${db.profile.user_id}`
+        ? `${WebsitePath}/referral/${db.profile.user_id}`
         : '';
       setReferralLink(_referralLink);
     });

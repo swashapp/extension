@@ -759,6 +759,15 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function getIsFullScreenAvailable() {
+    const message = {
+      obj: 'adsHelper',
+      func: 'getIsFullScreenAvailable',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
   function getAdsSlots(width, height) {
     const message = {
       obj: 'adsHelper',
@@ -934,6 +943,7 @@ const helper = (function () {
     toggleCharityLike,
     addCharityAutoPayment,
     delCharityAutoPayment,
+    getIsFullScreenAvailable,
     getAdsSlots,
     updateAdsStatus,
     getAdsStatus,

@@ -3,11 +3,11 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { helper } from '../../core/webHelper';
+import { WebsitePath } from '../../paths';
 import { closePopup } from '../popup/popup';
 import { WaitingProgressBar } from '../progress/waiting-progress';
 import { ToastMessage } from '../toast/toast-message';
 
-const SWASH_DOMAIN = 'https://swashapp.io';
 const SWASH_JOIN_PAGE = '/user/profile-verification';
 
 const enum Status {
@@ -52,8 +52,7 @@ export function VerificationPopup(props: {
   }, [handleMessages, token]);
 
   const iframeSrc = useMemo(
-    () =>
-      `${SWASH_DOMAIN}${SWASH_JOIN_PAGE}?type=${props.title}&token=${token}`,
+    () => `${WebsitePath}${SWASH_JOIN_PAGE}?type=${props.title}&token=${token}`,
     [props.title, token],
   );
 

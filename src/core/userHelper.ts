@@ -304,14 +304,6 @@ const userHelper = (function () {
     return new TokenSigner('ES256K', wallet.privateKey.slice(2)).sign(payload);
   }
 
-  async function joinSwash() {
-    browser.tabs
-      .create({
-        url: 'https://swashapp.io/user/join?token='.concat(await generateJWT()),
-      })
-      .then();
-  }
-
   async function isJoinedSwash() {
     const data = await swashApiHelper.getJoinedSwash(await generateJWT());
     if (data.id) {

@@ -8,11 +8,11 @@ import React, {
 
 import { helper } from '../../core/webHelper';
 import { StepperContext } from '../../pages/onboarding';
+import { WebsitePath } from '../../paths';
 import { WaitingProgressBar } from '../progress/waiting-progress';
 
 import { OnboardingVerify } from './onboarding-verify';
 
-const SWASH_DOMAIN = 'https://swashapp.io';
 const SWASH_JOIN_PAGE = '/user/verify-email';
 const MAX_TOKEN_TRY_COUNT = 3;
 const MAX_GENERAL_TRY_COUNT = 3;
@@ -32,7 +32,7 @@ export function OnboardingJoin(): JSX.Element {
   const [iframeVisible, setIframeVisible] = useState<boolean>(false);
 
   const iframeSrc = useMemo(
-    () => `${SWASH_DOMAIN}${SWASH_JOIN_PAGE}?token=${token}&v=2`,
+    () => `${WebsitePath}${SWASH_JOIN_PAGE}?token=${token}&v=2`,
     [token],
   );
 

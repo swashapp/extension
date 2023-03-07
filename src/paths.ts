@@ -15,6 +15,10 @@ export const RouteToPages = {
 export const WebsitePath = 'https://swashapp.io';
 
 export const PathToUrls = {
+  faq: `${WebsitePath}/faq`,
+  contact: `${WebsitePath}/contact`,
+  newsletter: `${WebsitePath}/newsletter`,
+  media: `${WebsitePath}/media`,
   terms: `${WebsitePath}/terms-use`,
   privacy: `${WebsitePath}/privacy-policy/extension`,
 };
