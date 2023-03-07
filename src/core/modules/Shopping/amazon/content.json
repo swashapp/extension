@@ -23,12 +23,12 @@
     "*://www.amazon.com.au/*"
   ],
   "content_mapping": {
+    "android": "mobile",
+    "ios": "mobile",
     "win": "desktop",
     "mac": "desktop",
-    "android": "mobile",
     "cros": "desktop",
     "openbsd": "desktop",
-    "ios": "mobile",
     "ipados": "desktop"
   },
   "desktop": [
@@ -183,27 +183,15 @@
               "type": "text"
             },
             {
-              "selector": ".sbv-ad-feedback span",
+              "selector": ".s-label-popover-hover span",
               "property": "innerText",
               "name": "sponsor",
               "type": "text"
             },
             {
-              "selector": ".a-row.a-size-base.a-color-secondary.s-align-children-center .a-row:nth-child(2)",
+              "selector": ".a-section.a-spacing-none.a-spacing-top-micro .a-row.a-size-base.a-color-secondary:nth-child(2)",
               "property": "innerText",
-              "name": "shippingFee",
-              "type": "text"
-            },
-            {
-              "selector": ".a-row.a-size-base.a-color-secondary.s-align-children-center .a-text-bold",
-              "property": "innerText",
-              "name": "deliveryTime",
-              "type": "text"
-            },
-            {
-              "selector": ".a-section.a-spacing-none.a-spacing-top-small .a-badge-label-inner.a-text-ellipsis .a-badge-text",
-              "property": "innerText",
-              "name": "limitedTimeOffer",
+              "name": "orderSoon",
               "type": "text"
             },
             {
@@ -274,7 +262,7 @@
               "type": "text"
             },
             {
-              "selector": ".sbv-ad-feedback span",
+              "selector": ".s-label-popover-hover span",
               "property": "innerText",
               "name": "sponsor",
               "type": "text"
@@ -361,7 +349,7 @@
               "type": "text"
             },
             {
-              "selector": ".a-pagination .a-selected a",
+              "selector": ".s-pagination-selected",
               "property": "innerText",
               "name": "pageNumber",
               "type": "text"
@@ -469,6 +457,47 @@
           ]
         },
         {
+          "selector": "<<<<<",
+          "properties": [
+            {
+              "selector": ".a-price .a-offscreen",
+              "property": "innerText",
+              "name": "discountPrice",
+              "type": "text"
+            },
+            {
+              "selector": ".a-price.a-text-price .a-offscreen",
+              "property": "innerText",
+              "name": "regularPrice",
+              "type": "text"
+            },
+            {
+              "selector": ".a-icon-star-small",
+              "property": "innerText",
+              "name": "rate",
+              "type": "text"
+            },
+            {
+              "selector": ".a-badge-label-inner.a-text-ellipsis",
+              "property": "innerText",
+              "name": "label",
+              "type": "text"
+            },
+            {
+              "selector": ".s-label-popover-hover span",
+              "property": "innerText",
+              "name": "sponsor",
+              "type": "text"
+            },
+            {
+              "selector": ".a-section.a-spacing-none.a-spacing-top-micro .a-row.a-size-base.a-color-secondary:nth-child(2)",
+              "property": "innerText",
+              "name": "orderSoon",
+              "type": "text"
+            }
+          ]
+        },
+        {
           "selector": "body",
           "properties": [
             {
@@ -484,27 +513,9 @@
               "type": "text"
             },
             {
-              "selector": ".a-pagination .a-selected a",
+              "selector": ".s-pagination-selected",
               "property": "innerText",
               "name": "pageNumber",
-              "type": "text"
-            },
-            {
-              "selector": ".a-badge-label-inner.a-text-ellipsis",
-              "property": "innerText",
-              "name": "label",
-              "type": "text"
-            },
-            {
-              "selector": ".sbv-ad-feedback span",
-              "property": "innerText",
-              "name": "sponsor",
-              "type": "text"
-            },
-            {
-              "selector": ".a-section.a-spacing-none.a-spacing-top-micro .a-row.a-size-base.a-color-secondary:nth-child(2)",
-              "property": "innerText",
-              "name": "deliveryTime",
               "type": "text"
             }
           ]
@@ -528,7 +539,6 @@
       "objects": [
         {
           "selector": "#dp-container",
-          "isRequired": true,
           "properties": [
             {
               "selector": "#productTitle",
@@ -543,28 +553,36 @@
               "type": "text"
             },
             {
-              "selector": "#priceblock_ourprice",
+              "selector": ".priceToPay .a-offscreen",
               "property": "innerText",
               "name": "discountPrice",
               "type": "text"
             },
             {
-              "selector": ".priceBlockStrikePriceString.a-text-strike",
+              "selector": ".basisPrice .a-offscreen",
               "property": "innerText",
               "name": "regularPrice",
               "type": "text"
             },
             {
-              "selector": "#mir-layout-DELIVERY_BLOCK-slot-DELIVERY_MESSAGE",
+              "selector": ".a-price .a-offscreen",
+              "property": "innerText",
+              "name": "price",
+              "type": "text"
+            },
+            {
+              "selector": "#mir-layout-DELIVERY_BLOCK-slot-PRIMARY_DELIVERY_MESSAGE_LARGE",
               "property": "innerText",
               "name": "arriveTime",
               "type": "text"
             },
             {
-              "selector": "[data-feature-name='exports_desktop_qualifiedBuybox_tlc']",
+              "function": "(x) => x.trim()",
+              "selector": "#a-popover-agShipMsgPopover td:nth-child(3)",
               "property": "innerText",
               "name": "shippingFee",
-              "type": "text"
+              "type": "text",
+              "arrIndex": "1"
             },
             {
               "function": "getBoundingClientRect",
@@ -638,6 +656,16 @@
               "type": "text"
             }
           ]
+        },
+        {
+          "selector": "#feature-bullets",
+          "properties": [
+            {
+              "property": "innerText",
+              "name": "features",
+              "type": "text"
+            }
+          ]
         }
       ]
     },
@@ -680,81 +708,6 @@
       ],
       "objects": [
         {
-          "selector": "<<<<<<",
-          "properties": [
-            {
-              "selector": ".a-declarative",
-              "property": "innerText",
-              "name": "title",
-              "type": "text"
-            },
-            {
-              "selector": ".dealPriceText",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<<<<<<<",
-          "properties": [
-            {
-              "selector": ".a-column.a-span12.g-span12when-narrow.g-span7when-wide .a-link-normal",
-              "property": "innerText",
-              "name": "title",
-              "type": "text"
-            },
-            {
-              "selector": ".a-offscreen",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": ".a-icon-alt",
-              "property": "innerText",
-              "name": "rate",
-              "type": "text"
-            },
-            {
-              "selector": ".a-section.price-section .a-color-secondary.a-size-base",
-              "property": "innerText",
-              "name": "shippingFee",
-              "type": "text"
-            },
-            {
-              "selector": ".a-badge-label-inner.a-text-ellipsis .a-badge-text",
-              "property": "innerText",
-              "name": "label",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<",
-          "properties": [
-            {
-              "selector": ".p13n-sc-truncate-desktop-type2.p13n-sc-truncated",
-              "property": "title",
-              "name": "title",
-              "type": "text"
-            },
-            {
-              "selector": ".p13n-sc-price",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": ".a-icon-alt",
-              "property": "innerText",
-              "name": "rate",
-              "type": "text"
-            }
-          ]
-        },
-        {
           "selector": "#dp-container",
           "properties": [
             {
@@ -770,27 +723,59 @@
               "type": "text"
             },
             {
-              "selector": "#priceblock_ourprice",
+              "selector": ".priceToPay .a-offscreen",
               "property": "innerText",
               "name": "discountPrice",
               "type": "text"
             },
             {
-              "selector": ".priceBlockStrikePriceString.a-text-strike",
+              "selector": ".basisPrice .a-offscreen",
               "property": "innerText",
               "name": "regularPrice",
               "type": "text"
             },
             {
-              "selector": "#mir-layout-DELIVERY_BLOCK-slot-DELIVERY_MESSAGE",
+              "selector": ".a-price .a-offscreen",
+              "property": "innerText",
+              "name": "price",
+              "type": "text"
+            },
+            {
+              "selector": "#mir-layout-DELIVERY_BLOCK-slot-PRIMARY_DELIVERY_MESSAGE_LARGE",
               "property": "innerText",
               "name": "arriveTime",
               "type": "text"
             },
             {
-              "selector": "[data-feature-name='exports_desktop_qualifiedBuybox_tlc']",
+              "function": "(x) => x.trim()",
+              "selector": "#a-popover-agShipMsgPopover td:nth-child(3)",
               "property": "innerText",
               "name": "shippingFee",
+              "type": "text",
+              "arrIndex": "1"
+            },
+            {
+              "function": "getBoundingClientRect",
+              "property": "height",
+              "name": "height",
+              "type": "text"
+            },
+            {
+              "function": "getBoundingClientRect",
+              "property": "width",
+              "name": "width",
+              "type": "text"
+            },
+            {
+              "function": "getBoundingClientRect",
+              "property": "top",
+              "name": "top",
+              "type": "text"
+            },
+            {
+              "function": "getBoundingClientRect",
+              "property": "left",
+              "name": "left",
               "type": "text"
             }
           ]
@@ -862,20 +847,26 @@
       "title": "Items in wishlist",
       "type": "event",
       "is_enabled": true,
+      "readyAt": "DOMChange",
+      "observingTargetNode": "body",
+      "observingConfig": {
+        "attributes": false,
+        "childList": true,
+        "subtree": true
+      },
       "events": [
         {
-          "selector": "#wishListMainButton-announce",
+          "selector": "#wishListMainButton",
           "event_name": "click"
         },
         {
-          "selector": "#wishListMainButton-announce",
+          "selector": "#wishListMainButton",
           "event_name": "submit"
         }
       ],
       "objects": [
         {
           "selector": "#dp-container",
-          "isRequired": true,
           "properties": [
             {
               "selector": "#productTitle",
@@ -890,28 +881,36 @@
               "type": "text"
             },
             {
-              "selector": "#priceblock_ourprice",
+              "selector": ".priceToPay .a-offscreen",
               "property": "innerText",
               "name": "discountPrice",
               "type": "text"
             },
             {
-              "selector": ".priceBlockStrikePriceString.a-text-strike",
+              "selector": ".basisPrice .a-offscreen",
               "property": "innerText",
               "name": "regularPrice",
               "type": "text"
             },
             {
-              "selector": "#mir-layout-DELIVERY_BLOCK-slot-DELIVERY_MESSAGE",
+              "selector": ".a-price .a-offscreen",
+              "property": "innerText",
+              "name": "price",
+              "type": "text"
+            },
+            {
+              "selector": "#mir-layout-DELIVERY_BLOCK-slot-PRIMARY_DELIVERY_MESSAGE_LARGE",
               "property": "innerText",
               "name": "arriveTime",
               "type": "text"
             },
             {
-              "selector": "[data-feature-name='exports_desktop_qualifiedBuybox_tlc']",
+              "function": "(x) => x.trim()",
+              "selector": "#a-popover-agShipMsgPopover td:nth-child(3)",
               "property": "innerText",
               "name": "shippingFee",
-              "type": "text"
+              "type": "text",
+              "arrIndex": "1"
             },
             {
               "function": "getBoundingClientRect",
@@ -982,6 +981,16 @@
               "selector": "#twotabsearchtextbox",
               "property": "value",
               "name": "query",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "selector": "#feature-bullets",
+          "properties": [
+            {
+              "property": "innerText",
+              "name": "features",
               "type": "text"
             }
           ]
@@ -996,6 +1005,13 @@
       "title": "Items for buy",
       "type": "event",
       "is_enabled": true,
+      "readyAt": "DOMChange",
+      "observingTargetNode": "body",
+      "observingConfig": {
+        "attributes": false,
+        "childList": true,
+        "subtree": true
+      },
       "events": [
         {
           "selector": "#buy-now-button",
@@ -1009,7 +1025,6 @@
       "objects": [
         {
           "selector": "#dp-container",
-          "isRequired": true,
           "properties": [
             {
               "selector": "#productTitle",
@@ -1024,28 +1039,36 @@
               "type": "text"
             },
             {
-              "selector": "#priceblock_ourprice",
+              "selector": ".priceToPay .a-offscreen",
               "property": "innerText",
               "name": "discountPrice",
               "type": "text"
             },
             {
-              "selector": ".priceBlockStrikePriceString.a-text-strike",
+              "selector": ".basisPrice .a-offscreen",
               "property": "innerText",
               "name": "regularPrice",
               "type": "text"
             },
             {
-              "selector": "#mir-layout-DELIVERY_BLOCK-slot-DELIVERY_MESSAGE",
+              "selector": ".a-price .a-offscreen",
+              "property": "innerText",
+              "name": "price",
+              "type": "text"
+            },
+            {
+              "selector": "#mir-layout-DELIVERY_BLOCK-slot-PRIMARY_DELIVERY_MESSAGE_LARGE",
               "property": "innerText",
               "name": "arriveTime",
               "type": "text"
             },
             {
-              "selector": "[data-feature-name='exports_desktop_qualifiedBuybox_tlc']",
+              "function": "(x) => x.trim()",
+              "selector": "#a-popover-agShipMsgPopover td:nth-child(3)",
               "property": "innerText",
               "name": "shippingFee",
-              "type": "text"
+              "type": "text",
+              "arrIndex": "1"
             },
             {
               "function": "getBoundingClientRect",
@@ -1116,6 +1139,16 @@
               "selector": "#twotabsearchtextbox",
               "property": "value",
               "name": "query",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "selector": "#feature-bullets",
+          "properties": [
+            {
+              "property": "innerText",
+              "name": "features",
               "type": "text"
             }
           ]
@@ -1184,7 +1217,7 @@
       "is_enabled": true,
       "events": [
         {
-          "selector": ".suggest_row",
+          "selector": ".s-suggestion",
           "event_name": "click"
         }
       ],
@@ -1243,6 +1276,12 @@
               "selector": ".a-icon-star-small",
               "property": "innerText",
               "name": "rate",
+              "type": "text"
+            },
+            {
+              "selector": ".s-sponsored-label-text",
+              "property": "innerText",
+              "name": "sponsor",
               "type": "text"
             },
             {
@@ -1323,11 +1362,11 @@
       "is_enabled": true,
       "events": [
         {
-          "selector": ".s-result-list.sg-row .s-result-item",
+          "selector": ".s-result-list.sg-row .s-result-item a h2",
           "event_name": "click"
         },
         {
-          "selector": ".s-result-list.sg-row .s-result-item",
+          "selector": ".s-result-list.sg-row .s-result-item a h2",
           "event_name": "contextmenu"
         }
       ],
@@ -1346,13 +1385,12 @@
           "selector": "",
           "properties": [
             {
-              "selector": "a[title=status-badge]",
+              "selector": "<<",
               "property": "href",
               "name": "link",
               "type": "url"
             },
             {
-              "selector": "a h2",
               "property": "innerText",
               "name": "title",
               "type": "text"
@@ -1458,9 +1496,33 @@
               "type": "text"
             },
             {
-              "selector": "#priceblock_ourprice",
+              "selector": ".priceToPay .a-offscreen",
+              "property": "innerText",
+              "name": "discountPrice",
+              "type": "text"
+            },
+            {
+              "selector": ".basisPrice .a-offscreen",
+              "property": "innerText",
+              "name": "regularPrice",
+              "type": "text"
+            },
+            {
+              "selector": ".a-price .a-offscreen",
               "property": "innerText",
               "name": "price",
+              "type": "text"
+            },
+            {
+              "selector": "#mir-layout-DELIVERY_BLOCK-slot-PRIMARY_DELIVERY_MESSAGE_LARGE",
+              "property": "innerText",
+              "name": "arriveTime",
+              "type": "text"
+            },
+            {
+              "selector": "#amazonGlobal_feature_div span",
+              "property": "innerText",
+              "name": "shippingFee",
               "type": "text"
             },
             {
@@ -1529,6 +1591,16 @@
               "type": "text"
             }
           ]
+        },
+        {
+          "selector": "#feature-bullets",
+          "properties": [
+            {
+              "property": "innerText",
+              "name": "features",
+              "type": "text"
+            }
+          ]
         }
       ]
     },
@@ -1568,9 +1640,33 @@
               "type": "text"
             },
             {
-              "selector": "#priceblock_ourprice",
+              "selector": ".priceToPay .a-offscreen",
+              "property": "innerText",
+              "name": "discountPrice",
+              "type": "text"
+            },
+            {
+              "selector": ".basisPrice .a-offscreen",
+              "property": "innerText",
+              "name": "regularPrice",
+              "type": "text"
+            },
+            {
+              "selector": ".a-price .a-offscreen",
               "property": "innerText",
               "name": "price",
+              "type": "text"
+            },
+            {
+              "selector": "#mir-layout-DELIVERY_BLOCK-slot-PRIMARY_DELIVERY_MESSAGE_LARGE",
+              "property": "innerText",
+              "name": "arriveTime",
+              "type": "text"
+            },
+            {
+              "selector": "#amazonGlobal_feature_div span",
+              "property": "innerText",
+              "name": "shippingFee",
               "type": "text"
             },
             {
@@ -1662,11 +1758,11 @@
       "is_enabled": true,
       "events": [
         {
-          "selector": "#wishListMainButton-announce",
+          "selector": "#add-to-wishlist-button-submit",
           "event_name": "click"
         },
         {
-          "selector": "#wishListMainButton-announce",
+          "selector": "#add-to-wishlist-button-submit",
           "event_name": "submit"
         }
       ],
@@ -1688,9 +1784,33 @@
               "type": "text"
             },
             {
-              "selector": "#priceblock_ourprice",
+              "selector": ".priceToPay .a-offscreen",
+              "property": "innerText",
+              "name": "discountPrice",
+              "type": "text"
+            },
+            {
+              "selector": ".basisPrice .a-offscreen",
+              "property": "innerText",
+              "name": "regularPrice",
+              "type": "text"
+            },
+            {
+              "selector": ".a-price .a-offscreen",
               "property": "innerText",
               "name": "price",
+              "type": "text"
+            },
+            {
+              "selector": "#mir-layout-DELIVERY_BLOCK-slot-PRIMARY_DELIVERY_MESSAGE_LARGE",
+              "property": "innerText",
+              "name": "arriveTime",
+              "type": "text"
+            },
+            {
+              "selector": "#amazonGlobal_feature_div span",
+              "property": "innerText",
+              "name": "shippingFee",
               "type": "text"
             },
             {
@@ -1756,6 +1876,16 @@
               "selector": "#nav-search-keywords",
               "property": "value",
               "name": "query",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "selector": "#feature-bullets",
+          "properties": [
+            {
+              "property": "innerText",
+              "name": "features",
               "type": "text"
             }
           ]
@@ -1798,9 +1928,33 @@
               "type": "text"
             },
             {
-              "selector": "#priceblock_ourprice",
+              "selector": ".priceToPay .a-offscreen",
+              "property": "innerText",
+              "name": "discountPrice",
+              "type": "text"
+            },
+            {
+              "selector": ".basisPrice .a-offscreen",
+              "property": "innerText",
+              "name": "regularPrice",
+              "type": "text"
+            },
+            {
+              "selector": ".a-price .a-offscreen",
               "property": "innerText",
               "name": "price",
+              "type": "text"
+            },
+            {
+              "selector": "#mir-layout-DELIVERY_BLOCK-slot-PRIMARY_DELIVERY_MESSAGE_LARGE",
+              "property": "innerText",
+              "name": "arriveTime",
+              "type": "text"
+            },
+            {
+              "selector": "#amazonGlobal_feature_div span",
+              "property": "innerText",
+              "name": "shippingFee",
               "type": "text"
             },
             {
@@ -1866,6 +2020,16 @@
               "selector": "#nav-search-keywords",
               "property": "value",
               "name": "query",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "selector": "#feature-bullets",
+          "properties": [
+            {
+              "property": "innerText",
+              "name": "features",
               "type": "text"
             }
           ]
