@@ -26,6 +26,7 @@ const addUnsplashParams = (src: string): string => {
 };
 
 export default function NewTab(): JSX.Element {
+  const [ads, setAds] = useState<'full' | 'partial' | 'none'>('none');
   const [bg, setBg] = useState('');
   const [style, setStyle] = useState({});
   const [search, setSearch] = useState<SearchEngine>();
@@ -41,12 +42,16 @@ export default function NewTab(): JSX.Element {
   });
 
   const getConfigs = useCallback((cache = true) => {
-    helper.getNewTabConfig().then((config: NTXConfig) => {
+    helper.getNewTabConfig().then(async (config: NTXConfig) => {
       const { background, searchEngine, sites, datetime } = config;
       setSearch(searchEngine);
       setSites(sites);
 
-      if (!cache) {
+      const status = await helper.getIsFullScreenAvailable();
+      if (status) setAds('full');
+      else setAds('partial');
+
+      if (!cache && !status) {
         setBg(background);
         if (background === 'unsplash') {
           helper
@@ -130,11 +135,11 @@ export default function NewTab(): JSX.Element {
   const getSites = useMemo(() => {
     return sites.map((value: Site, index) => {
       if (value.title) {
-        const _url = new URL(value.url)
+        const _url = new URL(value.url);
         let icon = value.icon;
 
         if (!icon.startsWith('https://www.google.com'))
-          icon = `https://www.google.com/s2/favicons?sz=64&domain_url=${_url.origin}`
+          icon = `https://www.google.com/s2/favicons?sz=64&domain_url=${_url.origin}`;
         return (
           <div className={'site-box'} key={`site-${index}`}>
             <a href={value.url}>
@@ -186,16 +191,18 @@ export default function NewTab(): JSX.Element {
   return (
     <>
       <div className={'container'} style={{ ...style }}>
-        {/*<div className={'full-ads'}>*/}
-        {/*  <DisplayAds*/}
-        {/*    width={1920}*/}
-        {/*    height={1080}*/}
-        {/*    divWidth={'100%'}*/}
-        {/*    divHeight={'100%'}*/}
-        {/*    // scale={window.innerWidth / 1920}*/}
-        {/*    // scale={0.5}*/}
-        {/*  />*/}
-        {/*</div>*/}
+        {ads === 'full' ? (
+          <div className={'full-ads'}>
+            <DisplayAds
+              width={3840}
+              height={2160}
+              divWidth={'100%'}
+              divHeight={'100%'}
+            />
+          </div>
+        ) : (
+          <></>
+        )}
         <div className={'row-1'}>
           <div className={'item-actions'}>
             <div>
@@ -233,7 +240,7 @@ export default function NewTab(): JSX.Element {
             </div>
           </div>
           <div className={'item-copyright'}>
-            {bg === 'unsplash' ? (
+            {bg === 'unsplash' && ads !== 'full' ? (
               <>
                 Photo by{' '}
                 <a
@@ -284,10 +291,28 @@ export default function NewTab(): JSX.Element {
           </div>
         </div>
         <div className={'row-3'}>
-          <div className={'item-ads'}>
-            <DisplayAds width={300} height={250} />
-          </div>
-          <div style={{ zIndex: -1, width: 100 }}></div>
+          {ads === 'partial' ? (
+            <div className={'item-ads'}>
+              <DisplayAds width={300} height={250} />
+            </div>
+          ) : ads === 'full' ? (
+            <div className={'click-ignore-wrapper'}>
+              <div className={'click-ignore-col1'} />
+              <div className={'click-ignore-col2'}>
+                <div className={'row1'} />
+                <div className={'row2'}>
+                  <img
+                    src={'/static/images/icons/new-tab/link.svg'}
+                    alt={'link'}
+                  />
+                </div>
+                <div className={'row3'} />
+              </div>
+              <div className={'click-ignore-col3'} />
+            </div>
+          ) : (
+            <div className={'click-ignore-wrapper'} />
+          )}
           <div className={'item-clock'}>
             {hide ? (
               <></>
