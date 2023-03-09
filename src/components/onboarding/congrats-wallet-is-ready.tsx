@@ -16,9 +16,9 @@ export function CongratsWalletIsReady(props: {
   useEffect(() => {
     setLoading(true);
     helper
-      .isJoinedSwash()
+      .submitOnBoarding()
       .then(() => {
-        helper.submitOnBoarding().then();
+        helper.isJoinedSwash().then();
       })
       .finally(() => {
         setLoading(false);
