@@ -3,6 +3,8 @@ import browser, { Tabs } from 'webextension-polyfill';
 import { WebsitePath } from '../paths';
 import { AdsTypeStatus } from '../types/storage/ads-config.type';
 
+import { browserUtils } from '../utils/browser.util';
+
 import { storageHelper } from './storageHelper';
 import { userHelper } from './userHelper';
 
@@ -21,7 +23,7 @@ const adsHelper = (function () {
 
     setInterval(() => {
       previousFullScreenAds = [];
-    }, 30000);
+    }, 3600000);
   }
 
   async function addNewTab(tab: Tabs.Tab) {
@@ -33,14 +35,18 @@ const adsHelper = (function () {
       tab.pendingUrl === 'edge://newtab/' ||
       tab.pendingUrl === 'about:newtab'
     ) {
-      getAvailableAds(3840, 2160).then((id) => {
-        if (previousFullScreenAds.includes(id) || id === '') {
-          isFullScreenAvailable = false;
-        } else {
-          previousFullScreenAds.push(id);
-          isFullScreenAvailable = true;
-        }
-      });
+      const isMobile = await browserUtils.isMobileDevice();
+
+      if (isMobile) isFullScreenAvailable = false;
+      else
+        getAvailableAds(3840, 2160).then((id) => {
+          if (previousFullScreenAds.includes(id) || id === '') {
+            isFullScreenAvailable = false;
+          } else {
+            previousFullScreenAds.push(id);
+            isFullScreenAvailable = true;
+          }
+        });
 
       await browser.tabs.update(tab.id, {
         url: browser.runtime.getURL('/new-tab/index.html'),
@@ -145,7 +151,6 @@ const adsHelper = (function () {
     if (!is_enabled || !(await userHelper.isVerified())) return;
 
     if (info.foreignId === '') await joinServer();
-    console.log(info);
     const found = info.zones.find((item) => {
       return (
         item.width === width.toString() && item.height === height.toString()
