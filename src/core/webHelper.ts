@@ -642,6 +642,15 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function updateVerification() {
+    const message = {
+      obj: 'userHelper',
+      func: 'updateVerification',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
   function isVerified() {
     const message = {
       obj: 'userHelper',
@@ -925,6 +934,7 @@ const helper = (function () {
     claimRewards,
     getJoinedSwash,
     isJoinedSwash,
+    updateVerification,
     isVerified,
     isVerificationNeeded,
     isAccountInitialized,

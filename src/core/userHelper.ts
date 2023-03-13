@@ -316,18 +316,15 @@ const userHelper = (function () {
     return false;
   }
 
+  async function updateVerification() {
+    const data = await swashApiHelper.getVerifiedInfo(await generateJWT());
+    if (data.email) await updateUserEmail(data.email);
+    if (data.phone) await updateUserPhone(data.phone);
+  }
+
   async function isVerified() {
-    const profile = await storageHelper.getProfile();
-    if (profile.phone === undefined) {
-      const data = await swashApiHelper.getVerifiedInfo(await generateJWT());
-      if (data.email) await updateUserEmail(data.email);
-      if (data.phone) {
-        await updateUserPhone(data.phone);
-        return true;
-      }
-      return false;
-    }
-    return true;
+    const { phone } = await storageHelper.getProfile();
+    return phone !== undefined;
   }
 
   async function isVerificationNeeded() {
@@ -532,6 +529,7 @@ const userHelper = (function () {
     withdrawToTarget,
     donateToTarget,
     isJoinedSwash,
+    updateVerification,
     isVerified,
     isVerificationNeeded,
     isAccountInitialized,

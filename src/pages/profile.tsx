@@ -116,7 +116,7 @@ export function Profile(): JSX.Element {
 
   const updateData = useCallback(() => {
     setEmailLoading(true);
-    helper.isJoinedSwash().then(() => {
+    helper.updateVerification().then(() => {
       fetchProfile(true);
     });
   }, [fetchProfile]);
