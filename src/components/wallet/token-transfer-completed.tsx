@@ -6,7 +6,6 @@ const completedIcon = '/static/images/icons/progress-completed.png';
 
 export function TokenTransferCompleted(props: {
   transactionId: string;
-  sendToMainnet: boolean;
 }): JSX.Element {
   return (
     <div className="token-transfer-popup-completed">
@@ -24,27 +23,13 @@ export function TokenTransferCompleted(props: {
       <h2>Transfer Completed!</h2>
       <p>
         Verify your transaction on{' '}
-        {props.sendToMainnet ? (
-          <>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={`https://etherscan.io/tx/${props.transactionId}`}
-            >
-              Etherscan
-            </a>
-          </>
-        ) : (
-          <>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={`https://blockscout.com/xdai/mainnet/tx/${props.transactionId}`}
-            >
-              Blockscout
-            </a>
-          </>
-        )}
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={`https://blockscout.com/xdai/mainnet/tx/${props.transactionId}`}
+        >
+          Blockscout
+        </a>
       </p>
     </div>
   );

@@ -28,7 +28,7 @@ const dataHandler = (function () {
   let sessionIdLastUsage: number = Date.now();
 
   async function init() {
-    streamConfig = await configManager.getConfig('stream');
+    streamConfig = await configManager.getConfig('brubeckStream');
   }
 
   function cancelSending(msgId: number) {
@@ -56,8 +56,10 @@ const dataHandler = (function () {
 
       try {
         streams[message.header.category].produceNewEvent(message);
-      } catch (err) {
-        console.error(`failed to produce new event because of: ${err.message}`);
+      } catch (err: Any) {
+        console.error(
+          `failed to produce new event because of: ${err?.message}`,
+        );
       }
     }
     await databaseHelper.removeReadyMessages(time);
@@ -79,8 +81,10 @@ const dataHandler = (function () {
     tabId: number,
   ) {
     if (!streams[message.header.category])
-      streams[message.header.category] = stream(
+      streams[message.header.category] = await stream(
         streamConfig[module.category].streamId,
+        streamConfig[module.category].proxies,
+        streamConfig[module.category].minProxies,
       );
     if (module.context) {
       const bct_attrs = module.context.filter((el: Any) => {
@@ -90,7 +94,7 @@ const dataHandler = (function () {
         for (const ct of bct_attrs) {
           switch (ct.name) {
             case 'agent':
-              message.header.agent = await browserUtils.getUserAgent();
+              message.header.agent = browserUtils.getUserAgent();
               break;
             case 'platform':
               message.header.platform = await browserUtils.getPlatformInfo();
@@ -158,7 +162,7 @@ const dataHandler = (function () {
     const gender = profile.gender;
     const age = profile.age;
     const income = profile.income;
-    const agent = await browserUtils.getUserAgent();
+    const agent = browserUtils.getUserAgent();
     const platform = await browserUtils.getPlatformInfo();
     const language = browserUtils.getBrowserLanguage();
 

@@ -18,6 +18,9 @@
     "stream": {
       "version": 1
     },
+    "brubeckStream": {
+      "version": 1
+    },
     "onboarding": {
       "version": 3
     },

@@ -264,15 +264,6 @@ const helper = (function () {
     return sendMessage(message);
   }
 
-  function getTokenBalance(address) {
-    const message = {
-      obj: 'userHelper',
-      func: 'getTokenBalance',
-      params: [address],
-    };
-    return sendMessage(message);
-  }
-
   function getEthBalance(address) {
     const message = {
       obj: 'userHelper',
@@ -597,11 +588,11 @@ const helper = (function () {
     return sendMessage(message);
   }
 
-  function withdrawToTarget(recipient, amount, useSponsor, sendToMainnet) {
+  function withdrawToTarget(recipient, amount) {
     const message = {
       obj: 'userHelper',
       func: 'withdrawToTarget',
-      params: [recipient, amount, useSponsor, sendToMainnet],
+      params: [recipient, amount],
     };
     return sendMessage(message);
   }
@@ -892,7 +883,6 @@ const helper = (function () {
     identityPrivacy,
     getWalletAddress,
     getWalletPrivateKey,
-    getTokenBalance,
     getEthBalance,
     getAvailableBalance,
     getCumulativeEarnings,
