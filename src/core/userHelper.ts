@@ -33,7 +33,7 @@ const userHelper = (function () {
   let withdrawContract: Contract;
   let rewardContract: Contract;
   let provider: BaseProvider;
-  let xdaiProvider: BaseProvider;
+  let gnosisProvider: BaseProvider;
 
   const timestamp = { value: 0, updated: 0 };
   let lastPopup = 0;
@@ -41,7 +41,7 @@ const userHelper = (function () {
   async function init() {
     config = await configManager.getConfig('community');
     provider = getDefaultProvider();
-    xdaiProvider = getDefaultProvider(config.rpcUrl);
+    gnosisProvider = getDefaultProvider(config.rpcUrl);
   }
 
   function createWallet() {
@@ -103,21 +103,21 @@ const userHelper = (function () {
         auth: { privateKey: wallet.privateKey },
         chain: 'gnosis',
       });
-      dataunion = await duClient.getDataUnion(config.dataunionAddress);
+      dataunion = await duClient.getDataUnion(config.dataunionGnosisAddress);
     }
     return dataunion;
   }
 
   async function initWithdrawModule() {
     const sidechainContract = new Contract(
-      dataunion.getAddress(),
+      config.dataunionGnosisAddress,
       SIDECHAIN_DU_ABI,
-      xdaiProvider,
+      gnosisProvider,
     );
     withdrawContract = new Contract(
       await sidechainContract.withdrawModule(),
       WITHDRAW_MODULE_ABI,
-      xdaiProvider,
+      gnosisProvider,
     );
   }
 
@@ -125,7 +125,7 @@ const userHelper = (function () {
     rewardContract = new Contract(
       config.rewardContractAddress,
       REWARD_ABI,
-      xdaiProvider,
+      gnosisProvider,
     );
   }
 
