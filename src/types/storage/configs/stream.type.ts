@@ -1,7 +1,18 @@
+export type StreamInfo = {
+  streamId: string;
+  proxies: string[];
+  minProxies: number;
+};
+
 export type StreamConfigs = {
-  [key in string]: {
-    streamId: string;
-    proxies: string[];
-    minProxies: number;
+  client: boolean;
+  api: boolean;
+  endpoint: string;
+  streams: {
+    [key in string]: StreamInfo;
   };
+};
+
+export type OldStreamConfigs = {
+  [key in string]: { streamId: string };
 };

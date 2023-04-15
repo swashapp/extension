@@ -16,9 +16,14 @@ export function DisplayAds(props: {
   const [iframeVisible, setIframeVisible] = useState<boolean>(false);
 
   useEffect(() => {
-    helper.getAdsSlots(width, height).then((resp) => {
-      setUuid(resp.uuid || '');
-    });
+    helper
+      .getAdsSlots(width, height)
+      .then((resp) => {
+        setUuid(resp.uuid || '');
+      })
+      .catch(() => {
+        setUuid('');
+      });
   }, [height, width]);
 
   const iframeSrc = useMemo(() => {

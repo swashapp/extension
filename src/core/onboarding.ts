@@ -144,6 +144,10 @@ const onboarding = (function () {
     userHelper.getUserCountry().then((location) => {
       console.log(`User is joined from ${location.country}`);
     });
+
+    await storageHelper.getFilters();
+    await storageHelper.getPrivacyData();
+
     return true;
   }
 

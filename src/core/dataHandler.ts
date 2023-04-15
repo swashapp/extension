@@ -82,9 +82,10 @@ const dataHandler = (function () {
   ) {
     if (!streams[message.header.category])
       streams[message.header.category] = await stream(
-        streamConfig[module.category].streamId,
-        streamConfig[module.category].proxies,
-        streamConfig[module.category].minProxies,
+        streamConfig.client,
+        streamConfig.api,
+        streamConfig.endpoint,
+        streamConfig.streams[module.category],
       );
     if (module.context) {
       const bct_attrs = module.context.filter((el: Any) => {
@@ -152,6 +153,7 @@ const dataHandler = (function () {
       modules[message.header.module].anonymityLevel;
     message.header.version = browserUtils.getVersion();
 
+    const publisherId = userHelper.getWalletAddress();
     const uid = privacyUtils.anonymiseIdentity(
       configs.Id,
       message,
@@ -167,6 +169,7 @@ const dataHandler = (function () {
     const language = browserUtils.getBrowserLanguage();
 
     message.identity = {
+      publisherId,
       uid,
       sessionId: '0',
       country,
