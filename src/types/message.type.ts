@@ -16,6 +16,7 @@ export type MessageHeader = {
 };
 
 export type MessageIdentity = {
+  publisherId: string;
   uid: string;
   sessionId: string;
   country: string;

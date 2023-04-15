@@ -4,7 +4,7 @@ import { DonationConfigs } from './configs/donation.type';
 import { GraphApiConfigs } from './configs/graph-api.type';
 import { MemberManagerConfigs } from './configs/member-manager.type';
 import { OnboardingConfigs } from './configs/onboarding.type';
-import { StreamConfigs } from './configs/stream.type';
+import { OldStreamConfigs, StreamConfigs } from './configs/stream.type';
 import { SwashApiConfigs } from './configs/swash-api.type';
 
 export type ManifestCategory = {
@@ -42,7 +42,8 @@ export type Configs = {
   graphAPI: GraphApiConfigs;
   donation: DonationConfigs;
   community: CommunityConfigs;
-  stream: StreamConfigs;
+  stream: OldStreamConfigs;
+  brubeckStream: StreamConfigs;
   onboarding: OnboardingConfigs;
   memberManager: MemberManagerConfigs;
   apiCall: ApiConfigs;

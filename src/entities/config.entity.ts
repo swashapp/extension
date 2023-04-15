@@ -1,6 +1,7 @@
 import browser from 'webextension-polyfill';
 
 import apiCallJson from '../core/configs/apiCall.json';
+import brubeckStreamJson from '../core/configs/brubeckStream.json';
 import communityJson from '../core/configs/community.json';
 import configJson from '../core/configs/config.json';
 import donationJson from '../core/configs/donation.json';
@@ -36,6 +37,7 @@ function getStaticConfig() {
     donation: { ...donationJson },
     community: { ...communityJson },
     stream: { ...streamJson },
+    brubeckStream: { ...brubeckStreamJson },
     onboarding: { ...onboardingJson },
     memberManager: { ...memberManagerJson },
     apiCall: { ...apiCallJson },
@@ -86,7 +88,7 @@ export class ConfigEntity extends Entity<Configs> {
   }
 
   public getStreamConfig(): StreamConfigs {
-    return this.cache.stream;
+    return this.cache.brubeckStream;
   }
 
   public getApiConfig(): ApiConfigs {
