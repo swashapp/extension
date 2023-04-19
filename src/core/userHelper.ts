@@ -1,5 +1,6 @@
-import { Bytes, DataUnion, DataUnionClient } from '@dataunions/client';
+import { getAddress } from '@ethersproject/address';
 import { BigNumber } from '@ethersproject/bignumber';
+import { arrayify, hexZeroPad } from '@ethersproject/bytes';
 import { Contract } from '@ethersproject/contracts';
 import { BaseProvider, getDefaultProvider } from '@ethersproject/providers';
 import { computePublicKey } from '@ethersproject/signing-key';
@@ -23,13 +24,13 @@ import { configManager } from './configManager';
 import { storageHelper } from './storageHelper';
 import { swashApiHelper } from './swashApiHelper';
 
-type Password = string | Bytes;
+type Password = string;
 
 const userHelper = (function () {
   let config: CommunityConfigs;
   let wallet: Wallet;
   let client: StreamrClient;
-  let dataunion: DataUnion;
+  let sidechainContract: Contract;
   let withdrawContract: Contract;
   let rewardContract: Contract;
   let provider: BaseProvider;
@@ -96,42 +97,38 @@ const userHelper = (function () {
     return client;
   }
 
-  async function getDataunion() {
-    if (!wallet) return;
-    if (!dataunion) {
-      const duClient = new DataUnionClient({
-        auth: { privateKey: wallet.privateKey },
-        chain: 'gnosis',
-      });
-      dataunion = await duClient.getDataUnion(config.dataunionGnosisAddress);
-    }
-    return dataunion;
+  function initSidechainContract() {
+    if (!sidechainContract)
+      sidechainContract = new Contract(
+        config.dataunionGnosisAddress,
+        SIDECHAIN_DU_ABI,
+        gnosisProvider,
+      );
   }
 
   async function initWithdrawModule() {
-    const sidechainContract = new Contract(
-      config.dataunionGnosisAddress,
-      SIDECHAIN_DU_ABI,
-      gnosisProvider,
-    );
-    withdrawContract = new Contract(
-      await sidechainContract.withdrawModule(),
-      WITHDRAW_MODULE_ABI,
-      gnosisProvider,
-    );
+    initSidechainContract();
+    if (!withdrawContract)
+      withdrawContract = new Contract(
+        await sidechainContract.withdrawModule(),
+        WITHDRAW_MODULE_ABI,
+        gnosisProvider,
+      );
   }
 
-  async function initRewardModule() {
-    rewardContract = new Contract(
-      config.rewardContractAddress,
-      REWARD_ABI,
-      gnosisProvider,
-    );
+  function initRewardModule() {
+    if (!rewardContract)
+      rewardContract = new Contract(
+        config.rewardContractAddress,
+        REWARD_ABI,
+        gnosisProvider,
+      );
   }
 
   async function getBonus() {
     if (!wallet) throw Error('Wallet is not provided');
-    if (!rewardContract) await initRewardModule();
+    initRewardModule();
+
     let ret = '0';
     try {
       const reward = await rewardContract.userRewards(wallet.address);
@@ -145,7 +142,7 @@ const userHelper = (function () {
 
   async function checkWithdrawAllowance(amount: string) {
     if (!wallet) throw Error('Wallet is not provided');
-    if (!withdrawContract) await initWithdrawModule();
+    await initWithdrawModule();
 
     if (await withdrawContract.blackListed(wallet.address))
       throw Error('You are blacklisted');
@@ -193,28 +190,39 @@ const userHelper = (function () {
 
   async function getAvailableBalance() {
     if (!wallet) throw Error('Wallet is not provided');
-    if (!dataunion) await getDataunion();
-    const earnings = await dataunion.getWithdrawableEarnings(wallet.address);
+    initSidechainContract();
+
+    const earnings = await sidechainContract.getWithdrawableEarnings(
+      wallet.address,
+    );
     return formatEther(earnings);
   }
 
   async function signWithdrawAmountTo(targetAddress: string, amount: string) {
     if (!wallet || !provider) throw Error('Wallet is not provided');
-    if (!dataunion) await getDataunion();
+    initSidechainContract();
 
     const amountBN = parseEther(amount);
 
-    const withdrawableEarnings = await dataunion.getWithdrawableEarnings(
+    const [activeStatus, , , withdrawn] = await sidechainContract.memberData(
       wallet.address,
     );
+    if (activeStatus == 0) {
+      return { error: 'You are not a member' };
+    }
+
+    const withdrawableEarnings =
+      await sidechainContract.getWithdrawableEarnings(wallet.address);
     if (amountBN.gt(withdrawableEarnings)) {
       return { error: 'Nothing to withdraw' };
     }
 
-    return await dataunion.signWithdrawAmountTo(
-      targetAddress,
-      amountBN.toString(),
-    );
+    const message =
+      getAddress(targetAddress) +
+      hexZeroPad(amountBN.toHexString(), 32).slice(2) +
+      config.dataunionGnosisAddress.slice(2) +
+      hexZeroPad(withdrawn.toHexString(), 32).slice(2);
+    return wallet.signMessage(arrayify(message));
   }
 
   async function getWithdrawBody(recipient: string, amount: string) {
@@ -353,6 +361,7 @@ const userHelper = (function () {
       await storageHelper.saveProfile(profile);
     }
   }
+
   async function updateUserEmail(email: string) {
     const profile = await storageHelper.getProfile();
     if (profile.email == null || profile.email !== email) {
@@ -360,6 +369,7 @@ const userHelper = (function () {
       await storageHelper.saveProfile(profile);
     }
   }
+
   async function updateUserPhone(phone: string) {
     const profile = await storageHelper.getProfile();
     if (profile.phone == null || profile.phone !== phone) {
