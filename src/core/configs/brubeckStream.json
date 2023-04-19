@@ -1,5 +1,5 @@
 {
-  "client": true,
+  "client": false,
   "api": true,
   "endpoint": "https://stream.swashapp.io/streams/",
   "streams": {
