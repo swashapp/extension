@@ -21,90 +21,92 @@ var adsScript = (function () {
     const style = document.createElement('style');
     style.innerHTML = `
       .sticky-flex-center {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 12px;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 12px !important;
       }
     
       .sticky-ads-close {
-        width: 16px;
-        height: 16px;
-        position: absolute;
-        top: 0px;
-        right: 0px;
-        cursor: pointer;
-        background-color: #B0AEAE;
+        width: 16px !important;
+        height: 16px !important;
+        position: absolute !important;
+        top: 0px !important;
+        right: 0px !important;
+        cursor: pointer !important;
+        background-color: #B0AEAE !important;
       }
       
       .sticky-ads-pause {
-        height: 100%;
+        height: 100% !important;
       }
       
       .sticky-ads-pause,
       .sticky-ads-pause button {
-        font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 20px;
-        color: #24292E;
+        font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji" !important;
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        line-height: 20px !important;
+        color: #24292E !important;
       }
       
       .sticky-ads-pause-text {
-        text-align: center;
+        text-align: center !important;
       }
       
       .sticky-ads-pause-button {
-        appearance: none;
-        background-color: #FAFBFC;
-        border: 1px solid rgba(27, 31, 35, 0.15);
-        border-radius: 6px;
-        box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
-        box-sizing: border-box;
-        cursor: pointer;
-        display: inline-block;
-        list-style: none;
-        padding: 6px 16px;
-        position: relative;
-        transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
-        user-select: none;
-        -webkit-user-select: none;
-        touch-action: manipulation;
-        vertical-align: middle;
-        white-space: nowrap;
-        word-wrap: break-word;
+        appearance: none !important;
+        background-color: #FAFBFC !important;
+        border: 1px solid rgba(27, 31, 35, 0.15) !important;
+        border-radius: 6px !important;
+        box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset !important;
+        box-sizing: border-box !important;
+        cursor: pointer !important;
+        display: inline-block !important;
+        list-style: none !important;
+        padding: 6px 16px !important;
+        position: relative !important;
+        transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1) !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        touch-action: manipulation !important;
+        vertical-align: middle !important;
+        white-space: nowrap !important;
+        word-wrap: break-word !important;
+        margin: unset !important;
+        text-decoration: none !important;
       }
       
       .sticky-ads-pause-button:hover {
-        background-color: #F3F4F6;
-        text-decoration: none;
-        transition-duration: 0.1s;
+        background-color: #F3F4F6 !important;
+        text-decoration: none !important;
+        transition-duration: 0.1s !important;
       }
       
       .sticky-ads-pause-button:disabled {
-        background-color: #FAFBFC;
-        border-color: rgba(27, 31, 35, 0.15);
-        color: #959DA5;
-        cursor: default;
+        background-color: #FAFBFC !important;
+        border-color: rgba(27, 31, 35, 0.15) !important;
+        color: #959DA5 !important;
+        cursor: default !important;
       }
       
       .sticky-ads-pause-button:active {
-        background-color: #EDEFF2;
-        box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
-        transition: none 0s;
+        background-color: #EDEFF2 !important;
+        box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset !important;
+        transition: none 0s !important;
       }
       
       .sticky-ads-pause-button:focus {
-        outline: 1px transparent;
+        outline: 1px transparent !important;
       }
       
       .sticky-ads-pause-button:before {
-        display: none;
+        display: none !important;
       }
       
       .sticky-ads-pause-button:-webkit-details-marker {
-        display: none;
+        display: none !important;
       }
     `;
 

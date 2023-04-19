@@ -160,14 +160,14 @@ export default function NewTab(): JSX.Element {
         );
       } else {
         return (
-          <div className={'fav-site'} key={`site-${index}`}>
-            <img
-              src={'/static/images/shape/plus.png'}
-              alt={'add'}
-              onClick={() => {
-                addSite(index);
-              }}
-            />
+          <div
+            className={'fav-site'}
+            key={`site-${index}`}
+            onClick={() => {
+              addSite(index);
+            }}
+          >
+            <img src={'/static/images/shape/plus.png'} alt={'add'} />
           </div>
         );
       }
