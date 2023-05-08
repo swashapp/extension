@@ -78,6 +78,7 @@ const swashApiHelper = (function () {
 
   async function get<Type>(token: string, api: string, params?: Any) {
     const query = params ? `?${encodeQueryString(params)}` : '';
+    console.log(query);
     const url = config.endpoint + api + query;
     return call<Type>(url, createRequest(token));
   }
@@ -204,6 +205,18 @@ const swashApiHelper = (function () {
     return get<Any>(token, config.APIs.charityList);
   }
 
+  async function getSurveyUrl(token: string, userId: number, provider: string) {
+    return get<Any>(token, config.APIs.surveyUrl, { userId, provider });
+  }
+
+  async function getSurveyHistory(
+    token: string,
+    userId: number,
+    provider: string,
+  ) {
+    return get<Any>(token, config.APIs.surveyHistory, { userId, provider });
+  }
+
   return {
     init,
     getDataEthPairPrice,
@@ -226,6 +239,8 @@ const swashApiHelper = (function () {
     getAdditionalInfo,
     updateAdditionalInfo,
     getCharities,
+    getSurveyUrl,
+    getSurveyHistory,
   };
 })();
 

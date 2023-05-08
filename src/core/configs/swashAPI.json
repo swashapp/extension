@@ -1,22 +1,25 @@
 {
-  "endpoint": "https://api.swashapp.io/v2",
+  "endpoint": "https://api.swashapp.io",
   "APIs": {
-    "syncTimestamp": "/sync/timestamp",
-    "userJoin": "/user/join",
-    "userUpdateEmail": "/user/email",
-    "emailVerification": "/email/verification",
-    "newsletterSignUp": "/public/newsletter/signup",
-    "notifications": "/public/extension/notifications",
-    "userReferralReward": "/user/referral",
-    "userReferralClaim": "/user/claim",
-    "userBalanceWithdraw": "/user/withdraw",
-    "userDonateCharity": "/user/donate",
-    "userVerifiedInfo": "/user/info/verified",
-    "userAdditionalInfo": "/user/info/additional",
-    "balanceWithdraw": "/balance/withdraw",
-    "latestPrograms": "/reward/latest",
-    "referralActive": "/referral/active",
-    "ipLookup": "/tools/ip/lookup",
-    "charityList": "/charity"
+    "syncTimestamp": "/v2/sync/timestamp",
+    "userJoin": "/v2/user/join",
+    "userUpdateEmail": "/v2/user/email",
+    "emailVerification": "/v2/email/verification",
+    "newsletterSignUp": "/v2/public/newsletter/signup",
+    "notifications": "/v2/public/extension/notifications",
+    "userReferralReward": "/v2/user/referral",
+    "userReferralClaim": "/v2/user/claim",
+    "userBalanceWithdraw": "/v2/user/withdraw",
+    "userDonateCharity": "/v2/user/donate",
+    "userVerifiedInfo": "/v2/user/info/verified",
+    "userAdditionalInfo": "/v2/user/info/additional",
+    "balanceWithdraw": "/v2/balance/withdraw",
+    "latestPrograms": "/v2/reward/latest",
+    "referralActive": "/v2/referral/active",
+    "ipLookup": "/v2/tools/ip/lookup",
+    "charityList": "/v2/charity",
+    "surveyUrl": "/sapp/v1/survey/url",
+    "surveyHistory": "/sapp/v1/survey/history"
   }
 }
+

@@ -1,30 +1,37 @@
 var sdkScript = (function () {
-  var profile = {};
-
-  function send_msg(msg) {
-    browser.runtime.sendMessage(msg);
+  function init() {
+    embed(codeToInject);
+    addMessageHandler();
   }
 
-  function handleResponse(messages) {
-    profile = messages;
-    embed(codeToInject);
+  function send_msg(msg) {
+    return browser.runtime.sendMessage(msg);
+  }
 
-    // Solution #1
-    // document.addEventListener('getUserInfo', function () {
-    //   console.log('received request');
-    //   document.dispatchEvent(
-    //     new CustomEvent('getUserInfoResponse', { detail: profile }),
-    //   );
-    // console.log('sent response');
-    // });
-    // Solution #2
+  function addMessageHandler() {
+    const validFunctions = ['getUserInfo', 'getSurveyUrl', 'getSurveyHistory'];
+
     window.addEventListener('message', (event) => {
-      if (event.data !== 'getUserInfo') return;
-      console.log('received request');
-      console.log(event.data);
-      event.source.postMessage(profile, event.origin);
-      console.log('sent response');
+      if (!event.data.id) return;
+
+      const func = event.data.id;
+      const params = event.data.params || [];
+
+      if (!validFunctions.includes(func)) return;
+
+      send_msg({
+        obj: 'sdk',
+        func,
+        params,
+      }).then((data) => sendResponse(event, data), handleError);
     });
+  }
+
+  function sendResponse(event, data) {
+    event.source.postMessage(
+      { id: `${event.data.id}Resp`, response: data },
+      event.origin,
+    );
   }
 
   function handleError(error) {
@@ -32,41 +39,29 @@ var sdkScript = (function () {
   }
 
   function codeToInject() {
+    const callFunction = async function (data) {
+      return new Promise((resolve) => {
+        const listener = function (event) {
+          if (event.data.id !== `${data.id}Resp`) return;
+
+          window.removeEventListener('message', listener);
+          resolve(event.data.response);
+        };
+
+        window.addEventListener('message', listener);
+        window.postMessage(data, '*');
+      });
+    };
+
     window.swashSdk = {
       getUserInfo: async () => {
-        // Solution #1
-        // return new Promise((resolve) => {
-        // document.addEventListener('getUserInfoResponse', function (e) {
-        //   console.log('received response');
-        //   console.log(e.detail);
-        // });
-        // document.dispatchEvent(new CustomEvent('getUserInfo'));
-        // console.log('sent request');
-        // });
-        // Solution #2
-        return new Promise((resolve) => {
-          window.addEventListener('message', function (e) {
-            if (e.data === 'getUserInfo') return;
-            console.log('received response');
-            console.log(e);
-            resolve(e.data);
-          });
-          window.postMessage('getUserInfo', '*');
-          console.log('sent request');
-        });
-        // return {
-        //   user_id: '1',
-        //   gender: 'Male',
-        //   birth: '1988',
-        //   age: '32-30',
-        //   income: '50-75K',
-        //   country: 'Netherlands',
-        //   city: 'Smilde',
-        //   marital: 'Married',
-        //   household: '3',
-        //   employment: 'Full-time',
-        //   industry: 'Finance and Economic',
-        // };
+        return callFunction({ id: 'getUserInfo' });
+      },
+      getSurveyUrl: async (provider) => {
+        return callFunction({ id: 'getSurveyUrl', params: [provider] });
+      },
+      getSurveyHistory: async (provider) => {
+        return callFunction({ id: 'getSurveyHistory', params: [provider] });
       },
     };
   }
@@ -78,19 +73,8 @@ var sdkScript = (function () {
   }
 
   return {
-    handleResponse,
-    handleError,
+    init,
   };
 })();
 
-if (typeof window.swashSdk === 'undefined') {
-  window.swashSdk = {
-    obj: 'sdk',
-    func: 'getUserProfile',
-    params: [],
-  };
-
-  browser.runtime
-    .sendMessage(window.swashSdk)
-    .then(sdkScript.handleResponse, sdkScript.handleError);
-}
+sdkScript.init();

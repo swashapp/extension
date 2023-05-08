@@ -479,6 +479,22 @@ const userHelper = (function () {
     await storageHelper.saveProfile({ ...profile, ...data });
   }
 
+  async function createSurveyUrl(provider: string) {
+    return swashApiHelper.getSurveyUrl(
+      await generateJWT(),
+      await getUserId(),
+      provider,
+    );
+  }
+
+  async function getSurveyHistory(provider: string) {
+    return swashApiHelper.getSurveyHistory(
+      await generateJWT(),
+      await getUserId(),
+      provider,
+    );
+  }
+
   return {
     init,
     createWallet,
@@ -512,6 +528,8 @@ const userHelper = (function () {
     getBonus,
     getUserProfile,
     updateUserProfile,
+    createSurveyUrl,
+    getSurveyHistory,
   };
 })();
 
