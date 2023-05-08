@@ -52,7 +52,7 @@ const sdk = (function () {
     }
   }
 
-  async function getUserProfile() {
+  async function getUserInfo() {
     const {
       user_id,
       gender,
@@ -82,13 +82,23 @@ const sdk = (function () {
     };
   }
 
+  async function getSurveyUrl(provider: string) {
+    return userHelper.createSurveyUrl(provider);
+  }
+
+  async function getSurveyHistory(provider: string) {
+    return userHelper.getSurveyHistory(provider);
+  }
+
   return {
     initModule,
     load,
     unload,
     loadModule,
     unloadModule,
-    getUserProfile,
+    getUserInfo,
+    getSurveyUrl,
+    getSurveyHistory,
   };
 })();
 export { sdk };
