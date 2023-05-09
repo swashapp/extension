@@ -23,7 +23,13 @@ var sdkScript = (function () {
         obj: 'sdk',
         func,
         params,
-      }).then((data) => sendResponse(event, data), handleError);
+      }).then(
+        (data) => sendResponse(event, data),
+        (error) =>
+          sendResponse(event, {
+            error: error.message || 'Something unexpected happened',
+          }),
+      );
     });
   }
 
@@ -34,18 +40,15 @@ var sdkScript = (function () {
     );
   }
 
-  function handleError(error) {
-    console.error(`Error: ${error}`);
-  }
-
   function codeToInject() {
     const callFunction = async function (data) {
-      return new Promise((resolve) => {
+      return new Promise((resolve, reject) => {
         const listener = function (event) {
           if (event.data.id !== `${data.id}Resp`) return;
 
           window.removeEventListener('message', listener);
-          resolve(event.data.response);
+          if (event.data.response.error) reject(event.data.response.error);
+          else resolve(event.data.response);
         };
 
         window.addEventListener('message', listener);
