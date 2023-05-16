@@ -1,6 +1,6 @@
 {
   "name": "swash-extension",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "private": true,
   "repository": {
     "url": "https://github.com/swashapp/extension.git"
@@ -70,7 +70,7 @@
     "react-widgets": "5.5.0",
     "reactstrap": "8.10.1",
     "remove": "0.1.5",
-    "streamr-client": "8.4.0",
+    "streamr-client": "8.5.0-nolit.1",
     "webextension-polyfill": "0.8.0"
   },
   "devDependencies": {
