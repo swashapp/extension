@@ -9,14 +9,13 @@ const sdk = (function () {
   async function initModule() {}
 
   function load() {
-    console.log('aaaaa');
     if (!browser.tabs.onUpdated.hasListener(registerSwashSdk))
       browser.tabs.onUpdated.addListener(registerSwashSdk);
   }
 
   function unload() {
-    if (browser.tabs.onUpdated.hasListener(registerSwashSdk))
-      browser.tabs.onUpdated.removeListener(registerSwashSdk);
+    // if (browser.tabs.onUpdated.hasListener(registerSwashSdk))
+    //   browser.tabs.onUpdated.removeListener(registerSwashSdk);
   }
 
   function loadModule() {
@@ -24,12 +23,10 @@ const sdk = (function () {
   }
 
   function unloadModule() {
-    unload();
+    // unload();
   }
 
   async function registerSwashSdk(tabId, changeInfo) {
-    if (!(await userHelper.isVerified())) return;
-
     if (changeInfo.status == 'loading') {
       browser.tabs
         .executeScript(tabId, {
@@ -50,6 +47,13 @@ const sdk = (function () {
           console.error(err);
         });
     }
+  }
+
+  async function getStatus() {
+    const { isEnabled: enabled } = await storageHelper.getConfigs();
+    const verified = await userHelper.isVerified();
+
+    return { enabled, verified };
   }
 
   async function getUserInfo() {
@@ -96,6 +100,7 @@ const sdk = (function () {
     unload,
     loadModule,
     unloadModule,
+    getStatus,
     getUserInfo,
     getSurveyUrl,
     getSurveyHistory,
