@@ -50,7 +50,7 @@ const sdk = (function () {
   }
 
   async function getStatus() {
-    const { isEnabled: enabled } = await storageHelper.getConfigs();
+    const { is_enabled: enabled } = await storageHelper.getConfigs();
     const verified = await userHelper.isVerified();
 
     return { enabled, verified };
