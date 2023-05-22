@@ -9,7 +9,12 @@ var sdkScript = (function () {
   }
 
   function addMessageHandler() {
-    const validFunctions = ['getUserInfo', 'getSurveyUrl', 'getSurveyHistory'];
+    const validFunctions = [
+      'getStatus',
+      'getUserInfo',
+      'getSurveyUrl',
+      'getSurveyHistory',
+    ];
 
     window.addEventListener('message', (event) => {
       if (!event.data.id) return;
@@ -57,6 +62,9 @@ var sdkScript = (function () {
     };
 
     window.swashSdk = {
+      getStatus: async () => {
+        return callFunction({ id: 'getStatus' });
+      },
       getUserInfo: async () => {
         return callFunction({ id: 'getUserInfo' });
       },
