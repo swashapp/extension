@@ -15,7 +15,6 @@ import { userHelper } from './userHelper';
 const memberManager = (function () {
   let joined: boolean | undefined;
   let tryTimer: NodeJS.Timer | undefined;
-  let heartbeatTimer: NodeJS.Timer | undefined;
   let memberManagerConfig: MemberManagerConfigs;
   let tryInterval: number;
 
@@ -25,13 +24,23 @@ const memberManager = (function () {
   }
 
   async function checkJoin() {
+    const states = await storageHelper.getStates();
     console.log(`Trying to join...`);
+
+    if (commonUtils.isToday(new Date(states.lastUserJoin))) {
+      console.log('No need to join user today');
+      charityHelper.startAutoPayment().catch(console.error);
+      tryInterval = memberManagerConfig.heartbeatInterval;
+      clearJoinStrategy();
+      tryJoin().catch(console.error);
+      return;
+    }
+
     try {
       joined = await userHelper.isJoinedSwash();
       if (!joined) {
         console.log(`User is not joined`);
         clearJoinStrategy();
-        console.log(`Need to join swash again`);
         onboarding
           .repeatOnboarding([
             OnboardingPageValues.Join,
@@ -39,15 +48,16 @@ const memberManager = (function () {
           ])
           .then();
       } else {
-        clearJoinStrategy();
         console.log(`User is already joined`);
-        const profile = await storageHelper.getProfile();
-        profile.lastCheck = new Date();
-        console.log(`User last join submitted on ${profile.lastCheck}`);
-        await storageHelper.saveProfile(profile);
-        keepAlive().catch(console.error);
+        states.lastUserJoin = Date.now();
+        console.log(
+          `User last join submitted on ${new Date(states.lastUserJoin)}`,
+        );
+        await storageHelper.saveStates(states);
         charityHelper.startAutoPayment().catch(console.error);
-        tryInterval = memberManagerConfig.tryInterval;
+        tryInterval = memberManagerConfig.heartbeatInterval;
+        clearJoinStrategy();
+        tryJoin().catch(console.error);
         browser.tabs
           .query({ currentWindow: true, active: true })
           .then((tabs) => {
@@ -58,40 +68,18 @@ const memberManager = (function () {
     } catch (err) {
       console.log(`failed to get user join status`);
       if (tryInterval < memberManagerConfig.maxInterval) {
-        clearJoinStrategy();
         tryInterval *= memberManagerConfig.backoffRate;
         if (tryInterval > memberManagerConfig.maxInterval)
           tryInterval = memberManagerConfig.maxInterval;
         console.log(`Increased try join interval to ${tryInterval}`);
+        clearJoinStrategy();
         tryJoin().catch(console.error);
       }
     }
   }
 
-  async function checkHeartbeat() {
-    const profile = await storageHelper.getProfile();
-    if (profile.lastCheck && commonUtils.isToday(profile.lastCheck)) return;
-    console.log("User heartbeat didn't recorded for today");
-    try {
-      await userHelper.isJoinedSwash();
-      profile.lastCheck = new Date();
-      console.log(`User heartbeat submitted on ${profile.lastCheck}`);
-      await storageHelper.saveProfile(profile);
-    } catch (err) {
-      console.error('Failed to submit heartbeat');
-    }
-  }
-
   async function tryJoin() {
     if (!tryTimer && !joined) tryTimer = setInterval(checkJoin, tryInterval);
-  }
-
-  async function keepAlive() {
-    heartbeatTimer && clearInterval(heartbeatTimer);
-    heartbeatTimer = setInterval(
-      checkHeartbeat,
-      memberManagerConfig.heartbeatInterval,
-    );
   }
 
   function clearJoinStrategy() {

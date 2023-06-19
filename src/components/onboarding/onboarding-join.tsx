@@ -78,31 +78,35 @@ export function OnboardingJoin(): JSX.Element {
     },
     [reloadIFrame, stepper],
   );
-  useEffect(() => {
-    if (!token) {
-      helper.generateJWT().then((_token: string) => setToken(_token));
-    }
-    window.onmessage = handleMessages;
-  }, [handleMessages, token]);
 
   const [joinData, setJoinData] = useState<{
     id?: number;
     email?: string;
   } | null>(null);
+
   const onGetJoinedFailed = useCallback((err) => {
     if (err.message === 'user not found' || err.message === 'invalid user') {
       setJoinData({});
     }
   }, []);
+
   useEffect(() => {
+    window.onmessage = handleMessages;
+
     helper
       .getJoinedSwash()
       .then((data: { id: number; email: string }) => {
         if (data.id && data.email) stepper.next();
         else setJoinData(data);
       })
-      .catch(onGetJoinedFailed);
-  }, [onGetJoinedFailed, stepper]);
+      .catch(onGetJoinedFailed)
+      .finally(() => {
+        if (!token) {
+          helper.generateJWT().then((_token: string) => setToken(_token));
+        }
+      });
+  }, [handleMessages, onGetJoinedFailed, stepper, token]);
+
   return (
     <>
       {verification.email ? (

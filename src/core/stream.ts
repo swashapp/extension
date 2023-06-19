@@ -6,9 +6,8 @@ import { StreamInfo } from '../types/storage/configs/stream.type';
 import { Stream } from '../types/stream.type';
 
 import { databaseHelper } from './databaseHelper';
+import { storageHelper } from './storageHelper';
 import { userHelper } from './userHelper';
-
-// Create the client and give the API key to use by default
 
 const stream = async function (
   useClient: boolean,
@@ -16,7 +15,6 @@ const stream = async function (
   endpoint: string,
   streamInfo: StreamInfo,
 ): Promise<Stream> {
-  let sessionId: string | null = '';
   let proxyEstablished = false;
   const { streamId, proxies, minProxies } = streamInfo;
   const header = 'Swash-Session-Token';
@@ -37,10 +35,12 @@ const stream = async function (
   }
 
   async function publish(msg: Message) {
+    const state = await storageHelper.getStates();
+
     let session = {};
-    if (sessionId) {
+    if (state.streamSessionToken !== '') {
       session = {
-        [header]: sessionId,
+        [header]: state.streamSessionToken,
       };
     }
 
@@ -55,7 +55,8 @@ const stream = async function (
     });
 
     if (resp.status === 200) {
-      sessionId = resp.headers.get(header);
+      state.streamSessionToken = resp.headers.get(header) || '';
+      await storageHelper.saveStates(state);
     } else throw new Error('Can not publish message');
   }
 

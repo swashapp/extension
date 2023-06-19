@@ -343,11 +343,13 @@ const onboarding = (function () {
       const profile = await storageHelper.getProfile();
 
       configs.salt = oldDB.configs.salt;
+      configs.delay = oldDB.configs.delay;
       profile.encryptedWallet = oldDB.profile.encryptedWallet;
 
       await storageHelper.saveConfigs(configs);
       await storageHelper.saveProfile(profile);
       await storageHelper.savePrivacyData(oldDB.privacyData);
+      await storageHelper.saveCharities(oldDB?.charity || []);
 
       await userHelper.loadSavedWallet();
       return true;
@@ -360,9 +362,18 @@ const onboarding = (function () {
   }
 
   async function saveConfig() {
+    function blobToBase64(blob: Blob) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+      });
+    }
+
     const db = await storageHelper.getAll();
     const data = createConfigFile(JSON.stringify(db));
-    const url = window.URL.createObjectURL(data);
+    const url = await blobToBase64(data);
     const currentDate = new Date().toISOString().slice(0, 10);
     browser.downloads
       .download({

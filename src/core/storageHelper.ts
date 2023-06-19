@@ -11,6 +11,7 @@ import { NotificationsEntity } from '../entities/notifications.entity';
 import { OnboardingEntity } from '../entities/onboarding.entity';
 import { PrivacyDataEntity } from '../entities/privacy-data.entity';
 import { ProfileEntity } from '../entities/profile.entity';
+import { StateEntity } from '../entities/state.entity';
 import { Any } from '../types/any.type';
 import { AdsConfig } from '../types/storage/ads-config.type';
 import { Charity } from '../types/storage/charity.type';
@@ -21,6 +22,7 @@ import { NewTab } from '../types/storage/new-tab.type';
 import { Onboarding } from '../types/storage/onboarding.type';
 import { PrivacyData } from '../types/storage/privacy-data.type';
 import { Profile } from '../types/storage/profile.type';
+import { State } from '../types/storage/state.type';
 
 const storageHelper = (function () {
   const functionList: ModuleFunction[] = [
@@ -38,16 +40,17 @@ const storageHelper = (function () {
 
   async function saveAll(db: Any) {
     const result = browser.storage.local.set(db);
-    await (await ConfigEntity.getInstance()).get(false);
-    await (await ModuleEntity.getInstance()).get(false);
-    await (await OnboardingEntity.getInstance()).get(false);
-    await (await ProfileEntity.getInstance()).get(false);
-    await (await FilterEntity.getInstance()).get(false);
-    await (await PrivacyDataEntity.getInstance()).get(false);
-    await (await NotificationsEntity.getInstance()).get(false);
-    await (await CharityEntity.getInstance()).get(false);
-    await (await NewTabEntity.getInstance()).get(false);
     await (await AdsEntity.getInstance()).get(false);
+    await (await CharityEntity.getInstance()).get(false);
+    await (await ConfigEntity.getInstance()).get(false);
+    await (await FilterEntity.getInstance()).get(false);
+    await (await ModuleEntity.getInstance()).get(false);
+    await (await NewTabEntity.getInstance()).get(false);
+    await (await NotificationsEntity.getInstance()).get(false);
+    await (await OnboardingEntity.getInstance()).get(false);
+    await (await PrivacyDataEntity.getInstance()).get(false);
+    await (await ProfileEntity.getInstance()).get(false);
+    await (await StateEntity.getInstance()).get(false);
     return result;
   }
 
@@ -135,6 +138,14 @@ const storageHelper = (function () {
     return (await AdsEntity.getInstance()).get();
   }
 
+  async function saveStates(state: State) {
+    return (await StateEntity.getInstance()).save(state);
+  }
+
+  async function getStates() {
+    return await (await StateEntity.getInstance()).get();
+  }
+
   function updateFunctionSettings(
     module: Module,
     functionName: ModuleFunction,
@@ -184,6 +195,8 @@ const storageHelper = (function () {
     getNewTab,
     saveAdsConfig,
     getAdsConfig,
+    saveStates,
+    getStates,
   };
 })();
 export { storageHelper };
