@@ -64,18 +64,17 @@ const task = (function () {
     }
 
     if (changeInfo.status == 'loading')
-      browser.tabs
-        .executeScript(tabId, {
-          file: '/lib/browser-polyfill.js',
-          allFrames: false,
-          runAt: 'document_start',
+      browser.scripting
+        .executeScript({
+          injectImmediately: true,
+          target: { tabId, allFrames: false },
+          files: [
+            '/lib/browser-polyfill.js',
+            '/core/content_scripts/task_script.js',
+          ],
         })
-        .then((result) => {
-          browser.tabs.executeScript(tabId, {
-            file: '/core/content_scripts/task_script.js',
-            allFrames: false,
-            runAt: 'document_end',
-          });
+        .catch((err) => {
+          console.error(err);
         });
   }
 

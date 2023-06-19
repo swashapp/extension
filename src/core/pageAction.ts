@@ -50,14 +50,14 @@ const pageAction = (function () {
             if (memberManager.isJoined() === true) {
               storageHelper.getFilters().then((filters) => {
                 if (filterUtils.filter(url, filters))
-                  browser.browserAction.setIcon({
+                  browser.action.setIcon({
                     path: {
                       '16': 'static/images/swash/inactive-16.png',
                       '48': 'static/images/swash/inactive-48.png',
                     },
                   });
                 else
-                  browser.browserAction.setIcon({
+                  browser.action.setIcon({
                     path: {
                       '16': 'static/images/swash/active-16.png',
                       '48': 'static/images/swash/active-48.png',
@@ -65,7 +65,7 @@ const pageAction = (function () {
                   });
               });
             } else {
-              browser.browserAction.setIcon({
+              browser.action.setIcon({
                 path: {
                   '16': 'static/images/swash/error-16.png',
                   '48': 'static/images/swash/error-48.png',
@@ -73,7 +73,7 @@ const pageAction = (function () {
               });
             }
           } else {
-            browser.browserAction.setIcon({
+            browser.action.setIcon({
               path: {
                 '16': 'static/images/swash/inactive-16.png',
                 '48': 'static/images/swash/inactive-48.png',

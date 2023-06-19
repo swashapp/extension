@@ -1,5 +1,5 @@
-import { JsonPointer } from 'json-ptr';
 import { JSONPath } from 'jsonpath-plus';
+import JsonPointer from 'jsonpointer';
 
 import browser from 'webextension-polyfill';
 
@@ -24,9 +24,6 @@ const dataHandler = (function () {
   const streams: { [key: string]: Stream } = {};
   let streamConfig: StreamConfigs;
 
-  let sessionId: string = commonUtils.uuid();
-  let sessionIdLastUsage: number = Date.now();
-
   async function init() {
     streamConfig = await configManager.getConfig('brubeckStream');
   }
@@ -37,20 +34,21 @@ const dataHandler = (function () {
 
   async function sendDelayedMessages() {
     const confs = await storageHelper.getConfigs();
+    const states = await storageHelper.getStates();
+
     const time = Number(new Date().getTime()) - confs.delay * 60000;
     const rows = await databaseHelper.getReadyMessages(time);
 
-    if (sessionIdLastUsage + 30 * 60000 < Date.now()) {
-      sessionId = commonUtils.uuid();
-      sessionIdLastUsage = Date.now();
+    if (states.messageSession.expire < Date.now()) {
+      states.messageSession.id = commonUtils.uuid();
     }
 
     for (const row of rows) {
       const message = row.message;
       delete message.origin;
 
-      message.identity.sessionId = sessionId;
-      sessionIdLastUsage = Date.now();
+      message.identity.sessionId = states.messageSession.id;
+      states.messageSession.expire = Date.now() + 30 * 60000;
 
       try {
         streams[message.header.category].produceNewEvent(message);
@@ -60,6 +58,8 @@ const dataHandler = (function () {
         );
       }
     }
+
+    await storageHelper.saveStates(states);
     await databaseHelper.removeReadyMessages(time);
   }
 
@@ -142,6 +142,8 @@ const dataHandler = (function () {
       return;
     const configs = db.configs;
     const profile = db.profile;
+    const states = db.state;
+
     const privacyData = db.privacyData;
     const delay = configs.delay;
 
@@ -157,6 +159,7 @@ const dataHandler = (function () {
       message,
       modules[message.header.module],
     );
+    const sessionId = states.messageSession.id;
     const country = profile.country || (await userHelper.getUserCountry());
     const city = profile.city || '';
     const gender = profile.gender;
@@ -169,7 +172,7 @@ const dataHandler = (function () {
     message.identity = {
       publisherId,
       uid,
-      sessionId: '0',
+      sessionId,
       country,
       city,
       gender,
@@ -201,7 +204,7 @@ const dataHandler = (function () {
         for (const jp of jPointers) {
           let val = ptr.get(message.data.out, jp);
           val = privacyUtils.anonymiseObject(val, d.type, message, privacyData);
-          ptr.set(data, jp, val, true);
+          ptr.set(data, jp, val);
         }
       }
     }

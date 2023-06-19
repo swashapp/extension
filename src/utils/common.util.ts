@@ -76,7 +76,7 @@ const commonUtils = (function () {
         return ((Math.random() * 16) | 0).toString(16);
       }
     }
-    var crypto = window.crypto || window.msCrypto;
+    const crypto = self.crypto || self.msCrypto;
     return 'xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx'.replace(/x/g, randomDigit);
   }
 

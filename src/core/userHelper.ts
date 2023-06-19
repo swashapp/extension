@@ -36,7 +36,6 @@ const userHelper = (function () {
   let provider: BaseProvider;
   let gnosisProvider: BaseProvider;
 
-  const timestamp = { value: 0, updated: 0 };
   let lastPopup = 0;
 
   async function init() {
@@ -256,18 +255,19 @@ const userHelper = (function () {
   async function generateJWT() {
     if (!wallet) throw Error('Wallet is not provided');
 
-    if (
-      timestamp.updated === 0 ||
-      timestamp.updated + config.tokenExpiration < Date.now()
-    ) {
-      timestamp.value = await swashApiHelper.getTimestamp();
-      timestamp.updated = Date.now();
+    const states = await storageHelper.getStates();
+
+    if (states.serverTimestamp.expire < Date.now()) {
+      states.serverTimestamp.value = await swashApiHelper.getTimestamp();
+      states.serverTimestamp.expire = Date.now() + config.tokenExpiration;
+
+      await storageHelper.saveStates(states);
     }
 
     const payload = {
       address: wallet.address,
       publicKey: computePublicKey(wallet.publicKey, true),
-      timestamp: timestamp.value,
+      timestamp: states.serverTimestamp.value,
     };
     return new TokenSigner('ES256K', wallet.privateKey.slice(2)).sign(payload);
   }

@@ -1,35 +1,48 @@
 {
   "name": "Swash",
-  "version": "2.5.6",
+  "version": "2.6.0",
   "description": "Get paid for your data as you browse the web. Gain control and help create a better, more dignified internet.",
   "homepage_url": "https://swashapp.io/",
-  "manifest_version": 2,
+  "manifest_version": 3,
+  "action": {
+    "default_title": "Swash",
+    "default_popup": "popup/index.html",
+    "default_icon": {
+      "16": "static/images/swash/active-16.png",
+      "48": "static/images/swash/active-48.png",
+      "96": "static/images/swash/active-96.png",
+      "128": "static/images/swash/active-128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background/service_worker.ts",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["core/content_scripts/dummy_script.js"]
+    }
+  ],
   "icons": {
     "16": "static/images/swash/active-16.png",
     "48": "static/images/swash/active-48.png",
     "96": "static/images/swash/active-96.png",
     "128": "static/images/swash/active-128.png"
-  },
-  "background": {
-    "scripts": ["background.ts"]
-  },
-  "browser_action": {
-    "browser_style": false,
-    "default_icon": {
-      "16": "static/images/swash/active-16.png",
-      "48": "static/images/swash/active-48.png"
     },
-    "default_title": "Swash"
-  },
   "permissions": [
+    "bookmarks",
+    "clipboardRead",
+    "downloads",
+    "scripting",
     "storage",
     "tabs",
-    "<all_urls>",
-    "clipboardRead",
-    "bookmarks",
-    "downloads",
-    "webRequest",
-    "webRequestBlocking"
+    "webRequest"
   ],
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self';"
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
+  }
 }

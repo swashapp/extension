@@ -1,4 +1,4 @@
-import browser, { Tabs } from 'webextension-polyfill';
+import browser from 'webextension-polyfill';
 
 import { BackupEntity } from '../entities/backup.entity';
 import { ConfigEntity } from '../entities/config.entity';
@@ -7,6 +7,8 @@ import { ModuleEntity } from '../entities/module.entity';
 import { ProfileEntity } from '../entities/profile.entity';
 import { Any } from '../types/any.type';
 import { Module } from '../types/storage/module.type';
+
+import { commonUtils } from '../utils/common.util';
 
 import { adsHelper } from './adsHelper';
 import { charityHelper } from './charityHelper';
@@ -190,16 +192,17 @@ const loader = (function () {
     console.log('Extension stopped successfully');
   }
 
+  function databaseInterval() {
+    databaseHelper.init().then(() => {
+      dataHandler.sendDelayedMessages().then();
+    });
+  }
+
   async function load() {
     console.log('Loading the extension configuration');
     const db = await storageHelper.getAll();
-    dbHelperInterval = setInterval(async function () {
-      await databaseHelper.init();
-      await dataHandler.sendDelayedMessages();
-    }, 10000);
-
+    dbHelperInterval = setInterval(databaseInterval, 10000);
     await userHelper.loadSavedWallet();
-
     if (db.configs.is_enabled) {
       init(true);
       await loadFunctions();
@@ -215,10 +218,7 @@ const loader = (function () {
     console.log('Reloading the extension configuration');
     const db = await storageHelper.getAll();
     clearInterval(dbHelperInterval);
-    dbHelperInterval = setInterval(async function () {
-      await databaseHelper.init();
-      await dataHandler.sendDelayedMessages();
-    }, 10000);
+    dbHelperInterval = setInterval(databaseInterval, 10000);
     init(false);
     await userHelper.loadSavedWallet();
     await unloadFunctions();
@@ -275,8 +275,20 @@ const loader = (function () {
 
   async function updateSchedule() {
     async function update() {
+      const states = await storageHelper.getStates();
+      const lastUpdateCheck = new Date(states.lastConfigUpdate);
+      console.log(`Last update check is ${lastUpdateCheck}`);
+
+      if (commonUtils.isToday(lastUpdateCheck)) {
+        console.log(`No need to update configuration files today`);
+        return;
+      }
+
       await configManager.updateAll();
       await onUpdatedAll();
+
+      states.lastConfigUpdate = Date.now();
+      await storageHelper.saveStates(states);
     }
 
     const configs = await storageHelper.getConfigs();
