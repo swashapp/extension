@@ -90,7 +90,8 @@ const databaseHelper = (function () {
             lastSent: currentTime,
             messageCount: 1,
           };
-          //since Id is autoincrement column, so the row will be automatically generated.
+
+          // since id is autoincrement column, so the row will be automatically generated.
           connection
             .insert({
               into: 'stats',
@@ -149,10 +150,11 @@ const databaseHelper = (function () {
       createTime: currentTime,
       message: message,
     };
-    //since Id is autoincrement column, so the row will be automatically generated.
+
+    // since id is autoincrement column, so the row will be automatically generated.
     return await connection.insert({
       into: 'messages',
-      values: [row],
+      values: JSON.parse(JSON.stringify([row])),
     });
   }
 

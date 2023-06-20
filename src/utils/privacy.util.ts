@@ -1,11 +1,11 @@
-import { sha256 } from 'js-sha256';
-
 import { ObjectType } from '../enums/object.enum';
 import { Any } from '../types/any.type';
 import { Message } from '../types/message.type';
 import { Module } from '../types/storage/module.type';
 
 import { commonUtils } from './common.util';
+
+const { sha256, uuid } = commonUtils;
 
 const privacyUtils = (function () {
   let basicIdentity = '';
@@ -138,7 +138,7 @@ const privacyUtils = (function () {
         retUserInfo = sha256(user);
         return retUserInfo;
       case 2:
-        retUserInfo = sha256(user + commonUtils.uuid());
+        retUserInfo = sha256(user + uuid());
         return retUserInfo;
       case 3:
         return '';
@@ -157,7 +157,7 @@ const privacyUtils = (function () {
         retId = sha256(id);
         return retId;
       case 2:
-        retId = sha256(id + commonUtils.uuid());
+        retId = sha256(id + uuid());
         return retId;
       case 3:
         return '';
@@ -176,7 +176,7 @@ const privacyUtils = (function () {
         retAttr = sha256(userAttr);
         return retAttr;
       case 2:
-        retAttr = sha256(userAttr + commonUtils.uuid());
+        retAttr = sha256(userAttr + uuid());
         return retAttr;
       case 3:
         return '';

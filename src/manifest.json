@@ -1,6 +1,6 @@
 {
   "name": "Swash",
-  "version": "2.5.4",
+  "version": "2.5.5",
   "description": "Get paid for your data as you browse the web. Gain control and help create a better, more dignified internet.",
   "homepage_url": "https://swashapp.io/",
   "manifest_version": 2,
@@ -31,5 +31,5 @@
     "webRequest",
     "webRequestBlocking"
   ],
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self';"
+  "content_security_policy": "script-src 'self'; object-src 'self';"
 }

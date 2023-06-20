@@ -1,3 +1,5 @@
+import hash from 'fast-sha256';
+
 const commonUtils = (function () {
   function jsonUpdate(src, newObj) {
     if (Array.isArray(newObj)) {
@@ -55,6 +57,15 @@ const commonUtils = (function () {
     return true;
   }
 
+  async function sha256(msg: string) {
+    const utf8 = new TextEncoder().encode(msg);
+    const hashBuffer = hash(utf8);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray
+      .map((bytes) => bytes.toString(16).padStart(2, '0'))
+      .join('');
+  }
+
   function uuid() {
     function randomDigit() {
       if (crypto && crypto.getRandomValues) {
@@ -107,6 +118,7 @@ const commonUtils = (function () {
   return {
     jsonUpdate,
     wildcard,
+    sha256,
     uuid,
     serialize,
     isEmpty,

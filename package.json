@@ -1,6 +1,6 @@
 {
   "name": "swash-extension",
-  "version": "2.5.4",
+  "version": "2.5.5",
   "private": true,
   "repository": {
     "url": "https://github.com/swashapp/extension.git"
@@ -48,12 +48,12 @@
     "@mui/material": "5.10.6",
     "@mui/styles": "5.10.6",
     "@types/react-scroll": "1.8.3",
+    "fast-sha256": "1.3.0",
     "interweave": "12.9.0",
-    "js-sha256": "0.9.0",
     "json-ptr": "3.1.1",
     "jsonpath-plus": "6.0.1",
     "jsontokens": "3.0.0",
-    "jsstore": "3.10.3",
+    "jsstore": "4.5.4",
     "mdbreact": "5.1.0",
     "prop-types": "15.7.2",
     "react": "17.0.2",
