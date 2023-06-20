@@ -1,4 +1,3 @@
-import { sha256 } from 'js-sha256';
 import { JSONPath } from 'jsonpath-plus';
 import browser from 'webextension-polyfill';
 
@@ -19,6 +18,8 @@ import { loader } from './loader';
 import { memberManager } from './memberManager';
 import { storageHelper } from './storageHelper';
 import { userHelper } from './userHelper';
+
+const { serialize, sha256 } = commonUtils;
 
 const onboarding = (function () {
   let oauthTabId = 0;
@@ -481,7 +482,7 @@ const onboarding = (function () {
     let data = '';
     switch (apiInfo.content_type) {
       case 'application/x-www-form-urlencoded':
-        data = commonUtils.serialize(apiInfo.params);
+        data = serialize(apiInfo.params);
         break;
       case 'application/json':
         data = JSON.stringify(apiInfo.params);
@@ -494,7 +495,7 @@ const onboarding = (function () {
         data = apiInfo.file;
         break;
       default:
-        data = commonUtils.serialize(apiInfo.params);
+        data = serialize(apiInfo.params);
     }
 
     switch (apiInfo.method) {

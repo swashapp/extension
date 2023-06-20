@@ -33,8 +33,6 @@ const dataHandler = (function () {
 
   function cancelSending(msgId: number) {
     databaseHelper.removeMessage(msgId).then();
-    //clearTimeout(msgId);
-    //storageHelper.removeMessage(msgId);
   }
 
   async function sendDelayedMessages() {
