@@ -57,7 +57,7 @@ const commonUtils = (function () {
     return true;
   }
 
-  async function sha256(msg: string) {
+  function sha256(msg: string) {
     const utf8 = new TextEncoder().encode(msg);
     const hashBuffer = hash(utf8);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
