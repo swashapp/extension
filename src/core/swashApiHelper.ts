@@ -212,9 +212,9 @@ const swashApiHelper = (function () {
   async function getSurveyHistory(
     token: string,
     userId: number,
-    provider: string,
+    params: { [key: string]: string | number },
   ) {
-    return get<Any>(token, config.APIs.surveyHistory, { userId, provider });
+    return get<Any>(token, config.APIs.surveyHistory, { ...params, userId });
   }
 
   return {
