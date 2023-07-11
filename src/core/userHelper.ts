@@ -487,11 +487,11 @@ const userHelper = (function () {
     );
   }
 
-  async function getSurveyHistory(provider: string) {
+  async function getSurveyHistory(params: { [key: string]: string | number }) {
     return swashApiHelper.getSurveyHistory(
       await generateJWT(),
       await getUserId(),
-      provider,
+      params,
     );
   }
 

@@ -90,8 +90,8 @@ const sdk = (function () {
     return userHelper.createSurveyUrl(provider);
   }
 
-  async function getSurveyHistory(provider: string) {
-    return userHelper.getSurveyHistory(provider);
+  async function getSurveyHistory(params: { [key: string]: string | number }) {
+    return userHelper.getSurveyHistory(params);
   }
 
   return {

@@ -71,8 +71,8 @@ var sdkScript = (function () {
       getSurveyUrl: async (provider) => {
         return callFunction({ id: 'getSurveyUrl', params: [provider] });
       },
-      getSurveyHistory: async (provider) => {
-        return callFunction({ id: 'getSurveyHistory', params: [provider] });
+      getSurveyHistory: async (params) => {
+        return callFunction({ id: 'getSurveyHistory', params: [params] });
       },
     };
   }
