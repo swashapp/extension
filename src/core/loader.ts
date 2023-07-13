@@ -120,31 +120,42 @@ const loader = (function () {
     }
   }
 
-  function loadNotifications() {
+  async function loadNotifications() {
+    const states = await storageHelper.getStates();
     console.log('Loading notifications');
-    swashApiHelper.getNotifications().then((res) => {
-      if (res.length > 0) {
-        const notifications: {
-          [key: string]: {
-            type: string;
-            title: string;
-            text: string;
-            link: string;
-          };
-        } = {};
-        res.forEach((item) => {
-          if (!notifications[item.type]) notifications[item.type] = item;
-        });
-        storageHelper.getNotifications().then((_notifications) => {
-          storageHelper
-            .saveNotifications({
-              ..._notifications,
-              ...notifications,
-            })
-            .catch(console.error);
-        });
-      }
-    });
+
+    if (commonUtils.isToday(new Date(states.lastNotificationUpdate))) {
+      console.log('No need to load notifications today');
+      return;
+    }
+
+    const serverNotifications = await swashApiHelper.getNotifications();
+
+    if (serverNotifications.length > 0) {
+      const notifications: {
+        [key: string]: {
+          type: string;
+          title: string;
+          text: string;
+          link: string;
+        };
+      } = {};
+
+      serverNotifications.forEach((item) => {
+        if (!notifications[item.type]) notifications[item.type] = item;
+      });
+
+      const localNotifications = await storageHelper.getNotifications();
+      storageHelper
+        .saveNotifications({
+          ...localNotifications,
+          ...notifications,
+        })
+        .catch(console.error);
+    }
+
+    states.lastNotificationUpdate = Date.now();
+    await storageHelper.saveStates(states);
   }
 
   async function loadFunctions() {

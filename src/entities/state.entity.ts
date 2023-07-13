@@ -19,9 +19,10 @@ export class StateEntity extends Entity<State> {
 
   protected async init(): Promise<void> {
     await this.create({
-      lastConfigUpdate: 0,
       serverTimestamp: { value: 0, expire: 0 },
+      lastConfigUpdate: 0,
       lastUserJoin: 0,
+      lastNotificationUpdate: 0,
       messageSession: { id: '', expire: 0 },
       streamSessionToken: '',
     });
