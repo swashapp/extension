@@ -842,6 +842,12 @@ hr.nav {
   background-color: transparent;
 }
 
+.sidenav-ads {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
 .welcome-container {
   overflow: hidden;
   border-radius: 20px;

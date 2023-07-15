@@ -209,7 +209,8 @@ var adsScript = (function () {
     if (left !== undefined) div.style.left = `${left}px`;
 
     appendCloseDiv(div);
-    document.querySelector('body').appendChild(div);
+    const body = document.querySelector('body');
+    body.insertBefore(div, body.firstChild);
   }
 
   function addEmbeddedAd(name, selector, placementId, size, position) {
@@ -219,6 +220,14 @@ var adsScript = (function () {
   }
 
   function handleResponse(messages) {
+    const body = document.querySelector('body');
+    if (!body) {
+      window.addEventListener('DOMContentLoaded', () => {
+        handleResponse(messages);
+      });
+      return;
+    }
+
     injectHeaders();
 
     for (let message of messages) {

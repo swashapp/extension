@@ -1,6 +1,6 @@
 {
   "name": "Swash",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "description": "Get paid for your data as you browse the web. Gain control and help create a better, more dignified internet.",
   "homepage_url": "https://swashapp.io/",
   "manifest_version": 3,
@@ -15,7 +15,7 @@
     }
   },
   "background": {
-    "service_worker": "background/service_worker.ts",
+    "service_worker": "background/app-start.ts",
     "type": "module"
   },
   "content_scripts": [
