@@ -349,7 +349,11 @@ const onboarding = (function () {
       await storageHelper.saveConfigs(configs);
       await storageHelper.saveProfile(profile);
       await storageHelper.savePrivacyData(oldDB.privacyData);
-      await storageHelper.saveCharities(oldDB?.charity || []);
+      await storageHelper.saveFilters(oldDB?.filters);
+      await storageHelper.saveCharities(oldDB?.charity);
+      await storageHelper.saveAdsConfig(oldDB?.ads);
+      await storageHelper.saveNewTab(oldDB?.newTab);
+      await storageHelper.saveStates(oldDB?.state);
 
       await userHelper.loadSavedWallet();
       return true;

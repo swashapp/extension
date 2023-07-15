@@ -31,7 +31,9 @@ export function Sidenav(props: { activeIndex?: number }): JSX.Element {
           <SidenavLinks activeIndex={props.activeIndex} />
         </div>
       </div>
-      <DisplayAds width={250} height={250} />
+      <div className={'sidenav-ads'}>
+        <DisplayAds width={250} height={250} />
+      </div>
     </div>
   );
 }

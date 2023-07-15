@@ -16,6 +16,7 @@
 /dist
 /build
 /out
+/releases
 /web-ext-artifacts
 /subgraph/build
 /subgraph/generated

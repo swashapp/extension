@@ -1,7 +1,7 @@
 {
   "name": "swash-extension",
-  "version": "2.6.1",
-  "private": true,
+  "version": "2.6.2",
+  "type": "module",
   "repository": {
     "url": "https://github.com/swashapp/extension.git"
   },
@@ -12,21 +12,18 @@
     ]
   },
   "scripts": {
-    "build:dev": "run-s clean && parcel build src/manifest.json src/new-tab/index.html src/dashboard/index.html src/popup/index.html --target dev && run-s copy",
-    "build:prod": "run-s clean:deep && parcel build src/manifest.json src/new-tab/index.html src/dashboard/index.html src/popup/index.html --target prod --reporter @parcel/reporter-bundle-analyzer && run-s copy",
-    "bundle": "run-s copy && parcel watch --host localhost src/manifest.json src/new-tab/index.html src/dashboard/index.html src/popup/index.html --target dev",
-    "pack": "run-s build:prod && web-ext build -s dist --overwrite-dest",
     "clean": "shx rm -rf dist",
     "clean:deep": "shx rm -rf dist .parcel-cache",
     "precopy": "shx mkdir -p dist dist/core",
     "copy": "shx cp -r src/core/content_scripts src/core/configs src/core/modules dist/core/ && shx cp -r src/lib src/static dist/",
+    "build:dev": "run-s clean && run-s copy && parcel watch --host localhost src/manifest.json src/new-tab/index.html src/dashboard/index.html --target dev",
+    "build:prod": "run-s clean:deep && run-s copy && parcel build src/manifest.json src/new-tab/index.html src/dashboard/index.html --target prod --reporter @parcel/reporter-bundle-analyzer",
+    "run": "web-ext run -t chromium --source-dir dist",
+    "prerelease": "run-s build:prod",
+    "release": "node dev/release.js",
     "format": "prettier --write '{src,subgraph}/**/*.{js,jsx,ts,tsx,css,json}' '*.{js,jsx,ts,tsx,css,json}'",
     "lint:code": "eslint src/**/*.ts --fix",
     "lint:extension": "web-ext lint dist",
-    "run:chromium": "web-ext run -t chromium --source-dir dist",
-    "run:firefox": "web-ext run -t firefox-desktop --source-dir dist",
-    "start:chromium": "run-s copy && run-p -c bundle run:chromium",
-    "start:firefox": "run-s copy && run-p -c bundle run:firefox",
     "subgraph:codegen": "graph codegen subgraph/subgraph.yaml --output-dir subgraph/generated",
     "subgraph:build": "graph build subgraph/subgraph.yaml --output-dir subgraph/build",
     "subgraph:deploy": "graph deploy subgraph/subgraph.yaml --node https://api.thegraph.com/deploy/ subgraph/dataunion-swash-graph --output-dir subgraph/build",
