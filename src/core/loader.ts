@@ -261,9 +261,12 @@ const loader = (function () {
       }
       dbModules[module.name] = module;
     }
+    await storageHelper.saveModules(dbModules);
   }
 
   async function initiateConfigs() {
+    await storageHelper.getStates();
+
     await memberManager.init();
     await dataHandler.init();
     await userHelper.init();
