@@ -17,9 +17,11 @@ This App is a browser extension to captures, pools, and sells user data on his b
   - [Prerequisites](#prerequisites)
     - [Technologies](#technologies)
   - [Installation](#installation)
-  - [Development](#development)
+  - [Build](#build)
+    - [Development](#development-build)
+    - [Production](#production-build)
   - [Deployment](#deployment)
-    - [Release](#release)
+  - [Release](#release)
 - [Contact](#contact)
 - [License](#license)
 
@@ -60,36 +62,40 @@ To prepare project dependencies, the only thing that you need is running the fol
 yarn install
 ```
 
-### Development
+### Build
 
-After you change the source code, you can compile typescript files to the dist folder in the root directory of the project using `bundle` command. This command support hot-reloading and it applies changes simultaneously.
+#### Development Build
+
+After you change the source code, you can compile typescript files to the dist folder in the root directory of the project using `build:dev` command. This command support hot-reloading and it applies changes simultaneously.
 
 ```
-yarn bundle
+yarn build:dev
+```
+
+#### Production Build
+
+After being sure about your change you can build a production version using this command. It will generate a minified version of the extension.
+
+```
+yarn build:prod
 ```
 
 ### Deployment
 
-By using this command the extension will be deployed on Firefox. It supports hot reload, so your change will be applied on the extension simultaneously.
+By using this command the built extension from dist directory will be deployed on Chrome. 
 
-_Note:_ For the first time please run `yarn bundle` before using this command.
-
-```
-yarn run:firefox
-```
-
-Also, there is another command to deploy extension on Chromium.
+_Note:_ For the first time please run one of the [Build](#build) commands before using this command.
 
 ```
-yarn run:chromium
+yarn run
 ```
 
-#### Release
+### Release
 
-To create an optimized and minified bundle of the extension you can run `build:prod` command.
+To create an optimized and minified bundle of the extension you can run `release` command. It will generate two different version of the extension for Chrome and Firefox in releases directory.
 
 ```
-yarn build:prod
+yarn release
 ```
 
 ## Contact
