@@ -168,7 +168,7 @@ export function History(): JSX.Element {
                             <TableCell>{getMessage(row)}</TableCell>
                             <TableCell>
                               <a
-                                href={`https://blockscout.com/xdai/mainnet/tx/${
+                                href={`https://gnosisscan.io/tx/${
                                   row.id.split('-')[0]
                                 }`}
                                 target="_blank"

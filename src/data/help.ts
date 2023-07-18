@@ -186,7 +186,7 @@ const HelpData = [
       '<br />' +
       '</li>' +
       '<li>' +
-      'Add SWASH as a token in your Metamask Gnosis Chain wallet using the "Import Token" button. You can find the SWASH Token Contract Address <a target="_blank rel="noopener noreferrer href="https://blockscout.com/xdai/mainnet/tokens/0x84e2c67cbefae6b5148fca7d02b341b12ff4b5bb">here</a>' +
+      'Add SWASH as a token in your Metamask Gnosis Chain wallet using the "Import Token" button. You can find the SWASH Token Contract Address <a target="_blank rel="noopener noreferrer href="https://gnosisscan.io/address/0x84e2c67cbefae6b5148fca7d02b341b12ff4b5bb">here</a>' +
       '<br />' +
       '<br />' +
       '<iframe src="https://www.youtube.com/embed/aeoJrVbkP5Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>' +

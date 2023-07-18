@@ -26,9 +26,9 @@ export function TokenTransferCompleted(props: {
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href={`https://blockscout.com/xdai/mainnet/tx/${props.transactionId}`}
+          href={`https://gnosisscan.io/tx/${props.transactionId}`}
         >
-          Blockscout
+          GnosisScan
         </a>
       </p>
     </div>
