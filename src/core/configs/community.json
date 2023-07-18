@@ -1,5 +1,5 @@
 {
-  "rpcUrl": "https://rpc.gnosischain.com/",
+  "rpcUrl": "https://gnosis.blockpi.network/v1/rpc/public",
   "swashTokenAddress": "0xa130e3a33a4d84b04c3918c4e5762223ae252f80",
   "dataunionAddress": "0x71575955651204be38b8e0e1eea759dc1ea0adc1",
   "dataunionGnosisAddress": "0x15287E573007d5FbD65D87ed46c62Cf4C71Dd66d",
