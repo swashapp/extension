@@ -14,6 +14,8 @@ var sdkScript = (function () {
       'getUserInfo',
       'getSurveyUrl',
       'getSurveyHistory',
+      'openProfilePage',
+      'openPopupPage',
     ];
 
     window.addEventListener('message', (event) => {
@@ -52,7 +54,7 @@ var sdkScript = (function () {
           if (event.data.id !== `${data.id}Resp`) return;
 
           window.removeEventListener('message', listener);
-          if (event.data.response.error) reject(event.data.response.error);
+          if (event.data.response?.error) reject(event.data.response.error);
           else resolve(event.data.response);
         };
 
@@ -73,6 +75,12 @@ var sdkScript = (function () {
       },
       getSurveyHistory: async (params) => {
         return callFunction({ id: 'getSurveyHistory', params: [params] });
+      },
+      openPopupPage: async () => {
+        return callFunction({ id: 'openPopupPage' });
+      },
+      openProfilePage: async () => {
+        return callFunction({ id: 'openProfilePage' });
       },
     };
   }

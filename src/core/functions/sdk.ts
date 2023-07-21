@@ -56,6 +56,33 @@ const sdk = (function () {
     return { enabled, verified };
   }
 
+  let flag = true;
+  async function openPage(path: string) {
+    if (flag) {
+      flag = false;
+      const url = browser.runtime.getURL(path);
+      const tabs: browser.Tabs.Tab[] = await browser.tabs.query({
+        currentWindow: true,
+      });
+      const tab = tabs.find((tab) => tab.url === url);
+      if (tab) {
+        tab.active = true;
+        await browser.tabs.update(tab.id, { active: true });
+      } else {
+        await browser.tabs.create({ url, active: true });
+      }
+      setTimeout(() => (flag = true), 1000);
+    }
+  }
+
+  async function openProfilePage() {
+    openPage('dashboard/index.html#/profile');
+  }
+
+  async function openPopupPage() {
+    openPage('popup/index.html');
+  }
+
   async function getUserInfo() {
     const {
       user_id,
@@ -104,6 +131,8 @@ const sdk = (function () {
     getUserInfo,
     getSurveyUrl,
     getSurveyHistory,
+    openProfilePage,
+    openPopupPage,
   };
 })();
 export { sdk };
