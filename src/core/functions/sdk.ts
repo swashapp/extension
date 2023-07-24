@@ -80,6 +80,7 @@ const sdk = (function () {
     if (popupFlag) {
       popupFlag = false;
       const url = browser.runtime.getURL('popup/index.html');
+      const current = await browser.windows.getCurrent();
       const windows = await browser.windows.getAll({
         populate: true,
         windowTypes: ['popup'],
@@ -87,25 +88,35 @@ const sdk = (function () {
       const window = windows.find((item) => item.tabs[0].url === url);
       if (window) {
         window.focused = true;
-        await browser.windows.update(window.id, { focused: true });
+        await browser.windows.update(window.id, {
+          drawAttention: true,
+          focused: true,
+        });
       } else {
+        const width = 370;
+        const height = 450;
+        const top = current.top;
+        const left =
+          current.width -
+          width +
+          (current.left === 'fulfilled' ? 0 : current.left);
         await browser.windows
           .create({
             url,
             type: 'popup',
-            height: 450,
-            width: 370,
-            left: screen.width - 370,
-            top: 0,
+            height,
+            width,
+            left,
+            top,
           })
           .then(async (w) => {
             await browser.windows.update(w.id, {
               drawAttention: true,
               focused: true,
-              height: 450,
-              width: 370,
-              left: screen.width - 370,
-              top: 0,
+              height,
+              width,
+              left,
+              top,
             });
           });
       }
