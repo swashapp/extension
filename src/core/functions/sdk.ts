@@ -56,11 +56,11 @@ const sdk = (function () {
     return { enabled, verified };
   }
 
-  let flag = true;
-  async function openPage(path: string) {
-    if (flag) {
-      flag = false;
-      const url = browser.runtime.getURL(path);
+  let profileFlag = true;
+  async function openProfilePage() {
+    if (profileFlag) {
+      profileFlag = false;
+      const url = browser.runtime.getURL('dashboard/index.html#/profile');
       const tabs: browser.Tabs.Tab[] = await browser.tabs.query({
         currentWindow: true,
       });
@@ -71,16 +71,46 @@ const sdk = (function () {
       } else {
         await browser.tabs.create({ url, active: true });
       }
-      setTimeout(() => (flag = true), 1000);
+      setTimeout(() => (profileFlag = true), 1000);
     }
   }
 
-  async function openProfilePage() {
-    openPage('dashboard/index.html#/profile');
-  }
-
+  let popupFlag = true;
   async function openPopupPage() {
-    openPage('popup/index.html');
+    if (popupFlag) {
+      popupFlag = false;
+      const url = browser.runtime.getURL('popup/index.html');
+      const windows = await browser.windows.getAll({
+        populate: true,
+        windowTypes: ['popup'],
+      });
+      const window = windows.find((item) => item.tabs[0].url === url);
+      if (window) {
+        window.focused = true;
+        await browser.windows.update(window.id, { focused: true });
+      } else {
+        await browser.windows
+          .create({
+            url,
+            type: 'popup',
+            height: 450,
+            width: 370,
+            left: screen.width - 370,
+            top: 0,
+          })
+          .then(async (w) => {
+            await browser.windows.update(w.id, {
+              drawAttention: true,
+              focused: true,
+              height: 450,
+              width: 370,
+              left: screen.width - 370,
+              top: 0,
+            });
+          });
+      }
+      setTimeout(() => (popupFlag = true), 1000);
+    }
   }
 
   async function getUserInfo() {
