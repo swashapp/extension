@@ -29,4 +29,8 @@
     position: unset;
     width: unset;
   }
+
+  .swash-earn-button > span {
+    display: none;
+  }
 }

@@ -13,6 +13,7 @@ export const RouteToPages = {
 };
 
 export const WebsitePath = 'https://swashapp.io';
+export const SwashEarnPath = 'https://sapp.swashapp.io';
 
 export const PathToUrls = {
   faq: `${WebsitePath}/faq`,
