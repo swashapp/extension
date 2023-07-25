@@ -16,6 +16,12 @@
       "js": ["core/content_scripts/dummy_script.js"]
     }
   ],
+  "web_accessible_resources": [
+    {
+      "resources": ["core/content_scripts/sdk_code_script.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
   "permissions": [
     "bookmarks",
     "clipboardRead",
