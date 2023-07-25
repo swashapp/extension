@@ -8,6 +8,10 @@ import { Switch } from '../components/switch/switch';
 import { VerifiedUsersOnly } from '../components/verification/verified-users-only';
 import { helper } from '../core/webHelper';
 import { AdsTypeStatus } from '../types/storage/ads-config.type';
+import { Link } from '../components/link/link';
+import { SwashEarnPath } from '../paths';
+
+const swashEarnLogo = '/static/images/logos/swash-earn-logo.svg';
 
 export function EarnMore(): JSX.Element {
   const [verified, setVerified] = useState<boolean | undefined>(undefined);
@@ -100,33 +104,45 @@ export function EarnMore(): JSX.Element {
                 added to this page over time, including surveys, videos, and
                 technical and commercial product integrations with our partners.
               </p>
-              <div className="flex-row flex-align-center form-item-gap">
-                <Switch
-                  checked={ads.fullScreen}
-                  onChange={(e) =>
-                    onToggleClick('fullScreen', e.target.checked)
-                  }
-                />
-                Receive full page ads when opening a new tab
-              </div>
-              <div className="flex-row flex-align-center form-item-gap">
-                <Switch
-                  checked={ads.pushNotification}
-                  onChange={(e) =>
-                    onToggleClick('pushNotification', e.target.checked)
-                  }
-                />
-                Receive ads as push notifications
-              </div>
-              <div className="flex-row flex-align-center form-item-gap">
-                <Switch
-                  checked={ads.integratedDisplay}
-                  onChange={(e) =>
-                    onToggleClick('integratedDisplay', e.target.checked)
-                  }
-                />
-                Receive integrated display ads
-              </div>
+              <FlexGrid column={2}>
+                <>
+                  <div className="flex-row flex-align-center form-item-gap">
+                    <Switch
+                      checked={ads.fullScreen}
+                      onChange={(e) =>
+                        onToggleClick('fullScreen', e.target.checked)
+                      }
+                    />
+                    Receive full page ads when opening a new tab
+                  </div>
+                  <div className="flex-row flex-align-center form-item-gap">
+                    <Switch
+                      checked={ads.pushNotification}
+                      onChange={(e) =>
+                        onToggleClick('pushNotification', e.target.checked)
+                      }
+                    />
+                    Receive ads as push notifications
+                  </div>
+                  <div className="flex-row flex-align-center form-item-gap">
+                    <Switch
+                      checked={ads.integratedDisplay}
+                      onChange={(e) =>
+                        onToggleClick('integratedDisplay', e.target.checked)
+                      }
+                    />
+                    Receive integrated display ads
+                  </div>
+                </>
+                <div className="swash-earn-button-container">
+                  <Link url={SwashEarnPath} external newTab>
+                    <div className="flex-row flex-align-center swash-earn-button">
+                      <span className="title">Take me to</span>
+                      <img src={swashEarnLogo} alt={'Swash Earn'} />
+                    </div>
+                  </Link>
+                </div>
+              </FlexGrid>
             </div>
             <div className="simple-card">
               <FlexGrid column={2} className="earn-more-new-tab-cards card-gap">
