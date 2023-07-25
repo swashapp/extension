@@ -8,6 +8,7 @@ import { dataHandler } from '../core/dataHandler';
 import { ads } from '../core/functions/ads';
 import { ajax } from '../core/functions/ajax';
 import { content } from '../core/functions/content';
+import { sdk } from '../core/functions/sdk';
 import { transfer } from '../core/functions/transfer';
 import { graphApiHelper } from '../core/graphApiHelper';
 import { loader } from '../core/loader';
@@ -92,6 +93,7 @@ browser.runtime.onMessage.addListener(
       content,
       ajax,
       ads,
+      sdk,
       storageHelper,
       databaseHelper,
       privacyUtils,
