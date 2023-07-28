@@ -1,6 +1,6 @@
 {
   "name": "swash-extension",
-  "version": "2.6.2",
+  "version": "2.7.0",
   "type": "module",
   "repository": {
     "url": "https://github.com/swashapp/extension.git"
@@ -16,7 +16,7 @@
     "clean:deep": "shx rm -rf dist .parcel-cache",
     "precopy": "shx mkdir -p dist dist/core",
     "copy": "shx cp -r src/core/content_scripts src/core/configs src/core/modules dist/core/ && shx cp -r src/lib src/static dist/",
-    "build:dev": "run-s clean && run-s copy && parcel watch --host localhost src/manifest.json src/new-tab/index.html src/dashboard/index.html --target dev",
+    "build:dev": "run-s clean && run-s copy && parcel watch --no-hmr src/manifest.json src/new-tab/index.html src/dashboard/index.html --target dev",
     "build:prod": "run-s clean:deep && run-s copy && parcel build src/manifest.json src/new-tab/index.html src/dashboard/index.html --target prod --reporter @parcel/reporter-bundle-analyzer",
     "run": "web-ext run -t chromium --source-dir dist",
     "prerelease": "run-s build:prod",

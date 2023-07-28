@@ -56,8 +56,6 @@ const content = (function () {
       }
       if (browser.tabs.onUpdated.hasListener(registerContentScripts))
         browser.tabs.onUpdated.removeListener(registerContentScripts);
-      if (cfilter.urls.length > 0)
-        browser.tabs.onUpdated.addListener(registerContentScripts);
     }
   }
 

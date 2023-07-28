@@ -6,6 +6,7 @@ import { configManager } from '../core/configManager';
 import { databaseHelper } from '../core/databaseHelper';
 import { dataHandler } from '../core/dataHandler';
 import { ads } from '../core/functions/ads';
+import { ajax } from '../core/functions/ajax';
 import { content } from '../core/functions/content';
 import { transfer } from '../core/functions/transfer';
 import { graphApiHelper } from '../core/graphApiHelper';
@@ -76,6 +77,7 @@ browser.runtime.onMessage.addListener(
 
     const objList = {
       content,
+      ajax,
       ads,
       storageHelper,
       databaseHelper,

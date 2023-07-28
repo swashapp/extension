@@ -9,7 +9,8 @@ import { storageHelper } from '../storageHelper';
 const browsing = (function () {
   const callbacks = {};
 
-  function initModule(module) {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  function initModule() {}
 
   async function load() {
     const modules = await storageHelper.getModules();
