@@ -1,6 +1,6 @@
 {
   "name": "Swash",
-  "version": "2.6.2",
+  "version": "2.7.0",
   "description": "Get paid for your data as you browse the web. Gain control and help create a better, more dignified internet.",
   "homepage_url": "https://swashapp.io/",
   "manifest_version": 3,
@@ -29,7 +29,7 @@
     "48": "static/images/swash/active-48.png",
     "96": "static/images/swash/active-96.png",
     "128": "static/images/swash/active-128.png"
-    },
+  },
   "permissions": [
     "bookmarks",
     "clipboardRead",
@@ -39,9 +39,7 @@
     "tabs",
     "webRequest"
   ],
-  "host_permissions": [
-    "<all_urls>"
-  ],
+  "host_permissions": ["<all_urls>"],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self';"
   }

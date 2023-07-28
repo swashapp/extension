@@ -1,0 +1,39 @@
+{
+  "url_matches": ["*://*.walmart.com/*"],
+  "ajax_filter": {
+    "urls": ["<all_urls>"],
+    "types": [
+      "main_frame",
+      "sub_frame",
+      "stylesheet",
+      "script",
+      "image",
+      "font",
+      "object",
+      "xmlhttprequest",
+      "ping",
+      "csp_report",
+      "media",
+      "websocket",
+      "other"
+    ]
+  },
+  "ajax_extraInfoSpec": [],
+  "items": [
+    {
+      "name": "background_requests",
+      "title": "Triggered Background Requests",
+      "description": "This item collects all the background request after a click on specific are aon Walmart",
+      "is_enabled": true,
+      "hook": "webRequest",
+      "timeframe": 3000,
+      "events": [
+        {
+          "object": "document",
+          "selector": "*",
+          "event_name": "click"
+        }
+      ]
+    }
+  ]
+}
