@@ -14,8 +14,8 @@ const sdk = (function () {
   }
 
   function unload() {
-    // if (browser.tabs.onUpdated.hasListener(registerSwashSdk))
-    //   browser.tabs.onUpdated.removeListener(registerSwashSdk);
+    if (browser.tabs.onUpdated.hasListener(registerSwashSdk))
+      browser.tabs.onUpdated.removeListener(registerSwashSdk);
   }
 
   function loadModule() {
@@ -23,7 +23,7 @@ const sdk = (function () {
   }
 
   function unloadModule() {
-    // unload();
+    unload();
   }
 
   async function registerSwashSdk(tabId, changeInfo) {
