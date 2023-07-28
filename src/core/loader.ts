@@ -15,7 +15,7 @@ import { charityHelper } from './charityHelper';
 import { configManager } from './configManager';
 import { databaseHelper } from './databaseHelper';
 import { dataHandler } from './dataHandler';
-import { functions } from './functions';
+import { functions, persistentFunctions } from './functions';
 import { apiCall } from './functions/apiCall';
 import { graphApiHelper } from './graphApiHelper';
 import { memberManager } from './memberManager';
@@ -172,6 +172,20 @@ const loader = (function () {
     }
   }
 
+  async function loadPersistentFunctions() {
+    console.log('Loading persistent functions');
+    for (const func of persistentFunctions) {
+      await func.load();
+    }
+  }
+
+  async function unloadPersistentFunctions() {
+    console.log('Unloading persistent functions');
+    for (const func of persistentFunctions) {
+      await func.unload();
+    }
+  }
+
   function functionsLoadModule(module: Module) {
     console.log('Loading functions module');
     for (const func of functions) {
@@ -222,6 +236,7 @@ const loader = (function () {
       init(false);
       await unloadFunctions();
     }
+    await loadPersistentFunctions();
     loadNotifications();
   }
 
@@ -233,11 +248,13 @@ const loader = (function () {
     init(false);
     await userHelper.loadSavedWallet();
     await unloadFunctions();
+    await unloadPersistentFunctions();
     if (db.configs.is_enabled) {
       init(true);
       await loadFunctions();
       memberManager.tryJoin().catch(console.error);
     }
+    await loadPersistentFunctions();
     loadNotifications();
   }
 

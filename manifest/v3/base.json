@@ -18,7 +18,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["core/content_scripts/sdk_code_script.js"],
+      "resources": ["core/inpage_scripts/sdk_page_script.js"],
       "matches": ["https://*.swashapp.io/*"]
     }
   ],

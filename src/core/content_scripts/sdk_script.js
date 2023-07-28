@@ -1,6 +1,6 @@
 var sdkScript = (function () {
   function init() {
-    embed('core/content_scripts/sdk_code_script.js');
+    embed('core/inpage_scripts/sdk_page_script.js');
     addMessageHandler();
   }
 
@@ -47,8 +47,8 @@ var sdkScript = (function () {
     );
   }
 
-  function embed(sdk_code_script) {
-    const url = browser.runtime.getURL(sdk_code_script);
+  function embed(path) {
+    const url = browser.runtime.getURL(path);
     const script = document.createElement('script');
     script.setAttribute('type', 'text/javascript');
     script.setAttribute('src', url);
