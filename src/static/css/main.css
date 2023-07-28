@@ -2170,6 +2170,11 @@ hr.nav {
   justify-content: space-between;
 }
 
+.small-popup-actions-center {
+  display: flex;
+  justify-content: center;
+}
+
 .small-popup-actions-cancel {
   width: 114px;
 }

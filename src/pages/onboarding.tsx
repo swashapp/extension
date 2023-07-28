@@ -6,7 +6,10 @@ import React, {
   useState,
 } from 'react';
 
+import browser from 'webextension-polyfill';
+
 import { Circle } from '../components/drawing/circle';
+import { GrantPermissionAlert } from '../components/grant-permission/grant-permission-alert';
 import { CongratsWalletIsReady } from '../components/onboarding/congrats-wallet-is-ready';
 import { CreatingAWallet } from '../components/onboarding/creating-a-wallet';
 import { ImportYourConfig } from '../components/onboarding/import-your-config';
@@ -15,8 +18,10 @@ import { OnboardingJoin } from '../components/onboarding/onboarding-join';
 import { OnboardingPrivacy } from '../components/onboarding/onboarding-privacy';
 import { OnboardingProfile } from '../components/onboarding/onboarding-profile';
 import { OnboardingStart } from '../components/onboarding/onboarding-start';
+import { Popup, showPopup } from '../components/popup/popup';
 import Stepper from '../components/stepper/stepper';
 import { IStepper } from '../components/stepper/stepper.type';
+import { VerificationAlert } from '../components/verification/verification-alert';
 import { helper } from '../core/webHelper';
 
 export const StepperContext = React.createContext<{
@@ -78,6 +83,13 @@ export function Onboarding(): JSX.Element {
   }>({});
 
   useEffect(() => {
+    showPopup({
+      closable: false,
+      closeOnBackDropClick: false,
+      paperClassName: 'small-popup',
+      content: <GrantPermissionAlert />,
+    });
+
     helper.getOnboardingFlow().then((res: string) => {
       const newFlow = JSON.parse(res);
       setFlow(newFlow);
