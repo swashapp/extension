@@ -20,7 +20,7 @@
       "is_enabled": true,
       "events": [
         {
-          "selector": ".sbc-search__bar",
+          "selector": "input[placeholder='Search']",
           "event_name": "keydown",
           "keyCode": 13
         }
@@ -30,8 +30,8 @@
           "selector": "",
           "properties": [
             {
-              "selector": "#sbc-search__box",
-              "property": "value",
+              "selector": "p.query",
+              "property": "innerText",
               "name": "query",
               "type": "text"
             }
@@ -58,7 +58,7 @@
       "type": "event",
       "is_enabled": true,
       "readyAt": "DOMChange",
-      "observingTargetNode": ".sbc-search__suggestions",
+      "observingTargetNode": "input[placeholder='Search']",
       "observingConfig": {
         "attributes": false,
         "childList": true,
@@ -66,7 +66,7 @@
       },
       "events": [
         {
-          "selector": ".sbc-search__suggestion",
+          "selector": "[data-testid='Presentation-top-area-popular-search-queries-link'] span",
           "event_name": "click"
         }
       ],
@@ -100,7 +100,7 @@
       ],
       "objects": [
         {
-          "selector": ".query",
+          "selector": "p.query",
           "properties": [
             {
               "selector": "",
@@ -111,31 +111,31 @@
           ]
         },
         {
-          "selector": ".wrapper",
+          "selector": ".product-box-root",
           "name": "searchResult",
           "indexName": "rank",
           "properties": [
             {
-              "selector": ".product-box-brand",
+              "selector": "[data-testid^='Presentation-product-box-brand']",
               "property": "innerText",
               "name": "brand",
               "type": "text"
             },
             {
-              "selector": ".product-box-name",
+              "selector": "[data-testid^='Presentation-product-box-name']",
               "property": "innerText",
               "name": "productName",
               "type": "text"
             },
             {
-              "selector": ".product-box-price",
+              "selector": "[data-testid^='Presentation-product-box-prices']",
               "property": "innerText",
               "name": "price",
               "type": "text"
             },
             {
-              "selector": ".stars",
-              "property": "innerText",
+              "selector": "[data-testid^='Presentation-product-box-rating']",
+              "property": "attributes['title'].value",
               "name": "rate",
               "type": "text"
             }
@@ -144,10 +144,10 @@
       ]
     },
     {
-      "name": "selectedProducts",
+      "name": "clickSearchResult",
       "description": "This item collects information about a product that has been selected (or clicked on a search result) by user",
       "url_match": "*://*.oriflame.com/*",
-      "title": "Selected Product",
+      "title": "Clicked Search Results",
       "viewGroup": "UX",
       "type": "event",
       "is_enabled": true,
@@ -160,116 +160,58 @@
       },
       "events": [
         {
-          "selector": ".k-button.primary-invert.quick-buy.plus.v-icon-add.overlay",
+          "selector": "[data-testid^='Presentation-product-box-img']",
           "event_name": "click"
         },
         {
-          "selector": ".ui-product-box.js-quick-shop",
+          "selector": "[data-testid^='Presentation-product-box-img']",
+          "event_name": "contextmenu"
+        },
+        {
+          "selector": "[data-testid^='Presentation-product-box-name']",
           "event_name": "click"
         },
         {
-          "selector": ".ui-product-box.js-quick-shop",
+          "selector": "[data-testid^='Presentation-product-box-name']",
           "event_name": "contextmenu"
         }
       ],
       "objects": [
         {
-          "selector": "<<<<<<",
+          "selector": "p.query",
           "properties": [
             {
-              "selector": ".query",
+              "selector": "",
               "property": "innerText",
               "name": "searchQuery",
               "type": "text"
             }
           ]
-        },
+        },        
         {
           "selector": "<<<",
           "properties": [
             {
-              "selector": ".query",
-              "property": "innerText",
-              "name": "searchQuery",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<<<<",
-          "properties": [
-            {
-              "selector": ".banner__title_3tAHh.banner__title--color-white_3vqXD",
-              "property": "innerText",
-              "name": "categoryName",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<",
-          "properties": [
-            {
-              "selector": ".banner__title_3tAHh.banner__title--color-white_3vqXD",
-              "property": "innerText",
-              "name": "categoryName",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<",
-          "properties": [
-            {
-              "selector": ".product-box-brand",
+              "selector": "[data-testid^='Presentation-product-box-brand']",
               "property": "innerText",
               "name": "brand",
               "type": "text"
             },
             {
-              "selector": ".product-box-name",
+              "selector": "[data-testid^='Presentation-product-box-name']",
               "property": "innerText",
               "name": "productName",
               "type": "text"
             },
             {
-              "selector": ".product-box-price",
+              "selector": "[data-testid^='Presentation-product-box-prices']",
               "property": "innerText",
               "name": "price",
               "type": "text"
             },
             {
-              "selector": ".stars",
-              "property": "innerText",
-              "name": "rate",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "",
-          "properties": [
-            {
-              "selector": ".product-box-brand",
-              "property": "innerText",
-              "name": "brand",
-              "type": "text"
-            },
-            {
-              "selector": ".product-box-name",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".product-box-price",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": ".stars",
-              "property": "innerText",
+              "selector": "[data-testid^='Presentation-product-box-rating']",
+              "property": "attributes['title'].value",
               "name": "rate",
               "type": "text"
             }
@@ -294,34 +236,38 @@
       },
       "events": [
         {
-          "selector": ".context-menu__text",
+          "selector": "button.product-detail-1ro4vh4",
           "event_name": "click"
+        },
+        {
+          "selector": "button.product-detail-1ro4vh4",
+          "event_name": "contextmenu"
         }
       ],
       "objects": [
         {
-          "selector": "<<<<",
+          "selector": "[data-testid='Presentation-product-detail-main']",
           "properties": [
             {
-              "selector": ".product-brand__link",
+              "selector": ".product-detail-u2npz0",
               "property": "innerText",
               "name": "brandName",
               "type": "text"
             },
             {
-              "selector": ".product-name__text",
+              "selector": "[data-testid='Presentation-product-detail-summary-name']",
               "property": "innerText",
               "name": "productName",
               "type": "text"
             },
             {
-              "selector": ".product-prices__current-price",
+              "selector": ".product-detail-12w8wvc",
               "property": "innerText",
               "name": "price",
               "type": "text"
             },
             {
-              "selector": ".input__number",
+              "selector": ".MuiInputBase-input",
               "property": "value",
               "name": "quantity",
               "type": "text"
@@ -331,10 +277,10 @@
       ]
     },
     {
-      "name": "addToBasket",
-      "description": "This item collects the products that has been added to the basket by user",
+      "name": "buyNow",
+      "description": "This item collects all products in amazon web pages that has been selected by user for buying",
       "url_match": "*://*.oriflame.com/*",
-      "title": "Add to Basket",
+      "title": "Buy it Now",
       "viewGroup": "UX",
       "type": "event",
       "is_enabled": true,
@@ -347,73 +293,38 @@
       },
       "events": [
         {
-          "selector": ".k-button.add-to-basket.en-in",
+          "selector": "button.product-detail-c3kzf",
           "event_name": "click"
         },
         {
-          "selector": ".buy-section__button",
-          "event_name": "click"
+          "selector": "button.product-detail-c3kzf",
+          "event_name": "contextmenu"
         }
       ],
       "objects": [
         {
-          "selector": "<<<",
+          "selector": "[data-testid='Presentation-product-detail-main']",
           "properties": [
             {
-              "selector": ".brand",
+              "selector": ".product-detail-u2npz0",
               "property": "innerText",
               "name": "brandName",
               "type": "text"
             },
             {
-              "selector": ".name.js-tooltip",
+              "selector": "[data-testid='Presentation-product-detail-summary-name']",
               "property": "innerText",
               "name": "productName",
               "type": "text"
             },
             {
-              "selector": ".stars",
-              "property": "innerText",
-              "name": "rate",
-              "type": "text"
-            },
-            {
-              "selector": ".price.mainCurrency",
+              "selector": ".product-detail-12w8wvc",
               "property": "innerText",
               "name": "price",
               "type": "text"
             },
             {
-              "selector": ".k-formatted-value.quantity.k-input",
-              "property": "value",
-              "name": "quantity",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<",
-          "properties": [
-            {
-              "selector": ".product-brand__link",
-              "property": "innerText",
-              "name": "brandName",
-              "type": "text"
-            },
-            {
-              "selector": ".product-name__text",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".product-prices__current-price",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": ".input__number",
+              "selector": ".MuiInputBase-input",
               "property": "value",
               "name": "quantity",
               "type": "text"

@@ -11,125 +11,7 @@
   },
   "desktop": [
     {
-      "name": "selectedProducts",
-      "description": "This item collects information about a product that has been selected (or clicked on a search result) by user",
-      "url_match": "*://faberlic.com/*",
-      "title": "Selected Product",
-      "viewGroup": "UX",
-      "type": "event",
-      "is_enabled": true,
-      "readyAt": "DOMChange",
-      "observingTargetNode": "body",
-      "observingConfig": {
-        "attributes": false,
-        "childList": true,
-        "subtree": true
-      },
-      "events": [
-        {
-          "selector": ".card",
-          "event_name": "click"
-        },
-        {
-          "selector": ".card",
-          "event_name": "contextmenu"
-        }
-      ],
-      "objects": [
-        {
-          "selector": "<<<<<<<",
-          "properties": [
-            {
-              "selector": "#search_searchword",
-              "property": "value",
-              "name": "searchQuery",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<",
-          "properties": [
-            {
-              "selector": "#search_searchword",
-              "property": "value",
-              "name": "searchQuery",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<<<<",
-          "properties": [
-            {
-              "selector": ".page-header h1",
-              "property": "innerText",
-              "name": "categoryName",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<",
-          "properties": [
-            {
-              "selector": ".page-header h1",
-              "property": "innerText",
-              "name": "categoryName",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<",
-          "properties": [
-            {
-              "selector": ".cardTitle",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".cardPrice.cardPriceSale",
-              "property": "innerText",
-              "name": "cataloguePrice",
-              "type": "text"
-            },
-            {
-              "selector": ".cardPrice.cardPriceConsultant",
-              "property": "innerText",
-              "name": "warehousePrice",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "",
-          "properties": [
-            {
-              "selector": ".cardTitle",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".cardPrice.cardPriceSale",
-              "property": "innerText",
-              "name": "cataloguePrice",
-              "type": "text"
-            },
-            {
-              "selector": ".cardPrice.cardPriceConsultant",
-              "property": "innerText",
-              "name": "warehousePrice",
-              "type": "text"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "searchQueryBox1",
+      "name": "searchQuery",
       "description": "This item collects faberlic search query",
       "url_match": "*://faberlic.com/*",
       "title": "search query box1",
@@ -145,41 +27,7 @@
           "selector": "#collapsesearch .form-control.inputbox.inputboxtopsearch",
           "event_name": "keydown",
           "keyCode": 13
-        }
-      ],
-      "objects": [
-        {
-          "selector": "<<",
-          "properties": [
-            {
-              "selector": ".form-control.inputbox.inputboxtopsearch",
-              "property": "value",
-              "name": "query",
-              "type": "text"
-            }
-          ]
         },
-        {
-          "selector": "document",
-          "properties": [
-            {
-              "property": "URL",
-              "name": "link",
-              "type": "url"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "searchQueryBox2",
-      "description": "This item collects faberlic search query",
-      "url_match": "*://faberlic.com/*",
-      "title": "search query box2",
-      "viewGroup": "UX",
-      "type": "event",
-      "is_enabled": true,
-      "events": [
         {
           "selector": ".button.flbutton.but_submit",
           "event_name": "click"
@@ -192,10 +40,21 @@
       ],
       "objects": [
         {
-          "selector": "document",
+          "selector": "#collapsesearch",
           "properties": [
             {
-              "selector": "#search_searchword",
+              "selector": ".form-control.inputbox.inputboxtopsearch",
+              "property": "value",
+              "name": "query",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "selector": "#search_searchword",
+          "properties": [
+            {
+              "selector": "",
               "property": "value",
               "name": "query",
               "type": "text"
@@ -263,15 +122,21 @@
               "type": "text"
             },
             {
-              "selector": ".cardPrice.cardPriceSale",
+              "selector": ".cardPrice.cardPriceDeleted",
               "property": "innerText",
-              "name": "cataloguePrice",
+              "name": "regularPrice",
               "type": "text"
             },
             {
-              "selector": ".cardPrice.cardPriceConsultant",
+              "selector": ".cardPrice.cardPriceSale",
               "property": "innerText",
-              "name": "warehousePrice",
+              "name": "discountPrice",
+              "type": "text"
+            },
+            {
+              "selector": ".cardPrice.cardPriceSale",
+              "property": "innerText",
+              "name": "price",
               "type": "text"
             }
           ]
@@ -279,26 +144,55 @@
       ]
     },
     {
-      "name": "addToLoveList",
-      "description": "This item collects all products in faberlic web pages that has been added by user to love list",
+      "name": "clickSearchResult",
+      "description": "This item collects information about a product that has been selected (or clicked on a search result) by user",
       "url_match": "*://faberlic.com/*",
-      "title": "Add to Love list",
+      "title": "Clicked Search Results",
       "viewGroup": "UX",
       "type": "event",
       "is_enabled": true,
+      "readyAt": "DOMChange",
+      "observingTargetNode": "body",
+      "observingConfig": {
+        "attributes": false,
+        "childList": true,
+        "subtree": true
+      },
       "events": [
         {
-          "selector": ".cardLike.topline-bfav",
+          "selector": ".card",
           "event_name": "click"
         },
         {
-          "selector": ".popup_defer-link.setfavorite.out-favorite",
-          "event_name": "click"
+          "selector": ".card",
+          "event_name": "contextmenu"
         }
       ],
       "objects": [
         {
-          "selector": "<<<",
+          "selector": "",
+          "properties": [
+            {
+              "selector": "#search_searchword",
+              "property": "value",
+              "name": "searchQuery",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "selector": ".page-header h1",
+          "properties": [
+            {
+              "selector": "",
+              "property": "innerText",
+              "name": "category",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "selector": "",
           "properties": [
             {
               "selector": ".cardTitle",
@@ -307,38 +201,67 @@
               "type": "text"
             },
             {
-              "selector": ".cardPrice.cardPriceConsultant",
+              "selector": ".cardPrice.cardPriceDeleted",
               "property": "innerText",
-              "name": "warehousePrice",
+              "name": "regularPrice",
               "type": "text"
             },
             {
               "selector": ".cardPrice.cardPriceSale",
               "property": "innerText",
-              "name": "catalogPrice",
+              "name": "discountPrice",
+              "type": "text"
+            },
+            {
+              "selector": ".cardPrice.cardPriceSale",
+              "property": "innerText",
+              "name": "price",
               "type": "text"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "addToWishlist",
+      "description": "This item collects all products in faberlic web pages that has been added by user to love list",
+      "url_match": "*://faberlic.com/*",
+      "title": "Add to Wish list",
+      "viewGroup": "UX",
+      "type": "event",
+      "is_enabled": true,
+      "events": [
         {
-          "selector": "<<<<",
+          "selector": ".addButtonHost .setfavorite",
+          "event_name": "click"
+        }
+      ],
+      "objects": [
+        {
+          "selector": ".goodInfoWrapper",
           "properties": [
             {
-              "selector": ".col-lg-40.col-md-40.hidden-xs .popupCatalogTitle",
+              "selector": ".popupCatalogTitle",
               "property": "innerText",
               "name": "productName",
               "type": "text"
             },
             {
-              "selector": ".popup_price_itself",
+              "selector": ".popup_old_price",
               "property": "innerText",
-              "name": "warehousePrice",
+              "name": "regularPrice",
               "type": "text"
             },
             {
-              "selector": ".popup_catalog_price",
+              "selector": ".popup_price_itself",
               "property": "innerText",
-              "name": "catalogPrice",
+              "name": "discountPrice",
+              "type": "text"
+            },
+            {
+              "selector": ".popup_price_itself",
+              "property": "innerText",
+              "name": "price",
               "type": "text"
             }
           ]
@@ -355,17 +278,13 @@
       "is_enabled": true,
       "events": [
         {
-          "selector": ".btn.btn-primary.addcart.inmodal",
-          "event_name": "click"
-        },
-        {
-          "selector": "#submitMresult",
+          "selector": ".addButtonHost button.addcart",
           "event_name": "click"
         }
       ],
       "objects": [
         {
-          "selector": "<<<<<<",
+          "selector": ".goodInfoWrapper",
           "properties": [
             {
               "selector": ".popupCatalogTitle",
@@ -374,40 +293,21 @@
               "type": "text"
             },
             {
+              "selector": ".popup_old_price",
+              "property": "innerText",
+              "name": "regularPrice",
+              "type": "text"
+            },
+            {
               "selector": ".popup_price_itself",
               "property": "innerText",
-              "name": "warehousePrice",
+              "name": "discountPrice",
               "type": "text"
             },
             {
-              "selector": ".popup_catalog_price",
+              "selector": ".popup_price_itself",
               "property": "innerText",
-              "name": "catalogPrice",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<.tritem_mr",
-          "name": "Products",
-          "indexName": "rank",
-          "properties": [
-            {
-              "selector": "td:nth-child(3)",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": "td:nth-child(4)",
-              "property": "innerText",
-              "name": "catalogPrice/warehousePrice",
-              "type": "text"
-            },
-            {
-              "selector": ".count_mrg.count_g.inputbox",
-              "property": "value",
-              "name": "quantity",
+              "name": "price",
               "type": "text"
             }
           ]
