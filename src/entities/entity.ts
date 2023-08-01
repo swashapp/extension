@@ -37,6 +37,8 @@ export abstract class Entity<Type> {
   }
 
   public async save(value: Type): Promise<void> {
+    if (!value) return;
+
     await browser.storage.local.set({ [this.name]: value });
     this.cache = value;
   }

@@ -1,13 +1,13 @@
+import { getAddress } from '@ethersproject/address';
 import { BigNumber } from '@ethersproject/bignumber';
+import { arrayify, hexZeroPad } from '@ethersproject/bytes';
 import { Contract } from '@ethersproject/contracts';
 import { BaseProvider, getDefaultProvider } from '@ethersproject/providers';
 import { computePublicKey } from '@ethersproject/signing-key';
 import { formatEther, formatUnits, parseEther } from '@ethersproject/units';
 import { Wallet } from '@ethersproject/wallet';
 import { TokenSigner } from 'jsontokens';
-import StreamrClient, { Bytes, DataUnion } from 'streamr-client';
-
-import browser from 'webextension-polyfill';
+import { StreamrClient } from 'streamr-client';
 
 import { REWARD_ABI } from '../data/reward-contract-abi';
 
@@ -15,6 +15,7 @@ import { SIDECHAIN_DU_ABI } from '../data/sidechain-dataunion-abi';
 import { WITHDRAW_MODULE_ABI } from '../data/withdraw-module-abi';
 import { ConfigEntity } from '../entities/config.entity';
 import { ProfileEntity } from '../entities/profile.entity';
+import { Any } from '../types/any.type';
 import { CommunityConfigs } from '../types/storage/configs/community.type';
 
 import { Profile } from '../types/storage/profile.type';
@@ -23,25 +24,24 @@ import { configManager } from './configManager';
 import { storageHelper } from './storageHelper';
 import { swashApiHelper } from './swashApiHelper';
 
-type Password = string | Bytes;
+type Password = string;
 
 const userHelper = (function () {
   let config: CommunityConfigs;
   let wallet: Wallet;
   let client: StreamrClient;
-  let duHandler: DataUnion;
+  let sidechainContract: Contract;
   let withdrawContract: Contract;
   let rewardContract: Contract;
   let provider: BaseProvider;
-  let xdaiProvider: BaseProvider;
+  let gnosisProvider: BaseProvider;
 
-  const timestamp = { value: 0, updated: 0 };
   let lastPopup = 0;
 
   async function init() {
     config = await configManager.getConfig('community');
     provider = getDefaultProvider();
-    xdaiProvider = getDefaultProvider(config.rpcUrl);
+    gnosisProvider = getDefaultProvider(config.rpcUrl);
   }
 
   function createWallet() {
@@ -86,54 +86,48 @@ const userHelper = (function () {
   }
 
   function getStreamrClient() {
-    if (!client) clientConnect();
+    if (!wallet) return;
+    if (!client) {
+      client = new StreamrClient({
+        auth: { privateKey: wallet.privateKey },
+        metrics: false,
+      });
+    }
     return client;
   }
 
-  function clientConnect() {
-    if (!wallet) return;
-    client = new StreamrClient({
-      auth: {
-        privateKey: wallet.privateKey,
-      },
-      publishWithSignature: 'never',
-      dataUnion: {
-        factoryMainnetAddress: '0xe41439bf434f9cfbf0153f5231c205d4ae0c22e3',
-        factorySidechainAddress: '0xFCE1FBFAaE61861B011B379442c8eE1DC868ABd0',
-        templateMainnetAddress: '0x67352e3f7dba907af877020ae7e9450c0029c70c',
-        templateSidechainAddress: '0xacf9e8134047edc671162d9404bf63a587435baa',
-      },
-      sidechain: {
-        url: config.rpcUrl,
-      },
-    });
-    duHandler = client.getDataUnion(config.dataunionAddress);
+  function initSidechainContract() {
+    if (!sidechainContract)
+      sidechainContract = new Contract(
+        config.dataunionGnosisAddress,
+        SIDECHAIN_DU_ABI,
+        gnosisProvider,
+      );
   }
 
   async function initWithdrawModule() {
-    const sidechainContract = new Contract(
-      duHandler.getSidechainAddress(),
-      SIDECHAIN_DU_ABI,
-      xdaiProvider,
-    );
-    withdrawContract = new Contract(
-      await sidechainContract.withdrawModule(),
-      WITHDRAW_MODULE_ABI,
-      xdaiProvider,
-    );
+    initSidechainContract();
+    if (!withdrawContract)
+      withdrawContract = new Contract(
+        await sidechainContract.withdrawModule(),
+        WITHDRAW_MODULE_ABI,
+        gnosisProvider,
+      );
   }
 
-  async function initRewardModule() {
-    rewardContract = new Contract(
-      config.rewardContractAddress,
-      REWARD_ABI,
-      xdaiProvider,
-    );
+  function initRewardModule() {
+    if (!rewardContract)
+      rewardContract = new Contract(
+        config.rewardContractAddress,
+        REWARD_ABI,
+        gnosisProvider,
+      );
   }
 
   async function getBonus() {
     if (!wallet) throw Error('Wallet is not provided');
-    if (!rewardContract) await initRewardModule();
+    initRewardModule();
+
     let ret = '0';
     try {
       const reward = await rewardContract.userRewards(wallet.address);
@@ -147,7 +141,7 @@ const userHelper = (function () {
 
   async function checkWithdrawAllowance(amount: string) {
     if (!wallet) throw Error('Wallet is not provided');
-    if (!withdrawContract) await initWithdrawModule();
+    await initWithdrawModule();
 
     if (await withdrawContract.blackListed(wallet.address))
       throw Error('You are blacklisted');
@@ -193,123 +187,89 @@ const userHelper = (function () {
     return formatEther(balance);
   }
 
-  async function getTokenBalance(address: string) {
-    const mainnetTokens = await client.getTokenBalance(address);
-    const sidechainTokens = await client.getSidechainTokenBalance(address);
-    const balance = mainnetTokens.add(sidechainTokens);
-    return formatEther(balance);
-  }
-
   async function getAvailableBalance() {
     if (!wallet) throw Error('Wallet is not provided');
-    if (!client) clientConnect();
-    const earnings = await duHandler.getWithdrawableEarnings(wallet.address);
+    initSidechainContract();
+
+    const earnings = await sidechainContract.getWithdrawableEarnings(
+      wallet.address,
+    );
     return formatEther(earnings);
-  }
-
-  async function signWithdrawAllTo(targetAddress: string) {
-    if (!wallet || !provider) throw Error('Wallet is not provided');
-    if (!client) clientConnect();
-
-    return await duHandler.signWithdrawAllTo(targetAddress);
   }
 
   async function signWithdrawAmountTo(targetAddress: string, amount: string) {
     if (!wallet || !provider) throw Error('Wallet is not provided');
-    if (!client) clientConnect();
+    initSidechainContract();
 
     const amountBN = parseEther(amount);
 
-    const withdrawableEarnings = await duHandler.getWithdrawableEarnings(
+    const [activeStatus, , , withdrawn] = await sidechainContract.memberData(
       wallet.address,
     );
+    if (activeStatus == 0) {
+      return { error: 'You are not a member' };
+    }
+
+    const withdrawableEarnings =
+      await sidechainContract.getWithdrawableEarnings(wallet.address);
     if (amountBN.gt(withdrawableEarnings)) {
       return { error: 'Nothing to withdraw' };
     }
 
-    return await duHandler.signWithdrawAmountTo(
-      targetAddress,
-      amountBN.toString(),
-    );
+    const message =
+      getAddress(targetAddress) +
+      hexZeroPad(amountBN.toHexString(), 32).slice(2) +
+      config.dataunionGnosisAddress.slice(2) +
+      hexZeroPad(withdrawn.toHexString(), 32).slice(2);
+    return wallet.signMessage(arrayify(message));
   }
 
-  async function getWithdrawBody(
-    recipient: string,
-    amount: string,
-    useSponsor: boolean,
-    sendToMainnet: boolean,
-  ) {
+  async function getWithdrawBody(recipient: string, amount: string) {
     const signature = await signWithdrawAmountTo(recipient, amount);
     const amountInWei = parseEther(amount);
     return {
       recipient: recipient,
       signature: signature,
       amount: amountInWei.toString(),
-      useSponsor: useSponsor,
-      sendToMainnet: sendToMainnet,
+      useSponsor: false,
+      sendToMainnet: false,
     };
   }
 
-  async function withdrawToTarget(
-    recipient: string,
-    amount: string,
-    useSponsor: boolean,
-    sendToMainnet: boolean,
-  ) {
+  async function withdrawToTarget(recipient: string, amount: string) {
     const data = await swashApiHelper.userWithdraw(
       await generateJWT(),
-      await getWithdrawBody(recipient, amount, useSponsor, sendToMainnet),
+      await getWithdrawBody(recipient, amount),
     );
-    if (data.tx) return data;
-    else if (data.message) {
-      return transportMessage(data.message);
-    }
     return data;
   }
 
   async function donateToTarget(recipient: string, amount: string) {
     const data = await swashApiHelper.userDonate(
       await generateJWT(),
-      await getWithdrawBody(recipient, amount, false, false),
+      await getWithdrawBody(recipient, amount),
     );
-    if (data.tx) return data;
-    else if (data.message) {
-      return transportMessage(data.message);
-    }
     return data;
-  }
-
-  async function transportMessage(message: string) {
-    const tx = await duHandler.transportMessage(message);
-    return { tx: tx?.transactionHash };
   }
 
   async function generateJWT() {
     if (!wallet) throw Error('Wallet is not provided');
-    if (!client) clientConnect();
 
-    if (
-      timestamp.updated === 0 ||
-      timestamp.updated + config.tokenExpiration < Date.now()
-    ) {
-      timestamp.value = await swashApiHelper.getTimestamp();
-      timestamp.updated = Date.now();
+    const states = await storageHelper.getStates();
+
+    if (states.serverTimestamp.expire < Date.now()) {
+      states.serverTimestamp.value = await swashApiHelper.getTimestamp();
+      states.serverTimestamp.expire = Date.now() + config.tokenExpiration;
+
+      await storageHelper.saveStates(states);
     }
 
     const payload = {
       address: wallet.address,
       publicKey: computePublicKey(wallet.publicKey, true),
-      timestamp: timestamp.value,
+      timestamp: states.serverTimestamp.value,
     };
     return new TokenSigner('ES256K', wallet.privateKey.slice(2)).sign(payload);
-  }
-
-  async function joinSwash() {
-    browser.tabs
-      .create({
-        url: 'https://swashapp.io/user/join?token='.concat(await generateJWT()),
-      })
-      .then();
   }
 
   async function isJoinedSwash() {
@@ -324,18 +284,15 @@ const userHelper = (function () {
     return false;
   }
 
+  async function updateVerification() {
+    const data = await swashApiHelper.getVerifiedInfo(await generateJWT());
+    if (data.email) await updateUserEmail(data.email);
+    if (data.phone) await updateUserPhone(data.phone);
+  }
+
   async function isVerified() {
-    const profile = await storageHelper.getProfile();
-    if (profile.phone === undefined) {
-      const data = await swashApiHelper.getVerifiedInfo(await generateJWT());
-      if (data.email) await updateUserEmail(data.email);
-      if (data.phone) {
-        await updateUserPhone(data.phone);
-        return true;
-      }
-      return false;
-    }
-    return true;
+    const { phone } = await storageHelper.getProfile();
+    return phone !== undefined;
   }
 
   async function isVerificationNeeded() {
@@ -404,6 +361,7 @@ const userHelper = (function () {
       await storageHelper.saveProfile(profile);
     }
   }
+
   async function updateUserEmail(email: string) {
     const profile = await storageHelper.getProfile();
     if (profile.email == null || profile.email !== email) {
@@ -411,6 +369,7 @@ const userHelper = (function () {
       await storageHelper.saveProfile(profile);
     }
   }
+
   async function updateUserPhone(phone: string) {
     const profile = await storageHelper.getProfile();
     if (profile.phone == null || profile.phone !== phone) {
@@ -435,8 +394,8 @@ const userHelper = (function () {
         await storageHelper.saveProfile(profile);
         return country;
       }
-    } catch (err) {
-      console.error(err.message);
+    } catch (err: Any) {
+      console.error(err?.message);
     }
     return 'Unknown';
   }
@@ -447,8 +406,8 @@ const userHelper = (function () {
         await generateJWT(),
       );
       return formatEther(reward);
-    } catch (err) {
-      console.error(err.message);
+    } catch (err: Any) {
+      console.error(err?.message);
     }
     return '0';
   }
@@ -460,8 +419,8 @@ const userHelper = (function () {
       const res = await swashApiHelper.getReferrals(await generateJWT());
       totalReward = BigNumber.from(res.reward);
       totalReferral = res.count;
-    } catch (err) {
-      console.error(err.message);
+    } catch (err: Any) {
+      console.error(err?.message);
     }
 
     return {
@@ -529,17 +488,14 @@ const userHelper = (function () {
     getEncryptedWallet,
     loadSavedWallet,
     checkWithdrawAllowance,
-    signWithdrawAllTo,
-    signWithdrawAmountTo,
     getAvailableBalance,
     getStreamrClient,
     getEthBalance,
-    getTokenBalance,
-    transportMessage,
     generateJWT,
     withdrawToTarget,
     donateToTarget,
     isJoinedSwash,
+    updateVerification,
     isVerified,
     isVerificationNeeded,
     isAccountInitialized,

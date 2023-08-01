@@ -1,6 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import { sha256 } from 'js-sha256';
 import { JSONPath } from 'jsonpath-plus';
 
 import browser from 'webextension-polyfill';
@@ -10,6 +9,8 @@ import { commonUtils } from '../../utils/common.util';
 import { configManager } from '../configManager';
 import { dataHandler } from '../dataHandler';
 import { storageHelper } from '../storageHelper';
+
+const { arrayRemove, isEmpty, sha256, serialize } = commonUtils;
 
 // TODO: handle ETAG
 // TODO: handle batch requests
@@ -267,7 +268,7 @@ const apiCall = (function () {
     let data = '';
     switch (apiInfo.content_type) {
       case 'application/x-www-form-urlencoded':
-        data = commonUtils.serialize(apiInfo.params);
+        data = serialize(apiInfo.params);
         break;
       case 'application/json':
         data = JSON.stringify(apiInfo.params);
@@ -284,7 +285,7 @@ const apiCall = (function () {
         data = formData;
         break;
       default:
-        data = commonUtils.serialize(apiInfo.params);
+        data = serialize(apiInfo.params);
     }
 
     switch (apiInfo.method) {
@@ -327,7 +328,7 @@ const apiCall = (function () {
           resp.module.apiCall.items.forEach((data) => {
             if (data.is_enabled) {
               var s = setTimeout(function () {
-                callbacks[moduleName].apiCalls = commonUtils.arrayRemove(
+                callbacks[moduleName].apiCalls = arrayRemove(
                   callbacks[moduleName].apiCalls,
                   s,
                 );
@@ -351,8 +352,8 @@ const apiCall = (function () {
           });
         }
       })
-      .then((a) => {
-        if (!commonUtils.isEmpty(etags)) saveEtags(resp.module.name, etags);
+      .then(() => {
+        if (!isEmpty(etags)) saveEtags(resp.module.name, etags);
       });
   }
 

@@ -17,9 +17,11 @@ This App is a browser extension to captures, pools, and sells user data on his b
   - [Prerequisites](#prerequisites)
     - [Technologies](#technologies)
   - [Installation](#installation)
-  - [Development](#development)
+  - [Build](#build)
+    - [Development](#development-build)
+    - [Production](#production-build)
   - [Deployment](#deployment)
-    - [Release](#release)
+  - [Release](#release)
 - [Contact](#contact)
 - [License](#license)
 
@@ -37,10 +39,20 @@ npm install -g yarn
 
 #### Technologies
 
-- Material UI 4.12.3
+- Web Extension 6.5.0
+- Python 2.x (sqlite3 needed by streamr-client using it)
+- libssl1.1 for linux hosts (node-datachannel needed by streamr-client using it)
 - React 17.0.2
-- Web Extension 6.3.0
-- Python 2.x (One of node_modules depend on python 2)
+- Material UI 5.10.6
+
+Notice: libcrypto.so.1.1 is not available on ubuntu 22.04 repository and you should use an earlier version of ubuntu or install it manually.
+
+#### Recommended environment
+
+- Ubuntu 20.04 LTS
+- Node 16.x LTS (18.x is not fully tested)
+- Installing build essential using ```sudo apt update && sudo apt install build-essential```
+- Installing libssl and libcrypto ```sudo apt install libssl1.1```
 
 ### Installation
 
@@ -50,36 +62,40 @@ To prepare project dependencies, the only thing that you need is running the fol
 yarn install
 ```
 
-### Development
+### Build
 
-After you change the source code, you can compile typescript files to the dist folder in the root directory of the project using `bundle` command. This command support hot-reloading and it applies changes simultaneously.
+#### Development Build
+
+After you change the source code, you can compile typescript files to the dist folder in the root directory of the project using `build:dev` command. This command support hot-reloading and it applies changes simultaneously.
 
 ```
-yarn bundle
+yarn build:dev
+```
+
+#### Production Build
+
+After being sure about your change you can build a production version using this command. It will generate a minified version of the extension.
+
+```
+yarn build:prod
 ```
 
 ### Deployment
 
-By using this command the extension will be deployed on Firefox. It supports hot reload, so your change will be applied on the extension simultaneously.
+By using this command the built extension from dist directory will be deployed on Chrome. 
 
-_Note:_ For the first time please run `yarn bundle` before using this command.
-
-```
-yarn run:firefox
-```
-
-Also, there is another command to deploy extension on Chromium.
+_Note:_ For the first time please run one of the [Build](#build) commands before using this command.
 
 ```
-yarn run:chromium
+yarn run
 ```
 
-#### Release
+### Release
 
-To create an optimized and minified bundle of the extension you can run `build:prod` command.
+To create an optimized and minified bundle of the extension you can run `release` command. It will generate two different version of the extension for Chrome and Firefox in releases directory.
 
 ```
-yarn build:prod
+yarn release
 ```
 
 ## Contact

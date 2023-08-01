@@ -1,3 +1,5 @@
+import { PathToUrls, WebsitePath } from '../paths';
+
 const ProfileIcon = '/static/images/icons/help/profile.png';
 const DataIcon = '/static/images/icons/help/data.png';
 const GettingStartedIcon = '/static/images/icons/help/getting-started.png';
@@ -47,7 +49,7 @@ const HelpData = [
       '<div class="title1">The Swash app</b>' +
       '<br/><br/>' +
       '<p>' +
-      '<a target="_blank rel="noopener noreferrer href="https://swashapp.io/"> The Swash app </a> is an ' +
+      `<a target="_blank rel="noopener noreferrer href="${WebsitePath}"> The Swash app </a> is an ` +
       '<a target="_blank rel="noopener noreferrer href="https://medium.com/swashapp/weve-open-sourced-swash-to-make-data-unions-a-reality-7049e92c364b">open-source</a> solution that makes it possible for you to monetise your surfing data. Simply install, browse, and earn - that’s it. Swash does all the rest for you and rewards you for the value of your data.' +
       '<br />' +
       '<br />' +
@@ -67,7 +69,7 @@ const HelpData = [
       '<br />' +
       '<br />' +
       'In this section, you’ll find a walkthrough of each feature within the Swash extension. If you have any questions, check out the ' +
-      '<a target="_blank rel="noopener noreferrer href="https://swashapp.io/faq" >Swash FAQ</a>, or <a target="_blank" rel="noopener noreferrer href="https://swashapp.io/contact">get in touch</a></target></a> with the team.</p>',
+      `<a target="_blank rel="noopener noreferrer href="${PathToUrls.faq}" >Swash FAQ</a>, or <a target="_blank" rel="noopener noreferrer href="${PathToUrls.contact}">get in touch</a></target></a> with the team.</p>`,
   },
   {
     title: 'Getting Started',
@@ -105,7 +107,7 @@ const HelpData = [
       '<br />' +
       '<br />' +
       'If you want to learn more about how your data is used, you can always check out the ' +
-      '<a href="https://swashapp.io/privacy-policy/extension" target="_blank" rel="noopener noreferrer">privacy policy</a>.' +
+      `<a href="${PathToUrls.privacy}" target="_blank" rel="noopener noreferrer">privacy policy</a>.` +
       '<br />' +
       '<br />' +
       'What’s more, when you verify your profile, you will receive a $REWARD_PROFILE SWASH reward!' +
@@ -184,7 +186,7 @@ const HelpData = [
       '<br />' +
       '</li>' +
       '<li>' +
-      'Add SWASH as a token in your Metamask Gnosis Chain wallet using the "Import Token" button. You can find the SWASH Token Contract Address <a target="_blank rel="noopener noreferrer href="https://blockscout.com/xdai/mainnet/tokens/0x84e2c67cbefae6b5148fca7d02b341b12ff4b5bb">here</a>' +
+      'Add SWASH as a token in your Metamask Gnosis Chain wallet using the "Import Token" button. You can find the SWASH Token Contract Address <a target="_blank rel="noopener noreferrer href="https://gnosisscan.io/address/0x84e2c67cbefae6b5148fca7d02b341b12ff4b5bb">here</a>' +
       '<br />' +
       '<br />' +
       '<iframe src="https://www.youtube.com/embed/aeoJrVbkP5Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>' +
@@ -415,7 +417,7 @@ const HelpData = [
       '<a' +
       ' target="_blank"' +
       ' rel="noopener noreferrer"' +
-      ' href="https://swashapp.io/privacy-policy/extension">' +
+      ` href="${PathToUrls.privacy}">` +
       'privacy policy' +
       '</a>' +
       '.' +
@@ -496,7 +498,7 @@ const HelpData = [
       '<a' +
       '  target="_blank"' +
       '  rel="noopener noreferrer"' +
-      '  href="https://swashapp.io/newsletter"' +
+      `  href="${PathToUrls.newsletter}"` +
       '>' +
       'Newsletter' +
       '</a>' +
@@ -504,7 +506,7 @@ const HelpData = [
       '<a' +
       '  target="_blank"' +
       '  rel="noopener noreferrer"' +
-      '  href="https://swashapp.io/media"' +
+      `  href="${PathToUrls.media}"` +
       '>' +
       'Media' +
       '</a>' +

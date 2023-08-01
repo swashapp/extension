@@ -1,4 +1,3 @@
-import { debounce } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { ToastContainer } from 'react-toastify';
@@ -27,6 +26,7 @@ const addUnsplashParams = (src: string): string => {
 };
 
 export default function NewTab(): JSX.Element {
+  const [ads, setAds] = useState<'full' | 'partial' | 'none'>('none');
   const [bg, setBg] = useState('');
   const [style, setStyle] = useState({});
   const [search, setSearch] = useState<SearchEngine>();
@@ -34,7 +34,6 @@ export default function NewTab(): JSX.Element {
   const [time, setTime] = useState(new Date());
   const [timeFormat, setTimeFormat] = useState<Intl.DateTimeFormatOptions>();
   const [hide, setHide] = useState(false);
-  const [suggestion, setSuggestion] = useState<string[]>([]);
   const [copyright, setCopyright] = useState<UnsplashCopyright>({
     imageLink: '',
     location: '',
@@ -43,12 +42,16 @@ export default function NewTab(): JSX.Element {
   });
 
   const getConfigs = useCallback((cache = true) => {
-    helper.getNewTabConfig().then((config: NTXConfig) => {
+    helper.getNewTabConfig().then(async (config: NTXConfig) => {
       const { background, searchEngine, sites, datetime } = config;
       setSearch(searchEngine);
       setSites(sites);
 
-      if (!cache) {
+      const status = await helper.getIsFullScreenAvailable();
+      if (status) setAds('full');
+      else setAds('partial');
+
+      if (!cache && !status) {
         setBg(background);
         if (background === 'unsplash') {
           helper
@@ -108,35 +111,6 @@ export default function NewTab(): JSX.Element {
     });
   }, [getConfigs]);
 
-  const onSearchInput = useCallback((value) => {
-    const _api = new URL('http://suggestqueries.google.com/complete/search');
-    _api.searchParams.set('output', 'toolbar');
-    _api.searchParams.set('q', value);
-
-    fetch(_api.toString())
-      .then(async (resp) => {
-        const txt = await resp.text();
-        const parser = new DOMParser();
-
-        const xml = parser.parseFromString(txt, 'text/xml');
-        const nodes = xml.getElementsByTagName('suggestion');
-
-        const keywords: string[] = [];
-        for (let i = 0; i < nodes.length; i++) {
-          const data = nodes[i].getAttribute('data');
-          if (data) keywords.push(data);
-        }
-
-        setSuggestion(keywords);
-      })
-      .catch(() => setSuggestion([]));
-  }, []);
-
-  const onInputDebounce = useMemo(
-    () => debounce(onSearchInput, 500),
-    [onSearchInput],
-  );
-
   const addSite = useCallback(
     (rank) => {
       showPopup({
@@ -159,14 +133,18 @@ export default function NewTab(): JSX.Element {
   );
 
   const getSites = useMemo(() => {
-    console.log(sites);
     return sites.map((value: Site, index) => {
       if (value.title) {
+        const _url = new URL(value.url);
+        let icon = value.icon;
+
+        if (!icon.startsWith('https://www.google.com'))
+          icon = `https://www.google.com/s2/favicons?sz=64&domain_url=${_url.origin}`;
         return (
           <div className={'site-box'} key={`site-${index}`}>
             <a href={value.url}>
               <div className={'fav-site'}>
-                <img src={value.icon} alt={value.title} />
+                <img src={icon} alt={value.title} />
               </div>
             </a>
             <div className={'remove-site'}>
@@ -182,14 +160,14 @@ export default function NewTab(): JSX.Element {
         );
       } else {
         return (
-          <div className={'fav-site'} key={`site-${index}`}>
-            <img
-              src={'/static/images/shape/plus.png'}
-              alt={'add'}
-              onClick={() => {
-                addSite(index);
-              }}
-            />
+          <div
+            className={'fav-site'}
+            key={`site-${index}`}
+            onClick={() => {
+              addSite(index);
+            }}
+          >
+            <img src={'/static/images/shape/plus.png'} alt={'add'} />
           </div>
         );
       }
@@ -213,6 +191,18 @@ export default function NewTab(): JSX.Element {
   return (
     <>
       <div className={'container'} style={{ ...style }}>
+        {ads === 'full' ? (
+          <div className={'full-ads'}>
+            <DisplayAds
+              width={3840}
+              height={2160}
+              divWidth={'100%'}
+              divHeight={'100%'}
+            />
+          </div>
+        ) : (
+          <></>
+        )}
         <div className={'row-1'}>
           <div className={'item-actions'}>
             <div>
@@ -250,7 +240,7 @@ export default function NewTab(): JSX.Element {
             </div>
           </div>
           <div className={'item-copyright'}>
-            {bg === 'unsplash' ? (
+            {bg === 'unsplash' && ads !== 'full' ? (
               <>
                 Photo by{' '}
                 <a
@@ -283,9 +273,7 @@ export default function NewTab(): JSX.Element {
             ) : (
               <>
                 <form
-                  className={`search-form ${
-                    suggestion.length > 0 ? 'active' : ''
-                  }`}
+                  className={`search-form`}
                   role={'search'}
                   action={search?.url}
                 >
@@ -295,33 +283,7 @@ export default function NewTab(): JSX.Element {
                     name={search?.params || 'q'}
                     autoComplete={'off'}
                     placeholder={`Search on ${search?.name}...`}
-                    onChange={(event) => onInputDebounce(event.target.value)}
-                    onBlur={() => onSearchInput('')}
                   />
-                  <div className="suggested-list">
-                    {suggestion.map((item, index) => (
-                      <li
-                        key={`item-${index}`}
-                        onClick={() => {
-                          const s = new URL(search?.url || '');
-                          s.searchParams.set(search?.params || 'q', item);
-                          window.location.href = s.toString();
-                        }}
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </div>
-                  <button className="search-button">
-                    <svg className={'search-svg'} viewBox={'0 0 1024 1024'}>
-                      <path
-                        className={'path1'}
-                        d={
-                          'M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z'
-                        }
-                      ></path>
-                    </svg>
-                  </button>
                 </form>
                 <div className={'fav-sites'}>{getSites}</div>
               </>
@@ -329,9 +291,28 @@ export default function NewTab(): JSX.Element {
           </div>
         </div>
         <div className={'row-3'}>
-          <div className={'item-ads'}>
-            <DisplayAds width={300} height={250} />
-          </div>
+          {ads === 'partial' ? (
+            <div className={'item-ads'}>
+              <DisplayAds width={300} height={250} />
+            </div>
+          ) : ads === 'full' ? (
+            <div className={'click-ignore-wrapper'}>
+              <div className={'click-ignore-col1'} />
+              <div className={'click-ignore-col2'}>
+                <div className={'row1'} />
+                <div className={'row2'}>
+                  <img
+                    src={'/static/images/icons/new-tab/link.svg'}
+                    alt={'link'}
+                  />
+                </div>
+                <div className={'row3'} />
+              </div>
+              <div className={'click-ignore-col3'} />
+            </div>
+          ) : (
+            <div className={'click-ignore-wrapper'} />
+          )}
           <div className={'item-clock'}>
             {hide ? (
               <></>

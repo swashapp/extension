@@ -34,20 +34,13 @@ export function TokenTransferPopup(props: {
   amount: string | number;
   recipient: string;
   onSuccess: () => Promise<unknown>;
-  useSponsor: boolean;
-  sendToMainnet: boolean;
 }): JSX.Element {
   const [loading, setLoading] = useState<boolean>(false);
 
   const withdraw = useCallback(() => {
     setLoading(true);
     helper
-      .withdrawToTarget(
-        props.recipient,
-        props.amount,
-        props.useSponsor,
-        props.sendToMainnet,
-      )
+      .withdrawToTarget(props.recipient, props.amount)
       .then((result: { tx: string; reason: string }) => {
         setLoading(false);
         if (result.tx) {
@@ -62,12 +55,7 @@ export function TokenTransferPopup(props: {
             closable: false,
             closeOnBackDropClick: true,
             paperClassName: 'large-popup',
-            content: (
-              <TokenTransferCompleted
-                transactionId={result.tx}
-                sendToMainnet={props.sendToMainnet}
-              />
-            ),
+            content: <TokenTransferCompleted transactionId={result.tx} />,
           });
         } else {
           toast(

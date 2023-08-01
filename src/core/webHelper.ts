@@ -264,15 +264,6 @@ const helper = (function () {
     return sendMessage(message);
   }
 
-  function getTokenBalance(address) {
-    const message = {
-      obj: 'userHelper',
-      func: 'getTokenBalance',
-      params: [address],
-    };
-    return sendMessage(message);
-  }
-
   function getEthBalance(address) {
     const message = {
       obj: 'userHelper',
@@ -597,11 +588,11 @@ const helper = (function () {
     return sendMessage(message);
   }
 
-  function withdrawToTarget(recipient, amount, useSponsor, sendToMainnet) {
+  function withdrawToTarget(recipient, amount) {
     const message = {
       obj: 'userHelper',
       func: 'withdrawToTarget',
-      params: [recipient, amount, useSponsor, sendToMainnet],
+      params: [recipient, amount],
     };
     return sendMessage(message);
   }
@@ -637,6 +628,15 @@ const helper = (function () {
     const message = {
       obj: 'userHelper',
       func: 'isJoinedSwash',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
+  function updateVerification() {
+    const message = {
+      obj: 'userHelper',
+      func: 'updateVerification',
       params: [],
     };
     return sendMessage(message);
@@ -759,6 +759,15 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function getIsFullScreenAvailable() {
+    const message = {
+      obj: 'adsHelper',
+      func: 'getIsFullScreenAvailable',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
   function getAdsSlots(width, height) {
     const message = {
       obj: 'adsHelper',
@@ -874,7 +883,6 @@ const helper = (function () {
     identityPrivacy,
     getWalletAddress,
     getWalletPrivateKey,
-    getTokenBalance,
     getEthBalance,
     getAvailableBalance,
     getCumulativeEarnings,
@@ -916,6 +924,7 @@ const helper = (function () {
     claimRewards,
     getJoinedSwash,
     isJoinedSwash,
+    updateVerification,
     isVerified,
     isVerificationNeeded,
     isAccountInitialized,
@@ -934,6 +943,7 @@ const helper = (function () {
     toggleCharityLike,
     addCharityAutoPayment,
     delCharityAutoPayment,
+    getIsFullScreenAvailable,
     getAdsSlots,
     updateAdsStatus,
     getAdsStatus,

@@ -1,17 +1,16 @@
 import { Connection, DATA_TYPE } from 'jsstore';
-import browser from 'webextension-polyfill';
+import workerInjector from 'jsstore/dist/worker_injector';
 
 import { MessageRecord } from '../types/db.type';
 import { Message } from '../types/message.type';
 
 const databaseHelper = (function () {
-  const dbName = 'SwashDBV3';
+  const dbName = 'SwashData';
   let connection: Connection;
   async function init() {
     if (!connection) {
-      const url = browser.runtime.getURL('lib/jsstore.worker.js');
-      const worker = new Worker(url);
-      connection = new Connection(worker);
+      connection = new Connection();
+      connection.addPlugin(workerInjector);
       await initJsStore();
     }
   }
@@ -54,6 +53,7 @@ const databaseHelper = (function () {
 
     return {
       name: dbName,
+      version: 1,
       tables: [tblMessage, tblStats],
     };
   }
@@ -90,7 +90,8 @@ const databaseHelper = (function () {
             lastSent: currentTime,
             messageCount: 1,
           };
-          //since Id is autoincrement column, so the row will be automatically generated.
+
+          // since id is autoincrement column, so the row will be automatically generated.
           connection
             .insert({
               into: 'stats',
@@ -149,10 +150,11 @@ const databaseHelper = (function () {
       createTime: currentTime,
       message: message,
     };
-    //since Id is autoincrement column, so the row will be automatically generated.
+
+    // since id is autoincrement column, so the row will be automatically generated.
     return await connection.insert({
       into: 'messages',
-      values: [row],
+      values: JSON.parse(JSON.stringify([row])),
     });
   }
 

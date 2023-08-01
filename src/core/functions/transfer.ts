@@ -63,25 +63,24 @@ const transfer = (function () {
 
   function registerContentScripts(tabId, changeInfo, tabInfo) {
     if (changeInfo.status == 'loading') {
-      browser.tabs
-        .executeScript(tabId, {
-          file: '/lib/browser-polyfill.js',
-          allFrames: false,
-          runAt: 'document_start',
+      browser.scripting
+        .executeScript({
+          injectImmediately: true,
+          target: { tabId, allFrames: false },
+          files: [
+            '/lib/browser-polyfill.js',
+            '/core/content_scripts/transfer_script.js',
+          ],
         })
-        .then((result) => {
-          browser.tabs.executeScript(tabId, {
-            file: '/core/content_scripts/transfer_script.js',
-            allFrames: false,
-            runAt: 'document_start',
+        .then(() => {
+          browser.scripting.insertCSS({
+            injectImmediately: true,
+            target: { tabId, allFrames: false },
+            files: ['/css/transfer.css'],
           });
         })
-        .then((result) => {
-          browser.tabs.insertCSS(tabId, {
-            file: '/css/transfer.css',
-            allFrames: false,
-            runAt: 'document_start',
-          });
+        .catch((err) => {
+          console.error(err);
         });
     }
   }

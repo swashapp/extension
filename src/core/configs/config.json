@@ -13,9 +13,12 @@
       "version": 1
     },
     "community": {
-      "version": 5
+      "version": 7
     },
     "stream": {
+      "version": 1
+    },
+    "brubeckStream": {
       "version": 1
     },
     "onboarding": {

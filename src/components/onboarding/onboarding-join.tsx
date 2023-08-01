@@ -8,11 +8,11 @@ import React, {
 
 import { helper } from '../../core/webHelper';
 import { StepperContext } from '../../pages/onboarding';
+import { WebsitePath } from '../../paths';
 import { WaitingProgressBar } from '../progress/waiting-progress';
 
 import { OnboardingVerify } from './onboarding-verify';
 
-const SWASH_DOMAIN = 'https://swashapp.io';
 const SWASH_JOIN_PAGE = '/user/verify-email';
 const MAX_TOKEN_TRY_COUNT = 3;
 const MAX_GENERAL_TRY_COUNT = 3;
@@ -32,7 +32,7 @@ export function OnboardingJoin(): JSX.Element {
   const [iframeVisible, setIframeVisible] = useState<boolean>(false);
 
   const iframeSrc = useMemo(
-    () => `${SWASH_DOMAIN}${SWASH_JOIN_PAGE}?token=${token}&v=2`,
+    () => `${WebsitePath}${SWASH_JOIN_PAGE}?token=${token}&v=2`,
     [token],
   );
 
@@ -78,31 +78,35 @@ export function OnboardingJoin(): JSX.Element {
     },
     [reloadIFrame, stepper],
   );
-  useEffect(() => {
-    if (!token) {
-      helper.generateJWT().then((_token: string) => setToken(_token));
-    }
-    window.onmessage = handleMessages;
-  }, [handleMessages, token]);
 
   const [joinData, setJoinData] = useState<{
     id?: number;
     email?: string;
   } | null>(null);
+
   const onGetJoinedFailed = useCallback((err) => {
     if (err.message === 'user not found' || err.message === 'invalid user') {
       setJoinData({});
     }
   }, []);
+
   useEffect(() => {
+    window.onmessage = handleMessages;
+
     helper
       .getJoinedSwash()
       .then((data: { id: number; email: string }) => {
         if (data.id && data.email) stepper.next();
         else setJoinData(data);
       })
-      .catch(onGetJoinedFailed);
-  }, [onGetJoinedFailed, stepper]);
+      .catch(onGetJoinedFailed)
+      .finally(() => {
+        if (!token) {
+          helper.generateJWT().then((_token: string) => setToken(_token));
+        }
+      });
+  }, [handleMessages, onGetJoinedFailed, stepper, token]);
+
   return (
     <>
       {verification.email ? (

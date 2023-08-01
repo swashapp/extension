@@ -842,6 +842,12 @@ hr.nav {
   background-color: transparent;
 }
 
+.sidenav-ads {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
 .welcome-container {
   overflow: hidden;
   border-radius: 20px;
@@ -2162,6 +2168,11 @@ hr.nav {
 .small-popup-actions {
   display: flex;
   justify-content: space-between;
+}
+
+.small-popup-actions-center {
+  display: flex;
+  justify-content: center;
 }
 
 .small-popup-actions-cancel {

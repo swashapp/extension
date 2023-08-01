@@ -71,18 +71,14 @@ const content = (function () {
         }
       }
       if (!injectScript) return;
-      browser.tabs
-        .executeScript(tabId, {
-          file: '/lib/browser-polyfill.js',
-          allFrames: false,
-          runAt: 'document_start',
-        })
-        .then((result) => {
-          browser.tabs.executeScript(tabId, {
-            file: '/core/content_scripts/content_script.js',
-            allFrames: false,
-            runAt: 'document_start',
-          });
+      browser.scripting
+        .executeScript({
+          injectImmediately: true,
+          target: { tabId, allFrames: false },
+          files: [
+            '/lib/browser-polyfill.js',
+            '/core/content_scripts/content_script.js',
+          ],
         })
         .catch((err) => {
           console.error(err);

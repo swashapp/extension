@@ -21,20 +21,12 @@ import { initValue, UtilsService } from '../service/utils-service';
 const SwashBonusIcon = '/static/images/icons/swash-bonus.svg';
 const SwashEarningsIcon = '/static/images/icons/swash-earnings.svg';
 
-const networkList = [
-  { name: 'Gnosis Chain', value: 'Gnosis Chain' },
-  { name: 'Mainnet', value: 'Mainnet' },
-];
+const networkList = [{ name: 'Gnosis Chain', value: 'Gnosis Chain' }];
 
 export function Wallet(): JSX.Element {
   const [tokenAvailable, setTokenAvailable] = useState<string>(initValue);
-  const [minimumWithdraw, setMinimumWithdraw] = useState<number>(99999999);
-  const [gasLimit, setGasLimit] = useState<number>(99999999);
   const [claiming, setClaiming] = useState<boolean>(false);
   const [withdrawing, setWithdrawing] = useState<boolean>(false);
-  const [recipientEthBalance, setRecipientEthBalance] = useState<string>('$');
-  const [recipientTokenBalance, setRecipientTokenBalance] =
-    useState<string>('$');
   const [unclaimedBonus, setUnclaimedBonus] = useState<string>(initValue);
   const [walletAddress, setWalletAddress] = useState<string>('');
   const [recipient, setRecipient] = useState<string>('');
@@ -146,86 +138,18 @@ export function Wallet(): JSX.Element {
           message: 'Exchange wallets are not compatible.',
           type: 'warning',
         };
-        if (network === 'Mainnet') {
-          if (Number(tokenAvailable) > minimumWithdraw) {
-            ret = {
-              message:
-                'It’s on us. Swash will cover these transaction fees for you! 🎉',
-              type: 'success',
-            };
-          } else if (Number(recipientEthBalance) > gasLimit) {
-            ret = {
-              message: `Transaction fee is ${gasLimit} ETH`,
-              type: 'warning',
-            };
-          } else if (recipient.length === 42 && isAddress(recipient)) {
-            ret = {
-              message: 'Unable to withdraw - not enough ETH for the gas fee',
-              type: 'error',
-            };
-          }
-        }
       }
       return ret;
-    }, [
-      tokenAvailable,
-      gasLimit,
-      isMessageNeeded,
-      minimumWithdraw,
-      network,
-      recipient,
-      recipientEthBalance,
-    ]);
+    }, [tokenAvailable, isMessageNeeded, recipient]);
 
   const isTransferDisable = useMemo(() => {
     let ret = false;
     if (tokenAvailable === initValue || Number(tokenAvailable) <= 0) ret = true;
     else if (!isAddress(recipient)) ret = true;
     else if (!network) ret = true;
-    else if (network === 'Mainnet') {
-      if (recipientEthBalance === initValue || Number(recipientEthBalance) <= 0)
-        ret = true;
-      else if (
-        Number(recipientEthBalance) < gasLimit &&
-        Number(tokenAvailable) < minimumWithdraw
-      )
-        ret = true;
-    } else if (formState.message && formState.type === 'error') ret = true;
+    else if (formState.message && formState.type === 'error') ret = true;
     return ret;
-  }, [
-    tokenAvailable,
-    formState.message,
-    formState.type,
-    gasLimit,
-    minimumWithdraw,
-    network,
-    recipient,
-    recipientEthBalance,
-  ]);
-
-  useEffect(() => {
-    if (recipient.length === 42) {
-      helper
-        .getWithdrawBalance()
-        .then((response: { minimum: number; gas: number }) => {
-          if (response.minimum) {
-            setMinimumWithdraw(response.minimum);
-          }
-          if (response.gas) {
-            setGasLimit(Number(response.gas.toFixed(3)));
-          }
-        });
-      if (recipient.match(/^0x[a-fA-F0-9]{40}$/g)) {
-        const getBalanceOfRecipient = async () => {
-          const TokenBalance = await helper.getTokenBalance(recipient);
-          const EthBalance = await helper.getEthBalance(recipient);
-          setRecipientTokenBalance(TokenBalance);
-          setRecipientEthBalance(EthBalance);
-        };
-        getBalanceOfRecipient();
-      }
-    }
-  }, [recipient]);
+  }, [tokenAvailable, formState.message, formState.type, network, recipient]);
 
   return (
     <div className="page-container">
@@ -288,9 +212,9 @@ export function Wallet(): JSX.Element {
             <h6>Withdraw your earnings</h6>
             <div className="withdraw-text">
               <p>
-                Withdraw your earnings using Gnosis Chain (recommended) or
-                Ethereum mainnet. Exchange wallets are not supported. Learn how
-                to set up your wallet and get to know your withdrawal limits.
+                Withdraw your earnings using Gnosis Chain. Exchange wallets are
+                not supported. Learn how to set up your wallet and get to know
+                your withdrawal limits.
               </p>
               <div className="form-button withdraw-read-more-button">
                 <Button
@@ -308,10 +232,8 @@ export function Wallet(): JSX.Element {
                             <h6>Withdraw your earnings</h6>
                           </div>
                           <p>
-                            You can withdraw your earnings using Gnosis Chain
-                            (recommended) or Ethereum mainnet (not recommended
-                            due to high fees!). Exchange wallets are not
-                            currently supported.
+                            You can withdraw your earnings using Gnosis Chain.
+                            Exchange wallets are not currently supported.
                             <br />
                             <br />
                             It’s important to make sure you have set up your
@@ -385,15 +307,6 @@ export function Wallet(): JSX.Element {
               />
               <div>
                 <FormMessage text={formState.message} type={formState.type} />
-                {network === 'Mainnet' && recipient ? (
-                  <div className="form-message-balance">{`Balance: ${UtilsService.purgeNumber(
-                    recipientEthBalance,
-                  )} ETH, ${UtilsService.purgeNumber(
-                    recipientTokenBalance,
-                  )} SWASH`}</div>
-                ) : (
-                  <></>
-                )}
               </div>
             </div>
             <Button
@@ -417,8 +330,6 @@ export function Wallet(): JSX.Element {
                           amount={tokenAvailable}
                           recipient={recipient}
                           onSuccess={getBalanceInfo}
-                          useSponsor={Number(tokenAvailable) > minimumWithdraw}
-                          sendToMainnet={network === 'Mainnet'}
                         />
                       ),
                     });

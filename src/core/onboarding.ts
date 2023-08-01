@@ -1,4 +1,3 @@
-import { sha256 } from 'js-sha256';
 import { JSONPath } from 'jsonpath-plus';
 import browser from 'webextension-polyfill';
 
@@ -19,6 +18,8 @@ import { loader } from './loader';
 import { memberManager } from './memberManager';
 import { storageHelper } from './storageHelper';
 import { userHelper } from './userHelper';
+
+const { serialize, sha256 } = commonUtils;
 
 const onboarding = (function () {
   let oauthTabId = 0;
@@ -144,6 +145,10 @@ const onboarding = (function () {
     userHelper.getUserCountry().then((location) => {
       console.log(`User is joined from ${location.country}`);
     });
+
+    await storageHelper.getFilters();
+    await storageHelper.getPrivacyData();
+
     return true;
   }
 
@@ -338,11 +343,17 @@ const onboarding = (function () {
       const profile = await storageHelper.getProfile();
 
       configs.salt = oldDB.configs.salt;
+      configs.delay = oldDB.configs.delay;
       profile.encryptedWallet = oldDB.profile.encryptedWallet;
 
       await storageHelper.saveConfigs(configs);
       await storageHelper.saveProfile(profile);
       await storageHelper.savePrivacyData(oldDB.privacyData);
+      await storageHelper.saveFilters(oldDB?.filters);
+      await storageHelper.saveCharities(oldDB?.charity);
+      await storageHelper.saveAdsConfig(oldDB?.ads);
+      await storageHelper.saveNewTab(oldDB?.newTab);
+      await storageHelper.saveStates(oldDB?.state);
 
       await userHelper.loadSavedWallet();
       return true;
@@ -355,9 +366,18 @@ const onboarding = (function () {
   }
 
   async function saveConfig() {
+    function blobToBase64(blob: Blob) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+      });
+    }
+
     const db = await storageHelper.getAll();
     const data = createConfigFile(JSON.stringify(db));
-    const url = window.URL.createObjectURL(data);
+    const url = await blobToBase64(data);
     const currentDate = new Date().toISOString().slice(0, 10);
     browser.downloads
       .download({
@@ -477,7 +497,7 @@ const onboarding = (function () {
     let data = '';
     switch (apiInfo.content_type) {
       case 'application/x-www-form-urlencoded':
-        data = commonUtils.serialize(apiInfo.params);
+        data = serialize(apiInfo.params);
         break;
       case 'application/json':
         data = JSON.stringify(apiInfo.params);
@@ -490,7 +510,7 @@ const onboarding = (function () {
         data = apiInfo.file;
         break;
       default:
-        data = commonUtils.serialize(apiInfo.params);
+        data = serialize(apiInfo.params);
     }
 
     switch (apiInfo.method) {
