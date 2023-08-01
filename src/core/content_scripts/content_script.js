@@ -358,6 +358,8 @@ var contentScript = (function () {
             if(prop) {
               if(y.function) {
                 message.params[0].data.out[y.name] = eval(y.function)(getPropertyValue(prop, y.property));
+              } else{
+                message.params[0].data.out[y.name] = getPropertyValue(prop, y.property);
               }
             }
           });
