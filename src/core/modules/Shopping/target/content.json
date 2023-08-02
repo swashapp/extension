@@ -25,7 +25,7 @@
           "keyCode": 13
         },
         {
-          "selector": "[data-test='btnSearch']",
+          "selector": "button[aria-label='search']",
           "event_name": "click"
         }
       ],
@@ -62,7 +62,7 @@
       "type": "event",
       "is_enabled": true,
       "readyAt": "DOMChange",
-      "observingTargetNode": "#header",
+      "observingTargetNode": ".styles__SearchForm-sc-wnzihy-1",
       "observingConfig": {
         "attributes": false,
         "childList": true,
@@ -96,7 +96,7 @@
       "viewGroup": "UX",
       "type": "event",
       "readyAt": "windowChange",
-      "observingTargetNode": "[data-component='WEB-c_web_productgrid_v01']",
+      "observingTargetNode": "[data-component-id='WEB-c_web_productgrid_v01']",
       "observingConfig": {
         "attributes": false,
         "childList": true,
@@ -122,12 +122,12 @@
           ]
         },
         {
-          "selector": ".Col-favj32-0.iXmsJV.h-padding-a-none.h-display-flex",
+          "selector": ".styles__StyledRow-sc-wmoju4-0",
           "name": "searchResult",
           "indexName": "rank",
           "properties": [
             {
-              "selector": "[data-test='itemDetail-brand']",
+              "selector": "[data-test*='ProductCardBrandAndRibbonMessage']",
               "property": "innerText",
               "name": "brand",
               "type": "text"
@@ -139,69 +139,21 @@
               "type": "text"
             },
             {
-              "selector": "[data-test='product-price']",
+              "selector": "[data-test='current-price']",
               "property": "innerText",
               "name": "price",
               "type": "text"
             },
             {
-              "selector": "[data-test='product-rating'] .h-sr-only",
+              "selector": "[data-test='ratings']",
               "property": "innerText",
               "name": "rate",
               "type": "text"
             },
             {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "window",
-          "properties": [
-            {
-              "property": "screen.height",
-              "name": "screenHeight",
-              "type": "text"
-            },
-            {
-              "property": "screen.width",
-              "name": "screenWidth",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "document",
-          "properties": [
-            {
-              "property": "documentElement.clientHeight",
-              "name": "documentHeight",
-              "type": "text"
-            },
-            {
-              "property": "documentElement.clientWidth",
-              "name": "documentWidth",
+              "selector": "[data-test='rating-count']",
+              "property": "innerText",
+              "name": "reviewCount",
               "type": "text"
             }
           ]
@@ -209,10 +161,10 @@
       ]
     },
     {
-      "name": "selectedProducts",
+      "name": "clickSearchResult",
       "description": "This item collects information about a product that has been selected (or clicked on a search resault) by user",
       "url_match": "*://*.target.com/*",
-      "title": "Selected Product",
+      "title": "Clicked Search Results",
       "viewGroup": "UX",
       "type": "event",
       "is_enabled": true,
@@ -225,11 +177,15 @@
       },
       "events": [
         {
-          "selector": ".Col-favj32-0.iXmsJV.h-padding-a-none.h-display-flex",
+          "selector": "[class^='ProductCardImageWrapper-sc-'] a[class^='styles__StyledLink-']",
           "event_name": "click"
         },
         {
-          "selector": ".Col-favj32-0.iXmsJV.h-padding-a-none.h-display-flex",
+          "selector": ".styles__StyledProductCardBody-sc-9lksuw-0 a[data-test='product-title']",
+          "event_name": "contextmenu"
+        },
+        {
+          "selector": ".styles__StyledProductCardBody-sc-9lksuw-0 a[data-test='product-title']",
           "event_name": "contextmenu"
         }
       ],
@@ -246,10 +202,10 @@
           ]
         },
         {
-          "selector": "[data-test='productCardBody']",
+          "selector": "<<<<<",
           "properties": [
             {
-              "selector": "[data-test='itemDetail-brand']",
+              "selector": "[data-test*='ProductCardBrandAndRibbonMessage']",
               "property": "innerText",
               "name": "brand",
               "type": "text"
@@ -261,69 +217,21 @@
               "type": "text"
             },
             {
-              "selector": "[data-test='product-price']",
+              "selector": "[data-test='current-price']",
               "property": "innerText",
               "name": "price",
               "type": "text"
             },
             {
-              "selector": "[data-test='product-rating'] .h-sr-only",
+              "selector": "[data-test='ratings']",
               "property": "innerText",
               "name": "rate",
               "type": "text"
             },
             {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "window",
-          "properties": [
-            {
-              "property": "screen.height",
-              "name": "screenHeight",
-              "type": "text"
-            },
-            {
-              "property": "screen.width",
-              "name": "screenWidth",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "document",
-          "properties": [
-            {
-              "property": "documentElement.clientHeight",
-              "name": "documentHeight",
-              "type": "text"
-            },
-            {
-              "property": "documentElement.clientWidth",
-              "name": "documentWidth",
+              "selector": "[data-test='rating-count']",
+              "property": "innerText",
+              "name": "reviewCount",
               "type": "text"
             }
           ]
@@ -331,10 +239,10 @@
       ]
     },
     {
-      "name": "addToLoveList",
+      "name": "addToWishlist",
       "description": "This item collects all products in target web pages that has been added by user to love list",
       "url_match": "*://*.target.com/*",
-      "title": "Add to Love list",
+      "title": "Add to Wish list",
       "viewGroup": "UX",
       "type": "event",
       "is_enabled": true,
@@ -347,13 +255,13 @@
       },
       "events": [
         {
-          "selector": "[data-test='crushButton']",
+          "selector": "button[data-test='FavoritesButton']",
           "event_name": "click"
         }
       ],
       "objects": [
         {
-          "selector": "[data-test='productCardBody']",
+          "selector": "#pageBodyContainer div div",
           "properties": [
             {
               "selector": "[data-test='itemDetail-brand']",
@@ -374,110 +282,15 @@
               "type": "text"
             },
             {
-              "selector": "[data-test='product-rating'] .h-sr-only",
+              "selector": "[data-test='ratings'] span",
               "property": "innerText",
               "name": "rate",
               "type": "text"
             },
             {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<<<<<<<<",
-          "properties": [
-            {
-              "selector": "[data-test='product-title']",
+              "selector": "[class^='styles__StyledFeedbackCount']",
               "property": "innerText",
-              "name": "title",
-              "type": "text"
-            },
-            {
-              "selector": "[data-test='product-price']",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": "[data-test='ratings'] .utils__ScreenReaderOnly-sc-1kni3r7-0.jVBsth",
-              "property": "innerText",
-              "name": "rate",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "window",
-          "properties": [
-            {
-              "property": "screen.height",
-              "name": "screenHeight",
-              "type": "text"
-            },
-            {
-              "property": "screen.width",
-              "name": "screenWidth",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "document",
-          "properties": [
-            {
-              "property": "documentElement.clientHeight",
-              "name": "documentHeight",
-              "type": "text"
-            },
-            {
-              "property": "documentElement.clientWidth",
-              "name": "documentWidth",
+              "name": "reviewCount",
               "type": "text"
             }
           ]
@@ -501,73 +314,24 @@
       },
       "events": [
         {
-          "selector": "[data-test='orderPickupButton']",
+          "selector": "button[data-test='shippingButton']",
           "event_name": "click"
         },
         {
-          "selector": "[data-test='scheduledDeliveryButton']",
-          "event_name": "click"
-        },
-        {
-          "selector": "[data-test='shipItButton']",
-          "event_name": "click"
-        },
-        {
-          "selector": "[data-test='moveSFLToCartBtn']",
+          "selector": "[id^='addToCartButton']",
           "event_name": "click"
         }
       ],
       "objects": [
         {
-          "selector": "<<<<<<<<",
+          "selector": "#pageBodyContainer div div",
           "properties": [
             {
-              "selector": ".Heading__StyledHeading-sc-1m9kw5a-0.styles__ModalTitle-sc-16b8qhf-0.fhmjpN.gGcMnp",
+              "selector": "[data-test='itemDetail-brand']",
               "property": "innerText",
-              "name": "title",
+              "name": "brand",
               "type": "text"
             },
-            {
-              "selector": "[data-test='product-price']",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": "[data-test='custom-quantity-picker']",
-              "property": "innerText",
-              "name": "quantity",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<<<<<<",
-          "properties": [
             {
               "selector": "[data-test='product-title']",
               "property": "innerText",
@@ -581,157 +345,15 @@
               "type": "text"
             },
             {
-              "selector": "[data-test='ratings'] .utils__ScreenReaderOnly-sc-1kni3r7-0.jVBsth",
+              "selector": "[data-test='ratings'] span",
               "property": "innerText",
               "name": "rate",
               "type": "text"
             },
             {
-              "selector": "[data-test='custom-quantity-picker']",
+              "selector": "[class^='styles__StyledFeedbackCount']",
               "property": "innerText",
-              "name": "quantity",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<<<<<",
-          "properties": [
-            {
-              "selector": ".Heading__StyledHeading-sc-1m9kw5a-0",
-              "property": "innerText",
-              "name": "title",
-              "type": "text"
-            },
-            {
-              "selector": "[data-test='product-price']",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": "[data-test='custom-quantity-picker']",
-              "property": "innerText",
-              "name": "quantity",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<",
-          "properties": [
-            {
-              "selector": "[data-test='cartItem-title-url']",
-              "property": "innerText",
-              "name": "title",
-              "type": "text"
-            },
-            {
-              "selector": "[data-test='cartItem-price']",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "window",
-          "properties": [
-            {
-              "property": "screen.height",
-              "name": "screenHeight",
-              "type": "text"
-            },
-            {
-              "property": "screen.width",
-              "name": "screenWidth",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "document",
-          "properties": [
-            {
-              "property": "documentElement.clientHeight",
-              "name": "documentHeight",
-              "type": "text"
-            },
-            {
-              "property": "documentElement.clientWidth",
-              "name": "documentWidth",
+              "name": "reviewCount",
               "type": "text"
             }
           ]
@@ -779,60 +401,6 @@
               "selector": "[data-test='cartItem-qty']",
               "property": "value",
               "name": "quantity",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "window",
-          "properties": [
-            {
-              "property": "screen.height",
-              "name": "screenHeight",
-              "type": "text"
-            },
-            {
-              "property": "screen.width",
-              "name": "screenWidth",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "document",
-          "properties": [
-            {
-              "property": "documentElement.clientHeight",
-              "name": "documentHeight",
-              "type": "text"
-            },
-            {
-              "property": "documentElement.clientWidth",
-              "name": "documentWidth",
               "type": "text"
             }
           ]
@@ -883,30 +451,6 @@
               "property": "value",
               "name": "quantity",
               "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
             }
           ]
         },
@@ -935,60 +479,6 @@
               "selector": "#summary-amount",
               "property": "innerText",
               "name": "tax",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "window",
-          "properties": [
-            {
-              "property": "screen.height",
-              "name": "screenHeight",
-              "type": "text"
-            },
-            {
-              "property": "screen.width",
-              "name": "screenWidth",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "document",
-          "properties": [
-            {
-              "property": "documentElement.clientHeight",
-              "name": "documentHeight",
-              "type": "text"
-            },
-            {
-              "property": "documentElement.clientWidth",
-              "name": "documentWidth",
               "type": "text"
             }
           ]

@@ -11,71 +11,6 @@
   },
   "desktop": [
     {
-      "name": "searchResult",
-      "description": "This item collects search results in ulta web pages",
-      "url_match": "https://www.ulta.com/*",
-      "title": "Search Result",
-      "viewGroup": "UX",
-      "type": "event",
-      "is_enabled": true,
-      "events": [
-        {
-          "selector": "window",
-          "event_name": "DOMContentLoaded"
-        }
-      ],
-      "objects": [
-        {
-          "selector": ".breadcrumb-heading",
-          "properties": [
-            {
-              "selector": "",
-              "property": "innerText",
-              "name": "searchQuery",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": ".productQvContainer",
-          "name": "searchResult",
-          "indexName": "rank",
-          "properties": [
-            {
-              "selector": ".prod-title",
-              "property": "innerText",
-              "name": "brand",
-              "type": "text"
-            },
-            {
-              "selector": ".prod-desc",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".regPrice",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": "a :not(span).sr-only",
-              "property": "innerText",
-              "name": "rate",
-              "type": "text"
-            },
-            {
-              "selector": ".prodCellReview a",
-              "property": "innerText",
-              "name": "reviewCount",
-              "type": "text"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "name": "searchQuery",
       "description": "This item collects ulta search query",
       "url_match": "https://www.ulta.com/*",
@@ -86,21 +21,22 @@
       "readyAt": "windowLoad",
       "events": [
         {
-          "selector": "#searchInput",
+          "selector": ".SearchL__form input#search",
           "event_name": "keydown",
           "keyCode": 13
         },
         {
-          "selector": ".Button.Button__icon",
+          "selector": ".SearchL__form input[name='search']",
+          "event_name": "keydown",
+          "keyCode": 13
+        },
+        {
+          "selector": ".SearchL__form button[aria-label='Submit']",
           "event_name": "click"
         },
         {
-          "selector": ".Button.Button__icon",
-          "event_name": "submit"
-        },
-        {
-          "selector": ".rfk_sbc",
-          "event_name": "submit"
+          "selector": ".SearchL__form button[type='submit']",
+          "event_name": "click"
         }
       ],
       "objects": [
@@ -108,7 +44,7 @@
           "selector": "document",
           "properties": [
             {
-              "selector": "#searchInput",
+              "selector": ".SearchL__form input#search",
               "property": "value",
               "name": "query",
               "type": "text"
@@ -128,6 +64,71 @@
       ]
     },
     {
+      "name": "searchResult",
+      "description": "This item collects search results in ulta web pages",
+      "url_match": "https://www.ulta.com/*",
+      "title": "Search Result",
+      "viewGroup": "UX",
+      "type": "event",
+      "is_enabled": true,
+      "events": [
+        {
+          "selector": "window",
+          "event_name": "DOMContentLoaded"
+        }
+      ],
+      "objects": [
+        {
+          "selector": ".DynamicTitle .Text-ds",
+          "properties": [
+            {
+              "selector": "",
+              "property": "innerText",
+              "name": "searchQuery",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "selector": ".ProductCard",
+          "name": "searchResult",
+          "indexName": "rank",
+          "properties": [
+            {
+              "selector": ".ProductCard__brand",
+              "property": "innerText",
+              "name": "brand",
+              "type": "text"
+            },
+            {
+              "selector": ".ProductCard__product",
+              "property": "innerText",
+              "name": "productName",
+              "type": "text"
+            },
+            {
+              "selector": ".ProductPricing",
+              "property": "innerText",
+              "name": "price",
+              "type": "text"
+            },
+            {
+              "selector": ".ReviewStarsCard .sr-only",
+              "property": "innerText",
+              "name": "rate",
+              "type": "text"
+            },
+            {
+              "selector": ".ProductCard .ReviewStarsCard .Text-ds",
+              "property": "innerText",
+              "name": "reviewCount",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "searchSuggestionSelect",
       "description": "This item collects search suggestions that has been selected by user",
       "url_match": "https://www.ulta.com/*",
@@ -136,7 +137,7 @@
       "type": "event",
       "is_enabled": true,
       "readyAt": "DOMChange",
-      "observingTargetNode": ".canada",
+      "observingTargetNode": ".SearchL__form",
       "observingConfig": {
         "attributes": false,
         "childList": true,
@@ -144,7 +145,7 @@
       },
       "events": [
         {
-          "selector": ".ReflektionSuggestion",
+          "selector": ".SuggestionItem__suggestion",
           "event_name": "click"
         }
       ],
@@ -155,7 +156,7 @@
             {
               "selector": "",
               "property": "innerText",
-              "name": "query",
+              "name": "searchQuery",
               "type": "text"
             }
           ]
@@ -163,10 +164,10 @@
       ]
     },
     {
-      "name": "selectedProducts",
+      "name": "clickSearchResult",
       "description": "This item collects information about a product that has been selected (or clicked on a search result) by user",
       "url_match": "*://www.ulta.com/*",
-      "title": "Selected Product",
+      "title": "Clicked Search Results",
       "viewGroup": "UX",
       "type": "event",
       "is_enabled": true,
@@ -179,250 +180,109 @@
       },
       "events": [
         {
-          "selector": ".productQvContainer a",
+          "selector": ".ProductCard__image .Image",
           "event_name": "click"
         },
         {
-          "selector": ".productQvContainer a",
+          "selector": ".ProductCard__image .Image",
           "event_name": "contextmenu"
         },
         {
-          "selector": ".ReflektionSearchResult__Item__description",
+          "selector": ".ProductCard__product .Text-ds",
           "event_name": "click"
+        },
+        {
+          "selector": ".ProductCard__product .Text-ds",
+          "event_name": "contextmenu"
         }
       ],
       "objects": [
-        {
-          "selector": "<<<<<<<<",
-          "properties": [
-            {
-              "selector": ".breadcrumb-heading",
-              "property": "innerText",
-              "name": "categoryName",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<<<<<",
-          "properties": [
-            {
-              "selector": ".breadcrumb-heading",
-              "property": "innerText",
-              "name": "categoryName",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<<<<<<",
-          "properties": [
-            {
-              "selector": ".breadcrumb-heading",
-              "property": "innerText",
-              "name": "categoryName",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<",
-          "properties": [
-            {
-              "selector": ".prod-title",
-              "property": "innerText",
-              "name": "brand",
-              "type": "text"
-            },
-            {
-              "selector": ".prod-desc",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".regPrice",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": "a :not(span).sr-only",
-              "property": "innerText",
-              "name": "rate",
-              "type": "text"
-            },
-            {
-              "selector": ".prodCellReview a",
-              "property": "innerText",
-              "name": "reviewCount",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<",
-          "properties": [
-            {
-              "selector": ".prod-title",
-              "property": "innerText",
-              "name": "brand",
-              "type": "text"
-            },
-            {
-              "selector": ".prod-desc",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".regPrice",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": "a :not(span).sr-only",
-              "property": "innerText",
-              "name": "rate",
-              "type": "text"
-            },
-            {
-              "selector": ".prodCellReview a",
-              "property": "innerText",
-              "name": "reviewCount",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<",
-          "properties": [
-            {
-              "selector": ".prod-title",
-              "property": "innerText",
-              "name": "brand",
-              "type": "text"
-            },
-            {
-              "selector": ".prod-desc",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".regPrice",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": "a :not(span).sr-only",
-              "property": "innerText",
-              "name": "rate",
-              "type": "text"
-            },
-            {
-              "selector": ".prodCellReview a",
-              "property": "innerText",
-              "name": "reviewCount",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "",
-          "properties": [
-            {
-              "selector": ".ReflektionSearchResult__brandName",
-              "property": "innerText",
-              "name": "brand",
-              "type": "text"
-            },
-            {
-              "selector": ".ReflektionSearchResult__displayname",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "addToLoveList",
-      "description": "This item collects all products in ulta web pages that has been added by user to love list",
-      "url_match": "https://www.ulta.com/*",
-      "title": "Add to Love list",
-      "viewGroup": "UX",
-      "type": "event",
-      "is_enabled": true,
-      "readyAt": "DOMChange",
-      "observingTargetNode": "body",
-      "observingConfig": {
-        "attributes": false,
-        "childList": true,
-        "subtree": true
-      },
-      "events": [
-        {
-          "selector": "[aria-label='Add to favorites Not selected']",
-          "event_name": "click"
-        }
-      ],
-      "objects": [
-        {
-          "selector": "<<<",
-          "properties": [
-            {
-              "selector": ".Text--body-1",
-              "property": "innerText",
-              "name": "brandName",
-              "type": "text"
-            },
-            {
-              "selector": ".Text--subtitle-1",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".RatingPanel__panel .sr-only",
-              "property": "innerText",
-              "name": "rate",
-              "type": "text"
-            },
-            {
-              "selector": ".Text--title-6",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            }
-          ]
-        },
         {
           "selector": "<<<<",
           "properties": [
             {
-              "selector": ".ProductMainSection__brandName .Text--body-1",
+              "selector": ".ProductCard__brand",
               "property": "innerText",
-              "name": "brandName",
+              "name": "brand",
               "type": "text"
             },
             {
-              "selector": ".Text--subtitle-1",
+              "selector": ".ProductCard__product",
               "property": "innerText",
               "name": "productName",
               "type": "text"
             },
             {
-              "selector": ".RatingPanel__panel .sr-only",
+              "selector": ".ProductPricing",
+              "property": "innerText",
+              "name": "price",
+              "type": "text"
+            },
+            {
+              "selector": ".ReviewStarsCard .sr-only",
               "property": "innerText",
               "name": "rate",
               "type": "text"
             },
             {
-              "selector": ".Text--title-6",
+              "selector": ".ProductCard .ReviewStarsCard .Text-ds",
+              "property": "innerText",
+              "name": "reviewCount",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "addToWishlist",
+      "description": "This item collects all products in ulta web pages that has been added by user to love list",
+      "url_match": "https://www.ulta.com/*",
+      "title": "Add to Wish list",
+      "viewGroup": "UX",
+      "type": "event",
+      "is_enabled": true,
+      "readyAt": "DOMChange",
+      "observingTargetNode": "body",
+      "observingConfig": {
+        "attributes": false,
+        "childList": true,
+        "subtree": true
+      },
+      "events": [
+        {
+          "selector": "button.ProductBookmark",
+          "event_name": "click"
+        },
+        {
+          "selector": ".AddToBagFavorite__Favorite",
+          "event_name": "click"
+        }
+      ],
+      "objects": [
+        {
+          "selector": "",
+          "properties": [
+            {
+              "selector": ".ProductInformation a.Link_Huge",
+              "property": "innerText",
+              "name": "brandName",
+              "type": "text"
+            },
+            {
+              "selector": ".ProductInformation h1 span:nth-child(2)",
+              "property": "innerText",
+              "name": "productName",
+              "type": "text"
+            },
+            {
+              "selector": ".ProductInformation .ReviewStars .sr-only",
+              "property": "innerText",
+              "name": "rate",
+              "type": "text"
+            },
+            {
+              "selector": ".ProductPricing span",
               "property": "innerText",
               "name": "price",
               "type": "text"
@@ -448,152 +308,38 @@
       },
       "events": [
         {
-          "selector": "[aria-label='Add To Bag']",
+          "selector": ".AddToBagButton",
           "event_name": "click"
         },
         {
-          "selector": ".add-to-bag-fav.mt10",
-          "event_name": "click"
-        },
-        {
-          "selector": ".Button.Button__link.Button--small:nth-child(3)",
+          "selector": "button.AddToBagButton__AddToBag",
           "event_name": "click"
         }
       ],
       "objects": [
         {
-          "selector": "<<<<",
+          "selector": "",
           "properties": [
             {
-              "selector": ".Text--body-1",
+              "selector": ".ProductInformation a.Link_Huge",
               "property": "innerText",
               "name": "brandName",
               "type": "text"
             },
             {
-              "selector": ".Text--subtitle-1",
+              "selector": ".ProductInformation h1 span:nth-child(2)",
               "property": "innerText",
               "name": "productName",
               "type": "text"
             },
             {
-              "selector": ".RatingPanel__panel .sr-only",
+              "selector": ".ProductInformation .ReviewStars .sr-only",
               "property": "innerText",
               "name": "rate",
               "type": "text"
             },
             {
-              "selector": ".Text--title-6",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": "#selectedQuantity",
-              "property": "value",
-              "name": "quantity",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<",
-          "properties": [
-            {
-              "selector": ".ProductMainSection__brandName .Text--body-1",
-              "property": "innerText",
-              "name": "brandName",
-              "type": "text"
-            },
-            {
-              "selector": ".Text--subtitle-1",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".RatingPanel__panel .sr-only",
-              "property": "innerText",
-              "name": "rate",
-              "type": "text"
-            },
-            {
-              "selector": ".Text--title-6",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": "#selectedQuantity",
-              "property": "value",
-              "name": "quantity",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<",
-          "properties": [
-            {
-              "selector": "a[href^='//www.ulta.com/brand']",
-              "property": "innerText",
-              "name": "brandName",
-              "type": "text"
-            },
-            {
-              "selector": ".follower",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".regPrice .sr-only",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<",
-          "properties": [
-            {
-              "selector": "a[href^='//www.ulta.com/brand']",
-              "property": "innerText",
-              "name": "brandName",
-              "type": "text"
-            },
-            {
-              "selector": ".follower",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".regPrice",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<",
-          "properties": [
-            {
-              "selector": ".ProductDescriptionCard__brandName",
-              "property": "innerText",
-              "name": "brandName",
-              "type": "text"
-            },
-            {
-              "selector": ".ProductDescriptionCard__displayName",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".SaveForLaterItem__listPrice",
+              "selector": ".ProductPricing span",
               "property": "innerText",
               "name": "price",
               "type": "text"
