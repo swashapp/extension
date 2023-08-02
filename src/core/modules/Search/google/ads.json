@@ -1,5 +1,5 @@
 {
-  "url_matches": ["*://www.google.com/?*", "*://www.google.com/search?*"],
+  "url_matches": ["*://www.google.com/", "*://www.google.com/?*", "*://www.google.com/search?*"],
   "url_excludes": [""],
   "os_mapping": {
     "win": "desktop",
@@ -11,6 +11,19 @@
     "ipados": "desktop"
   },
   "desktop": [
+    {
+      "name": "displayFirstPageAd",
+      "title": "Display advertisement on Google first page",
+      "description": "This item add an advertisement to home page of Google",
+      "url_match": "*://www.google.com/",
+      "type": "embedded",
+      "is_enabled": true,
+      "size": {
+        "width": 980,
+        "height": 120
+      },
+      "selector": ".o3j99.qarstb"
+    },
     {
       "name": "displayFirstPageAd",
       "title": "Display advertisement on Google first page",

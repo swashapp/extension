@@ -1,7 +1,7 @@
 {
   "url_matches": ["*://*/*"],
   "url_excludes": [
-    "moz-extension://*/*",
+    "*://www.google.com/",
     "*://www.google.com/?*",
     "*://www.google.com/search?*",
     "*://docs.google.com/*",
@@ -23,7 +23,9 @@
     "*://twitter.com/account*",
     "*://www.amazon.com/ap/signin*",
     "*://*.amazon.com/oauth?*",
-    "*://*.amazon.com/console/*"
+    "*://*.amazon.com/console/*",
+    "*://swashapp.io/*",
+    "*://*.swashapp.io/*"
   ],
   "os_mapping": {
     "win": "desktop",
