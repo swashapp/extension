@@ -20,29 +20,32 @@
       "is_enabled": true,
       "events": [
         {
-          "selector": "#global-search-submit",
+          "selector": "[aria-label='Search icon']",
           "event_name": "click"
         },
         {
-          "selector": "#global-search-input",
+          "selector": ".ld.ld-Search.absolute",
+          "event_name": "click"
+        },
+        {
+          "selector": "[aria-label='Search']",
+          "event_name": "keydown",
+          "keyCode": 13
+        },
+        {
+          "selector": "[type='search']",
           "event_name": "keydown",
           "keyCode": 13
         }
       ],
       "objects": [
         {
-          "selector": "#global-search-form",
+          "selector": "[data-testid='search-form']",
           "properties": [
             {
-              "selector": "#global-search-input",
+              "selector": "[type='search']",
               "property": "value",
               "name": "query",
-              "type": "text"
-            },
-            {
-              "selector": "#global-search-category-label",
-              "property": "innerText",
-              "name": "category",
               "type": "text"
             }
           ]
@@ -68,7 +71,7 @@
       "type": "event",
       "is_enabled": true,
       "readyAt": "DOMChange",
-      "observingTargetNode": ".b_a.bg_b.bg_c.b_f",
+      "observingTargetNode": "[type='search']",
       "observingConfig": {
         "attributes": false,
         "childList": true,
@@ -76,9 +79,14 @@
       },
       "events": [
         {
-          "selector": ".typeahead-text",
+          "selector": ".list.ma0.pa0.pointer",
+          "event_name": "click"
+        },
+        {
+          "selector": ".list.ma0.pa0.pointer .ph3",
           "event_name": "click"
         }
+
       ],
       "objects": [
         {
@@ -117,109 +125,43 @@
       ],
       "objects": [
         {
-          "selector": "#global-search-form",
+          "selector": "[data-testid='search-form']",
           "properties": [
             {
-              "selector": "#global-search-input",
+              "selector": "[type='search']",
               "property": "value",
               "name": "searchQuery",
-              "type": "text"
-            },
-            {
-              "selector": "#global-search-category-label",
-              "property": "innerText",
-              "name": "searchCategory",
               "type": "text"
             }
           ]
         },
         {
-          "selector": ".search-result-gridview-item.clearfix.arrange-fill",
+          "selector": ".mb0.w-25",
           "name": "searchResult",
           "indexName": "rank",
           "properties": [
             {
-              "selector": ".product-title-link.line-clamp.line-clamp-2.truncate-title",
+              "selector": "[data-testid='list-view'] .w_V_DM",
               "property": "innerText",
               "name": "title",
               "type": "text"
             },
             {
-              "selector": ".price.price-main:first-child .visuallyhidden",
+              "selector": "[data-automation-id='product-price'] div",
               "property": "innerText",
-              "name": "minPrice",
+              "name": "price",
               "type": "text"
             },
             {
-              "selector": ".price.price-main:nth-child(3) .visuallyhidden",
-              "property": "innerText",
-              "name": "maxPrice",
-              "type": "text"
-            },
-            {
-              "selector": ".visuallyhidden.seo-avg-rating",
+              "selector": ".flex.mt2 .w_iUH8",
               "property": "innerText",
               "name": "rate",
               "type": "text"
             },
             {
-              "selector": ".stars-reviews-count span:first-child",
+              "selector": ".flex.mt2 .sans-serif",
               "property": "innerText",
               "name": "reviewCount",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "window",
-          "properties": [
-            {
-              "property": "screen.height",
-              "name": "screenHeight",
-              "type": "text"
-            },
-            {
-              "property": "screen.width",
-              "name": "screenWidth",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "document",
-          "properties": [
-            {
-              "property": "documentElement.clientHeight",
-              "name": "documentHeight",
-              "type": "text"
-            },
-            {
-              "property": "documentElement.clientWidth",
-              "name": "documentWidth",
               "type": "text"
             }
           ]
@@ -227,10 +169,10 @@
       ]
     },
     {
-      "name": "selectedProducts",
+      "name": "clickSearchResult",
       "description": "This item collects information about a product that has been selected (or clicked on a search resault) by user",
       "url_match": "*://*.walmart.com/*",
-      "title": "Selected Product",
+      "title": "Clicked Search Results",
       "viewGroup": "UX",
       "type": "event",
       "is_enabled": true,
@@ -243,28 +185,36 @@
       },
       "events": [
         {
-          "selector": ".search-result-productimage.gridview.display-block",
+          "selector": "[data-testid='list-view'] .overflow-hidden",
           "event_name": "click"
         },
         {
-          "selector": ".search-result-productimage.gridview.display-block",
+          "selector": "[data-testid='list-view'] .overflow-hidden",
           "event_name": "contextmenu"
         },
         {
-          "selector": ".product-title-link.line-clamp.line-clamp-2.truncate-title",
+          "selector": "[data-testid='list-view'] .w_V_DM",
           "event_name": "click"
         },
         {
-          "selector": ".product-title-link.line-clamp.line-clamp-2.truncate-title",
+          "selector": "[data-testid='list-view'] .w_V_DM",
+          "event_name": "contextmenu"
+        },
+        {
+          "selector": "[data-automation-id='product-title']",
+          "event_name": "click"
+        },
+        {
+          "selector": "[data-automation-id='product-title']",
           "event_name": "contextmenu"
         }
       ],
       "objects": [
         {
-          "selector": "#global-search-form",
+          "selector": "[data-testid='search-form']",
           "properties": [
             {
-              "selector": "#global-search-input",
+              "selector": "[type='search']",
               "property": "value",
               "name": "searchQuery",
               "type": "text"
@@ -278,60 +228,59 @@
           ]
         },
         {
-          "selector": "<<",
+          "selector": "<",
           "properties": [
             {
-              "selector": ".product-title-link.line-clamp.line-clamp-2.truncate-title",
+              "selector": "[data-testid='list-view'] .w_V_DM",
               "property": "innerText",
               "name": "title",
               "type": "text"
             },
             {
-              "selector": ".price.price-main:first-child .visuallyhidden",
+              "selector": "[data-automation-id='product-price'] div",
               "property": "innerText",
-              "name": "minPrice",
+              "name": "price",
               "type": "text"
             },
             {
-              "selector": ".price.price-main:nth-child(3) .visuallyhidden",
-              "property": "innerText",
-              "name": "maxPrice",
-              "type": "text"
-            },
-            {
-              "selector": ".visuallyhidden.seo-avg-rating",
+              "selector": ".flex.mt2 .w_iUH8",
               "property": "innerText",
               "name": "rate",
               "type": "text"
             },
             {
-              "selector": ".stars-reviews-count span:first-child",
+              "selector": ".flex.mt2 .sans-serif",
               "property": "innerText",
               "name": "reviewCount",
               "type": "text"
-            },
+            }
+          ]
+        },
+        {
+          "selector": "<<",
+          "properties": [
             {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
+              "selector": "[data-testid='list-view'] .w_V_DM",
+              "property": "innerText",
+              "name": "title",
               "type": "text"
             },
             {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
+              "selector": "[data-automation-id='product-price'] div",
+              "property": "innerText",
+              "name": "price",
               "type": "text"
             },
             {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
+              "selector": ".flex.mt2 .w_iUH8",
+              "property": "innerText",
+              "name": "rate",
               "type": "text"
             },
             {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
+              "selector": ".flex.mt2 .sans-serif",
+              "property": "innerText",
+              "name": "reviewCount",
               "type": "text"
             }
           ]
@@ -340,87 +289,27 @@
           "selector": "<<<",
           "properties": [
             {
-              "selector": ".product-title-link.line-clamp.line-clamp-2.truncate-title",
+              "selector": "[data-testid='list-view'] .w_V_DM",
               "property": "innerText",
               "name": "title",
               "type": "text"
             },
             {
-              "selector": ".price.price-main:first-child .visuallyhidden",
+              "selector": "[data-automation-id='product-price'] div",
               "property": "innerText",
-              "name": "minPrice",
+              "name": "price",
               "type": "text"
             },
             {
-              "selector": ".price.price-main:nth-child(3) .visuallyhidden",
-              "property": "innerText",
-              "name": "maxPrice",
-              "type": "text"
-            },
-            {
-              "selector": ".visuallyhidden.seo-avg-rating",
+              "selector": ".flex.mt2 .w_iUH8",
               "property": "innerText",
               "name": "rate",
               "type": "text"
             },
             {
-              "selector": ".stars-reviews-count span:first-child",
+              "selector": ".flex.mt2 .sans-serif",
               "property": "innerText",
               "name": "reviewCount",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "window",
-          "properties": [
-            {
-              "property": "screen.height",
-              "name": "screenHeight",
-              "type": "text"
-            },
-            {
-              "property": "screen.width",
-              "name": "screenWidth",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "document",
-          "properties": [
-            {
-              "property": "documentElement.clientHeight",
-              "name": "documentHeight",
-              "type": "text"
-            },
-            {
-              "property": "documentElement.clientWidth",
-              "name": "documentWidth",
               "type": "text"
             }
           ]
@@ -444,117 +333,57 @@
       },
       "events": [
         {
-          "selector": ".button.stepper-toggle__bttn.button--ghost.button--small",
+          "selector": ".w_hhLG.w_8nsR.w_jDfj",
           "event_name": "click"
         },
         {
-          "selector": ".spin-button-children",
-          "event_name": "click"
-        },
-        {
-          "selector": ".button-wrapper .hide-content-max-m",
-          "event_name": "click"
-        },
-        {
-          "selector": "[data-automation-id='cart-btn-move-to-cart'] .button-wrapper",
-          "event_name": "click"
-        },
-        {
-          "selector": "[data-automation-id='recommended-item-add-to-cart-button'] .button-wrapper",
+          "selector": "[data-automation-id='atc']",
           "event_name": "click"
         }
       ],
       "objects": [
         {
-          "selector": "<<<<",
+          "selector": "",
           "properties": [
             {
-              "selector": ".product-title-link.line-clamp.line-clamp-2.truncate-title",
+              "selector": ".lh-copy.f6",
               "property": "innerText",
               "name": "title",
               "type": "text"
             },
             {
-              "selector": ".price.price-main:first-child .visuallyhidden",
-              "property": "innerText",
-              "name": "minPrice",
-              "type": "text"
-            },
-            {
-              "selector": ".price.price-main:nth-child(3) .visuallyhidden",
-              "property": "innerText",
-              "name": "maxPrice",
-              "type": "text"
-            },
-            {
-              "selector": ".visuallyhidden.seo-avg-rating",
-              "property": "innerText",
-              "name": "rate",
-              "type": "text"
-            },
-            {
-              "selector": ".stars-reviews-count span:first-child",
-              "property": "innerText",
-              "name": "reviewCount",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<<<<<",
-          "properties": [
-            {
-              "selector": ".prod-ProductTitle.prod-productTitle-buyBox.font-bold",
-              "property": "innerText",
-              "name": "title",
-              "type": "text"
-            },
-            {
-              "selector": ".price.display-inline-block.arrange-fit.price.price--stylized .visuallyhidden",
+              "selector": "[data-testid='price-wrap']",
               "property": "innerText",
               "name": "price",
               "type": "text"
             },
             {
-              "selector": ".display-inline.PriceRange--section:nth-child(2) .price.display-inline-block.arrange-fit.price.price--stylized .visuallyhidden",
-              "property": "innerText",
-              "name": "minPrice",
-              "type": "text"
-            },
-            {
-              "selector": ".display-inline.PriceRange--section:nth-child(4) .price.display-inline-block.arrange-fit.price.price--stylized .visuallyhidden",
-              "property": "innerText",
-              "name": "maxPrice",
-              "type": "text"
-            },
-            {
-              "selector": "span[itemprop='ratingValue']",
+              "selector": ".rating-number",
               "property": "innerText",
               "name": "rate",
+              "type": "text"
+            },
+            {
+              "selector": "[itemprop='ratingCount']",
+              "property": "innerText",
+              "name": "reviewCount",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "selector": "",
+          "properties": [
+            {
+              "selector": "[itemprop='price']",
+              "property": "innerText",
+              "name": "price",
+              "type": "text"
+            },
+            {
+              "selector": "link-identifier='reviewsLink'",
+              "property": "innerText",
+              "name": "reviewCount",
               "type": "text"
             },
             {
@@ -562,199 +391,16 @@
               "property": "value",
               "name": "quantity",
               "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<",
-          "properties": [
-            {
-              "selector": ".LinesEllipsis.font-normal.compact-content.item-title",
-              "property": "innerText",
-              "name": "title",
-              "type": "text"
-            },
-            {
-              "selector": ".price.display-inline-block.arrange-fit.price.price--stylized .visuallyhidden",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<",
-          "properties": [
-            {
-              "selector": ".js-btn-product.btn-fake-link.cart-item-name-link",
-              "property": "innerText",
-              "name": "title",
-              "type": "text"
-            },
-            {
-              "selector": ".price-main .price .visuallyhidden",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": ".js-item-quantity.cart-item-quantity.js-non-adjustable-quantity .visuallyhidden",
-              "property": "innerText",
-              "name": "quantity",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<",
-          "properties": [
-            {
-              "selector": ".tile-title",
-              "property": "innerText",
-              "name": "title",
-              "type": "text"
-            },
-            {
-              "selector": ".price .visuallyhidden",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "window",
-          "properties": [
-            {
-              "property": "screen.height",
-              "name": "screenHeight",
-              "type": "text"
-            },
-            {
-              "property": "screen.width",
-              "name": "screenWidth",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "document",
-          "properties": [
-            {
-              "property": "documentElement.clientHeight",
-              "name": "documentHeight",
-              "type": "text"
-            },
-            {
-              "property": "documentElement.clientWidth",
-              "name": "documentWidth",
-              "type": "text"
             }
           ]
         }
       ]
     },
     {
-      "name": "addToLoveList",
+      "name": "addToWishlist",
       "description": "This item collects all products in walmart web pages that has been added by user to love list",
       "url_match": "*://*.walmart.com/*",
-      "title": "Add to Love list",
+      "title": "Add to Wish List",
       "viewGroup": "UX",
       "type": "event",
       "is_enabled": true,
@@ -767,161 +413,63 @@
       },
       "events": [
         {
-          "selector": ".elc-icon.elc-icon-24.elc-icon-heart.feds-heart-icon--hallway-gm",
+          "selector": ".mt1 .ld.ld-Heart",
+          "event_name": "click"
+        },
+        {
+          "selector": ".mt1 button",
           "event_name": "click"
         }
       ],
       "objects": [
         {
-          "selector": "<<<<",
+          "selector": "",
           "properties": [
             {
-              "selector": ".product-title-link.line-clamp.line-clamp-2.truncate-title",
+              "selector": ".lh-copy.f6",
               "property": "innerText",
               "name": "title",
               "type": "text"
             },
             {
-              "selector": ".price.price-main:first-child .visuallyhidden",
-              "property": "innerText",
-              "name": "minPrice",
-              "type": "text"
-            },
-            {
-              "selector": ".price.price-main:nth-child(3) .visuallyhidden",
-              "property": "innerText",
-              "name": "maxPrice",
-              "type": "text"
-            },
-            {
-              "selector": ".visuallyhidden.seo-avg-rating",
-              "property": "innerText",
-              "name": "rate",
-              "type": "text"
-            },
-            {
-              "selector": ".stars-reviews-count span:first-child",
-              "property": "innerText",
-              "name": "reviewCount",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<<",
-          "properties": [
-            {
-              "selector": ".prod-ProductTitle.prod-productTitle-buyBox.font-bold",
-              "property": "innerText",
-              "name": "title",
-              "type": "text"
-            },
-            {
-              "selector": ".price.display-inline-block.arrange-fit.price.price--stylized .visuallyhidden",
+              "selector": "[data-testid='price-wrap']",
               "property": "innerText",
               "name": "price",
               "type": "text"
             },
             {
-              "selector": ".display-inline.PriceRange--section:nth-child(2) .price.display-inline-block.arrange-fit.price.price--stylized .visuallyhidden",
-              "property": "innerText",
-              "name": "minPrice",
-              "type": "text"
-            },
-            {
-              "selector": ".display-inline.PriceRange--section:nth-child(4) .price.display-inline-block.arrange-fit.price.price--stylized .visuallyhidden",
-              "property": "innerText",
-              "name": "maxPrice",
-              "type": "text"
-            },
-            {
-              "selector": "span[itemprop='ratingValue']",
+              "selector": ".rating-number",
               "property": "innerText",
               "name": "rate",
+              "type": "text"
+            },
+            {
+              "selector": "[itemprop='ratingCount']",
+              "property": "innerText",
+              "name": "reviewCount",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "selector": "",
+          "properties": [
+            {
+              "selector": "[itemprop='price']",
+              "property": "innerText",
+              "name": "price",
+              "type": "text"
+            },
+            {
+              "selector": "link-identifier='reviewsLink'",
+              "property": "innerText",
+              "name": "reviewCount",
               "type": "text"
             },
             {
               "selector": ".field-input.field-input--secondary[aria-label='Quantity']",
               "property": "value",
               "name": "quantity",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "window",
-          "properties": [
-            {
-              "property": "screen.height",
-              "name": "screenHeight",
-              "type": "text"
-            },
-            {
-              "property": "screen.width",
-              "name": "screenWidth",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "document",
-          "properties": [
-            {
-              "property": "documentElement.clientHeight",
-              "name": "documentHeight",
-              "type": "text"
-            },
-            {
-              "property": "documentElement.clientWidth",
-              "name": "documentWidth",
               "type": "text"
             }
           ]
@@ -970,60 +518,6 @@
               "property": "value",
               "name": "quantity",
               "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "window",
-          "properties": [
-            {
-              "property": "screen.height",
-              "name": "screenHeight",
-              "type": "text"
-            },
-            {
-              "property": "screen.width",
-              "name": "screenWidth",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "document",
-          "properties": [
-            {
-              "property": "documentElement.clientHeight",
-              "name": "documentHeight",
-              "type": "text"
-            },
-            {
-              "property": "documentElement.clientWidth",
-              "name": "documentWidth",
-              "type": "text"
             }
           ]
         }
@@ -1066,30 +560,6 @@
               "property": "value",
               "name": "quantity",
               "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
             }
           ]
         },
@@ -1113,30 +583,6 @@
               "property": "innerText",
               "name": "order total",
               "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
             }
           ]
         },
@@ -1159,60 +605,6 @@
               "selector": "[data-automation-id='pac-pos-pos-grand-total-amount']",
               "property": "innerText",
               "name": "order total",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "height",
-              "name": "height",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "width",
-              "name": "width",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "top",
-              "name": "top",
-              "type": "text"
-            },
-            {
-              "function": "getBoundingClientRect",
-              "property": "left",
-              "name": "left",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "window",
-          "properties": [
-            {
-              "property": "screen.height",
-              "name": "screenHeight",
-              "type": "text"
-            },
-            {
-              "property": "screen.width",
-              "name": "screenWidth",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "document",
-          "properties": [
-            {
-              "property": "documentElement.clientHeight",
-              "name": "documentHeight",
-              "type": "text"
-            },
-            {
-              "property": "documentElement.clientWidth",
-              "name": "documentWidth",
               "type": "text"
             }
           ]

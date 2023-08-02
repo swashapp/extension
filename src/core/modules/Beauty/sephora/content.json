@@ -50,18 +50,18 @@
       "is_enabled": true,
       "events": [
         {
-          "selector": ".css-8puhe0",
+          "selector": "#site_search_combobox [type='search']",
           "event_name": "keydown",
           "keyCode": 13
         }
       ],
       "objects": [
         {
-          "selector": "",
+          "selector": ".css-1kv6lx6",
           "properties": [
             {
               "selector": "",
-              "property": "value",
+              "property": "innerText",
               "name": "query",
               "type": "text"
             }
@@ -95,18 +95,7 @@
       ],
       "objects": [
         {
-          "selector": "ol.css-1yocxgn.e65zztl0",
-          "properties": [
-            {
-              "selector": "",
-              "property": "innerText",
-              "name": "categoryName",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": ".css-1pcrvr6.eanm77i0",
+          "selector": ".css-1kv6lx6",
           "properties": [
             {
               "selector": "",
@@ -117,7 +106,7 @@
           ]
         },
         {
-          "selector": ".css-ix8km1",
+          "selector": ".css-klx76",
           "name": "products",
           "indexName": "rank",
           "properties": [
@@ -128,37 +117,37 @@
               "type": "url"
             },
             {
-              "selector": ".css-182j26q",
+              "selector": ".css-12z2u5",
               "property": "innerText",
               "name": "brand",
               "type": "text"
             },
             {
-              "selector": ".css-pelz90",
+              "selector": ".ProductTile-name",
               "property": "innerText",
               "name": "productName",
               "type": "text"
             },
             {
-              "selector": "[data-at='sku_item_price_list']",
+              "selector": ".css-1f35s9q",
               "property": "innerText",
               "name": "price",
               "type": "text"
             },
             {
-              "selector": ".css-ychh9y",
+              "selector": "[data-comp^='StarRating']",
               "property": "attributes['aria-label'].value",
               "name": "rate",
               "type": "text"
             },
             {
-              "selector": ".css-1dk1ux",
+              "selector": "[data-at='review_count']",
               "property": "innerText",
               "name": "reviewCount",
               "type": "text"
             },
             {
-              "selector": ".css-8o71lk",
+              "selector": ".css-1fy1xmz",
               "property": "innerText",
               "name": "newLable",
               "type": "text"
@@ -168,10 +157,10 @@
       ]
     },
     {
-      "name": "selectedProducts",
+      "name": "clickSearchResult",
       "description": "This item collects information about a product that has been selected (or clicked on a search result) by user",
       "url_match": "*://*.sephora.*/*",
-      "title": "Selected Product",
+      "title": "Clicked Search Results",
       "viewGroup": "UX",
       "type": "event",
       "is_enabled": true,
@@ -184,28 +173,25 @@
       },
       "events": [
         {
-          "selector": ".css-ix8km1",
+          "selector": "picture.css-yq9732",
           "event_name": "click"
         },
         {
-          "selector": ".css-ix8km1",
+          "selector": "picture.css-yq9732",
+          "event_name": "contextmenu"
+        },
+        {
+          "selector": ".ProductTile-name",
+          "event_name": "click"
+        },
+        {
+          "selector": ".ProductTile-name",
           "event_name": "contextmenu"
         }
       ],
-      "objects": [
+      "objects": [        
         {
-          "selector": "<<<<<<<<ol.css-1yocxgn.e65zztl0",
-          "properties": [
-            {
-              "selector": "",
-              "property": "innerText",
-              "name": "categoryName",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<<.css-1pcrvr6.eanm77i0",
+          "selector": ".css-1kv6lx6",
           "properties": [
             {
               "selector": "",
@@ -216,7 +202,7 @@
           ]
         },
         {
-          "selector": "",
+          "selector": "<<.css-klx76",
           "properties": [
             {
               "selector": "",
@@ -225,37 +211,84 @@
               "type": "url"
             },
             {
-              "selector": ".css-182j26q",
+              "selector": ".css-12z2u5",
               "property": "innerText",
               "name": "brand",
               "type": "text"
             },
             {
-              "selector": ".css-pelz90",
+              "selector": ".ProductTile-name",
               "property": "innerText",
               "name": "productName",
               "type": "text"
             },
             {
-              "selector": "[data-at='sku_item_price_list']",
+              "selector": ".css-1f35s9q",
               "property": "innerText",
               "name": "price",
               "type": "text"
             },
             {
-              "selector": ".css-ychh9y",
+              "selector": "[data-comp^='StarRating']",
               "property": "attributes['aria-label'].value",
               "name": "rate",
               "type": "text"
             },
             {
-              "selector": ".css-1dk1ux",
+              "selector": "[data-at='review_count']",
               "property": "innerText",
               "name": "reviewCount",
               "type": "text"
             },
             {
-              "selector": ".css-8o71lk",
+              "selector": ".css-1fy1xmz",
+              "property": "innerText",
+              "name": "newLable",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "selector": "<<<<<.css-klx76",
+          "properties": [
+            {
+              "selector": "",
+              "property": "href",
+              "name": "link",
+              "type": "url"
+            },
+            {
+              "selector": ".css-12z2u5",
+              "property": "innerText",
+              "name": "brand",
+              "type": "text"
+            },
+            {
+              "selector": ".ProductTile-name",
+              "property": "innerText",
+              "name": "productName",
+              "type": "text"
+            },
+            {
+              "selector": ".css-1f35s9q",
+              "property": "innerText",
+              "name": "price",
+              "type": "text"
+            },
+            {
+              "selector": "[data-comp^='StarRating']",
+              "property": "attributes['aria-label'].value",
+              "name": "rate",
+              "type": "text"
+            },
+            {
+              "selector": "[data-at='review_count']",
+              "property": "innerText",
+              "name": "reviewCount",
+              "type": "text"
+            },
+            {
+              "selector": ".css-1fy1xmz",
               "property": "innerText",
               "name": "newLable",
               "type": "text"
@@ -273,7 +306,7 @@
       "type": "event",
       "is_enabled": true,
       "readyAt": "DOMChange",
-      "observingTargetNode": ".css-o44is",
+      "observingTargetNode": "#site_search_input",
       "observingConfig": {
         "attributes": false,
         "childList": true,
@@ -281,7 +314,7 @@
       },
       "events": [
         {
-          "selector": ".css-bkjf0a",
+          "selector": ".css-1rr4qq7",
           "event_name": "click"
         }
       ],
@@ -300,10 +333,10 @@
       ]
     },
     {
-      "name": "addToLoveList",
+      "name": "addToWishlist",
       "description": "This item collects all products in bathandbodyworks web pages that has been added by user to love list ",
       "url_match": "*://*.sephora.*/*",
-      "title": "Add to Love list",
+      "title": "Add to Wish list",
       "viewGroup": "UX",
       "type": "event",
       "is_enabled": true,
@@ -316,230 +349,68 @@
       },
       "events": [
         {
-          "selector": ".css-14be67r.eanm77i0",
+          "selector": ".css-29qfqk eanm77i0",
           "event_name": "click"
         },
         {
-          "selector": ".css-14c0dm9.eanm77i0",
+          "selector": ".css-29qfqk eanm77i0",
+          "event_name": "contextmenu"
+        },
+        {
+          "selector": ".css-7yqnvc",
           "event_name": "click"
         },
         {
-          "selector": ".css-1omavfm",
+          "selector": ".css-7yqnvc",
+          "event_name": "contextmenu"
+        },
+        {
+          "selector": ".css-1q7f8mb",
           "event_name": "click"
         },
         {
-          "selector": ".css-1v0ggat.eanm77i0",
-          "event_name": "click"
+          "selector": ".css-1q7f8mb",
+          "event_name": "contextmenu"
         }
       ],
       "objects": [
         {
-          "selector": "<<<<",
+          "selector": "",
           "properties": [
             {
-              "selector": ".css-182j26q",
+              "selector": "[data-at='brand_name']",
               "property": "innerText",
               "name": "brand",
               "type": "text"
             },
             {
-              "selector": ".css-pelz90",
+              "selector": "[data-at='product_name']",
               "property": "innerText",
               "name": "productName",
               "type": "text"
             },
             {
-              "selector": "[data-at='sku_item_price_list']",
+              "selector": ".css-18jtttk .css-0",
               "property": "innerText",
               "name": "price",
               "type": "text"
             },
             {
-              "selector": ".css-ychh9y",
+              "selector": ".css-1tbjoxk",
               "property": "attributes['aria-label'].value",
               "name": "rate",
               "type": "text"
             },
             {
-              "selector": ".css-1dk1ux",
+              "selector": "[data-at='number_of_reviews']",
               "property": "innerText",
               "name": "reviewCount",
               "type": "text"
             },
             {
-              "selector": ".css-8o71lk",
+              "selector": "[data-at='product_flag_label']",
               "property": "innerText",
               "name": "newLable",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<<<<<",
-          "properties": [
-            {
-              "selector": ".css-1kst2rm",
-              "property": "innerText",
-              "name": "newLable",
-              "type": "text"
-            },
-            {
-              "selector": ".css-57kn72",
-              "property": "innerText",
-              "name": "brand",
-              "type": "text"
-            },
-            {
-              "selector": "h1.css-1wd4e6l.e65zztl0 span.css-0",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".css-128n72s.e65zztl0",
-              "property": "innerText",
-              "name": "size",
-              "type": "text"
-            },
-            {
-              "selector": ".css-ychh9y",
-              "property": "attributes['aria-label'].value",
-              "name": "rank",
-              "type": "text"
-            },
-            {
-              "selector": "a span.css-2rg6q7",
-              "property": "innerText",
-              "name": "reviewCount",
-              "type": "text"
-            },
-            {
-              "selector": "[data-at='product_love_count']",
-              "property": "innerText",
-              "name": "loveCount",
-              "type": "text"
-            },
-            {
-              "selector": ".css-1865ad6.e65zztl0",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": ".css-6vmt6d.e65zztl0",
-              "property": "innerText",
-              "name": "freeShipping",
-              "type": "text"
-            },
-            {
-              "selector": ".css-mjt39o",
-              "property": "value",
-              "name": "quantity",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<",
-          "properties": [
-            {
-              "selector": "[data-at='bsk_sku_brand']",
-              "property": "innerText",
-              "name": "brandName",
-              "type": "text"
-            },
-            {
-              "selector": "[data-at='bsk_sku_name']",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".css-1p4nz1q.eanm77i0",
-              "property": "innerText",
-              "name": "description",
-              "type": "text"
-            },
-            {
-              "selector": "[data-at='bsk_sku_price']",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<<",
-          "properties": [
-            {
-              "selector": ".css-1vg6q84.eanm77i0",
-              "property": "innerText",
-              "name": "brand",
-              "type": "text"
-            },
-            {
-              "selector": "span.Link-target",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".css-14ni6u3.eanm77i0",
-              "property": "innerText",
-              "name": "size",
-              "type": "text"
-            },
-            {
-              "selector": ".css-1ka8sp3.eanm77i0",
-              "property": "innerText",
-              "name": "description",
-              "type": "text"
-            },
-            {
-              "selector": ".css-ychh9y",
-              "property": "attributes['aria-label'].value",
-              "name": "rank",
-              "type": "text"
-            },
-            {
-              "selector": "a span.css-2rg6q7",
-              "property": "innerText",
-              "name": "reviewCount",
-              "type": "text"
-            },
-            {
-              "selector": "span [data-at='ql_love_count']",
-              "property": "innerText",
-              "name": "loveCount",
-              "type": "text"
-            },
-            {
-              "selector": ".css-18y396z.eanm77i0",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<",
-          "properties": [
-            {
-              "selector": ".css-14c0dm9.eanm77i0",
-              "property": "innerText",
-              "name": "description",
-              "type": "text"
-            },
-            {
-              "selector": ".css-1czw99u.eanm77i0",
-              "property": "innerText",
-              "name": "size",
-              "type": "text"
-            },
-            {
-              "selector": ".css-1vg6q84",
-              "property": "innerText",
-              "name": "price",
               "type": "text"
             }
           ]
@@ -563,242 +434,56 @@
       },
       "events": [
         {
-          "selector": ".css-x04nfy.eanm77i0",
+          "selector": "button[data-at='add_to_basket_btn']",
           "event_name": "click"
         },
         {
-          "selector": ".css-452hp4.eanm77i0 [data-comp='AddToBasketButton Button StyledComponent BaseComponent ']",
+          "selector": ".css-5glkxh [data-comp='StyledComponent BaseComponent ']",
           "event_name": "click"
         },
         {
-          "selector": ".css-ake35l.eanm77i0",
-          "event_name": "click"
-        },
-        {
-          "selector": ".css-1qfo9ol.eanm77i0[data-at='loves_add_to_basket_btn']",
+          "selector": ".css-1901pih [data-comp='StyledComponent BaseComponent ']",
           "event_name": "click"
         }
       ],
       "objects": [
         {
-          "selector": "<<<<<",
+          "selector": "",
           "properties": [
             {
-              "selector": ".css-1kst2rm",
-              "property": "innerText",
-              "name": "newLable",
-              "type": "text"
-            },
-            {
-              "selector": ".css-1vg6q84.eanm77i0",
+              "selector": "[data-at='brand_name']",
               "property": "innerText",
               "name": "brand",
               "type": "text"
             },
             {
-              "selector": "span.Link-target",
+              "selector": "[data-at='product_name']",
               "property": "innerText",
               "name": "productName",
               "type": "text"
             },
             {
-              "selector": ".css-14ni6u3.eanm77i0",
+              "selector": ".css-18jtttk .css-0",
               "property": "innerText",
-              "name": "size",
+              "name": "price",
               "type": "text"
             },
             {
-              "selector": ".css-1ka8sp3.eanm77i0",
-              "property": "innerText",
-              "name": "description",
-              "type": "text"
-            },
-            {
-              "selector": ".css-ychh9y",
+              "selector": ".css-1tbjoxk",
               "property": "attributes['aria-label'].value",
-              "name": "rank",
-              "type": "text"
-            },
-            {
-              "selector": "a span.css-2rg6q7",
-              "property": "innerText",
-              "name": "reviewCount",
-              "type": "text"
-            },
-            {
-              "selector": "span [data-at='ql_love_count']",
-              "property": "innerText",
-              "name": "loveCount",
-              "type": "text"
-            },
-            {
-              "selector": ".css-18y396z.eanm77i0",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<<<<<<",
-          "properties": [
-            {
-              "selector": ".css-1kst2rm",
-              "property": "innerText",
-              "name": "newLable",
-              "type": "text"
-            },
-            {
-              "selector": ".css-57kn72",
-              "property": "innerText",
-              "name": "brand",
-              "type": "text"
-            },
-            {
-              "selector": "h1.css-1wd4e6l.e65zztl0 span.css-0",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".css-128n72s.e65zztl0",
-              "property": "innerText",
-              "name": "size",
-              "type": "text"
-            },
-            {
-              "selector": ".css-ychh9y",
-              "property": "attributes['aria-label'].value",
-              "name": "rank",
-              "type": "text"
-            },
-            {
-              "selector": "a span.css-2rg6q7",
-              "property": "innerText",
-              "name": "reviewCount",
-              "type": "text"
-            },
-            {
-              "selector": "[data-at='product_love_count']",
-              "property": "innerText",
-              "name": "loveCount",
-              "type": "text"
-            },
-            {
-              "selector": ".css-1865ad6.e65zztl0",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": ".css-6vmt6d.e65zztl0",
-              "property": "innerText",
-              "name": "freeShipping",
-              "type": "text"
-            },
-            {
-              "selector": ".css-mjt39o",
-              "property": "value",
-              "name": "quantity",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<",
-          "properties": [
-            {
-              "selector": "[data-at='sku_item_brand']",
-              "property": "innerText",
-              "name": "brandName",
-              "type": "text"
-            },
-            {
-              "selector": "[data-at='sku_item_name']",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": "[data-at='item_variation_type']",
-              "property": "innerText",
-              "name": "description",
-              "type": "text"
-            },
-            {
-              "selector": "[data-at='sku_item_price_list']",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<",
-          "properties": [
-            {
-              "selector": ".Link-target.css-1dxrypg.eanm77i0",
-              "property": "innerText",
-              "name": "brandName",
-              "type": "text"
-            },
-            {
-              "selector": ".Link-target.css-1gqkvvw.eanm77i0",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".css-1ll2yeh.eanm77i0",
-              "property": "innerText",
-              "name": "description",
-              "type": "text"
-            },
-            {
-              "selector": "[data-at='price']",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<",
-          "properties": [
-            {
-              "selector": ".css-8o71lk",
-              "property": "innerText",
-              "name": "newLable",
-              "type": "text"
-            },
-            {
-              "selector": ".css-182j26q",
-              "property": "innerText",
-              "name": "brandName",
-              "type": "text"
-            },
-            {
-              "selector": ".css-pelz90",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".css-ychh9y",
-              "property": "innerText",
               "name": "rate",
               "type": "text"
             },
             {
-              "selector": ".css-68u28a .css-0",
+              "selector": "[data-at='number_of_reviews']",
               "property": "innerText",
-              "name": "price",
+              "name": "reviewCount",
               "type": "text"
             },
             {
-              "selector": ".css-1dk1ux",
+              "selector": "[data-at='product_flag_label']",
               "property": "innerText",
-              "name": "reviewCount",
+              "name": "newLable",
               "type": "text"
             }
           ]

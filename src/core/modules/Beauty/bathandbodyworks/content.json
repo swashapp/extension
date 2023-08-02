@@ -11,6 +11,49 @@
   },
   "desktop": [
     {
+      "name": "searchQuery",
+      "description": "This item collects bathandbodyworks search query",
+      "url_match": "https://www.bathandbodyworks.com/*",
+      "title": "search query",
+      "viewGroup": "UX",
+      "type": "event",
+      "is_enabled": true,
+      "events": [
+        {
+          "selector": "#q.valid",
+          "event_name": "keydown",
+          "keyCode": 13
+        },
+        {
+          "selector": "#headerSearch button[type='submit']",
+          "event_name": "click"
+        }
+      ],
+      "objects": [
+        {
+          "selector": "#headerSearch",
+          "properties": [
+            {
+              "selector": "#q.valid",
+              "property": "value",
+              "name": "query",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "selector": "document",
+          "properties": [
+            {
+              "property": "URL",
+              "name": "link",
+              "type": "url"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "searchResult",
       "description": "This item collects search results in bathandbodyworks web page",
       "url_match": "https://www.bathandbodyworks.com/*",
@@ -26,11 +69,11 @@
       ],
       "objects": [
         {
-          "selector": ".breadcrumb",
+          "selector": "#headerSearch",
           "properties": [
             {
-              "selector": ".breadcrumb-element.breadcrumb-result-text a",
-              "property": "title",
+              "selector": "#q.valid",
+              "property": "value",
               "name": "searchQuery",
               "type": "text"
             }
@@ -82,26 +125,26 @@
       ]
     },
     {
-      "name": "selectedProducts",
+      "name": "clickSearchResult",
       "description": "This item collects information about a product that has been selected (or clicked on a search result) by user",
       "url_match": "https://www.bathandbodyworks.com/*",
-      "title": "Selected Product",
+      "title": "Clicked Search Results",
       "viewGroup": "UX",
       "type": "event",
       "is_enabled": true,
       "events": [
         {
-          "selector": ".product-tile-link",
+          "selector": ".product-outline-block",
           "event_name": "click"
         },
         {
-          "selector": ".product-tile-link",
+          "selector": ".product-outline-block",
           "event_name": "contextmenu"
         }
       ],
       "objects": [
         {
-          "selector": "<<",
+          "selector": "<",
           "properties": [
             {
               "selector": ".badge.new",
@@ -138,53 +181,10 @@
       ]
     },
     {
-      "name": "searchQuery",
-      "description": "This item collects bathandbodyworks search query",
-      "url_match": "https://www.bathandbodyworks.com/*",
-      "title": "search query",
-      "viewGroup": "UX",
-      "type": "event",
-      "is_enabled": true,
-      "events": [
-        {
-          "selector": "#q.valid",
-          "event_name": "keydown",
-          "keyCode": 13
-        },
-        {
-          "selector": "#headerSearch button[type='submit']",
-          "event_name": "click"
-        }
-      ],
-      "objects": [
-        {
-          "selector": "#headerSearch",
-          "properties": [
-            {
-              "selector": "#q.valid",
-              "property": "value",
-              "name": "query",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "document",
-          "properties": [
-            {
-              "property": "URL",
-              "name": "link",
-              "type": "url"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "addToLoveList",
+      "name": "addToWishlist",
       "description": "This item collects all products in bathandbodyworks web pages that has been added by user to love list",
       "url_match": "https://www.bathandbodyworks.com/*",
-      "title": "Add to Love list",
+      "title": "Add to Wish list",
       "viewGroup": "UX",
       "type": "event",
       "is_enabled": true,
@@ -207,7 +207,7 @@
       ],
       "objects": [
         {
-          "selector": "<<<<<<<<",
+          "selector": "",
           "properties": [
             {
               "selector": ".breadcrumb",
@@ -218,7 +218,7 @@
           ]
         },
         {
-          "selector": "<<<<.product-col-2.product-detail",
+          "selector": ".product-col-2.product-detail",
           "properties": [
             {
               "selector": ".bv_numReviews_text",
@@ -338,52 +338,15 @@
         {
           "selector": ".add-to-cart",
           "event_name": "click"
+        },
+        {
+          "selector": "#add-to-cart",
+          "event_name": "click"
         }
       ],
       "objects": [
         {
-          "selector": "<<<<<.product-tile",
-          "properties": [
-            {
-              "selector": ".product-tile-link",
-              "property": "href",
-              "name": "link",
-              "type": "url"
-            },
-            {
-              "selector": ".promotional-message",
-              "property": "innerText",
-              "name": "promotionalMessage",
-              "type": "text"
-            },
-            {
-              "selector": ".product-type",
-              "property": "innerText",
-              "name": "productType",
-              "type": "text"
-            },
-            {
-              "selector": ".product-name",
-              "property": "innerText",
-              "name": "productName",
-              "type": "text"
-            },
-            {
-              "selector": ".product-sales-price",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": ".badge.new",
-              "property": "innerText",
-              "name": "newLable",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "<<<<<<.product-col-2.product-detail",
+          "selector": ".product-col-2.product-detail",
           "properties": [
             {
               "selector": ".bv_numReviews_text",
@@ -392,7 +355,7 @@
               "type": "text"
             },
             {
-              "selector": ".product-col-2.product-detail .product-name",
+              "selector": ".product-name",
               "property": "innerText",
               "name": "productName",
               "type": "text"
@@ -443,6 +406,47 @@
               "selector": "#ui-id-8",
               "property": "innerText",
               "name": "moreInfo",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "selector": "<<<<<.product-tile",
+          "properties": [
+            {
+              "selector": ".product-tile-link",
+              "property": "href",
+              "name": "link",
+              "type": "url"
+            },
+            {
+              "selector": ".promotional-message",
+              "property": "innerText",
+              "name": "promotionalMessage",
+              "type": "text"
+            },
+            {
+              "selector": ".product-type",
+              "property": "innerText",
+              "name": "productType",
+              "type": "text"
+            },
+            {
+              "selector": ".product-name",
+              "property": "innerText",
+              "name": "productName",
+              "type": "text"
+            },
+            {
+              "selector": ".product-sales-price",
+              "property": "innerText",
+              "name": "price",
+              "type": "text"
+            },
+            {
+              "selector": ".badge.new",
+              "property": "innerText",
+              "name": "newLable",
               "type": "text"
             }
           ]
