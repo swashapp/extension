@@ -480,19 +480,11 @@ const userHelper = (function () {
   }
 
   async function createSurveyUrl(provider: string) {
-    return swashApiHelper.getSurveyUrl(
-      await generateJWT(),
-      await getUserId(),
-      provider,
-    );
+    return swashApiHelper.getSurveyUrl(await generateJWT(), provider);
   }
 
   async function getSurveyHistory(params: { [key: string]: string | number }) {
-    return swashApiHelper.getSurveyHistory(
-      await generateJWT(),
-      await getUserId(),
-      params,
-    );
+    return swashApiHelper.getSurveyHistory(await generateJWT(), params);
   }
 
   return {

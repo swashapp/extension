@@ -205,16 +205,15 @@ const swashApiHelper = (function () {
     return get<Any>(token, config.APIs.charityList);
   }
 
-  async function getSurveyUrl(token: string, userId: number, provider: string) {
-    return get<Any>(token, config.APIs.surveyUrl, { userId, provider });
+  async function getSurveyUrl(token: string, provider: string) {
+    return get<Any>(token, config.APIs.surveyUrl, { provider });
   }
 
   async function getSurveyHistory(
     token: string,
-    userId: number,
     params: { [key: string]: string | number },
   ) {
-    return get<Any>(token, config.APIs.surveyHistory, { ...params, userId });
+    return get<Any>(token, config.APIs.surveyHistory, { ...params });
   }
 
   return {

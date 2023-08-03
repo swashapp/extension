@@ -32,4 +32,7 @@ window.swashSdk = {
   openProfilePage: async () => {
     return callFunction({ id: 'openProfilePage' });
   },
+  getVersion: async () => {
+    return callFunction({ id: 'getVersion' });
+  },
 };
