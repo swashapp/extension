@@ -43,6 +43,10 @@ const sdk = (function () {
     }
   }
 
+  async function getVersion() {
+    return browser.runtime.getManifest().version;
+  }
+
   async function getStatus() {
     const { is_enabled: enabled } = await storageHelper.getConfigs();
     const verified = await userHelper.isVerified();
@@ -168,6 +172,7 @@ const sdk = (function () {
     getSurveyHistory,
     openProfilePage,
     openPopupPage,
+    getVersion,
   };
 })();
 export { sdk };

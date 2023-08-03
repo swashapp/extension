@@ -16,6 +16,7 @@ var sdkScript = (function () {
       'getSurveyHistory',
       'openProfilePage',
       'openPopupPage',
+      'getVersion',
     ];
 
     window.addEventListener('message', (event) => {
