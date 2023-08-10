@@ -39,7 +39,7 @@ npm install -g yarn
 
 #### Technologies
 
-- Web Extension 6.5.0
+- Web Extension 7.6.2
 - Python 2.x (sqlite3 needed by streamr-client using it)
 - libssl1.1 for linux hosts (node-datachannel needed by streamr-client using it)
 - React 17.0.2

@@ -24,6 +24,11 @@ async function build(name) {
     scripts: [worker],
     type: 'module',
   };
+  manifest.applications = {
+    gecko: {
+      id: 'authsaz@gmail.com',
+    },
+  };
   writeFileSync(`${src}manifest.json`, JSON.stringify(manifest), 'utf-8');
 
   await build(`${name}-${version}-firefox`);
