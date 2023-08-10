@@ -24,7 +24,7 @@ async function build(name) {
     scripts: [worker],
     type: 'module',
   };
-  manifest.applications = {
+  manifest.browser_specific_settings = {
     gecko: {
       id: 'authsaz@gmail.com',
     },
