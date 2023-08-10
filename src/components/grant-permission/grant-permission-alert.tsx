@@ -24,9 +24,12 @@ export function GrantPermissionAlert(): JSX.Element {
       <div className="small-popup-title title">Permission</div>
       <div className="small-popup-separator" />
       <div className="small-popup-content">
-        Swash extension needs some mandatory permissions to works normally.
-        Please click on the following button to open the grant permission popup.
-        By clicking on allow you will be able to continue using Swash extension.
+        For Swash to work properly, you should approve the additional
+        permissions required. Click on the button below to open the permissions
+        popup.
+        <br />
+        Once you have clicked &apos;Allow&apos;, you will be able to continue
+        using Swash.
       </div>
       <div className="small-popup-separator" />
       <div className="small-popup-actions-center">
