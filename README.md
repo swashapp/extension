@@ -66,18 +66,32 @@ yarn install
 
 #### Development Build
 
-After you change the source code, you can compile typescript files to the dist folder in the root directory of the project using `build:dev` command. This command support hot-reloading and it applies changes simultaneously.
+There are multiple script that helps to do a development build based on your browser. The following command (default dev build) will build the extension based on manifest v3 to be used on Chrome.
 
 ```
 yarn build:dev
 ```
 
+If you want to build extension for Firefox you can use the following command. It currently works with manifest v2.
+
+```
+yarn build:firefox:dev
+```
+
+Both of these command support hot reload, so your changes will build simultaneously.
+
 #### Production Build
 
-After being sure about your change you can build a production version using this command. It will generate a minified version of the extension.
+After being sure about your change you can build a production version using this command. It will generate a minified version of the extension based on manifest v3 for Chrome. 
 
 ```
 yarn build:prod
+```
+
+If you need Firefox production version you can use the following command, it will generate a production built for Firefox based on manifest v2.
+
+```
+yarn build:firefox:prod
 ```
 
 ### Deployment
@@ -90,12 +104,25 @@ _Note:_ For the first time please run one of the [Build](#build) commands before
 yarn run
 ```
 
+For running extension on Firefox please try following command: 
+
+```
+yarn run:firefox
+```
+
 ### Release
 
 To create an optimized and minified bundle of the extension you can run `release` command. It will generate two different version of the extension for Chrome and Firefox in releases directory.
 
 ```
 yarn release
+```
+
+In case you need a version for specific browser you can use one of the following commands based on your desired browse:
+
+```
+yarn release:chrome
+yarn release:firefox
 ```
 
 ## Contact

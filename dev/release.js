@@ -1,8 +1,14 @@
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import { cmd } from 'web-ext';
+import process from 'process';
 
-const src = 'dist/';
-const dst = 'releases/';
+const args = process.argv;
+const path = args[1].replace('/dev/release.js', '');
+const src = `${path}/dist/`;
+const dst = `${path}/releases/`;
+
+let tag = '';
+if (args[2]) tag = `-${args[2]}`;
 
 async function build(name) {
   await cmd.build({
@@ -17,19 +23,5 @@ async function build(name) {
   const manifest = JSON.parse(readFileSync(`${src}manifest.json`, 'utf-8'));
   const { name, version } = manifest;
 
-  await build(`${name}-${version}-chrome`);
-
-  const worker = manifest.background.service_worker;
-  manifest.background = {
-    scripts: [worker],
-    type: 'module',
-  };
-  manifest.browser_specific_settings = {
-    gecko: {
-      id: 'authsaz@gmail.com',
-    },
-  };
-  writeFileSync(`${src}manifest.json`, JSON.stringify(manifest), 'utf-8');
-
-  await build(`${name}-${version}-firefox`);
+  await build(`${name}-${version}${tag}`);
 })();

@@ -68,16 +68,13 @@ const content = (function () {
           break;
         }
       }
+
       if (!injectScript) return;
-      browser.scripting
-        .executeScript({
-          injectImmediately: true,
-          target: { tabId, allFrames: false },
-          files: [
-            '/lib/browser-polyfill.js',
-            '/core/content_scripts/content_script.js',
-          ],
-        })
+      browserUtils
+        .injectScript(tabId, [
+          '/lib/browser-polyfill.js',
+          '/core/content_scripts/content_script.js',
+        ])
         .catch((err) => {
           console.error(err);
         });

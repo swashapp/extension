@@ -78,17 +78,13 @@ const ads = (function () {
           break;
         }
       }
-      if (!injectScript) return;
 
-      browser.scripting
-        .executeScript({
-          injectImmediately: true,
-          target: { tabId, allFrames: false },
-          files: [
-            '/lib/browser-polyfill.js',
-            '/core/content_scripts/ads_script.js',
-          ],
-        })
+      if (!injectScript) return;
+      browserUtils
+        .injectScript(tabId, [
+          '/lib/browser-polyfill.js',
+          '/core/content_scripts/ads_script.js',
+        ])
         .catch((err) => {
           console.error(err);
         });

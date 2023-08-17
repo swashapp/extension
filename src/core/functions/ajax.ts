@@ -2,6 +2,7 @@
 // @ts-nocheck
 import browser from 'webextension-polyfill';
 
+import { browserUtils } from '../../utils/browser.util';
 import { commonUtils } from '../../utils/common.util';
 import { dataHandler } from '../dataHandler';
 import { storageHelper } from '../storageHelper';
@@ -207,15 +208,11 @@ const ajax = (function () {
 
   async function registerAjaxScript(tabId, changeInfo) {
     if (changeInfo.status == 'loading') {
-      browser.scripting
-        .executeScript({
-          injectImmediately: true,
-          target: { tabId, allFrames: false },
-          files: [
-            '/lib/browser-polyfill.js',
-            '/core/content_scripts/ajax_script.js',
-          ],
-        })
+      browserUtils
+        .injectScript(tabId, [
+          '/lib/browser-polyfill.js',
+          '/core/content_scripts/ajax_script.js',
+        ])
         .catch((err) => {
           console.error(err);
         });
@@ -239,9 +236,10 @@ const ajax = (function () {
   }
 
   async function startTimer(time) {
-    const queryOptions = { active: true, lastFocusedWindow: true };
-    const [tab] = await chrome.tabs.query(queryOptions);
-
+    const [tab] = await browser.tabs.query({
+      active: true,
+      lastFocusedWindow: true,
+    });
     enabledCallbacks[tab.id] = true;
     setTimeout(() => {
       enabledCallbacks[tab.id] = false;

@@ -2,6 +2,8 @@
 // @ts-nocheck
 import browser from 'webextension-polyfill';
 
+import { browserUtils } from '../../utils/browser.util';
+
 const transfer = (function () {
   const pattern = 'swash://*';
   const regexp = 'swash://(0x[a-fA-F0-9]{40})';
@@ -61,24 +63,13 @@ const transfer = (function () {
     }
   }
 
-  function registerContentScripts(tabId, changeInfo, tabInfo) {
+  function registerContentScripts(tabId, changeInfo) {
     if (changeInfo.status == 'loading') {
-      browser.scripting
-        .executeScript({
-          injectImmediately: true,
-          target: { tabId, allFrames: false },
-          files: [
-            '/lib/browser-polyfill.js',
-            '/core/content_scripts/transfer_script.js',
-          ],
-        })
-        .then(() => {
-          browser.scripting.insertCSS({
-            injectImmediately: true,
-            target: { tabId, allFrames: false },
-            files: ['/css/transfer.css'],
-          });
-        })
+      browserUtils
+        .injectScript(tabId, [
+          '/lib/browser-polyfill.js',
+          '/core/content_scripts/transfer_script.js',
+        ])
         .catch((err) => {
           console.error(err);
         });
