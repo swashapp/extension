@@ -18,6 +18,7 @@ import { storageHelper } from '../core/storageHelper';
 import { swashApiHelper } from '../core/swashApiHelper';
 import { userHelper } from '../core/userHelper';
 import { Any } from '../types/any.type';
+import { browserUtils } from '../utils/browser.util';
 import { privacyUtils } from '../utils/privacy.util';
 
 let initiated = false;
@@ -61,6 +62,18 @@ async function startupSwash() {
 */
 browser.runtime.onInstalled.addListener(installSwash);
 browser.runtime.onStartup.addListener(startupSwash);
+
+if (browserUtils.getManifestVersion() === 2) {
+  browserUtils.isMobileDevice().then((res) => {
+    if (res) {
+      browser.browserAction.onClicked.addListener(async () =>
+        browser.tabs.create({ url: '/dashboard/index.html#/settings' }),
+      );
+    } else {
+      browser.browserAction.setPopup({ popup: 'popup/index.html' }).then();
+    }
+  });
+}
 
 /*
   Each content script, after successful injection on a page, will send a message to background script to request data.

@@ -2,6 +2,7 @@
 // @ts-nocheck
 import browser from 'webextension-polyfill';
 
+import { browserUtils } from '../../utils/browser.util';
 import { commonUtils } from '../../utils/common.util';
 import { storageHelper } from '../storageHelper';
 
@@ -61,16 +62,14 @@ const context = (function () {
         break;
       }
     }
+
+    if (!injectScript) return;
     if (changeInfo.status == 'loading')
-      browser.scripting
-        .executeScript({
-          injectImmediately: true,
-          target: { tabId, allFrames: false },
-          files: [
-            '/lib/browser-polyfill.js',
-            '/core/content_scripts/context_script.js',
-          ],
-        })
+      browserUtils
+        .injectScript(tabId, [
+          '/lib/browser-polyfill.js',
+          '/core/content_scripts/context_script.js',
+        ])
         .catch((err) => {
           console.error(err);
         });

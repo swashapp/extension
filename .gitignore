@@ -40,3 +40,6 @@ package-lock.json
 # ide
 .idea
 .vscode
+
+# manifest should create dynamically
+src/manifest.json

@@ -1,6 +1,7 @@
 {
   "url_matches": ["*://*/*"],
   "url_excludes": [
+    "moz-extension://*/*",
     "*://www.google.com/",
     "*://www.google.com/?*",
     "*://www.google.com/search?*",

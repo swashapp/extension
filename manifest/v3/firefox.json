@@ -1,0 +1,11 @@
+{
+  "background": {
+    "scripts": ["background/app-start.ts"],
+    "type": "module"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "authsaz@gmail.com"
+    }
+  }
+}
