@@ -2,6 +2,7 @@
 // @ts-nocheck
 import browser from 'webextension-polyfill';
 
+import { browserUtils } from '../../utils/browser.util';
 import { storageHelper } from '../storageHelper';
 import { userHelper } from '../userHelper';
 
@@ -28,15 +29,11 @@ const sdk = (function () {
 
   async function registerSwashSdk(tabId, changeInfo) {
     if (changeInfo.status == 'loading') {
-      browser.scripting
-        .executeScript({
-          injectImmediately: true,
-          target: { tabId, allFrames: false },
-          files: [
-            '/lib/browser-polyfill.js',
-            '/core/content_scripts/sdk_script.js',
-          ],
-        })
+      browserUtils
+        .injectScript(tabId, [
+          '/lib/browser-polyfill.js',
+          '/core/content_scripts/sdk_script.js',
+        ])
         .catch((err) => {
           console.error(err);
         });

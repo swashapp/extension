@@ -1,6 +1,6 @@
 {
   "name": "swash-extension",
-  "version": "2.7.1",
+  "version": "2.8.0",
   "type": "module",
   "repository": {
     "url": "https://github.com/swashapp/extension.git"
@@ -15,7 +15,7 @@
     "clean": "shx rm -rf dist src/manifest.json",
     "clean:deep": "shx rm -rf dist .parcel-cache src/manifest.json",
     "precopy": "shx mkdir -p dist dist/core",
-    "copy": "shx cp -r src/core/content_scripts src/core/configs src/core/modules dist/core/ && shx cp -r src/lib src/static dist/",
+    "copy": "shx cp -r src/core/content_scripts src/core/inpage_scripts src/core/configs src/core/modules dist/core/ && shx cp -r src/lib src/static dist/",
     "parcel:dev": "parcel watch --no-hmr src/manifest.json src/new-tab/index.html src/popup/index.html src/dashboard/index.html --target dev",
     "parcel:prod": "parcel build src/manifest.json src/new-tab/index.html src/popup/index.html src/dashboard/index.html --target prod --reporter @parcel/reporter-bundle-analyzer",
     "build:firefox:manifest": "node dev/prepare.js -b firefox -m 2",
