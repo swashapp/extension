@@ -1,11 +1,13 @@
 import { readFileSync } from 'fs';
 import { cmd } from 'web-ext';
+import path from 'path';
 import process from 'process';
 
 const args = process.argv;
-const path = args[1].replace('/dev/release.js', '');
-const src = `${path}/dist/`;
-const dst = `${path}/releases/`;
+const sDir = path.dirname(process.argv[1]);
+const dir = path.normalize(path.join(sDir, '..'));
+const src = path.join(dir, 'dist');
+const dst = path.join(dir, 'releases');
 
 let tag = '';
 if (args[2]) tag = `-${args[2]}`;
@@ -20,7 +22,9 @@ async function build(name) {
 }
 
 (async () => {
-  const manifest = JSON.parse(readFileSync(`${src}manifest.json`, 'utf-8'));
+  const manifest = JSON.parse(
+    readFileSync(path.join(src, 'manifest.json'), 'utf-8'),
+  );
   const { name, version } = manifest;
 
   await build(`${name}-${version}${tag}`);

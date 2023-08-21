@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from 'fs';
-import process from 'process';
 import arg from 'arg';
+import path from 'path';
+import process from 'process';
 
 function printSyntax() {
   console.error(`Invalid arguments: follow this syntax\n`);
@@ -53,29 +54,35 @@ if (
   process.exit(-3);
 }
 
-const path = process.argv[1].replace('/dev/prepare.js', '');
-const mPath = `${path}/manifest`;
+const sDir = path.dirname(process.argv[1]);
+const dir = path.normalize(path.join(sDir, '..'));
+const mDir = path.join(dir, 'manifest');
 
 (async () => {
-  let mvPath;
-  let manifest = readManifest(`${mPath}/base.json`);
-  console.log(`Collected manifest base attributes`);
+  let mvDir;
+  let _wp = path.join(mDir, `base.json`);
 
-  mvPath = `${mPath}/v${args['--manifest_version']}`;
+  let manifest = readManifest(_wp);
+  console.log(`Collected manifest base attributes from ${_wp}`);
+
+  mvDir = path.join(mDir, `v${args['--manifest_version']}`);
+  _wp = path.join(mvDir, `base.json`);
   manifest = {
     ...manifest,
-    ...readManifest(`${mvPath}/base.json`),
+    ...readManifest(_wp),
   };
   console.log(
-    `Collected manifest v${args['--manifest_version']} base attributes`,
+    `Collected manifest v${args['--manifest_version']} base attributes from ${_wp}`,
   );
 
+  _wp = path.join(mvDir, `${args['--browser']}.json`);
   manifest = {
     ...manifest,
-    ...readManifest(`${mvPath}/${args['--browser']}.json`),
+    ...readManifest(_wp),
   };
-  console.log(`Collected ${args['--browser']} manifest attributes`);
+  console.log(`Collected ${args['--browser']} manifest attributes from ${_wp}`);
 
-  writeFileSync(`${path}/src/manifest.json`, JSON.stringify(manifest), 'utf-8');
-  console.log(`Created manifest successfully\n`);
+  (_wp = path.join(dir, `src`, `manifest.json`)),
+    writeFileSync(_wp, JSON.stringify(manifest), 'utf-8');
+  console.log(`Created manifest successfully into from ${_wp}\n`);
 })();
