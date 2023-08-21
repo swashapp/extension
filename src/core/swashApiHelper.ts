@@ -78,7 +78,6 @@ const swashApiHelper = (function () {
 
   async function get<Type>(token: string, api: string, params?: Any) {
     const query = params ? `?${encodeQueryString(params)}` : '';
-    console.log(query);
     const url = config.endpoint + api + query;
     return call<Type>(url, createRequest(token));
   }
