@@ -3,13 +3,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { EARN_MORE_TOUR_CLASS } from '../components/components-tour/earn-more-tour';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
+import { Link } from '../components/link/link';
 import { showPopup } from '../components/popup/popup';
 import { Switch } from '../components/switch/switch';
 import { VerifiedUsersOnly } from '../components/verification/verified-users-only';
 import { helper } from '../core/webHelper';
-import { AdsTypeStatus } from '../types/storage/ads-config.type';
-import { Link } from '../components/link/link';
 import { SwashEarnPath } from '../paths';
+import { AdsTypeStatus } from '../types/storage/ads-config.type';
 
 const swashEarnLogo = '/static/images/logos/swash-earn-logo.svg';
 
