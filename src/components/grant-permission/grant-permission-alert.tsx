@@ -28,6 +28,7 @@ export function GrantPermissionAlert(): JSX.Element {
         permissions required. Click on the button below to open the permissions
         popup.
         <br />
+        <br />
         Once you have clicked &apos;Allow&apos;, you will be able to continue
         using Swash.
       </div>
