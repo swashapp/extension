@@ -4,7 +4,7 @@
   "updateInterval": 3600000,
   "files": {
     "swashAPI": {
-      "version": 4
+      "version": 5
     },
     "graphAPI": {
       "version": 1
