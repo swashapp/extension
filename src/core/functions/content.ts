@@ -73,7 +73,9 @@ const content = (function () {
       browserUtils
         .injectScript(tabId, [
           '/lib/browser-polyfill.js',
-          '/core/content_scripts/content_script.js',
+          `/core/content_scripts/content_script${
+            browserUtils.isSafari() ? '' : ''
+          }.js`,
         ])
         .catch((err) => {
           console.error(err);

@@ -1,0 +1,15 @@
+{
+  "background": {
+    "scripts": ["background/app-start.ts"],
+    "persistent": true
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "<all_urls>",
+    "clipboardRead",
+    "downloads",
+    "webRequest",
+    "webRequestBlocking"
+  ]
+}

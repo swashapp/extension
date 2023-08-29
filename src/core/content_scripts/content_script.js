@@ -2,21 +2,32 @@ var contentScript = (function () {
   var callbacks = {};
   var oCallbacks = {};
 
+  function addEventListener(obj, eventName, listener) {
+    if (/complete|interactive|loaded/.test(document.readyState)) {
+      // In case the document has finished parsing, document's readyState will
+      // be one of "complete", "interactive" or (non-standard) "loaded".
+      listener();
+    } else {
+      // The document is not ready yet, so wait for the event
+      obj.addEventListener(eventName, listener);
+    }
+  }
+
   function querySelectorAll(node, selector) {
-    while (selector && selector.length > 0 && selector[0] == '<') {
+    while (selector && selector.length > 0 && selector[0] === '<') {
       if (node) node = node.parentElement;
       selector = selector.slice(1);
     }
-    if (selector.length == 0) return node;
+    if (selector.length === 0) return node;
     return node.querySelectorAll(selector);
   }
 
   function querySelector(node, selector) {
-    while (selector && selector.length > 0 && selector[0] == '<') {
+    while (selector && selector.length > 0 && selector[0] === '<') {
       if (node) node = node.parentElement;
       selector = selector.slice(1);
     }
-    if (selector.length == 0) return node;
+    if (selector.length === 0) return node;
     return node.querySelector(selector);
   }
 
@@ -98,6 +109,7 @@ var contentScript = (function () {
   function send_msg(msg) {
     browser.runtime.sendMessage(msg);
   }
+
   function override_debug(x, level, data, moduleName) {
     let message = {
       obj: 'dataHandler',
@@ -192,9 +204,7 @@ var contentScript = (function () {
 
   function hasDescendant(elem, selector) {
     if (!selector) return true;
-    var childs = querySelectorAll(elem, selector);
-    if (childs.length > 0) return true;
-    return false;
+    return querySelectorAll(elem, selector).length > 0;
   }
 
   function isCollectable(obj, conditions) {
@@ -347,9 +357,11 @@ var contentScript = (function () {
               type: y.type,
             });
             let prop;
-            if(y.selector) {
-              if(y.arrIndex) {
-                prop = querySelectorAll(objList, y.selector)[Number(y.arrIndex)];
+            if (y.selector) {
+              if (y.arrIndex) {
+                prop = querySelectorAll(objList, y.selector)[
+                  Number(y.arrIndex)
+                ];
               } else {
                 prop = querySelector(objList, y.selector);
               }
@@ -373,11 +385,11 @@ var contentScript = (function () {
     let doms = querySelectorAll(document, event.selector);
     if (doms) {
       let objIndex = 0;
-      doms.forEach((dom, domIndex) => {
+      doms.forEach((dom, index) => {
         if (event.conditions && !isCollectable(dom, event.conditions)) return;
         dom.addEventListener(
           event.event_name,
-          (function (index) {
+          (function () {
             return function (x) {
               callback(x, index);
             };
@@ -397,7 +409,7 @@ var contentScript = (function () {
     targetEventId,
     cbName,
   ) {
-    if (event.event_name == '.') {
+    if (event.event_name === '.') {
       var ev = new Event(targetEventId);
       targetNode.dispatchEvent(ev);
       return;
@@ -405,11 +417,11 @@ var contentScript = (function () {
     let doms = querySelectorAll(document, event.selector);
     if (doms) {
       let objIndex = 0;
-      doms.forEach((dom, domIndex) => {
+      doms.forEach((dom, index) => {
         if (event.conditions && !isCollectable(dom, event.conditions)) return;
         let cb = oCallbacks[cbName + objIndex];
         if (!cb) {
-          cb = (function (index) {
+          cb = (function () {
             return function (x) {
               callback(x, index);
             };
@@ -438,7 +450,7 @@ var contentScript = (function () {
       );
     });
     observer.observe(targetNode, obj.observingConfig);
-    if (event.event_name == '.') {
+    if (event.event_name === '.') {
       targetNode.addEventListener(targetEventId, function (x) {
         callback(x, 0);
       });
@@ -450,10 +462,10 @@ var contentScript = (function () {
       message.content.forEach((obj) => {
         switch (obj.type) {
           case 'event':
-            obj.events.forEach((event) => {
-              let callback = function (x, index) {
+            obj.events.forEach((event, index) => {
+              let callback = function (x) {
                 if (
-                  (event.keyCode && event.keyCode == x.keyCode) ||
+                  (event.keyCode && event.keyCode === x.index) ||
                   !event.keyCode
                 )
                   public_callback(obj, message.moduleName, x, index);
@@ -467,37 +479,37 @@ var contentScript = (function () {
                 '_' +
                 event.event_name;
               callbacks[cbName] = callback;
-              if (event.selector == 'window') {
+              if (event.selector === 'window') {
                 // window
-                window.addEventListener(event.event_name, callback);
-              } else if (event.selector == 'document') {
+                addEventListener(window, event.event_name, callback);
+              } else if (event.selector === 'document') {
                 // document
-                document.addEventListener(event.event_name, callback);
+                addEventListener(document, event.event_name, callback);
               } else {
                 //doms
                 switch (obj.readyAt) {
                   case 'windowLoad':
-                    window.addEventListener('load', function () {
+                    addEventListener(window, 'load', function () {
                       documentReadyCallback(event, callback);
                     });
                     break;
                   case 'DOMChange':
-                    window.addEventListener('DOMContentLoaded', function () {
+                    addEventListener(window, 'DOMContentLoaded', function () {
                       observeReadyCallback(event, callback, obj, cbName);
                     });
                     break;
                   case 'windowChange':
-                    window.addEventListener('load', function () {
+                    addEventListener(window, 'load', function () {
                       observeReadyCallback(event, callback, obj, cbName);
                     });
                     break;
                   case 'DOMLoad':
-                    window.addEventListener('DOMContentLoaded', function () {
+                    addEventListener(window, 'DOMContentLoaded', function () {
                       documentReadyCallback(event, callback);
                     });
                     break;
                   default:
-                    window.addEventListener('DOMContentLoaded', function () {
+                    addEventListener(window, 'DOMContentLoaded', function () {
                       documentReadyCallback(event, callback);
                     });
                 }

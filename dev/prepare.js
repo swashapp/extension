@@ -8,7 +8,7 @@ function printSyntax() {
   console.error(`node prepare.js BROWSER MANIFEST_VERSION`);
   console.error(`   Keyword \t\tArgument\t\t\tAcceptable Values`);
   console.error(`-`.repeat(75));
-  console.error(`   BROWSER \t\t-b, --browser \t\t\tfirefox or chrome`);
+  console.error(`   BROWSER \t\t-b, --browser \t\t\tsafari, firefox or chrome`);
   console.error(`   MANIFEST_VERSION \t-m, --manifest_version \t\t2 or 3`);
   console.error(``);
 }
@@ -17,7 +17,7 @@ function readManifest(pathToFile) {
   return JSON.parse(readFileSync(pathToFile, 'utf-8'));
 }
 
-const SUPPORTED_BROWSER = ['firefox', 'chrome'];
+const SUPPORTED_BROWSER = ['safari', 'firefox', 'chrome'];
 const SUPPORTED_VERSION = [2, 3];
 
 let args;

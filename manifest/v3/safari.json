@@ -1,0 +1,6 @@
+{
+  "background": {
+    "scripts": ["background/app-start.ts"],
+    "type": "module"
+  }
+}

@@ -7,6 +7,12 @@ const browserUtils = (function () {
     return navigator.userAgent;
   }
 
+  function isSafari() {
+    const status = getUserAgent().toLowerCase().indexOf('safari') > -1;
+    console.log(`Safari check: ${status}`);
+    return status;
+  }
+
   function getBrowserLanguage() {
     return navigator.language;
   }
@@ -67,6 +73,7 @@ const browserUtils = (function () {
 
   return {
     getUserAgent,
+    isSafari,
     getBrowserLanguage,
     getPlatformInfo,
     getVersion,
