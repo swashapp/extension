@@ -1,7 +1,6 @@
 var contentScript = (function () {
   var callbacks = {};
   var oCallbacks = {};
-  var collectorsId = [];
 
   function querySelectorAll(node, selector) {
     while (selector && selector.length > 0 && selector[0] == '<') {
@@ -252,9 +251,7 @@ var contentScript = (function () {
     return result;
   }
 
-  function public_callback(data, moduleName, event, index, eventId) {
-    // if(collectorsId.includes(eventId)) return;
-    // else collectorsId.push(eventId);
+  function public_callback(data, moduleName, event, index) {
     let eventInfo = {
       index: Number(index) + 1,
     };
@@ -331,6 +328,8 @@ var contentScript = (function () {
               let prop;
               if (y.selector) prop = querySelector(obj, y.selector);
               else prop = obj;
+              if (y.function && y.function === 'getBoundingClientRect')
+                prop = obj[y.function]();
               if (prop) item[y.name] = getPropertyValue(prop, y.property);
             });
             if (!isEmpty(item)) {
@@ -355,9 +354,13 @@ var contentScript = (function () {
                 prop = querySelector(objList, y.selector);
               }
             } else prop = objList;
-            if(prop) {
-              message.params[0].data.out[y.name] = getPropertyValue(prop, y.property);
-            }
+            if (y.function && y.function === 'getBoundingClientRect')
+              prop = objList[y.function]();
+            if (prop)
+              message.params[0].data.out[y.name] = getPropertyValue(
+                prop,
+                y.property,
+              );
           });
         }
       }
@@ -447,15 +450,13 @@ var contentScript = (function () {
       message.content.forEach((obj) => {
         switch (obj.type) {
           case 'event':
-            let eventId = Math.floor(Math.random() * 1000000);
             obj.events.forEach((event) => {
               let callback = function (x, index) {
                 if (
                   (event.keyCode && event.keyCode == x.keyCode) ||
                   !event.keyCode
-                ){
-                  public_callback(obj, message.moduleName, x, index, eventId);
-                }
+                )
+                  public_callback(obj, message.moduleName, x, index);
               };
               let cbName =
                 message.moduleName +
