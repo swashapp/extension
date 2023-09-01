@@ -134,7 +134,7 @@
     {
       "name": "searchResult",
       "description": "This item collects search results in ebay web pages",
-      "url_match": "*://*.ebay.*/*",
+      "url_match": "*://*.ebay.*/sch/*",
       "title": "Search Result",
       "viewGroup": "UX",
       "type": "event",

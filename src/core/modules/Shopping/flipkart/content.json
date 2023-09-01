@@ -92,7 +92,7 @@
     {
       "name": "searchResult",
       "description": "This item collects search results in flipkart web pages",
-      "url_match": "*://*.flipkart.com/*",
+      "url_match": "*://*.flipkart.com/search*",
       "title": "Search Result",
       "viewGroup": "UX",
       "type": "event",

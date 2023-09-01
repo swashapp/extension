@@ -253,8 +253,8 @@ var contentScript = (function () {
   }
 
   function public_callback(data, moduleName, event, index, eventId) {
-    if(collectorsId.includes(eventId)) return;
-    else collectorsId.push(eventId);
+    // if(collectorsId.includes(eventId)) return;
+    // else collectorsId.push(eventId);
     let eventInfo = {
       index: Number(index) + 1,
     };
@@ -356,11 +356,7 @@ var contentScript = (function () {
               }
             } else prop = objList;
             if(prop) {
-              if(y.function) {
-                message.params[0].data.out[y.name] = eval(y.function)(getPropertyValue(prop, y.property));
-              } else{
-                message.params[0].data.out[y.name] = getPropertyValue(prop, y.property);
-              }
+              message.params[0].data.out[y.name] = getPropertyValue(prop, y.property);
             }
           });
         }
