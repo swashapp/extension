@@ -91,7 +91,7 @@
     {
       "name": "searchResult",
       "description": "This item collects search results in etsy web pages",
-      "url_match": "*://*.etsy.com/*",
+      "url_match": "*://*.etsy.com/search*",
       "title": "Search Result",
       "viewGroup": "UX",
       "type": "event",

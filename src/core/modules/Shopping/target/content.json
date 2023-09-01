@@ -91,7 +91,7 @@
     {
       "name": "searchResult",
       "description": "This item collects search results in target web pages",
-      "url_match": "*://*.target.com/*",
+      "url_match": "*://*.target.com/s*",
       "title": "Search Result",
       "viewGroup": "UX",
       "type": "event",

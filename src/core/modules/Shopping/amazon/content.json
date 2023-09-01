@@ -391,99 +391,6 @@
       ]
     },
     {
-      "name": "selectedItem",
-      "url_match": "*://*.amazon.*/*",
-      "description": "This item collects product title, product category and page title for products in amazon web pages that has been selected by user",
-      "viewGroup": "UX",
-      "title": "Selected Items",
-      "type": "event",
-      "is_enabled": true,
-      "events": [
-        {
-          "selector": "window",
-          "event_name": "DOMContentLoaded"
-        }
-      ],
-      "objects": [
-        {
-          "selector": "#dp-container",
-          "properties": [
-            {
-              "selector": "#productTitle",
-              "property": "innerText",
-              "name": "title",
-              "type": "text"
-            },
-            {
-              "selector": "#averageCustomerReviews .a-icon-star",
-              "property": "innerText",
-              "name": "rate",
-              "type": "text"
-            },
-            {
-              "selector": ".priceToPay .a-offscreen",
-              "property": "innerText",
-              "name": "discountPrice",
-              "type": "text"
-            },
-            {
-              "selector": ".basisPrice .a-offscreen",
-              "property": "innerText",
-              "name": "regularPrice",
-              "type": "text"
-            },
-            {
-              "selector": ".a-price .a-offscreen",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": "#mir-layout-DELIVERY_BLOCK-slot-PRIMARY_DELIVERY_MESSAGE_LARGE",
-              "property": "innerText",
-              "name": "arriveTime",
-              "type": "text"
-            },
-            {
-              "function": "(x) => x.trim()",
-              "selector": "#a-popover-agShipMsgPopover td:nth-child(3)",
-              "property": "innerText",
-              "name": "shippingFee",
-              "type": "text",
-              "arrIndex": "1"
-            }
-          ]
-        },
-        {
-          "selector": "#nav-search",
-          "properties": [
-            {
-              "selector": "#searchDropdownBox option:checked",
-              "property": "innerText",
-              "name": "category",
-              "type": "text"
-            },
-            {
-              "selector": "#twotabsearchtextbox",
-              "property": "value",
-              "name": "query",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "#feature-bullets",
-          "properties": [
-            {
-              "property": "innerText",
-              "name": "features",
-              "type": "text"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "name": "addToBasket",
       "url_match": "*://*.amazon.*/*",
       "description": "This item collects all products in amazon web pages that has been added to the basket by user",
@@ -508,16 +415,12 @@
           "event_name": "submit"
         },
         {
-          "selector": "button.a-button-text.a-text-center[aria-label*='Add to Cart']",
-          "event_name": "click"
-        },
-        {
-          "selector": ".a-button-text.a-text-center",
+          "selector": ".a-button-input[value='Add to Cart']",
           "event_name": "click"
         },
         {
           "selector": ".a-button-input[value='Add to Cart']",
-          "event_name": "click"
+          "event_name": "submit"
         }
       ],
       "objects": [
@@ -561,7 +464,6 @@
               "type": "text"
             },
             {
-              "function": "(x) => x.trim()",
               "selector": "#a-popover-agShipMsgPopover td:nth-child(3)",
               "property": "innerText",
               "name": "shippingFee",
@@ -665,7 +567,6 @@
               "type": "text"
             },
             {
-              "function": "(x) => x.trim()",
               "selector": "#a-popover-agShipMsgPopover td:nth-child(3)",
               "property": "innerText",
               "name": "shippingFee",
@@ -769,7 +670,6 @@
               "type": "text"
             },
             {
-              "function": "(x) => x.trim()",
               "selector": "#a-popover-agShipMsgPopover td:nth-child(3)",
               "property": "innerText",
               "name": "shippingFee",
@@ -1002,92 +902,6 @@
               "selector": "#nav-search-keywords",
               "property": "value",
               "name": "query",
-              "type": "text"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "selectedItem",
-      "url_match": "*://*.amazon.*/*",
-      "description": "This item collects product title, product category and page title for products in amazon web pages that has been selected by user",
-      "viewGroup": "UX",
-      "title": "Selected Items",
-      "type": "event",
-      "is_enabled": true,
-      "events": [
-        {
-          "selector": "window",
-          "event_name": "DOMContentLoaded"
-        }
-      ],
-      "objects": [
-        {
-          "selector": "#productTitleGroupAnchor",
-          "isRequired": true,
-          "properties": [
-            {
-              "selector": "#title",
-              "property": "innerText",
-              "name": "title",
-              "type": "text"
-            },
-            {
-              "selector": "#acrCustomerReviewLink .a-icon-star-mini",
-              "property": "innerText",
-              "name": "rate",
-              "type": "text"
-            },
-            {
-              "selector": ".priceToPay .a-offscreen",
-              "property": "innerText",
-              "name": "discountPrice",
-              "type": "text"
-            },
-            {
-              "selector": ".basisPrice .a-offscreen",
-              "property": "innerText",
-              "name": "regularPrice",
-              "type": "text"
-            },
-            {
-              "selector": ".a-price .a-offscreen",
-              "property": "innerText",
-              "name": "price",
-              "type": "text"
-            },
-            {
-              "selector": "#mir-layout-DELIVERY_BLOCK-slot-PRIMARY_DELIVERY_MESSAGE_LARGE",
-              "property": "innerText",
-              "name": "arriveTime",
-              "type": "text"
-            },
-            {
-              "selector": "#amazonGlobal_feature_div span",
-              "property": "innerText",
-              "name": "shippingFee",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "#nav-search-form",
-          "properties": [
-            {
-              "selector": "#nav-search-keywords",
-              "property": "value",
-              "name": "query",
-              "type": "text"
-            }
-          ]
-        },
-        {
-          "selector": "#feature-bullets",
-          "properties": [
-            {
-              "property": "innerText",
-              "name": "features",
               "type": "text"
             }
           ]

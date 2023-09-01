@@ -105,7 +105,7 @@
     {
       "name": "searchResult",
       "description": "This item collects search results in walmart web pages",
-      "url_match": "*://*.walmart.com/*",
+      "url_match": "*://*.walmart.com/search*",
       "title": "Search Result",
       "viewGroup": "UX",
       "type": "event",
