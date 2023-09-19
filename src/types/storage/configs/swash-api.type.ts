@@ -7,6 +7,8 @@ export type SwashApiConfigs = {
     emailVerification: string;
     newsletterSignUp: string;
     notifications: string;
+    inAppNotifications: string;
+    pushNotifications: string;
     userReferralReward: string;
     userReferralClaim: string;
     userBalanceWithdraw: string;

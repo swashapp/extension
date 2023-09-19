@@ -13,8 +13,9 @@ import {
   ReferralRewardResponse,
   WithdrawResponse,
   ReferralsResponse,
-  NotificationsResponse,
+  InAppNotificationsResponse,
   LatestPrograms,
+  PushNotificationsResponse,
 } from '../types/swash-api.type';
 
 import { configManager } from './configManager';
@@ -78,7 +79,9 @@ const swashApiHelper = (function () {
 
   async function get<Type>(token: string, api: string, params?: Any) {
     const query = params ? `?${encodeQueryString(params)}` : '';
-    const url = config.endpoint + api + query;
+    const url = api.startsWith('htt')
+      ? api + query
+      : config.endpoint + api + query;
     return call<Type>(url, createRequest(token));
   }
 
@@ -136,8 +139,25 @@ const swashApiHelper = (function () {
     return post<Any>('', config.APIs.newsletterSignUp, { email, newsletter });
   }
 
-  async function getNotifications() {
-    return get<NotificationsResponse[]>('', config.APIs.notifications);
+  async function getInAppNotifications(token: string) {
+    return get<InAppNotificationsResponse[]>(
+      token,
+      config.APIs.inAppNotifications,
+      {
+        device: 'extension',
+      },
+    );
+  }
+
+  async function getPushNotifications(token: string, timestamp: number) {
+    return get<PushNotificationsResponse[]>(
+      token,
+      config.APIs.pushNotifications,
+      {
+        device: 'extension',
+        timestamp,
+      },
+    );
   }
 
   async function getWithdrawBalance(token: string) {
@@ -231,7 +251,8 @@ const swashApiHelper = (function () {
     resendCodeToEmail,
     join,
     newsletterSignUp,
-    getNotifications,
+    getInAppNotifications,
+    getPushNotifications,
     getVerifiedInfo,
     updateVerifiedInfo,
     getAdditionalInfo,

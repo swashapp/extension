@@ -13,6 +13,7 @@ import { transfer } from '../core/functions/transfer';
 import { graphApiHelper } from '../core/graphApiHelper';
 import { loader } from '../core/loader';
 import { newTabHelper } from '../core/newTabHelper';
+import { notificationHelper } from '../core/notificationHelper';
 import { onboarding } from '../core/onboarding';
 import { pageAction } from '../core/pageAction';
 import { storageHelper } from '../core/storageHelper';
@@ -109,6 +110,7 @@ browser.runtime.onMessage.addListener(
       charityHelper,
       newTabHelper,
       adsHelper,
+      notificationHelper,
     };
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

@@ -62,6 +62,10 @@ const storageHelper = (function () {
     return (await ConfigEntity.getInstance()).save(conf);
   }
 
+  async function mergeConfigs(conf: Configs) {
+    return (await ConfigEntity.getInstance()).merge(conf);
+  }
+
   async function updateConfigs(key: string, value: Any) {
     return (await ConfigEntity.getInstance()).update(key, value);
   }
@@ -90,6 +94,10 @@ const storageHelper = (function () {
     return (await ProfileEntity.getInstance()).save(profile);
   }
 
+  async function mergeProfile(profile: Profile) {
+    return (await ProfileEntity.getInstance()).merge(profile);
+  }
+
   async function getFilters() {
     return (await FilterEntity.getInstance()).get();
   }
@@ -98,12 +106,20 @@ const storageHelper = (function () {
     return (await FilterEntity.getInstance()).save(filters);
   }
 
+  async function mergeFilters(filters: Filter[]) {
+    return (await FilterEntity.getInstance()).merge(filters);
+  }
+
   async function getPrivacyData() {
     return (await PrivacyDataEntity.getInstance()).get();
   }
 
   async function savePrivacyData(privacyData: PrivacyData[]) {
     return (await PrivacyDataEntity.getInstance()).save(privacyData);
+  }
+
+  async function mergePrivacyData(privacyData: PrivacyData[]) {
+    return (await PrivacyDataEntity.getInstance()).merge(privacyData);
   }
 
   async function saveNotifications(notifications: Notifications) {
@@ -118,12 +134,20 @@ const storageHelper = (function () {
     return (await CharityEntity.getInstance()).save(charities);
   }
 
+  async function mergeCharities(charities: Charity[]) {
+    return (await CharityEntity.getInstance()).merge(charities);
+  }
+
   async function getCharities() {
     return (await CharityEntity.getInstance()).get();
   }
 
   async function saveNewTab(newTab: NewTab) {
     return (await NewTabEntity.getInstance()).save(newTab);
+  }
+
+  async function mergeNewTab(newTab: NewTab) {
+    return (await NewTabEntity.getInstance()).merge(newTab);
   }
 
   async function getNewTab() {
@@ -134,12 +158,20 @@ const storageHelper = (function () {
     return (await AdsEntity.getInstance()).save(ads);
   }
 
+  async function mergeAdsConfig(ads: AdsConfig) {
+    return (await AdsEntity.getInstance()).merge(ads);
+  }
+
   async function getAdsConfig() {
     return (await AdsEntity.getInstance()).get();
   }
 
   async function saveStates(state: State) {
     return (await StateEntity.getInstance()).save(state);
+  }
+
+  async function mergeStates(state: State) {
+    return (await StateEntity.getInstance()).merge(state);
   }
 
   async function getStates() {
@@ -175,6 +207,7 @@ const storageHelper = (function () {
     saveAll,
     getConfigs,
     saveConfigs,
+    mergeConfigs,
     updateConfigs,
     getModules,
     saveModules,
@@ -182,20 +215,27 @@ const storageHelper = (function () {
     saveOnboarding,
     getProfile,
     saveProfile,
+    mergeProfile,
     getFilters,
     saveFilters,
+    mergeFilters,
     getPrivacyData,
     savePrivacyData,
+    mergePrivacyData,
     saveModuleSettings,
     saveNotifications,
     getNotifications,
     saveCharities,
+    mergeCharities,
     getCharities,
     saveNewTab,
+    mergeNewTab,
     getNewTab,
     saveAdsConfig,
+    mergeAdsConfig,
     getAdsConfig,
     saveStates,
+    mergeStates,
     getStates,
   };
 })();

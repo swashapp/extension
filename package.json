@@ -1,6 +1,6 @@
 {
   "name": "swash-extension",
-  "version": "2.8.0",
+  "version": "2.9.0",
   "type": "module",
   "repository": {
     "url": "https://github.com/swashapp/extension.git"
@@ -19,10 +19,10 @@
     "parcel:dev": "parcel watch --no-hmr src/manifest.json src/new-tab/index.html src/popup/index.html src/dashboard/index.html --target dev",
     "parcel:prod": "parcel build src/manifest.json src/new-tab/index.html src/popup/index.html src/dashboard/index.html --target prod --reporter @parcel/reporter-bundle-analyzer",
     "build:firefox:manifest": "node dev/prepare.js -b firefox -m 2",
-    "build:firefox:dev": "run-s clean build:firefox:manifest copy parcel:dev",
+    "build:firefox:dev": "run-s clean:deep build:firefox:manifest copy parcel:dev",
     "build:firefox:prod": "run-s clean:deep build:firefox:manifest copy parcel:prod",
     "build:chrome:manifest": "node dev/prepare.js -b chrome -m 3",
-    "build:chrome:dev": "run-s clean build:chrome:manifest copy parcel:dev",
+    "build:chrome:dev": "run-s clean:deep build:chrome:manifest copy parcel:dev",
     "build:chrome:prod": "run-s clean:deep build:chrome:manifest copy parcel:prod",
     "build:dev": "run-s build:chrome:dev",
     "build:prod": "run-s build:chrome:prod",

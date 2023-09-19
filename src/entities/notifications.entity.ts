@@ -18,6 +18,19 @@ export class NotificationsEntity extends Entity<Notifications> {
   }
 
   protected async init(): Promise<void> {
-    await this.create({});
+    await this.create({ inApp: {}, push: [] });
+  }
+
+  public async upgrade(): Promise<void> {
+    for (const key of Object.keys(this.cache)) {
+      if (['inApp', 'push'].includes(key)) continue;
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      this.cache.inApp[key] = this.cache[key];
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      delete this.cache[key];
+    }
+    return this.save(this.cache);
   }
 }

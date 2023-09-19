@@ -1,7 +1,14 @@
+export type Notification = {
+  title: string;
+  text: string;
+  link: string;
+};
+
+export type InAppNotification = {
+  [key: string]: Notification;
+};
+
 export type Notifications = {
-  [key: string]: {
-    title?: string;
-    text?: string;
-    link?: string;
-  };
+  inApp: InAppNotification;
+  push: Notification[];
 };

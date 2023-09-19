@@ -12,12 +12,13 @@
     "default_title": "Swash"
   },
   "permissions": [
+    "<all_urls>",
+    "bookmarks",
+    "clipboardRead",
+    "downloads",
+    "notifications",
     "storage",
     "tabs",
-    "<all_urls>",
-    "clipboardRead",
-    "bookmarks",
-    "downloads",
     "webRequest",
     "webRequestBlocking"
   ],

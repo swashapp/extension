@@ -7,6 +7,8 @@
     "emailVerification": "/v2/email/verification",
     "newsletterSignUp": "/v2/public/newsletter/signup",
     "notifications": "/v2/public/extension/notifications",
+    "inAppNotifications": "/v2/notification/in-app",
+    "pushNotifications": "/v2/notification/push",
     "userReferralReward": "/v2/user/referral",
     "userReferralClaim": "/v2/user/claim",
     "userBalanceWithdraw": "/v2/user/withdraw",
