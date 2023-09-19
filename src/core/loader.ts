@@ -4,6 +4,7 @@ import { BackupEntity } from '../entities/backup.entity';
 import { ConfigEntity } from '../entities/config.entity';
 import { FilterEntity } from '../entities/filter.entity';
 import { ModuleEntity } from '../entities/module.entity';
+import { NotificationsEntity } from '../entities/notifications.entity';
 import { ProfileEntity } from '../entities/profile.entity';
 import { Any } from '../types/any.type';
 import { Module } from '../types/storage/module.type';
@@ -20,6 +21,7 @@ import { apiCall } from './functions/apiCall';
 import { graphApiHelper } from './graphApiHelper';
 import { memberManager } from './memberManager';
 import { newTabHelper } from './newTabHelper';
+import { notificationHelper } from './notificationHelper';
 import { onboarding } from './onboarding';
 import { pageAction } from './pageAction';
 import { storageHelper } from './storageHelper';
@@ -67,6 +69,11 @@ const loader = (function () {
       console.log(`Updating modules`);
       const modules = await ModuleEntity.getInstance();
       await modules.upgrade();
+
+      // Updating notifications
+      console.log(`Updating notifications`);
+      const notifications = await NotificationsEntity.getInstance();
+      await notifications.upgrade();
 
       // Updating all
       console.log(`Updating all`);
@@ -120,44 +127,6 @@ const loader = (function () {
     }
   }
 
-  async function loadNotifications() {
-    const states = await storageHelper.getStates();
-    console.log('Loading notifications');
-
-    if (commonUtils.isToday(new Date(states.lastNotificationUpdate))) {
-      console.log('No need to load notifications today');
-      return;
-    }
-
-    const serverNotifications = await swashApiHelper.getNotifications();
-
-    if (serverNotifications.length > 0) {
-      const notifications: {
-        [key: string]: {
-          type: string;
-          title: string;
-          text: string;
-          link: string;
-        };
-      } = {};
-
-      serverNotifications.forEach((item) => {
-        if (!notifications[item.type]) notifications[item.type] = item;
-      });
-
-      const localNotifications = await storageHelper.getNotifications();
-      storageHelper
-        .saveNotifications({
-          ...localNotifications,
-          ...notifications,
-        })
-        .catch(console.error);
-    }
-
-    states.lastNotificationUpdate = Date.now();
-    await storageHelper.saveStates(states);
-  }
-
   async function loadFunctions() {
     console.log('Loading functions');
     for (const func of functions) {
@@ -205,7 +174,7 @@ const loader = (function () {
     await storageHelper.updateConfigs('is_enabled', true);
     init(true);
     await loadFunctions();
-    loadNotifications();
+    notificationHelper.setupJobs();
     console.log('Extension started successfully');
   }
 
@@ -237,7 +206,7 @@ const loader = (function () {
       await unloadFunctions();
     }
     await loadPersistentFunctions();
-    loadNotifications();
+    notificationHelper.setupJobs();
   }
 
   async function reload() {
@@ -255,7 +224,7 @@ const loader = (function () {
       memberManager.tryJoin().catch(console.error);
     }
     await loadPersistentFunctions();
-    loadNotifications();
+    notificationHelper.setupJobs();
   }
 
   function configModule(moduleName: string, settings: Any) {
@@ -294,6 +263,7 @@ const loader = (function () {
     await charityHelper.init();
     await adsHelper.init();
     await newTabHelper.init();
+    await notificationHelper.init();
   }
 
   async function onUpdatedAll() {

@@ -26,11 +26,18 @@ export type ReferralsResponse = {
   count: string;
 };
 
-export type NotificationsResponse = {
+export type InAppNotificationsResponse = {
   type: string;
   title: string;
   text: string;
   link: string;
+};
+
+export type PushNotificationsResponse = {
+  title: string;
+  text: string;
+  link: string;
+  condition: string;
 };
 
 export type MinimumWithdrawResponse = {

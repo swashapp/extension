@@ -26,6 +26,7 @@
     "bookmarks",
     "clipboardRead",
     "downloads",
+    "notifications",
     "scripting",
     "storage",
     "tabs",

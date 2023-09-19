@@ -49,6 +49,7 @@ export function InviteFriends(): JSX.Element {
     totalReward: initValue,
     totalReferral: initValue,
   });
+  const [notifications, setNotifications] = useState<Notifications>({});
 
   const loadReferral = useCallback(() => {
     helper.load().then((db: { profile: { user_id: string } }) => {
@@ -79,14 +80,19 @@ export function InviteFriends(): JSX.Element {
       });
   }, []);
 
+  const loadInAppNotifications = useCallback(() => {
+    helper.loadNotifications().then((_notifications) => {
+      setNotifications(_notifications.inApp);
+    });
+  }, []);
+
   useEffect(() => {
     loadReferral();
     loadActiveReferral();
     loadReferrals();
-  }, [loadActiveReferral, loadReferral, loadReferrals]);
+    loadInAppNotifications();
+  }, [loadActiveReferral, loadInAppNotifications, loadReferral, loadReferrals]);
 
-  const [notifications, setNotifications] = useState<Notifications>({});
-  useEffect(() => helper.loadNotifications().then(setNotifications), []);
   return (
     <div className="page-container">
       <BackgroundTheme layout="layout2" />

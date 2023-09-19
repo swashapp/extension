@@ -47,6 +47,13 @@ export abstract class Entity<Type> {
     await browser.storage.local.set({ [this.name]: this.cache });
   }
 
+  public async merge(value: Any): Promise<void> {
+    if (!value) return;
+
+    this.cache = { ...this.cache, ...value };
+    await this.saveCache();
+  }
+
   public async update(key: string, newValue: Any): Promise<void> {
     const value = await this.get();
     commonUtils.jsonUpdate(value, { [key]: newValue });

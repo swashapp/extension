@@ -346,14 +346,14 @@ const onboarding = (function () {
       configs.delay = oldDB.configs.delay;
       profile.encryptedWallet = oldDB.profile.encryptedWallet;
 
-      await storageHelper.saveConfigs(configs);
-      await storageHelper.saveProfile(profile);
-      await storageHelper.savePrivacyData(oldDB.privacyData);
-      await storageHelper.saveFilters(oldDB?.filters);
-      await storageHelper.saveCharities(oldDB?.charity);
-      await storageHelper.saveAdsConfig(oldDB?.ads);
-      await storageHelper.saveNewTab(oldDB?.newTab);
-      await storageHelper.saveStates(oldDB?.state);
+      await storageHelper.mergeConfigs(configs);
+      await storageHelper.mergeProfile(profile);
+      await storageHelper.mergePrivacyData(oldDB.privacyData);
+      await storageHelper.mergeFilters(oldDB?.filters);
+      await storageHelper.mergeCharities(oldDB?.charity);
+      await storageHelper.mergeAdsConfig(oldDB?.ads);
+      await storageHelper.mergeNewTab(oldDB?.newTab);
+      await storageHelper.mergeStates(oldDB?.state);
 
       await userHelper.loadSavedWallet();
       return true;
