@@ -1,5 +1,9 @@
 import browser from 'webextension-polyfill';
 
+import {
+  Notification,
+  PushNotification,
+} from '../types/storage/notifications.type';
 import { commonUtils } from '../utils/common.util';
 
 import { storageHelper } from './storageHelper';
@@ -41,7 +45,16 @@ const notificationHelper = (function () {
     }
 
     const { inApp, push } = await storageHelper.getNotifications();
-    const msg = push.shift();
+    let msg: PushNotification | undefined;
+
+    do {
+      msg = push.shift();
+    } while (
+      msg &&
+      msg.expire &&
+      msg.expire < states.lastPushNotificationUpdate.timestamp
+    );
+
     if (msg) {
       const id = `swash_push_${Math.random().toString(36).substring(2, 12)}`;
       browser.notifications.create(id, {
@@ -52,9 +65,11 @@ const notificationHelper = (function () {
       });
 
       const callback = (notificationId: string) => {
-        if (notificationId === id && msg.link) {
+        if (notificationId === id && msg && msg.link) {
           browser.tabs.create({
-            url: msg.link,
+            url: msg.link.startsWith('ext://')
+              ? browser.runtime.getURL(msg.link.replace('ext://', ''))
+              : msg.link,
           });
         }
       };

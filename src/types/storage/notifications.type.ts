@@ -8,7 +8,12 @@ export type InAppNotification = {
   [key: string]: Notification;
 };
 
+export type PushNotification = Notification & {
+  expire?: number;
+  type: string;
+};
+
 export type Notifications = {
   inApp: InAppNotification;
-  push: Notification[];
+  push: PushNotification[];
 };
