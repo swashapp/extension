@@ -34,6 +34,8 @@ export type InAppNotificationsResponse = {
 };
 
 export type PushNotificationsResponse = {
+  expire: number;
+  type: string;
   title: string;
   text: string;
   link: string;
