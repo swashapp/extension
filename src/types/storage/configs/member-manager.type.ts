@@ -5,4 +5,13 @@ export type MemberManagerConfigs = {
   maxInterval: number;
   failuresThreshold: number;
   backoffRate: number;
+  inAppNotification: {
+    checkInterval: 300000;
+    updateInterval: 3600000;
+  };
+  pushNotification: {
+    updateInterval: number;
+    checkInterval: number;
+    raiseInterval: number;
+  };
 };

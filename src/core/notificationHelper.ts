@@ -1,31 +1,37 @@
 import browser from 'webextension-polyfill';
 
-import {
-  Notification,
-  PushNotification,
-} from '../types/storage/notifications.type';
-import { commonUtils } from '../utils/common.util';
+import { MemberManagerConfigs } from '../types/storage/configs/member-manager.type';
+import { PushNotification } from '../types/storage/notifications.type';
 
+import { configManager } from './configManager';
 import { storageHelper } from './storageHelper';
 import { swashApiHelper } from './swashApiHelper';
 import { userHelper } from './userHelper';
 
 const notificationHelper = (function () {
+  let configs: MemberManagerConfigs;
   let inAppId: NodeJS.Timeout;
   let pushId: NodeJS.Timeout;
 
   async function init() {
+    configs = await configManager.getConfig('memberManager');
     addListener();
   }
 
   function setupJobs() {
     if (!inAppId)
       updateInAppNotifications().then(() => {
-        inAppId = setTimeout(updateInAppNotifications, 5 * 60 * 1000);
+        inAppId = setTimeout(
+          updateInAppNotifications,
+          configs.inAppNotification.checkInterval,
+        );
       });
     if (!pushId)
       updatePushNotifications().then(() => {
-        pushId = setInterval(updatePushNotifications, 5 * 60 * 1000);
+        pushId = setInterval(
+          updatePushNotifications,
+          configs.pushNotification.checkInterval,
+        );
       });
   }
 
@@ -39,7 +45,11 @@ const notificationHelper = (function () {
     const states = await storageHelper.getStates();
 
     const now = Date.now();
-    if (states.lastPushNotificationRaise + 15 * 60 * 1000 > now) {
+    if (
+      states.lastPushNotificationRaise +
+        configs.pushNotification.raiseInterval >
+      now
+    ) {
       console.log('No need to raise a push notifications now');
       return;
     }
@@ -87,8 +97,14 @@ const notificationHelper = (function () {
     const states = await storageHelper.getStates();
     console.log('Updating in app notifications');
 
-    if (commonUtils.isToday(new Date(states.lastInAppNotificationUpdate))) {
-      console.log('No need to update in app notifications today');
+    const now = Date.now();
+
+    if (
+      states.lastInAppNotificationUpdate +
+        configs.pushNotification.updateInterval >
+      now
+    ) {
+      console.log('No need to update in app notifications now');
       return;
     }
 
@@ -104,7 +120,7 @@ const notificationHelper = (function () {
       storageHelper.saveNotifications({ inApp, push }).catch(console.error);
     }
 
-    states.lastInAppNotificationUpdate = Date.now();
+    states.lastInAppNotificationUpdate = now;
     storageHelper.saveStates(states).catch(console.error);
   }
 
@@ -119,7 +135,11 @@ const notificationHelper = (function () {
 
     const now = Date.now();
 
-    if (states.lastPushNotificationUpdate.check + 60 * 60 * 1000 > now) {
+    if (
+      states.lastPushNotificationUpdate.check +
+        configs.pushNotification.updateInterval >
+      now
+    ) {
       console.log('No need to update push notifications now');
       return;
     }

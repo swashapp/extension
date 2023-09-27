@@ -50,7 +50,8 @@ export abstract class Entity<Type> {
   public async merge(value: Any): Promise<void> {
     if (!value) return;
 
-    this.cache = { ...this.cache, ...value };
+    if (Array.isArray(this.cache)) this.cache = value;
+    else this.cache = { ...this.cache, ...value };
     await this.saveCache();
   }
 

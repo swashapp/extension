@@ -4,5 +4,14 @@
   "tryInterval": 10000,
   "maxInterval": 3600000,
   "failuresThreshold": 2,
-  "backoffRate": 2
+  "backoffRate": 2,
+  "inAppNotification": {
+    "checkInterval": 300000,
+    "updateInterval": 86400000
+  },
+  "pushNotification": {
+    "checkInterval": 300000,
+    "updateInterval": 3600000,
+    "raiseInterval": 900000
+  }
 }
