@@ -20,14 +20,14 @@ const notificationHelper = (function () {
 
   function setupJobs() {
     if (!inAppId)
-      updateInAppNotifications().then(() => {
+      updateInAppNotifications().finally(() => {
         inAppId = setTimeout(
           updateInAppNotifications,
           configs.inAppNotification.checkInterval,
         );
       });
     if (!pushId)
-      updatePushNotifications().then(() => {
+      updatePushNotifications().finally(() => {
         pushId = setInterval(
           updatePushNotifications,
           configs.pushNotification.checkInterval,
