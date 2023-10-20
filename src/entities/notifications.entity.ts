@@ -22,6 +22,9 @@ export class NotificationsEntity extends Entity<Notifications> {
   }
 
   public async upgrade(): Promise<void> {
+    if (!this.cache.inApp) this.cache.inApp = {};
+    if (!this.cache.push) this.cache.push = [];
+
     for (const key of Object.keys(this.cache)) {
       if (['inApp', 'push'].includes(key)) continue;
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
