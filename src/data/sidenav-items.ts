@@ -1,12 +1,13 @@
 import { Data } from '../pages/data';
 import { Donations } from '../pages/donations';
+import { EarnFromAds } from '../pages/earn-from-ads';
 import { EarnMore } from '../pages/earn-more';
+import { Earnings } from '../pages/earnings';
 import { Help } from '../pages/help';
 import { History } from '../pages/history';
 import { InviteFriends } from '../pages/invite-friends';
 import { Profile } from '../pages/profile';
 import { Settings } from '../pages/settings';
-import { Wallet } from '../pages/wallet';
 import { RouteToPages } from '../paths';
 
 const dataBlackIcon = '/static/images/icons/sidenav/data-black.svg';
@@ -34,7 +35,31 @@ export interface SidenavItem {
   icon?: { active: string; inactive: string };
   route: string;
   component: () => JSX.Element;
+  hidden: boolean;
 }
+
+const HiddenItems = [
+  {
+    title: 'Earn From Ads',
+    route: RouteToPages.earnFromAds,
+    component: EarnFromAds,
+    hidden: true,
+  },
+  {
+    title: 'Invite Friends',
+    icon: { active: inviteFriendsIcon, inactive: inviteFriendsBlackIcon },
+    route: RouteToPages.inviteFriends,
+    component: InviteFriends,
+    hidden: true,
+  },
+  {
+    title: 'Data',
+    icon: { active: dataIcon, inactive: dataBlackIcon },
+    route: RouteToPages.data,
+    component: Data,
+    hidden: true,
+  },
+];
 
 export const SidenavItems = [
   {
@@ -42,53 +67,49 @@ export const SidenavItems = [
     icon: { active: profileIcon, inactive: profileBlackIcon },
     route: RouteToPages.profile,
     component: Profile,
+    hidden: false,
   },
   {
-    title: 'Wallet',
+    title: 'Earnings',
     icon: { active: walletIcon, inactive: walletBlackIcon },
-    route: RouteToPages.wallet,
-    component: Wallet,
+    route: RouteToPages.earnings,
+    component: Earnings,
+    hidden: false,
   },
   {
     title: 'Earn More',
     icon: { active: earnMoreIcon, inactive: earnMoreBlackIcon },
     route: RouteToPages.earnMore,
     component: EarnMore,
+    hidden: false,
   },
   {
     title: 'Donations',
     icon: { active: donationsIcon, inactive: donationsBlackIcon },
     route: RouteToPages.donations,
     component: Donations,
-  },
-  {
-    title: 'Invite Friends',
-    icon: { active: inviteFriendsIcon, inactive: inviteFriendsBlackIcon },
-    route: RouteToPages.inviteFriends,
-    component: InviteFriends,
-  },
-  {
-    title: 'Data',
-    icon: { active: dataIcon, inactive: dataBlackIcon },
-    route: RouteToPages.data,
-    component: Data,
+    hidden: false,
   },
   {
     title: 'History',
     icon: { active: historyIcon, inactive: historyBlackIcon },
     route: RouteToPages.history,
     component: History,
+    hidden: false,
   },
   {
     title: 'Settings',
     icon: { active: settingsIcon, inactive: settingsBlackIcon },
     route: RouteToPages.settings,
     component: Settings,
+    hidden: false,
   },
   {
     title: 'Help',
     icon: { active: helpIcon, inactive: helpBlackIcon },
     route: RouteToPages.help,
     component: Help,
+    hidden: false,
   },
+  ...HiddenItems,
 ] as SidenavItem[];

@@ -57,7 +57,6 @@ function Index() {
   const [verified, setVerified] = useState<boolean | undefined>(undefined);
   const [tokenAvailable, setTokenAvailable] = useState<string>(initValue);
   const [unclaimedBonus, setUnclaimedBonus] = useState<string>(initValue);
-  const [excluded, setExcluded] = useState<boolean>(false);
 
   const getUnclaimedBonus = useCallback(() => {
     window.helper.getBonus().then((_unclaimedBonus: string | number) => {
@@ -66,7 +65,7 @@ function Index() {
           _unclaimedBonus.toString() !== _unclaimed
             ? _unclaimedBonus.toString()
             : _unclaimed;
-        return UtilsService.purgeNumber(ret, 4);
+        return UtilsService.purgeNumber(ret, 2);
       });
     });
   }, []);
@@ -80,7 +79,7 @@ function Index() {
           typeof _tokenAvailable === 'undefined'
             ? token
             : _tokenAvailable;
-        return UtilsService.purgeNumber(_token, 4);
+        return UtilsService.purgeNumber(_token, 2);
       });
     });
   }, []);
@@ -89,12 +88,6 @@ function Index() {
     getUnclaimedBonus();
     getTokenAvailable();
   }, [getTokenAvailable, getUnclaimedBonus]);
-
-  useEffect(() => {
-    window.helper.isCurrentDomainFiltered().then((filtered: any) => {
-      if (filtered) setExcluded(true);
-    });
-  }, []);
 
   const [needOnBoarding, setNeedOnBoarding] = useState<boolean>(true);
   const showPageOnTab = useCallback((url_to_show: string) => {
@@ -148,51 +141,49 @@ function Index() {
         <div className="extension-popup-container">
           <div className="flex-column extension-popup">
             <div className="flex-row extension-popup-logo-and-switch">
-              <SwashLogo className="extension-popup-logo" />
+              <div className="flex-row flex-align-center">
+                <SwashLogo className="extension-popup-logo" />
+                {verified === undefined ? (
+                  <></>
+                ) : (
+                  <VerificationBadge verified={verified} darkBackground />
+                )}
+              </div>
               <Toggle />
             </div>
             <FlexGrid
               column={2}
               className="flex-row form-item-gap extension-popup-numerics"
             >
-              <NumericStats value={tokenAvailable} label="SWASH Earnings" />
-              <NumericStats value={unclaimedBonus} label="SWASH Rewards" />
+              <NumericStats value={tokenAvailable} label="Earning balance" />
+              <NumericStats value={unclaimedBonus} label="Rewards to claim" />
             </FlexGrid>
             <MenuItem
-              text="Profile"
-              iconClassName="popup-profile-icon"
-              onClick={() =>
-                showPageOnTab(
-                  browser.runtime.getURL('dashboard/index.html#/profile'),
-                )
-              }
-              badge={
-                verified === undefined ? (
-                  <></>
-                ) : (
-                  <VerificationBadge verified={verified} darkBackground />
-                )
-              }
-            />
-            <MenuItem
-              text="Wallet"
+              text="Earnings"
               iconClassName="popup-wallet-icon"
               onClick={() =>
                 showPageOnTab(
-                  browser.runtime.getURL('dashboard/index.html#/wallet'),
+                  browser.runtime.getURL('dashboard/index.html#/earnings'),
                 )
               }
             />
             <MenuItem
-              text="Exclude Current Domain"
-              iconClassName={`popup-exclude-icon ${
-                excluded ? 'popup-excluded' : ''
-              }`}
-              onClick={() => {
-                window.helper.handleFilter().then(() => {
-                  setExcluded(true);
-                });
-              }}
+              text="Earn More"
+              iconClassName="popup-earn-more-icon"
+              onClick={() =>
+                showPageOnTab(
+                  browser.runtime.getURL('dashboard/index.html#/earn-more'),
+                )
+              }
+            />
+            <MenuItem
+              text="Settings"
+              iconClassName="popup-settings-icon"
+              onClick={() =>
+                showPageOnTab(
+                  browser.runtime.getURL('dashboard/index.html#/settings'),
+                )
+              }
             />
             <MenuItem
               text="Help"

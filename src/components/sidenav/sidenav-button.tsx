@@ -7,13 +7,13 @@ import { Toggle } from '../toggle/toggle';
 
 const SidenavIcon = '/static/images/shape/sidenav.png';
 
-export function SidenavButton(props: { isTourOn: boolean }): JSX.Element {
+export function SidenavButton(): JSX.Element {
   const sidenav = useContext(SidenavContext);
   return (
     <div
       className={`sidenav-button-container ${
         sidenav.isOpen ? 'close-sidenav-button' : 'open-sidenav-button'
-      } ${props.isTourOn ? 'sidenav-button' : 'sidenav-button-animation'}`}
+      } sidenav-button-animation`}
     >
       <SwashLogo />
       <div className="flex-row sidenav-toggles">

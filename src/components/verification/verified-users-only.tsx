@@ -19,7 +19,7 @@ export function VerifiedUsersOnly(props: {
           text={'Cancel'}
           color={'secondary'}
           className="small-popup-actions-cancel"
-          link={{ url: RouteToPages.wallet }}
+          link={{ url: RouteToPages.earnings }}
           onClick={() => {
             closePopup();
           }}

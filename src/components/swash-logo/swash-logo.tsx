@@ -1,13 +1,19 @@
+import useMediaQuery from '@mui/material/useMediaQuery';
 import React from 'react';
 
 import browser from 'webextension-polyfill';
 
+import { useColorScheme } from '../../hooks/use-color-scheme';
 import { WebsitePath } from '../../paths';
 import { Link } from '../link/link';
 
-const logo = '/static/images/logos/swash-logo.svg';
+const lightLogo = '/static/images/logos/swash-dark.svg';
+const darkLogo = '/static/images/logos/swash-white.svg';
 
 export function SwashLogo(props: { className?: string }): JSX.Element {
+  const { isDark } = useColorScheme();
+  const logo = isDark ? darkLogo : lightLogo;
+
   return (
     <div className="flex-row swash-logo">
       <Link url={WebsitePath} external>

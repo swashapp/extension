@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Button } from '../components/button/button';
 import { Charity } from '../components/charity/charity';
-import { DONATION_TOUR_CLASS } from '../components/components-tour/donation-tour';
 import { StopDonation } from '../components/donate/stop-donation';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
@@ -56,6 +55,9 @@ export function Donations(): JSX.Element {
     <div className="page-container">
       <BackgroundTheme layout="layout3" />
       <div className="page-content">
+        <div className="page-header">
+          <h2>Donations</h2>
+        </div>
         {onGoing && charities.length > 0 ? (
           <div className="flex-column card-gap donation-bottom-margin">
             <div className="simple-card">
@@ -140,9 +142,6 @@ export function Donations(): JSX.Element {
         ) : (
           <></>
         )}
-        <div className="page-header">
-          <h2>Donations</h2>
-        </div>
         <div className="flex-column card-gap">
           <div className="simple-card">
             <div className="donation-burn">
@@ -169,7 +168,6 @@ export function Donations(): JSX.Element {
             <hr className="custom" />
             <div>
               <Input
-                className={DONATION_TOUR_CLASS.SEARCH_CHARITY}
                 name="search"
                 placeholder="Search the list of charities"
                 value={searchText}

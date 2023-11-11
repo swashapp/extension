@@ -9,7 +9,9 @@ export interface LinkProps {
 }
 
 export function Link(
-  props: PropsWithChildren<LinkProps & { children: JSX.Element | string }>,
+  props: PropsWithChildren<
+    LinkProps & { children: JSX.Element[] | JSX.Element | string }
+  >,
 ): JSX.Element {
   const { url, newTab = false, className = '' } = props;
 

@@ -4,7 +4,6 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '../components/button/button';
-import { PROFILE_TOUR_CLASS } from '../components/components-tour/profile-tour';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { showPopup } from '../components/popup/popup';
@@ -169,9 +168,7 @@ export function Profile(): JSX.Element {
           />
         </div>
         <FlexGrid column={2} className="half-cards card-gap">
-          <div
-            className={`simple-card profile-simple-card ${PROFILE_TOUR_CLASS.COMPLETE_PROFILE}`}
-          >
+          <div className={`simple-card profile-simple-card`}>
             <div>
               <h6>Complete your profile</h6>
               Tell Swash you’re human by verifying your profile. Only members
@@ -293,7 +290,7 @@ export function Profile(): JSX.Element {
                 </>
               )}
             </div>
-            <div className={`simple-card ${PROFILE_TOUR_CLASS.VERIFY_PROFILE}`}>
+            <div className={`simple-card`}>
               <h6>Contact information</h6>
               <VerifiedInfoBox
                 title={'Email address'}

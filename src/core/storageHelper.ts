@@ -12,8 +12,9 @@ import { OnboardingEntity } from '../entities/onboarding.entity';
 import { PrivacyDataEntity } from '../entities/privacy-data.entity';
 import { ProfileEntity } from '../entities/profile.entity';
 import { StateEntity } from '../entities/state.entity';
+import { FilterType } from '../enums/filter.enum';
 import { Any } from '../types/any.type';
-import { AdsConfig } from '../types/storage/ads-config.type';
+import { AdsConfig, PausedAdInfo } from '../types/storage/ads-config.type';
 import { Charity } from '../types/storage/charity.type';
 import { Configs } from '../types/storage/configs.type';
 import { Filter } from '../types/storage/filter.type';
@@ -202,6 +203,69 @@ const storageHelper = (function () {
     return saveModules(modules);
   }
 
+  async function getExcludeUrls() {
+    const filters = await getFilters();
+    return filters.filter((item) => !item.internal).map((item) => item.value);
+  }
+
+  async function saveExcludeUrls(data: string[]) {
+    const oldFilters = await getFilters();
+    const newFilters: Filter[] = [];
+
+    data.forEach((item) => {
+      newFilters.push({
+        internal: false,
+        type: FilterType.Wildcard,
+        value: item,
+      });
+    });
+
+    return saveFilters([
+      ...newFilters,
+      ...oldFilters.filter((item) => item.internal),
+    ]);
+  }
+
+  async function getPausedDisplayedAds() {
+    const ads = await getAdsConfig();
+    if (ads.paused.displayAd) {
+      const displayAd = ads.paused.displayAd;
+      return displayAd
+        .filter((item) => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          return !!item['domain'];
+        })
+        .map((item) => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          return item['domain'];
+        });
+    }
+    return [];
+  }
+
+  async function savePausedDisplayedAds(data: string[]) {
+    const ads = await getAdsConfig();
+    let pausedAds: PausedAdInfo[] = [];
+
+    if (ads.paused.displayAd) {
+      const displayAd = ads.paused.displayAd;
+      pausedAds = displayAd.filter((item) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        return !item['domain'];
+      });
+    }
+    data.forEach((item) => {
+      pausedAds.push({
+        domain: item,
+      });
+    });
+    ads.paused.displayAd = pausedAds;
+    return saveAdsConfig(ads);
+  }
+
   return {
     getAll,
     saveAll,
@@ -237,6 +301,10 @@ const storageHelper = (function () {
     saveStates,
     mergeStates,
     getStates,
+    getExcludeUrls,
+    saveExcludeUrls,
+    getPausedDisplayedAds,
+    savePausedDisplayedAds,
   };
 })();
 export { storageHelper };
