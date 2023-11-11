@@ -345,6 +345,42 @@ const helper = (function () {
     return sendMessage(message);
   }
 
+  function getExcludeUrls() {
+    const message = {
+      obj: 'storageHelper',
+      func: 'getExcludeUrls',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
+  function saveExcludeUrls(data) {
+    const message = {
+      obj: 'storageHelper',
+      func: 'saveExcludeUrls',
+      params: [data],
+    };
+    return sendMessage(message);
+  }
+
+  function getPausedDisplayedAds() {
+    const message = {
+      obj: 'storageHelper',
+      func: 'getPausedDisplayedAds',
+      params: [],
+    };
+    return sendMessage(message);
+  }
+
+  function savePausedDisplayedAds(data) {
+    const message = {
+      obj: 'storageHelper',
+      func: 'savePausedDisplayedAds',
+      params: [data],
+    };
+    return sendMessage(message);
+  }
+
   function isNeededOnBoarding() {
     const message = {
       obj: 'onboarding',
@@ -894,6 +930,10 @@ const helper = (function () {
     isCurrentDomainFiltered,
     loadWallets,
     saveWallets,
+    getExcludeUrls,
+    saveExcludeUrls,
+    getPausedDisplayedAds,
+    savePausedDisplayedAds,
     generateJWT,
     startOnBoarding,
     isNeededOnBoarding,

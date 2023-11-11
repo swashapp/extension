@@ -8,7 +8,6 @@ export function NumericSection(props: {
   tooltip?: string | ReactElement;
   value: number | string;
   image?: string;
-  tourClassName?: string;
 }): JSX.Element {
   const { layout = 'layout1', title, value, image } = props;
   return (
@@ -21,7 +20,7 @@ export function NumericSection(props: {
         ) : (
           <></>
         )}
-        <div className={`numeric-title-number ${props.tourClassName}`}>
+        <div className={`numeric-title-number`}>
           <div className="flex-row">
             <div className={'numeric-title'}>{title}</div>
             {props.tooltip ? <Tooltip text={props.tooltip} /> : <></>}

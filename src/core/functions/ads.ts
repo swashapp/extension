@@ -180,7 +180,7 @@ const ads = (function () {
     const adsEntity = await AdsEntity.getInstance();
 
     const url = new URL(domain);
-    await adsEntity.addPaused(type, { domain: `${url.origin}/*` });
+    await adsEntity.addPaused(type, { domain: `*://${url.host}/*` });
   }
 
   return {

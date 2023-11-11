@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '../components/button/button';
-import { WALLET_TOUR_CLASS } from '../components/components-tour/wallet-tour';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { FormMessage } from '../components/form-message/form-message';
@@ -23,7 +22,7 @@ const SwashEarningsIcon = '/static/images/icons/swash-earnings.svg';
 
 const networkList = [{ name: 'Gnosis Chain', value: 'Gnosis Chain' }];
 
-export function Wallet(): JSX.Element {
+export function Earnings(): JSX.Element {
   const [tokenAvailable, setTokenAvailable] = useState<string>(initValue);
   const [claiming, setClaiming] = useState<boolean>(false);
   const [withdrawing, setWithdrawing] = useState<boolean>(false);
@@ -156,21 +155,20 @@ export function Wallet(): JSX.Element {
       <BackgroundTheme />
       <div className="page-content">
         <div className="page-header">
-          <h2>Wallet</h2>
+          <h2>Earnings</h2>
         </div>
         <FlexGrid column={2} className="half-cards card-gap">
           <div className={'flex-column card-gap'}>
             <FlexGrid column={2} className={'wallet-numerics card-gap'}>
               <NumericSection
-                tourClassName={WALLET_TOUR_CLASS.SWASH_EARNINGS}
-                title="SWASH Earnings"
+                title="Earning balance"
                 tooltip="This number updates every 48 hours."
                 value={tokenAvailable}
                 layout="layout1"
                 image={SwashEarningsIcon}
               />
               <NumericSection
-                title="SWASH Rewards"
+                title="Rewards to claim"
                 tooltip="When you click ‘Claim’, your bonuses are added to your SWASH Earnings."
                 value={unclaimedBonus}
                 layout={
@@ -197,7 +195,7 @@ export function Wallet(): JSX.Element {
                   }
                 />
               </div>
-              <div className={WALLET_TOUR_CLASS.WALLET_ADDRESS}>
+              <div>
                 <Input
                   label="Wallet Address"
                   value={walletAddress}
@@ -220,66 +218,11 @@ export function Wallet(): JSX.Element {
                 <Button
                   color="secondary"
                   text="Read More"
-                  link={false}
-                  onClick={() =>
-                    showPopup({
-                      closable: true,
-                      closeOnBackDropClick: true,
-                      paperClassName: 'wallet-read-more',
-                      content: (
-                        <>
-                          <div className="wallet-read-more-title">
-                            <h6>Withdraw your earnings</h6>
-                          </div>
-                          <p>
-                            You can withdraw your earnings using Gnosis Chain.
-                            Exchange wallets are not currently supported.
-                            <br />
-                            <br />
-                            It’s important to make sure you have set up your
-                            wallet properly (it only takes a few minutes!). Read{' '}
-                            <a
-                              href="https://medium.com/swashapp/everything-you-need-to-know-about-withdrawing-your-swash-f11d507978ec"
-                              style={{
-                                color: 'var(--blue)',
-                              }}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              this blog
-                            </a>{' '}
-                            for step-by-step instructions.
-                            <br />
-                            <br />
-                            Gnosis Chain is the recommended method as it’s
-                            faster, more efficient, and Swash will cover the
-                            cost for you! 🎉
-                            <br />
-                            <br />
-                            You can also put your SWASH to work by trading or
-                            staking liquidity on the SWASH / Gnosis Chain pool
-                            on{' '}
-                            <a
-                              href="https://honeyswap.org"
-                              target="_blank"
-                              style={{
-                                color: 'var(--blue)',
-                              }}
-                              rel="noreferrer"
-                            >
-                              Honeyswap
-                            </a>{' '}
-                            🐝
-                            <br />
-                            <br />
-                            Alternatively, if you use Ethereum, you will be
-                            presented with the amount needed in your wallet (in
-                            ETH) to cover the transaction fee.
-                          </p>
-                        </>
-                      ),
-                    })
-                  }
+                  link={{
+                    url: 'https://medium.com/swashapp/everything-you-need-to-know-about-withdrawing-your-swash-f11d507978ec',
+                    external: true,
+                    newTab: true,
+                  }}
                 />
               </div>
             </div>
@@ -297,6 +240,7 @@ export function Wallet(): JSX.Element {
                   label="Withdraw to"
                   value={network}
                   onChange={(e) => setNetwork(e.target.value as string)}
+                  disabled={true}
                 />
               </FlexGrid>
               <Input

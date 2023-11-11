@@ -1,6 +1,6 @@
 {
   "name": "swash-extension",
-  "version": "2.9.1",
+  "version": "2.10.0",
   "type": "module",
   "repository": {
     "url": "https://github.com/swashapp/extension.git"
@@ -70,7 +70,6 @@
     "react-collapse": "5.1.0",
     "react-copy-to-clipboard": "5.0.4",
     "react-dom": "17.0.2",
-    "react-joyride": "2.3.2",
     "react-keyed-file-browser": "1.13.1",
     "react-router-dom": "5.3.0",
     "react-scroll": "1.8.4",
@@ -81,6 +80,7 @@
     "reactstrap": "8.10.1",
     "remove": "0.1.5",
     "streamr-client": "8.5.5-nolit.1",
+    "use-persisted-state": "^0.3.3",
     "webextension-polyfill": "0.10.0"
   },
   "devDependencies": {
@@ -95,6 +95,7 @@
     "@types/react-dom": "17.0.11",
     "@types/react-router-dom": "5.3.2",
     "@types/react-swipeable-views": "0.13.1",
+    "@types/use-persisted-state": "^0.3.4",
     "@types/webextension-polyfill": "0.8.1",
     "@typescript-eslint/eslint-plugin": "5.59.11",
     "@typescript-eslint/parser": "5.59.11",

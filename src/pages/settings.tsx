@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import browser from 'webextension-polyfill';
 
 import { Button } from '../components/button/button';
-import { SETTINGS_TOUR_CLASS } from '../components/components-tour/settings-tour';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { IconButton } from '../components/icon-button/icon-button';
@@ -11,6 +10,7 @@ import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-ad
 import { Input } from '../components/input/input';
 import { ToastMessage } from '../components/toast/toast-message';
 import { helper } from '../core/webHelper';
+import { RouteToPages } from '../paths';
 
 const DropboxLogo = '/static/images/logos/dropbox.png';
 const FileLogo = '/static/images/logos/file.png';
@@ -77,8 +77,8 @@ export function Settings(): JSX.Element {
         </div>
         <div className="flex-column card-gap">
           <div className="simple-card">
-            <div className={SETTINGS_TOUR_CLASS.BACKUP}>
-              <h6>Backup your wallet settings</h6>
+            <div>
+              <h6>Backup your account</h6>
             </div>
             <div className="flex-column card-gap">
               <p>
@@ -113,31 +113,52 @@ export function Settings(): JSX.Element {
               </FlexGrid>
             </div>
           </div>
-          <div className="simple-card">
-            <h6>Private key</h6>
-            <p>
-              Think of your private key like a password. Do not share it with
-              anyone and make sure to store it securely offline.
-            </p>
-            <div className={SETTINGS_TOUR_CLASS.PRIVATE_KEY}>
-              <Input
-                label="Private key"
-                value={privateKey}
-                type={reveal ? 'text' : 'password'}
-                disabled={true}
-                onChange={(e) => setPrivateKey(e.target.value)}
-                endAdornment={<CopyEndAdornment value={privateKey} />}
-              />
+          <FlexGrid column={2} className="half-cards card-gap settings-columns">
+            <div className="simple-card">
+              <h6>Private key</h6>
+              <p>
+                Think of your private key like a password. Do not share it with
+                anyone and make sure to store it securely offline.
+              </p>
+              <div>
+                <Input
+                  label="Private key"
+                  value={privateKey}
+                  type={reveal ? 'text' : 'password'}
+                  disabled={true}
+                  onChange={(e) => setPrivateKey(e.target.value)}
+                  endAdornment={<CopyEndAdornment value={privateKey} />}
+                />
+              </div>
+              <div className="reveal-private-key-button">
+                <Button
+                  color="secondary"
+                  text={`${reveal ? 'Hide' : 'Reveal'} private key`}
+                  link={false}
+                  onClick={() => setReveal((r) => !r)}
+                />
+              </div>
             </div>
-            <div className="reveal-private-key-button">
-              <Button
-                color="secondary"
-                text={`${reveal ? 'Hide' : 'Reveal'} private key`}
-                link={false}
-                onClick={() => setReveal((r) => !r)}
-              />
+            <div className="simple-card">
+              <h6>Data & ads controls</h6>
+              <p>
+                Curious about your data?
+                <br />
+                <br />
+                Manage your data, undo ad site restrictions, and amend your
+                domain preferences at anytime via the data & ads control center.
+                <br />
+                <br />
+              </p>
+              <div className="manage-preferences-key-button">
+                <Button
+                  color="primary"
+                  text={`Manage Preferences`}
+                  link={{ url: RouteToPages.data }}
+                />
+              </div>
             </div>
-          </div>
+          </FlexGrid>
         </div>
       </div>
     </div>

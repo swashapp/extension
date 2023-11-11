@@ -33,4 +33,17 @@
   .swash-earn-button > span {
     display: none;
   }
+
+  .earn-more-grid-container,
+  .help-grid-container {
+    width: auto;
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 440px) {
+  .earn-more-option {
+    width: 60vw;
+    height: 60vw;
+  }
 }

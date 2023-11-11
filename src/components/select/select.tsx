@@ -30,6 +30,7 @@ export function Select(
     onChange?: (
       event: SelectChangeEvent<{ name?: string; value: unknown }>,
     ) => void;
+    disabled?: boolean;
   }>,
 ): JSX.Element {
   const classes = useStyles();
@@ -37,9 +38,13 @@ export function Select(
     <Label id={'customized-select-' + props.value} text={props.label}>
       <MuiSelect
         displayEmpty={true}
-        IconComponent={() => (
-          <img className={classes.icon} src={smallArrow} alt={'>'} />
-        )}
+        IconComponent={() =>
+          props.disabled ? (
+            <></>
+          ) : (
+            <img className={classes.icon} src={smallArrow} alt={'>'} />
+          )
+        }
         className={'select'}
         id={'customized-select-' + props.value}
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -55,6 +60,7 @@ export function Select(
             },
           },
         }}
+        disabled={props.disabled}
         input={<InputBase />}
       >
         {props.items.map((item, index) => (

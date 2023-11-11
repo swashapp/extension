@@ -16,6 +16,31 @@
   --gray: #eeeeee;
   --warning: #f9c057;
   --error: #ff7979;
+
+  --data-background: white;
+  --data-font-color: black;
+  --data-font-color-second: #7c7c7c;
+
+  --vivid-yellow: #fbe159;
+  --ice-purple: #cbabe7;
+  --mint-green: #c5e4d3;
+  --ice-yellow: #f1f2ab;
+}
+
+.vivid-yellow-bg {
+  background: var(--vivid-yellow);
+}
+
+.ice-purple-bg {
+  background: var(--ice-purple);
+}
+
+.mint-green-bg {
+  background: var(--mint-green);
+}
+
+.ice-yellow-bg {
+  background: var(--ice-yellow);
 }
 
 html,
@@ -60,7 +85,7 @@ h4,
 h5,
 h6,
 .title {
-  font-family: 'Sans Sequel', sans-serif;
+  font-family: Space Grotesk, sans-serif;
   margin: 0;
 }
 
@@ -553,15 +578,15 @@ hr.nav {
   background: url('/static/images/shape/heart-filled.png');
 }
 
-.text-masking-container {
+.text-list-container {
   width: 100%;
 }
 
-.text-masking-items {
+.text-list-items {
   padding: 16px 0 24px 0;
 }
 
-.text-masking-item {
+.text-list-item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -678,56 +703,6 @@ hr.nav {
   right: 16px;
 }
 
-.tour-step-container {
-  display: flex;
-  flex-direction: column;
-  padding: 0 7px;
-  text-align: left;
-
-  gap: 24px;
-}
-
-.tour-step-container > p {
-  font-size: 14px;
-  color: #1f3c5a;
-}
-
-.tour-nav-buttons {
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-
-  border-top: 1px solid #e7f4f4;
-  padding-top: 20px;
-}
-
-.tour-nav-buttons .form-button {
-  width: 88px;
-}
-
-.__floater__arrow > span {
-  margin: 10px;
-}
-
-.react-joyride__beacon {
-  background: url('/static/images/shape/question.svg') no-repeat center center;
-  right: -10px;
-  /* top: 10px; */
-  visibility: visible;
-}
-
-.react-joyride__beacon span {
-  visibility: hidden;
-}
-
-.react-joyride__tooltip svg {
-  display: none;
-}
-
-#react-joyride-portal {
-  z-index: 10000;
-}
-
 .main-container {
   width: 100vw;
   height: 100%;
@@ -745,6 +720,7 @@ hr.nav {
 
 .content {
   width: calc(100% - 256px);
+  position: relative;
 }
 
 .content > div {
@@ -753,6 +729,33 @@ hr.nav {
   background-color: var(--lightest-blue);
   display: flex;
   flex-direction: column;
+}
+
+.dark-theme-toggle {
+  width: unset !important;
+  height: unset !important;
+
+  position: absolute !important;
+  top: 74px !important;
+  right: 64px !important;
+
+  z-index: 2 !important;
+
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.dark-theme-toggle img {
+  width: 20px;
+  height: 20px;
+}
+
+.dark-theme-active {
+  filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(87deg)
+    brightness(119%) contrast(119%);
 }
 
 .sidenav > div {
@@ -1221,8 +1224,16 @@ hr.nav {
   flex-wrap: nowrap;
 }
 
+.settings-columns > div > div {
+  height: calc(100% - 64px);
+}
+
 .reveal-private-key-button {
   width: 173px;
+}
+
+.manage-preferences-key-button {
+  width: 100%;
 }
 
 .toast-panel-container {
@@ -1318,10 +1329,6 @@ hr.nav {
 
 .token-transfer-popup-completed > p {
   color: #1f3c5a;
-}
-
-.next-tour-button {
-  width: 131px;
 }
 
 .section-accordion-container p {
@@ -1847,22 +1854,6 @@ hr.nav {
   color: var(--blue);
 }
 
-.help-wallet-earnings-image {
-  background: url('/static/images/background/help-earnings.png') no-repeat
-    center center;
-  width: 418px;
-  height: 264px;
-  background-size: 418px 264px;
-}
-
-.help-getting-started-image {
-  background: url('/static/images/background/help-popup.png') no-repeat center
-    center;
-  width: 300px;
-  height: 486px;
-  background-size: 300px 486px;
-}
-
 .sidenav-button-container {
   display: none;
   overflow: hidden;
@@ -2004,6 +1995,10 @@ hr.nav {
   background-color: #f3f9f9;
 }
 
+.extension-popup-menu-item:last-of-type {
+  margin-bottom: 16px;
+}
+
 .extension-popup-menu-item-text {
   font-style: normal;
   font-weight: 600;
@@ -2014,8 +2009,8 @@ hr.nav {
 }
 
 .popup-wallet-icon,
-.popup-profile-icon,
-.popup-exclude-icon,
+.popup-earn-more-icon,
+.popup-settings-icon,
 .popup-help-icon {
   width: 24px;
   height: 24px;
@@ -2031,28 +2026,23 @@ hr.nav {
     center;
 }
 
-.popup-profile-icon {
-  background: url('/static/images/icons/sidenav/profile-black.svg') no-repeat
+.popup-earn-more-icon {
+  background: url('/static/images/icons/sidenav/earn-more-black.svg') no-repeat
     center center;
 }
 
-.extension-popup-menu-item:hover .popup-profile-icon {
-  background: url('/static/images/icons/sidenav/profile.png') no-repeat center
+.extension-popup-menu-item:hover .popup-earn-more-icon {
+  background: url('/static/images/icons/sidenav/earn-more.png') no-repeat center
     center;
 }
 
-.popup-exclude-icon {
-  background: url('/static/images/icons/sidenav/exclude-black.svg') no-repeat
+.popup-settings-icon {
+  background: url('/static/images/icons/sidenav/settings-black.svg') no-repeat
     center center;
 }
 
-.extension-popup-menu-item:hover .popup-exclude-icon {
-  background: url('/static/images/icons/sidenav/exclude.svg') no-repeat center
-    center;
-}
-
-.popup-excluded {
-  background: url('/static/images/icons/sidenav/exclude.svg') no-repeat center
+.extension-popup-menu-item:hover .popup-settings-icon {
+  background: url('/static/images/icons/sidenav/settings.png') no-repeat center
     center;
 }
 
@@ -2220,24 +2210,6 @@ hr.nav {
 
   color: #8091a3;
   align-self: center;
-}
-
-.help-video {
-  width: 700px;
-  height: 350px;
-}
-
-.help-video-alt {
-  width: 700px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px;
-  border: 1px solid black;
-}
-
-.help-video-alt p {
-  margin: 0 10px;
 }
 
 .donation-burn {
@@ -2502,10 +2474,12 @@ hr.nav {
   box-shadow: none;
   border-top: 1px solid #dee2e6;
   border-bottom: 1px solid #dee2e6;
+
+  background: transparent !important;
 }
 
 .transaction-table-header tr th {
-  font-family: Sans Sequel, sans-serif;
+  font-family: Space Grotesk, sans-serif;
   font-style: normal;
   font-weight: 415;
   font-size: 14px;
@@ -2633,15 +2607,17 @@ hr.nav {
 }
 
 .profile-verification-container {
+  height: 14px !important;
+
   background: #ffffff;
   border-radius: 100px;
 
-  padding: 6px 12px;
-  margin-left: 16px;
+  padding: 6px 10px;
+  margin-left: 9px;
 }
 
 .verified-dark-background {
-  background: #e7fcee;
+  background: #f5fdf7;
 }
 
 .unverified-dark-background {
@@ -2658,7 +2634,7 @@ hr.nav {
 .verified-info-value,
 .verified-info-unverified {
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .profile-status-verified,
@@ -2668,7 +2644,7 @@ hr.nav {
 
   font-size: 12px;
   line-height: 12px;
-  color: #26f168;
+  color: #3ce35f;
 }
 
 .profile-status-unverified {
@@ -2751,6 +2727,57 @@ hr.nav {
   margin-bottom: 8px;
 }
 
+.earn-more-grid-container {
+  width: 796px;
+
+  margin: auto;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 38px;
+}
+
+.earn-more-option {
+  width: 330px;
+  height: 330px;
+
+  padding: 24px;
+  position: relative;
+
+  border-radius: 12px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.earn-more-option img {
+  width: 100%;
+  height: auto;
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+}
+
+.earn-more-option-title {
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.earn-more-option-subtitle {
+  font-feature-settings: 'ss04' on;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.96px;
+}
+
 .earn-more-new-tab-cards {
   flex-wrap: nowrap;
 }
@@ -2811,3 +2838,67 @@ hr.nav {
 /*  background: rgba(0, 32, 48, 0.7);*/
 /*  position: absolute;*/
 /*}*/
+
+.help-title {
+  color: #002030;
+
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+.help-text {
+  color: #1f3c5a;
+
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.help-text a {
+  text-decoration: underline;
+}
+
+.help-grid-container {
+  width: 745px;
+
+  margin: auto;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.help-option {
+  width: 199px;
+  height: 199px;
+
+  padding: 18px;
+  position: relative;
+
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.help-option img {
+  width: 100%;
+  height: auto;
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+}
+
+.help-option-title {
+  color: #141414;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}

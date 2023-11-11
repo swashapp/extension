@@ -442,14 +442,6 @@ const HelpData = [
       '<a' +
       '  target="_blank"' +
       '  rel="noopener noreferrer"' +
-      '  href="https://t.me/swashapp_group"' +
-      '>' +
-      'Telegram Community' +
-      '</a>' +
-      '<br />' +
-      '<a' +
-      '  target="_blank"' +
-      '  rel="noopener noreferrer"' +
       '  href="https://discord.gg/TsZ4FrBaqu"' +
       '>' +
       'Discord' +

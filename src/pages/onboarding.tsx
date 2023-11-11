@@ -6,8 +6,6 @@ import React, {
   useState,
 } from 'react';
 
-import browser from 'webextension-polyfill';
-
 import { Circle } from '../components/drawing/circle';
 import { GrantPermissionAlert } from '../components/grant-permission/grant-permission-alert';
 import { CongratsWalletIsReady } from '../components/onboarding/congrats-wallet-is-ready';
@@ -18,10 +16,9 @@ import { OnboardingJoin } from '../components/onboarding/onboarding-join';
 import { OnboardingPrivacy } from '../components/onboarding/onboarding-privacy';
 import { OnboardingProfile } from '../components/onboarding/onboarding-profile';
 import { OnboardingStart } from '../components/onboarding/onboarding-start';
-import { Popup, showPopup } from '../components/popup/popup';
+import { showPopup } from '../components/popup/popup';
 import Stepper from '../components/stepper/stepper';
 import { IStepper } from '../components/stepper/stepper.type';
-import { VerificationAlert } from '../components/verification/verification-alert';
 import { helper } from '../core/webHelper';
 
 export const StepperContext = React.createContext<{

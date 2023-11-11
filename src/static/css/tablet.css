@@ -170,4 +170,10 @@
   .donation-charity {
     width: 100%;
   }
+
+  .earn-more-grid-container,
+  .help-grid-container {
+    width: auto;
+    justify-content: center;
+  }
 }

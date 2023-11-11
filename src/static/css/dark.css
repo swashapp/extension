@@ -1,0 +1,74 @@
+[data-theme='dark'] body {
+  --data-background: #232323;
+  --data-font-color: white;
+}
+
+[data-theme='dark'] body,
+[data-theme='dark'] .content > div,
+[data-theme='dark'] .icon-button-container,
+[data-theme='dark'] .ongoing-top-page,
+[data-theme='dark'] .charity {
+  background-color: #0d0d0d;
+}
+
+[data-theme='dark'] .sidenav > div,
+[data-theme='dark'] .simple-card,
+[data-theme='dark'] .numeric-container,
+[data-theme='dark'] .extension-popup {
+  background-color: #232323;
+}
+
+[data-theme='dark'] body,
+[data-theme='dark'] .sidenav-icon-title,
+[data-theme='dark'] .numeric-number,
+[data-theme='dark'] .select-item-value,
+[data-theme='dark'] .icon-button-text,
+[data-theme='dark'] .verified-info-value,
+[data-theme='dark'] .charity-title,
+[data-theme='dark'] .charity-text,
+[data-theme='dark'] .donate-confirmation-value,
+[data-theme='dark'] .donation-burn-title,
+[data-theme='dark'] .donation-burn-text,
+[data-theme='dark'] .transaction-table-header tr th,
+[data-theme='dark'] .transaction-table-body tr td,
+[data-theme='dark'] .help-title,
+[data-theme='dark'] .help-text,
+[data-theme='dark'] .extension-popup-numerics-value {
+  color: #fff;
+}
+
+[data-theme='dark'] input {
+  border-color: #7c7c7c !important;
+}
+
+[data-theme='dark'] .numeric-title,
+[data-theme='dark'] .donation-burn-text a,
+[data-theme='dark'] .transaction-table-body tr td a,
+[data-theme='dark'] .help-text a,
+[data-theme='dark'] .data-tab,
+[data-theme='dark'] .extension-popup-numerics-label {
+  color: #7c7c7c;
+}
+
+[data-theme='dark'] .input > input,
+[data-theme='dark'] .input > div,
+[data-theme='dark'] .select-item-value,
+[data-theme='dark'] .sidenav-link-inactive .sidenav-icon img,
+[data-theme='dark'] .circle-container > svg,
+[data-theme='dark'] .solid-line,
+[data-theme='dark'] .transaction-table-pagination div,
+[data-theme='dark'] .extension-popup-menu-item:hover,
+[data-theme='dark'] .popup-wallet-icon,
+[data-theme='dark'] .popup-earn-more-icon,
+[data-theme='dark'] .popup-settings-icon,
+[data-theme='dark'] .popup-help-icon {
+  color: #000000;
+  filter: invert();
+}
+
+[data-theme='dark'] .popup-wallet-icon:hover,
+[data-theme='dark'] .popup-earn-more-icon:hover,
+[data-theme='dark'] .popup-settings-icon:hover,
+[data-theme='dark'] .popup-help-icon:hover {
+  filter: unset;
+}

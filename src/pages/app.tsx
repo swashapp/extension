@@ -10,18 +10,10 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 
-import { DataTour } from '../components/components-tour/data-tour';
-import { DonationTour } from '../components/components-tour/donation-tour';
-import { EarnMoreTour } from '../components/components-tour/earn-more-tour';
-import { HelpTour } from '../components/components-tour/help-tour';
-import { HistoryTour } from '../components/components-tour/history-tour';
-import { InviteFriendsTour } from '../components/components-tour/invite-friends-tour';
-import { ProfileTour } from '../components/components-tour/profile-tour';
-import { SettingsTour } from '../components/components-tour/settings-tour';
-import { WalletTour } from '../components/components-tour/wallet-tour';
 import { Popup, showPopup } from '../components/popup/popup';
 import { Sidenav } from '../components/sidenav/sidenav';
 import { SidenavButton } from '../components/sidenav/sidenav-button';
+import { DarkModeToggle } from '../components/toggle/dark-mode-toggle';
 import { VerificationAlert } from '../components/verification/verification-alert';
 import { helper } from '../core/webHelper';
 import { SidenavItems } from '../data/sidenav-items';
@@ -32,11 +24,9 @@ import { Onboarding } from './onboarding';
 export const SidenavContext = React.createContext<{
   isOpen: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  startTour: () => void;
 }>({
   isOpen: false,
   setOpen: () => undefined,
-  startTour: () => undefined,
 });
 
 function RouteComponent(
@@ -44,17 +34,15 @@ function RouteComponent(
   activeIndex: number,
 ) {
   const [sidenavOpen, setSidenavOpen] = useState<boolean>(false);
-  const [tourOn, setTourOn] = useState<boolean>(false);
   return (
     <div key={window.location.hash}>
       <SidenavContext.Provider
         value={{
           isOpen: sidenavOpen,
           setOpen: setSidenavOpen,
-          startTour: () => setTourOn(true),
         }}
       >
-        <SidenavButton isTourOn={tourOn} />
+        <SidenavButton />
         <div className="sidenav-and-content">
           <div
             className={`sidenav ${
@@ -68,22 +56,10 @@ function RouteComponent(
               sidenavOpen ? 'content-open-sidenav' : 'content-close-sidenav'
             }`}
           >
+            <DarkModeToggle />
             <ExtensionComponent />
           </div>
-          <ProfileTour />
-          <EarnMoreTour />
-          <WalletTour />
-          <InviteFriendsTour />
-          <SettingsTour />
-          <DonationTour />
-          <DataTour />
-          <HistoryTour />
-          <HelpTour />
         </div>
-        <div
-          className="tour-fake-div"
-          style={{ display: tourOn ? 'block' : 'none' }}
-        />
       </SidenavContext.Provider>
     </div>
   );
@@ -156,7 +132,7 @@ export default function App(): JSX.Element {
                 component={() => RouteComponent(link.component, index)}
               />
             ))}
-            <Redirect to={RouteToPages.wallet} />
+            <Redirect to={RouteToPages.earnings} />
           </Switch>
         )}
         <Popup />

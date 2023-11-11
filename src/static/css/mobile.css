@@ -253,28 +253,12 @@
     font-size: 18px;
   }
 
-  .next-tour-button {
-    width: 100%;
-  }
-
   .section-row {
     padding: 15px 0 15px 0;
   }
 
   .section-accordion-container .MuiAccordionSummary-root {
     margin: 20px 0 20px 0;
-  }
-
-  .help-wallet-earnings-image {
-    width: 250px;
-    height: 150px;
-    background-size: 250px 150px;
-  }
-
-  .help-getting-started-image {
-    width: 200px;
-    height: 300px;
-    background-size: 200px 300px;
   }
 
   .section-accordion-expand-icon {
@@ -452,29 +436,6 @@
     transform: unset !important;
   }
 
-  .react-joyride__tooltip {
-    position: fixed !important;
-    width: 100vw !important;
-    max-width: unset !important;
-    bottom: 0;
-    left: 0;
-    border-bottom-left-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-  }
-
-  .tour-fake-div {
-    width: 100%;
-    height: 300px !important;
-  }
-
-  .tour-nav-buttons {
-    gap: 16px;
-  }
-
-  .tour-nav-buttons .form-button {
-    width: 100%;
-  }
-
   .wallet-token-transfer-buttons {
     gap: 16px;
   }
@@ -486,15 +447,6 @@
   .tooltip-popper {
     width: calc(100% - 300px);
     min-width: 90px;
-  }
-
-  .help-video {
-    width: 100%;
-    height: 300px;
-  }
-
-  .help-video-alt {
-    width: 100%;
   }
 
   .profile-simple-card {
@@ -534,5 +486,11 @@
 
   .earn-more-new-tab-cards > div {
     width: 100% !important;
+  }
+
+  .earn-more-grid-container,
+  .help-grid-container {
+    width: auto;
+    justify-content: center;
   }
 }

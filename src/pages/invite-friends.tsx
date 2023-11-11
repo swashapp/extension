@@ -8,7 +8,6 @@ import {
 } from 'react-share';
 
 import { LearnMore } from '../components/button/learn-more';
-import { INVITE_FRIENDS_TOUR_CLASS } from '../components/components-tour/invite-friends-tour';
 import { BackgroundTheme } from '../components/drawing/background-theme';
 import { Circle } from '../components/drawing/circle';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
@@ -98,7 +97,7 @@ export function InviteFriends(): JSX.Element {
       <BackgroundTheme layout="layout2" />
       <div className="page-content">
         <div className="page-header">
-          <h2>Invite Friends</h2>
+          <h2>Referral bonus</h2>
         </div>
         <div className="flex-column card-gap">
           <FlexGrid column={2} className="invite-friends-numerics card-gap">
@@ -110,7 +109,6 @@ export function InviteFriends(): JSX.Element {
               image={TotalBonusIcon}
             />
             <NumericSection
-              tourClassName={INVITE_FRIENDS_TOUR_CLASS.FRIENDS}
               title="Invited Friends"
               tooltip="You will not receive referral rewards for friends that are flagged as fake by Swash’s anti-fraud measures."
               value={referral.totalReferral}
@@ -131,7 +129,6 @@ export function InviteFriends(): JSX.Element {
                     : `Share your referral link and earn ${reward} SWASH for every new friend you bring!`}
                 </p>
                 <Input
-                  className={INVITE_FRIENDS_TOUR_CLASS.REFERRAL}
                   name="referral"
                   label="Your referral link"
                   value={referralLink}
