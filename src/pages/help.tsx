@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { BackgroundTheme } from '../components/drawing/background-theme';
 import { Link } from '../components/link/link';
 import { HelpItems } from '../data/help-items';
 import { RouteToHelpdesk } from '../paths';
@@ -8,7 +7,6 @@ import { RouteToHelpdesk } from '../paths';
 export function Help(): JSX.Element {
   return (
     <div className="page-container">
-      <BackgroundTheme layout="layout3" />
       <div className="page-content">
         <div className="page-header">
           <h2>Help</h2>

@@ -18,13 +18,13 @@ const BootstrapInput = withStyles((theme) => ({
     position: 'relative',
     padding: '32px 0 20px 24px',
 
-    fontFamily: 'Inter',
+    fontFamily: 'var(--font-body-name)',
     fontStyle: 'normal',
     fontWeight: 500,
     fontSize: 14,
   },
   disabled: {
-    color: 'var(--black)',
+    color: ' var(--color-black)',
   },
 }))(MuiInputBase);
 

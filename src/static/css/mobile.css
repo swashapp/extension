@@ -3,7 +3,6 @@
   input,
   select,
   button {
-    font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 400;
     line-height: 24px;
@@ -80,13 +79,6 @@
 
   .token-transfer-popup-completed {
     margin: 99px 0;
-  }
-
-  .theme-circle1,
-  .theme-circle2,
-  .theme-circle3,
-  .circle-on-line {
-    display: none;
   }
 
   .page-content {
@@ -333,16 +325,6 @@
 
   .stepper {
     padding-bottom: 26px;
-  }
-
-  .onboarding-circle1,
-  .onboarding-circle2,
-  .onboarding-circle3,
-  .onboarding-circle4,
-  .onboarding-circle5,
-  .onboarding-circle6,
-  .onboarding-circle7 {
-    display: none;
   }
 
   .onboarding-profile-form-items {

@@ -16,13 +16,24 @@
   --gray: #eeeeee;
   --warning: #f9c057;
   --error: #ff7979;
+
+  --color-off-white: #fafafa;
+  --color-jet-black: #141414;
+  --color-green: #26bc57;
+  --color-soft-green: #b5e8d0;
+  --color-yellow: #fbe159;
+  --color-soft-yellow: #f0f2a2;
+  --color-pink: #d4aeed;
+
+  --font-title-name: Space Grotesk, sans-serif;
+  --font-body-name: Space Grotesk, sans-serif;
 }
 
 body,
 input,
 select,
 button {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body-name);
   font-size: 14px;
   font-weight: 400;
   line-height: 28px;
@@ -274,7 +285,7 @@ a {
 .date {
   width: max-content;
 
-  font-family: Space Grotesk, sans-serif;
+  font-family: var(--font-title-name);
   font-weight: 400;
   letter-spacing: 0em;
   text-align: left;

@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button } from '../components/button/button';
 import { Charity } from '../components/charity/charity';
 import { StopDonation } from '../components/donate/stop-donation';
-import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { SearchEndAdornment } from '../components/input/end-adornments/search-end-adornment';
 import { Input } from '../components/input/input';
@@ -53,7 +52,6 @@ export function Donations(): JSX.Element {
 
   return (
     <div className="page-container">
-      <BackgroundTheme layout="layout3" />
       <div className="page-content">
         <div className="page-header">
           <h2>Donations</h2>
@@ -111,7 +109,7 @@ export function Donations(): JSX.Element {
                         </div>
                         <div>
                           <Button
-                            color={'white'}
+                            color={'secondary'}
                             text={'Stop Donating'}
                             link={false}
                             className={'charity-actions-stop'}

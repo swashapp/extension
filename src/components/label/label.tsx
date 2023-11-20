@@ -6,7 +6,7 @@ import { PropsWithChildren } from 'react';
 const MuiLabel = withStyles(() => ({
   root: {
     zIndex: 1,
-    fontFamily: 'Inter',
+    fontFamily: 'var(--font-body-name)',
     fontStyle: 'normal',
     fontWight: 500,
     fontSize: 12,

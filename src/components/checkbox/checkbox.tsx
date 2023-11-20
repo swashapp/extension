@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     height: 20,
     border: '1px solid #E9EDEF',
     boxSizing: 'border-box',
-    backgroundColor: 'var(--white)',
+    backgroundColor: ' var(--color-white)',
     '$root.Mui-focusVisible &': {
       outline: '2px auto black',
       outlineOffset: 2,

@@ -145,25 +145,6 @@ export function Onboarding(): JSX.Element {
 
   return (
     <div className="page-container">
-      <Circle className={'onboarding-circle1'} border={'black'} />
-      <Circle className={'onboarding-circle2'} colorfulGradient />
-      <Circle
-        className={'onboarding-circle3'}
-        border={'black'}
-        dashed={'6 14'}
-      />
-      <Circle className={'onboarding-circle4'} color={'lightest-green'} />
-      <Circle
-        className={'onboarding-circle5'}
-        border={'black'}
-        dashed={'6 14'}
-      />
-      <Circle
-        className={'onboarding-circle6'}
-        border={'black'}
-        dashed={'6 14'}
-      />
-      <Circle className={'onboarding-circle7'} colorful />
       <div className="onboarding-stepper">
         <StepperContext.Provider
           value={{

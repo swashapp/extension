@@ -1,4 +1,4 @@
-import { Box, Tab, TabProps, Tabs, TabsProps, styled } from '@mui/material';
+import { Box, Tab, Tabs, TabsProps, styled } from '@mui/material';
 import React, {
   PropsWithChildren,
   useCallback,
@@ -10,7 +10,6 @@ import {
   DataAccordion,
   DataItem,
 } from '../components/data-accordion/data-accordion';
-import { BackgroundTheme } from '../components/drawing/background-theme';
 import { NumericInput } from '../components/numeric-input/numeric-input';
 import { TextListManagement } from '../components/text-list-management/text-list-management';
 import { helper } from '../core/webHelper';
@@ -22,11 +21,11 @@ const StyledTabs = styled((props: TabsProps) => (
   <Tabs {...props} TabIndicatorProps={{ sx: { display: 'none' } }} />
 ))({
   root: {
-    color: 'var(--data-font-color-second) !important',
+    color: 'var(--color-light-grey) !important',
   },
   '& .Mui-selected': {
-    background: 'var(--data-background)',
-    color: 'var(--data-font-color) !important',
+    background: 'var(--color-white)',
+    color: 'var(--color-black) !important',
     borderRadius: '12px 12px 0 0',
   },
 });
@@ -196,10 +195,9 @@ export function Data(): JSX.Element {
 
   return (
     <div className="page-container">
-      <BackgroundTheme layout="layout3" />
       <div className="page-content">
         <div className="page-header">
-          <h2>Data</h2>
+          <h2>Data & Ads Controls</h2>
         </div>
         <div className="flex-column card-gap">
           <div>
