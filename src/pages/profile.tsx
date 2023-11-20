@@ -4,7 +4,6 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '../components/button/button';
-import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { showPopup } from '../components/popup/popup';
 import { Select } from '../components/select/select';
@@ -159,7 +158,6 @@ export function Profile(): JSX.Element {
 
   return (
     <div className="page-container">
-      <BackgroundTheme />
       <div className="page-content">
         <div className="page-header badge-header">
           <h2>Profile</h2>
@@ -213,9 +211,9 @@ export function Profile(): JSX.Element {
             <div className="form-button-right">
               {submitted ? (
                 <Button
-                  className="form-button"
-                  color="primary"
-                  text="Update"
+                  className={'form-button'}
+                  color={'primary'}
+                  text={'Update'}
                   link={false}
                   onClick={onSubmit}
                   loading={loading}
@@ -225,9 +223,9 @@ export function Profile(): JSX.Element {
                 />
               ) : reward === '' || reward === '0' ? (
                 <Button
-                  className="form-button"
-                  color="primary"
-                  text="Submit"
+                  className={'form-button'}
+                  color={'primary'}
+                  text={'Submit'}
                   link={false}
                   onClick={onSubmit}
                   loading={loading}
@@ -253,9 +251,9 @@ export function Profile(): JSX.Element {
                   }}
                 >
                   <Button
-                    className="form-button"
-                    color="primary"
-                    text="Submit"
+                    className={'form-button'}
+                    color={'primary'}
+                    text={'Submit'}
                     link={false}
                     onClick={onSubmit}
                     loading={loading}

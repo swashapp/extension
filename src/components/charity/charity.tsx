@@ -53,7 +53,7 @@ export function Charity(props: {
           <div>
             {props.metadata?.auto_pay ? (
               <Button
-                color={'white'}
+                color={'secondary'}
                 text={'Stop Donating'}
                 link={false}
                 className={'charity-actions-stop'}
@@ -96,7 +96,7 @@ export function Charity(props: {
               />
             )}
             <Button
-              color={'lightBlue'}
+              color={'purple'}
               text={'Website'}
               link={{ url: props.website, newTab: true, external: true }}
               className={'charity-actions-website'}

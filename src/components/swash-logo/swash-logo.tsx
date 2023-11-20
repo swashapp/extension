@@ -1,4 +1,3 @@
-import useMediaQuery from '@mui/material/useMediaQuery';
 import React from 'react';
 
 import browser from 'webextension-polyfill';
@@ -15,13 +14,13 @@ export function SwashLogo(props: { className?: string }): JSX.Element {
   const logo = isDark ? darkLogo : lightLogo;
 
   return (
-    <div className="flex-row swash-logo">
-      <Link url={WebsitePath} external>
-        <img
-          className={`swash-logo ${props.className}`}
-          src={logo}
-          alt={'Swash'}
-        />
+    <div className="flex-row swash-logo-container">
+      <Link
+        url={WebsitePath}
+        external
+        className={props.className ? props.className : 'swash-logo'}
+      >
+        <img className={'swash-logo'} src={logo} alt={'Swash'} />
       </Link>
       <div className="swash-version">
         {browser.runtime.getManifest().version}.

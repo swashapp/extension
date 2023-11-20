@@ -26,10 +26,10 @@ const CustomSwitch = styled((props: SwitchProps) => {
     padding: 2,
     '&.Mui-checked': {
       transform: 'translateX(12px)',
-      color: 'var(--white)',
+      color: ' var(--color-white)',
       '& + .MuiSwitch-track': {
         opacity: 1,
-        backgroundColor: 'var(--light-green)',
+        backgroundColor: 'var(--color-dark-purple)',
       },
     },
   },
@@ -45,7 +45,7 @@ const CustomSwitch = styled((props: SwitchProps) => {
   '& .MuiSwitch-track': {
     borderRadius: 12,
     opacity: 1,
-    backgroundColor: 'var(--gray)',
+    backgroundColor: 'var(--color-grey)',
     boxSizing: 'border-box',
   },
 }));

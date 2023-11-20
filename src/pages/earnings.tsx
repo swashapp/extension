@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '../components/button/button';
-import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { FormMessage } from '../components/form-message/form-message';
 import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-adornment';
@@ -152,7 +151,6 @@ export function Earnings(): JSX.Element {
 
   return (
     <div className="page-container">
-      <BackgroundTheme />
       <div className="page-content">
         <div className="page-header">
           <h2>Earnings</h2>
@@ -173,10 +171,10 @@ export function Earnings(): JSX.Element {
                 value={unclaimedBonus}
                 layout={
                   <Button
-                    className="form-button"
-                    color="primary"
-                    text="Claim"
-                    loadingText="Claiming"
+                    className={'form-button'}
+                    color={'primary'}
+                    text={'Claim'}
+                    loadingText={'Claiming'}
                     loading={claiming}
                     disabled={isClaimDisable}
                     onClick={claimRewards}
@@ -216,8 +214,8 @@ export function Earnings(): JSX.Element {
               </p>
               <div className="form-button withdraw-read-more-button">
                 <Button
-                  color="secondary"
-                  text="Read More"
+                  color={'secondary'}
+                  text={'Read More'}
                   link={{
                     url: 'https://medium.com/swashapp/everything-you-need-to-know-about-withdrawing-your-swash-f11d507978ec',
                     external: true,
@@ -254,9 +252,9 @@ export function Earnings(): JSX.Element {
               </div>
             </div>
             <Button
-              className="form-button"
-              color="primary"
-              text="Withdraw"
+              className={'form-button'}
+              color={'primary'}
+              text={'Withdraw'}
               disabled={isTransferDisable}
               link={false}
               loading={withdrawing}

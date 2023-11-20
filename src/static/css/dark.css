@@ -1,21 +1,16 @@
-[data-theme='dark'] body {
-  --data-background: #232323;
-  --data-font-color: white;
-}
-
 [data-theme='dark'] body,
 [data-theme='dark'] .content > div,
 [data-theme='dark'] .icon-button-container,
 [data-theme='dark'] .ongoing-top-page,
 [data-theme='dark'] .charity {
-  background-color: #0d0d0d;
+  background-color: var(--color-jet-black);
 }
 
 [data-theme='dark'] .sidenav > div,
 [data-theme='dark'] .simple-card,
 [data-theme='dark'] .numeric-container,
 [data-theme='dark'] .extension-popup {
-  background-color: #232323;
+  background-color: var(--color-darkest-grey);
 }
 
 [data-theme='dark'] body,
@@ -34,11 +29,11 @@
 [data-theme='dark'] .help-title,
 [data-theme='dark'] .help-text,
 [data-theme='dark'] .extension-popup-numerics-value {
-  color: #fff;
+  color: var(--color-white);
 }
 
 [data-theme='dark'] input {
-  border-color: #7c7c7c !important;
+  border-color: var(--color-dark-grey) !important;
 }
 
 [data-theme='dark'] .numeric-title,
@@ -47,7 +42,7 @@
 [data-theme='dark'] .help-text a,
 [data-theme='dark'] .data-tab,
 [data-theme='dark'] .extension-popup-numerics-label {
-  color: #7c7c7c;
+  color: var(--color-dark-grey);
 }
 
 [data-theme='dark'] .input > input,
@@ -62,7 +57,7 @@
 [data-theme='dark'] .popup-earn-more-icon,
 [data-theme='dark'] .popup-settings-icon,
 [data-theme='dark'] .popup-help-icon {
-  color: #000000;
+  color: var(--color-black);
   filter: invert();
 }
 
@@ -71,4 +66,9 @@
 [data-theme='dark'] .popup-settings-icon:hover,
 [data-theme='dark'] .popup-help-icon:hover {
   filter: unset;
+}
+
+.earn-more-option-title,
+.earn-more-option-subtitle {
+  color: var(--color-black);
 }

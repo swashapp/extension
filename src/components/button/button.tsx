@@ -15,34 +15,29 @@ const StyledButton = styled(MuiButton)`
 
 const useStyles = makeStyles(() => ({
   primary: {
-    background: 'var(--blue)',
-    color: 'var(--white)',
-    '&:hover': { background: 'var(--black)', color: 'var(--white)' },
+    background: 'var(--color-black)',
+    color: ' var(--color-white)',
+    borderRadius: 100,
+    '&:hover': {
+      background: ' var(--color-white)',
+      color: ' var(--color-black)',
+      border: '1px solid var(--color-black)',
+    },
   },
   secondary: {
-    background: 'var(--lightest-blue)',
-    color: 'var(--black)',
-    '&:hover': { background: 'var(--black)', color: 'var(--white)' },
-  },
-  white: {
-    background: 'white',
-    color: 'var(--black)',
-    '&:hover': { background: 'var(--black)', color: 'var(--white)' },
-  },
-  gray: {
-    background: 'var(--gray)',
-    color: 'var(--black)',
-    '&:hover': { background: 'var(--gray)', color: 'var(--black)' },
-  },
-  lightBlue: {
-    background: '#E5F5FA',
-    border: '1px solid #00A9D8',
-    color: '#00A9D8',
+    background: 'var(--color-dark-purple)',
+    color: ' var(--color-white)',
+    borderRadius: 100,
     '&:hover': {
-      background: 'var(--black)',
-      border: 'unset',
-      color: 'var(--white)',
+      background: 'var(--color-dark-purple)',
+      color: ' var(--color-white)',
+      border: '1px solid var(--color-black)',
     },
+  },
+  disabled: {
+    background: 'var(--color-lightest-grey)',
+    color: ' var(--color-black)',
+    borderRadius: 100,
   },
 }));
 
@@ -78,7 +73,7 @@ function getButton(
 
 export function Button(props: {
   className?: string;
-  color?: 'primary' | 'secondary' | 'white' | 'lightBlue';
+  color?: 'primary' | 'secondary' | 'purple' | 'darkPurple';
   size?: 'small' | 'large';
   fixed?: boolean;
   text: string | JSX.Element;
@@ -99,7 +94,7 @@ export function Button(props: {
     disabled = false,
   } = props;
   const button = getButton(
-    classes[disabled ? 'gray' : color],
+    classes[disabled ? 'disabled' : color],
     size,
     fixed,
     props.loading ? props.loadingText || '' : text,

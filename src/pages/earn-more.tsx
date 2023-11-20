@@ -1,13 +1,11 @@
 import React from 'react';
 
-import { BackgroundTheme } from '../components/drawing/background-theme';
 import { Link } from '../components/link/link';
 import { EarnMoreItems } from '../data/earn-more-items';
 
 export function EarnMore(): JSX.Element {
   return (
     <div className="page-container">
-      <BackgroundTheme />
       <div className="page-content">
         <div className="page-header beta-badge-header">
           <h2>Earn</h2>

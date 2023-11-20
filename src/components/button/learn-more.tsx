@@ -11,7 +11,7 @@ export function LearnMore(props: {
     <Button
       text={'Learn More'}
       size={props.size || 'large'}
-      color={'white'}
+      color={'secondary'}
       link={{
         url: props.link || '',
         newTab: true,

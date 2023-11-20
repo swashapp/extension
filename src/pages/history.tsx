@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { Select } from '../components/select/select';
 import { helper } from '../core/webHelper';
@@ -97,7 +96,6 @@ export function History(): JSX.Element {
 
   return (
     <div className="page-container">
-      <BackgroundTheme layout="layout2" />
       <div className="page-content">
         <div className="page-header">
           <h2>History</h2>

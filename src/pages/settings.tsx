@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import browser from 'webextension-polyfill';
 
 import { Button } from '../components/button/button';
-import { BackgroundTheme } from '../components/drawing/background-theme';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { IconButton } from '../components/icon-button/icon-button';
 import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-adornment';
@@ -70,7 +69,6 @@ export function Settings(): JSX.Element {
 
   return (
     <div className="page-container">
-      <BackgroundTheme layout="layout2" />
       <div className="page-content">
         <div className="page-header">
           <h2>Settings</h2>
@@ -122,7 +120,7 @@ export function Settings(): JSX.Element {
               </p>
               <div>
                 <Input
-                  label="Private key"
+                  label={'Private key'}
                   value={privateKey}
                   type={reveal ? 'text' : 'password'}
                   disabled={true}
@@ -132,7 +130,7 @@ export function Settings(): JSX.Element {
               </div>
               <div className="reveal-private-key-button">
                 <Button
-                  color="secondary"
+                  color={'primary'}
                   text={`${reveal ? 'Hide' : 'Reveal'} private key`}
                   link={false}
                   onClick={() => setReveal((r) => !r)}
@@ -152,7 +150,7 @@ export function Settings(): JSX.Element {
               </p>
               <div className="manage-preferences-key-button">
                 <Button
-                  color="primary"
+                  color={'secondary'}
                   text={`Manage Preferences`}
                   link={{ url: RouteToPages.data }}
                 />

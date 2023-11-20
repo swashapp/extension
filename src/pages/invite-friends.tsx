@@ -8,8 +8,6 @@ import {
 } from 'react-share';
 
 import { LearnMore } from '../components/button/learn-more';
-import { BackgroundTheme } from '../components/drawing/background-theme';
-import { Circle } from '../components/drawing/circle';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { IconButton } from '../components/icon-button/icon-button';
 import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-adornment';
@@ -94,7 +92,6 @@ export function InviteFriends(): JSX.Element {
 
   return (
     <div className="page-container">
-      <BackgroundTheme layout="layout2" />
       <div className="page-content">
         <div className="page-header">
           <h2>Referral bonus</h2>
@@ -178,16 +175,6 @@ export function InviteFriends(): JSX.Element {
                 </FlexGrid>
               </div>
               <div className="simple-card win-swash-prize">
-                <Circle
-                  className={'win-swash-prize-circle1'}
-                  border={'black'}
-                  dashed={'6 14'}
-                />
-                <Circle
-                  className={'win-swash-prize-circle2'}
-                  border={'black'}
-                />
-                <Circle className={'win-swash-prize-circle3'} color={'black'} />
                 <div className="flex-column win-swash-prize-content">
                   <div className="win-swash-prize-title">
                     <h5>

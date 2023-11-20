@@ -14,9 +14,9 @@ export function EmailSent(): JSX.Element {
       </p>
       <div className="onboarding-progress-button  email-sent-button">
         <Button
-          text="I didn’t receive a verification email"
+          text={'I didn’t receive a verification email'}
           link={false}
-          color="secondary"
+          color={'secondary'}
         />
       </div>
     </div>
