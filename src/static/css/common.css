@@ -1,0 +1,71 @@
+:root {
+  --color-white: white;
+  --color-off-white: #fafafa;
+  --color-lightest-grey: #f4f4f4;
+  --color-light-grey: #e4e4e4;
+  --color-grey: #bebebe;
+  --color-dark-grey: #7c7c7c;
+  --color-darkest-grey: #232323;
+  --color-jet-black: #141414;
+  --color-black: black;
+  --color-green: #26bc57;
+  --color-soft-green: #b5e8d0;
+  --color-yellow: #fbe159;
+  --color-soft-yellow: #f0f2a2;
+  --color-purple: #d4aeed;
+  --color-dark-purple: #cc88f9;
+  --color-pink: #ffc5c5;
+  --color-orange: #ffd1a6;
+  --color-red: #ff6258;
+
+  --font-title-name: Space Grotesk, sans-serif;
+  --font-body-name: Space Grotesk, sans-serif;
+}
+
+.toast-panel-container {
+  background: white;
+  box-shadow: 0 4px 8px rgba(44, 62, 62, 0.04);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.toast-panel {
+  align-items: center;
+}
+
+.toast-image {
+  margin: 0 12px;
+}
+
+.toast-title,
+.toast-text {
+  font-family: var(--font-body-name);
+  font-style: normal;
+  font-weight: 415;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.toast-title {
+  color: var(--color-darkest-grey);
+}
+
+.toast-text {
+  color: var(--color-dark-grey);
+}
+
+.toast-text::first-letter {
+  text-transform: capitalize;
+}
+
+.toast-message-success {
+  border-left: 4px solid var(--color-green);
+}
+
+.toast-message-error {
+  border-left: 4px solid var(--color-red);
+}
+
+.toast-message-warning {
+  border-left: 4px solid var(--color-yellow);
+}

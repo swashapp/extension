@@ -7,12 +7,12 @@ const useStyles = makeStyles(() => ({
     position: 'relative',
   },
   bottom: {
-    color: 'var(--gray)',
+    color: 'var(--color-grey)',
     position: 'absolute',
     left: 'calc(50% - 25px)',
   },
   top: {
-    color: 'var(--blue)',
+    color: 'var(--color-purple)',
     animationDuration: '550ms',
     position: 'absolute',
     left: 'calc(50% - 25px)',

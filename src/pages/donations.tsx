@@ -109,7 +109,6 @@ export function Donations(): JSX.Element {
                         </div>
                         <div>
                           <Button
-                            color={'secondary'}
                             text={'Stop Donating'}
                             link={false}
                             className={'charity-actions-stop'}

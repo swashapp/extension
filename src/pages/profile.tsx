@@ -4,14 +4,18 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '../components/button/button';
+import { CircularProgress } from '../components/circular-progress/circular-progress';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { showPopup } from '../components/popup/popup';
+import { PunchedBox } from '../components/punched-box/punched-box';
 import { Select } from '../components/select/select';
 import { ToastMessage } from '../components/toast/toast-message';
 import { VerificationBadge } from '../components/verification/verification-badge';
 import { VerificationPopup } from '../components/verification/verification-popup';
 import { VerifiedInfoBox } from '../components/verification/verified-info-box';
 import { helper } from '../core/webHelper';
+
+import { VerificationBannerItems } from '../data/verification-banner-items';
 
 import { AppContext } from './app';
 
@@ -245,7 +249,7 @@ export function Profile(): JSX.Element {
                     '& .MuiBadge-badge': {
                       padding: '5px 9px',
                       color: 'white',
-                      backgroundColor: 'var(--green)',
+                      backgroundColor: 'var(--color-green)',
                       fontWeight: 600,
                     },
                   }}
@@ -270,24 +274,30 @@ export function Profile(): JSX.Element {
             </div>
           </div>
           <div className="flex-column card-gap">
-            <div className="verify-profile title">
-              {phone ? (
-                <div className="verify-profile-verified">
-                  <img
-                    src={successfulJob}
-                    width={98}
-                    height={98}
-                    alt={'verified'}
-                  />
-                  Congrats! You are a verified Swash member!
-                </div>
-              ) : (
-                <>
-                  To withdraw your earnings and receive {reward} SWASH bonus,
-                  please verify your profile.
-                </>
-              )}
-            </div>
+            {VerificationBannerItems.map(
+              ({ text, image, className, verified }, index) => (
+                <PunchedBox
+                  className={`verify-profile ${className} ${
+                    phone === undefined
+                      ? 'hide'
+                      : verified === !!phone
+                      ? ''
+                      : 'hide'
+                  }`}
+                  punchClassName="verify-profile-punch"
+                  key={`verification-banner-${index}`}
+                >
+                  <div className={'flex-row flex-align-center'}>
+                    <div className={'verify-profile-text'}>{text}</div>
+                    <img
+                      className={'verify-profile-img'}
+                      src={image}
+                      alt={text}
+                    />
+                  </div>
+                </PunchedBox>
+              ),
+            )}
             <div className={`simple-card`}>
               <h6>Contact information</h6>
               <VerifiedInfoBox

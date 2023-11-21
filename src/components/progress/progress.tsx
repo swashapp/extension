@@ -12,7 +12,7 @@ const MuiLinearProgress = withStyles(() => ({
   },
   bar: {
     borderRadius: 12,
-    backgroundColor: 'var(--blue)',
+    backgroundColor: 'var(--color-purple)',
   },
 }))(LinearProgress);
 

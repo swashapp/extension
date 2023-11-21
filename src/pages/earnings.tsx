@@ -159,15 +159,17 @@ export function Earnings(): JSX.Element {
           <div className={'flex-column card-gap'}>
             <FlexGrid column={2} className={'wallet-numerics card-gap'}>
               <NumericSection
-                title="Earning balance"
-                tooltip="This number updates every 48 hours."
+                title={'Earning balance'}
+                tooltip={'This number updates every 48 hours.'}
                 value={tokenAvailable}
                 layout="layout1"
                 image={SwashEarningsIcon}
               />
               <NumericSection
-                title="Rewards to claim"
-                tooltip="When you click ‘Claim’, your bonuses are added to your SWASH Earnings."
+                title={'Rewards to claim'}
+                tooltip={
+                  'When you click ‘Claim’, your rewards are added to your Earnings balance.'
+                }
                 value={unclaimedBonus}
                 layout={
                   <Button

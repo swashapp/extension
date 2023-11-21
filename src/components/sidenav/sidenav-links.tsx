@@ -49,16 +49,7 @@ export function SidenavLinks(props: { activeIndex?: number }): JSX.Element {
               <Link to={item.route}>
                 <div className={`sidenav-icon-title`}>
                   <div className="sidenav-icon">
-                    {item.icon ? (
-                      <img
-                        src={
-                          item.icon[index === active ? 'active' : 'inactive']
-                        }
-                        alt={''}
-                      />
-                    ) : (
-                      <></>
-                    )}
+                    {item.icon ? <img src={item.icon.url} alt={''} /> : <></>}
                   </div>
                   <div className="sidenav-title">{item.title}</div>
                   {item.title === 'Profile' ? (

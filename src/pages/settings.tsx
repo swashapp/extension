@@ -81,9 +81,11 @@ export function Settings(): JSX.Element {
             <div className="flex-column card-gap">
               <p>
                 Don’t forget to download your settings to make sure you can
-                access your wallet on other devices or browsers. If you lose
-                access but don’t have this in a safe place, then you won’t be
-                able to access your wallet.
+                access your account on other devices or browsers. If you lose
+                access but don’t have this saved, then you won’t be able to
+                access your account. Think of this like a password. Do not share
+                your private key or saved file with anyone and make sure to
+                store it securely offline.
               </p>
               <FlexGrid
                 column={2}

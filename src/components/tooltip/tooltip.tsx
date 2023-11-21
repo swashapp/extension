@@ -12,13 +12,14 @@ const StyledTooltip = styled(({ className, ...props }: TooltipProps) => (
   [`& .${tooltipClasses.tooltip}`]: {
     position: 'relative',
 
-    backgroundColor: '#E5F5FA',
-    borderRadius: '8px',
-    fontSize: '10px',
-    lineHeight: '12px',
-    boxShadow: '0 0 1px 1px rgba(0, 0, 0, 0.1)',
-
-    color: '#8091A3',
+    backgroundColor: 'var(--color-soft-green)',
+    borderRadius: '15px',
+    fontFamily: 'var(--font-body-name)',
+    fontWeight: 500,
+    fontSize: '9px',
+    lineHeight: '10px',
+    border: '1px solid var(--color-jet-black)',
+    color: 'var(--color-jet-black)',
     padding: '5px 10px',
     zIndex: 1,
   },

@@ -16,7 +16,7 @@ export function CircularProgress(props: {
       <Circle className={'progress-circle5'} border={'black'} />
       <div className="progress-solid">
         <Circle className={'progress-circle2'} border={'black'} />
-        <Circle className={'progress-circle3'} color={'lightest-green'} />
+        <Circle className={'progress-circle3'} color={'soft-green'} />
         <div className="progress-dashed">
           <Circle
             className={'progress-circle1'}

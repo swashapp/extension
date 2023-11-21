@@ -10,7 +10,7 @@ const BootstrapInput = withStyles((theme) => ({
     border: '1px solid #E9EDEF',
     transition: theme.transitions.create(['border-color']),
     '&:focus-within': {
-      borderColor: 'var(--green)',
+      borderColor: 'var(--color-green)',
       borderRadius: 12,
     },
   },

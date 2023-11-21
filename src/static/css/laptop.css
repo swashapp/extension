@@ -3,6 +3,11 @@
     margin: 36px;
   }
 
+  .dark-theme-toggle {
+    top: 52px !important;
+    right: 36px !important;
+  }
+
   .stepper-card {
     width: 744px;
   }
@@ -52,5 +57,11 @@
   .numeric-layout2-image {
     background: url('/static/images/background/stat3.png') no-repeat center
       center;
+  }
+
+  .earn-more-grid-container,
+  .help-grid-container {
+    width: auto;
+    justify-content: center;
   }
 }
