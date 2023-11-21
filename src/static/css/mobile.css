@@ -8,6 +8,11 @@
     line-height: 24px;
   }
 
+  .dark-theme-toggle {
+    top: 34px !important;
+    right: 20px !important;
+  }
+
   .page-header {
     margin-bottom: 16px;
   }
@@ -106,7 +111,7 @@
   }
 
   .sidenav-button-container {
-    background-color: var(--lightest-blue);
+    background-color: var(--color-purple);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -455,11 +460,6 @@
   .charity-body {
     height: calc(100% - 240px);
     padding: 20px;
-  }
-
-  .welcome-container {
-    position: unset;
-    width: unset;
   }
 
   .earn-more-new-tab-cards {

@@ -25,11 +25,6 @@
     width: 100%;
   }
 
-  .welcome-container {
-    position: unset;
-    width: unset;
-  }
-
   .swash-earn-button > span {
     display: none;
   }

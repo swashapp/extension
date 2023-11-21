@@ -1,33 +1,5 @@
 @import '../fonts.css';
-
-:root {
-  --black: black;
-  --white: white;
-  --lightest-green: #c5ffd9;
-  --light-green: #59f28b;
-  --green: #3ce35f;
-  --dark-green: #26bc57;
-  --lightest-blue: #e5f5fa;
-  --light-blue: #9feaff;
-  --blue: #00a9d8;
-  --dark-blue: #123c53;
-  --darkest-blue: #002030;
-  --pink: #ff7979;
-  --gray: #eeeeee;
-  --warning: #f9c057;
-  --error: #ff7979;
-
-  --color-off-white: #fafafa;
-  --color-jet-black: #141414;
-  --color-green: #26bc57;
-  --color-soft-green: #b5e8d0;
-  --color-yellow: #fbe159;
-  --color-soft-yellow: #f0f2a2;
-  --color-pink: #d4aeed;
-
-  --font-title-name: Space Grotesk, sans-serif;
-  --font-body-name: Space Grotesk, sans-serif;
-}
+@import '../common.css';
 
 body,
 input,
@@ -310,53 +282,6 @@ a {
   flex-direction: row;
 }
 
-.toast-panel-container {
-  background: white;
-  box-shadow: 0 4px 8px rgba(44, 62, 62, 0.04);
-  border-radius: 8px;
-  padding: 8px;
-}
-
-.toast-panel {
-  align-items: center;
-}
-
-.toast-image {
-  margin: 0 12px;
-}
-
-.toast-title,
-.toast-text {
-  font-style: normal;
-  font-weight: 415;
-  font-size: 14px;
-  line-height: 20px;
-}
-
-.toast-title {
-  color: black;
-}
-
-.toast-text {
-  color: #6b7883;
-}
-
-.toast-text::first-letter {
-  text-transform: capitalize;
-}
-
-.toast-message-success {
-  border-left: 4px solid var(--green);
-}
-
-.toast-message-error {
-  border-left: 4px solid var(--error);
-}
-
-.toast-message-warning {
-  border-left: 4px solid var(--warning);
-}
-
 .small-popup {
   width: 362px;
   padding: 24px;
@@ -373,14 +298,14 @@ a {
   font-size: 20px;
   line-height: 150%;
 
-  color: #002030;
+  color: var(--color-jet-black);
 }
 
 .popup-separator {
   width: calc(100% + 48px);
   height: 1px;
   margin: 12px -24px;
-  border-bottom: 1px solid #e7f4f4;
+  border-bottom: 1px solid var(--color-off-white);
 }
 
 .popup-content {

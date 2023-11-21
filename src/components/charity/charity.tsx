@@ -96,7 +96,7 @@ export function Charity(props: {
               />
             )}
             <Button
-              color={'purple'}
+              color={'secondary'}
               text={'Website'}
               link={{ url: props.website, newTab: true, external: true }}
               className={'charity-actions-website'}

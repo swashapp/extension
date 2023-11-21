@@ -21,11 +21,11 @@ const useStyles = makeStyles({
       outlineOffset: 2,
     },
     'input:hover ~ &': {
-      backgroundColor: 'var(--lightest-green)',
+      backgroundColor: 'var(--color-soft-green)',
     },
   },
   checkedIcon: {
-    backgroundColor: 'var(--green)',
+    backgroundColor: 'var(--color-green)',
     width: 20,
     height: 20,
     backgroundImage:
@@ -35,7 +35,7 @@ const useStyles = makeStyles({
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     'input:hover ~ &': {
-      backgroundColor: 'var(--dark-green)',
+      backgroundColor: 'var(--color-green)',
     },
   },
 });

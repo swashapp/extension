@@ -6,9 +6,9 @@ const SuccessIcon = '/static/images/icons/success.png';
 const WarningIcon = '/static/images/icons/warning.png';
 
 const FormMessages = {
-  warning: { icon: WarningIcon, color: 'var(--warning)' },
-  error: { icon: ErrorIcon, color: 'var(--error)' },
-  success: { icon: SuccessIcon, color: 'var(--green)' },
+  warning: { icon: WarningIcon, color: 'var(--color-orange)' },
+  error: { icon: ErrorIcon, color: 'var(--color-red)' },
+  success: { icon: SuccessIcon, color: 'var(--color-green)' },
 };
 
 export function FormMessage(

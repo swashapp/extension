@@ -202,8 +202,8 @@ export function Data(): JSX.Element {
         <div className="flex-column card-gap">
           <div>
             <StyledTabs value={value} onChange={handleChange}>
-              <Tab label="Your Data" className="data-tab" />
-              <Tab label="Text Masking" className="data-tab" />
+              <Tab label="Your data" className="data-tab" />
+              <Tab label="Text masking" className="data-tab" />
               <Tab label="Data domain exclusion" className="data-tab" />
               <Tab label="Ad display restriction" className="data-tab" />
             </StyledTabs>
@@ -239,10 +239,10 @@ export function Data(): JSX.Element {
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
               <p>
-                Swash doesn’t collect any sensitive data from you, like your
-                name, email, or passwords. If you really want to be sure, you
-                can hide certain sensitive words or numbers so they don’t get
-                added to the Swash dataset.
+                If there are some websites where you don’t want Swash to work,
+                simply add them here. Swash will then completely ignore them
+                unless you remove them from this list. You can add or remove
+                sites from your excluded domains list at any time.
               </p>
               <TextListManagement
                 items={excludeUrls}

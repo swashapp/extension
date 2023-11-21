@@ -10,29 +10,17 @@ import { Profile } from '../pages/profile';
 import { Settings } from '../pages/settings';
 import { RouteToPages } from '../paths';
 
-const dataBlackIcon = '/static/images/icons/sidenav/data-black.svg';
-const dataIcon = '/static/images/icons/sidenav/data.png';
-const donationsBlackIcon = '/static/images/icons/sidenav/donations-black.svg';
-const donationsIcon = '/static/images/icons/sidenav/donations.png';
-const earnMoreBlackIcon = '/static/images/icons/sidenav/earn-more-black.svg';
-const earnMoreIcon = '/static/images/icons/sidenav/earn-more.png';
-const helpBlackIcon = '/static/images/icons/sidenav/help-black.svg';
-const helpIcon = '/static/images/icons/sidenav/help.png';
-const inviteFriendsBlackIcon =
-  '/static/images/icons/sidenav/invite-friends-black.svg';
-const inviteFriendsIcon = '/static/images/icons/sidenav/invite-friends.png';
-const profileBlackIcon = '/static/images/icons/sidenav/profile-black.svg';
-const profileIcon = '/static/images/icons/sidenav/profile.png';
-const settingsBlackIcon = '/static/images/icons/sidenav/settings-black.svg';
-const settingsIcon = '/static/images/icons/sidenav/settings.png';
-const historyBlackIcon = '/static/images/icons/sidenav/history-black.svg';
-const historyIcon = '/static/images/icons/sidenav/history.png';
-const walletBlackIcon = '/static/images/icons/sidenav/wallet-black.svg';
-const walletIcon = '/static/images/icons/sidenav/wallet.png';
+const profileIcon = '/static/images/icons/sidenav/profile.svg';
+const walletIcon = '/static/images/icons/sidenav/wallet.svg';
+const earnMoreIcon = '/static/images/icons/sidenav/earn-more.svg';
+const donationsIcon = '/static/images/icons/sidenav/donations.svg';
+const historyIcon = '/static/images/icons/sidenav/history.svg';
+const settingsIcon = '/static/images/icons/sidenav/settings.svg';
+const helpIcon = '/static/images/icons/sidenav/help.svg';
 
 export interface SidenavItem {
   title: string;
-  icon?: { active: string; inactive: string };
+  icon?: { url: string };
   route: string;
   component: () => JSX.Element;
   hidden: boolean;
@@ -47,14 +35,12 @@ const HiddenItems = [
   },
   {
     title: 'Invite Friends',
-    icon: { active: inviteFriendsIcon, inactive: inviteFriendsBlackIcon },
     route: RouteToPages.inviteFriends,
     component: InviteFriends,
     hidden: true,
   },
   {
     title: 'Data',
-    icon: { active: dataIcon, inactive: dataBlackIcon },
     route: RouteToPages.data,
     component: Data,
     hidden: true,
@@ -64,49 +50,49 @@ const HiddenItems = [
 export const SidenavItems = [
   {
     title: 'Profile',
-    icon: { active: profileIcon, inactive: profileBlackIcon },
+    icon: { url: profileIcon },
     route: RouteToPages.profile,
     component: Profile,
     hidden: false,
   },
   {
     title: 'Earnings',
-    icon: { active: walletIcon, inactive: walletBlackIcon },
+    icon: { url: walletIcon },
     route: RouteToPages.earnings,
     component: Earnings,
     hidden: false,
   },
   {
     title: 'Earn More',
-    icon: { active: earnMoreIcon, inactive: earnMoreBlackIcon },
+    icon: { url: earnMoreIcon },
     route: RouteToPages.earnMore,
     component: EarnMore,
     hidden: false,
   },
   {
     title: 'Donations',
-    icon: { active: donationsIcon, inactive: donationsBlackIcon },
+    icon: { url: donationsIcon },
     route: RouteToPages.donations,
     component: Donations,
     hidden: false,
   },
   {
     title: 'History',
-    icon: { active: historyIcon, inactive: historyBlackIcon },
+    icon: { url: historyIcon },
     route: RouteToPages.history,
     component: History,
     hidden: false,
   },
   {
     title: 'Settings',
-    icon: { active: settingsIcon, inactive: settingsBlackIcon },
+    icon: { url: settingsIcon },
     route: RouteToPages.settings,
     component: Settings,
     hidden: false,
   },
   {
     title: 'Help',
-    icon: { active: helpIcon, inactive: helpBlackIcon },
+    icon: { url: helpIcon },
     route: RouteToPages.help,
     component: Help,
     hidden: false,

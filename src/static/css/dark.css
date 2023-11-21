@@ -1,14 +1,17 @@
 [data-theme='dark'] body,
 [data-theme='dark'] .content > div,
+[data-theme='dark'] .select-paper,
+[data-theme='dark'] .verified-dark-background,
 [data-theme='dark'] .icon-button-container,
 [data-theme='dark'] .ongoing-top-page,
 [data-theme='dark'] .charity {
-  background-color: var(--color-jet-black);
+  background-color: var(--color-jet-black) !important;
 }
 
 [data-theme='dark'] .sidenav > div,
 [data-theme='dark'] .simple-card,
 [data-theme='dark'] .numeric-container,
+[data-theme='dark'] .profile-verification-container,
 [data-theme='dark'] .extension-popup {
   background-color: var(--color-darkest-grey);
 }
@@ -48,27 +51,19 @@
 [data-theme='dark'] .input > input,
 [data-theme='dark'] .input > div,
 [data-theme='dark'] .select-item-value,
-[data-theme='dark'] .sidenav-link-inactive .sidenav-icon img,
+[data-theme='dark'] .sidenav-icon img,
 [data-theme='dark'] .circle-container > svg,
 [data-theme='dark'] .solid-line,
+[data-theme='dark'] .verify-profile-punch,
 [data-theme='dark'] .transaction-table-pagination div,
-[data-theme='dark'] .extension-popup-menu-item:hover,
-[data-theme='dark'] .popup-wallet-icon,
-[data-theme='dark'] .popup-earn-more-icon,
-[data-theme='dark'] .popup-settings-icon,
-[data-theme='dark'] .popup-help-icon {
+[data-theme='dark'] .extension-popup-menu-item,
+[data-theme='dark'] .twitter-share-button img {
   color: var(--color-black);
   filter: invert();
 }
 
-[data-theme='dark'] .popup-wallet-icon:hover,
-[data-theme='dark'] .popup-earn-more-icon:hover,
-[data-theme='dark'] .popup-settings-icon:hover,
-[data-theme='dark'] .popup-help-icon:hover {
-  filter: unset;
-}
-
-.earn-more-option-title,
-.earn-more-option-subtitle {
+[data-theme='dark'] .verify-profile,
+[data-theme='dark'] .earn-more-option-title,
+[data-theme='dark'] .earn-more-option-subtitle {
   color: var(--color-black);
 }

@@ -150,12 +150,14 @@ export function OnboardingVerify(props: {
                     : onResend
                 }
               >
-                <a style={{ color: 'var(--blue)' }} href="#">
+                <a style={{ color: 'var(--color-purple)' }} href="#">
                   Send me another code.
                 </a>
               </div>
             ) : (
-              <div style={{ color: 'var(--green)', display: 'inline-block' }}>
+              <div
+                style={{ color: 'var(--color-green)', display: 'inline-block' }}
+              >
                 {UtilsService.padWithZero(minutes) +
                   ':' +
                   UtilsService.padWithZero(seconds)}

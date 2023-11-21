@@ -1,21 +1,15 @@
 import React from 'react';
 
 export function Circle(props: {
-  color?:
-    | 'black'
-    | 'white'
-    | 'dark-blue'
-    | 'light-blue'
-    | 'lightest-green'
-    | 'light-green';
-  border?: 'black' | 'white' | 'gray';
+  color?: 'black' | 'white' | 'green' | 'soft-green';
+  border?: 'black' | 'white' | 'grey';
   dashed?: string;
   colorful?: boolean;
   colorfulGradient?: boolean;
   className?: string;
 }): JSX.Element {
-  const color = props.color ? `var(--${props.color})` : 'transparent';
-  const border = props.border ? `var(--${props.border})` : 'transparent';
+  const color = props.color ? `var(--color-${props.color})` : 'transparent';
+  const border = props.border ? `var(--color-${props.border})` : 'transparent';
   const dashed = props.dashed || '0';
   return (
     <div

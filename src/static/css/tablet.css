@@ -6,6 +6,11 @@
     line-height: 24px;
   }
 
+  .dark-theme-toggle {
+    top: 80px !important;
+    right: 32px !important;
+  }
+
   .page-header {
     margin: 32px 0;
   }

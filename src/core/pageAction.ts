@@ -43,43 +43,35 @@ const pageAction = (function () {
 
   function loadIcons(url?: string) {
     if (!url) return;
-    browserUtils.isMobileDevice().then((res) => {
-      if (!res) {
-        storageHelper.getConfigs().then((configs) => {
-          if (configs.is_enabled) {
-            if (memberManager.isJoined() === true) {
-              storageHelper.getFilters().then((filters) => {
-                if (filterUtils.filter(url, filters))
-                  browserUtils.setBrowserIcon({
-                    path: {
-                      '16': 'static/images/swash/inactive-16.png',
-                      '48': 'static/images/swash/inactive-48.png',
-                    },
-                  });
-                else
-                  browserUtils.setBrowserIcon({
-                    path: {
-                      '16': 'static/images/swash/active-16.png',
-                      '48': 'static/images/swash/active-48.png',
-                    },
-                  });
-              });
-            } else {
-              browserUtils.setBrowserIcon({
-                path: {
-                  '16': 'static/images/swash/error-16.png',
-                  '48': 'static/images/swash/error-48.png',
-                },
-              });
-            }
-          } else {
-            browserUtils.setBrowserIcon({
-              path: {
-                '16': 'static/images/swash/inactive-16.png',
-                '48': 'static/images/swash/inactive-48.png',
-              },
-            });
-          }
+    browserUtils.isMobileDevice().then(async (res) => {
+      if (res) return;
+
+      const configs = await storageHelper.getConfigs();
+      if (configs.is_enabled) {
+        const filters = await storageHelper.getFilters();
+        if (filterUtils.filter(url, filters))
+          browserUtils.setBrowserIcon({
+            path: {
+              '16': 'static/images/swash/inactive-16.png',
+              '48': 'static/images/swash/inactive-48.png',
+              '96': 'static/images/swash/inactive-96.png',
+            },
+          });
+        else
+          browserUtils.setBrowserIcon({
+            path: {
+              '16': 'static/images/swash/active-16.png',
+              '48': 'static/images/swash/active-48.png',
+              '96': 'static/images/swash/active-96.png',
+            },
+          });
+      } else {
+        browserUtils.setBrowserIcon({
+          path: {
+            '16': 'static/images/swash/inactive-16.png',
+            '48': 'static/images/swash/inactive-48.png',
+            '96': 'static/images/swash/inactive-96.png',
+          },
         });
       }
     });

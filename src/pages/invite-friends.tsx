@@ -38,7 +38,6 @@ export interface Notifications {
 
 export function InviteFriends(): JSX.Element {
   const [referralLink, setReferralLink] = useState<string>('');
-  const [reward, setReward] = useState<string>(initValue);
   const [referral, setReferral] = useState<{
     totalReward: string;
     totalReferral: string;
@@ -61,14 +60,6 @@ export function InviteFriends(): JSX.Element {
     });
   }, []);
 
-  const loadActiveReferral = useCallback(() => {
-    helper
-      .getLatestPrograms()
-      .then((data: { referral: { reward: string } }) => {
-        if (data.referral.reward) setReward(data.referral.reward);
-      });
-  }, []);
-
   const loadReferrals = useCallback(() => {
     helper
       .getReferrals()
@@ -85,10 +76,9 @@ export function InviteFriends(): JSX.Element {
 
   useEffect(() => {
     loadReferral();
-    loadActiveReferral();
     loadReferrals();
     loadInAppNotifications();
-  }, [loadActiveReferral, loadInAppNotifications, loadReferral, loadReferrals]);
+  }, [loadInAppNotifications, loadReferral, loadReferrals]);
 
   return (
     <div className="page-container">
@@ -99,14 +89,14 @@ export function InviteFriends(): JSX.Element {
         <div className="flex-column card-gap">
           <FlexGrid column={2} className="invite-friends-numerics card-gap">
             <NumericSection
-              title="SWASH Referral Bonus"
+              title="SWASH referral bonus"
               tooltip="Swash has anti-fraud measures to combat fake users. Only genuine referrals will be reflected here."
               value={UtilsService.purgeNumber(referral.totalReward)}
               layout="layout1"
               image={TotalBonusIcon}
             />
             <NumericSection
-              title="Invited Friends"
+              title="Invited friends"
               tooltip="You will not receive referral rewards for friends that are flagged as fake by Swash’s anti-fraud measures."
               value={referral.totalReferral}
               layout="layout2"
@@ -119,11 +109,10 @@ export function InviteFriends(): JSX.Element {
               className="invite-friends-bonus-cards card-gap"
             >
               <div className="simple-card">
-                <h6>BONUS! Get more SWASH tokens when you invite a friend</h6>
+                <h6>Earn more by inviting your friends</h6>
                 <p>
-                  {reward === initValue || reward === '0'
-                    ? 'Share your link to be in for a chance of winning the monthly 2000 SWASH prize!'
-                    : `Share your referral link and earn ${reward} SWASH for every new friend you bring!`}
+                  Share your referral link to bring your friends to Swash. Keep
+                  checking this page for live referral programs.
                 </p>
                 <Input
                   name="referral"
@@ -144,7 +133,7 @@ export function InviteFriends(): JSX.Element {
                 </div>
                 <FlexGrid column={4} className="flex-grid form-item-gap">
                   <TwitterShareButton
-                    className="share-button"
+                    className="share-button twitter-share-button"
                     url={referralLink}
                     title={referralMessage}
                   >
@@ -175,30 +164,33 @@ export function InviteFriends(): JSX.Element {
                 </FlexGrid>
               </div>
               <div className="simple-card win-swash-prize">
-                <div className="flex-column win-swash-prize-content">
+                <div className="flex-column justify-space-between win-swash-prize-content">
                   <div className="win-swash-prize-title">
                     <h5>
                       {notifications.prize?.title ||
                         'There are currently no active referral programs'}
                     </h5>
-                  </div>
-                  <div className="flex-column justify-space-between">
                     <div className="win-swash-prize-text">
                       {notifications.prize?.text ||
                         "Don't worry, your earnings are not affected. Come back again later!"}
                     </div>
-                    <div className="win-swash-prize-button">
-                      {notifications.prize ? (
-                        <LearnMore
-                          size="small"
-                          position="WinSwashPrize"
-                          link={notifications.prize?.link || ''}
-                        />
-                      ) : (
-                        <div style={{ height: 40 }} />
-                      )}
-                    </div>
                   </div>
+                  <div className="win-swash-prize-button">
+                    {notifications.prize ? (
+                      <LearnMore
+                        size="small"
+                        position="WinSwashPrize"
+                        link={notifications.prize?.link || ''}
+                      />
+                    ) : (
+                      <div style={{ height: 40 }} />
+                    )}
+                  </div>
+                  <img
+                    className={'win-swash-prize-img'}
+                    src={'/static/images/icons/earn/cup.png'}
+                    alt={''}
+                  />
                 </div>
               </div>
             </FlexGrid>

@@ -59,6 +59,9 @@ export function Select(
               marginTop: '8px',
             },
           },
+          classes: {
+            paper: 'select-paper',
+          },
         }}
         disabled={props.disabled}
         input={<InputBase />}

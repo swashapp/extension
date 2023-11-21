@@ -73,7 +73,7 @@ function getButton(
 
 export function Button(props: {
   className?: string;
-  color?: 'primary' | 'secondary' | 'purple' | 'darkPurple';
+  color?: 'primary' | 'secondary';
   size?: 'small' | 'large';
   fixed?: boolean;
   text: string | JSX.Element;
