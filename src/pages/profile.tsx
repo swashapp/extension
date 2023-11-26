@@ -4,7 +4,6 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '../components/button/button';
-import { CircularProgress } from '../components/circular-progress/circular-progress';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { showPopup } from '../components/popup/popup';
 import { PunchedBox } from '../components/punched-box/punched-box';
@@ -18,8 +17,6 @@ import { helper } from '../core/webHelper';
 import { VerificationBannerItems } from '../data/verification-banner-items';
 
 import { AppContext } from './app';
-
-const successfulJob = '/static/images/icons/successful-job.png';
 
 const birthYearList: { name: string; value: string }[] = [];
 
@@ -287,12 +284,12 @@ export function Profile(): JSX.Element {
                   punchClassName="verify-profile-punch"
                   key={`verification-banner-${index}`}
                 >
-                  <div className={'flex-row flex-align-center'}>
+                  <div className={'verify-profile-container'}>
                     <div className={'verify-profile-text'}>{text}</div>
                     <img
                       className={'verify-profile-img'}
                       src={image}
-                      alt={text}
+                      alt={'verification-banner'}
                     />
                   </div>
                 </PunchedBox>

@@ -24,8 +24,8 @@ const StyledTabs = styled((props: TabsProps) => (
     color: 'var(--color-light-grey) !important',
   },
   '& .Mui-selected': {
-    background: 'var(--color-white)',
-    color: 'var(--color-black) !important',
+    background: 'var(--data-background)',
+    color: 'var(--data-font-color) !important',
     borderRadius: '12px 12px 0 0',
   },
 });
