@@ -2296,7 +2296,16 @@ hr.nav {
   background-color: var(--color-lightest-grey);
 }
 
+.verify-profile-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .verify-profile-text {
+  width: 75%;
+
   font-size: 32px;
   font-style: normal;
   font-weight: 500;

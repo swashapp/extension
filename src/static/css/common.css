@@ -20,6 +20,9 @@
 
   --font-title-name: Space Grotesk, sans-serif;
   --font-body-name: Space Grotesk, sans-serif;
+
+  --data-background: var(--color-white);
+  --data-font-color: var(--color-black);
 }
 
 .toast-panel-container {

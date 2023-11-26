@@ -52,6 +52,10 @@
     flex-wrap: nowrap;
   }
 
+  .settings-columns > div > div {
+    height: auto;
+  }
+
   .wallet-token-transfer-content {
     margin: 115px 0;
   }
@@ -169,7 +173,11 @@
     width: 100%;
   }
 
-  .earn-more-grid-container,
+  .earn-more-grid-container {
+    width: 492px;
+    justify-content: center;
+  }
+
   .help-grid-container {
     width: auto;
     justify-content: center;

@@ -1,3 +1,8 @@
+[data-theme='dark'] body {
+  --data-background: var(--color-darkest-grey);
+  --data-font-color: var(--color-white);
+}
+
 [data-theme='dark'] body,
 [data-theme='dark'] .content > div,
 [data-theme='dark'] .select-paper,
@@ -35,6 +40,11 @@
   color: var(--color-white);
 }
 
+[data-theme='dark'] .help-text a {
+  color: var(--color-white);
+  font-weight: 500;
+}
+
 [data-theme='dark'] input {
   border-color: var(--color-dark-grey) !important;
 }
@@ -42,7 +52,6 @@
 [data-theme='dark'] .numeric-title,
 [data-theme='dark'] .donation-burn-text a,
 [data-theme='dark'] .transaction-table-body tr td a,
-[data-theme='dark'] .help-text a,
 [data-theme='dark'] .data-tab,
 [data-theme='dark'] .extension-popup-numerics-label {
   color: var(--color-dark-grey);

@@ -17,6 +17,10 @@
     width: 100%;
   }
 
+  .settings-columns > div > div {
+    height: auto;
+  }
+
   .donate-option-item {
     width: calc(50% - 8px);
   }
@@ -37,6 +41,14 @@
 }
 
 @media only screen and (max-width: 440px) {
+  .verify-profile-container {
+    flex-direction: column;
+  }
+
+  .verify-profile-text {
+    width: 100%;
+  }
+
   .earn-more-option {
     width: 60vw;
     height: 60vw;

@@ -66,6 +66,10 @@
     width: 100% !important;
   }
 
+  .settings-columns > div > div {
+    height: auto;
+  }
+
   .popup .MuiDialog-container {
     align-items: flex-end;
   }
@@ -470,7 +474,11 @@
     width: 100% !important;
   }
 
-  .earn-more-grid-container,
+  .earn-more-grid-container {
+    width: 492px;
+    justify-content: center;
+  }
+
   .help-grid-container {
     width: auto;
     justify-content: center;
