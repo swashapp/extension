@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Link } from '../components/link/link';
 import { HelpItems } from '../data/help-items';
-import { RouteToHelpdesk } from '../paths';
+import { SwashSupportPath } from '../paths';
 
 export function Help(): JSX.Element {
   return (
@@ -38,7 +38,7 @@ export function Help(): JSX.Element {
             </div>
             <div className="help-text title">
               Submit a support request{' '}
-              <Link url={RouteToHelpdesk.submitTicket} external newTab>
+              <Link url={SwashSupportPath} external newTab>
                 here
               </Link>{' '}
               and someone will get back to you within 48 hours.
