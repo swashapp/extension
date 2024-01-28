@@ -157,6 +157,11 @@ const sdk = (function () {
     return userHelper.getSurveyHistory(params);
   }
 
+  async function getOfferUrl(provider, offerId) {
+    return userHelper.createOfferUrl(provider, offerId);
+  }
+
+
   return {
     initModule,
     load,
@@ -170,6 +175,7 @@ const sdk = (function () {
     openProfilePage,
     openPopupPage,
     getVersion,
+    getOfferUrl,
   };
 })();
 export { sdk };

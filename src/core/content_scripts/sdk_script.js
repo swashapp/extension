@@ -17,6 +17,7 @@ var sdkScript = (function () {
       'openProfilePage',
       'openPopupPage',
       'getVersion',
+      'getOfferUrl',
     ];
 
     window.addEventListener('message', (event) => {
