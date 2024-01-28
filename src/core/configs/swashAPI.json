@@ -1,5 +1,5 @@
 {
-  "endpoint": "https://api.swashapp.io",
+  "endpoint": "https://gateway-dev.swashapp.io",
   "APIs": {
     "syncTimestamp": "/v2/sync/timestamp",
     "userJoin": "/v2/user/join",
@@ -21,6 +21,11 @@
     "ipLookup": "/v2/tools/ip/lookup",
     "charityList": "/v2/charity",
     "surveyUrl": "/sapp/v1/survey/url",
-    "surveyHistory": "/sapp/v1/survey/history"
+    "surveyHistory": "/sapp/v1/survey/history",
+    "offerUrl": "/sapp/v1/offer/url",
+    "offers": "/sapp/v1/offer",
+    "yourReviews": "/sapp/v1/offer/reviews",
+    "earnStats": "/sapp/v1/offer/stats",
+    "earnChanges": "/sapp/v1/offer/changes"
   }
 }

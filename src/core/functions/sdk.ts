@@ -157,6 +157,26 @@ const sdk = (function () {
     return userHelper.getSurveyHistory(params);
   }
 
+  async function getOfferUrl(provider, offerId) {
+    return userHelper.createOfferUrl(provider, offerId);
+  }
+
+  async function getOffers() {
+    return userHelper.getOffers();
+  }
+
+  async function getEarnStats() {
+    return userHelper.getEarnStats();
+  }
+
+  async function getYourReviews() {
+    return userHelper.getYourReviews();
+  }
+
+  async function getEarnChanges() {
+    return userHelper.getEarnChanges();
+  }
+
   return {
     initModule,
     load,
@@ -170,6 +190,11 @@ const sdk = (function () {
     openProfilePage,
     openPopupPage,
     getVersion,
+    getOfferUrl,
+    getOffers,
+    getEarnStats,
+    getYourReviews,
+    getEarnChanges,
   };
 })();
 export { sdk };

@@ -35,4 +35,19 @@ window.swashSdk = {
   getVersion: async () => {
     return callFunction({ id: 'getVersion' });
   },
+  getOfferUrl: async (provider, offerId) => {
+    return callFunction({ id: 'getOfferUrl', params: [provider, offerId] });
+  },
+  getOffers: async () => {
+    return callFunction({ id: 'getOffers' });
+  },
+  getEarnStats: async () => {
+    return callFunction({ id: 'getEarnStats' });
+  },
+  getYourReviews: async () => {
+    return callFunction({ id: 'getYourReviews' });
+  },
+  getEarnChanges: async () => {
+    return callFunction({ id: 'getEarnChanges' });
+  },
 };

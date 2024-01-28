@@ -17,6 +17,11 @@ var sdkScript = (function () {
       'openProfilePage',
       'openPopupPage',
       'getVersion',
+      'getOfferUrl',
+      'getOffers',
+      'getEarnStats',
+      'getYourReviews',
+      'getEarnChanges',
     ];
 
     window.addEventListener('message', (event) => {

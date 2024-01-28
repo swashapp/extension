@@ -22,5 +22,10 @@ export type SwashApiConfigs = {
     charityList: string;
     surveyUrl: string;
     surveyHistory: string;
+    offerUrl: string;
+    offers: string;
+    yourReviews: string;
+    earnStats: string;
+    earnChanges: string;
   };
 };

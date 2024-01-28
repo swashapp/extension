@@ -487,6 +487,26 @@ const userHelper = (function () {
     return swashApiHelper.getSurveyHistory(await generateJWT(), params);
   }
 
+  async function createOfferUrl(provider: string, offerId: string) {
+    return swashApiHelper.getOfferUrl(await generateJWT(), provider, offerId);
+  }
+
+  async function getOffers() {
+    return swashApiHelper.getOffers(await generateJWT());
+  }
+
+  async function getEarnStats() {
+    return swashApiHelper.getEarnStats(await generateJWT());
+  }
+
+  async function getYourReviews() {
+    return swashApiHelper.getYourReviews(await generateJWT());
+  }
+
+  async function getEarnChanges() {
+    return swashApiHelper.getEarnChanges(await generateJWT());
+  }
+
   return {
     init,
     createWallet,
@@ -522,6 +542,11 @@ const userHelper = (function () {
     updateUserProfile,
     createSurveyUrl,
     getSurveyHistory,
+    createOfferUrl,
+    getOffers,
+    getEarnStats,
+    getYourReviews,
+    getEarnChanges,
   };
 })();
 

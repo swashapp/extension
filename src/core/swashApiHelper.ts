@@ -235,6 +235,26 @@ const swashApiHelper = (function () {
     return get<Any>(token, config.APIs.surveyHistory, { ...params });
   }
 
+  async function getOfferUrl(token: string, provider: string, offerId: string) {
+    return get<Any>(token, config.APIs.offerUrl, { provider, offerId });
+  }
+
+  async function getOffers(token: string) {
+    return get<Any>(token, config.APIs.offers);
+  }
+
+  async function getEarnStats(token: string) {
+    return get<Any>(token, config.APIs.earnStats);
+  }
+
+  async function getYourReviews(token: string) {
+    return get<Any>(token, config.APIs.yourReviews);
+  }
+
+  async function getEarnChanges(token: string) {
+    return get<Any>(token, config.APIs.earnChanges);
+  }
+
   return {
     init,
     getDataEthPairPrice,
@@ -260,6 +280,11 @@ const swashApiHelper = (function () {
     getCharities,
     getSurveyUrl,
     getSurveyHistory,
+    getOfferUrl,
+    getOffers,
+    getEarnStats,
+    getYourReviews,
+    getEarnChanges,
   };
 })();
 
