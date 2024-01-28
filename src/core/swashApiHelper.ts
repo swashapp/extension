@@ -235,6 +235,10 @@ const swashApiHelper = (function () {
     return get<Any>(token, config.APIs.surveyHistory, { ...params });
   }
 
+  async function getOfferUrl(token: string, provider: string, offerId: string) {
+    return get<Any>(token, config.APIs.offerUrl, { provider, offerId });
+  }
+
   return {
     init,
     getDataEthPairPrice,
@@ -260,6 +264,7 @@ const swashApiHelper = (function () {
     getCharities,
     getSurveyUrl,
     getSurveyHistory,
+    getOfferUrl,
   };
 })();
 

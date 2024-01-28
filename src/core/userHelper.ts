@@ -487,6 +487,10 @@ const userHelper = (function () {
     return swashApiHelper.getSurveyHistory(await generateJWT(), params);
   }
 
+  async function createOfferUrl(provider: string, offerId: string) {
+    return swashApiHelper.getOfferUrl(await generateJWT(), provider, offerId);
+  }
+
   return {
     init,
     createWallet,
@@ -522,6 +526,7 @@ const userHelper = (function () {
     updateUserProfile,
     createSurveyUrl,
     getSurveyHistory,
+    createOfferUrl,
   };
 })();
 

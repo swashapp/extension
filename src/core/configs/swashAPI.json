@@ -21,6 +21,7 @@
     "ipLookup": "/v2/tools/ip/lookup",
     "charityList": "/v2/charity",
     "surveyUrl": "/sapp/v1/survey/url",
-    "surveyHistory": "/sapp/v1/survey/history"
+    "surveyHistory": "/sapp/v1/survey/history",
+    "offerUrl": "/sapp/v1/offer/url"
   }
 }
