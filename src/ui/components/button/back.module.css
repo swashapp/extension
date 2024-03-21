@@ -1,0 +1,23 @@
+.container {
+  width: max-content;
+}
+
+.container:hover .icon * {
+  stroke: var(--color-jet-black);
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+}
+
+.icon * {
+  stroke: var(--color-green);
+  transition: all 0.25s ease-in-out;
+}
+
+/* Dark theme */
+
+[data-theme="dark"] .container:hover .icon * {
+  stroke: var(--color-light-grey);
+}

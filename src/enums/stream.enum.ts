@@ -1,11 +1,19 @@
-export enum Stream {
-  Beauty = 'Beauty',
-  Fashion = 'Fashion',
-  General = 'General',
-  Music = 'Music',
-  News = 'News',
-  Search = 'Search',
-  Shopping = 'Shopping',
-  Social = 'Social',
-  Travel = 'Travel',
+export enum StreamCategory {
+  BEAUTY = "Beauty",
+  GENERAL = "General",
+  MUSIC = "Music",
+  NEWS = "News",
+  SEARCH = "Search",
+  SHOPPING = "Shopping",
+  SOCIAL = "Social",
+}
+
+export enum StreamCategoryLowered {
+  BEAUTY = "beauty",
+  GENERAL = "general",
+  MUSIC = "music",
+  NEWS = "news",
+  SEARCH = "search",
+  SHOPPING = "shopping",
+  SOCIAL = "social",
 }

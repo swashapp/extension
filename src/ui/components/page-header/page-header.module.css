@@ -1,0 +1,29 @@
+.container {
+  margin-bottom: 32px;
+}
+
+.uid {
+  width: 455px;
+  opacity: 0.75;
+}
+
+.desktop {
+  display: flex !important;
+}
+
+.mobile {
+  display: none !important;
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 767px) {
+  .desktop {
+    display: none !important;
+  }
+
+  .mobile {
+    width: 100%;
+    display: flex !important;
+  }
+}

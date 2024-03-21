@@ -1,0 +1,14 @@
+.text {
+  opacity: 0.25;
+}
+
+.active {
+  opacity: 1;
+  color: var(--color-darkest-grey);
+}
+
+/* Dark theme */
+
+[data-theme="dark"] .text {
+  color: var(--color-light-grey);
+}

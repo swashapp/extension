@@ -1,0 +1,91 @@
+.react-tel-input {
+  width: 99% !important;
+  margin: auto !important;
+}
+
+.react-tel-input .form-control {
+  width: 100% !important;
+  height: 46px !important;
+  min-width: 300px !important;
+  font-size: 16px !important;
+  padding: 8px 16px 8px 64px !important;
+  border: unset !important;
+  border-radius: 100px !important;
+  background-color: var(--color-lightest-grey) !important;
+}
+
+.react-tel-input .form-control:hover,
+.react-tel-input .form-control:focus {
+  border-color: unset !important;
+  box-shadow: unset !important;
+}
+
+.react-tel-input .form-control:focus + div:before {
+  color: unset !important;
+}
+
+.react-tel-input .flag-dropdown {
+  padding: 0 0 0 8px !important;
+}
+
+.react-tel-input input[disabled] + .flag-dropdown:hover {
+  border-color: var(--color-light-grey) !important;
+}
+
+.react-tel-input .selected-flag .flag {
+  margin-top: -11px !important;
+}
+
+.react-tel-input .country-list {
+  margin: unset !important;
+  top: 50px !important;
+
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+.react-tel-input .country-list::-webkit-scrollbar {
+  display: none !important;
+}
+
+.react-tel-input .country-list .flag {
+  margin-top: 6px !important;
+}
+
+.react-tel-input .country-list .search-box {
+  width: calc(100% - 10px) !important;
+  border: 1px solid var(--color-light-grey) !important;
+  line-height: 14px !important;
+  margin-left: 0 !important;
+}
+
+.react-tel-input .country-list .search-box:hover {
+  border-color: unset !important;
+}
+
+.react-tel-input .special-label {
+  display: none !important;
+}
+
+/* Dark theme */
+
+[data-theme="dark"] .react-tel-input .form-control,
+[data-theme="dark"] .react-tel-input .country-list,
+[data-theme="dark"] .react-tel-input .country-list .search,
+[data-theme="dark"] .react-tel-input .country-list .search-box {
+  background-color: var(--color-jet-black) !important;
+  color: var(--color-light-grey);
+}
+
+[data-theme="dark"] .react-tel-input .country-list .country:hover,
+[data-theme="dark"] .react-tel-input .country-list .country.highlight {
+  background-color: var(--color-darkest-grey) !important;
+}
+
+[data-theme="dark"] .react-tel-input .country-list .search-box {
+  border: 1px solid var(--color-darkest-grey) !important;
+}
+
+[data-theme="dark"] .react-tel-input .country-list .search-box:hover {
+  border-color: var(--color-light-grey) !important;
+}

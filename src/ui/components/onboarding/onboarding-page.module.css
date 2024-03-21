@@ -1,0 +1,11 @@
+.container {
+  width: 583px;
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 767px) {
+  .container {
+    width: min(583px, calc(100vw - 36px));
+  }
+}

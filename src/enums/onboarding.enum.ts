@@ -1,16 +1,28 @@
-export enum OnboardingPageValues {
-  Welcome = 'Welcome',
-  New = 'New',
-  PrivacyPolicy = 'PrivacyPolicy',
-  OnBoardingResponsibility = 'OnBoardingResponsibility',
-  YourProfileWarning = 'YourProfileWarning',
-  YourProfile = 'YourProfile',
-  Create = 'Create',
-  Import = 'Import',
-  Join = 'Join',
-  Completed = 'Completed',
+export enum OnboardingFlows {
+  LOGIN,
+  REGISTER,
+  RESTORE_BACKUP,
+  RESET_PASSWORD,
+  SETUP_ACCOUNT,
 }
 
-export enum OnboardingRules {
-  NotExistInDB = 'notExistInDB',
+export enum OnboardingPages {
+  WELCOME,
+  PRIVACY_POLICY,
+  CHECK_EMAIL,
+  SET_PASSWORD,
+  RECAPTCHA,
+  SEND_EMAIL,
+  REFERRAL_CODE,
+  VERIFY_CODE,
+  REGISTER,
+  LOGIN_WITH_USER_PASS,
+  LOGIN_WITH_WALLET,
+  RESTORE_OPTIONS,
+  RESTORE_BACKUP,
+  RESET_PASSWORD_EMAIL,
+  RESET_PASSWORD_NOTICE,
+  RESET_PASSWORD,
+  SETUP_ACCOUNT_NOTICE,
+  COMPLETED,
 }

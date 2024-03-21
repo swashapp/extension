@@ -1,0 +1,19 @@
+.small {
+  height: 94px;
+}
+
+.icon {
+  width: 64px;
+  height: 64px;
+}
+
+.icon img {
+  width: 44px;
+  height: 44px;
+}
+
+.title {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-dark-grey);
+}

@@ -1,0 +1,126 @@
+.container {
+  box-shadow: none;
+  background: transparent !important;
+}
+
+.header tr th {
+  padding: 16px 24px;
+  user-select: none;
+}
+
+.header tr th::first-letter {
+  text-transform: uppercase;
+}
+
+.body tr td {
+  padding: 20px 24px;
+  white-space: nowrap !important;
+}
+
+.body tr:last-child td,
+.body tr:last-child th {
+  border: 0;
+}
+
+.body tr:hover td {
+  cursor: pointer;
+  background: var(--color-lightest-grey);
+}
+
+.pagination {
+  width: 100%;
+}
+
+.pagination div {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.rows .MuiTablePagination-input {
+  width: 65px;
+}
+
+.rows .MuiTablePagination-select {
+  border-radius: 100px;
+  border: 1px solid var(--color-light-grey);
+  padding: 7px 15px;
+}
+
+.rows .MuiTablePagination-select:focus {
+  border-radius: 100px;
+}
+
+.rows .MuiTablePagination-selectIcon {
+  color: black;
+  padding-right: 5px;
+}
+
+.rows .MuiSelect-iconOpen {
+  right: 5px;
+}
+
+.pages {
+  border-radius: 8px;
+}
+
+.pages ul {
+  padding: 4px;
+}
+
+.pages ul li > .MuiPaginationItem-root.Mui-selected,
+.pages ul li > .MuiPaginationItem-previousNext {
+  background: transparent;
+  box-shadow: 0 1px 1px rgba(44, 62, 62, 0.1);
+  border-radius: 100%;
+  border: 1px solid var(--color-light-grey);
+}
+
+.pages ul li > .MuiPaginationItem-root.Mui-selected {
+  background: var(--color-purple);
+}
+
+.loading {
+  width: 100%;
+  height: 50px;
+}
+
+/* Dark theme */
+
+[data-theme="dark"] .body tr:hover td {
+  background: var(--color-jet-black);
+}
+
+[data-theme="dark"] .header tr td,
+[data-theme="dark"] .header tr th,
+[data-theme="dark"] .body tr td,
+[data-theme="dark"] .body tr th,
+[data-theme="dark"] .rows,
+[data-theme="dark"] .pages ul li button,
+[data-theme="dark"] .pages ul li div {
+  color: var(--color-light-grey) !important;
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 767px) {
+  .pagination {
+    flex-direction: column-reverse !important;
+  }
+
+  .pagination ul {
+    justify-content: center;
+  }
+
+  .rows {
+    margin: auto;
+  }
+
+  .rows > div {
+    padding: 0;
+  }
+
+  .rows > div > div {
+    margin-right: 0;
+  }
+}

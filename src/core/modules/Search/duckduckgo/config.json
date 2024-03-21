@@ -1,8 +1,0 @@
-{
-  "name": "search_duckduckgo",
-  "description": "This module Captures a user search queries, search results, and links clicked by the user for DuckDuckGo",
-  "functions": ["browsing", "content"],
-  "is_enabled": true,
-  "privacyLevel": 0,
-  "anonymityLevel": 1
-}

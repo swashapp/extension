@@ -1,0 +1,20 @@
+.notice {
+  padding: 16px;
+  border: 1px solid var(--color-light-grey);
+}
+
+.info {
+  margin-top: 3px;
+}
+
+.next {
+  width: 16px;
+  height: 16px;
+}
+
+/* Dark theme */
+
+[data-theme="dark"] .info path,
+[data-theme="dark"] .next path {
+  stroke: var(--color-light-grey);
+}

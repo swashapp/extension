@@ -1,0 +1,228 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --color-white: white;
+  --color-off-white: #fafafa;
+  --color-lightest-grey: #f1f1f1;
+  --color-light-grey: #e4e4e4;
+  --color-grey: #bebebe;
+  --color-dark-grey: #7c7c7c;
+  --color-darkest-grey: #232323;
+  --color-jet-black: #141414;
+  --color-black: black;
+  --color-green: #26bc57;
+  --color-soft-green: #b5e8d0;
+  --color-yellow: #fbe159;
+  --color-soft-yellow: #f0f2a2;
+  --color-purple: #d4aeed;
+  --color-dark-purple: #cc88f9;
+  --color-pink: #ffc5c5;
+  --color-orange: #ffd1a6;
+  --color-red: #ff6258;
+
+  --font-title-name: Space Grotesk, sans-serif;
+  --font-body-name: Space Grotesk, sans-serif;
+
+  --border-radius: 16px;
+
+  --data-accordion-color: var(--color-off-white);
+
+  --toastify-z-index: 10002 !important;
+}
+
+* {
+  font-family: var(--font-body-name), sans-serif !important;
+  font-style: normal;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+
+  color: var(--color-black);
+
+  overscroll-behavior-x: none !important;
+  overscroll-behavior-y: none !important;
+}
+
+/* Typography */
+
+h1 {
+  font-size: 200px;
+  font-weight: 700;
+  line-height: 90%;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 90px;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -4.5px;
+}
+
+h3 {
+  leading-trim: both;
+  text-edge: cap;
+  font-size: 64px;
+  font-weight: 600;
+  line-height: 110%;
+  letter-spacing: -1.28px;
+}
+
+h4 {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 116%;
+  letter-spacing: -0.96px;
+}
+
+h5 {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 120%;
+  letter-spacing: -0.8px;
+}
+
+h6 {
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+  letter-spacing: -0.64px;
+}
+
+p,
+span {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+
+  word-break: break-word;
+}
+
+p.bold,
+span.bold {
+  font-weight: 600;
+}
+
+p.small,
+span.small {
+  font-size: 14px;
+}
+
+p.smaller,
+span.smaller {
+  font-size: 12px;
+}
+
+p.large,
+span.large {
+  font-size: 20px;
+}
+
+p.larger,
+span.larger {
+  font-size: 24px;
+  line-height: 24px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span {
+  margin: unset;
+}
+
+em {
+  text-decoration: underline;
+}
+
+.subHeader1 {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 120%;
+  letter-spacing: -0.64px;
+}
+
+.subHeader2 {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: -0.52px;
+}
+
+.overline {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 120%;
+  letter-spacing: 0.48px;
+  text-transform: uppercase;
+}
+
+.overline.small {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 140%;
+}
+
+.overline.smaller {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: 0.36px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Elements */
+
+a {
+  cursor: pointer;
+  display: inline-flex;
+
+  text-decoration: none;
+  color: var(--color-green);
+
+  transition: all 0.25s ease-in-out;
+}
+
+a:hover {
+  color: var(--color-black);
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid var(--color-light-grey);
+  margin: 1em 0;
+  padding: 0;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Dark theme */
+
+[data-theme="dark"] {
+  --data-accordion-color: var(--color-jet-black);
+}
+
+[data-theme="dark"] body {
+  color: var(--color-light-grey) !important;
+  background-color: var(--color-darkest-grey);
+}
+
+[data-theme="dark"] a {
+  color: var(--color-light-grey);
+}

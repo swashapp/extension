@@ -1,0 +1,10 @@
+.container {
+  height: auto;
+  right: 18px;
+}
+
+/* Dark theme */
+
+[data-theme="dark"] .container svg path {
+  stroke: var(--color-light-grey);
+}

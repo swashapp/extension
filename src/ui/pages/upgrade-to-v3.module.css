@@ -1,0 +1,49 @@
+.popup {
+  width: max-content;
+  height: max-content;
+}
+
+.welcome {
+  width: 504px;
+}
+
+.galaxy {
+  width: 330px;
+  height: auto;
+}
+
+.text {
+  width: 389px;
+}
+
+.link {
+  color: var(--color-green) !important;
+}
+
+.password {
+  width: 558px;
+}
+
+.thumbs {
+  width: 205px;
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 767px) {
+  .welcome {
+    width: min(504px, calc(100vw - 68px));
+  }
+
+  .galaxy {
+    width: min(330px, 100%);
+  }
+
+  .text {
+    width: min(389px, 100%);
+  }
+
+  .password {
+    width: min(558px, calc(100vw - 68px));
+  }
+}

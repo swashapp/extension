@@ -1,0 +1,81 @@
+.container {
+  --color: var(--color-yellow);
+  --size: 16px;
+
+  background:
+    radial-gradient(
+        circle,
+        transparent 0,
+        transparent 0,
+        var(--color) 0,
+        var(--color) 100%
+      )
+      top left,
+    radial-gradient(
+        circle at top center,
+        transparent 0,
+        transparent var(--size),
+        var(--color) var(--size),
+        var(--color) 100%
+      )
+      top,
+    radial-gradient(
+        circle,
+        transparent 0,
+        transparent 0,
+        var(--color) 0,
+        var(--color) 100%
+      )
+      top right,
+    radial-gradient(
+        circle at left center,
+        transparent 0,
+        transparent var(--size),
+        var(--color) var(--size),
+        var(--color) 100%
+      )
+      center left,
+    radial-gradient(
+        circle,
+        transparent 0,
+        transparent 0,
+        var(--color) 0,
+        var(--color) 100%
+      )
+      center,
+    radial-gradient(
+        circle at right center,
+        transparent 0,
+        transparent var(--size),
+        var(--color) var(--size),
+        var(--color) 100%
+      )
+      center right,
+    radial-gradient(
+        circle,
+        transparent 0,
+        transparent 0,
+        var(--color) 0,
+        var(--color) 100%
+      )
+      bottom left,
+    radial-gradient(
+        circle at bottom center,
+        transparent 0,
+        transparent var(--size),
+        var(--color) var(--size),
+        var(--color) 100%
+      )
+      bottom center,
+    radial-gradient(
+        circle,
+        transparent 0,
+        transparent 0,
+        var(--color) 0,
+        var(--color) 100%
+      )
+      bottom right;
+
+  background-size: 34% 34%;
+  background-repeat: no-repeat;
+}

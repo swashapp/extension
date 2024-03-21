@@ -1,0 +1,76 @@
+.container {
+  width: 370px;
+  height: inherit;
+  margin: 0;
+}
+
+.menu {
+  height: inherit;
+  padding: 24px;
+  border-radius: 6px;
+  box-shadow:
+    0 16px 24px rgba(0, 0, 0, 0.06),
+    0 2px 6px rgba(0, 0, 0, 0.04),
+    0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+.logo,
+.logo > img {
+  width: 88px !important;
+  height: 25px !important;
+}
+
+.numerics {
+  margin: 35px 0 16px 0;
+}
+
+.numerics > div {
+  padding: 24px 14px;
+
+  border-radius: 14px;
+  border: 1px solid var(--color-light-grey);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+}
+
+.item {
+  padding: 16px;
+  opacity: 0.5;
+  cursor: pointer;
+  user-select: none;
+  mix-blend-mode: normal;
+  border-radius: 8px;
+}
+
+.item:hover {
+  opacity: 1;
+  background-color: var(--color-light-grey);
+}
+
+.item:last-of-type {
+  margin-bottom: 16px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Dark theme */
+
+[data-theme="dark"] .item {
+  color: var(--color-light-grey);
+}
+
+[data-theme="dark"] .item svg path,
+[data-theme="dark"] .item svg circle {
+  stroke: var(--color-light-grey);
+}
+
+[data-theme="dark"] .item:hover {
+  background-color: var(--color-jet-black);
+}
+
+[data-theme="dark"] .item:hover svg path,
+[data-theme="dark"] .item:hover svg circle {
+  stroke: var(--color-light-grey);
+}

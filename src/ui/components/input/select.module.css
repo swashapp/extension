@@ -1,0 +1,35 @@
+.container {
+  height: 48px;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%) rotate(180deg);
+  transition: transform 0.7s ease;
+  color: rgba(0, 0, 0, 0.54);
+  pointer-events: none;
+}
+
+.revert {
+  transform: translateY(-50%) rotate(0deg);
+}
+
+.value::first-letter,
+.item::first-letter {
+  text-transform: capitalize;
+}
+
+/* Dark theme */
+
+[data-theme="dark"] .container,
+[data-theme="dark"] .menu {
+  background: var(--color-jet-black);
+  color: var(--color-light-grey);
+}
+
+[data-theme="dark"] .icon path {
+  stroke: var(--color-light-grey);
+}

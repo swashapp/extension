@@ -1,6 +1,6 @@
 {
   "background": {
-    "service_worker": "background/app-start.ts",
+    "service_worker": "core/main.ts",
     "type": "module"
   }
 }

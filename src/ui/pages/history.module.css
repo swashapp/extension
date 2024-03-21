@@ -1,0 +1,13 @@
+.filter {
+  width: 243px;
+}
+
+.empty {
+  padding: 100px 0;
+}
+
+.cradle {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+}
