@@ -1,6 +1,6 @@
 import { CircularProgress } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -22,19 +22,19 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export function WaitingProgressBar(): JSX.Element {
+export function WaitingProgressBar(): ReactElement {
   const classes = useStyles();
   return (
-    <div className="waiting-progress">
+    <div className={'round flex col text-center onboarding-block'}>
       <CircularProgress
-        variant="determinate"
+        variant={'determinate'}
         className={classes.bottom}
         size={50}
         thickness={4}
         value={100}
       />
       <CircularProgress
-        variant="indeterminate"
+        variant={'indeterminate'}
         disableShrink
         className={classes.top}
         classes={{

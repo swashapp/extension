@@ -1,10 +1,12 @@
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import { withStyles } from '@mui/styles';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { PropsWithChildren, useState } from 'react';
 
 import { RemoveButton } from '../button/remove';
 import { ProgressBar } from '../progress/progress';
+
+import '../../static/css/components/data-accordion.css';
 
 const General = '/static/images/icons/general-category.svg';
 const Music = '/static/images/icons/music-category.svg';
@@ -50,7 +52,7 @@ const StyledAccordionSummary = withStyles({
   root: {
     flexDirection: 'row-reverse',
     padding: '24px 26px 24px 20px',
-    background: '#F3F9F9',
+    background: 'var(--color-lightest-grey)',
     borderTopLeftRadius: '12px',
     borderTopRightRadius: '12px',
     '&$expanded': {},
@@ -79,10 +81,10 @@ export function DataAccordion(
     items: DataItem[];
     onRemove: (item: DataItem) => void;
   }>,
-): JSX.Element {
+): ReactElement {
   const [active, setActive] = useState(-1);
   return (
-    <div className={'data-accordion-container'}>
+    <div className={'flex col gap20 data-accordion-container'}>
       {props.items.map((item: DataItem, index: number) => {
         return (
           <div
@@ -110,10 +112,10 @@ export function DataAccordion(
                   />
                 }
               >
-                <div className="data-accordion-summary-progress">
-                  <div className={'data-accordion-summary'}>
-                    <div className={'data-accordion-title'}>
-                      <div className={'data-accordion-title-icon'}>
+                <div className="flex col data-accordion-summary">
+                  <div className={'flex align-center justify-between'}>
+                    <div className={'flex align-center'}>
+                      <div className={'data-accordion-icon'}>
                         <img
                           width={24}
                           height={24}
@@ -121,13 +123,15 @@ export function DataAccordion(
                           alt=""
                         />
                       </div>
-                      <div className={'data-accordion-title-content'}>
-                        <div className={'data-accordion-title-header'}>
-                          {item.link}
-                        </div>
-                        <div className={'data-accordion-title-text'}>
+                      <div className={'flex col'}>
+                        <p>{item.link}</p>
+                        <p
+                          className={
+                            'flex align-center smaller data-accordion-title'
+                          }
+                        >
                           {item.title}
-                        </div>
+                        </p>
                       </div>
                     </div>
                     <RemoveButton
@@ -137,7 +141,7 @@ export function DataAccordion(
                       }}
                     />
                   </div>
-                  <div className="data-accordion-progress">
+                  <div className={'data-accordion-progress'}>
                     <ProgressBar value={item.percentage} />
                   </div>
                 </div>

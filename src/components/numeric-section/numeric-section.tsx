@@ -1,6 +1,8 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { Tooltip } from '../tooltip/tooltip';
+
+import '../../static/css/components/numeric-section.css';
 
 export function NumericSection(props: {
   layout?: 'layout1' | 'layout2' | ReactElement;
@@ -8,35 +10,42 @@ export function NumericSection(props: {
   tooltip?: string | ReactElement;
   value: number | string;
   image?: string;
-}): JSX.Element {
-  const { layout = 'layout1', title, value, image } = props;
+  className?: string;
+}): ReactElement {
+  const { layout = 'layout1', title, value, image, className = '' } = props;
   return (
-    <div className={`${'numeric-container'} ${!image ? 'numeric-small' : ''}`}>
-      <div className={'numeric-icon-content'}>
-        {image ? (
-          <div className={'card-icon'}>
-            <img src={image} alt={''} />
+    <div className={`round no-overflow bg-white ${className}`}>
+      <div
+        className={`flex row align-center justify-between card2 ${
+          !image ? 'numeric-small' : ''
+        }`}
+      >
+        <div className={'flex row gap24'}>
+          {image ? (
+            <div className={'flex center numeric-card-icon'}>
+              <img src={image} alt={''} />
+            </div>
+          ) : (
+            <></>
+          )}
+          <div className={`flex col`}>
+            <div className={'flex row'}>
+              <p className={'smaller'}>{title}</p>
+              {props.tooltip ? <Tooltip text={props.tooltip} /> : <></>}
+            </div>
+            <h4>{value}</h4>
           </div>
+        </div>
+        {layout ? (
+          layout === 'layout1' || layout === 'layout2' ? (
+            <div className={'numeric-' + layout + '-image'} />
+          ) : (
+            layout
+          )
         ) : (
           <></>
         )}
-        <div className={`numeric-title-number`}>
-          <div className="flex-row">
-            <div className={'numeric-title'}>{title}</div>
-            {props.tooltip ? <Tooltip text={props.tooltip} /> : <></>}
-          </div>
-          <div className={'numeric-number title'}>{value}</div>
-        </div>
       </div>
-      {layout ? (
-        layout === 'layout1' || layout === 'layout2' ? (
-          <div className={'numeric-' + layout + '-image'} />
-        ) : (
-          layout
-        )
-      ) : (
-        <></>
-      )}
     </div>
   );
 }

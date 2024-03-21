@@ -1,6 +1,6 @@
 import { IconButton, InputAdornment } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { toast } from 'react-toastify';
 
@@ -16,21 +16,21 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export function CopyEndAdornment(props: { value: string }): JSX.Element {
+export function CopyEndAdornment(props: { value: string }): ReactElement {
   const classes = useStyles();
   return (
-    <InputAdornment className={classes.icon} position="end">
+    <InputAdornment className={classes.icon} position={'end'}>
       <CopyToClipboard text={props.value}>
         <IconButton
           onClick={() =>
             toast(
               <ToastMessage
-                type="success"
+                type={'success'}
                 content={<>Copied successfully</>}
               />,
             )
           }
-          size="large"
+          size={'large'}
         >
           <img src={copyIcon} alt={'copy'} />
         </IconButton>

@@ -1,5 +1,5 @@
 import { IconButton } from '@mui/material';
-import React, { useContext } from 'react';
+import { ReactElement, useContext } from 'react';
 
 import { SidenavContext } from '../../pages/app';
 import { SwashLogo } from '../swash-logo/swash-logo';
@@ -7,7 +7,7 @@ import { Toggle } from '../toggle/toggle';
 
 const SidenavIcon = '/static/images/shape/sidenav.png';
 
-export function SidenavButton(): JSX.Element {
+export function SidenavButton(): ReactElement {
   const sidenav = useContext(SidenavContext);
   return (
     <div
@@ -16,7 +16,7 @@ export function SidenavButton(): JSX.Element {
       } sidenav-button-animation`}
     >
       <SwashLogo />
-      <div className="flex-row sidenav-toggles">
+      <div className="flex sidenav-toggles">
         <Toggle />
         <IconButton onClick={() => sidenav.setOpen(true)} size="large">
           <img src={SidenavIcon} alt={'#'} />

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
 
 import { toast } from 'react-toastify';
 
@@ -13,7 +13,7 @@ export function ImportPrivateKey(props: {
   onBeforeImport: () => void;
   onImport: () => void;
   onImportFailed: () => void;
-}): JSX.Element {
+}): ReactElement {
   const [reveal, setReveal] = useState<boolean>(false);
   const [privateKey, setPrivateKey] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -34,38 +34,37 @@ export function ImportPrivateKey(props: {
         });
     } else
       toast(
-        <ToastMessage type="error" content={<>Invalid private key format</>} />,
+        <ToastMessage
+          type={'error'}
+          content={<>Invalid private key format</>}
+        />,
       );
   }, [privateKey, props]);
 
   return (
-    <div>
-      <h5>Private Key</h5>
+    <div className={'card'}>
+      <h6>Private Key</h6>
       Please enter your private key in the input below
-      <div className="onboarding-popup-gap">
-        <Input
-          label="Private key"
-          value={privateKey}
-          type={reveal ? 'text' : 'password'}
-          onChange={(e) => setPrivateKey(e.target.value)}
-          endAdornment={
-            <ShowEndAdornment
-              show={reveal}
-              onClick={() => {
-                setReveal(!reveal);
-              }}
-            />
-          }
-        />
-      </div>
-      <div className="form-button onboarding-popup-gap">
-        <Button
-          link={false}
-          onClick={applyConfig}
-          loading={loading}
-          text="Import"
-        />
-      </div>
+      <Input
+        label={'Private key'}
+        value={privateKey}
+        type={reveal ? 'text' : 'password'}
+        onChange={(e) => setPrivateKey(e.target.value)}
+        endAdornment={
+          <ShowEndAdornment
+            show={reveal}
+            onClick={() => {
+              setReveal(!reveal);
+            }}
+          />
+        }
+      />
+      <Button
+        link={false}
+        onClick={applyConfig}
+        loading={loading}
+        text="Import"
+      />
     </div>
   );
 }

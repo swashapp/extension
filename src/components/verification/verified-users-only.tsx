@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { RouteToPages } from '../../paths';
 import { Button } from '../button/button';
@@ -6,27 +6,27 @@ import { closePopup } from '../popup/popup';
 
 export function VerifiedUsersOnly(props: {
   header: string;
-  body: JSX.Element;
-}): JSX.Element {
+  body: ReactElement;
+}): ReactElement {
   return (
     <>
-      <div className="small-popup-title title">{props.header}</div>
-      <div className="small-popup-separator" />
-      <div className="small-popup-content">{props.body}</div>
-      <div className="small-popup-separator" />
-      <div className="small-popup-actions">
+      <p className={'large'}>{props.header}</p>
+      <hr />
+      <div className={'flex col gap12'}>{props.body}</div>
+      <hr />
+      <div className={'flex justify-between'}>
         <Button
           text={'Cancel'}
           color={'secondary'}
-          className="small-popup-actions-cancel"
-          link={{ url: RouteToPages.earnings }}
+          className={'popup-cancel'}
+          link={{ url: RouteToPages.wallet }}
           onClick={() => {
             closePopup();
           }}
         />
         <Button
           text={'Verify'}
-          className="small-popup-actions-submit"
+          className={'popup-submit'}
           link={{ url: RouteToPages.profile }}
           onClick={() => {
             closePopup();

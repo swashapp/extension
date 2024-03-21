@@ -1,0 +1,192 @@
+/* background */
+
+.bg-white {
+  background: var(--color-white);
+}
+
+.bg-off-white {
+  background: var(--color-off-white);
+}
+
+.bg-lightest-grey {
+  background: var(--color-lightest-grey);
+}
+
+.bg-light-grey {
+  background: var(--color-light-grey);
+}
+
+.bg-grey {
+  background: var(--color-grey);
+}
+
+.bg-dark-grey {
+  background: var(--color-dark-grey);
+}
+
+.bg-darkest-grey {
+  background: var(--color-darkest-grey);
+}
+
+.bg-jet-black {
+  background: var(--color-jet-black);
+}
+
+.bg-green {
+  background: var(--color-green);
+}
+
+.bg-soft-green {
+  background: var(--color-soft-green);
+}
+
+.bg-yellow {
+  background: var(--color-yellow);
+}
+
+.bg-soft-yellow {
+  background: var(--color-soft-yellow);
+}
+
+.bg-purple {
+  background: var(--color-purple);
+}
+
+.bg-dark-purple {
+  background: var(--color-dark-purple);
+}
+
+.bg-pink {
+  background: var(--color-pink);
+}
+
+.bg-orange {
+  background: var(--color-orange);
+}
+
+.bg-red {
+  background: var(--color-red);
+}
+
+/* flex */
+
+.flex {
+  display: flex;
+}
+
+.flex.row {
+  flex-direction: row;
+}
+
+.flex.col {
+  flex-direction: column;
+}
+
+.flex.center {
+  align-items: center;
+  justify-content: center;
+}
+
+.flex.align-center {
+  align-items: center;
+}
+
+.flex.align-start {
+  align-items: flex-start;
+}
+
+.flex.align-end {
+  align-items: flex-end;
+}
+
+.flex.justify-center {
+  justify-content: center;
+}
+
+.flex.justify-between {
+  justify-content: space-between;
+}
+
+.flex.justify-start {
+  justify-content: flex-start;
+}
+
+.flex.justify-end {
+  justify-content: flex-end;
+}
+
+.flex.wrap {
+  flex-wrap: wrap;
+}
+
+.flex.nowrap {
+  flex-wrap: nowrap;
+}
+
+.flex.gap4 {
+  gap: 4px;
+}
+
+.flex.gap8 {
+  gap: 8px;
+}
+
+.flex.gap12 {
+  gap: 12px;
+}
+
+.flex.gap14 {
+  gap: 14px;
+}
+
+.flex.gap16 {
+  gap: 16px;
+}
+
+.flex.gap20 {
+  gap: 20px;
+}
+
+.flex.gap24 {
+  gap: 24px;
+}
+
+.flex.gap32 {
+  gap: 32px;
+}
+
+.flex.gap40 {
+  gap: 40px;
+}
+
+.flex.gap48 {
+  gap: 48px;
+}
+
+.flex.gap56 {
+  gap: 56px;
+}
+
+.flex.gap60 {
+  gap: 60px;
+}
+
+.flex.gap80 {
+  gap: 80px;
+}
+
+.flex.gap100 {
+  gap: 100px;
+}
+
+.flex > .grow1 {
+  flex: 1 50%;
+}
+
+.flex > .grow2 {
+  flex: 2 100%;
+}
+
+.flex > .grow3 {
+  flex: 2 100%;
+}

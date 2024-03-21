@@ -1,13 +1,15 @@
+import { ReactElement } from 'react';
+
 import { Data } from '../pages/data';
 import { Donations } from '../pages/donations';
 import { EarnFromAds } from '../pages/earn-from-ads';
 import { EarnMore } from '../pages/earn-more';
-import { Earnings } from '../pages/earnings';
 import { Help } from '../pages/help';
 import { History } from '../pages/history';
 import { InviteFriends } from '../pages/invite-friends';
 import { Profile } from '../pages/profile';
 import { Settings } from '../pages/settings';
+import { Wallet } from '../pages/wallet';
 import { RouteToPages } from '../paths';
 
 const profileIcon = '/static/images/icons/sidenav/profile.svg';
@@ -22,7 +24,7 @@ export interface SidenavItem {
   title: string;
   icon?: { url: string };
   route: string;
-  component: () => JSX.Element;
+  component: () => ReactElement;
   hidden: boolean;
 }
 
@@ -49,17 +51,17 @@ const HiddenItems = [
 
 export const SidenavItems = [
   {
+    title: 'Wallet',
+    icon: { url: walletIcon },
+    route: RouteToPages.wallet,
+    component: Wallet,
+    hidden: false,
+  },
+  {
     title: 'Profile',
     icon: { url: profileIcon },
     route: RouteToPages.profile,
     component: Profile,
-    hidden: false,
-  },
-  {
-    title: 'Earnings',
-    icon: { url: walletIcon },
-    route: RouteToPages.earnings,
-    component: Earnings,
     hidden: false,
   },
   {

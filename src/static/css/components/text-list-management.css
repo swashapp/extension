@@ -1,0 +1,15 @@
+.text-list-container {
+  width: 100%;
+}
+
+.text-list-items {
+  padding: 16px 0 24px 0;
+}
+
+.text-list-item {
+  padding: 12px 0;
+}
+
+.text-list-item + .text-list-item {
+  border-top: 1px solid var(--color-light-grey);
+}

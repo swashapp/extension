@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { Circle } from '../drawing/circle';
 
@@ -6,7 +6,7 @@ const completedIcon = '/static/images/icons/progress-completed.png';
 
 export function TokenTransferCompleted(props: {
   transactionId: string;
-}): JSX.Element {
+}): ReactElement {
   return (
     <div className="token-transfer-popup-completed">
       <div className="progress-dashed">

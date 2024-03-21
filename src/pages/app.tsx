@@ -1,18 +1,18 @@
-import React, {
+import {
   Dispatch,
+  ReactElement,
   SetStateAction,
+  createContext,
   useCallback,
   useEffect,
   useState,
 } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
-
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 
 import { Popup, showPopup } from '../components/popup/popup';
 import { Sidenav } from '../components/sidenav/sidenav';
-import { SidenavButton } from '../components/sidenav/sidenav-button';
 import { DarkModeToggle } from '../components/toggle/dark-mode-toggle';
 import { VerificationAlert } from '../components/verification/verification-alert';
 import { helper } from '../core/webHelper';
@@ -21,7 +21,13 @@ import { RouteToPages } from '../paths';
 
 import { Onboarding } from './onboarding';
 
-export const SidenavContext = React.createContext<{
+export const AppContext = createContext<{
+  forceUpdate: () => void;
+}>({
+  forceUpdate: () => undefined,
+});
+
+export const SidenavContext = createContext<{
   isOpen: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }>({
@@ -30,51 +36,28 @@ export const SidenavContext = React.createContext<{
 });
 
 function RouteComponent(
-  ExtensionComponent: () => JSX.Element,
+  ExtensionComponent: () => ReactElement,
   activeIndex: number,
 ) {
-  const [sidenavOpen, setSidenavOpen] = useState<boolean>(false);
   return (
-    <div key={window.location.hash}>
-      <SidenavContext.Provider
-        value={{
-          isOpen: sidenavOpen,
-          setOpen: setSidenavOpen,
-        }}
-      >
-        <SidenavButton />
-        <div className="sidenav-and-content">
-          <div
-            className={`sidenav ${
-              sidenavOpen ? 'open-sidenav' : 'close-sidenav'
-            }`}
-          >
-            <Sidenav activeIndex={activeIndex} />
-          </div>
-          <div
-            className={`content ${
-              sidenavOpen ? 'content-open-sidenav' : 'content-close-sidenav'
-            }`}
-          >
-            <DarkModeToggle />
-            <ExtensionComponent />
-          </div>
+    <>
+      <Sidenav activeIndex={activeIndex} />
+      <div className={'no-overflow relative page-container'}>
+        <div className={'border-box page-content'}>
+          <DarkModeToggle />
+          <ExtensionComponent />
         </div>
-      </SidenavContext.Provider>
-    </div>
+      </div>
+    </>
   );
 }
 
-export const AppContext = React.createContext<{
-  forceUpdate: () => void;
-}>({
-  forceUpdate: () => undefined,
-});
-
-export default function App(): JSX.Element {
-  useEffect(() => injectStyle(), []);
+export default function App(): ReactElement {
   const [needOnBoarding, setNeedOnBoarding] = useState<boolean>(false);
   const [trigger, setTrigger] = useState<number>(0);
+  const [sidenavOpen, setSidenavOpen] = useState<boolean>(true);
+
+  const forceUpdate = useCallback(() => setTrigger((t: number) => t + 1), []);
 
   const checkVerification = useCallback((shouldTry: boolean) => {
     if (!shouldTry) return;
@@ -86,7 +69,7 @@ export default function App(): JSX.Element {
             showPopup({
               closable: false,
               closeOnBackDropClick: true,
-              paperClassName: 'small-popup',
+              paperClassName: 'popup small',
               content: <VerificationAlert />,
             });
         });
@@ -96,48 +79,53 @@ export default function App(): JSX.Element {
     });
   }, []);
 
-  useEffect(
-    () =>
-      window.helper.isNeededOnBoarding().then((status: boolean) => {
-        setNeedOnBoarding(status);
-        checkVerification(!status);
-      }),
-    [checkVerification, trigger],
-  );
+  useEffect(() => {
+    injectStyle();
+  }, []);
 
-  const forceUpdate = useCallback(() => setTrigger((t: number) => t + 1), []);
+  useEffect(() => {
+    window.helper.isNeededOnBoarding().then((status: boolean) => {
+      setNeedOnBoarding(status);
+      checkVerification(!status);
+    });
+  }, [checkVerification, trigger]);
 
   return (
-    <div className="main-container">
+    <div className={'flex row nowrap relative bg-lightest-grey container'}>
       <AppContext.Provider
         value={{
           forceUpdate,
         }}
       >
         {needOnBoarding ? (
-          <Switch>
-            <Route
-              exact
-              path={RouteToPages.onboarding}
-              component={Onboarding}
-            />
-            <Redirect to={RouteToPages.onboarding} />
-          </Switch>
+          <Routes>
+            <Route path={RouteToPages.onboarding} element={<Onboarding />} />
+            <Route element={<Navigate to={RouteToPages.onboarding} />} />
+          </Routes>
         ) : (
-          <Switch>
+          <Routes>
             {SidenavItems.map((link, index) => (
               <Route
-                key={link.title + index}
+                key={link.title}
                 path={link.route}
-                component={() => RouteComponent(link.component, index)}
+                element={
+                  <SidenavContext.Provider
+                    value={{
+                      isOpen: sidenavOpen,
+                      setOpen: setSidenavOpen,
+                    }}
+                  >
+                    {RouteComponent(link.component, index)}
+                  </SidenavContext.Provider>
+                }
               />
             ))}
-            <Redirect to={RouteToPages.earnings} />
-          </Switch>
+            <Route element={<Navigate to={RouteToPages.wallet} />} />
+          </Routes>
         )}
         <Popup />
         <ToastContainer
-          toastClassName="toast-panel-container"
+          toastClassName={'bg-white toast-panel-container'}
           autoClose={3000}
           closeButton={false}
           hideProgressBar

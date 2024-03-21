@@ -1,0 +1,6 @@
+.accept-checkbox-text {
+  margin-left: 14px;
+
+  cursor: pointer;
+  user-select: none;
+}

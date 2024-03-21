@@ -1,0 +1,35 @@
+[data-theme='dark'] body {
+  --data-background: var(--color-darkest-grey);
+  --data-font-color: var(--color-white);
+
+  color: var(--color-white) !important;
+  background-color: var(--color-darkest-grey);
+}
+
+[data-theme='dark'] a {
+  color: var(--color-light-grey);
+}
+
+[data-theme='dark'] .sidenav-body,
+[data-theme='dark'] .history-table-header tr th,
+[data-theme='dark'] .history-table-body tr td {
+  color: var(--color-white) !important;
+}
+
+[data-theme='dark'] .bg-white {
+  background-color: var(--color-darkest-grey);
+}
+
+[data-theme='dark'] .bg-lightest-grey {
+  background-color: var(--color-jet-black) !important;
+}
+
+[data-theme='dark'] .sidenav-icon img,
+[data-theme='dark'] .popup-icon {
+  filter: invert();
+}
+
+[data-theme='dark'] .earn-more-container a,
+[data-theme='dark'] .help-container a {
+  color: var(--color-jet-black);
+}

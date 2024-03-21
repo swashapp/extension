@@ -1,6 +1,6 @@
 import { InputAdornment } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { Button } from '../../button/button';
 
@@ -15,18 +15,18 @@ const useStyles = makeStyles(() => ({
 export function AddEndAdornment(props: {
   onAdd: () => void;
   disabled?: boolean;
-}): JSX.Element {
+}): ReactElement {
   const classes = useStyles();
   return (
     <InputAdornment
       onClick={props.onAdd}
       className={classes.icon}
-      position="end"
+      position={'end'}
     >
       <Button
         link={false}
-        text="Add"
-        color="secondary"
+        text={'Add'}
+        color={'secondary'}
         disabled={props.disabled}
       />
     </InputAdornment>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { PropsWithChildren } from 'react';
 
 const ErrorIcon = '/static/images/icons/error.png';
@@ -13,7 +13,7 @@ const FormMessages = {
 
 export function FormMessage(
   props: PropsWithChildren<{ text: string; type: keyof typeof FormMessages }>,
-): JSX.Element {
+): ReactElement {
   return (
     <div
       className="form-message-container"

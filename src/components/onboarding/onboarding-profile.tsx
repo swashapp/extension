@@ -1,10 +1,9 @@
-import React, { useCallback, useContext, useState } from 'react';
+import { ReactElement, useCallback, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { helper } from '../../core/webHelper';
 import { StepperContext } from '../../pages/onboarding';
 
-import { FlexGrid } from '../flex-grid/flex-grid';
 import { Select } from '../select/select';
 import { ToastMessage } from '../toast/toast-message';
 
@@ -33,7 +32,7 @@ const incomeList = [
   { name: '$150K+', value: '150K+' },
 ];
 
-export function OnboardingProfile(): JSX.Element {
+export function OnboardingProfile(): ReactElement {
   const stepper = useContext(StepperContext);
   const [gender, setGender] = useState<string>('');
   const [age, setAge] = useState<string>('');
@@ -52,7 +51,7 @@ export function OnboardingProfile(): JSX.Element {
         setLoading(false);
         toast(
           <ToastMessage
-            type="error"
+            type={'error'}
             content={<>{err?.message || 'Something went wrong!'}</>}
           />,
         );
@@ -60,13 +59,13 @@ export function OnboardingProfile(): JSX.Element {
   }, [age, gender, income, stepper]);
 
   return (
-    <>
-      <div className="page-header onboarding-header">
-        <h2>Your Profile</h2>
+    <div className={'onboarding-block'}>
+      <div className={'page-header'}>
+        <h6>Your Profile</h6>
       </div>
-      <div className="simple-card">
+      <div className={'round no-overflow bg-white card'}>
         <div>
-          <div className="onboarding-profile-text">
+          <div className={'onboarding-profile-text'}>
             <p>
               When Swash data is sold, the profits are redistributed back to
               you, the Swash members.
@@ -77,29 +76,26 @@ export function OnboardingProfile(): JSX.Element {
               even more valuable, so you’ll receive more for your contribution.
             </p>
           </div>
-          <FlexGrid
-            column={3}
-            className="onboarding-profile-form-items form-item-gap"
-          >
+          <div className={'flex center gap16'}>
             <Select
               items={genderList}
-              label="Gender"
+              label={'Gender'}
               value={gender}
               onChange={(e) => setGender(e.target.value as string)}
             />
             <Select
               items={ageList}
-              label="Age"
+              label={'Age'}
               value={age}
               onChange={(e) => setAge(e.target.value as string)}
             />
             <Select
               items={incomeList}
-              label="Household Income"
+              label={'Household Income'}
               value={income}
               onChange={(e) => setIncome(e.target.value as string)}
             />
-          </FlexGrid>
+          </div>
           <NavigationButtons
             onBack={stepper.back}
             onSubmit={onSubmit}
@@ -108,6 +104,6 @@ export function OnboardingProfile(): JSX.Element {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 }

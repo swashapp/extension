@@ -1,8 +1,8 @@
 import { InputProps } from '@mui/material';
-import React, { Dispatch, SetStateAction, useMemo } from 'react';
+import { Dispatch, ReactElement, SetStateAction, useMemo } from 'react';
 
-import { InputBase } from '../input-base/input-base';
 import { NumericEndAdornment } from '../input/end-adornments/numeric-end-adornment';
+import { InputBase } from '../input-base/input-base';
 import { Label } from '../label/label';
 
 export function NumericInput(
@@ -11,7 +11,7 @@ export function NumericInput(
     setValue: Dispatch<SetStateAction<number>>;
     unit?: string;
   },
-): JSX.Element {
+): ReactElement {
   const inputProps: InputProps = useMemo(() => {
     const ret: InputProps & {
       label?: string;

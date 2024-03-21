@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
@@ -17,7 +17,7 @@ export function FilePicker(props: {
   onBeforeImport: () => void;
   onImport: () => void;
   onImportFailed: () => void;
-}): JSX.Element {
+}): ReactElement {
   const [files, setFiles] = useState<FILE[]>([]);
   const [selectedFile, setSelectedFile] = useState<FILE>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -77,8 +77,8 @@ export function FilePicker(props: {
   }, [props.onboarding]);
 
   return (
-    <div>
-      <h5>Select a file</h5>
+    <div className={'card'}>
+      <h6>Select a file</h6>
       <FileBrowser
         files={files}
         isSelectable={true}
@@ -87,15 +87,13 @@ export function FilePicker(props: {
         }}
         onSelectFile={(file: FILE) => setSelectedFile(file)}
       />
-      <div className="form-button passphrase-button">
-        <Button
-          link={false}
-          onClick={applyConfig}
-          loading={loading}
-          disabled={!selectedFile}
-          text="Import"
-        />
-      </div>
+      <Button
+        link={false}
+        onClick={applyConfig}
+        loading={loading}
+        disabled={!selectedFile}
+        text={'Import'}
+      />
     </div>
   );
 }

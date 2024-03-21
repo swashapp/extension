@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
 
 import { helper } from '../../core/webHelper';
 import { RouteToPages } from '../../paths';
 import { Button } from '../button/button';
 import { closePopup } from '../popup/popup';
 
-export function VerificationAlert(): JSX.Element {
+export function VerificationAlert(): ReactElement {
   const [reward, setReward] = useState<string>('');
 
   const loadActiveProfile = useCallback(() => {
@@ -20,17 +20,17 @@ export function VerificationAlert(): JSX.Element {
 
   return (
     <>
-      <div className="small-popup-title title">Verification</div>
-      <div className="small-popup-separator" />
-      <div className="small-popup-content">
+      <p className={'large'}>Verification</p>
+      <hr />
+      <div className={'flex col gap12'}>
         Verify your profile now and receive {reward} SWASH!
       </div>
-      <div className="small-popup-separator" />
-      <div className="small-popup-actions">
+      <hr />
+      <div className={'flex justify-between'}>
         <Button
           text={'Cancel'}
           color={'secondary'}
-          className="small-popup-actions-cancel"
+          className={'popup-cancel'}
           link={false}
           onClick={() => {
             closePopup();
@@ -38,7 +38,7 @@ export function VerificationAlert(): JSX.Element {
         />
         <Button
           text={'Verify'}
-          className="small-popup-actions-submit"
+          className={'popup-submit'}
           link={{ url: RouteToPages.profile }}
           onClick={() => {
             closePopup();

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { toast } from 'react-toastify';
 
@@ -6,6 +6,8 @@ import { helper } from '../../core/webHelper';
 import { DateTime, SearchEngine } from '../../types/storage/new-tab.type';
 import { Switch } from '../switch/switch';
 import { ToastMessage } from '../toast/toast-message';
+
+import '../../static/css/components/customisation.css';
 
 const colorList = [
   'rgb(21, 30, 154)',
@@ -74,7 +76,7 @@ const searchEnginesList: SearchEngine[] = [
 
 export function Customisation(props: {
   onChange: (cache?: boolean) => void;
-}): JSX.Element {
+}): ReactElement {
   const [page, setPage] = useState('Background');
   const [time, setTime] = useState<DateTime>({ h24: false, seconds: false });
 
@@ -84,7 +86,7 @@ export function Customisation(props: {
         props.onChange(false);
         toast(
           <ToastMessage
-            type="success"
+            type={'success'}
             content={<>Background changed successfully</>}
           />,
         );
@@ -99,7 +101,7 @@ export function Customisation(props: {
         props.onChange();
         toast(
           <ToastMessage
-            type="success"
+            type={'success'}
             content={<>Search engine changed successfully</>}
           />,
         );
@@ -119,7 +121,7 @@ export function Customisation(props: {
         props.onChange();
         toast(
           <ToastMessage
-            type="success"
+            type={'success'}
             content={<>Date & Time changed successfully</>}
           />,
         );
@@ -134,7 +136,7 @@ export function Customisation(props: {
 
   const backgrounds = useMemo(() => {
     return (
-      <div className={'cs-options'}>
+      <div className={'flex wrap justify-between gap12 cs-options'}>
         <div
           className={'cs-option'}
           style={{
@@ -185,8 +187,8 @@ export function Customisation(props: {
 
   const datetime = useMemo(() => {
     return (
-      <div className={'cs-options-2'}>
-        <div className={'cs-option-3'}>
+      <div className={'flex col gap20'}>
+        <div className={'flex align-center gap12'}>
           <Switch
             checked={time.h24}
             onChange={(e) => {
@@ -195,7 +197,7 @@ export function Customisation(props: {
           />
           Show the 24 hour clock
         </div>
-        <div className={'cs-option-3'}>
+        <div className={'flex align-center gap12'}>
           <Switch
             checked={time.seconds}
             onChange={(e) => {
@@ -223,29 +225,29 @@ export function Customisation(props: {
 
   return (
     <>
-      <div className="popup-title title">Customisation</div>
-      <div className="popup-separator" />
-      <div className="popup-content-sidenav">
+      <p className={'large'}>Customisation</p>
+      <hr />
+      <div className={'flex gap12'}>
         <div className={'customisation-container'}>
           <div className={'customisation-nav'}>
-            <div
+            <p
               className={'settings-option'}
               onClick={() => setPage('Background')}
             >
               Background
-            </div>
-            <div
+            </p>
+            <p
               className={'settings-option'}
               onClick={() => setPage('Search Engine')}
             >
               Search Engine
-            </div>
-            <div
+            </p>
+            <p
               className={'settings-option'}
               onClick={() => setPage('Date & Time')}
             >
               Date & Time
-            </div>
+            </p>
           </div>
         </div>
         <div className={'customisation-content'}>{loadSettings()}</div>

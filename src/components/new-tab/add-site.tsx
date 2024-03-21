@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { ReactElement, useState } from 'react';
 
 import { toast } from 'react-toastify';
 
@@ -11,36 +11,36 @@ import { ToastMessage } from '../toast/toast-message';
 export function AddSite(props: {
   rank: number;
   onSave: () => void;
-}): JSX.Element {
+}): ReactElement {
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('https://');
   return (
     <>
-      <div className="popup-title title">Add site</div>
-      <div className="popup-separator" />
-      <div className="popup-content">
+      <p className={'large'}>Add site</p>
+      <hr />
+      <div className={'flex col gap12'}>
         <Input
-          label="Title"
-          name="title"
+          label={'Title'}
+          name={'title'}
           value={title}
           autoComplete={'off'}
           onChange={(event) => setTitle(event.target.value)}
         />
         <Input
-          label="URL"
-          name="url"
+          label={'URL'}
+          name={'url'}
           value={url}
           autoComplete={'off'}
           placeholder={'https://'}
           onChange={(event) => setUrl(event.target.value)}
         />
       </div>
-      <div className="popup-separator" />
-      <div className="popup-actions">
+      <hr />
+      <div className={'flex justify-between'}>
         <Button
           text={'Cancel'}
           color={'secondary'}
-          className="popup-actions-cancel"
+          className={'popup-cancel'}
           link={false}
           onClick={() => {
             closePopup();
@@ -48,7 +48,7 @@ export function AddSite(props: {
         />
         <Button
           text={'Add'}
-          className="popup-actions-submit"
+          className={'popup-submit'}
           link={false}
           onClick={() => {
             try {
@@ -67,7 +67,7 @@ export function AddSite(props: {
             } catch (err) {
               toast(
                 <ToastMessage
-                  type="error"
+                  type={'error'}
                   content={<>Invalid url, please use the right format</>}
                 />,
               );

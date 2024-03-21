@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
 
 import { helper } from '../../core/webHelper';
 import { Switch } from '../switch/switch';
 
-export function Toggle(): JSX.Element {
+import '../../static/css/components/toggle.css';
+
+export function Toggle(): ReactElement {
   const [status, setStatus] = useState<boolean>(false);
   const onStatusChanged = useCallback((checked: boolean) => {
     if (checked) {
@@ -27,10 +29,10 @@ export function Toggle(): JSX.Element {
   );
 
   return (
-    <div className="flex-row extension-popup-switch">
-      <div className="extension-popup-switch-label">
+    <div className={'flex center gap8'}>
+      <p className={'smaller bold extension-popup-switch-label'}>
         {status ? 'ON' : 'OFF'}
-      </div>
+      </p>
       <Switch
         checked={status}
         onChange={(e) => onStatusChanged(e.target.checked)}

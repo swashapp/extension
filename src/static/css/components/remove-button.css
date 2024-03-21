@@ -1,0 +1,19 @@
+.remove-button {
+  cursor: pointer;
+  user-select: none;
+  opacity: 1;
+}
+
+.remove-button:hover {
+  opacity: 0.6;
+}
+
+.remove-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 12px;
+}
+
+.remove-text {
+  color: var(--color-red);
+}

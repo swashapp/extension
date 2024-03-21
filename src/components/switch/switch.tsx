@@ -1,5 +1,5 @@
 import { styled, Switch as MuiSwitch, SwitchProps } from '@mui/material';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 const CustomSwitch = styled((props: SwitchProps) => {
   return (
@@ -50,6 +50,6 @@ const CustomSwitch = styled((props: SwitchProps) => {
   },
 }));
 
-export function Switch(props: SwitchProps): JSX.Element {
+export function Switch(props: SwitchProps): ReactElement {
   return <CustomSwitch {...props} />;
 }

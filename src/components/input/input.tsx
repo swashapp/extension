@@ -1,10 +1,10 @@
 import { InputProps } from '@mui/material';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { InputBase } from '../input-base/input-base';
 import { Label } from '../label/label';
 
-export function Input(props: InputProps & { label?: string }): JSX.Element {
+export function Input(props: InputProps & { label?: string }): ReactElement {
   return (
     <Label
       id={'input-' + props.name}

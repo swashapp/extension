@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { helper } from '../../core/webHelper';
 import { Charity } from '../../types/storage/charity.type';
@@ -7,6 +7,8 @@ import { FavButton } from '../button/fav';
 import { Donate } from '../donate/donate';
 import { StopDonation } from '../donate/stop-donation';
 import { showPopup } from '../popup/popup';
+
+import '../../static/css/components/charity.css';
 
 export function Charity(props: {
   id: number;
@@ -17,14 +19,29 @@ export function Charity(props: {
   location: string;
   description: string;
   wallet: string;
+  className?: string;
   metadata?: Charity;
   callback?: () => void;
-}): JSX.Element {
+}): ReactElement {
+  const {
+    id,
+    banner,
+    logo,
+    title,
+    website,
+    location,
+    description,
+    wallet,
+    className,
+    metadata,
+    callback,
+  } = props;
+
   return (
-    <div className={'charity'}>
-      <div className={'charity-banner'}>
+    <div className={`round no-overflow bg-lightest-grey charity ${className}`}>
+      <div className={'charity-banner relative'}>
         <img
-          src={props.banner}
+          src={banner}
           alt={''}
           style={{
             objectFit: 'cover',
@@ -32,42 +49,37 @@ export function Charity(props: {
             height: 'inherit',
           }}
         />
-        <div className={'charity-logo'}>
-          <img
-            src={props.logo}
-            alt={''}
-            style={{
-              height: 'fit-content',
-              width: 'fit-content',
-            }}
-          />
-        </div>
+        <img
+          src={logo}
+          alt={''}
+          className={'flex center no-overflow absolute charity-logo'}
+        />
       </div>
-      <div className={'charity-body'}>
+      <div className={'flex col justify-between border-box charity-body gap20'}>
         <div>
-          <div className={'charity-title title'}>{props.title}</div>
-          <div className={'charity-location'}>{props.location}</div>
+          <p className={'larger bold'}>{title}</p>
+          <p className={'small'}>{location}</p>
         </div>
-        <div className={'charity-text'}>{props.description}</div>
-        <div className={'charity-actions'}>
-          <div>
-            {props.metadata?.auto_pay ? (
+        <p>{description}</p>
+        <div className={'flex align-center justify-between'}>
+          <div className={'flex align-center gap12'}>
+            {metadata?.auto_pay ? (
               <Button
                 color={'secondary'}
                 text={'Stop Donating'}
                 link={false}
-                className={'charity-actions-stop'}
+                className={'charity-action'}
                 onClick={() => {
                   showPopup({
                     closable: false,
                     closeOnBackDropClick: true,
-                    paperClassName: 'custom-popup',
+                    paperClassName: 'popup custom',
                     content: (
                       <StopDonation
-                        id={props.id}
-                        title={props.title}
-                        percent={props.metadata?.percentage || '0'}
-                        callback={props.callback}
+                        id={id}
+                        title={title}
+                        percent={metadata?.percentage || '0'}
+                        callback={callback}
                       />
                     ),
                   });
@@ -77,18 +89,18 @@ export function Charity(props: {
               <Button
                 text={'Donate'}
                 link={false}
-                className={`charity-actions-donate`}
+                className={`charity-action`}
                 onClick={() => {
                   showPopup({
                     closable: false,
                     closeOnBackDropClick: true,
-                    paperClassName: 'custom-popup',
+                    paperClassName: 'popup custom',
                     content: (
                       <Donate
-                        id={props.id}
-                        title={props.title}
-                        address={props.wallet}
-                        callback={props.callback}
+                        id={id}
+                        title={title}
+                        address={wallet}
+                        callback={callback}
                       />
                     ),
                   });
@@ -98,14 +110,14 @@ export function Charity(props: {
             <Button
               color={'secondary'}
               text={'Website'}
-              link={{ url: props.website, newTab: true, external: true }}
-              className={'charity-actions-website'}
+              link={{ url: website, newTab: true, external: true }}
+              className={'charity-action'}
             />
           </div>
           <FavButton
-            enable={props.metadata?.fav || false}
+            enable={metadata?.fav || false}
             onClick={async () => {
-              await helper.toggleCharityLike(props.id);
+              await helper.toggleCharityLike(id);
             }}
           />
         </div>

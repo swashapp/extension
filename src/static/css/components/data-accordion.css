@@ -1,0 +1,29 @@
+.data-accordion-container {
+  width: 100%;
+}
+
+.data-accordion-icon {
+  width: 24px;
+  height: 24px;
+
+  margin-right: 17px;
+}
+
+.data-accordion-title {
+  margin-top: 8px;
+}
+
+.data-accordion-summary {
+  width: 100%;
+  margin-left: 17px;
+}
+
+.data-accordion-progress {
+  flex-grow: 1;
+  margin-top: 16px;
+}
+
+.data-accordion-content pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+}

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { Link, LinkProps } from '../link/link';
+
+import '../../static/css/components/icon-button.css';
 
 function IconButtonBase(props: {
   body?: string;
@@ -12,11 +14,11 @@ function IconButtonBase(props: {
   return (
     <div
       onClick={props.onClick}
-      className={`${'icon-button-container'} ${
-        props.disabled ? 'icon-button-container-disabled' : ''
+      className={`flex center icon-button-container ${
+        props.disabled ? 'disabled' : ''
       } ${props.body ? 'icon-button-large' : 'icon-button-small'}`}
     >
-      <div className={'icon-button-body'}>
+      <div className={'flex align-center'}>
         <img
           src={props.image}
           alt={''}
@@ -40,7 +42,7 @@ export function IconButton(props: {
   link: LinkProps | false;
   onClick?: () => void;
   disabled?: boolean;
-}): JSX.Element {
+}): ReactElement {
   return props.link === false ? (
     <IconButtonBase {...props} />
   ) : (

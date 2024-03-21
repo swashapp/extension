@@ -5,15 +5,12 @@ import {
   StyledEngineProvider,
 } from '@mui/material';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { HashRouter as Router } from 'react-router-dom';
 
-import '../static/css/main.css';
-import '../static/css/laptop.css';
-import '../static/css/tablet.css';
-import '../static/css/mobile.css';
-import '../static/css/smobile.css';
-import '../static/css/dark.css';
+import '../static/css/shared.css';
+import '../static/css/page.css';
+import '../static/css/other/themes.css';
 import 'react-keyed-file-browser/dist/react-keyed-file-browser.css';
 
 import { helper } from '../core/webHelper';
@@ -32,8 +29,9 @@ declare global {
 window.helper = helper;
 
 const theme = createTheme();
-
-ReactDOM.render(
+const container = document.getElementById('app');
+const root = createRoot(container!);
+root.render(
   <Router>
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
@@ -41,5 +39,4 @@ ReactDOM.render(
       </ThemeProvider>
     </StyledEngineProvider>
   </Router>,
-  document.getElementById('app'),
 );

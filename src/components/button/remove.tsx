@@ -1,16 +1,21 @@
-import React from 'react';
+import { ReactElement, SyntheticEvent } from 'react';
+
+import '../../static/css/components/remove-button.css';
 
 const removeIcon = '/static/images/shape/remove.svg';
 
 export function RemoveButton(props: {
-  onClick: (e: React.MouseEvent) => void;
-}): JSX.Element {
+  onClick: (e: SyntheticEvent) => void;
+}): ReactElement {
   return (
-    <div onClick={props.onClick} className="remove-button">
-      <div className="remove-icon">
+    <div
+      onClick={props.onClick}
+      className={'flex row align-center remove-button'}
+    >
+      <div className={'remove-icon'}>
         <img width={16} height={16} src={removeIcon} alt={'-'} />
       </div>
-      <div className="remove-text">Remove</div>
+      <p className={'small remove-text'}>Remove</p>
     </div>
   );
 }

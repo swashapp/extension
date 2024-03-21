@@ -1,11 +1,16 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import {
+  ReactElement,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { toast } from 'react-toastify';
 import browser from 'webextension-polyfill';
 
 import { helper } from '../../core/webHelper';
 import { StepperContext } from '../../pages/onboarding';
 import { Button } from '../button/button';
-import { FlexGrid } from '../flex-grid/flex-grid';
 import { showPopup } from '../popup/popup';
 import { ToastMessage } from '../toast/toast-message';
 
@@ -25,27 +30,26 @@ function ImportCard(props: {
   onClick?: () => void;
 }) {
   return (
-    <div className="import-your-config-card">
+    <div className={'flex col align-center bg-white round card grow1'}>
       <img
         width={props.imageSize?.width || 24}
         height={props.imageSize?.height || 24}
         src={props.icon}
         alt={''}
       />
-      <h4>{props.text}</h4>
-      <div className="import-your-config-button">
-        <Button
-          text="Import"
-          link={false}
-          onClick={props?.onClick}
-          disabled={props.onClick === undefined}
-        />
-      </div>
+      <p className={'large'}>{props.text}</p>
+      <Button
+        className={'full-width-button'}
+        text={'Import'}
+        link={false}
+        onClick={props?.onClick}
+        disabled={props.onClick === undefined}
+      />
     </div>
   );
 }
 
-export function ImportYourConfig(): JSX.Element {
+export function ImportYourConfig(): ReactElement {
   const stepper = useContext(StepperContext);
   const [importing, setImporting] = useState<boolean>(false);
 
@@ -53,7 +57,7 @@ export function ImportYourConfig(): JSX.Element {
     setImporting(false);
     toast(
       <ToastMessage
-        type="error"
+        type={'error'}
         content={<>{message || 'Can not import this config file'}</>}
       />,
     );
@@ -160,36 +164,36 @@ export function ImportYourConfig(): JSX.Element {
       {importing ? (
         <ImportingConfig />
       ) : (
-        <div className="import-your-config">
-          <h2>Import your configuration</h2>
+        <div className={'flex col onboarding-block'}>
+          <h6>Import your configuration</h6>
           <p>Choose an option to import your settings file</p>
-          <FlexGrid column={2} className="import-your-config-cards card-gap">
-            <FlexGrid column={2} className="import-your-config-2cards card-gap">
+          <div className={'flex gap32'}>
+            <div className={'flex gap32 grow1'}>
               <ImportCard
-                text="Local File"
+                text={'Local File'}
                 icon={FileLogo}
                 onClick={importFromFile}
               />
               <ImportCard
-                text="Private Key"
+                text={'Private Key'}
                 icon={KeyLogo}
                 onClick={importFromPrivateKey}
               />
-            </FlexGrid>
-            <FlexGrid column={2} className="import-your-config-2cards card-gap">
+            </div>
+            <div className={'flex gap32 grow1'}>
               <ImportCard
-                text="Dropbox"
+                text={'Dropbox'}
                 icon={DropboxLogo}
                 onClick={importFromDropBox}
               />
               <ImportCard
-                text="Google Drive"
+                text={'Google Drive'}
                 icon={GoogleDriveLogo}
                 imageSize={{ width: 27 }}
                 onClick={importFromGoogleDrive}
               />
-            </FlexGrid>
-          </FlexGrid>
+            </div>
+          </div>
         </div>
       )}
     </>

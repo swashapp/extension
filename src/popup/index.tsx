@@ -4,18 +4,20 @@ import {
   Theme,
   StyledEngineProvider,
 } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
-
+import { ReactElement, useCallback, useEffect, useState } from 'react';
+import { createRoot } from 'react-dom/client';
 import browser from 'webextension-polyfill';
 
 import { DisplayAds } from '../components/ads/display-ads';
-import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { SwashLogo } from '../components/swash-logo/swash-logo';
 import { Toggle } from '../components/toggle/toggle';
 import { VerificationBadge } from '../components/verification/verification-badge';
 import { helper } from '../core/webHelper';
 import { initValue, UtilsService } from '../service/utils-service';
+
+import '../static/css/shared.css';
+import '../static/css/popup.css';
+import '../static/css/other/themes.css';
 
 declare module '@mui/styles/defaultTheme' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -31,9 +33,11 @@ window.helper = helper;
 
 function NumericStats(props: { value: string; label: string }) {
   return (
-    <div className="flex-column extension-popup-numerics-container">
-      <div className="extension-popup-numerics-label">{props.label}</div>
-      <div className="title extension-popup-numerics-value">{props.value}</div>
+    <div
+      className={'flex col border-box extension-popup-numerics-container grow1'}
+    >
+      <p className={'small'}>{props.label}</p>
+      <p className={'large bold'}>{props.value}</p>
     </div>
   );
 }
@@ -42,12 +46,15 @@ function MenuItem(props: {
   onClick: () => void;
   iconClassName: string;
   text: string;
-  badge?: JSX.Element;
+  badge?: ReactElement;
 }) {
   return (
-    <div onClick={props.onClick} className="flex-row extension-popup-menu-item">
+    <div
+      onClick={props.onClick}
+      className={'flex align-center gap16 extension-popup-menu-item'}
+    >
       <div className={props.iconClassName} />
-      <div className="extension-popup-menu-item-text">{props.text}</div>
+      <p className={'bold'}>{props.text}</p>
       {props.badge ? props.badge : ''}
     </div>
   );
@@ -102,6 +109,7 @@ function Index() {
         });
       });
   }, []);
+
   useEffect(
     () =>
       window.helper.isNeededOnBoarding().then((_needOnBoarding: boolean) => {
@@ -138,11 +146,11 @@ function Index() {
       {needOnBoarding ? (
         <></>
       ) : (
-        <div className="extension-popup-container">
-          <div className="flex-column extension-popup">
-            <div className="flex-row extension-popup-logo-and-switch">
-              <div className="flex-row flex-align-center">
-                <SwashLogo className="extension-popup-logo" />
+        <div className={'bg-white extension-popup-container'}>
+          <div className={'flex col extension-popup'}>
+            <div className={'flex align-center justify-between'}>
+              <div className={'flex align-center'}>
+                <SwashLogo className={'extension-popup-logo'} />
                 {verified === undefined ? (
                   <></>
                 ) : (
@@ -151,25 +159,22 @@ function Index() {
               </div>
               <Toggle />
             </div>
-            <FlexGrid
-              column={2}
-              className="flex-row form-item-gap extension-popup-numerics"
-            >
-              <NumericStats value={tokenAvailable} label="Earning balance" />
-              <NumericStats value={unclaimedBonus} label="Rewards to claim" />
-            </FlexGrid>
+            <div className={'flex gap16 extension-popup-numerics'}>
+              <NumericStats value={tokenAvailable} label={'Earning balance'} />
+              <NumericStats value={unclaimedBonus} label={'Rewards to claim'} />
+            </div>
             <MenuItem
-              text="Earnings"
-              iconClassName="popup-wallet-icon"
+              text={'Wallet'}
+              iconClassName={'popup-icon wallet'}
               onClick={() =>
                 showPageOnTab(
-                  browser.runtime.getURL('dashboard/index.html#/earnings'),
+                  browser.runtime.getURL('dashboard/index.html#/wallet'),
                 )
               }
             />
             <MenuItem
-              text="Earn More"
-              iconClassName="popup-earn-more-icon"
+              text={'Earn More'}
+              iconClassName={'popup-icon earn'}
               onClick={() =>
                 showPageOnTab(
                   browser.runtime.getURL('dashboard/index.html#/earn-more'),
@@ -177,8 +182,8 @@ function Index() {
               }
             />
             <MenuItem
-              text="Settings"
-              iconClassName="popup-settings-icon"
+              text={'Settings'}
+              iconClassName={'popup-icon settings'}
               onClick={() =>
                 showPageOnTab(
                   browser.runtime.getURL('dashboard/index.html#/settings'),
@@ -186,8 +191,8 @@ function Index() {
               }
             />
             <MenuItem
-              text="Help"
-              iconClassName="popup-help-icon"
+              text={'Help'}
+              iconClassName={'popup-icon help'}
               onClick={() =>
                 showPageOnTab(
                   browser.runtime.getURL('dashboard/index.html#/help'),
@@ -203,12 +208,12 @@ function Index() {
 }
 
 const theme = createTheme();
-
-ReactDOM.render(
+const container = document.getElementById('popup');
+const root = createRoot(container!);
+root.render(
   <StyledEngineProvider injectFirst>
     <ThemeProvider theme={theme}>
       <Index />
     </ThemeProvider>
   </StyledEngineProvider>,
-  document.getElementById('popup'),
 );

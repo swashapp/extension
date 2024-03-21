@@ -1,14 +1,17 @@
-import React, {
+import {
   useCallback,
   useState,
   SetStateAction,
   Dispatch,
   useMemo,
+  ReactElement,
 } from 'react';
 
 import { RemoveButton } from '../button/remove';
 import { AddEndAdornment } from '../input/end-adornments/add-end-adornment';
 import { Input } from '../input/input';
+
+import '../../static/css/components/text-list-management.css';
 
 export function TextListManagement({
   items,
@@ -22,7 +25,7 @@ export function TextListManagement({
   placeholder: string;
   transformer?: (data: string) => string;
   validator?: (data: string) => boolean;
-}): JSX.Element {
+}): ReactElement {
   const [input, setInput] = useState<string>('');
 
   const onAdd = useCallback(
@@ -85,10 +88,13 @@ export function TextListManagement({
           }
         />
       </div>
-      <div className="text-list-items">
+      <div className={'text-list-items'}>
         {(items || []).map((item: string, index: number) => (
-          <div key={item + index} className="text-list-item">
-            {item}
+          <div
+            key={item + index}
+            className={'flex align-center justify-between text-list-item'}
+          >
+            <p>{item}</p>
             <RemoveButton onClick={() => onRemove(index)} />
           </div>
         ))}

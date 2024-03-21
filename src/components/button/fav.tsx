@@ -1,10 +1,10 @@
 import { Checkbox } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 
 export function FavButton(props: {
   enable: boolean;
-  onClick: (e: React.MouseEvent) => void;
-}): JSX.Element {
+  onClick: (e: MouseEvent) => void;
+}): ReactElement {
   const [status, setStatus] = useState(false);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 export function Circle(props: {
   color?: 'black' | 'white' | 'green' | 'soft-green';
@@ -7,7 +7,7 @@ export function Circle(props: {
   colorful?: boolean;
   colorfulGradient?: boolean;
   className?: string;
-}): JSX.Element {
+}): ReactElement {
   const color = props.color ? `var(--color-${props.color})` : 'transparent';
   const border = props.border ? `var(--color-${props.border})` : 'transparent';
   const dashed = props.dashed || '0';
@@ -22,7 +22,7 @@ export function Circle(props: {
         height={'100%'}
         alignmentBaseline={'central'}
         overflow={'visible'}
-        xmlns="http://www.w3.org/2000/svg"
+        xmlns={'http://www.w3.org/2000/svg'}
       >
         <circle
           cx={'50%'}

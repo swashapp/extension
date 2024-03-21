@@ -1,6 +1,8 @@
 import { Box, Tab, Tabs, TabsProps, styled } from '@mui/material';
-import React, {
+import {
   PropsWithChildren,
+  ReactElement,
+  SyntheticEvent,
   useCallback,
   useEffect,
   useState,
@@ -47,14 +49,17 @@ function CustomTabPanel(
 
   return (
     <div
-      role="tabpanel"
+      role={'tabpanel'}
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
     >
       {value === index && (
         <Box>
-          <div className={'simple-card'} style={{ ...style }}>
+          <div
+            className={'round no-overflow flex col gap24 bg-white card'}
+            style={{ ...style }}
+          >
             {children}
           </div>
         </Box>
@@ -63,7 +68,7 @@ function CustomTabPanel(
   );
 }
 
-export function Data(): JSX.Element {
+export function Data(): ReactElement {
   const [delay, setDelay] = useState<number>(0);
   const [dataItems, setDataItems] = useState<DataItem[] | null>(null);
   const [maskItems, setMaskItems] = useState<string[] | null>(null);
@@ -161,9 +166,9 @@ export function Data(): JSX.Element {
     );
   }, []);
 
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
@@ -194,82 +199,80 @@ export function Data(): JSX.Element {
   };
 
   return (
-    <div className="page-container">
-      <div className="page-content">
-        <div className="page-header">
-          <h2>Data & Ads Controls</h2>
-        </div>
-        <div className="flex-column card-gap">
-          <div>
-            <StyledTabs value={value} onChange={handleChange}>
-              <Tab label="Your data" className="data-tab" />
-              <Tab label="Text masking" className="data-tab" />
-              <Tab label="Data domain exclusion" className="data-tab" />
-              <Tab label="Ad display restriction" className="data-tab" />
-            </StyledTabs>
-            <CustomTabPanel value={value} index={0}>
-              <p>
-                The data collected as you browse is shown here before being
-                added to the Swash dataset. If you want time to check the data
-                before it gets uploaded, you can adjust the sending delay and
-                delete anything that you don’t want to share.
-              </p>
-              <div>
-                <NumericInput
-                  label="Delay my data by"
-                  value={delay}
-                  setValue={setDelay}
-                  unit={delay > 1 ? 'minutes' : 'minute'}
-                />
-              </div>
-              <DataAccordion items={dataItems || []} onRemove={deleteMsg} />
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={1}>
-              <p>
-                Swash doesn’t collect any sensitive data from you, like your
-                name, email, or passwords. If you really want to be sure, you
-                can hide certain sensitive words or numbers so they don’t get
-                added to the Swash dataset.
-              </p>
-              <TextListManagement
-                items={maskItems}
-                setItems={setMaskItems}
-                placeholder={'Mask It'}
+    <>
+      <div className={'page-header'}>
+        <h6>Data & Ads Controls</h6>
+      </div>
+      <div className={'flex col gap32'}>
+        <div>
+          <StyledTabs value={value} onChange={handleChange}>
+            <Tab label={'Your data'} className={'data-tab'} />
+            <Tab label={'Text masking'} className={'data-tab'} />
+            <Tab label={'Data domain exclusion'} className={'data-tab'} />
+            <Tab label={'Ad display restriction'} className={'data-tab'} />
+          </StyledTabs>
+          <CustomTabPanel value={value} index={0}>
+            <p>
+              The data collected as you browse is shown here before being added
+              to the Swash dataset. If you want time to check the data before it
+              gets uploaded, you can adjust the sending delay and delete
+              anything that you don’t want to share.
+            </p>
+            <div>
+              <NumericInput
+                label={'Delay my data by'}
+                value={delay}
+                setValue={setDelay}
+                unit={delay > 1 ? 'minutes' : 'minute'}
               />
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={2}>
-              <p>
-                If there are some websites where you don’t want Swash to work,
-                simply add them here. Swash will then completely ignore them
-                unless you remove them from this list. You can add or remove
-                sites from your excluded domains list at any time.
-              </p>
-              <TextListManagement
-                items={excludeUrls}
-                setItems={setExcludeUrls}
-                placeholder={'Domain To Exclude'}
-                transformer={urlTransformer}
-                validator={urlValidator}
-              />
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={3}>
-              <p>
-                If you’ve ever closed a Swash Ad by clicking ‘Forever on this
-                site’, those excluded sites will be listed here. To enable ads
-                on those sites again, simply click ‘Undo’ to remove them from
-                your excluded domains list.
-              </p>
-              <TextListManagement
-                items={adExcludeUrls}
-                setItems={setAdExcludeUrls}
-                placeholder={'Domain To Exclude From Ads'}
-                transformer={urlTransformer}
-                validator={urlValidator}
-              />
-            </CustomTabPanel>
-          </div>
+            </div>
+            <DataAccordion items={dataItems || []} onRemove={deleteMsg} />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={1}>
+            <p>
+              Swash doesn’t collect any sensitive data from you, like your name,
+              email, or passwords. If you really want to be sure, you can hide
+              certain sensitive words or numbers so they don’t get added to the
+              Swash dataset.
+            </p>
+            <TextListManagement
+              items={maskItems}
+              setItems={setMaskItems}
+              placeholder={'Mask It'}
+            />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={2}>
+            <p>
+              If there are some websites where you don’t want Swash to work,
+              simply add them here. Swash will then completely ignore them
+              unless you remove them from this list. You can add or remove sites
+              from your excluded domains list at any time.
+            </p>
+            <TextListManagement
+              items={excludeUrls}
+              setItems={setExcludeUrls}
+              placeholder={'Domain To Exclude'}
+              transformer={urlTransformer}
+              validator={urlValidator}
+            />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={3}>
+            <p>
+              If you’ve ever closed a Swash Ad by clicking ‘Forever on this
+              site’, those excluded sites will be listed here. To enable ads on
+              those sites again, simply click ‘Undo’ to remove them from your
+              excluded domains list.
+            </p>
+            <TextListManagement
+              items={adExcludeUrls}
+              setItems={setAdExcludeUrls}
+              placeholder={'Domain To Exclude From Ads'}
+              transformer={urlTransformer}
+              validator={urlValidator}
+            />
+          </CustomTabPanel>
         </div>
       </div>
-    </div>
+    </>
   );
 }

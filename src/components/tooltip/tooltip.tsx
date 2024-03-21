@@ -4,7 +4,7 @@ import {
   tooltipClasses,
   TooltipProps,
 } from '@mui/material';
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 const StyledTooltip = styled(({ className, ...props }: TooltipProps) => (
   <MuiTooltip {...props} classes={{ popper: className }} />
@@ -30,7 +30,7 @@ const StyledTooltip = styled(({ className, ...props }: TooltipProps) => (
   },
 }));
 
-export function Tooltip(props: { text: string | ReactElement }): JSX.Element {
+export function Tooltip(props: { text: string | ReactElement }): ReactElement {
   return (
     <StyledTooltip
       title={props.text}

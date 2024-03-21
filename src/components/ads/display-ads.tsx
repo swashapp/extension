@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { ReactElement, useEffect, useMemo, useState } from 'react';
 
 import { helper } from '../../core/webHelper';
 import { WebsitePath } from '../../paths';
@@ -10,7 +10,7 @@ export function DisplayAds(props: {
   height: number;
   divWidth?: number | string;
   divHeight?: number | string;
-}): JSX.Element {
+}): ReactElement {
   const { width, height, divWidth, divHeight } = props;
   const [uuid, setUuid] = useState('');
   const [iframeVisible, setIframeVisible] = useState<boolean>(false);
@@ -48,8 +48,8 @@ export function DisplayAds(props: {
           }}
           onLoad={() => setIframeVisible(true)}
           title={'ads'}
-          scrolling="no"
-          frameBorder="no"
+          scrolling={'no'}
+          frameBorder={'no'}
           src={iframeSrc}
         >
           <p>Your browser does not support iframe.</p>

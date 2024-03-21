@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
 
 import {
   TwitterShareButton,
@@ -8,7 +8,6 @@ import {
 } from 'react-share';
 
 import { LearnMore } from '../components/button/learn-more';
-import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { IconButton } from '../components/icon-button/icon-button';
 import { CopyEndAdornment } from '../components/input/end-adornments/copy-end-adornment';
 import { Input } from '../components/input/input';
@@ -36,7 +35,7 @@ export interface Notifications {
   prize?: Notification;
 }
 
-export function InviteFriends(): JSX.Element {
+export function InviteFriends(): ReactElement {
   const [referralLink, setReferralLink] = useState<string>('');
   const [referral, setReferral] = useState<{
     totalReward: string;
@@ -81,122 +80,118 @@ export function InviteFriends(): JSX.Element {
   }, [loadInAppNotifications, loadReferral, loadReferrals]);
 
   return (
-    <div className="page-container">
-      <div className="page-content">
-        <div className="page-header">
-          <h2>Referral bonus</h2>
+    <>
+      <div className={'page-header'}>
+        <h6>Referral bonus</h6>
+      </div>
+      <div className={'flex col gap32'}>
+        <div className="flex row gap32">
+          <NumericSection
+            title={'SWASH referral bonus'}
+            tooltip={
+              'Swash has anti-fraud measures to combat fake users. Only genuine referrals will be reflected here.'
+            }
+            value={UtilsService.purgeNumber(referral.totalReward)}
+            layout={'layout1'}
+            image={TotalBonusIcon}
+            className={'grow1'}
+          />
+          <NumericSection
+            title={'Invited friends'}
+            tooltip={
+              'You will not receive referral rewards for friends that are flagged as fake by Swash’s anti-fraud measures.'
+            }
+            value={referral.totalReferral}
+            layout={'layout2'}
+            image={TotalFriendsIcon}
+            className={'grow1'}
+          />
         </div>
-        <div className="flex-column card-gap">
-          <FlexGrid column={2} className="invite-friends-numerics card-gap">
-            <NumericSection
-              title="SWASH referral bonus"
-              tooltip="Swash has anti-fraud measures to combat fake users. Only genuine referrals will be reflected here."
-              value={UtilsService.purgeNumber(referral.totalReward)}
-              layout="layout1"
-              image={TotalBonusIcon}
+        <div className={'round no-overflow flex nowrap gap32 bg-white card'}>
+          <div className={'flex col gap32 grow1'}>
+            <h6>Earn more by inviting your friends</h6>
+            <p>
+              Share your referral link to bring your friends to Swash. Keep
+              checking this page for live referral programs.
+            </p>
+            <Input
+              name="referral"
+              label="Your referral link"
+              value={referralLink}
+              disabled={true}
+              onChange={(e) => setReferralLink(e.target.value)}
+              endAdornment={<CopyEndAdornment value={referralLink} />}
             />
-            <NumericSection
-              title="Invited friends"
-              tooltip="You will not receive referral rewards for friends that are flagged as fake by Swash’s anti-fraud measures."
-              value={referral.totalReferral}
-              layout="layout2"
-              image={TotalFriendsIcon}
-            />
-          </FlexGrid>
-          <div className="simple-card">
-            <FlexGrid
-              column={2}
-              className="invite-friends-bonus-cards card-gap"
-            >
-              <div className="simple-card">
-                <h6>Earn more by inviting your friends</h6>
+            <div className={'flex align-center relative'}>
+              <hr className={'grow1'} />
+              <p className={'absolute bg-white invite-friends-share-line'}>
+                Share
+              </p>
+            </div>
+            <div className={'flex nowrap gap16'}>
+              <TwitterShareButton
+                className={'grow1 invite-friends-twitter-button'}
+                url={referralLink}
+                title={referralMessage}
+              >
+                <IconButton image={TwitterLogo} link={false} />
+              </TwitterShareButton>
+              <FacebookShareButton
+                className={'grow1'}
+                url={referralLink}
+                title={referralMessage}
+              >
+                <IconButton image={FacebookLogo} link={false} />
+              </FacebookShareButton>
+              <LinkedinShareButton
+                className={'grow1'}
+                url={referralLink}
+                summary={referralMessage}
+              >
+                <IconButton image={LinkedInLogo} link={false} />
+              </LinkedinShareButton>
+              <EmailShareButton
+                className={'grow1'}
+                url={referralLink}
+                subject={'My Referral Link'}
+                body={referralMessage}
+              >
+                <IconButton image={EmailLogo} link={false} />
+              </EmailShareButton>
+            </div>
+          </div>
+          <div className={'round bg-soft-green relative card3 grow1'}>
+            <div className={'flex column justify-between'}>
+              <div className={'invite-friends-win-prize-text'}>
+                <h6>
+                  {notifications.prize?.title ||
+                    'There are currently no active referral programs'}
+                </h6>
                 <p>
-                  Share your referral link to bring your friends to Swash. Keep
-                  checking this page for live referral programs.
+                  {notifications.prize?.text ||
+                    "Don't worry, your earnings are not affected. Come back again later!"}
                 </p>
-                <Input
-                  name="referral"
-                  label="Your referral link"
-                  value={referralLink}
-                  disabled={true}
-                  onChange={(e) => setReferralLink(e.target.value)}
-                  endAdornment={<CopyEndAdornment value={referralLink} />}
-                />
-                <div className="or-share-on-line">
-                  <div className="or-share-line">
-                    <div className={'solid-line'} />
-                  </div>
-                  <div className="or-share">share</div>
-                  <div className="or-share-line">
-                    <div className={'solid-line'} />
-                  </div>
-                </div>
-                <FlexGrid column={4} className="flex-grid form-item-gap">
-                  <TwitterShareButton
-                    className="share-button twitter-share-button"
-                    url={referralLink}
-                    title={referralMessage}
-                  >
-                    <IconButton image={TwitterLogo} link={false} />
-                  </TwitterShareButton>
-                  <FacebookShareButton
-                    className="share-button"
-                    url={referralLink}
-                    quote={referralMessage}
-                  >
-                    <IconButton image={FacebookLogo} link={false} />
-                  </FacebookShareButton>
-                  <LinkedinShareButton
-                    className="share-button"
-                    url={referralLink}
-                    summary={referralMessage}
-                  >
-                    <IconButton image={LinkedInLogo} link={false} />
-                  </LinkedinShareButton>
-                  <EmailShareButton
-                    className="share-button"
-                    url={referralLink}
-                    subject={'My Referral Link'}
-                    body={referralMessage}
-                  >
-                    <IconButton image={EmailLogo} link={false} />
-                  </EmailShareButton>
-                </FlexGrid>
               </div>
-              <div className="simple-card win-swash-prize">
-                <div className="flex-column justify-space-between win-swash-prize-content">
-                  <div className="win-swash-prize-title">
-                    <h5>
-                      {notifications.prize?.title ||
-                        'There are currently no active referral programs'}
-                    </h5>
-                    <div className="win-swash-prize-text">
-                      {notifications.prize?.text ||
-                        "Don't worry, your earnings are not affected. Come back again later!"}
-                    </div>
-                  </div>
-                  <div className="win-swash-prize-button">
-                    {notifications.prize ? (
-                      <LearnMore
-                        size="small"
-                        position="WinSwashPrize"
-                        link={notifications.prize?.link || ''}
-                      />
-                    ) : (
-                      <div style={{ height: 40 }} />
-                    )}
-                  </div>
-                  <img
-                    className={'win-swash-prize-img'}
-                    src={'/static/images/icons/earn/cup.png'}
-                    alt={''}
+              <div className={'invite-friends-win-prize-button'}>
+                {notifications.prize ? (
+                  <LearnMore
+                    size={'small'}
+                    position={'WinSwashPrize'}
+                    link={notifications.prize?.link || ''}
                   />
-                </div>
+                ) : (
+                  <div style={{ height: 40 }} />
+                )}
               </div>
-            </FlexGrid>
+              <img
+                className={'absolute invite-friends-win-prize-img'}
+                src={'/static/images/icons/earn/cup.png'}
+                alt={''}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
