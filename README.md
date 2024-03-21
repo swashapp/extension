@@ -1,6 +1,6 @@
 <div align="center">
     <a href="https://swashapp.io/" target="blank">
-        <img src="https://swashapp.io/static/images/logo/swash/s-logo.svg" width="80" alt="Swash Logo" />
+        <img src="https://swashapp.io/images/logo/swash/s-logo.svg" width="80" alt="Swash Logo" />
     </a>
 </div>
 <div align="center">

@@ -1,48 +1,23 @@
-import { FilterType } from '../enums/filter.enum';
-import { Filter } from '../types/storage/filter.type';
+import { MatchType } from "@/enums/pattern.enum";
+import { FilterStorage } from "@/types/storage/privacy.type";
 
-const filterUtils = (function () {
-  function regexFilter(input: string, regex: string) {
-    return !!input.match(regex);
-  }
+import { regex, wildcard } from "./pattern.util";
 
-  function matchFilter(input: string, match: string) {
-    return input === match;
-  }
-
-  function wildcardFilter(input: string, wildcard: string) {
-    const regex = new RegExp(
-      '^' + wildcard.split(/\*+/).map(regExpEscape).join('.*') + '$',
-    );
-    return !!input.match(regex);
-  }
-
-  function regExpEscape(str: string) {
-    return str.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
-  }
-
-  function filter(input: string, filters: Filter[]): boolean {
-    let ret = false;
-    for (const f of filters) {
-      switch (f.type) {
-        case FilterType.Regex:
-          ret = regexFilter(input, f.value);
-          break;
-        case FilterType.Wildcard:
-          ret = wildcardFilter(input, f.value);
-          break;
-        case FilterType.Exact:
-          ret = matchFilter(input, f.value);
-          break;
-      }
-      if (ret) return ret;
+export function match(input: string, filters: FilterStorage[]): boolean {
+  let ret = false;
+  for (const f of filters) {
+    switch (f.type) {
+      case MatchType.Regex:
+        ret = regex(input, f.value);
+        break;
+      case MatchType.Wildcard:
+        ret = wildcard(input, f.value);
+        break;
+      case MatchType.Exact:
+        ret = input === f.value;
+        break;
     }
-    return ret;
+    if (ret) return ret;
   }
-
-  return {
-    filter: filter,
-  };
-})();
-
-export { filterUtils };
+  return ret;
+}

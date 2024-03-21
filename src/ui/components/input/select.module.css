@@ -1,0 +1,8 @@
+.container {
+  height: 48px;
+}
+
+.value::first-letter,
+.item::first-letter {
+  text-transform: capitalize;
+}

@@ -1,0 +1,30 @@
+.container {
+  width: 620px;
+}
+
+.content {
+  height: 275px;
+  overflow: auto;
+}
+
+.colors {
+  width: 120px;
+  height: 80px;
+}
+
+.searchEngines {
+  width: 188px !important;
+  height: 120px;
+}
+
+.colors,
+.searchEngines {
+  border: 1px solid var(--color-light-grey);
+  border-radius: 15px;
+}
+
+.colors > img,
+.searchEngines > img {
+  width: 100%;
+  height: auto;
+}

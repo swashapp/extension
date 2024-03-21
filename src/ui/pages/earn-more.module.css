@@ -1,0 +1,30 @@
+.option {
+  flex: 1 1 calc(50% - 16px);
+}
+
+.option > div {
+  width: 100%;
+  height: 260px;
+
+  color: var(--color-darkest-grey) !important;
+}
+
+.option:nth-of-type(2) > div {
+  --color: var(--color-purple);
+}
+
+.option:nth-of-type(3) > div {
+  --color: var(--color-soft-green);
+}
+
+.option:nth-of-type(4) > div {
+  --color: var(--color-soft-yellow);
+}
+
+.option img {
+  width: auto;
+  height: 220px;
+
+  bottom: 10px;
+  right: 10px;
+}

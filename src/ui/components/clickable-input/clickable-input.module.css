@@ -1,0 +1,21 @@
+.container {
+  width: 100%;
+}
+
+.container > p {
+  color: var(--color-dark-grey);
+}
+
+.input {
+  height: 32px;
+  padding: 8px 16px;
+  border-radius: 100px;
+
+  background: var(--color-lightest-grey);
+  color: var(--color-black);
+  cursor: pointer;
+}
+
+.action {
+  transform: rotate(-90deg);
+}

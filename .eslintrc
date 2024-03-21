@@ -26,7 +26,7 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 2018,
+    "ecmaVersion": 2020,
     "project": "./tsconfig.json",
     "sourceType": "module"
   },
@@ -36,20 +36,35 @@
     }
   },
   "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-uses-react": "off",
     "import/order": [
       "error",
       {
+        "pathGroups": [
+          {
+            "pattern": "~/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "@/**",
+            "group": "internal"
+          }
+        ],
         "groups": [
-          "builtin",
-          "external",
-          ["parent", "index", "internal"],
-          "sibling"
+          ["builtin", "external"],
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "type",
+          "object"
         ],
         "alphabetize": {
           "order": "asc",
           "caseInsensitive": true
         },
-        "newlines-between": "always-and-inside-groups"
+        "newlines-between": "always"
       }
     ]
   }

@@ -1,0 +1,66 @@
+.punch {
+  --color: var(--color-purple) !important;
+}
+
+.caption {
+  color: var(--color-dark-grey);
+}
+
+.caption em {
+  color: var(--color-green);
+  text-decoration: none;
+}
+
+.toaster {
+  height: 57px;
+  border-radius: 100px;
+  padding: 8px 16px;
+}
+
+.card {
+  width: 107px;
+  height: 64px;
+
+  border: 1px solid var(--color-light-grey);
+}
+
+div.card:last-of-type {
+  width: 146px;
+  padding: 0 12px;
+}
+
+.cashout {
+  width: 124px;
+  height: 69px;
+
+  padding: 12px 16px;
+  border: 1px solid var(--color-light-grey);
+}
+
+.card:hover,
+.cashout:hover,
+.card.selected,
+.cashout.selected {
+  border: 1px solid var(--color-dark-purple);
+}
+
+.cashout p:last-of-type {
+  color: var(--color-dark-grey);
+}
+
+.voucher {
+  width: 109px;
+  height: 112px;
+
+  cursor: pointer;
+}
+
+.voucher.amount {
+  height: 70px;
+  z-index: 1;
+}
+
+.voucher.use {
+  height: 40px;
+  z-index: 1;
+}

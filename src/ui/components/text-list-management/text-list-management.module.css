@@ -1,0 +1,11 @@
+.container {
+  width: 100%;
+}
+
+.item {
+  padding: 12px 0;
+}
+
+.item + .item {
+  border-top: 1px solid var(--color-light-grey);
+}

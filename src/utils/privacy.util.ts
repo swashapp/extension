@@ -1,228 +1,250 @@
-import { ObjectType } from '../enums/object.enum';
-import { Any } from '../types/any.type';
-import { Message } from '../types/message.type';
-import { Module } from '../types/storage/module.type';
+import { JSONPath } from "jsonpath-plus";
+import JsonPointer from "jsonpointer";
 
-import { commonUtils } from './common.util';
+import { ObjectType } from "@/enums/object.enum";
+import { HashAlgorithm } from "@/enums/security.enum";
+import { Any } from "@/types/any.type";
+import { CollectedMessage, Message } from "@/types/message.type";
 
-const { sha256, uuid } = commonUtils;
+import { uuid } from "./id.util";
+import { hash } from "./security.util";
 
-const privacyUtils = (function () {
-  let basicIdentity = '';
-  const moduleIdentity: Any = {};
-  const categoryIdentity: Any = {};
+export function enforcePolicy(message: Message, privacyData: Any): Message {
+  const data = message.data.out;
+  const schems = message.data.schems;
 
-  function anonymiseIdentity(id: string, message: Message, module: Module) {
-    basicIdentity = basicIdentity ? basicIdentity : sha256(id);
+  for (const schem of schems) {
+    const jPointers: string[] = JSONPath({
+      path: schem.jpath,
+      resultType: "pointer",
+      json: message.data.out,
+    });
 
-    switch (message.header.anonymityLevel) {
-      case 0:
-        return basicIdentity;
-      case 1:
-        categoryIdentity[module.category] = categoryIdentity[module.category]
-          ? categoryIdentity[module.category]
-          : sha256(`${id}${module.category}`);
-        return sha256(`${basicIdentity}${categoryIdentity[module.category]}`);
-      case 2:
-        moduleIdentity[module.name] = moduleIdentity[module.name]
-          ? moduleIdentity[module.name]
-          : sha256(`${id}${module.name}`);
-        return sha256(`${basicIdentity}${moduleIdentity[module.name]}`);
-      case 3:
-        return sha256(`${basicIdentity}${message.header.id}`);
-      default:
-        return sha256(`${basicIdentity}${message.header.id}`);
+    if (jPointers && jPointers.length > 0) {
+      for (const jp of jPointers) {
+        let value = JsonPointer.get(message.data.out, jp);
+        value = anonymiseObject(value, schem.type, message, privacyData);
+        JsonPointer.set(data, jp, value);
+      }
     }
   }
 
-  function anonymiseUrl(url: string, message: Message) {
-    const urlObj = new URL(url);
-    let path = [];
-    switch (message.header.privacyLevel) {
-      case 0:
-        return urlObj.href;
-      case 1:
-        urlObj.searchParams.forEach((item) => {
-          urlObj.searchParams.set(item[0], '');
-        });
-        return urlObj.href;
-      case 2:
-        path = urlObj.pathname.split('/');
-        for (const item in path) {
-          if (path[item]) {
-            path[item] = sha256(path[item]).substring(0, path[item].length);
-          }
-        }
-        return urlObj.origin + path.join('/');
-      case 3:
-        return urlObj.origin;
-      default:
-        return urlObj.origin;
-    }
-  }
+  message.data = data;
+  return message;
+}
 
-  function anonymiseTime(time: number, message: Message) {
-    const date = new Date();
-    let date2;
-    date.setTime(time);
-    switch (message.header.privacyLevel) {
-      case 0:
-        return date.getTime();
-      case 1:
-        date.setHours(0, 0, 0, 0);
-        return date.getTime();
-      case 2:
-        date2 = new Date(0);
-        date2.setFullYear(date.getFullYear(), date.getMonth());
-        return date2.getTime();
-      case 3:
-        date2 = new Date(0);
-        date2.setFullYear(date.getFullYear(), 0);
-        return date2.getTime();
-      default:
-        return date.getTime();
-    }
-  }
+export function anonymiseIdentity(id: string, message: CollectedMessage) {
+  const basicIdentity = hash(HashAlgorithm.SHA256, id);
 
-  function anonymiseText(text: string, message: Message, privacyData: Any) {
-    let retText = JSON.stringify(text);
-    switch (message.header.privacyLevel) {
-      case 0:
-        for (let i = 0; i < privacyData.length; i++) {
-          retText = retText.replace(
-            new RegExp('\\b' + privacyData[i].value + '\\b', 'ig'),
-            new Array(privacyData[i].value.length + 1).join('*'),
+  switch (message.header.anonymityLevel) {
+    case 0:
+      return basicIdentity;
+    case 1:
+      return hash(
+        HashAlgorithm.SHA256,
+        `${basicIdentity}${hash(
+          HashAlgorithm.SHA256,
+          `${id}${message.header.category}`,
+        )}`,
+      );
+    case 2:
+      return hash(
+        HashAlgorithm.SHA256,
+        `${basicIdentity}${hash(
+          HashAlgorithm.SHA256,
+          `${id}${message.header.module}`,
+        )}`,
+      );
+    case 3:
+      return hash(HashAlgorithm.SHA256, `${basicIdentity}${message.header.id}`);
+    default:
+      return hash(HashAlgorithm.SHA256, `${basicIdentity}${message.header.id}`);
+  }
+}
+
+function anonymiseObject(
+  object: Any,
+  objectType: ObjectType,
+  message: Message,
+  privacyData: Any,
+) {
+  if (!object) return object;
+  switch (objectType) {
+    case ObjectType.UserInfo:
+      return anonymiseUserInfo(object, message);
+    case ObjectType.UserAttr:
+      return anonymiseUserAttr(object, message);
+    case ObjectType.TimeString:
+      return anonymiseTimeString(object, message);
+    case ObjectType.URL:
+      return anonymiseUrl(object, message);
+    case ObjectType.Time:
+      return anonymiseTime(object, message);
+    case ObjectType.Text:
+      return anonymiseText(object, message, privacyData);
+    case ObjectType.ID:
+      return anonymiseUserId(object, message);
+    default:
+      return object;
+  }
+}
+
+function anonymiseUrl(url: string, message: Message) {
+  const urlObj = new URL(url);
+  let path = [];
+  switch (message.header.privacyLevel) {
+    case 0:
+      return urlObj.href;
+    case 1:
+      urlObj.searchParams.forEach((item) => {
+        urlObj.searchParams.set(item[0], "");
+      });
+      return urlObj.href;
+    case 2:
+      path = urlObj.pathname.split("/");
+      for (const item in path) {
+        if (path[item]) {
+          path[item] = hash(HashAlgorithm.SHA256, path[item]).substring(
+            0,
+            path[item].length,
           );
         }
-        break;
-      case 1:
-        for (let i = 0; i < privacyData.length; i++) {
-          retText = retText.replace(
-            new RegExp('\\b' + privacyData[i].value + '\\b', 'ig'),
-            '',
-          );
+      }
+      return urlObj.origin + path.join("/");
+    case 3:
+      return urlObj.origin;
+    default:
+      return urlObj.origin;
+  }
+}
+
+function anonymiseTime(time: number, message: Message) {
+  const date = new Date();
+  let date2;
+  date.setTime(time);
+  switch (message.header.privacyLevel) {
+    case 0:
+      return date.getTime();
+    case 1:
+      date.setHours(0, 0, 0, 0);
+      return date.getTime();
+    case 2:
+      date2 = new Date(0);
+      date2.setFullYear(date.getFullYear(), date.getMonth());
+      return date2.getTime();
+    case 3:
+      date2 = new Date(0);
+      date2.setFullYear(date.getFullYear(), 0);
+      return date2.getTime();
+    default:
+      return date.getTime();
+  }
+}
+
+function anonymiseText(text: string, message: Message, privacyData: Any) {
+  let retText = JSON.stringify(text);
+  switch (message.header.privacyLevel) {
+    case 0:
+      for (let i = 0; i < privacyData.length; i++) {
+        retText = retText.replace(
+          new RegExp("\\b" + privacyData[i].value + "\\b", "ig"),
+          new Array(privacyData[i].value.length + 1).join("*"),
+        );
+      }
+      break;
+    case 1:
+      for (let i = 0; i < privacyData.length; i++) {
+        retText = retText.replace(
+          new RegExp("\\b" + privacyData[i].value + "\\b", "ig"),
+          "",
+        );
+      }
+      break;
+    case 2:
+      for (let i = 0; i < privacyData.length; i++) {
+        retText = retText.replace(
+          new RegExp("\\b" + privacyData[i].value + "\\b", "ig"),
+          "",
+        );
+      }
+      break;
+    case 3:
+      for (let i = 0; i < privacyData.length; i++) {
+        const res = retText.match(
+          new RegExp("\\b" + privacyData[i].value + "\\b", "ig"),
+        );
+        if (res) {
+          retText = '""';
+          break;
         }
-        break;
-      case 2:
-        for (let i = 0; i < privacyData.length; i++) {
-          retText = retText.replace(
-            new RegExp('\\b' + privacyData[i].value + '\\b', 'ig'),
-            '',
-          );
-        }
-        break;
-      case 3:
-        for (let i = 0; i < privacyData.length; i++) {
-          const res = retText.match(
-            new RegExp('\\b' + privacyData[i].value + '\\b', 'ig'),
-          );
-          if (res) {
-            retText = '""';
-            break;
-          }
-        }
-        break;
-      default:
-        return '';
-    }
-    return JSON.parse(retText);
+      }
+      break;
+    default:
+      return "";
   }
+  return JSON.parse(retText);
+}
 
-  function anonymiseUserInfo(user: Any, message: Message) {
-    let retUserInfo = user;
+function anonymiseUserInfo(user: Any, message: Message) {
+  let retUserInfo = user;
 
-    switch (message.header.privacyLevel) {
-      case 0:
-        return retUserInfo;
-      case 1:
-        retUserInfo = sha256(user);
-        return retUserInfo;
-      case 2:
-        retUserInfo = sha256(user + uuid());
-        return retUserInfo;
-      case 3:
-        return '';
-      default:
-        return '';
-    }
+  switch (message.header.privacyLevel) {
+    case 0:
+      return retUserInfo;
+    case 1:
+      retUserInfo = hash(HashAlgorithm.SHA256, user);
+      return retUserInfo;
+    case 2:
+      retUserInfo = hash(HashAlgorithm.SHA256, user + uuid());
+      return retUserInfo;
+    case 3:
+      return "";
+    default:
+      return "";
   }
+}
 
-  function anonymiseUserId(id: string, message: Message) {
-    let retId = id;
+function anonymiseUserId(id: string, message: Message) {
+  let retId = id;
 
-    switch (message.header.privacyLevel) {
-      case 0:
-        return retId;
-      case 1:
-        retId = sha256(id);
-        return retId;
-      case 2:
-        retId = sha256(id + uuid());
-        return retId;
-      case 3:
-        return '';
-      default:
-        return '';
-    }
+  switch (message.header.privacyLevel) {
+    case 0:
+      return retId;
+    case 1:
+      retId = hash(HashAlgorithm.SHA256, id);
+      return retId;
+    case 2:
+      retId = hash(HashAlgorithm.SHA256, id + uuid());
+      return retId;
+    case 3:
+      return "";
+    default:
+      return "";
   }
+}
 
-  function anonymiseUserAttr(userAttr: Any, message: Message) {
-    let retAttr = userAttr;
+function anonymiseUserAttr(userAttr: Any, message: Message) {
+  let retAttr = userAttr;
 
-    switch (message.header.privacyLevel) {
-      case 0:
-        return retAttr;
-      case 1:
-        retAttr = sha256(userAttr);
-        return retAttr;
-      case 2:
-        retAttr = sha256(userAttr + uuid());
-        return retAttr;
-      case 3:
-        return '';
-      default:
-        return '';
-    }
+  switch (message.header.privacyLevel) {
+    case 0:
+      return retAttr;
+    case 1:
+      retAttr = hash(HashAlgorithm.SHA256, userAttr);
+      return retAttr;
+    case 2:
+      retAttr = hash(HashAlgorithm.SHA256, userAttr + uuid());
+      return retAttr;
+    case 3:
+      return "";
+    default:
+      return "";
   }
+}
 
-  function anonymiseTimeString(timeStr: string, message: Message) {
-    const date = new Date(timeStr);
-    const newTime = anonymiseTime(date.getTime(), message);
-    date.setTime(newTime);
-    return date.toString();
-  }
-
-  function anonymiseObject(
-    object: Any,
-    objectType: ObjectType,
-    message: Message,
-    privacyData: Any,
-  ) {
-    if (!object) return object;
-    switch (objectType) {
-      case ObjectType.UserInfo:
-        return anonymiseUserInfo(object, message);
-      case ObjectType.UserAttr:
-        return anonymiseUserAttr(object, message);
-      case ObjectType.TimeString:
-        return anonymiseTimeString(object, message);
-      case ObjectType.URL:
-        return anonymiseUrl(object, message);
-      case ObjectType.Time:
-        return anonymiseTime(object, message);
-      case ObjectType.Text:
-        return anonymiseText(object, message, privacyData);
-      case ObjectType.ID:
-        return anonymiseUserId(object, message);
-      default:
-        return object;
-    }
-  }
-
-  return {
-    anonymiseObject,
-    anonymiseIdentity,
-  };
-})();
-
-export { privacyUtils };
+function anonymiseTimeString(timeStr: string, message: Message) {
+  const date = new Date(timeStr);
+  const newTime = anonymiseTime(date.getTime(), message);
+  date.setTime(newTime);
+  return date.toString();
+}

@@ -1,0 +1,22 @@
+.container {
+  width: 583px;
+}
+
+.back {
+  width: max-content;
+}
+
+.back:hover .icon * {
+  stroke: var(--color-jet-black);
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  transform: rotate(-90deg);
+}
+
+.icon * {
+  stroke: var(--color-green);
+  transition: all 0.25s ease-in-out;
+}

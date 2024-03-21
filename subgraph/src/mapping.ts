@@ -19,9 +19,9 @@ import {
   TransferWithinContract,
   UpdateNewMemberEth,
   WithdrawModuleChanged,
-} from '../generated/DataUnionSidechain/DataUnionSidechain';
-import { MemberStatusEntity, TransferEntity } from '../generated/schema';
-import { Address, BigInt, Bytes, ethereum, log } from '@graphprotocol/graph-ts';
+} from "../generated/DataUnionSidechain/DataUnionSidechain";
+import { MemberStatusEntity, TransferEntity } from "../generated/schema";
+import { Address, BigInt, Bytes, ethereum, log } from "@graphprotocol/graph-ts";
 
 function saveMemberStatus(
   id: string,
@@ -70,7 +70,7 @@ function saveTransfer(
 function getTxnInputDataToDecode(event: ethereum.Event): Bytes {
   const inputDataHexString = event.transaction.input.toHexString().slice(10);
   const hexStringToDecode =
-    '0x0000000000000000000000000000000000000000000000000000000000000020' +
+    "0x0000000000000000000000000000000000000000000000000000000000000020" +
     inputDataHexString;
   return Bytes.fromByteArray(Bytes.fromHexString(hexStringToDecode));
 }
@@ -79,7 +79,7 @@ function formatAddress(address: BigInt): string {
   const tmp = address.toHexString();
   if (tmp.length === 42) return tmp;
 
-  return '0x' + '0'.repeat(42 - tmp.length) + tmp.substring(2);
+  return "0x" + "0".repeat(42 - tmp.length) + tmp.substring(2);
 }
 
 export function handleDataUnionBeneficiaryChanged(
@@ -95,19 +95,19 @@ export function handleEarningsWithdrawn(event: EarningsWithdrawn): void {
 
   if (inputSize === 288) {
     // WithdrawAllToSigned
-    decode = ethereum.decode('(address, address, bool, bytes)', input);
+    decode = ethereum.decode("(address, address, bool, bytes)", input);
     index = 2;
   } else if (inputSize === 320) {
     // WithdrawAmountToSigned
-    decode = ethereum.decode('(address, address, uint, bool, bytes)', input);
+    decode = ethereum.decode("(address, address, uint, bool, bytes)", input);
     index = 2;
   } else if (inputSize === 96) {
     // WithdrawAll
-    decode = ethereum.decode('(address, bool)', input);
+    decode = ethereum.decode("(address, bool)", input);
     index = 1;
   } else if (inputSize === 128) {
     // WithdrawAmount
-    decode = ethereum.decode('(address, uint, bool)', input);
+    decode = ethereum.decode("(address, uint, bool)", input);
     index = 1;
   }
 
@@ -119,11 +119,11 @@ export function handleEarningsWithdrawn(event: EarningsWithdrawn): void {
   }
 
   saveTransfer(
-    event.transaction.hash.toHex() + '-' + event.logIndex.toString(),
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString(),
     event.params.member,
     to,
     event.params.amount,
-    'FromMember',
+    "FromMember",
     event.block.timestamp,
   );
 }
@@ -142,9 +142,9 @@ export function handleJoinPartAgentRemoved(event: JoinPartAgentRemoved): void {}
 
 export function handleMemberJoined(event: MemberJoined): void {
   saveMemberStatus(
-    event.transaction.hash.toHex() + '-' + event.logIndex.toString(),
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString(),
     event.params.member,
-    'Joined',
+    "Joined",
     0,
     event.block.timestamp,
   );
@@ -152,9 +152,9 @@ export function handleMemberJoined(event: MemberJoined): void {
 
 export function handleMemberParted(event: MemberParted): void {
   saveMemberStatus(
-    event.transaction.hash.toHex() + '-' + event.logIndex.toString(),
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString(),
     event.params.member,
-    'Parted',
+    "Parted",
     event.params.leaveConditionCode,
     event.block.timestamp,
   );
@@ -176,11 +176,11 @@ export function handleTransferToAddressInContract(
   event: TransferToAddressInContract,
 ): void {
   saveTransfer(
-    event.transaction.hash.toHex() + '-' + event.logIndex.toString(),
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString(),
     event.params.from,
     event.params.to,
     event.params.amount,
-    'ToMember',
+    "ToMember",
     event.block.timestamp,
   );
 }
@@ -189,11 +189,11 @@ export function handleTransferWithinContract(
   event: TransferWithinContract,
 ): void {
   saveTransfer(
-    event.transaction.hash.toHex() + '-' + event.logIndex.toString(),
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString(),
     event.params.from,
     event.params.to,
     event.params.amount,
-    'BetweenMembers',
+    "BetweenMembers",
     event.block.timestamp,
   );
 }

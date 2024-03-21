@@ -1,0 +1,42 @@
+.type {
+  width: 320px;
+  margin: auto;
+}
+
+.disabled {
+  color: var(--color-dark-grey);
+}
+
+.item {
+  margin-top: 24px;
+}
+
+.option {
+  margin-top: 16px;
+}
+
+.popup {
+  width: 362px;
+}
+
+.completed {
+  width: 764px;
+  text-align: center;
+}
+
+.percent {
+  width: 173px;
+  height: 72px;
+  border-radius: 12px;
+  mix-blend-mode: normal;
+  box-sizing: border-box;
+  text-transform: none;
+}
+
+.name {
+  color: var(--color-dark-grey);
+}
+
+.value {
+  color: var(--color-darkest-grey);
+}

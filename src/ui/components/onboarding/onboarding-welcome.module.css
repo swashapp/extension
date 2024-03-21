@@ -1,0 +1,18 @@
+.container {
+  width: 583px;
+}
+
+.notice {
+  padding: 16px;
+  border: 1px solid var(--color-light-grey);
+}
+
+.info {
+  margin-top: 3px;
+}
+
+.next {
+  width: 16px;
+  height: 16px;
+  transform: rotate(90deg);
+}

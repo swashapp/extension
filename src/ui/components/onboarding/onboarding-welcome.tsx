@@ -1,0 +1,144 @@
+import clsx from "clsx";
+import { ReactNode, useContext, useState } from "react";
+
+import { ButtonColors } from "@/enums/button.enum";
+import { OnboardingFlows } from "@/enums/onboarding.enum";
+import { OnboardingContext } from "@/ui/context/onboarding.context";
+import { isValidEmail, isValidPassword } from "@/utils/validator.util";
+import NextIcon from "~/images/icons/arrow-1.svg?react";
+import InfoIcon from "~/images/icons/hexagon-info.svg?react";
+
+import { Button } from "../button/button";
+import { InputBase } from "../input/input-base";
+
+import styles from "./onboarding-welcome.module.css";
+
+export function OnboardingWelcome(): ReactNode {
+  const {
+    email: contextEmail,
+    setFlow,
+    setEmail: contextSetEmail,
+    setPassword,
+    next,
+  } = useContext(OnboardingContext);
+
+  const [email, setEmail] = useState<string>(contextEmail);
+  const [masterPass, setMasterPass] = useState<string>("");
+  const [error, setError] = useState<boolean>(false);
+
+  return (
+    <div
+      className={clsx(
+        "round no-overflow flex col gap32 bg-off-white card32",
+        styles.container,
+      )}
+    >
+      <div className={"flex center"}>
+        <img
+          src={"/images/misc/wave-hand.webp"}
+          alt={"wave-hand"}
+          width={172}
+          height={160}
+        />
+      </div>
+      <div className={"flex col align-center gap12"}>
+        <h6>Welcome back!</h6>
+        <p>Log in to your Swash account.</p>
+      </div>
+      <div className={"flex col gap24"}>
+        <div className={"flex col gap12"}>
+          <InputBase
+            type={"email"}
+            name={"email"}
+            placeholder={"example@email.com"}
+            value={email}
+            error={error}
+            onBlur={() => {
+              setError(!isValidEmail(email));
+            }}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+        </div>
+        <div className={"flex col gap12"}>
+          <InputBase
+            type={"password"}
+            name={"password"}
+            placeholder={"Enter your password"}
+            value={masterPass}
+            onChange={(e) => {
+              setMasterPass(e.target.value);
+            }}
+          />
+        </div>
+        <div className={"flex col gap12"}>
+          <Button
+            text={"Login"}
+            className={"full-width-button"}
+            color={ButtonColors.PRIMARY}
+            disabled={error || !isValidPassword(masterPass)}
+            onClick={() => {
+              setFlow(OnboardingFlows.Login);
+              contextSetEmail(email);
+              setPassword(masterPass);
+              next();
+            }}
+          />
+          <p className={"text-center"}>
+            <span className={"bold"}>
+              <a
+                onClick={() => {
+                  setFlow(OnboardingFlows.RestoreBackup);
+                  contextSetEmail(email);
+                  next();
+                }}
+              >
+                Forgot my credentials
+              </a>
+            </span>
+          </p>
+          <p className={"text-center"}>
+            Don’t have an account?{" "}
+            <span className={"bold"}>
+              <a
+                onClick={() => {
+                  setFlow(OnboardingFlows.Register);
+                  contextSetEmail(email);
+                  next();
+                }}
+              >
+                Sign up
+              </a>
+            </span>
+          </p>
+        </div>
+      </div>
+      <div
+        className={clsx(
+          "flex justify-between align-center round",
+          styles.notice,
+        )}
+      >
+        <div className={"flex row align-start gap8"}>
+          <InfoIcon className={styles.info} />
+          <p>
+            Did you register for Swash before 15.10.2024?
+            <br />
+            <a
+              onClick={() => {
+                setFlow(OnboardingFlows.Register);
+                contextSetEmail(email);
+                next();
+              }}
+            >
+              Sign up
+            </a>{" "}
+            for the new version instead
+          </p>
+        </div>
+        <NextIcon className={styles.next} />
+      </div>
+    </div>
+  );
+}

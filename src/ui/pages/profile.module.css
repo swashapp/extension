@@ -1,0 +1,20 @@
+.banner {
+  min-height: 124px;
+}
+
+.banner .text {
+  width: 75%;
+}
+
+.banner .image {
+  width: auto;
+  height: 124px;
+}
+
+.banner.verified {
+  --color: var(--color-soft-green);
+}
+
+.banner.unverified {
+  --color: var(--color-soft-yellow);
+}

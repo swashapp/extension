@@ -1,0 +1,19 @@
+.container {
+  width: unset !important;
+  height: unset !important;
+
+  top: 80px !important;
+  right: 64px !important;
+
+  z-index: 2 !important;
+}
+
+.container img {
+  width: 20px;
+  height: 20px;
+}
+
+.container .active {
+  filter: invert(60%) sepia(78%) saturate(1824%) hue-rotate(242deg)
+    brightness(103%) contrast(95%);
+}
