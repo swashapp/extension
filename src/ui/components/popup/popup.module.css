@@ -1,0 +1,36 @@
+.popup {
+  height: auto;
+  padding: 32px;
+  overflow-x: hidden;
+}
+
+.paper {
+  width: 50%;
+  margin: auto;
+
+  border-radius: var(--border-radius);
+  overflow-x: hidden;
+
+  background: var(--color-white);
+  box-shadow:
+    0 10px 20px rgba(44, 62, 62, 0.04),
+    0 2px 6px rgba(44, 62, 62, 0.04),
+    0 0 1px rgba(44, 62, 62, 0.04);
+}
+
+.paper.custom {
+  width: auto;
+}
+
+.paper.small {
+  width: 362px;
+}
+
+.paper.large {
+  width: 828px;
+}
+
+.paper hr {
+  width: calc(100% + 64px);
+  margin-left: -32px;
+}

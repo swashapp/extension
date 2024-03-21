@@ -1,8 +1,0 @@
-{
-  "name": "beauty_sephora",
-  "description": "This module Captures a user shopping behaviour on sephora",
-  "functions": ["browsing", "content"],
-  "is_enabled": true,
-  "privacyLevel": 0,
-  "anonymityLevel": 1
-}

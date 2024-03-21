@@ -1,0 +1,26 @@
+.container {
+  width: max-content;
+  padding: 8px;
+
+  border: 2px solid var(--color-purple);
+  border-radius: 100px;
+}
+
+.item,
+.item.Mui-selected {
+  width: max-content;
+  min-width: 170px;
+  padding: 12px;
+
+  color: var(--color-black);
+
+  opacity: 0.5;
+  border-radius: 100px;
+  text-transform: none;
+}
+
+.item:hover,
+.selected {
+  background: var(--color-purple);
+  opacity: 1;
+}

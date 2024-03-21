@@ -1,0 +1,32 @@
+.container {
+  width: 256px;
+}
+
+.container.open {
+  display: flex;
+}
+
+.container.close {
+  display: none;
+}
+
+.container > div {
+  height: max(100vh, 100%);
+}
+
+.logo {
+  margin: 48px 0 48px 32px;
+}
+
+.button {
+  margin-right: 26px;
+  cursor: pointer;
+  user-select: none;
+  visibility: hidden;
+}
+
+.ads {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}

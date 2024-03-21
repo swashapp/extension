@@ -1,0 +1,15 @@
+.open {
+  opacity: 1;
+}
+
+.close {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
+
+.icon {
+  user-select: none;
+
+  top: 0;
+  right: 0;
+}

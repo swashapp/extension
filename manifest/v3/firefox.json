@@ -1,6 +1,6 @@
 {
   "background": {
-    "scripts": ["background/app-start.ts"],
+    "scripts": ["core/main.ts"],
     "type": "module"
   },
   "browser_specific_settings": {

@@ -1,0 +1,71 @@
+.punch {
+  --color: var(--color-purple) !important;
+  padding: 64px 28px;
+}
+
+.galaxy {
+  width: 100%;
+}
+
+.cta {
+  width: 204px;
+  height: 56px;
+}
+
+.caption {
+  color: var(--color-dark-grey);
+}
+
+.caption em {
+  color: var(--color-green);
+  text-decoration: none;
+}
+
+.toaster {
+  height: 57px;
+  border-radius: 100px;
+  padding: 8px 16px;
+}
+
+.top {
+  width: auto;
+  height: 39px;
+}
+
+.companies {
+  max-height: 392px;
+  overflow-x: auto;
+
+  border-radius: 8px;
+  border: 1px solid var(--color-light-grey);
+}
+
+.company {
+  padding: 10px 12px;
+}
+
+.company + .company {
+  border-top: 1px solid var(--color-light-grey);
+}
+
+.company img {
+  width: 64px;
+  height: 36px;
+}
+
+.voucher {
+  width: 109px;
+  height: 112px;
+
+  cursor: pointer;
+}
+
+.voucher.amount {
+  height: 70px;
+  z-index: 1;
+}
+
+.voucher.use {
+  height: 40px;
+  z-index: 1;
+}

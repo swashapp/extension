@@ -1,0 +1,15 @@
+.container {
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.page {
+  width: calc(100% - 256px);
+  height: max-content;
+  min-height: 100vh;
+}
+
+.content {
+  padding: 64px;
+}
