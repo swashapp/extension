@@ -1,41 +1,69 @@
-export const RouteToPages = {
-  home: `/`,
-  onboarding: `/onboarding`,
-  profile: `/profile`,
+export const InternalRoutes = {
+  dashboard: `/`,
+
+  data: `/data`,
+  donation: `/donation`,
+  earnFromAds: `/earn-from-ads`,
   earnings: `/earnings`,
   earnMore: `/earn-more`,
-  earnFromAds: `/earn-from-ads`,
-  donations: `/donations`,
-  inviteFriends: `/invite-friends`,
-  data: `/data`,
-  history: `/history`,
-  settings: `/settings`,
   help: `/help`,
+  history: `/history`,
+  inviteFriends: `/invite-friends`,
+  onboarding: `/onboarding`,
+  profile: `/profile`,
+  settings: `/settings`,
 };
 
-export const WebsitePath = 'https://swashapp.io';
-export const SwashEarnPath = 'https://earn.swashapp.io';
+const dashboardPath = "ui/dashboard.html";
+export const InternalPaths = {
+  dashboard: dashboardPath,
 
-export const SwashSupportPath = 'https://support.swashapp.io/hc/en-us';
+  data: `${dashboardPath}#/data`,
+  donation: `${dashboardPath}#/donation`,
+  earnFromAds: `${dashboardPath}#/earn-from-ads`,
+  earnings: `${dashboardPath}#/earnings`,
+  earnMore: `${dashboardPath}#/earn-more`,
+  help: `${dashboardPath}#/help`,
+  history: `${dashboardPath}#/history`,
+  inviteFriends: `${dashboardPath}#/invite-friends`,
+  onboarding: `${dashboardPath}#/onboarding`,
+  profile: `${dashboardPath}#/profile`,
+  settings: `${dashboardPath}#/settings`,
 
-export const PathToUrls = {
-  faq: `${WebsitePath}/faq`,
-  contact: `${WebsitePath}/contact`,
-  newsletter: `${WebsitePath}/newsletter`,
-  media: `${WebsitePath}/media`,
-  terms: `${WebsitePath}/terms-use`,
-  privacy: `${WebsitePath}/privacy-policy`,
-  request: `${WebsitePath}/request`,
+  newTab: `ui/new-tab.html`,
+  popup: `ui/popup.html`,
 };
 
-export const RouteToHelpdesk = {
-  submitTicket: `${SwashSupportPath}/requests/new`,
-  general: `${SwashSupportPath}/categories/18776757460625-General`,
-  account: `${SwashSupportPath}/categories/18760349156753-My-Swash-Account`,
-  earnMore: `${SwashSupportPath}/categories/18776690841233-Earn-More`,
-  dataForGood: `${SwashSupportPath}/categories/18776696054673-Data-for-Good`,
-  ecosystem: `${SwashSupportPath}/categories/18776713325713-Community-Ecosystem`,
-  advertise: `${SwashSupportPath}/categories/18776725537553-Advertising-with-Swash-Ads`,
-  other: `${SwashSupportPath}/categories/18776743614225-Other-Swash-Solutions`,
-  privacy: `${SwashSupportPath}/categories/18776359769233-Data-Privacy`,
+const websiteURL = "https://swashapp.io";
+export const WebsiteURLs = {
+  home: `${websiteURL}/`,
+
+  contact: `${websiteURL}/contact`,
+  faq: `${websiteURL}/faq`,
+  media: `${websiteURL}/media`,
+  newsletter: `${websiteURL}/newsletter`,
+  privacy: `${websiteURL}/privacy-policy`,
+  request: `${websiteURL}/request`,
+  terms: `${websiteURL}/terms-use`,
+
+  adview: `${websiteURL}/user/ads/view`,
+  recaptcha: `${websiteURL}/user/human-check`,
+};
+
+export const SwashEarnURL = "https://earn.swashapp.io";
+
+const swashSupportURL = "https://support.swashapp.io/hc/en-us";
+export const SwashSupportURLs = {
+  home: `${swashSupportURL}/`,
+
+  submitTicket: `${swashSupportURL}/requests/new`,
+
+  account: `${swashSupportURL}/categories/18760349156753-My-Swash-Account`,
+  advertise: `${swashSupportURL}/categories/18776725537553-Advertising-with-Swash-Ads`,
+  dataForGood: `${swashSupportURL}/categories/18776696054673-Data-for-Good`,
+  ecosystem: `${swashSupportURL}/categories/18776713325713-Community-Ecosystem`,
+  earnMore: `${swashSupportURL}/categories/18776690841233-Earn-More`,
+  general: `${swashSupportURL}/categories/18776757460625-General`,
+  other: `${swashSupportURL}/categories/18776743614225-Other-Swash-Solutions`,
+  privacy: `${swashSupportURL}/categories/18776359769233-Data-Privacy`,
 };

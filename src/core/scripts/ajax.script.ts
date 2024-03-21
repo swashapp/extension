@@ -1,0 +1,55 @@
+import { Handler } from "@/enums/handler.enum";
+import { sendMessage } from "@/helper";
+import { Any } from "@/types/any.type";
+import { AjaxCollector } from "@/types/handler/ajax.type";
+import { CollectorBase, InMemoryModules } from "@/types/handler/module.type";
+
+const AjaxScript = (function () {
+  function handleEvent(item: CollectorBase<AjaxCollector>) {
+    for (const event of item.events) {
+      const listener = async () => {
+        await sendMessage({
+          obj: "page",
+          func: Handler.AJAX,
+          params: ["record", item.timeframe],
+        });
+      };
+
+      if (event.object === "window") {
+        window.addEventListener(event.event_name, listener);
+      } else {
+        const allElements = document.querySelectorAll(event.selector);
+        for (let i = 0; i < allElements.length; i++) {
+          allElements[i].addEventListener(event.event_name, listener);
+        }
+      }
+    }
+  }
+
+  const handleResponse = (modules: InMemoryModules<Handler.AJAX>[]) => {
+    for (const module of modules) {
+      for (const item of module.items) {
+        handleEvent(item);
+      }
+    }
+  };
+
+  const handleError = (error: Any) => {
+    console.error(`Error: ${error}`);
+  };
+
+  return {
+    handleResponse,
+    handleError,
+  };
+})();
+
+if (!(window as Any).SwashAjaxScript) {
+  (window as Any).SwashAjaxScript = true;
+
+  sendMessage<InMemoryModules<Handler.AJAX>[]>({
+    obj: "page",
+    func: Handler.AJAX,
+    params: ["getModules", window.location.href],
+  }).then(AjaxScript.handleResponse, AjaxScript.handleError);
+}

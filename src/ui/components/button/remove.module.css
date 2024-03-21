@@ -1,0 +1,19 @@
+.button {
+  cursor: pointer;
+  user-select: none;
+  opacity: 1;
+}
+
+.button:hover {
+  opacity: 0.6;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 12px;
+}
+
+.text {
+  color: var(--color-red);
+}

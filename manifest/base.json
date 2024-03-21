@@ -4,9 +4,9 @@
   "description": "Know your worth. Swash is an earning portal where you can earn for being active and completing tasks online. Try it today.",
   "homepage_url": "https://swashapp.io/",
   "icons": {
-    "16": "static/images/swash/active-16.png",
-    "48": "static/images/swash/active-48.png",
-    "96": "static/images/swash/active-96.png",
-    "128": "static/images/swash/active-128.png"
+    "16": "images/swash/active-16.png",
+    "48": "images/swash/active-48.png",
+    "96": "images/swash/active-96.png",
+    "128": "images/swash/active-128.png"
   }
 }
