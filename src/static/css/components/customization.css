@@ -1,0 +1,30 @@
+.customization-container {
+  width: 620px;
+}
+
+.customization-content {
+  height: 275px;
+  overflow: auto;
+}
+
+.color-option {
+  width: 120px;
+  height: 80px;
+}
+
+.search-engines-option {
+  width: 188px !important;
+  height: 120px;
+}
+
+.color-option,
+.search-engines-option {
+  border: 1px solid var(--color-light-grey);
+  border-radius: 15px;
+}
+
+.color-option > img,
+.search-engines-option > img {
+  width: 100%;
+  height: auto;
+}

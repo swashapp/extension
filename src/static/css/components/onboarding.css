@@ -1,0 +1,57 @@
+.onboarding-container {
+  width: 1440px !important;
+  margin: 0 auto;
+}
+
+.onboarding-stepper {
+  height: 100%;
+}
+
+.onboarding-header-footer {
+  height: 98px;
+  padding: 16px 80px;
+
+  flex: 0 1 auto;
+}
+
+.onboarding-footer {
+  color: var(--color-dark-grey);
+}
+
+.onboarding-progress {
+  width: 193px;
+}
+
+.onboarding-progress > p {
+  width: max-content;
+  word-break: keep-all;
+}
+
+.onboarding-progress-bar,
+.onboarding-progress-line {
+  width: 100%;
+}
+
+.onboarding-progress-bar {
+  background-color: transparent !important;
+}
+
+.onboarding-progress-line {
+  height: 4px;
+  background-color: var(--color-white) !important;
+}
+
+.onboarding-progress-line div {
+  height: 4px !important;
+  background-color: var(--color-green) !important;
+}
+
+.onboarding-swiper-container {
+  min-height: max-content;
+  flex: 1 1 auto;
+}
+
+.onboarding-card {
+  width: 100%;
+  margin: 0 !important;
+}

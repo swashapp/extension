@@ -1,6 +1,5 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M6.5 3.5H3.5C2.395 3.5 1.5 4.395 1.5 5.5C1.5 6.605 2.395 7.5 3.5 7.5" stroke="#141414" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="square"/>
-<path d="M6.5 7.5V1.5H20.5V7.5" stroke="#141414" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="square"/>
-<path d="M23.5 7.5H3.5C2.395 7.5 1.5 6.605 1.5 5.5V20.5C1.5 22.157 2.843 23.5 4.5 23.5H23.5V7.5Z" stroke="#141414" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="square"/>
-<path d="M17.5 17.5C18.6046 17.5 19.5 16.6046 19.5 15.5C19.5 14.3954 18.6046 13.5 17.5 13.5C16.3954 13.5 15.5 14.3954 15.5 15.5C15.5 16.6046 16.3954 17.5 17.5 17.5Z" stroke="#141414" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="square"/>
+<path d="M2.00195 6C2.00195 5.46957 2.21267 4.96086 2.58774 4.58579C2.96281 4.21071 3.47152 4 4.00195 4H20.002C20.5324 4 21.0411 4.21071 21.4162 4.58579C21.7912 4.96086 22.002 5.46957 22.002 6V18C22.002 18.5304 21.7912 19.0391 21.4162 19.4142C21.0411 19.7893 20.5324 20 20.002 20H4.00195C3.47152 20 2.96281 19.7893 2.58774 19.4142C2.21267 19.0391 2.00195 18.5304 2.00195 18V6Z" stroke="#141414" stroke-width="2" stroke-linecap="square" stroke-linejoin="bevel"/>
+<path d="M2.00195 8H22.002" stroke="#141414" stroke-width="2" stroke-linecap="square" stroke-linejoin="bevel"/>
+<path d="M2.00195 12H9.00195C9.00195 13 9.60195 15 12.002 15C14.402 15 15.002 13 15.002 12H22.002" stroke="#141414" stroke-width="2" stroke-linecap="square"/>
 </svg>

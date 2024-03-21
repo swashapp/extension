@@ -1,0 +1,39 @@
+.verification-badge-container {
+  background: var(--color-white);
+  border-radius: 100px;
+
+  padding: 6px 10px;
+  margin-left: 9px;
+}
+
+.verification-badge-container.verified {
+  color: var(--color-green);
+}
+
+.verification-badge-container.unverified {
+  color: var(--color-red);
+}
+
+.verification-badge-container.verified.dark {
+  background: var(--color-lightest-grey);
+}
+
+.verification-badge-container.unverified.dark {
+  background: var(--color-darkest-grey);
+}
+
+.verification-badge-container.short {
+  width: 26px;
+  height: 26px;
+
+  padding: unset;
+}
+
+.verification-badge-container > img {
+  margin-left: -2px;
+  margin-right: 2px;
+}
+
+.verification-badge-container.short > img {
+  margin: unset;
+}

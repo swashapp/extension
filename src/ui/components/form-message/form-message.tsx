@@ -1,0 +1,36 @@
+import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
+
+const ErrorIcon = '/static/images/icons/error.png';
+const SuccessIcon = '/static/images/icons/success.png';
+const WarningIcon = '/static/images/icons/warning.png';
+
+const FormMessages = {
+  warning: { icon: WarningIcon, color: 'var(--color-orange)' },
+  error: { icon: ErrorIcon, color: 'var(--color-red)' },
+  success: { icon: SuccessIcon, color: 'var(--color-green)' },
+};
+
+export function FormMessage(
+  props: PropsWithChildren<{ text: string; type: keyof typeof FormMessages }>,
+): ReactNode {
+  return (
+    <div
+      className={'form-message-container'}
+      style={props.text ? { visibility: 'visible' } : { visibility: 'hidden' }}
+    >
+      <img
+        width={12}
+        height={12}
+        src={FormMessages[props.type].icon}
+        alt={'!'}
+      />
+      <div
+        className={'form-message-text'}
+        style={{ color: FormMessages[props.type].color }}
+      >
+        {props.text}
+      </div>
+    </div>
+  );
+}

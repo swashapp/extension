@@ -1,0 +1,431 @@
+:root {
+  --data-background: var(--color-white);
+  --data-font-color: var(--color-black);
+}
+
+/* Sidenav */
+
+.sidenav {
+  width: 256px;
+}
+
+.sidenav.open {
+  display: flex;
+}
+
+.sidenav.close {
+  display: none;
+}
+
+.sidenav > div {
+  /*width: 256px;*/
+  height: max(100vh, 100%);
+}
+
+.sidenav-logo {
+  margin: 48px 0 48px 32px;
+}
+
+.sidenav-close-button {
+  margin-right: 26px;
+  cursor: pointer;
+  user-select: none;
+  visibility: hidden;
+}
+
+.sidenav-link {
+  width: 100%;
+}
+
+.sidenav-link.active {
+  opacity: 1;
+}
+
+.sidenav-link.inactive {
+  opacity: 0.5;
+}
+
+.sidenav-link.inactive:hover {
+  opacity: 1;
+}
+
+.sidenav-body {
+  width: 100%;
+  color: var(--color-black);
+
+  padding: 17px 48px 17px 0;
+}
+
+.sidenav-icon {
+  margin-right: 16px;
+  height: 24px;
+}
+
+.sidenav-border {
+  width: 4px;
+  margin-right: 28px;
+  height: inherit;
+}
+
+.sidenav-border.active {
+  background-color: var(--color-dark-purple);
+  transition: background-color 500ms linear;
+}
+
+.sidenav-border.inactive {
+  background-color: transparent;
+}
+
+.sidenav-ads {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+/* Page structure */
+
+.page-container {
+  width: calc(100% - 256px);
+  min-height: max(100vh, 900px);
+}
+
+.page-content {
+  padding: 64px;
+}
+
+.dark-theme-toggle {
+  width: unset !important;
+  height: unset !important;
+
+  top: 80px !important;
+  right: 64px !important;
+
+  z-index: 2 !important;
+}
+
+.dark-theme-toggle img {
+  width: 20px;
+  height: 20px;
+}
+
+.dark-theme-toggle.active {
+  filter: invert(60%) sepia(78%) saturate(1824%) hue-rotate(242deg)
+    brightness(103%) contrast(95%);
+}
+
+.page-header {
+  margin-bottom: 32px;
+}
+
+.page-header-uid {
+  opacity: 0.75;
+}
+
+/* Earnings */
+
+.earnings-punch {
+  --color: var(--color-purple) !important;
+}
+
+.earnings-toaster {
+  height: 57px;
+  border-radius: 100px;
+  padding: 8px 16px;
+}
+
+.earnings-currency-caption {
+  color: var(--color-dark-grey);
+}
+
+.earning-gift-card-options {
+  width: 107px;
+  height: 64px;
+
+  border-radius: 16px;
+  border: 1px solid var(--color-light-grey);
+
+  cursor: pointer;
+}
+
+div.earning-gift-card-options:last-of-type {
+  width: 146px;
+  padding: 0 12px;
+}
+
+.earnings-cashout-option {
+  width: 124px;
+  height: 69px;
+
+  padding: 12px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--color-light-grey);
+
+  cursor: pointer;
+}
+
+.earning-gift-card-options:hover,
+.earnings-cashout-option:hover,
+.earning-gift-card-options.selected,
+.earnings-cashout-option.selected {
+  border: 1px solid var(--color-dark-purple);
+}
+
+.earnings-cashout-option p:last-of-type,
+.earnings-cashout-desc {
+  color: var(--color-dark-grey);
+}
+
+.earnings-cashout-desc em {
+  color: var(--color-green);
+  text-decoration: none;
+}
+
+.earnings-unused-voucher {
+  width: 109px;
+  height: 112px;
+
+  cursor: pointer;
+}
+
+.earnings-unused-voucher-amount {
+  height: 70px;
+  z-index: 1;
+}
+
+.earnings-unused-voucher-use {
+  height: 40px;
+  z-index: 1;
+}
+
+/* Profile */
+
+.profile-verification-banner {
+  min-height: 124px;
+}
+
+.profile-verification-banner-text {
+  width: 75%;
+}
+
+.profile-verification-banner-img {
+  width: auto;
+  height: 124px;
+}
+
+.profile-verification-banner.verified {
+  --color: var(--color-soft-green);
+}
+
+.profile-verification-banner.unverified {
+  --color: var(--color-soft-yellow);
+}
+
+/* Earn more */
+
+.earn-more-option {
+  flex: 1 1 calc(50% - 16px);
+}
+
+.earn-more-option > div {
+  width: 100%;
+  height: 260px;
+
+  color: var(--color-darkest-grey) !important;
+}
+
+.earn-more-option:nth-of-type(2) > div {
+  --color: var(--color-purple);
+}
+
+.earn-more-option:nth-of-type(3) > div {
+  --color: var(--color-soft-green);
+}
+
+.earn-more-option:nth-of-type(4) > div {
+  --color: var(--color-soft-yellow);
+}
+
+.earn-more-option img {
+  width: auto;
+  height: 220px;
+
+  bottom: 10px;
+  right: 10px;
+}
+
+.earn-from-ads-image {
+  width: 100%;
+  height: auto;
+}
+
+.invite-friends-progress-container {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.invite-friends-progress-bar {
+  height: 10px;
+  background-color: var(--color-black);
+  border-radius: 25px;
+  transition: width 0.3s ease-in-out;
+}
+
+.invite-friends-share-line {
+  width: max-content;
+
+  left: 0;
+  right: 0;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  padding: 0 12px;
+  text-transform: uppercase;
+
+  color: var(--color-grey);
+}
+
+.invite-friends-banner {
+  --color: var(--color-soft-yellow);
+  height: unset !important;
+}
+
+.invite-friends-banner.banner-1 {
+  --color: var(--color-soft-green);
+}
+
+.invite-friends-banner.banner-2 {
+  --color: var(--color-purple);
+}
+
+.invite-friends-win-prize-text {
+  max-width: 320px;
+}
+
+.invite-friends-win-prize-img {
+  width: auto;
+  height: 185px;
+
+  margin: auto;
+}
+
+.invite-friends-referrals {
+  width: 1000px;
+}
+
+.invite-friends-referral-links {
+  border-collapse: collapse;
+}
+
+.invite-friends-referral-links th,
+.invite-friends-referral-links td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--color-light-grey);
+}
+
+.invite-friends-referral-links th:last-child,
+.invite-friends-referral-links td:last-child {
+  text-align: right;
+}
+
+.invite-friends-referral-links tr:last-child td {
+  border-bottom: none;
+}
+
+.invite-friends-referral-links tr:hover td {
+  background-color: var(--color-light-grey);
+}
+
+.invite-friends-add-referral {
+  width: 544px;
+}
+
+.invite-friends-add-referral-slider {
+  width: calc(544px - 32px);
+  margin-left: 9px;
+}
+
+/* Donation */
+
+.donation-ongoing {
+  mix-blend-mode: normal;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.donation-ongoing-logo {
+  width: 80px;
+  height: 80px;
+
+  box-shadow: 0 7px 11px rgba(86, 86, 86, 0.02);
+  border-radius: 12px;
+}
+
+.donation-ongoing-action {
+  width: 150px;
+  height: 48px;
+}
+
+.donation-charity {
+  width: calc(50% - 12px);
+}
+
+/* History */
+
+.history-filter-container {
+  width: 243px;
+}
+
+/* Settings */
+
+.settings-tab-panel {
+  width: 743px;
+}
+
+.settings-action-reveal {
+  width: 173px;
+  height: 48px;
+}
+
+.data-tab {
+  padding: 24px 32px 11px 32px;
+
+  text-transform: none !important;
+  font-size: 20px !important;
+}
+
+/* Help */
+
+.help-container {
+  width: 748px;
+  margin: auto;
+}
+
+.help-option {
+  width: 198px;
+  height: 198px;
+
+  padding: 18px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+
+  color: var(--color-darkest-grey);
+}
+
+.help-option:hover {
+  border: 1px solid var(--color-black);
+  color: unset;
+}
+
+.help-option-image {
+  width: 150px;
+  height: auto;
+
+  top: 10px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}

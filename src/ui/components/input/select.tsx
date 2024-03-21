@@ -1,0 +1,141 @@
+import {
+  Select as MuiSelect,
+  MenuItem,
+  SelectChangeEvent,
+} from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { useState, useEffect, ReactNode, PropsWithChildren } from 'react';
+
+import { Label } from '../label/label';
+
+import { InputBase } from './input-base';
+
+import '../../../static/css/components/select.css';
+
+const smallArrow = '/static/images/shape/small-arrow.svg';
+
+const useStyles = makeStyles(() => ({
+  icon: {
+    top: 20,
+    color: 'rgba(0, 0, 0, 0.54)',
+    right: 16,
+    position: 'absolute',
+    pointerEvents: 'none',
+    transition: 'transform 0.3s ease',
+  },
+  revert: {
+    transform: 'rotate(180deg)',
+  },
+}));
+
+export function Select(
+  props: PropsWithChildren<{
+    label: string;
+    value: string;
+    items: { value: string; display: string; icon?: string }[];
+    captions?: ReactNode[];
+    onChange?: (event: SelectChangeEvent<string>) => void;
+    disabled?: boolean;
+  }>,
+): ReactNode {
+  const {
+    label,
+    value: initialValue,
+    items,
+    captions,
+    onChange,
+    disabled,
+  } = props;
+  const classes = useStyles();
+
+  const [value, setValue] = useState(initialValue);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    setValue(event.target.value);
+    if (onChange) onChange(event);
+    handleClose();
+  };
+
+  return (
+    <Label id={'customized-select-' + value} text={label}>
+      <MuiSelect
+        displayEmpty={true}
+        IconComponent={() => (
+          <img
+            className={`${classes.icon} ${open ? classes.revert : ''}`}
+            src={smallArrow}
+            alt={'>'}
+          />
+        )}
+        className={'flex center select'}
+        id={'customized-select-' + value}
+        value={value}
+        onChange={handleChange}
+        onOpen={handleOpen}
+        onClose={handleClose}
+        MenuProps={{
+          disableScrollLock: true,
+          PaperProps: {
+            sx: {
+              borderRadius: '12px',
+              marginTop: '8px',
+            },
+          },
+          classes: {
+            paper: 'select-paper',
+          },
+        }}
+        disabled={disabled}
+        input={<InputBase />}
+        renderValue={(selectedValue) => {
+          const item = items.find((item) => item.value === selectedValue);
+
+          return (
+            <div className={'flex align-center gap8'}>
+              {item?.icon ? (
+                <img
+                  width={20}
+                  height={20}
+                  src={item.icon}
+                  alt={item.value}
+                ></img>
+              ) : null}
+              <span className={'selected-value'}>{item?.display}</span>
+            </div>
+          );
+        }}
+      >
+        {items.map((item, index) => (
+          <MenuItem
+            key={item.value}
+            value={item.value}
+            style={{ width: 'auto' }}
+          >
+            <div className={'flex col'} style={{ width: '100%' }}>
+              <div className={'flex align-center gap8'}>
+                {item.icon ? (
+                  <img
+                    width={20}
+                    height={20}
+                    src={item.icon}
+                    alt={item.value}
+                  ></img>
+                ) : null}
+                <div className={'select-item-value'}>{item.display}</div>
+              </div>
+              {captions && captions[index] ? captions[index] : null}
+            </div>
+          </MenuItem>
+        ))}
+      </MuiSelect>
+    </Label>
+  );
+}

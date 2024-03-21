@@ -1,0 +1,39 @@
+.login-container,
+.reset-container,
+.restore-container {
+  width: 583px;
+}
+
+.onboarding-separator-line {
+  width: 409px;
+}
+
+.onboarding-separator-text {
+  padding: 0 20px;
+  color: var(--color-dark-grey);
+  background: var(--color-off-white);
+}
+
+.email-check-container,
+.create-password-container {
+  width: 534px;
+}
+
+.privacy-policy-container {
+  width: 846px;
+}
+
+.completed-container {
+  width: 628px;
+}
+
+.completed-image {
+  width: 400px;
+  height: auto;
+}
+
+.onboarding-close-button {
+  top: 32px;
+  right: 32px;
+  cursor: pointer;
+}

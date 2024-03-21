@@ -2,17 +2,25 @@
   "compilerOptions": {
     "target": "es6",
     "module": "esnext",
-    "lib": ["ESNext", "DOM"],
-    "jsx": "react",
-    "sourceMap": true,
-    "strict": true,
     "moduleResolution": "node",
     "baseUrl": "./src",
-    "typeRoots": ["node_modules/@types"],
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
+
+    "lib": ["ESNext", "DOM"],
+    "jsx": "react-jsx",
     "resolveJsonModule": true,
-    "allowJs": true
+
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    "strict": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    "allowJs": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowUnusedLabels": false
   },
   "include": ["src/**/*"],
   "exclude": ["dev/**/*"]

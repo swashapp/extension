@@ -1,0 +1,19 @@
+<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="drag 1" clip-path="url(#clip0_38_12642)">
+<g id="Group">
+<path id="Vector" d="M2.02083 4.83333H0.3125V0.5625H4.58333V2.27083H2.02083V4.83333Z" fill="#141414" stroke="#141414" stroke-width="0.640625"/>
+<path id="Vector_2" d="M4.58333 17.6458H0.3125V13.375H2.02083V15.9375H4.58333V17.6458Z" fill="#141414" stroke="#141414" stroke-width="0.640625"/>
+<path id="Vector_3" d="M17.3958 4.83333H15.6875V2.27083H13.125V0.5625H17.3958V4.83333Z" fill="#141414" stroke="#141414" stroke-width="0.640625"/>
+<path id="Vector_4" d="M10.5658 0.5625H7.14917V2.27083H10.5658V0.5625Z" fill="#141414" stroke="#141414" stroke-width="0.640625"/>
+<path id="Vector_5" d="M10.5658 15.9375H7.14917V17.6458H10.5658V15.9375Z" fill="#141414" stroke="#141414" stroke-width="0.640625"/>
+<path id="Vector_6" d="M17.3958 7.39551H15.6875V10.8122H17.3958V7.39551Z" fill="#141414" stroke="#141414" stroke-width="0.640625"/>
+<path id="Vector_7" d="M2.02083 7.39551H0.3125V10.8122H2.02083V7.39551Z" fill="#141414" stroke="#141414" stroke-width="0.640625"/>
+<path id="Vector_8" d="M20.8092 14.2295L11.4133 11.667L13.9758 21.0628L15.6842 17.6462L19.1008 21.0628L20.8092 19.3545L17.3925 15.9378L20.8092 14.2295Z" fill="#141414"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_38_12642">
+<rect width="20.5" height="20.5" fill="white" transform="translate(0.3125 0.5625)"/>
+</clipPath>
+</defs>
+</svg>

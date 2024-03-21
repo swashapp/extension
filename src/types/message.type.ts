@@ -1,3 +1,5 @@
+import { StreamCategory } from '../enums/stream.enum';
+
 import { Any } from './any.type';
 
 export type MessageHeader = {
@@ -5,20 +7,16 @@ export type MessageHeader = {
   module: string;
   function: string;
   collector: string;
-  category: string;
+  category: StreamCategory;
   privacyLevel: number;
   anonymityLevel: number;
-  version: string;
-  agent: string;
-  platform: Any;
-  language: string;
-  [key: string]: Any;
+  version?: string;
 };
 
 export type MessageIdentity = {
   publisherId: string;
+  sessionId?: string;
   uid: string;
-  sessionId: string;
   country: string;
   city: string;
   gender: string;
@@ -34,4 +32,18 @@ export type Message = {
   header: MessageHeader;
   identity: MessageIdentity;
   data: Any;
+};
+
+export type CollectedMessage = Omit<Message, 'identity'>;
+
+export type MessageStats = {
+  module: string;
+  count: number;
+  sent: number;
+};
+
+export type MessageRecord = {
+  id: number;
+  timestamp: number;
+  message: Message;
 };

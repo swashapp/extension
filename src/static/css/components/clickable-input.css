@@ -1,0 +1,21 @@
+.clickable-input {
+  width: 100%;
+}
+
+.clickable-input > p {
+  color: var(--color-dark-grey);
+}
+
+.clickable-input-input {
+  height: 32px;
+  padding: 8px 16px;
+  border-radius: 100px;
+
+  background: var(--color-lightest-grey);
+  color: var(--color-black);
+  cursor: pointer;
+}
+
+.clickable-input-action {
+  transform: rotate(-90deg);
+}

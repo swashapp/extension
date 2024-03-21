@@ -1,0 +1,26 @@
+.tabs {
+  width: max-content;
+  padding: 8px;
+
+  border: 2px solid var(--color-purple);
+  border-radius: 100px;
+}
+
+.tab,
+.tab.Mui-selected {
+  width: max-content;
+  min-width: 170px;
+  padding: 12px;
+
+  color: var(--color-black);
+
+  opacity: 0.5;
+  border-radius: 100px;
+  text-transform: none;
+}
+
+.tab:hover,
+.tab-selected {
+  background: var(--color-purple);
+  opacity: 1;
+}

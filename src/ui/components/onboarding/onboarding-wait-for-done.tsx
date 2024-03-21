@@ -1,0 +1,43 @@
+import { ReactNode, useCallback, useContext } from 'react';
+
+import { OnboardingContext } from '../../context/onboarding.context';
+import { useErrorHandler } from '../../hooks/use-error-handler';
+import { WaitForDone } from '../wait-for-done/wait-for-done';
+
+export function OnboardingWaitForDone({
+  action,
+  stepBack = 1,
+}: {
+  action: () => Promise<void>;
+  stepBack?: number;
+}): ReactNode {
+  const { setRequestId, back, next } = useContext(OnboardingContext);
+  const { safeRun } = useErrorHandler();
+
+  const onLoad = useCallback(() => {
+    safeRun(
+      async () => {
+        await action();
+        next();
+      },
+      {
+        failure: () => {
+          back(stepBack);
+        },
+      },
+    );
+  }, [action, back, safeRun, next, stepBack]);
+
+  const onBack = useCallback(() => {
+    setRequestId('');
+    back();
+  }, [back, setRequestId]);
+
+  return (
+    <WaitForDone
+      className={'round bg-white card32'}
+      onLoad={onLoad}
+      onBack={onBack}
+    />
+  );
+}

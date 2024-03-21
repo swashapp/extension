@@ -1,0 +1,8 @@
+.select {
+  height: 48px;
+}
+
+.selected-value::first-letter,
+.select-item-value::first-letter {
+  text-transform: capitalize;
+}
