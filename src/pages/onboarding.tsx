@@ -6,7 +6,6 @@ import React, {
   useState,
 } from 'react';
 
-import { Circle } from '../components/drawing/circle';
 import { GrantPermissionAlert } from '../components/grant-permission/grant-permission-alert';
 import { CongratsWalletIsReady } from '../components/onboarding/congrats-wallet-is-ready';
 import { CreatingAWallet } from '../components/onboarding/creating-a-wallet';
@@ -83,7 +82,7 @@ export function Onboarding(): JSX.Element {
     showPopup({
       closable: false,
       closeOnBackDropClick: false,
-      paperClassName: 'small-popup',
+      paperClassName: 'popup small',
       content: <GrantPermissionAlert />,
     });
 
@@ -144,22 +143,20 @@ export function Onboarding(): JSX.Element {
   }, [flow.pages, flow.start, getNextPageOf]);
 
   return (
-    <div className="page-container">
-      <div className="onboarding-stepper">
-        <StepperContext.Provider
-          value={{
-            next: () => ref.current?.next(),
-            back: () => ref.current?.back(),
-            changeSelectedPage,
-          }}
-        >
-          <Stepper ref={ref} flow={flattenedFlow}>
-            {flattenedFlow.map((page: string, index: number, arr: string[]) => (
-              <OnboardingStep key={page + index} page={page} flow={arr} />
-            ))}
-          </Stepper>
-        </StepperContext.Provider>
-      </div>
+    <div className={'no-overflow relative page-container onboarding-container'}>
+      <StepperContext.Provider
+        value={{
+          next: () => ref.current?.next(),
+          back: () => ref.current?.back(),
+          changeSelectedPage,
+        }}
+      >
+        <Stepper ref={ref} flow={flattenedFlow}>
+          {flattenedFlow.map((page: string, index: number, arr: string[]) => (
+            <OnboardingStep key={page + index} page={page} flow={arr} />
+          ))}
+        </Stepper>
+      </StepperContext.Provider>
     </div>
   );
 }

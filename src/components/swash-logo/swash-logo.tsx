@@ -14,7 +14,7 @@ export function SwashLogo(props: { className?: string }): JSX.Element {
   const logo = isDark ? darkLogo : lightLogo;
 
   return (
-    <div className="flex-row swash-logo-container">
+    <div className="flex swash-logo-container">
       <Link
         url={WebsitePath}
         external

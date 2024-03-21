@@ -1,0 +1,46 @@
+.stepper-container {
+  height: max-content;
+  margin: auto;
+}
+
+.stepper-with-logo {
+  width: 828px !important;
+  margin: 64px auto 0 auto;
+}
+
+.stepper {
+  padding-bottom: 64px;
+}
+
+.stepper-step-number {
+  width: max-content;
+  word-break: keep-all;
+}
+
+.stepper-mobile,
+.stepper-linear-progress {
+  width: 100%;
+}
+
+.stepper-mobile {
+  background-color: transparent !important;
+}
+
+.stepper-linear-progress {
+  height: 4px;
+  background-color: var(--color-white) !important;
+}
+
+.stepper-linear-progress div {
+  height: 4px !important;
+  background-color: var(--color-green) !important;
+}
+
+.stepper-swiper-container {
+  height: max-content;
+}
+
+.stepper-card {
+  width: 100%;
+  margin: 0 !important;
+}

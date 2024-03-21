@@ -10,13 +10,13 @@ export function ToastPanel(
   }>,
 ): JSX.Element {
   return (
-    <div className={`flex-row toast-panel ${props.className}`}>
-      <div className="toast-image">
+    <div className={`flex align-center ${props.className}`}>
+      <div className={'toast-image'}>
         <img width={16} height={16} src={props.image} alt="" />
       </div>
-      <div className="flex-column">
-        <div className="toast-title title">{props.title}</div>
-        <div className="toast-text">{props.content}</div>
+      <div className={'flex col'}>
+        <p className={'toast-title'}>{props.title}</p>
+        <p className={'small toast-text'}>{props.content}</p>
       </div>
     </div>
   );

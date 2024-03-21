@@ -47,20 +47,20 @@ export function TokenTransferPopup(props: {
           props.onSuccess().then();
           toast(
             <ToastMessage
-              type="success"
+              type={'success'}
               content={<>Approved successfully.</>}
             />,
           );
           showPopup({
             closable: false,
             closeOnBackDropClick: true,
-            paperClassName: 'large-popup',
+            paperClassName: 'popup large',
             content: <TokenTransferCompleted transactionId={result.tx} />,
           });
         } else {
           toast(
             <ToastMessage
-              type="error"
+              type={'error'}
               content={<>{result.reason || 'Something went wrong!'}</>}
             />,
           );
@@ -70,7 +70,7 @@ export function TokenTransferPopup(props: {
         setLoading(false);
         toast(
           <ToastMessage
-            type="error"
+            type={'error'}
             content={<>{err?.message || 'Something went wrong!'}</>}
           />,
         );
@@ -80,7 +80,7 @@ export function TokenTransferPopup(props: {
   return (
     <div className="wallet-token-transfer-container">
       <h6>Confirm SWASH Transfer</h6>
-      <div className="flex-row wallet-token-transfer-content">
+      <div className="flex wallet-token-transfer-content">
         <TokenTransferField label="Send" value={props.amount} />
         <img src={RightArrow} alt="-->" />
         <TokenTransferField
@@ -89,7 +89,7 @@ export function TokenTransferPopup(props: {
           ellipsis
         />
       </div>
-      <div className="flex-row wallet-token-transfer-buttons">
+      <div className="flex wallet-token-transfer-buttons">
         <Button
           className="form-button"
           link={false}

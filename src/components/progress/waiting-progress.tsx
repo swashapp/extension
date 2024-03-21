@@ -25,16 +25,16 @@ const useStyles = makeStyles(() => ({
 export function WaitingProgressBar(): JSX.Element {
   const classes = useStyles();
   return (
-    <div className="waiting-progress">
+    <div className={'onboarding-block round flex col text-center'}>
       <CircularProgress
-        variant="determinate"
+        variant={'determinate'}
         className={classes.bottom}
         size={50}
         thickness={4}
         value={100}
       />
       <CircularProgress
-        variant="indeterminate"
+        variant={'indeterminate'}
         disableShrink
         className={classes.top}
         classes={{

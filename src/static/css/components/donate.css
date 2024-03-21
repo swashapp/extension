@@ -1,0 +1,52 @@
+.donate-type {
+  width: 320px;
+  margin: auto;
+}
+
+.donate-type-disabled {
+  color: var(--color-dark-grey);
+}
+
+.donate-item {
+  margin-top: 24px;
+}
+
+.donate-option {
+  margin-top: 16px;
+}
+
+.donate-popup {
+  width: 362px;
+}
+
+.donate-completed {
+  width: 764px;
+  text-align: center;
+}
+
+.donate-percent-option {
+  width: 173px;
+  height: 72px;
+  border-radius: 12px;
+  mix-blend-mode: normal;
+  box-sizing: border-box;
+  text-transform: none;
+}
+
+.donate-confirmation-image {
+  width: 16px;
+  height: 16px;
+
+  margin-right: 12px;
+  transform: rotate(180deg);
+
+  cursor: pointer;
+}
+
+.donate-confirmation-name {
+  color: var(--color-dark-grey);
+}
+
+.donate-confirmation-value {
+  color: var(--color-darkest-grey);
+}

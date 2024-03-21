@@ -1,8 +1,8 @@
 export const RouteToPages = {
   home: `/`,
   onboarding: `/onboarding`,
+  wallet: `/wallet`,
   profile: `/profile`,
-  earnings: `/earnings`,
   earnMore: `/earn-more`,
   earnFromAds: `/earn-from-ads`,
   donations: `/donations`,

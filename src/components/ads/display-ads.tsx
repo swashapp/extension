@@ -48,8 +48,8 @@ export function DisplayAds(props: {
           }}
           onLoad={() => setIframeVisible(true)}
           title={'ads'}
-          scrolling="no"
-          frameBorder="no"
+          scrolling={'no'}
+          frameBorder={'no'}
           src={iframeSrc}
         >
           <p>Your browser does not support iframe.</p>

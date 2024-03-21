@@ -15,8 +15,8 @@ const useStyles = makeStyles(() => ({
 export function SearchEndAdornment(): JSX.Element {
   const classes = useStyles();
   return (
-    <InputAdornment className={classes.icon} position="end">
-      <IconButton size="large">
+    <InputAdornment className={classes.icon} position={'end'}>
+      <IconButton size={'large'}>
         <img src={searchIcon} alt={'search'} />
       </IconButton>
     </InputAdornment>

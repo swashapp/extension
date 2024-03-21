@@ -10,6 +10,8 @@ import { RemoveButton } from '../button/remove';
 import { AddEndAdornment } from '../input/end-adornments/add-end-adornment';
 import { Input } from '../input/input';
 
+import '../../static/css/components/text-list-management.css';
+
 export function TextListManagement({
   items,
   setItems,
@@ -85,10 +87,13 @@ export function TextListManagement({
           }
         />
       </div>
-      <div className="text-list-items">
+      <div className={'text-list-items'}>
         {(items || []).map((item: string, index: number) => (
-          <div key={item + index} className="text-list-item">
-            {item}
+          <div
+            key={item + index}
+            className={'flex align-center justify-between text-list-item'}
+          >
+            <p>{item}</p>
             <RemoveButton onClick={() => onRemove(index)} />
           </div>
         ))}

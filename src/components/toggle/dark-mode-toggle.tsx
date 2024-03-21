@@ -7,11 +7,11 @@ export const DarkModeToggle = () => {
   const { isDark, setIsDark } = useColorScheme();
 
   return (
-    <div className="dark-theme-toggle">
+    <div className={'absolute flex row center gap12 dark-theme-toggle'}>
       <img
         src={'/static/images/shape/sun.svg'}
         alt={'light'}
-        className={!isDark ? `dark-theme-active` : ''}
+        className={!isDark ? `active` : ''}
       ></img>
       <Switch
         /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
@@ -22,7 +22,7 @@ export const DarkModeToggle = () => {
       <img
         src={'/static/images/shape/moon.svg'}
         alt={'dark'}
-        className={isDark ? `dark-theme-active` : ''}
+        className={isDark ? `active` : ''}
       ></img>
     </div>
   );

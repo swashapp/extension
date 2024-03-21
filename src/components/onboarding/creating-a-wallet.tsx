@@ -13,9 +13,11 @@ export function CreatingAWallet(): JSX.Element {
     });
   });
   return (
-    <div className="onboarding-progress-card">
-      <CircularProgress type="loading" />
-      <h2>Creating a wallet...</h2>
+    <div
+      className={'onboarding-block round flex col bg-white card text-center'}
+    >
+      <CircularProgress type={'loading'} />
+      <h6>Creating a wallet...</h6>
       <p>One second, we are creating for you a new wallet.</p>
     </div>
   );

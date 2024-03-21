@@ -45,7 +45,7 @@ function MenuItem(props: {
   badge?: JSX.Element;
 }) {
   return (
-    <div onClick={props.onClick} className="flex-row extension-popup-menu-item">
+    <div onClick={props.onClick} className="flex extension-popup-menu-item">
       <div className={props.iconClassName} />
       <div className="extension-popup-menu-item-text">{props.text}</div>
       {props.badge ? props.badge : ''}
@@ -140,8 +140,8 @@ function Index() {
       ) : (
         <div className="extension-popup-container">
           <div className="flex-column extension-popup">
-            <div className="flex-row extension-popup-logo-and-switch">
-              <div className="flex-row flex-align-center">
+            <div className="flex extension-popup-logo-and-switch">
+              <div className="flex flex-align-center">
                 <SwashLogo className="extension-popup-logo" />
                 {verified === undefined ? (
                   <></>
@@ -153,7 +153,7 @@ function Index() {
             </div>
             <FlexGrid
               column={2}
-              className="flex-row form-item-gap extension-popup-numerics"
+              className="flex form-item-gap extension-popup-numerics"
             >
               <NumericStats value={tokenAvailable} label="Earning balance" />
               <NumericStats value={unclaimedBonus} label="Rewards to claim" />
@@ -163,7 +163,7 @@ function Index() {
               iconClassName="popup-wallet-icon"
               onClick={() =>
                 showPageOnTab(
-                  browser.runtime.getURL('dashboard/index.html#/earnings'),
+                  browser.runtime.getURL('dashboard/index.html#/wallet'),
                 )
               }
             />

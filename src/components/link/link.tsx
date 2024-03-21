@@ -20,7 +20,7 @@ export function Link(
       href={url}
       className={className}
       target={newTab ? '_blank' : '_self'}
-      rel="noreferrer"
+      rel={'noreferrer'}
     >
       {props.children}
     </a>
@@ -29,7 +29,7 @@ export function Link(
       to={url}
       className={className}
       target={newTab ? '_blank' : '_self'}
-      rel="noreferrer"
+      rel={'noreferrer'}
     >
       {props.children}
     </RLink>

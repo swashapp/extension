@@ -1,17 +1,11 @@
 import React, { PropsWithChildren } from 'react';
 
-export function PunchedBox(
-  props: PropsWithChildren<{ className: string; punchClassName: string }>,
-): JSX.Element {
-  const { className, punchClassName } = props;
+import '../../static/css/components/punched-box.css';
 
-  return (
-    <div className={`punched-container ${className}`}>
-      <span className={`punched-circle top ${punchClassName}`} />
-      <span className={`punched-circle right ${punchClassName}`} />
-      <span className={`punched-circle bottom ${punchClassName}`} />
-      <span className={`punched-circle left ${punchClassName}`} />
-      <div className="punched-box">{props.children}</div>
-    </div>
-  );
+export function PunchedBox(
+  props: PropsWithChildren<{ className: string }>,
+): JSX.Element {
+  const { className } = props;
+
+  return <div className={`punched-box ${className}`}>{props.children}</div>;
 }

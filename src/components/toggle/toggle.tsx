@@ -27,7 +27,7 @@ export function Toggle(): JSX.Element {
   );
 
   return (
-    <div className="flex-row extension-popup-switch">
+    <div className="flex extension-popup-switch">
       <div className="extension-popup-switch-label">
         {status ? 'ON' : 'OFF'}
       </div>

@@ -22,7 +22,7 @@ export function Circle(props: {
         height={'100%'}
         alignmentBaseline={'central'}
         overflow={'visible'}
-        xmlns="http://www.w3.org/2000/svg"
+        xmlns={'http://www.w3.org/2000/svg'}
       >
         <circle
           cx={'50%'}

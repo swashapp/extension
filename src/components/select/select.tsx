@@ -68,7 +68,7 @@ export function Select(
       >
         {props.items.map((item, index) => (
           <MenuItem key={item.value + index} value={item.value}>
-            <div className="flex-row">
+            <div className="flex">
               <div className="select-item-value">{item.name}</div>
             </div>
           </MenuItem>

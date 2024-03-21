@@ -31,7 +31,7 @@ export function NumericEndAdornment(props: {
 }): JSX.Element {
   const classes = useStyles();
   return (
-    <InputAdornment className={classes.icon} position="end">
+    <InputAdornment className={classes.icon} position={'end'}>
       <div
         className={classes.button}
         style={{ marginBottom: 6 }}

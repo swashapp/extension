@@ -46,7 +46,7 @@ function Modal(props: {
       BackdropProps={{ style: { background: 'rgba(0, 32, 48, 0.7)' } }}
       PaperProps={{ className: `popup-paper ${props.paperClassName}` }}
     >
-      <div className="popup-content">{props.content || <></>}</div>
+      <div className={'flex col gap12'}>{props.content || <></>}</div>
     </Dialog>
   );
 }

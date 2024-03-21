@@ -1,6 +1,8 @@
 import { CircularProgress } from '@mui/material';
 import React from 'react';
 
+import '../../static/css/components/verified-info.css';
+
 const arrowIcon = '/static/images/shape/arrow.svg';
 const errorIcon = '/static/images/shape/error.svg';
 
@@ -11,23 +13,32 @@ export function VerifiedInfoBox(props: {
   onClick: () => void;
 }): JSX.Element {
   return (
-    <div className="verified-info-box" onClick={props.onClick}>
+    <div
+      className={
+        'flex align-center justify-between border-box verified-info-box'
+      }
+      onClick={props.onClick}
+    >
       <div>
-        <div className="verified-info-title">{props.title}</div>
+        <p className={'small'}>{props.title}</p>
         {props.loading ? (
           <CircularProgress color={'inherit'} size={16} />
         ) : props.value ? (
-          <div className="verified-info-value">{props.value}</div>
+          <p>{props.value}</p>
         ) : (
-          <div className="verified-info-unverified">
+          <p className={'flex align-center verified-info-unverified'}>
             <img src={errorIcon} width={16} height={16} alt={'unverified'} />
             Unverified
-          </div>
+          </p>
         )}
       </div>
-      <div className="verified-info-action">
-        <img src={arrowIcon} width={30} height={30} alt={'next step'} />
-      </div>
+      <img
+        className={'verified-info-action'}
+        src={arrowIcon}
+        width={30}
+        height={30}
+        alt={'next step'}
+      />
     </div>
   );
 }

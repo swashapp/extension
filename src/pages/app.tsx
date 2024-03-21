@@ -33,35 +33,24 @@ function RouteComponent(
   ExtensionComponent: () => JSX.Element,
   activeIndex: number,
 ) {
-  const [sidenavOpen, setSidenavOpen] = useState<boolean>(false);
+  const [sidenavOpen, setSidenavOpen] = useState<boolean>(true);
   return (
-    <div key={window.location.hash}>
-      <SidenavContext.Provider
-        value={{
-          isOpen: sidenavOpen,
-          setOpen: setSidenavOpen,
-        }}
-      >
-        <SidenavButton />
-        <div className="sidenav-and-content">
-          <div
-            className={`sidenav ${
-              sidenavOpen ? 'open-sidenav' : 'close-sidenav'
-            }`}
-          >
-            <Sidenav activeIndex={activeIndex} />
-          </div>
-          <div
-            className={`content ${
-              sidenavOpen ? 'content-open-sidenav' : 'content-close-sidenav'
-            }`}
-          >
+    <SidenavContext.Provider
+      value={{
+        isOpen: sidenavOpen,
+        setOpen: setSidenavOpen,
+      }}
+    >
+      <Sidenav activeIndex={activeIndex} />
+      <div className={`content`}>
+        <div className={'no-overflow relative page-container'}>
+          <div className={'border-box page-content'}>
             <DarkModeToggle />
             <ExtensionComponent />
           </div>
         </div>
-      </SidenavContext.Provider>
-    </div>
+      </div>
+    </SidenavContext.Provider>
   );
 }
 
@@ -86,7 +75,7 @@ export default function App(): JSX.Element {
             showPopup({
               closable: false,
               closeOnBackDropClick: true,
-              paperClassName: 'small-popup',
+              paperClassName: 'popup small',
               content: <VerificationAlert />,
             });
         });
@@ -108,7 +97,7 @@ export default function App(): JSX.Element {
   const forceUpdate = useCallback(() => setTrigger((t: number) => t + 1), []);
 
   return (
-    <div className="main-container">
+    <div className={'flex row relative bg-lightest-grey container'}>
       <AppContext.Provider
         value={{
           forceUpdate,
@@ -132,12 +121,12 @@ export default function App(): JSX.Element {
                 component={() => RouteComponent(link.component, index)}
               />
             ))}
-            <Redirect to={RouteToPages.earnings} />
+            <Redirect to={RouteToPages.wallet} />
           </Switch>
         )}
         <Popup />
         <ToastContainer
-          toastClassName="toast-panel-container"
+          toastClassName={'bg-white toast-panel-container'}
           autoClose={3000}
           closeButton={false}
           hideProgressBar

@@ -146,83 +146,112 @@ export function Profile(): JSX.Element {
         setSubmitted(true);
         toast(
           <ToastMessage
-            type="success"
+            type={'success'}
             content={<>{'Saved profile successfully'}</>}
           />,
         );
       })
       .catch((err) => {
         setLoading(false);
-        toast(<ToastMessage type="error" content={<>{err}</>} />);
+        toast(<ToastMessage type={'error'} content={<>{err}</>} />);
       });
   }, [employment, household, industry, marital, birth]);
 
   return (
-    <div className="page-container">
-      <div className="page-content">
-        <div className="page-header badge-header">
-          <h2>Profile</h2>
-          <VerificationBadge
-            verified={phone === undefined ? phone : phone !== ''}
-          />
-        </div>
-        <FlexGrid column={2} className="half-cards card-gap">
-          <div className={`simple-card profile-simple-card`}>
-            <div>
-              <h6>Complete your profile</h6>
+    <>
+      <div className={'flex align-center page-header'}>
+        <h6>Profile</h6>
+        <VerificationBadge
+          verified={phone === undefined ? phone : phone !== ''}
+        />
+      </div>
+      <div className={'flex gap32'}>
+        <div className={`round flex col no-overflow bg-white card grow1 card`}>
+          <div>
+            <h6>Complete your profile</h6>
+            <p>
               Tell Swash you’re human by verifying your profile. Only members
               who verify can withdraw their earnings.
-            </div>
-            <div className="flex-column form-item-gap">
-              <FlexGrid className="half-form-items form-item-gap" column={2}>
-                <Select
-                  items={birthYearList}
-                  label="Birth year"
-                  value={birth}
-                  onChange={(e) => setBirth(e.target.value as string)}
-                />
-                <Select
-                  items={maritalStatus}
-                  label="Marital status"
-                  value={marital}
-                  onChange={(e) => setMarital(e.target.value as string)}
-                />
-              </FlexGrid>
-              <FlexGrid className="half-form-items form-item-gap" column={2}>
-                <Select
-                  items={householdSize}
-                  label="Household size"
-                  value={household}
-                  onChange={(e) => setHousehold(e.target.value as string)}
-                />
-                <Select
-                  items={employmentStatus}
-                  label="Employment status"
-                  value={employment}
-                  onChange={(e) => setEmployment(e.target.value as string)}
-                />
-              </FlexGrid>
+            </p>
+          </div>
+          <div className={'flex col gap16'}>
+            <div className={'flex row gap16'}>
               <Select
-                items={occupationalIndustry}
-                label="Occupational industry"
-                value={industry}
-                onChange={(e) => setIndustry(e.target.value as string)}
+                items={birthYearList}
+                label={'Birth year'}
+                value={birth}
+                onChange={(e) => setBirth(e.target.value as string)}
+              />
+              <Select
+                items={maritalStatus}
+                label={'Marital status'}
+                value={marital}
+                onChange={(e) => setMarital(e.target.value as string)}
               />
             </div>
-            <div className="form-button-right">
-              {submitted ? (
-                <Button
-                  className={'form-button'}
-                  color={'primary'}
-                  text={'Update'}
-                  link={false}
-                  onClick={onSubmit}
-                  loading={loading}
-                  disabled={
-                    !birth || !marital || !household || !employment || !industry
-                  }
-                />
-              ) : reward === '' || reward === '0' ? (
+            <div className={'flex row gap16'}>
+              <Select
+                items={householdSize}
+                label={'Household size'}
+                value={household}
+                onChange={(e) => setHousehold(e.target.value as string)}
+              />
+              <Select
+                items={employmentStatus}
+                label={'Employment status'}
+                value={employment}
+                onChange={(e) => setEmployment(e.target.value as string)}
+              />
+            </div>
+            <Select
+              items={occupationalIndustry}
+              label={'Occupational industry'}
+              value={industry}
+              onChange={(e) => setIndustry(e.target.value as string)}
+            />
+          </div>
+          <div className={'form-button-right'}>
+            {submitted ? (
+              <Button
+                className={'form-button'}
+                color={'primary'}
+                text={'Update'}
+                link={false}
+                onClick={onSubmit}
+                loading={loading}
+                disabled={
+                  !birth || !marital || !household || !employment || !industry
+                }
+              />
+            ) : reward === '' || reward === '0' ? (
+              <Button
+                className={'form-button'}
+                color={'primary'}
+                text={'Submit'}
+                link={false}
+                onClick={onSubmit}
+                loading={loading}
+                disabled={
+                  !birth || !marital || !household || !employment || !industry
+                }
+              />
+            ) : (
+              <Badge
+                badgeContent={`+${reward} SWASH`}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                className="profile-submit-badge"
+                sx={{
+                  '& .MuiBadge-badge': {
+                    padding: '5px 9px',
+                    color: 'white',
+                    backgroundColor: 'var(--color-green)',
+                    fontWeight: 600,
+                  },
+                }}
+              >
                 <Button
                   className={'form-button'}
                   color={'primary'}
@@ -234,69 +263,37 @@ export function Profile(): JSX.Element {
                     !birth || !marital || !household || !employment || !industry
                   }
                 />
-              ) : (
-                <Badge
-                  badgeContent={`+${reward} SWASH`}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
-                  className="profile-submit-badge"
-                  sx={{
-                    '& .MuiBadge-badge': {
-                      padding: '5px 9px',
-                      color: 'white',
-                      backgroundColor: 'var(--color-green)',
-                      fontWeight: 600,
-                    },
-                  }}
-                >
-                  <Button
-                    className={'form-button'}
-                    color={'primary'}
-                    text={'Submit'}
-                    link={false}
-                    onClick={onSubmit}
-                    loading={loading}
-                    disabled={
-                      !birth ||
-                      !marital ||
-                      !household ||
-                      !employment ||
-                      !industry
-                    }
-                  />
-                </Badge>
-              )}
-            </div>
-          </div>
-          <div className="flex-column card-gap">
-            {VerificationBannerItems.map(
-              ({ text, image, className, verified }, index) => (
-                <PunchedBox
-                  className={`verify-profile ${className} ${
-                    phone === undefined
-                      ? 'hide'
-                      : verified === !!phone
-                      ? ''
-                      : 'hide'
-                  }`}
-                  punchClassName="verify-profile-punch"
-                  key={`verification-banner-${index}`}
-                >
-                  <div className={'verify-profile-container'}>
-                    <div className={'verify-profile-text'}>{text}</div>
-                    <img
-                      className={'verify-profile-img'}
-                      src={image}
-                      alt={'verification-banner'}
-                    />
-                  </div>
-                </PunchedBox>
-              ),
+              </Badge>
             )}
-            <div className={`simple-card`}>
-              <h6>Contact information</h6>
+          </div>
+        </div>
+        <div className={'flex col grow1 gap32'}>
+          {VerificationBannerItems.map(
+            ({ text, image, className, verified }, index) => (
+              <PunchedBox
+                className={`card3 profile-verification-banner ${className} ${
+                  phone === undefined
+                    ? 'hide'
+                    : verified === !!phone
+                    ? ''
+                    : 'hide'
+                }`}
+                key={`verification-banner-${index}`}
+              >
+                <div className={'flex row justify-between align-center'}>
+                  <h5 className={'profile-verification-banner-text'}>{text}</h5>
+                  <img
+                    className={'profile-verification-banner-img'}
+                    src={image}
+                    alt={'verification-banner'}
+                  />
+                </div>
+              </PunchedBox>
+            ),
+          )}
+          <div className={'round no-overflow flex col gap24 bg-white card'}>
+            <h6>Contact information</h6>
+            <div className={'flex col gap16'}>
               <VerifiedInfoBox
                 title={'Email address'}
                 value={email ? email : undefined}
@@ -306,7 +303,7 @@ export function Profile(): JSX.Element {
                     id: 'verify-email',
                     closable: false,
                     closeOnBackDropClick: true,
-                    paperClassName: 'large-popup',
+                    paperClassName: 'popup large',
                     content: (
                       <VerificationPopup
                         title={'email'}
@@ -325,7 +322,7 @@ export function Profile(): JSX.Element {
                     id: 'verify-phone',
                     closable: false,
                     closeOnBackDropClick: true,
-                    paperClassName: 'large-popup',
+                    paperClassName: 'popup large',
                     content: (
                       <VerificationPopup
                         title={'phone'}
@@ -337,8 +334,8 @@ export function Profile(): JSX.Element {
               />
             </div>
           </div>
-        </FlexGrid>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

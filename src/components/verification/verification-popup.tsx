@@ -37,7 +37,7 @@ export function VerificationPopup(props: {
           });
           break;
         case Status.ERROR:
-          toast(<ToastMessage type="error" content={event.data.message} />);
+          toast(<ToastMessage type={'error'} content={event.data.message} />);
           break;
       }
     },

@@ -16,7 +16,7 @@ export function SidenavButton(): JSX.Element {
       } sidenav-button-animation`}
     >
       <SwashLogo />
-      <div className="flex-row sidenav-toggles">
+      <div className="flex sidenav-toggles">
         <Toggle />
         <IconButton onClick={() => sidenav.setOpen(true)} size="large">
           <img src={SidenavIcon} alt={'#'} />

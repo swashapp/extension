@@ -1,0 +1,23 @@
+.verified-info-box {
+  width: 100%;
+
+  mix-blend-mode: normal;
+  border: 1px solid var(--color-light-grey);
+  border-radius: 12px;
+
+  padding: 21px 24px;
+
+  cursor: pointer;
+}
+
+.verified-info-unverified {
+  gap: 6px;
+
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--color-red);
+}
+
+.verified-info-action {
+  height: 30px;
+}

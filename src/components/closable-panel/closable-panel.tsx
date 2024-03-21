@@ -13,9 +13,9 @@ export function ClosablePanel(
   const [close, setClose] = useState<boolean>(false);
   return (
     <div
-      className={`closable-panel-container ${
+      className={`relative ${
         close ? 'closable-panel-close' : 'closable-panel-open'
-      } ${hide ? 'closable-panel-hide' : ''} ${props.className}`}
+      } ${hide ? 'hide' : ''} ${props.className}`}
     >
       <div
         onClick={() => {
@@ -25,7 +25,7 @@ export function ClosablePanel(
             setHide(true);
           }, 1000);
         }}
-        className="closable-panel-icon"
+        className="absolute closable-panel-icon"
       >
         <img width={24} height={24} src={CloseIcon} alt={'x'} />
       </div>

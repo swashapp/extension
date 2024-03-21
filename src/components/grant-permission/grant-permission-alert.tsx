@@ -21,9 +21,9 @@ export function GrantPermissionAlert(): JSX.Element {
 
   return (
     <>
-      <div className="small-popup-title title">Permission</div>
-      <div className="small-popup-separator" />
-      <div className="small-popup-content">
+      <p className={'large'}>Permission</p>
+      <hr />
+      <div className={'flex col gap12'}>
         For Swash to work properly, you should approve the additional
         permissions required. Click on the button below to open the permissions
         popup.
@@ -32,11 +32,11 @@ export function GrantPermissionAlert(): JSX.Element {
         Once you have clicked &apos;Allow&apos;, you will be able to continue
         using Swash.
       </div>
-      <div className="small-popup-separator" />
-      <div className="small-popup-actions-center">
+      <hr />
+      <div className={'flex justify-center'}>
         <Button
           text={'Grant'}
-          className="small-popup-actions-submit"
+          className={'popup-submit'}
           link={false}
           onClick={async () => {
             const response = await browser.permissions.request(

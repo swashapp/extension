@@ -21,12 +21,12 @@ export function AddEndAdornment(props: {
     <InputAdornment
       onClick={props.onAdd}
       className={classes.icon}
-      position="end"
+      position={'end'}
     >
       <Button
         link={false}
-        text="Add"
-        color="secondary"
+        text={'Add'}
+        color={'secondary'}
         disabled={props.disabled}
       />
     </InputAdornment>

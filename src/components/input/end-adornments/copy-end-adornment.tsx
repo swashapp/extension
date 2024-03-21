@@ -19,18 +19,18 @@ const useStyles = makeStyles(() => ({
 export function CopyEndAdornment(props: { value: string }): JSX.Element {
   const classes = useStyles();
   return (
-    <InputAdornment className={classes.icon} position="end">
+    <InputAdornment className={classes.icon} position={'end'}>
       <CopyToClipboard text={props.value}>
         <IconButton
           onClick={() =>
             toast(
               <ToastMessage
-                type="success"
+                type={'success'}
                 content={<>Copied successfully</>}
               />,
             )
           }
-          size="large"
+          size={'large'}
         >
           <img src={copyIcon} alt={'copy'} />
         </IconButton>

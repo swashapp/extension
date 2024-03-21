@@ -19,8 +19,8 @@ export function ShowEndAdornment(props: {
 }): JSX.Element {
   const classes = useStyles();
   return (
-    <InputAdornment className={classes.icon} position="end">
-      <IconButton size="large" onClick={props.onClick}>
+    <InputAdornment className={classes.icon} position={'end'}>
+      <IconButton size={'large'} onClick={props.onClick}>
         <img src={props.show ? hideIcon : eyeIcon} alt={'copy'} />
       </IconButton>
     </InputAdornment>

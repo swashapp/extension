@@ -1,8 +1,8 @@
 import { InputProps } from '@mui/material';
 import React, { Dispatch, SetStateAction, useMemo } from 'react';
 
-import { InputBase } from '../input-base/input-base';
 import { NumericEndAdornment } from '../input/end-adornments/numeric-end-adornment';
+import { InputBase } from '../input-base/input-base';
 import { Label } from '../label/label';
 
 export function NumericInput(
