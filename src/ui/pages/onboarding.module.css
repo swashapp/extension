@@ -1,0 +1,92 @@
+.container {
+  width: 1440px !important;
+  margin: 0 auto;
+}
+
+.stepper {
+  height: 100%;
+}
+
+.boxing {
+  height: 98px;
+  padding: 16px 80px;
+
+  flex: 0 1 auto;
+}
+
+.footer {
+  color: var(--color-dark-grey);
+}
+
+.progress {
+  width: 193px;
+}
+
+.progress > p {
+  width: max-content;
+  word-break: keep-all;
+}
+
+.bar,
+.line {
+  width: 100%;
+}
+
+.bar {
+  background-color: transparent !important;
+}
+
+.line {
+  height: 4px;
+  background-color: var(--color-white) !important;
+}
+
+.line div {
+  height: 4px !important;
+  background-color: var(--color-green) !important;
+}
+
+.swiper {
+  min-height: max-content;
+  flex: 1 1 auto;
+}
+
+.card {
+  width: 100%;
+  margin: 0 !important;
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 1439px) {
+  .container {
+    width: 1200px !important;
+  }
+}
+
+@media only screen and (max-width: 1199px) {
+  .container {
+    width: 1024px !important;
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .container {
+    width: 768px !important;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .container {
+    width: 100% !important;
+  }
+
+  .boxing {
+    height: 120px;
+    padding: 16px 36px;
+  }
+
+  .progress {
+    width: max(120px, 25vw);
+  }
+}

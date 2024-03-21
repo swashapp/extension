@@ -1,0 +1,8 @@
+/* Responsive */
+
+@media only screen and (max-width: 767px) {
+  .row {
+    flex-direction: column !important;
+    gap: 18px !important;
+  }
+}

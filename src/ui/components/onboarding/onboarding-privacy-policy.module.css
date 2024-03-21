@@ -1,0 +1,17 @@
+.container {
+  width: 846px;
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 1023px) {
+  .container {
+    width: 583px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .container {
+    width: min(583px, calc(100vw - 36px));
+  }
+}

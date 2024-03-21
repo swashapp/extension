@@ -2,23 +2,23 @@
   "manifest_version": 3,
   "action": {
     "default_title": "Swash",
-    "default_popup": "popup/index.html",
+    "default_popup": "ui/popup.html",
     "default_icon": {
-      "16": "static/images/swash/active-16.png",
-      "48": "static/images/swash/active-48.png",
-      "96": "static/images/swash/active-96.png",
-      "128": "static/images/swash/active-128.png"
+      "16": "images/swash/active-16.png",
+      "48": "images/swash/active-48.png",
+      "96": "images/swash/active-96.png",
+      "128": "images/swash/active-128.png"
     }
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["core/content_scripts/dummy_script.js"]
+      "js": ["core/scripts/other/caffeine.script.ts"]
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["core/inpage_scripts/sdk_page_script.js"],
+      "resources": ["core/scripts/inpage/sdk.script.js"],
       "matches": ["https://*.swashapp.io/*"]
     }
   ],

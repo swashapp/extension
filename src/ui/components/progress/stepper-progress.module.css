@@ -1,0 +1,29 @@
+.pending rect {
+  stroke: var(--color-soft-yellow);
+}
+
+.pending circle {
+  fill: var(--color-soft-yellow);
+}
+
+.error rect {
+  stroke: var(--color-red);
+}
+
+.error circle {
+  fill: var(--color-red);
+}
+
+.success rect {
+  stroke: var(--color-green);
+}
+
+.success circle {
+  fill: var(--color-green);
+}
+
+/* Dark theme */
+
+[data-theme="dark"] .text {
+  color: var(--color-light-grey);
+}

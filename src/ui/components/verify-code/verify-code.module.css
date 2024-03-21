@@ -1,0 +1,19 @@
+.container {
+  width: 534px;
+}
+
+.countdown {
+  color: var(--color-green);
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 767px) {
+  .container {
+    width: min(534px, calc(100vw - 36px));
+  }
+
+  .row {
+    flex-direction: column !important;
+  }
+}

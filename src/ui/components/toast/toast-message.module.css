@@ -1,0 +1,30 @@
+.title {
+  color: var(--color-darkest-grey);
+}
+
+.text {
+  color: var(--color-dark-grey);
+}
+
+.text::first-letter {
+  text-transform: capitalize;
+}
+
+.message {
+  min-height: 56px !important;
+  padding: 4px 0 4px 12px;
+}
+
+.message.success {
+  border-left: 5px solid var(--color-green);
+}
+
+.message.error {
+  border-left: 5px solid var(--color-red);
+}
+
+/* Dark theme */
+
+[data-theme="dark"] .title {
+  color: var(--color-light-grey);
+}

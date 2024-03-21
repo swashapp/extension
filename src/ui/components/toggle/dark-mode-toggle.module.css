@@ -1,0 +1,13 @@
+.container {
+  width: unset !important;
+  height: unset !important;
+
+  top: 80px !important;
+  right: 64px !important;
+
+  z-index: 2 !important;
+}
+
+.active * {
+  stroke: var(--color-dark-purple) !important;
+}

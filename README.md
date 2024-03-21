@@ -1,6 +1,6 @@
 <div align="center">
     <a href="https://swashapp.io/" target="blank">
-        <img src="https://swashapp.io/static/images/logo/swash/s-logo.svg" width="80" alt="Swash Logo" />
+        <img src="https://swashapp.io/images/logo/swash/s-logo.svg" width="80" alt="Swash Logo" />
     </a>
 </div>
 <div align="center">
@@ -37,26 +37,14 @@ At first step you need a package manager like `yarn` or `npm` to start working o
 npm install -g yarn
 ```
 
-#### Technologies
-
-- Web Extension 7.6.2
-- Python 2.x (sqlite3 needed by streamr-client using it)
-- libssl1.1 for linux hosts (node-datachannel needed by streamr-client using it)
-- React 17.0.2
-- Material UI 5.10.6
-
-Notice: libcrypto.so.1.1 is not available on ubuntu 22.04 repository and you should use an earlier version of ubuntu or install it manually.
-
 #### Recommended environment
 
 - Ubuntu 20.04 LTS
-- Node 16.x LTS (18.x is not fully tested)
-- Installing build essential using ```sudo apt update && sudo apt install build-essential```
-- Installing libssl and libcrypto ```sudo apt install libssl1.1```
+- Node 22.x LTS
 
 ### Installation
 
-To prepare project dependencies, the only thing that you need is running the following command. Be sure python 2.x is installed on your local.
+To prepare project dependencies, the only thing that you need is running the following command.
 
 ```
 yarn install
@@ -129,6 +117,4 @@ yarn release:firefox
 
 Just email to dev@swashapp.io or get in touch through social media.
 
-## License
-
-Copyright 2021 Swashapp
+© 2025 Swashapp

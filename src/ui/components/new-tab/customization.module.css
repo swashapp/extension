@@ -1,0 +1,38 @@
+.container {
+  width: 620px;
+}
+
+.content {
+  height: 275px;
+  overflow: auto;
+}
+
+.color {
+  width: 120px;
+  height: 80px;
+}
+
+.searchEngine {
+  width: 188px !important;
+  height: 120px;
+}
+
+.color,
+.searchEngine {
+  border: 1px solid var(--color-light-grey);
+  border-radius: 15px;
+}
+
+.color > img,
+.searchEngine > img {
+  width: 100%;
+  height: auto;
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 767px) {
+  .container {
+    width: min(620px, 100%);
+  }
+}

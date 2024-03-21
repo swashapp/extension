@@ -1,0 +1,47 @@
+.container {
+  width: 100%;
+}
+
+.expand {
+  width: 20px;
+  height: 20px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.title {
+  margin-top: 8px;
+}
+
+.summary {
+  width: 100%;
+  margin-left: 17px;
+}
+
+.progress {
+  flex-grow: 1;
+  margin-top: 16px;
+}
+
+.content pre {
+  font-size: 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Dark theme */
+
+[data-theme="dark"] .summary {
+  color: var(--color-light-grey);
+}
+
+[data-theme="dark"] .expand path {
+  stroke: var(--color-light-grey);
+}
+
+[data-theme="dark"] .content span {
+  color: var(--color-grey);
+}

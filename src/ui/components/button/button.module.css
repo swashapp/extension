@@ -1,0 +1,11 @@
+.text {
+  width: max-content;
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 767px) {
+  .text {
+    width: auto;
+  }
+}

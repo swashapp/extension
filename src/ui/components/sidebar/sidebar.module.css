@@ -1,0 +1,147 @@
+.container {
+  width: 256px;
+}
+
+.container > div {
+  height: max(100vh, 100%);
+}
+
+.logo {
+  padding: 48px 0 48px 32px;
+  z-index: 2;
+}
+
+.button {
+  margin-right: 26px;
+  cursor: pointer;
+  user-select: none;
+  visibility: hidden;
+}
+
+.links {
+  height: max-content;
+  z-index: 2;
+}
+
+.link {
+  width: 100%;
+}
+
+.link.active {
+  opacity: 1;
+}
+
+.link.inactive {
+  opacity: 0.4;
+}
+
+.link.inactive:hover {
+  opacity: 1;
+}
+
+.border {
+  width: 4px;
+  margin-right: 28px;
+  height: inherit;
+}
+
+.border.active {
+  background-color: var(--color-dark-purple);
+  transition: background-color 500ms linear;
+}
+
+.border.inactive {
+  background-color: transparent;
+}
+
+.body {
+  width: 100%;
+  color: var(--color-black);
+
+  padding: 17px 48px 17px 0;
+}
+
+.icon {
+  margin-right: 16px;
+  height: 24px;
+}
+
+.ads {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* Dark theme */
+
+[data-theme="dark"] .button path {
+  stroke: var(--color-light-grey);
+}
+
+[data-theme="dark"] .body {
+  color: var(--color-light-grey);
+}
+
+[data-theme="dark"] .icon path,
+[data-theme="dark"] .icon circle {
+  stroke: var(--color-light-grey);
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 1199px) {
+  .container {
+    width: 100vw !important;
+    height: 40px;
+
+    position: fixed;
+    bottom: 38px;
+    z-index: 100;
+  }
+
+  .logo,
+  .ads {
+    display: none !important;
+  }
+
+  .links {
+    width: auto;
+    overflow: scroll;
+    flex-direction: row !important;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .link {
+    min-width: 112px;
+
+    flex-direction: column-reverse !important;
+    justify-content: center;
+  }
+
+  .border {
+    all: unset;
+
+    width: inherit;
+    height: 4px;
+  }
+
+  .body {
+    flex-direction: column !important;
+    justify-content: center;
+
+    padding: 10px;
+  }
+
+  .icon {
+    margin-right: 0;
+    margin-bottom: 8px;
+    height: 24px;
+  }
+}

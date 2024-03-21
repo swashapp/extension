@@ -1,0 +1,46 @@
+.root {
+  padding: 0;
+}
+
+.root:hover {
+  background-color: transparent;
+}
+
+.icon {
+  border-radius: 4px;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--color-grey);
+  box-sizing: border-box;
+  background-color: var(--color-white);
+}
+
+.icon:hover {
+  background-color: var(--color-lightest-grey);
+}
+
+.checkedIcon {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--color-green);
+  background-color: var(--color-green) !important;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIuMjY1NjMgNS45OTkyMkw1LjQ2NTYzIDguNzk5MjJMOS43MzIyOSAzLjE5OTIyIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjEuNCIvPgo8L3N2Zz4K");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.checkedIcon:hover {
+  border: 1px solid var(--color-darkest-grey);
+  background-color: var(--color-darkest-grey);
+}
+
+.label {
+  user-select: none;
+}
+
+/* Dark theme */
+
+[data-theme="dark"] .icon {
+  border: 1px solid var(--color-dark-grey);
+  background-color: var(--color-dark-grey);
+}

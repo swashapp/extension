@@ -1,0 +1,187 @@
+.popup {
+  width: 441px;
+}
+
+.table div {
+  padding: 16px 0;
+}
+
+.table div + div {
+  border-top: 1px solid var(--color-light-grey);
+}
+
+.title {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-dark-grey);
+}
+
+.status {
+  padding: 4px 12px;
+}
+
+.punch {
+  --color: var(--color-purple) !important;
+  color: var(--color-jet-black);
+  padding: 64px 28px 59px;
+}
+
+.galaxy {
+  width: 100%;
+  max-width: 272px;
+  margin: auto;
+}
+
+.cta {
+  width: 204px;
+  height: 56px;
+}
+
+.max {
+  right: 48px;
+}
+
+.caption {
+  color: var(--color-dark-grey);
+}
+
+.caption em {
+  color: var(--color-green);
+  text-decoration: none;
+}
+
+.toaster {
+  height: 57px;
+  border-radius: 100px;
+  padding: 8px 16px;
+}
+
+.top {
+  width: auto;
+  height: 39px;
+}
+
+.companies {
+  max-height: 392px;
+  overflow-x: auto;
+
+  border-radius: 8px;
+  border: 1px solid var(--color-light-grey);
+}
+
+.company {
+  padding: 10px 12px;
+}
+
+.company + .company {
+  border-top: 1px solid var(--color-light-grey);
+}
+
+.company img {
+  width: 64px;
+  height: 36px;
+}
+
+.color5 rect:first-of-type {
+  fill: var(--color-purple);
+}
+
+.thumbs {
+  width: 100%;
+  max-width: 205px;
+  margin: auto;
+}
+
+.color10 rect:first-of-type {
+  fill: var(--color-soft-yellow);
+}
+
+.color20 rect:first-of-type {
+  fill: var(--color-soft-green);
+}
+
+.color50 rect:first-of-type {
+  fill: var(--color-yellow);
+}
+
+.color100 rect:first-of-type {
+  fill: var(--color-orange);
+}
+
+.color200 rect:first-of-type {
+  fill: var(--color-light-grey);
+}
+
+.voucher {
+  width: 109px;
+  height: 112px;
+
+  cursor: pointer;
+  color: var(--color-jet-black);
+}
+
+.voucher .amount {
+  height: 70px;
+  z-index: 1;
+}
+
+.voucher .use {
+  height: 40px;
+  z-index: 1;
+}
+
+/* Dark theme */
+
+[data-theme="dark"] .company svg path {
+  stroke: var(--color-light-grey);
+}
+
+[data-theme="dark"] .table div + div {
+  border-top: 1px solid var(--color-dark-grey);
+}
+
+[data-theme="dark"] .svg path {
+  stroke: var(--color-light-grey);
+}
+
+[data-theme="dark"] .link {
+  color: var(--color-green);
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 1439px) {
+  .main {
+    flex: 1.5 !important;
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .container {
+    flex-direction: column !important;
+  }
+
+  .balance {
+    flex-direction: row !important;
+  }
+
+  .balance > div {
+    width: 100%;
+    height: auto;
+  }
+
+  .punch {
+    display: none !important;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .balance,
+  .row {
+    flex-direction: column !important;
+  }
+
+  .popup {
+    width: min(441px, calc(100vw - 68px));
+  }
+}

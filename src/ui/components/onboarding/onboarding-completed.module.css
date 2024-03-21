@@ -1,0 +1,32 @@
+.container {
+  width: 628px;
+}
+
+.image {
+  width: 400px;
+  height: auto;
+}
+
+.button {
+  top: 32px;
+  right: 32px;
+  cursor: pointer;
+}
+
+/* Dark theme */
+
+[data-theme="dark"] .button path {
+  stroke: var(--color-light-grey);
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 767px) {
+  .container {
+    width: min(628px, calc(100vw - 116px));
+  }
+
+  .image {
+    width: min(400px, 100%);
+  }
+}

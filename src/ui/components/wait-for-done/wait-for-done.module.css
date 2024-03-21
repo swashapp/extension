@@ -1,0 +1,12 @@
+.container {
+  width: 534px;
+  height: 150px;
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 767px) {
+  .container {
+    width: min(534px, calc(100vw - 116px));
+  }
+}

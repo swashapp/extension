@@ -1,5 +1,5 @@
 export enum Strategy {
-  FixedTime = 'fixedTimeWindowStrategy',
-  DynamicTime = 'dynamicTimeWindowStrategy',
-  Immediate = 'immediateJoinStrategy',
+  FixedTime = "fixedTimeWindowStrategy",
+  DynamicTime = "dynamicTimeWindowStrategy",
+  Immediate = "immediateJoinStrategy",
 }

@@ -1,0 +1,43 @@
+.ongoing {
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+
+  box-shadow: 0 7px 11px rgba(86, 86, 86, 0.02);
+  border-radius: 12px;
+}
+
+.action {
+  width: 150px;
+  height: 48px;
+}
+
+.charity {
+  width: calc(50% - 12px);
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 767px) {
+  .ongoing {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .ongoing > div {
+    width: 100%;
+    padding: 12px 0;
+  }
+
+  .ongoing > div + div {
+    border-top: 1px solid var(--color-darkest-grey);
+  }
+
+  .charity {
+    width: 100%;
+  }
+}
