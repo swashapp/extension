@@ -5,7 +5,7 @@ import {
   styled,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React from 'react';
+import { ReactElement } from 'react';
 
 import { Link, LinkProps } from '../link/link';
 
@@ -45,7 +45,7 @@ function getButton(
   color: string,
   size: string,
   fixed: boolean,
-  text: string | JSX.Element,
+  text: string | ReactElement,
   disabled: boolean,
   muiProps?: ButtonProps,
   loading?: boolean,
@@ -76,14 +76,14 @@ export function Button(props: {
   color?: 'primary' | 'secondary';
   size?: 'small' | 'large';
   fixed?: boolean;
-  text: string | JSX.Element;
+  text: string | ReactElement;
   link: LinkProps | false;
   onClick?: () => void;
   muiProps?: ButtonProps;
   loading?: boolean;
   loadingText?: string;
   disabled?: boolean;
-}): JSX.Element {
+}): ReactElement {
   const classes = useStyles();
   const {
     color = 'primary',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { Button } from './button';
 
@@ -6,7 +6,7 @@ export function LearnMore(props: {
   position: string;
   size?: 'small' | 'large';
   link?: string;
-}): JSX.Element {
+}): ReactElement {
   return (
     <Button
       text={'Learn More'}

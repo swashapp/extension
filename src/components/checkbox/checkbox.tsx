@@ -1,7 +1,7 @@
 import { Checkbox as MuiCheckbox } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import clsx from 'clsx';
-import React, { PropsWithChildren } from 'react';
+import { ChangeEvent, PropsWithChildren, ReactElement } from 'react';
 
 const useStyles = makeStyles({
   root: {
@@ -42,9 +42,9 @@ const useStyles = makeStyles({
 export function Checkbox(
   props: PropsWithChildren<{
     checked: boolean;
-    onChange?: (event: React.ChangeEvent) => void;
+    onChange?: (event: ChangeEvent) => void;
   }>,
-): JSX.Element {
+): ReactElement {
   const classes = useStyles();
 
   return (

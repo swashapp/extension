@@ -1,4 +1,5 @@
-import React, {
+import {
+  ReactElement,
   useCallback,
   useContext,
   useEffect,
@@ -24,7 +25,7 @@ const enum Status {
   TRY_AGAIN = 'TRY_AGAIN',
 }
 
-export function OnboardingJoin(): JSX.Element {
+export function OnboardingJoin(): ReactElement {
   const stepper = useContext(StepperContext);
   const [token, setToken] = useState<string | null>('');
   const [tokenTry, setTokenTry] = useState<number>(0);
@@ -96,8 +97,9 @@ export function OnboardingJoin(): JSX.Element {
     helper
       .getJoinedSwash()
       .then((data: { id: number; email: string }) => {
-        if (data.id && data.email) stepper.next();
-        else setJoinData(data);
+        if (data.id && data.email) {
+          stepper.next();
+        } else setJoinData(data);
       })
       .catch(onGetJoinedFailed)
       .finally(() => {
@@ -119,20 +121,20 @@ export function OnboardingJoin(): JSX.Element {
           joinData={joinData}
         />
       ) : (
-        <div className="onboarding-iframe-wrapper">
+        <>
           {!iframeVisible || joinData === null ? <WaitingProgressBar /> : <></>}
           {token ? (
             <iframe
               seamless
-              className="onboarding-join-iframe"
+              className={'onboarding-join-iframe'}
               style={{
                 visibility:
                   iframeVisible && joinData !== null ? 'visible' : 'hidden',
               }}
               onLoad={() => setIframeVisible(true)}
               title={'joinPage'}
-              scrolling="no"
-              frameBorder="no"
+              scrolling={'no'}
+              frameBorder={'no'}
               src={iframeSrc}
             >
               <p>Your browser does not support iframe.</p>
@@ -140,7 +142,7 @@ export function OnboardingJoin(): JSX.Element {
           ) : (
             ''
           )}
-        </div>
+        </>
       )}
     </>
   );

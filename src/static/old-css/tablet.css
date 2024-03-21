@@ -76,7 +76,7 @@
     padding: 20px;
   }
 
-  .simple-card {
+  .card {
     padding: 20px;
   }
 
@@ -161,7 +161,7 @@
     display: none;
   }
 
-  .profile-simple-card {
+  .profile-.card {
     height: unset;
   }
 
@@ -178,7 +178,7 @@
     justify-content: center;
   }
 
-  .help-grid-container {
+  .help-container {
     width: auto;
     justify-content: center;
   }

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 export interface VerificationBannerItem {
-  text: JSX.Element;
+  text: ReactElement;
   image: string;
   className: string;
   verified: boolean;
@@ -25,7 +25,7 @@ export const VerificationBannerItems = [
       </>
     ),
     image: '/static/images/icons/verification-banner/person.png',
-    className: 'bg-soft-yellow',
+    className: 'unverified',
     verified: false,
   },
   {
@@ -36,7 +36,7 @@ export const VerificationBannerItems = [
       </>
     ),
     image: '/static/images/icons/verification-banner/box.png',
-    className: 'bg-soft-green',
+    className: 'verified',
     verified: true,
   },
 ] as VerificationBannerItem[];

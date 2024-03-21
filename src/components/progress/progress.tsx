@@ -1,6 +1,6 @@
 import { LinearProgress } from '@mui/material';
 import { withStyles } from '@mui/styles';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 const MuiLinearProgress = withStyles(() => ({
   root: {
@@ -12,10 +12,10 @@ const MuiLinearProgress = withStyles(() => ({
   },
   bar: {
     borderRadius: 12,
-    backgroundColor: 'var(--color-purple)',
+    backgroundColor: 'var(--color-green)',
   },
 }))(LinearProgress);
 
-export function ProgressBar(props: { value: number }): JSX.Element {
+export function ProgressBar(props: { value: number }): ReactElement {
   return <MuiLinearProgress variant="determinate" value={props.value} />;
 }

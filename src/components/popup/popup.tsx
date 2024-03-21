@@ -1,5 +1,5 @@
 import { Dialog } from '@mui/material';
-import React, { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 
 import { ClosablePanel } from '../closable-panel/closable-panel';
 
@@ -46,7 +46,7 @@ function Modal(props: {
       BackdropProps={{ style: { background: 'rgba(0, 32, 48, 0.7)' } }}
       PaperProps={{ className: `popup-paper ${props.paperClassName}` }}
     >
-      <div className="popup-content">{props.content || <></>}</div>
+      <div className={'flex col gap12'}>{props.content || <></>}</div>
     </Dialog>
   );
 }
@@ -61,15 +61,18 @@ function ClosablePopup(props: {
     <Modal
       {...props}
       content={
-        <ClosablePanel className="closable-popup" onClose={() => closePopup()}>
+        <ClosablePanel
+          className={'closable-popup'}
+          onClose={() => closePopup()}
+        >
           {props.content}
         </ClosablePanel>
       }
     />
   );
 }
-export function Popup(): JSX.Element {
-  const [openDialog, setOpenedDialog] = React.useState<popupProps>(_item);
+export function Popup(): ReactElement {
+  const [openDialog, setOpenedDialog] = useState<popupProps>(_item);
   useEffect(() => {
     _callback = () => {
       setOpenedDialog(_item);

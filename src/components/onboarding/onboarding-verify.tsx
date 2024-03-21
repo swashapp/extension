@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import {
+  ReactElement,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { toast } from 'react-toastify';
 
 import { helper } from '../../core/webHelper';
@@ -18,7 +24,7 @@ export function OnboardingVerify(props: {
   stayUpdate: boolean;
   onBack: () => void;
   joinData: { id?: number; email?: string } | null;
-}): JSX.Element {
+}): ReactElement {
   const stepper = useContext(StepperContext);
   const [verificationCode, setVerificationCode] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -62,7 +68,7 @@ export function OnboardingVerify(props: {
     setLoading(false);
     toast(
       <ToastMessage
-        type="error"
+        type={'error'}
         content={<>{err?.message || 'Something went wrong!'}</>}
       />,
     );
@@ -120,53 +126,49 @@ export function OnboardingVerify(props: {
     [onFailure, props.email, triggerTimer],
   );
   return (
-    <div className="onboarding-verify-email">
-      <div className="flex-column onboarding-verify-email-content">
-        <h2>Check your email!</h2>
-        <div className="onboarding-verify-text">
-          <p>
-            We have sent you a verification code, please verify your email
-            address to continue.
-          </p>
-        </div>
-        <div className="onboarding-verify-input">
+    <div className={'onboarding-block'}>
+      <div className={'round no-overflow flex col bg-white card'}>
+        <h6>Check your email!</h6>
+        <p>
+          We have sent you a verification code, please verify your email address
+          to continue.
+        </p>
+        <div className={'onboarding-verify-input'}>
           <Input
-            label="Verification Code"
+            label={'Verification Code'}
             defaultValue={verificationCode}
             onChange={(e) => setVerificationCode(e.target.value)}
           />
         </div>
-        <div className="onboarding-verify-question">
-          <p>
-            Doesn&apos;t work?{' '}
-            {seconds === 0 && minutes === 0 ? (
-              <div
-                style={{ display: 'inline-block' }}
-                onClick={
-                  loading
-                    ? (e) => {
-                        e.preventDefault();
-                      }
-                    : onResend
-                }
-              >
-                <a style={{ color: 'var(--color-purple)' }} href="#">
-                  Send me another code.
-                </a>
-              </div>
-            ) : (
-              <div
-                style={{ color: 'var(--color-green)', display: 'inline-block' }}
-              >
-                {UtilsService.padWithZero(minutes) +
-                  ':' +
-                  UtilsService.padWithZero(seconds)}
-              </div>
-            )}
-          </p>
-        </div>
+        <p className={'text-center'}>
+          Doesn&apos;t work?{' '}
+          {seconds === 0 && minutes === 0 ? (
+            <div
+              style={{ display: 'inline-block' }}
+              onClick={
+                loading
+                  ? (e) => {
+                      e.preventDefault();
+                    }
+                  : onResend
+              }
+            >
+              <a style={{ color: 'var(--color-purple)' }} href="#">
+                Send me another code.
+              </a>
+            </div>
+          ) : (
+            <div
+              style={{ color: 'var(--color-green)', display: 'inline-block' }}
+            >
+              {UtilsService.padWithZero(minutes) +
+                ':' +
+                UtilsService.padWithZero(seconds)}
+            </div>
+          )}
+        </p>
         <NavigationButtons
-          nextButtonText="Verify"
+          nextButtonText={'Verify'}
           onBack={props.onBack}
           onSubmit={onSubmit}
           loading={loading}

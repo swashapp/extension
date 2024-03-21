@@ -1,6 +1,6 @@
 import { InputAdornment } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 const innerSpin = '/static/images/shape/inner-spin.svg';
 const outerSpin = '/static/images/shape/outer-spin.svg';
@@ -28,10 +28,10 @@ const useStyles = makeStyles(() => ({
 export function NumericEndAdornment(props: {
   onSpinUp: () => void;
   onSpinDown: () => void;
-}): JSX.Element {
+}): ReactElement {
   const classes = useStyles();
   return (
-    <InputAdornment className={classes.icon} position="end">
+    <InputAdornment className={classes.icon} position={'end'}>
       <div
         className={classes.button}
         style={{ marginBottom: 6 }}

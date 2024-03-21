@@ -13,8 +13,9 @@ import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 
 import { UtilsService } from '../../service/utils-service';
-import { FlexGrid } from '../flex-grid/flex-grid';
 import { SwashLogo } from '../swash-logo/swash-logo';
+
+import '../../static/css/components/stepper.css';
 
 export default forwardRef(function Stepper(
   props: PropsWithChildren<{
@@ -58,34 +59,34 @@ export default forwardRef(function Stepper(
   }));
 
   return (
-    <div className={'stepper-container'}>
-      <FlexGrid className={'stepper-with-logo'} column={2}>
-        <SwashLogo />
-        <div className="stepper-with-numbers">
-          <div className={'stepper'}>
-            <div className={'stepper-step-number'}>
-              {UtilsService.padWithZero(activeStep + 1)}
-            </div>
-            <MobileStepper
-              className={'stepper-mobile'}
-              variant="progress"
-              steps={steps}
-              position="static"
-              activeStep={activeStep}
-              nextButton={null}
-              backButton={null}
-              LinearProgressProps={{
-                className: 'stepper-linear-progress',
-              }}
-            />
-            <div className={'stepper-step-number'}>
-              {UtilsService.padWithZero(steps)}
-            </div>
-          </div>
+    <div className={'flex col relative stepper-container'}>
+      <div className={'flex stepper-with-logo'}>
+        <div className={'grow1'}>
+          <SwashLogo />
         </div>
-      </FlexGrid>
+        <div className={'flex align-center grow1 stepper'}>
+          <p className={'smaller bold stepper-step-number'}>
+            {UtilsService.padWithZero(activeStep + 1)}
+          </p>
+          <MobileStepper
+            className={'border-box stepper-mobile'}
+            variant={'progress'}
+            steps={steps}
+            position={'static'}
+            activeStep={activeStep}
+            nextButton={null}
+            backButton={null}
+            LinearProgressProps={{
+              className: 'stepper-linear-progress',
+            }}
+          />
+          <p className={'smaller bold stepper-step-number'}>
+            {UtilsService.padWithZero(steps)}
+          </p>
+        </div>
+      </div>
       <div
-        className={'stepper-swiper-container'}
+        className={'relative stepper-swiper-container'}
         style={{ display: props?.display || 'block' }}
       >
         <SwipeableViews
@@ -95,11 +96,7 @@ export default forwardRef(function Stepper(
           enableMouseEvents
         >
           {Children.map(props.children, (child, index: number) => (
-            <div
-              className={`stepper-card ${
-                props.flow[index] === 'Join' ? 'verification-card' : ''
-              }`}
-            >
+            <div className={'stepper-card'}>
               {activeStep === index ? child : <></>}
             </div>
           ))}

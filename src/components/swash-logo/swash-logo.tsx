@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import browser from 'webextension-polyfill';
 
@@ -6,15 +6,17 @@ import { useColorScheme } from '../../hooks/use-color-scheme';
 import { WebsitePath } from '../../paths';
 import { Link } from '../link/link';
 
+import '../../static/css/components/swash-logo.css';
+
 const lightLogo = '/static/images/logos/swash-dark.svg';
 const darkLogo = '/static/images/logos/swash-white.svg';
 
-export function SwashLogo(props: { className?: string }): JSX.Element {
+export function SwashLogo(props: { className?: string }): ReactElement {
   const { isDark } = useColorScheme();
   const logo = isDark ? darkLogo : lightLogo;
 
   return (
-    <div className="flex-row swash-logo-container">
+    <div className={'flex align-center gap8'}>
       <Link
         url={WebsitePath}
         external
@@ -22,9 +24,9 @@ export function SwashLogo(props: { className?: string }): JSX.Element {
       >
         <img className={'swash-logo'} src={logo} alt={'Swash'} />
       </Link>
-      <div className="swash-version">
+      <p className={'small bold swash-version'}>
         {browser.runtime.getManifest().version}.
-      </div>
+      </p>
     </div>
   );
 }

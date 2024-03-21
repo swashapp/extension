@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
 
 import { helper } from '../../core/webHelper';
 import { initValue, UtilsService } from '../../service/utils-service';
@@ -10,7 +10,7 @@ export function StopDonation(props: {
   title: string;
   percent: string;
   callback?: () => void;
-}): JSX.Element {
+}): ReactElement {
   const [tokenAvailable, setTokenAvailable] = useState<string>(initValue);
 
   const getTokenAvailable = useCallback(() => {
@@ -32,37 +32,37 @@ export function StopDonation(props: {
   }, [getTokenAvailable]);
 
   return (
-    <div className="donate-popup">
-      <div className="small-popup-title title">
-        You sure you want to stop donating?
-      </div>
-      <div className="small-popup-separator" />
-      <div className="donate-confirmation-column">
-        <div className="donate-confirmation-row">
-          <div className="donate-confirmation-name">Charity</div>
-          <div className="donate-confirmation-value">{props.title}</div>
+    <div className={'donate-popup'}>
+      <p className={'large'}>You sure you want to stop donating?</p>
+      <hr />
+      <div className={'donate-confirmation-column'}>
+        <div className={'donate-confirmation-row'}>
+          <div className={'donate-confirmation-name'}>Charity</div>
+          <div className={'donate-confirmation-value'}>{props.title}</div>
         </div>
-        <div className="donate-confirmation-row">
-          <div className="donate-confirmation-name">Donation Type</div>
-          <div className="donate-confirmation-value">Ongoing Donation</div>
+        <div className={'donate-confirmation-row'}>
+          <div className={'donate-confirmation-name'}>Donation Type</div>
+          <div className={'donate-confirmation-value'}>Ongoing Donation</div>
         </div>
-        <div className="donate-confirmation-row">
-          <div className="donate-confirmation-name">Current Balance</div>
-          <div className="donate-confirmation-value">
+        <div className={'donate-confirmation-row'}>
+          <div className={'donate-confirmation-name'}>Current Balance</div>
+          <div className={'donate-confirmation-value'}>
             {tokenAvailable} SWASH
           </div>
         </div>
-        <div className="donate-confirmation-row">
-          <div className="donate-confirmation-name">Amount to Donate</div>
-          <div className="donate-confirmation-value">${props.percent}%/day</div>
+        <div className={'donate-confirmation-row'}>
+          <div className={'donate-confirmation-name'}>Amount to Donate</div>
+          <div className={'donate-confirmation-value'}>
+            ${props.percent}%/day
+          </div>
         </div>
       </div>
-      <div className="small-popup-separator" />
-      <div className="small-popup-actions">
+      <hr />
+      <div className={'flex justify-between'}>
         <Button
           text={'Cancel'}
           color={'secondary'}
-          className="small-popup-actions-cancel"
+          className={'popup-cancel'}
           link={false}
           onClick={() => {
             closePopup();
@@ -70,7 +70,7 @@ export function StopDonation(props: {
         />
         <Button
           text={'Confirm'}
-          className="small-popup-actions-submit"
+          className={'popup-submit'}
           link={false}
           onClick={() => {
             helper

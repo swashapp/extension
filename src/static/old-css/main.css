@@ -1,4 +1,4 @@
-@import 'fonts.css';
+@import '../css/other/fonts.css';
 @import 'common.css';
 
 .font-header {
@@ -149,12 +149,6 @@ h5 {
   line-height: 150%;
 }
 
-/* h6 {z
-  font-weight: 410;
-  font-size: 28px;
-  line-height: 33px;
-} */
-
 h6 {
   font-weight: 415;
   font-size: 20px;
@@ -182,7 +176,7 @@ a {
 }
 
 a:hover {
-  color: var(--dark-green);
+  color: var(--color-jet-black);
 }
 
 hr.custom {
@@ -352,14 +346,6 @@ hr.nav {
   align-items: center;
 }
 
-/* .small-text {
-  font-size: 11px;
-}
-
-.large-text {
-  font-size: 12px;
-} */
-
 .button-small {
   width: 100%;
   height: 40px;
@@ -446,10 +432,6 @@ hr.nav {
 }
 
 .card-icon {
-  margin-right: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 64px;
   height: 64px;
   background: url('/static/images/background/numeric-back.png') no-repeat center
@@ -924,7 +906,7 @@ hr.nav {
   width: 114px;
 }
 
-.simple-card {
+.card {
   display: flex;
   flex-direction: column;
   background: var(--color-white);
@@ -934,7 +916,7 @@ hr.nav {
   gap: 24px;
 }
 
-.simple-card .simple-card {
+.card .card {
   box-shadow: none;
   padding: 0;
 }
@@ -966,6 +948,18 @@ hr.nav {
   margin-bottom: 32px;
 }
 
+.wallet-flex {
+  flex-wrap: nowrap;
+}
+
+.wallet-flex > div:first-of-type {
+  flex: 1 50%;
+}
+
+.wallet-flex > div:last-of-type {
+  flex: 2 100%;
+}
+
 .wallet-title {
   display: flex;
   flex-direction: row;
@@ -977,6 +971,44 @@ hr.nav {
   height: 16px;
 
   margin-left: 8px;
+}
+
+.wallet-punch {
+  --color: var(--color-purple) !important;
+}
+
+.withdraw-tabs {
+  width: max-content;
+  box-sizing: border-box;
+
+  flex-wrap: nowrap;
+  justify-content: space-between;
+
+  gap: 12px;
+  padding: 8px;
+
+  border: 2px solid var(--color-purple);
+  border-radius: 100px;
+}
+
+.withdraw-tabs > div {
+  width: max-content;
+  min-width: 170px;
+  padding: 12px;
+  border-radius: 100px;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 150%;
+
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.withdraw-tabs > div:hover {
+  background: var(--color-dark-purple);
+  color: var(--color-white);
 }
 
 .withdraw-read-more-button {
@@ -1091,7 +1123,6 @@ hr.nav {
   width: auto;
   height: 75%;
 
-  position: absolute;
   bottom: 0;
   right: 0;
 }
@@ -1196,7 +1227,7 @@ hr.nav {
   margin: 0 auto 32px auto;
 }
 
-.stepper-card > .simple-card p {
+.stepper-card > ..card p {
   font-size: 16px;
   font-weight: 400;
   line-height: 28px;
@@ -1220,13 +1251,6 @@ hr.nav {
 }
 
 .accept-checkbox-text {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 24px;
-
-  color: var(--color-darkest-grey);
-
   margin-left: 14px;
 
   cursor: pointer;
@@ -1723,17 +1747,12 @@ hr.nav {
 .extension-popup-switch-label {
   margin-right: 8px;
 
-  font-style: normal;
-  font-weight: 600;
-  font-size: 10px;
-  line-height: 12px;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--color-grey);
 }
 
 .extension-popup-numerics {
-  flex-wrap: nowrap;
   margin: 35px 0 16px 0;
 }
 
@@ -2548,7 +2567,7 @@ hr.nav {
   text-decoration: underline;
 }
 
-.help-grid-container {
+.help-container {
   width: 748px;
 
   margin: auto;
@@ -2594,53 +2613,4 @@ hr.nav {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-}
-
-.punched-container {
-  position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-}
-
-.punched-circle {
-  height: 25px;
-  width: 25px;
-
-  border-radius: 50%;
-  display: inline-block;
-  overflow: hidden;
-
-  position: absolute;
-}
-
-.punched-circle.top,
-.punched-circle.bottom {
-  right: 0;
-  left: 0;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.punched-circle.right,
-.punched-circle.left {
-  top: 0;
-  bottom: 0;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
-.punched-circle.top {
-  top: -12.5px;
-}
-
-.punched-circle.right {
-  right: -12.5px;
-}
-
-.punched-circle.bottom {
-  bottom: -12.5px;
-}
-
-.punched-circle.left {
-  left: -12.5px;
 }

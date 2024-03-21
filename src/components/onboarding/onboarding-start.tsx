@@ -1,71 +1,59 @@
-import React, { useContext } from 'react';
+import { ReactElement, useContext } from 'react';
 
 import { StepperContext } from '../../pages/onboarding';
+import { Button } from '../button/button';
 
 const AlreadyHaveWalletIcon = '/static/images/icons/already-have-wallet.svg';
 const StartNewWalletIcon = '/static/images/icons/start-new-wallet.svg';
 
-import { Button } from '../button/button';
-import { FlexGrid } from '../flex-grid/flex-grid';
-
-export function OnboardingStart(): JSX.Element {
+export function OnboardingStart(): ReactElement {
   const stepper = useContext(StepperContext);
   return (
-    <>
-      <div className="page-header onboarding-header">
-        <h2>Welcome!</h2>
-        <h2>Are you new to Swash?</h2>
+    <div className={'onboarding-block'}>
+      <div className={'page-header'}>
+        <h6>Welcome!</h6>
+        <h6>Are you new to Swash?</h6>
       </div>
-      <FlexGrid column={2} className="onboarding-start-cards card-gap">
-        <div className="simple-card">
+      <div className={'flex gap32'}>
+        <div className={'round no-overflow bg-white card grow1'}>
           <div>
-            <div className="card-icon">
+            <div className={'card-icon'}>
               <img src={StartNewWalletIcon} alt={''} />
             </div>
-            <div className="onboarding-start-title">
-              <h4>Yes, I’m new here</h4>
-            </div>
-            <div className="onboarding-start-text">
-              I want to create a new wallet
-            </div>
+            <p className={'subHeader2'}>Yes, I’m new here</p>
+            <p>I want to create a new wallet</p>
           </div>
-          <div className="form-button">
-            <Button
-              color="primary"
-              text="Start"
-              link={false}
-              onClick={() => {
-                stepper.changeSelectedPage('New', 'Create');
-                stepper.next();
-              }}
-            />
-          </div>
+          <Button
+            className={'onboarding-button'}
+            color={'primary'}
+            text={'Start'}
+            link={false}
+            onClick={() => {
+              stepper.changeSelectedPage('New', 'Create');
+              stepper.next();
+            }}
+          />
         </div>
-        <div className="simple-card">
+        <div className={'round no-overflow bg-white card grow1'}>
           <div>
-            <div className="card-icon">
+            <div className={'card-icon'}>
               <img src={AlreadyHaveWalletIcon} alt={''} />
             </div>
-            <div className="onboarding-start-title">
-              <h4>No, I already have a wallet</h4>
-            </div>
-            <div className="onboarding-start-text">
-              Import my existing wallet settings
-            </div>
+            <p className={'subHeader2'}>No, I already have a wallet</p>
+            <p>Import my existing wallet settings</p>
           </div>
-          <div className="form-button">
-            <Button
-              color="primary"
-              text="Start"
-              link={false}
-              onClick={() => {
-                stepper.changeSelectedPage('New', 'Import');
-                stepper.next();
-              }}
-            />
-          </div>
+          <Button
+            className={'onboarding-button'}
+            color={'primary'}
+            text={'Start'}
+            link={false}
+            onClick={() => {
+              stepper.changeSelectedPage('New', 'Import');
+              stepper.next();
+            }}
+          />
         </div>
-      </FlexGrid>
-    </>
+      </div>
+    </div>
   );
 }

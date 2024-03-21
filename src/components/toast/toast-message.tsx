@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { PropsWithChildren } from 'react';
 
 import { ToastPanel } from './toast-panel';
@@ -25,7 +25,7 @@ export function ToastMessage(
     type: keyof typeof Messages;
     content: ReactElement;
   }>,
-): JSX.Element {
+): ReactElement {
   return (
     <ToastPanel
       className={Messages[props.type].class}

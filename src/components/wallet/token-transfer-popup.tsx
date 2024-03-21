@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { helper } from '../../core/webHelper';
@@ -24,7 +24,7 @@ function TokenTransferField(props: {
     return ret;
   }, [props.ellipsis, props.value]);
   return (
-    <div className="flex-column wallet-token-transfer-field">
+    <div className="flex col wallet-token-transfer-field">
       <div className="wallet-token-transfer-field-label">{props.label}</div>
       <h1>{value}</h1>
     </div>
@@ -34,7 +34,7 @@ export function TokenTransferPopup(props: {
   amount: string | number;
   recipient: string;
   onSuccess: () => Promise<unknown>;
-}): JSX.Element {
+}): ReactElement {
   const [loading, setLoading] = useState<boolean>(false);
 
   const withdraw = useCallback(() => {
@@ -47,20 +47,20 @@ export function TokenTransferPopup(props: {
           props.onSuccess().then();
           toast(
             <ToastMessage
-              type="success"
+              type={'success'}
               content={<>Approved successfully.</>}
             />,
           );
           showPopup({
             closable: false,
             closeOnBackDropClick: true,
-            paperClassName: 'large-popup',
+            paperClassName: 'popup large',
             content: <TokenTransferCompleted transactionId={result.tx} />,
           });
         } else {
           toast(
             <ToastMessage
-              type="error"
+              type={'error'}
               content={<>{result.reason || 'Something went wrong!'}</>}
             />,
           );
@@ -70,7 +70,7 @@ export function TokenTransferPopup(props: {
         setLoading(false);
         toast(
           <ToastMessage
-            type="error"
+            type={'error'}
             content={<>{err?.message || 'Something went wrong!'}</>}
           />,
         );
@@ -80,7 +80,7 @@ export function TokenTransferPopup(props: {
   return (
     <div className="wallet-token-transfer-container">
       <h6>Confirm SWASH Transfer</h6>
-      <div className="flex-row wallet-token-transfer-content">
+      <div className="flex wallet-token-transfer-content">
         <TokenTransferField label="Send" value={props.amount} />
         <img src={RightArrow} alt="-->" />
         <TokenTransferField
@@ -89,7 +89,7 @@ export function TokenTransferPopup(props: {
           ellipsis
         />
       </div>
-      <div className="flex-row wallet-token-transfer-buttons">
+      <div className="flex wallet-token-transfer-buttons">
         <Button
           className="form-button"
           link={false}

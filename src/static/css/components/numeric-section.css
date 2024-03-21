@@ -1,0 +1,24 @@
+.numeric-small {
+  height: 94px;
+}
+
+.numeric-card-icon {
+  width: 64px;
+  height: 64px;
+  background: url('/static/images/background/numeric-back.png') no-repeat center
+    center;
+}
+
+.numeric-layout1-image,
+.numeric-layout2-image {
+  width: 118px;
+  height: 60px;
+}
+
+.numeric-layout1-image {
+  background: url('/static/images/background/stat1.png') no-repeat center center;
+}
+
+.numeric-layout2-image {
+  background: url('/static/images/background/stat2.png') no-repeat center center;
+}

@@ -1,5 +1,5 @@
 import { Button as MuiButton } from '@mui/material';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { toast } from 'react-toastify';
 
@@ -7,11 +7,12 @@ import { helper } from '../../core/webHelper';
 import { initValue, UtilsService } from '../../service/utils-service';
 import { Button } from '../button/button';
 import { Circle } from '../drawing/circle';
-import { FlexGrid } from '../flex-grid/flex-grid';
 import { Input } from '../input/input';
 import { closePopup } from '../popup/popup';
 import { Switch } from '../switch/switch';
 import { ToastMessage } from '../toast/toast-message';
+
+import '../../static/css/components/donate.css';
 
 const RightArrow = '/static/images/shape/right-arrow.svg';
 const completedIcon = '/static/images/icons/progress-completed.png';
@@ -20,11 +21,11 @@ function Options(props: {
   amount: number;
   selected: boolean;
   onClick: (value: number) => void;
-}): JSX.Element {
+}): ReactElement {
   return (
     <MuiButton
-      variant="outlined"
-      className="donate-percent-option"
+      variant={'outlined'}
+      className={'bg-white donate-percent-option'}
       style={{
         border: props.selected ? ' 2px solid #00A9D8' : '1px solid #E9EDEF',
       }}
@@ -32,17 +33,18 @@ function Options(props: {
         props.onClick(props.amount);
       }}
     >
-      {props.amount}%
-      <span
-        style={{
-          fontStyle: 'normal',
-          fontWeight: 500,
-          fontSize: 14,
-          color: '#8091A3',
-        }}
-      >
-        {' '}
-        per day
+      <span className={'flex gap12'}>
+        <span>{props.amount}%</span>
+        <span
+          style={{
+            fontStyle: 'normal',
+            fontWeight: 500,
+            fontSize: 14,
+            color: '#8091A3',
+          }}
+        >
+          per day
+        </span>
       </span>
     </MuiButton>
   );
@@ -53,7 +55,7 @@ export function Donate(props: {
   title: string;
   address: string;
   callback?: () => void;
-}): JSX.Element {
+}): ReactElement {
   const [loading, setLoading] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const [thanks, setThanks] = useState(false);
@@ -84,8 +86,12 @@ export function Donate(props: {
   const inputPage = useMemo(() => {
     return (
       <>
-        <div className="donate-type">
-          <div className={`donate-type-${isOngoing ? 'disabled' : 'enabled'}`}>
+        <div className={'flex align-center justify-between donate-type'}>
+          <div
+            className={`flex align-center donate-type-${
+              isOngoing ? 'disabled' : ''
+            }`}
+          >
             One-off Donation
           </div>
           <Switch
@@ -94,28 +100,28 @@ export function Donate(props: {
               setIsOngoing(checked);
             }}
           />
-          <div className={`donate-type-${isOngoing ? 'enabled' : 'disabled'}`}>
+          <div
+            className={`flex align-center donate-type-${
+              isOngoing ? '' : 'disabled'
+            }`}
+          >
             Ongoing Donation
           </div>
         </div>
-        <div className="donate-item">
+        <div className={'donate-item'}>
           <Input
-            label="Available Balance"
-            name="balance"
+            label={'Available Balance'}
+            name={'balance'}
             value={tokenAvailable}
             disabled={true}
           />
         </div>
         {isOngoing ? (
-          <div className="donate-item">
+          <div className={'donate-item'}>
             Please select what percentage of your earnings you would like to
             donate every day. You can cancel your donation at any time.
-            <div className="donate-option">
-              <FlexGrid
-                column={2}
-                className="donate-option-grid"
-                innerClassName="donate-option-item"
-              >
+            <div className={'donate-option'}>
+              <div className={'flex row wrap gap16'}>
                 <Options
                   amount={25}
                   onClick={setPercent}
@@ -136,14 +142,14 @@ export function Donate(props: {
                   onClick={setPercent}
                   selected={percent === 100}
                 />
-              </FlexGrid>
+              </div>
             </div>
           </div>
         ) : (
-          <div className="donate-option">
+          <div className={'donate-option'}>
             <Input
-              label="Donation Amount"
-              name="amount"
+              label={'Donation Amount'}
+              name={'amount'}
               value={amount}
               onChange={(event) => setAmount(event.target.value)}
             />
@@ -155,28 +161,22 @@ export function Donate(props: {
 
   const confirmPage = useMemo(() => {
     return (
-      <div className="donate-confirmation-column">
-        <div className="donate-confirmation-row">
-          <div className="donate-confirmation-name">Charity</div>
-          <div className="donate-confirmation-value">{props.title}</div>
+      <div className={'flex col gap20'}>
+        <div className={'flex justify-between'}>
+          <p>Charity</p>
+          <p>{props.title}</p>
         </div>
-        <div className="donate-confirmation-row">
-          <div className="donate-confirmation-name">Donation Type</div>
-          <div className="donate-confirmation-value">
-            {isOngoing ? 'Ongoing Donation' : 'One-off Donation'}
-          </div>
+        <div className={'flex justify-between'}>
+          <p>Donation Type</p>
+          <p>{isOngoing ? 'Ongoing Donation' : 'One-off Donation'}</p>
         </div>
-        <div className="donate-confirmation-row">
-          <div className="donate-confirmation-name">Available Balance</div>
-          <div className="donate-confirmation-value">
-            {tokenAvailable} SWASH
-          </div>
+        <div className={'flex justify-between'}>
+          <p>Available Balance</p>
+          <p>{tokenAvailable} SWASH</p>
         </div>
-        <div className="donate-confirmation-row">
-          <div className="donate-confirmation-name">Donation Amount</div>
-          <div className="donate-confirmation-value">
-            {isOngoing ? `${percent}% per day` : `${amount} SWASH`}
-          </div>
+        <div className={'flex justify-between'}>
+          <p>Donation Amount</p>
+          <p>{isOngoing ? `${percent}% per day` : `${amount} SWASH`}</p>
         </div>
       </div>
     );
@@ -184,8 +184,8 @@ export function Donate(props: {
 
   if (thanks)
     return (
-      <div className="token-transfer-popup-completed donate-completed">
-        <div className="progress-dashed">
+      <div className={'token-transfer-popup-completed donate-completed'}>
+        <div className={'progress-dashed'}>
           <Circle
             className={'progress-circle1'}
             border={'black'}
@@ -193,7 +193,7 @@ export function Donate(props: {
           />
           <div className={'progress-widget'}>
             <Circle className={'progress-circle6'} colorfulGradient />
-            <img className="progress-image" src={completedIcon} alt={''} />
+            <img className={'progress-image'} src={completedIcon} alt={''} />
           </div>
         </div>
         <h2>Thank you!</h2>
@@ -205,29 +205,30 @@ export function Donate(props: {
     );
   else
     return (
-      <div className="donate-popup">
-        <div className="small-popup-title title">
+      <div className={'donate-popup'}>
+        <p className={'large'}>
           {confirm ? (
-            <div className="donate-confirmation-header">
+            <div className={'flex align-center'}>
               <img
                 src={RightArrow}
-                alt="back"
+                alt={'back'}
+                className={'donate-confirmation-image'}
                 onClick={() => setConfirm(false)}
               />
-              Confirmation
+              <p className={'large bold'}>Confirmation</p>
             </div>
           ) : (
-            props.title
+            <p className={'large bold'}>{props.title}</p>
           )}
-        </div>
-        <div className="small-popup-separator" />
+        </p>
+        <hr />
         {confirm ? confirmPage : inputPage}
-        <div className="small-popup-separator" />
-        <div className="small-popup-actions">
+        <hr />
+        <div className={'flex justify-between'}>
           <Button
             text={'Cancel'}
             color={'secondary'}
-            className="small-popup-actions-cancel"
+            className={'popup-cancel'}
             link={false}
             onClick={() => {
               closePopup();
@@ -235,7 +236,7 @@ export function Donate(props: {
           />
           <Button
             text={confirm ? 'Confirm' : 'Next'}
-            className="small-popup-actions-submit"
+            className={'popup-submit'}
             loading={loading}
             link={false}
             onClick={() => {
@@ -252,7 +253,7 @@ export function Donate(props: {
                     .catch((err) =>
                       toast(
                         <ToastMessage
-                          type="error"
+                          type={'error'}
                           content={<>{err.toString()}</>}
                         />,
                       ),
@@ -271,7 +272,7 @@ export function Donate(props: {
                         setLoading(false);
                         toast(
                           <ToastMessage
-                            type="error"
+                            type={'error'}
                             content={<>{err.toString()}</>}
                           />,
                         );

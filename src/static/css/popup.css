@@ -1,0 +1,74 @@
+.extension-popup-container {
+  width: 370px;
+  height: inherit;
+  margin: 0;
+}
+
+.extension-popup {
+  height: inherit;
+  padding: 24px;
+  border-radius: 6px;
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.04),
+    0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+.extension-popup-logo,
+.extension-popup-logo > img {
+  width: 88px !important;
+  height: 25px !important;
+}
+
+.extension-popup-numerics {
+  margin: 35px 0 16px 0;
+}
+
+.extension-popup-numerics-container {
+  padding: 24px 0 24px 24px;
+
+  border-radius: 8px;
+  border: 1px solid var(--color-light-grey);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+}
+
+.extension-popup-menu-item {
+  padding: 16px;
+  opacity: 0.5;
+  cursor: pointer;
+  user-select: none;
+  mix-blend-mode: normal;
+  border-radius: 8px;
+}
+
+.extension-popup-menu-item:hover {
+  opacity: 1;
+  background-color: var(--color-light-grey);
+}
+
+.extension-popup-menu-item:last-of-type {
+  margin-bottom: 16px;
+}
+
+.popup-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.popup-icon.wallet {
+  background: url('/static/images/icons/sidenav/wallet.svg') no-repeat center
+    center;
+}
+
+.popup-icon.earn {
+  background: url('/static/images/icons/sidenav/earn-more.svg') no-repeat center
+    center;
+}
+
+.popup-icon.settings {
+  background: url('/static/images/icons/sidenav/settings.svg') no-repeat center
+    center;
+}
+
+.popup-icon.help {
+  background: url('/static/images/icons/sidenav/help.svg') no-repeat center
+    center;
+}

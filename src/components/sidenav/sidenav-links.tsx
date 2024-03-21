@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { helper } from '../../core/webHelper';
 import { SidenavItem, SidenavItems } from '../../data/sidenav-items';
 import { VerificationBadge } from '../verification/verification-badge';
 
-export function SidenavLinks(props: { activeIndex?: number }): JSX.Element {
+export function SidenavLinks(props: { activeIndex?: number }): ReactElement {
   const [verified, setVerified] = useState<boolean | undefined>(undefined);
   const [active, setActive] = useState<number>(props.activeIndex || 0);
 
@@ -33,25 +33,21 @@ export function SidenavLinks(props: { activeIndex?: number }): JSX.Element {
             <div
               key={item.title + index}
               onClick={() => setActive(index)}
-              className={`${'sidenav-link'} ${
-                index === active
-                  ? 'sidenav-link-active'
-                  : 'sidenav-link-inactive'
+              className={`flex row sidenav-link ${
+                index === active ? 'active' : 'inactive'
               }`}
             >
               <div
                 className={`${'sidenav-border'} ${
-                  index === active
-                    ? 'sidenav-border-active'
-                    : 'sidenav-border-inactive'
+                  index === active ? 'active' : 'inactive'
                 }`}
               />
               <Link to={item.route}>
-                <div className={`sidenav-icon-title`}>
-                  <div className="sidenav-icon">
+                <div className={`flex row nowrap align-center sidenav-body`}>
+                  <div className={'sidenav-icon'}>
                     {item.icon ? <img src={item.icon.url} alt={''} /> : <></>}
                   </div>
-                  <div className="sidenav-title">{item.title}</div>
+                  <p className={'bold'}>{item.title}</p>
                   {item.title === 'Profile' ? (
                     <VerificationBadge
                       verified={verified}

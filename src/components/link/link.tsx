@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren, ReactElement } from 'react';
 import { Link as RLink } from 'react-router-dom';
 
 export interface LinkProps {
@@ -10,9 +10,9 @@ export interface LinkProps {
 
 export function Link(
   props: PropsWithChildren<
-    LinkProps & { children: JSX.Element[] | JSX.Element | string }
+    LinkProps & { children: ReactElement[] | ReactElement | string }
   >,
-): JSX.Element {
+): ReactElement {
   const { url, newTab = false, className = '' } = props;
 
   return props.external ? (
@@ -20,7 +20,7 @@ export function Link(
       href={url}
       className={className}
       target={newTab ? '_blank' : '_self'}
-      rel="noreferrer"
+      rel={'noreferrer'}
     >
       {props.children}
     </a>
@@ -29,7 +29,7 @@ export function Link(
       to={url}
       className={className}
       target={newTab ? '_blank' : '_self'}
-      rel="noreferrer"
+      rel={'noreferrer'}
     >
       {props.children}
     </RLink>

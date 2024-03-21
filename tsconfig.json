@@ -3,7 +3,7 @@
     "target": "es6",
     "module": "esnext",
     "lib": ["ESNext", "DOM"],
-    "jsx": "react",
+    "jsx": "react-jsx",
     "sourceMap": true,
     "strict": true,
     "moduleResolution": "node",
@@ -12,7 +12,10 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "allowJs": true
+    "allowJs": true,
+    "allowUnusedLabels": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "include": ["src/**/*"],
   "exclude": ["dev/**/*"]

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { toast } from 'react-toastify';
 
@@ -19,7 +19,7 @@ const enum Status {
 export function VerificationPopup(props: {
   title: 'phone' | 'email';
   callback?: () => void;
-}): JSX.Element {
+}): ReactElement {
   const [token, setToken] = useState<string | null>('');
   const [iframeVisible, setIframeVisible] = useState<boolean>(false);
 
@@ -37,7 +37,7 @@ export function VerificationPopup(props: {
           });
           break;
         case Status.ERROR:
-          toast(<ToastMessage type="error" content={event.data.message} />);
+          toast(<ToastMessage type={'error'} content={event.data.message} />);
           break;
       }
     },

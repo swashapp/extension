@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
@@ -25,7 +25,7 @@ const addUnsplashParams = (src: string): string => {
   return String(url);
 };
 
-export default function NewTab(): JSX.Element {
+export default function NewTab(): ReactElement {
   const [ads, setAds] = useState<'full' | 'partial' | 'none'>('none');
   const [bg, setBg] = useState('');
   const [style, setStyle] = useState({});
@@ -106,7 +106,7 @@ export default function NewTab(): JSX.Element {
     showPopup({
       closable: false,
       closeOnBackDropClick: true,
-      paperClassName: 'large-popup',
+      paperClassName: 'popup custom',
       content: <Customisation onChange={getConfigs} />,
     });
   }, [getConfigs]);
@@ -116,7 +116,7 @@ export default function NewTab(): JSX.Element {
       showPopup({
         closable: false,
         closeOnBackDropClick: true,
-        paperClassName: 'small-popup',
+        paperClassName: 'popup small',
         content: <AddSite rank={rank} onSave={getConfigs} />,
       });
     },
@@ -141,13 +141,13 @@ export default function NewTab(): JSX.Element {
         if (!icon.startsWith('https://www.google.com'))
           icon = `https://www.google.com/s2/favicons?sz=64&domain_url=${_url.origin}`;
         return (
-          <div className={'site-box'} key={`site-${index}`}>
+          <div className={'relative site-box'} key={`site-${index}`}>
             <a href={value.url}>
-              <div className={'fav-site'}>
+              <div className={'flex center fav-site'}>
                 <img src={icon} alt={value.title} />
               </div>
             </a>
-            <div className={'remove-site'}>
+            <div className={'absolute remove-site'}>
               <img
                 src={'/static/images/shape/plus.png'}
                 alt={'add'}
@@ -161,7 +161,7 @@ export default function NewTab(): JSX.Element {
       } else {
         return (
           <div
-            className={'fav-site'}
+            className={'flex center fav-site'}
             key={`site-${index}`}
             onClick={() => {
               addSite(index);
@@ -190,9 +190,12 @@ export default function NewTab(): JSX.Element {
 
   return (
     <>
-      <div className={'container'} style={{ ...style }}>
+      <div
+        className={'absolute no-overflow gap12 new-tab'}
+        style={{ ...style }}
+      >
         {ads === 'full' ? (
-          <div className={'full-ads'}>
+          <div className={'absolute no-overflow full-screen-ads'}>
             <DisplayAds
               width={3840}
               height={2160}
@@ -203,8 +206,8 @@ export default function NewTab(): JSX.Element {
         ) : (
           <></>
         )}
-        <div className={'row-1'}>
-          <div className={'item-actions'}>
+        <div className={'flex justify-between align-start border-box row-1'}>
+          <div className={'flex align-center gap14'}>
             <div>
               <img
                 src={'/static/images/icons/new-tab/swash.svg'}
@@ -230,16 +233,14 @@ export default function NewTab(): JSX.Element {
               <img src={'/static/images/icons/new-tab/line.svg'} alt={''} />
             </div>
             <div
-              className={'item-actions-customise'}
+              className={'flex align-center gap12 item-actions-customise'}
               onClick={openCustomisation}
             >
-              <div>
-                <img src={'/static/images/icons/new-tab/window.svg'} alt={''} />
-              </div>
-              <div>Customise</div>
+              <img src={'/static/images/icons/new-tab/window.svg'} alt={''} />
+              <p>Customise</p>
             </div>
           </div>
-          <div className={'item-copyright'}>
+          <div className={'flex justify-end item-copyright'}>
             {bg === 'unsplash' && ads !== 'full' ? (
               <>
                 Photo by{' '}
@@ -266,18 +267,19 @@ export default function NewTab(): JSX.Element {
             )}
           </div>
         </div>
-        <div className={'row-2'}>
-          <div className={'item-search'}>
+        <div className={'flex center border row-2'}>
+          <div className={'flex col center gap40 item-search'}>
             {hide ? (
               <></>
             ) : (
               <>
                 <form
-                  className={`search-form`}
+                  className={`relative search-form`}
                   role={'search'}
                   action={search?.url}
                 >
                   <input
+                    className={'text-center'}
                     type={'search'}
                     id={search?.params || 'q'}
                     name={search?.params || 'q'}
@@ -290,17 +292,17 @@ export default function NewTab(): JSX.Element {
             )}
           </div>
         </div>
-        <div className={'row-3'}>
+        <div className={'flex justify-between row-3'}>
           {ads === 'partial' ? (
-            <div className={'item-ads'}>
+            <div className={'flex justify-start align-end item-ads'}>
               <DisplayAds width={300} height={250} />
             </div>
           ) : ads === 'full' ? (
-            <div className={'click-ignore-wrapper'}>
+            <div className={'flex click-ignore-wrapper'}>
               <div className={'click-ignore-col1'} />
-              <div className={'click-ignore-col2'}>
+              <div className={'flex click-ignore-col2'}>
                 <div className={'row1'} />
-                <div className={'row2'}>
+                <div className={'flex center row2'}>
                   <img
                     src={'/static/images/icons/new-tab/link.svg'}
                     alt={'link'}
@@ -311,30 +313,30 @@ export default function NewTab(): JSX.Element {
               <div className={'click-ignore-col3'} />
             </div>
           ) : (
-            <div className={'click-ignore-wrapper'} />
+            <div className={'flex click-ignore-wrapper'} />
           )}
-          <div className={'item-clock'}>
+          <div className={'flex col justify-end align-end item-clock'}>
             {hide ? (
               <></>
             ) : (
               <>
-                <div className={'time'}>
+                <h2 className={'time'}>
                   {time.toLocaleTimeString([], timeFormat)}
-                </div>
-                <div className={'date'}>
+                </h2>
+                <h4 className={'date'}>
                   {time.toLocaleDateString([], {
                     weekday: 'long',
                     day: '2-digit',
                     month: 'long',
                   })}
-                </div>
+                </h4>
               </>
             )}
           </div>
         </div>
       </div>
       <ToastContainer
-        toastClassName={'toast-panel-container'}
+        toastClassName={'bg-white toast-panel-container'}
         autoClose={3000}
         closeButton={false}
         hideProgressBar

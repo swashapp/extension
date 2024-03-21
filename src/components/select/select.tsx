@@ -4,21 +4,23 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { PropsWithChildren } from 'react';
 
 import { InputBase } from '../input-base/input-base';
 import { Label } from '../label/label';
 
+import '../../static/css/components/select.css';
+
 const smallArrow = '/static/images/shape/small-arrow.svg';
 
 const useStyles = makeStyles(() => ({
   icon: {
-    top: '50%',
+    top: 20,
     color: 'rgba(0, 0, 0, 0.54)',
-    right: 26,
+    right: 16,
     position: 'absolute',
-    pointerEvents: 'visible',
+    pointerEvents: 'none',
   },
 }));
 
@@ -32,7 +34,7 @@ export function Select(
     ) => void;
     disabled?: boolean;
   }>,
-): JSX.Element {
+): ReactElement {
   const classes = useStyles();
   return (
     <Label id={'customized-select-' + props.value} text={props.label}>
@@ -45,7 +47,7 @@ export function Select(
             <img className={classes.icon} src={smallArrow} alt={'>'} />
           )
         }
-        className={'select'}
+        className={'flex center select'}
         id={'customized-select-' + props.value}
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -68,7 +70,7 @@ export function Select(
       >
         {props.items.map((item, index) => (
           <MenuItem key={item.value + index} value={item.value}>
-            <div className="flex-row">
+            <div className="flex">
               <div className="select-item-value">{item.name}</div>
             </div>
           </MenuItem>

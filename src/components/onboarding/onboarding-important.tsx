@@ -1,19 +1,19 @@
-import React, { useContext, useState } from 'react';
+import { ReactElement, useContext, useState } from 'react';
 
 import { StepperContext } from '../../pages/onboarding';
 
 import { AcceptCheckBox } from './accept-checkbox';
 import { NavigationButtons } from './navigation-buttons';
 
-export function OnboardingImportant(): JSX.Element {
+export function OnboardingImportant(): ReactElement {
   const stepper = useContext(StepperContext);
   const [accept, setAccept] = useState<boolean>(false);
   return (
-    <>
-      <div className="page-header onboarding-header">
-        <h2>Important!</h2>
+    <div className={'onboarding-block'}>
+      <div className={'page-header'}>
+        <h6>Important!</h6>
       </div>
-      <div className="simple-card">
+      <div className={'round no-overflow bg-white card'}>
         <p>
           Keep your private key in a safe place.{' '}
           <b>
@@ -26,7 +26,7 @@ export function OnboardingImportant(): JSX.Element {
           to recover them for you. It’s your responsibility to be safe and
           secure.
         </p>
-        <div className="flex-column">
+        <div className={'flex col'}>
           <AcceptCheckBox value={accept} setValue={setAccept} />
           <NavigationButtons
             onBack={stepper.back}
@@ -35,6 +35,6 @@ export function OnboardingImportant(): JSX.Element {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { Button } from '../button/button';
 import { CircularProgress } from '../circular-progress/circular-progress';
 
-export function EmailSent(): JSX.Element {
+export function EmailSent(): ReactElement {
   return (
     <div className="onboarding-progress-card email-sent">
       <CircularProgress type="completed" />
