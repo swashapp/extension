@@ -1,15 +1,18 @@
 {
   "manifest_version": 2,
   "background": {
-    "scripts": ["background/app-start.ts"]
+    "scripts": ["core/main.ts"]
   },
   "browser_action": {
     "browser_style": false,
+    "default_title": "Swash",
+    "default_popup": "ui/popup.html",
     "default_icon": {
-      "16": "static/images/swash/active-16.png",
-      "48": "static/images/swash/active-48.png"
-    },
-    "default_title": "Swash"
+      "16": "images/swash/active-16.png",
+      "48": "images/swash/active-48.png",
+      "96": "images/swash/active-96.png",
+      "128": "images/swash/active-128.png"
+    }
   },
   "permissions": [
     "<all_urls>",

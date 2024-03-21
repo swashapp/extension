@@ -1,0 +1,14 @@
+.container {
+  width: 628px;
+}
+
+.image {
+  width: 400px;
+  height: auto;
+}
+
+.button {
+  top: 32px;
+  right: 32px;
+  cursor: pointer;
+}

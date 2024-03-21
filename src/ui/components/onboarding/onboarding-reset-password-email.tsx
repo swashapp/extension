@@ -1,0 +1,71 @@
+import { ReactNode, useCallback, useContext, useState } from "react";
+
+import { ButtonColors } from "@/enums/button.enum";
+import { SwashSupportURLs } from "@/paths";
+import { BackButton } from "@/ui/components/button/back";
+import { OnboardingPage } from "@/ui/components/onboarding/onboarding-page";
+import { OnboardingContext } from "@/ui/context/onboarding.context";
+import { isValidEmail } from "@/utils/validator.util";
+
+import { Button } from "../button/button";
+import { InputBase } from "../input/input-base";
+
+export function OnboardingResetPasswordEmail(): ReactNode {
+  const {
+    email: contextEmail,
+    setEmail: contextSetEmail,
+    back,
+    next,
+  } = useContext(OnboardingContext);
+  const [email, setEmail] = useState<string>(contextEmail);
+  const [acceptEmail, setAcceptEmail] = useState<boolean | undefined>();
+
+  const isEmailValid = useCallback(() => {
+    setAcceptEmail(isValidEmail(email));
+  }, [email]);
+
+  return (
+    <OnboardingPage
+      title={"Reset your master password"}
+      navigation={
+        <BackButton
+          text={"Go back to restore options"}
+          onClick={() => back()}
+        />
+      }
+    >
+      <div className={"flex col gap16"}>
+        <p>Enter your email address:</p>
+      </div>
+      <InputBase
+        type={"email"}
+        name={"email"}
+        placeholder={"example@email.com"}
+        value={email}
+        error={acceptEmail === false}
+        onBlur={isEmailValid}
+        onChange={(e) => {
+          setEmail(e.target.value);
+        }}
+      />
+      <div className={"flex col gap16"}>
+        <Button
+          text={"Reset password"}
+          className={"full-width-button"}
+          color={ButtonColors.PRIMARY}
+          disabled={!acceptEmail}
+          onClick={() => {
+            contextSetEmail(email);
+            next();
+          }}
+        />
+        <p>
+          Still having trouble?{" "}
+          <a href={SwashSupportURLs.home} target={"_blank"} rel={"noreferrer"}>
+            <span className={"bold"}>Get help</span>
+          </a>
+        </p>
+      </div>
+    </OnboardingPage>
+  );
+}

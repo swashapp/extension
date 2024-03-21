@@ -1,0 +1,7 @@
+.heart * {
+  stroke: var(--color-red);
+}
+
+.filled * {
+  fill: var(--color-red);
+}

@@ -1,0 +1,42 @@
+.link {
+  width: 100%;
+}
+
+.link.active {
+  opacity: 1;
+}
+
+.link.inactive {
+  opacity: 0.4;
+}
+
+.link.inactive:hover {
+  opacity: 1;
+}
+
+.border {
+  width: 4px;
+  margin-right: 28px;
+  height: inherit;
+}
+
+.border.active {
+  background-color: var(--color-dark-purple);
+  transition: background-color 500ms linear;
+}
+
+.border.inactive {
+  background-color: transparent;
+}
+
+.body {
+  width: 100%;
+  color: var(--color-black);
+
+  padding: 17px 48px 17px 0;
+}
+
+.icon {
+  margin-right: 16px;
+  height: 24px;
+}
