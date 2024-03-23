@@ -27,5 +27,6 @@ export type SwashApiConfigs = {
     yourReviews: string;
     earnStats: string;
     earnChanges: string;
+    leaderboard: string;
   };
 };

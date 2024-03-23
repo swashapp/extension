@@ -50,4 +50,7 @@ window.swashSdk = {
   getEarnChanges: async () => {
     return callFunction({ id: 'getEarnChanges' });
   },
+  getLeaderboard: async (params) => {
+    return callFunction({ id: 'getLeaderboard', params: [params] });
+  },
 };

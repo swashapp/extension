@@ -255,6 +255,13 @@ const swashApiHelper = (function () {
     return get<Any>(token, config.APIs.earnChanges);
   }
 
+  async function getLeaderboard(
+    token: string,
+    params: { page: number; size: number },
+  ) {
+    return get<Any>(token, config.APIs.leaderboard, { ...params });
+  }
+
   return {
     init,
     getDataEthPairPrice,
@@ -285,6 +292,7 @@ const swashApiHelper = (function () {
     getEarnStats,
     getYourReviews,
     getEarnChanges,
+    getLeaderboard,
   };
 })();
 

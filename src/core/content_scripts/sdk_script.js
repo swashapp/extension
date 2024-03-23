@@ -22,6 +22,7 @@ var sdkScript = (function () {
       'getEarnStats',
       'getYourReviews',
       'getEarnChanges',
+      'getLeaderboard',
     ];
 
     window.addEventListener('message', (event) => {

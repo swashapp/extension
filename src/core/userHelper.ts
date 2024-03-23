@@ -507,6 +507,10 @@ const userHelper = (function () {
     return swashApiHelper.getEarnChanges(await generateJWT());
   }
 
+  async function getLeaderboard(params: { page: number; size: number }) {
+    return swashApiHelper.getLeaderboard(await generateJWT(), params);
+  }
+
   return {
     init,
     createWallet,
@@ -547,6 +551,7 @@ const userHelper = (function () {
     getEarnStats,
     getYourReviews,
     getEarnChanges,
+    getLeaderboard,
   };
 })();
 

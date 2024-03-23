@@ -177,6 +177,10 @@ const sdk = (function () {
     return userHelper.getEarnChanges();
   }
 
+  async function getLeaderboard(params: { page: number; size: number }) {
+    return userHelper.getLeaderboard(params);
+  }
+
   return {
     initModule,
     load,
@@ -195,6 +199,7 @@ const sdk = (function () {
     getEarnStats,
     getYourReviews,
     getEarnChanges,
+    getLeaderboard,
   };
 })();
 export { sdk };
