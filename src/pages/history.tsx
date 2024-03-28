@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { Select } from '../components/select/select';
 import { helper } from '../core/webHelper';
 import { UtilsService } from '../service/utils-service';
@@ -131,7 +130,7 @@ export function History(): JSX.Element {
                   aria-label={'a dense table'}
                 >
                   <TableHead className={'history-table-header'}>
-                    <TableRow className={'title'}>
+                    <TableRow>
                       <TableCell>Time</TableCell>
                       <TableCell>Description</TableCell>
                       <TableCell>Transaction</TableCell>

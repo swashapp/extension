@@ -14,7 +14,7 @@
 }
 
 [data-theme='dark'] .sidenav > div,
-[data-theme='dark'] ..card,
+[data-theme='dark'] .simple-card,
 [data-theme='dark'] .numeric-container,
 [data-theme='dark'] .profile-verification-container,
 [data-theme='dark'] .extension-popup {
@@ -63,6 +63,7 @@
 [data-theme='dark'] .sidenav-icon img,
 [data-theme='dark'] .circle-container > svg,
 [data-theme='dark'] .solid-line,
+[data-theme='dark'] .verify-profile-punch,
 [data-theme='dark'] .transaction-table-pagination div,
 [data-theme='dark'] .extension-popup-menu-item,
 [data-theme='dark'] .twitter-share-button img {

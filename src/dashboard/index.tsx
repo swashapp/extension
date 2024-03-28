@@ -10,6 +10,7 @@ import { HashRouter as Router } from 'react-router-dom';
 
 import '../static/css/shared.css';
 import '../static/css/page.css';
+import '../static/css/other/themes.css';
 import 'react-keyed-file-browser/dist/react-keyed-file-browser.css';
 
 import { helper } from '../core/webHelper';

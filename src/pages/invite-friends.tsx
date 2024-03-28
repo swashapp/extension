@@ -125,7 +125,9 @@ export function InviteFriends(): JSX.Element {
             />
             <div className={'flex align-center relative'}>
               <hr className={'grow1'} />
-              <p className={'absolute invite-friends-share-line'}>Share</p>
+              <p className={'absolute bg-white invite-friends-share-line'}>
+                Share
+              </p>
             </div>
             <div className={'flex nowrap gap16'}>
               <TwitterShareButton

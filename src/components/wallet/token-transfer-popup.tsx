@@ -24,7 +24,7 @@ function TokenTransferField(props: {
     return ret;
   }, [props.ellipsis, props.value]);
   return (
-    <div className="flex-column wallet-token-transfer-field">
+    <div className="flex col wallet-token-transfer-field">
       <div className="wallet-token-transfer-field-label">{props.label}</div>
       <h1>{value}</h1>
     </div>

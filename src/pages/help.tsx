@@ -16,7 +16,7 @@ export function Help(): JSX.Element {
             Got a question? Check out each section below for FAQs on the
             different sides of Swash.
           </p>
-          <div className={'flex wrap gap20 help-grid-container'}>
+          <div className={'flex wrap gap20 help-container'}>
             {HelpItems.map(({ title, image, className, link }, index) => (
               <Link
                 url={link}

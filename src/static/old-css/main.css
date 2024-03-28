@@ -1747,17 +1747,12 @@ hr.nav {
 .extension-popup-switch-label {
   margin-right: 8px;
 
-  font-style: normal;
-  font-weight: 600;
-  font-size: 10px;
-  line-height: 12px;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--color-grey);
 }
 
 .extension-popup-numerics {
-  flex-wrap: nowrap;
   margin: 35px 0 16px 0;
 }
 
@@ -2572,7 +2567,7 @@ hr.nav {
   text-decoration: underline;
 }
 
-.help-grid-container {
+.help-container {
   width: 748px;
 
   margin: auto;

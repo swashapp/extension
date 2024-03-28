@@ -14,7 +14,6 @@
 .sidenav > div {
   width: 256px;
   height: max(100vh, 100%);
-  background-color: var(--color-white);
 }
 
 .sidenav-logo {
@@ -208,8 +207,6 @@
   margin-right: auto;
 
   padding: 0 12px;
-
-  background: var(--color-white);
   text-transform: uppercase;
 }
 
@@ -332,7 +329,7 @@
   font-size: 20px !important;
 }
 
-.help-grid-container {
+.help-container {
   width: 748px;
   margin: auto;
 }

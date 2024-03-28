@@ -123,6 +123,10 @@
   flex-wrap: nowrap;
 }
 
+.flex.gap8 {
+  gap: 8px;
+}
+
 .flex.gap12 {
   gap: 12px;
 }
