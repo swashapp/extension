@@ -224,15 +224,19 @@ const swashApiHelper = (function () {
     return get<Any>(token, config.APIs.charityList);
   }
 
-  async function getSurveyUrl(token: string, provider: string) {
-    return get<Any>(token, config.APIs.surveyUrl, { provider });
+  async function getOfferUrl(token: string, provider: string, offerId: string) {
+    return get<Any>(token, config.APIs.offerUrl, { provider, offerId });
   }
 
-  async function getSurveyHistory(
+  async function getOfferWallUrl(token: string, provider: string) {
+    return get<Any>(token, config.APIs.offerWallUrl, { provider });
+  }
+
+  async function getEarnHistory(
     token: string,
     params: { [key: string]: string | number },
   ) {
-    return get<Any>(token, config.APIs.surveyHistory, { ...params });
+    return get<Any>(token, config.APIs.earnHistory, { ...params });
   }
 
   return {
@@ -258,8 +262,9 @@ const swashApiHelper = (function () {
     getAdditionalInfo,
     updateAdditionalInfo,
     getCharities,
-    getSurveyUrl,
-    getSurveyHistory,
+    getOfferUrl,
+    getOfferWallUrl,
+    getEarnHistory,
   };
 })();
 

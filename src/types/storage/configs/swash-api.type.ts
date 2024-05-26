@@ -20,7 +20,8 @@ export type SwashApiConfigs = {
     referralActive: string;
     ipLookup: string;
     charityList: string;
-    surveyUrl: string;
-    surveyHistory: string;
+    offerUrl: string;
+    offerWallUrl: string;
+    earnHistory: string;
   };
 };

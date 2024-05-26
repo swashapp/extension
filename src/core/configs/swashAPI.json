@@ -20,7 +20,8 @@
     "referralActive": "/v2/referral/active",
     "ipLookup": "/v2/tools/ip/lookup",
     "charityList": "/v2/charity",
-    "surveyUrl": "/sapp/v1/survey/url",
-    "surveyHistory": "/sapp/v1/survey/history"
+    "offerUrl": "/earn/v1/auth/offer/url",
+    "offerWallUrl": "/earn/v1/auth/offer/wall/url",
+    "earnHistory": "/earn/v1/auth/earner/history"
   }
 }

@@ -479,12 +479,16 @@ const userHelper = (function () {
     await storageHelper.saveProfile({ ...profile, ...data });
   }
 
-  async function createSurveyUrl(provider: string) {
-    return swashApiHelper.getSurveyUrl(await generateJWT(), provider);
+  async function getOfferUrl(provider: string, offerId: string) {
+    return swashApiHelper.getOfferUrl(await generateJWT(), provider, offerId);
   }
 
-  async function getSurveyHistory(params: { [key: string]: string | number }) {
-    return swashApiHelper.getSurveyHistory(await generateJWT(), params);
+  async function getOfferWallUrl(provider: string) {
+    return swashApiHelper.getOfferWallUrl(await generateJWT(), provider);
+  }
+
+  async function getEarnHistory(params: { [key: string]: string | number }) {
+    return swashApiHelper.getEarnHistory(await generateJWT(), params);
   }
 
   return {
@@ -520,8 +524,9 @@ const userHelper = (function () {
     getBonus,
     getUserProfile,
     updateUserProfile,
-    createSurveyUrl,
-    getSurveyHistory,
+    getOfferUrl,
+    getOfferWallUrl,
+    getEarnHistory,
   };
 })();
 

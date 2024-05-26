@@ -20,11 +20,14 @@ window.swashSdk = {
   getUserInfo: async () => {
     return callFunction({ id: 'getUserInfo' });
   },
-  getSurveyUrl: async (provider) => {
-    return callFunction({ id: 'getSurveyUrl', params: [provider] });
+  getOfferWallUrl: async (provider) => {
+    return callFunction({ id: 'getOfferWallUrl', params: [provider] });
   },
-  getSurveyHistory: async (params) => {
-    return callFunction({ id: 'getSurveyHistory', params: [params] });
+  getOfferUrl: async (provider, offerId) => {
+    return callFunction({ id: 'getOfferUrl', params: [provider, offerId] });
+  },
+  getEarnHistory: async (params) => {
+    return callFunction({ id: 'getEarnHistory', params: [params] });
   },
   openPopupPage: async () => {
     return callFunction({ id: 'openPopupPage' });

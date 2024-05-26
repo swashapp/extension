@@ -12,8 +12,9 @@ var sdkScript = (function () {
     const validFunctions = [
       'getStatus',
       'getUserInfo',
-      'getSurveyUrl',
-      'getSurveyHistory',
+      'getOfferUrl',
+      'getOfferWallUrl',
+      'getEarnHistory',
       'openProfilePage',
       'openPopupPage',
       'getVersion',

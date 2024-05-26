@@ -41,7 +41,7 @@ const sdk = (function () {
   }
 
   async function getVersion() {
-    return browser.runtime.getManifest().version;
+    return { device: 'EXTENSION', code: browser.runtime.getManifest().version };
   }
 
   async function getStatus() {
@@ -149,12 +149,16 @@ const sdk = (function () {
     };
   }
 
-  async function getSurveyUrl(provider: string) {
-    return userHelper.createSurveyUrl(provider);
+  async function getOfferUrl(provider: string, offerId: string) {
+    return userHelper.getOfferUrl(provider, offerId);
   }
 
-  async function getSurveyHistory(params: { [key: string]: string | number }) {
-    return userHelper.getSurveyHistory(params);
+  async function getOfferWallUrl(provider: string) {
+    return userHelper.getOfferWallUrl(provider);
+  }
+
+  async function getEarnHistory(params: { [key: string]: string | number }) {
+    return userHelper.getEarnHistory(params);
   }
 
   return {
@@ -165,8 +169,9 @@ const sdk = (function () {
     unloadModule,
     getStatus,
     getUserInfo,
-    getSurveyUrl,
-    getSurveyHistory,
+    getOfferUrl,
+    getOfferWallUrl,
+    getEarnHistory,
     openProfilePage,
     openPopupPage,
     getVersion,
