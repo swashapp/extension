@@ -13,7 +13,7 @@ function printSyntax() {
   console.error(``);
 }
 
-function readManifest(pathToFile) {
+function readJson(pathToFile) {
   return JSON.parse(readFileSync(pathToFile, 'utf-8'));
 }
 
@@ -60,16 +60,22 @@ const mDir = path.join(dir, 'manifest');
 
 (async () => {
   let mvDir;
-  let _wp = path.join(mDir, `base.json`);
+  let _wp = path.join(dir, `package.json`);
 
-  let manifest = readManifest(_wp);
+  let pkg = readJson(_wp);
+  console.log(`Collected app version using package.json from ${_wp}`);
+
+  _wp = path.join(mDir, `base.json`);
+
+  let manifest = readJson(_wp);
+  manifest.version = pkg.version;
   console.log(`Collected manifest base attributes from ${_wp}`);
 
   mvDir = path.join(mDir, `v${args['--manifest_version']}`);
   _wp = path.join(mvDir, `base.json`);
   manifest = {
     ...manifest,
-    ...readManifest(_wp),
+    ...readJson(_wp),
   };
   console.log(
     `Collected manifest v${args['--manifest_version']} base attributes from ${_wp}`,
@@ -78,7 +84,7 @@ const mDir = path.join(dir, 'manifest');
   _wp = path.join(mvDir, `${args['--browser']}.json`);
   manifest = {
     ...manifest,
-    ...readManifest(_wp),
+    ...readJson(_wp),
   };
   console.log(`Collected ${args['--browser']} manifest attributes from ${_wp}`);
 
