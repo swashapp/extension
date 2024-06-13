@@ -1,6 +1,7 @@
 [data-theme='dark'] body {
   --data-background: var(--color-darkest-grey);
   --data-font-color: var(--color-white);
+  --data-accordion-color: var(--color-jet-black);
 }
 
 [data-theme='dark'] body,
@@ -36,7 +37,10 @@
 [data-theme='dark'] .transaction-table-body tr td,
 [data-theme='dark'] .help-title,
 [data-theme='dark'] .help-text,
-[data-theme='dark'] .extension-popup-numerics-value {
+[data-theme='dark'] .extension-popup-numerics-value,
+[data-theme='dark'] .data-accordion-title-header,
+[data-theme='dark'] .data-accordion-title-text,
+[data-theme='dark'] .data-accordion-content {
   color: var(--color-white);
 }
 
@@ -66,7 +70,8 @@
 [data-theme='dark'] .verify-profile-punch,
 [data-theme='dark'] .transaction-table-pagination div,
 [data-theme='dark'] .extension-popup-menu-item,
-[data-theme='dark'] .twitter-share-button img {
+[data-theme='dark'] .twitter-share-button img,
+[data-theme='dark'] .section-accordion-expand-icon {
   color: var(--color-black);
   filter: invert();
 }

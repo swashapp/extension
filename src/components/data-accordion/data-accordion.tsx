@@ -42,17 +42,21 @@ const StyledAccordion = withStyles({
     width: '100%',
     border: 'none',
     boxShadow: 'none',
+    background: 'transparent',
+    borderRadius: '12px 12px 0 0',
+    overflow: 'hidden',
   },
-  expanded: {},
+  expanded: {
+    background: 'var(--data-accordion-color)',
+    borderRadius: '12px',
+  },
 })(Accordion);
 
 const StyledAccordionSummary = withStyles({
   root: {
     flexDirection: 'row-reverse',
     padding: '24px 26px 24px 20px',
-    background: '#F3F9F9',
-    borderTopLeftRadius: '12px',
-    borderTopRightRadius: '12px',
+    background: 'var(--data-accordion-color)',
     '&$expanded': {},
   },
   content: {
@@ -87,12 +91,11 @@ export function DataAccordion(
         return (
           <div
             key={`item-${index}`}
-            className={`
-              ${
-                active === index
-                  ? 'data-accordion-active'
-                  : 'data-accordion-inactive'
-              } ${'data-accordion'} `}
+            className={`${
+              active === index
+                ? 'data-accordion-active'
+                : 'data-accordion-inactive'
+            } data-accordion`}
           >
             <StyledAccordion
               square

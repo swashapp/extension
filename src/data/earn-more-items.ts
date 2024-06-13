@@ -10,8 +10,8 @@ export interface EarnMoreItem {
 
 export const EarnMoreItems = [
   {
-    title: 'Earn from surveys',
-    subtitle: 'Share your opinion, get paid.',
+    title: 'Earn from offers',
+    subtitle: 'Complete daily tasks, get paid.',
     image: '/static/images/icons/earn/mouth.png',
     className: 'bg-yellow',
     link: SwashEarnPath,

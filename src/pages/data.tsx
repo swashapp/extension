@@ -6,6 +6,7 @@ import React, {
   useState,
 } from 'react';
 
+import { Button } from '../components/button/button';
 import {
   DataAccordion,
   DataItem,
@@ -13,6 +14,7 @@ import {
 import { NumericInput } from '../components/numeric-input/numeric-input';
 import { TextListManagement } from '../components/text-list-management/text-list-management';
 import { helper } from '../core/webHelper';
+import { PathToUrls } from '../paths';
 import { PrivacyData } from '../types/storage/privacy-data.type';
 
 let delayOnLoad = 0;
@@ -154,7 +156,7 @@ export function Data(): JSX.Element {
     }
   }, [maskItems]);
 
-  const deleteMsg = useCallback((message) => {
+  const deleteMsg = useCallback((message: { msgId: string }) => {
     helper.cancelSending(message.msgId);
     setDataItems((items) =>
       (items || []).filter((msg) => msg.msgId !== message.msgId),
@@ -214,6 +216,18 @@ export function Data(): JSX.Element {
                 before it gets uploaded, you can adjust the sending delay and
                 delete anything that you don’t want to share.
               </p>
+              <div className={'data-dont-share-div'}>
+                <Button
+                  className={'data-dont-share'}
+                  color={'secondary'}
+                  text={`Do not share`}
+                  link={{
+                    url: PathToUrls.request,
+                    external: true,
+                    newTab: true,
+                  }}
+                />
+              </div>
               <div>
                 <NumericInput
                   label="Delay my data by"
