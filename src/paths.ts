@@ -14,7 +14,7 @@ export const RouteToPages = {
 };
 
 export const WebsitePath = 'https://swashapp.io';
-export const SwashEarnPath = 'https://sapp.swashapp.io';
+export const SwashEarnPath = 'https://earn.swashapp.io';
 
 export const SwashSupportPath = 'https://support.swashapp.io/hc/en-us';
 
@@ -24,7 +24,8 @@ export const PathToUrls = {
   newsletter: `${WebsitePath}/newsletter`,
   media: `${WebsitePath}/media`,
   terms: `${WebsitePath}/terms-use`,
-  privacy: `${WebsitePath}/privacy-policy/extension`,
+  privacy: `${WebsitePath}/privacy-policy`,
+  request: `${WebsitePath}/request`,
 };
 
 export const RouteToHelpdesk = {

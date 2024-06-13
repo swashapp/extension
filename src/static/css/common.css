@@ -23,6 +23,7 @@
 
   --data-background: var(--color-white);
   --data-font-color: var(--color-black);
+  --data-accordion-color: var(--color-off-white);
 }
 
 .toast-panel-container {

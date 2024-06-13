@@ -569,8 +569,8 @@ hr.nav {
 }
 
 .remove-icon {
-  width: 16px;
-  height: 16px;
+  display: flex;
+  align-items: center;
   margin-right: 12px;
 }
 
@@ -579,7 +579,7 @@ hr.nav {
   font-weight: normal;
   font-size: 13px;
 
-  color: var(--color-pink);
+  color: var(--color-red);
 }
 
 .fav-button,
@@ -667,8 +667,6 @@ hr.nav {
 
   display: flex;
   align-items: center;
-
-  color: var(--color-soft-green);
 }
 
 .data-accordion-summary-progress {
@@ -685,6 +683,8 @@ hr.nav {
 }
 
 .data-accordion-content pre {
+  font-size: 12px;
+  line-height: 20px;
   white-space: pre-wrap;
   word-break: break-word;
 }
@@ -697,6 +697,15 @@ hr.nav {
   line-height: 150%;
 
   padding: 24px 32px 11px 32px;
+}
+
+.data-dont-share-div {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.data-dont-share {
+  width: 134px;
 }
 
 .popup-paper {
