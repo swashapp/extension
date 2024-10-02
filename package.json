@@ -39,10 +39,10 @@
     "lint:extension": "web-ext lint dist",
     "subgraph:codegen": "graph codegen subgraph/subgraph.yaml --output-dir subgraph/generated",
     "subgraph:build": "graph build subgraph/subgraph.yaml --output-dir subgraph/build",
-    "subgraph:deploy": "graph deploy subgraph/subgraph.yaml --node https://api.thegraph.com/deploy/ subgraph/dataunion-swash-graph --output-dir subgraph/build",
-    "subgraph:create-local": "graph create subgraph/subgraph.yaml --node http://localhost:8020/ subgraph/dataunion-swash-graph",
-    "subgraph:remove-local": "graph remove subgraph/subgraph.yaml --node http://localhost:8020/ subgraph/dataunion-swash-graph",
-    "subgraph:deploy-local": "graph deploy subgraph/subgraph.yaml --node http://localhost:8020/ --ipfs http://localhost:5001 subgraph/dataunion-swash-graph --output-dir subgraph/build"
+    "subgraph:deploy": "graph deploy subgraph/subgraph.yaml --node https://api.thegraph.com/deploy/ subgraph/swashdataunion --output-dir subgraph/build",
+    "subgraph:create-local": "graph create subgraph/subgraph.yaml --node http://localhost:8020/ subgraph/swashdataunion",
+    "subgraph:remove-local": "graph remove subgraph/subgraph.yaml --node http://localhost:8020/ subgraph/swashdataunion",
+    "subgraph:deploy-local": "graph deploy subgraph/subgraph.yaml --node http://localhost:8020/ --ipfs http://localhost:5001 subgraph/swashdataunion --output-dir subgraph/build"
   },
   "dependencies": {
     "@emotion/react": "11.10.4",
@@ -84,8 +84,8 @@
     "webextension-polyfill": "0.10.0"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "0.49.0",
-    "@graphprotocol/graph-ts": "0.30.0",
+    "@graphprotocol/graph-cli": "0.84.0",
+    "@graphprotocol/graph-ts": "0.35.1",
     "@mui/codemod": "5.10.5",
     "@parcel/config-webextension": "2.9.2",
     "@parcel/reporter-bundle-analyzer": "2.9.2",
