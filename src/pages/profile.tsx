@@ -162,9 +162,6 @@ export function Profile(): JSX.Element {
       <div className="page-content">
         <div className="page-header badge-header">
           <h2>Profile</h2>
-          <VerificationBadge
-            verified={phone === undefined ? phone : phone !== ''}
-          />
         </div>
         <FlexGrid column={2} className="half-cards card-gap">
           <div className={`simple-card profile-simple-card`}>
