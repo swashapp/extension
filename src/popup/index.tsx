@@ -13,7 +13,6 @@ import { DisplayAds } from '../components/ads/display-ads';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
 import { SwashLogo } from '../components/swash-logo/swash-logo';
 import { Toggle } from '../components/toggle/toggle';
-import { VerificationBadge } from '../components/verification/verification-badge';
 import { helper } from '../core/webHelper';
 import { initValue, UtilsService } from '../service/utils-service';
 
@@ -54,7 +53,6 @@ function MenuItem(props: {
 }
 
 function Index() {
-  const [verified, setVerified] = useState<boolean | undefined>(undefined);
   const [tokenAvailable, setTokenAvailable] = useState<string>(initValue);
   const [unclaimedBonus, setUnclaimedBonus] = useState<string>(initValue);
 
@@ -123,10 +121,6 @@ function Index() {
         } else {
           window.helper.load().then(() => {
             getBalanceInfo().then();
-
-            window.helper.isVerified().then((status: boolean) => {
-              setVerified(status);
-            });
           });
         }
       }),
@@ -143,11 +137,6 @@ function Index() {
             <div className="flex-row extension-popup-logo-and-switch">
               <div className="flex-row flex-align-center">
                 <SwashLogo className="extension-popup-logo" />
-                {verified === undefined ? (
-                  <></>
-                ) : (
-                  <VerificationBadge verified={verified} darkBackground />
-                )}
               </div>
               <Toggle />
             </div>

@@ -46,9 +46,7 @@ const sdk = (function () {
 
   async function getStatus() {
     const { is_enabled: enabled } = await storageHelper.getConfigs();
-    const verified = await userHelper.isVerified();
-
-    return { enabled, verified };
+    return { enabled, verified: true };
   }
 
   let profileFlag = true;
@@ -160,7 +158,6 @@ const sdk = (function () {
   async function getOfferUrl(provider, offerId) {
     return userHelper.createOfferUrl(provider, offerId);
   }
-
 
   return {
     initModule,

@@ -12,6 +12,7 @@ import { showPopup } from '../components/popup/popup';
 import { Select } from '../components/select/select';
 import { ToastMessage } from '../components/toast/toast-message';
 import { Tooltip } from '../components/tooltip/tooltip';
+import { VerificationAlert } from '../components/verification/verification-alert';
 import { TokenTransferPopup } from '../components/wallet/token-transfer-popup';
 import { helper } from '../core/webHelper';
 import { initValue, UtilsService } from '../service/utils-service';
@@ -260,12 +261,11 @@ export function Earnings(): JSX.Element {
               disabled={isTransferDisable}
               link={false}
               loading={withdrawing}
-              onClick={() => {
-                setWithdrawing(true);
-                helper
-                  .checkWithdrawAllowance(tokenAvailable)
-                  .then(() => {
-                    setWithdrawing(false);
+              onClick={async () => {
+                try {
+                  setWithdrawing(true);
+                  await helper.checkWithdrawAllowance(tokenAvailable);
+                  if (await helper.isVerified())
                     showPopup({
                       closable: false,
                       paperClassName: 'large-popup',
@@ -277,18 +277,26 @@ export function Earnings(): JSX.Element {
                         />
                       ),
                     });
-                  })
-                  .catch((err: Error) => {
-                    setWithdrawing(false);
-                    toast(
-                      <ToastMessage
-                        type="error"
-                        content={
-                          <>{err?.message || 'Failed to withdraw earnings'}</>
-                        }
-                      />,
-                    );
-                  });
+                  else {
+                    showPopup({
+                      closable: false,
+                      closeOnBackDropClick: true,
+                      paperClassName: 'small-popup',
+                      content: <VerificationAlert />,
+                    });
+                  }
+                } catch (err: Error) {
+                  toast(
+                    <ToastMessage
+                      type="error"
+                      content={
+                        <>{err?.message || 'Failed to withdraw earnings'}</>
+                      }
+                    />,
+                  );
+                } finally {
+                  setWithdrawing(false);
+                }
               }}
             />
           </div>

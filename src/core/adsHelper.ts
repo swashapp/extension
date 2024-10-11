@@ -107,8 +107,6 @@ const adsHelper = (function () {
     }
 
     try {
-      if (!(await userHelper.isVerified())) return;
-
       const slot = await getAdsSlots(width, height);
 
       const impression = getImpressionId();
@@ -148,7 +146,7 @@ const adsHelper = (function () {
 
   async function getAdsSlots(width: number, height: number) {
     const { is_enabled } = await storageHelper.getConfigs();
-    if (!is_enabled || !(await userHelper.isVerified())) return;
+    if (!is_enabled) return;
 
     if (info.foreignId === '') await joinServer();
     const found = info.zones.find((item) => {
@@ -160,8 +158,6 @@ const adsHelper = (function () {
   }
 
   async function updateAdsStatus(config: AdsTypeStatus) {
-    if (!(await userHelper.isVerified())) return;
-
     const db = await storageHelper.getAdsConfig();
     const fullscreenChanged = db.status.fullScreen !== config.fullScreen;
     db.status = { ...db.status, ...config };
