@@ -1119,7 +1119,7 @@ hr.nav {
 }
 
 .settings-backup-buttons > div {
-  width: 25% !important;
+  width: 33% !important;
 }
 
 .settings-2backup-buttons {
@@ -2395,6 +2395,8 @@ hr.nav {
 
 .verified-info-box {
   width: calc(100% - 48px);
+  height: 100%;
+  min-height: max-content;
 
   display: flex;
   justify-content: space-between;
