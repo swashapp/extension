@@ -5,13 +5,9 @@ import { toast } from 'react-toastify';
 
 import { Button } from '../components/button/button';
 import { FlexGrid } from '../components/flex-grid/flex-grid';
-import { showPopup } from '../components/popup/popup';
 import { PunchedBox } from '../components/punched-box/punched-box';
 import { Select } from '../components/select/select';
 import { ToastMessage } from '../components/toast/toast-message';
-import { VerificationBadge } from '../components/verification/verification-badge';
-import { VerificationPopup } from '../components/verification/verification-popup';
-import { VerifiedInfoBox } from '../components/verification/verified-info-box';
 import { helper } from '../core/webHelper';
 
 import { VerificationBannerItems } from '../data/verification-banner-items';
@@ -76,10 +72,8 @@ export function Profile(): JSX.Element {
   const [reward, setReward] = useState<string>('');
 
   const [loading, setLoading] = React.useState(false);
-  const [emailLoading, setEmailLoading] = React.useState(false);
   const [submitted, setSubmitted] = React.useState(false);
 
-  const [email, setEmail] = React.useState(undefined);
   const [phone, setPhone] = React.useState(undefined);
 
   const [birth, setBirth] = React.useState('');
@@ -90,13 +84,10 @@ export function Profile(): JSX.Element {
 
   const fetchProfile = useCallback(
     (forceUpdate?: boolean) => {
-      setEmailLoading(true);
       helper.getUserProfile().then((profile) => {
         if (!profile.email) {
           setTimeout(fetchProfile, 3000, true);
         } else {
-          setEmailLoading(false);
-          setEmail(profile.email || '');
           setPhone(profile.phone || '');
 
           setBirth(profile.birth || '');
@@ -112,13 +103,6 @@ export function Profile(): JSX.Element {
     },
     [app],
   );
-
-  const updateData = useCallback(() => {
-    setEmailLoading(true);
-    helper.updateVerification().then(() => {
-      fetchProfile(true);
-    });
-  }, [fetchProfile]);
 
   const loadActiveProfile = useCallback(() => {
     helper.getLatestPrograms().then((data: { profile: { reward: string } }) => {
@@ -292,47 +276,6 @@ export function Profile(): JSX.Element {
                 </PunchedBox>
               ),
             )}
-            <div className={`simple-card`}>
-              <h6>Contact information</h6>
-              <VerifiedInfoBox
-                title={'Email address'}
-                value={email ? email : undefined}
-                loading={emailLoading}
-                onClick={() => {
-                  showPopup({
-                    id: 'verify-email',
-                    closable: false,
-                    closeOnBackDropClick: true,
-                    paperClassName: 'large-popup',
-                    content: (
-                      <VerificationPopup
-                        title={'email'}
-                        callback={updateData}
-                      />
-                    ),
-                  });
-                }}
-              />
-              <VerifiedInfoBox
-                title={'Phone number'}
-                value={phone ? phone : undefined}
-                loading={emailLoading}
-                onClick={() => {
-                  showPopup({
-                    id: 'verify-phone',
-                    closable: false,
-                    closeOnBackDropClick: true,
-                    paperClassName: 'large-popup',
-                    content: (
-                      <VerificationPopup
-                        title={'phone'}
-                        callback={updateData}
-                      />
-                    ),
-                  });
-                }}
-              />
-            </div>
           </div>
         </FlexGrid>
       </div>

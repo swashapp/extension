@@ -64,6 +64,19 @@
     justify-content: center;
   }
 
+  .settings-backup-buttons {
+    gap: 6px;
+  }
+
+  .settings-backup-buttons > div p {
+    font-size: 15px;
+    text-wrap: nowrap;
+  }
+
+  .icon-button-text {
+    margin-left: 8px;
+  }
+
   .help-grid-container {
     width: auto;
     justify-content: center;
