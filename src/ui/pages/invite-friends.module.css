@@ -104,6 +104,10 @@
   background-color: var(--color-light-grey);
 }
 
+[data-theme="dark"] .next path {
+  stroke: var(--color-light-grey);
+}
+
 [data-theme="dark"] .links tr:hover td {
   background-color: var(--color-jet-black);
 }

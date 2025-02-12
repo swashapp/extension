@@ -1,5 +1,5 @@
 import { Slider } from "@mui/material";
-import { withStyles } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import clsx from "clsx";
 import {
   ReactNode,
@@ -47,45 +47,42 @@ import styles from "./invite-friends.module.css";
 
 const referralMessage = "Use my referral link to earn as you surf with Swash:";
 
-const CustomSlider = withStyles({
-  root: {
-    color: "var(--color-black)",
-    height: 8,
-  },
-  thumb: {
+const CustomSlider = styled(Slider)(() => ({
+  color: "var(--color-black)",
+  height: 8,
+  "& .MuiSlider-thumb": {
     height: 32,
     width: 32,
     marginLeft: 7,
     backgroundColor: "var(--color-white)",
     border: "4px solid currentColor",
-    "&:focus, &:hover, &$active": {
+    "&:focus, &:hover, &.Mui-active": {
       boxShadow: "inherit",
     },
   },
-  active: {},
-  valueLabel: {
+  "& .MuiSlider-valueLabel": {
     left: "calc(-50% + 4px)",
   },
-  track: {
+  "& .MuiSlider-track": {
     height: 4,
     borderRadius: 4,
   },
-  rail: {
+  "& .MuiSlider-rail": {
     backgroundColor: "var(--color-light-grey)",
     height: 4,
     borderRadius: 4,
   },
-  mark: {
+  "& .MuiSlider-mark": {
     backgroundColor: "var(--color-light-grey)",
     borderRadius: "100%",
     height: 16,
     width: 16,
   },
-  markActive: {
+  "& .MuiSlider-markActive": {
     opacity: 1,
     backgroundColor: "currentColor",
   },
-})(Slider);
+}));
 
 function ReferralLinksTable({
   links,
@@ -460,7 +457,7 @@ export function InviteFriends(): ReactNode {
                   }}
                 >
                   <p className={"bold"}>Choose another percentage pair</p>
-                  <NextIcon className={"rotate90"} />
+                  <NextIcon className={clsx("rotate90", styles.next)} />
                 </div>
               </div>
               <ReferralShare
@@ -509,8 +506,9 @@ export function InviteFriends(): ReactNode {
         ),
         content: (
           <p>
-            Explanation what are limited payments are. Text could be long and
-            take up more than two lines
+            When a Limited campaign is live, you can read about the terms and
+            how to get involved here. Until then, be sure to make the most of
+            the Monthly and Revenue-Sharing campaigns!
           </p>
         ),
       },

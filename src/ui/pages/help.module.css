@@ -29,6 +29,12 @@
   margin: auto;
 }
 
+/* Dark theme */
+
+[data-theme="dark"] .option:hover {
+  color: var(--color-darkest-grey);
+}
+
 /* Responsive */
 
 @media only screen and (max-width: 1023px) {

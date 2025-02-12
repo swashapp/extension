@@ -1,4 +1,4 @@
-import { EARN_WEBSITE, DASHBOARD_PATHS, WEBSITE_URLs } from "@/paths";
+import { EARN_WEBSITE, DASHBOARD_PATHS, MOBILE_DOWNLOAD_LINK } from "@/paths";
 
 export interface EarnMoreItem {
   title: string;
@@ -30,6 +30,6 @@ export const EarnMoreItems = [
     title: "Get the mobile app",
     subtitle: "Earn on the go with the Swash mobile app.",
     image: "/images/misc/cursor.webp",
-    link: WEBSITE_URLs.contact,
+    link: MOBILE_DOWNLOAD_LINK,
   },
 ] as EarnMoreItem[];

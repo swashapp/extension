@@ -1,5 +1,5 @@
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
-import { withStyles } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import clsx from "clsx";
 import { useCallback, useEffect, useState } from "react";
 import { defaultStyles, JsonView } from "react-json-view-lite";
@@ -25,46 +25,34 @@ const Icons: Record<StreamCategory, string> = {
   [StreamCategory.BEAUTY]: "/images/icons/streams/beauty.svg",
 };
 
-const StyledAccordion = withStyles({
-  root: {
-    width: "100%",
-    border: "none",
-    boxShadow: "none",
-    background: "transparent",
-    borderRadius: "12px 12px 0 0",
-    overflow: "hidden",
-  },
-  expanded: {
+const StyledAccordion = styled(Accordion)(() => ({
+  width: "100%",
+  border: "none",
+  boxShadow: "none",
+  background: "transparent",
+  borderRadius: "12px 12px 0 0",
+  overflow: "hidden",
+  "&.Mui-expanded": {
     background: "var(--data-accordion-color)",
     borderRadius: "12px",
   },
-})(Accordion);
+}));
 
-const StyledAccordionSummary = withStyles({
-  root: {
-    flexDirection: "row-reverse",
-    padding: "24px 26px 24px 20px",
-    background: "var(--data-accordion-color)",
-    "&$expanded": {},
-  },
-  content: {
+const StyledAccordionSummary = styled(AccordionSummary)(() => ({
+  flexDirection: "row-reverse",
+  padding: "24px 26px 24px 20px",
+  background: "var(--data-accordion-color)",
+  "& .MuiAccordionSummary-content": {
     padding: 0,
     margin: 0,
-    "&$expanded": {
-      padding: 0,
-      margin: 0,
-    },
   },
-  expanded: {},
-})(AccordionSummary);
+}));
 
-const StyledAccordionDetails = withStyles(() => ({
-  root: {
-    margin: 0,
-    padding: 24,
-    overflow: "auto",
-  },
-}))(AccordionDetails);
+const StyledAccordionDetails = styled(AccordionDetails)(() => ({
+  margin: 0,
+  padding: 24,
+  overflow: "auto",
+}));
 
 export function DataAccordion({
   item,
@@ -110,17 +98,17 @@ export function DataAccordion({
           }
         >
           <div className={clsx("flex col", styles.summary)}>
-            <div className={"flex align-center justify-between"}>
-              <div className={"flex align-center gap16"}>
+            <div className="flex align-center justify-between">
+              <div className="flex align-center gap16">
                 <div className={styles.icon}>
                   <img
                     width={24}
                     height={24}
                     src={Icons[message.header.category]}
-                    alt={""}
+                    alt=""
                   />
                 </div>
-                <div className={"flex col"}>
+                <div className="flex col">
                   <p>{host}</p>
                   <p
                     className={clsx("flex align-center smaller", styles.title)}
