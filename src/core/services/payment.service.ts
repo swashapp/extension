@@ -86,7 +86,7 @@ export class PaymentService extends BaseSwashService<PaymentServicesConfiguratio
 
     return {
       data: list.map(({ date, amount, module }) => ({
-        date: formatDate(date),
+        date: formatDate(date, "YYYY/MM/DD HH:mm:ss Z"),
         module,
         amount: purgeNumber(amount),
       })),
@@ -235,7 +235,7 @@ export class PaymentService extends BaseSwashService<PaymentServicesConfiguratio
 
     return {
       data: list.map(({ date, amount, targetWallet, network, token }) => ({
-        date: formatDate(date),
+        date: formatDate(date, "YYYY/MM/DD HH:mm:ss Z"),
         receiver: targetWallet,
         network,
         token,
@@ -320,7 +320,7 @@ export class PaymentService extends BaseSwashService<PaymentServicesConfiguratio
     });
     return {
       data: list.map(({ date, amount, refereeWallet }) => ({
-        date: formatDate(date),
+        date: formatDate(date, "YYYY/MM/DD HH:mm:ss Z"),
         amount: purgeNumber(amount),
         referral: refereeWallet,
       })),
@@ -373,7 +373,7 @@ export class PaymentService extends BaseSwashService<PaymentServicesConfiguratio
     const charities = this.cache.getData("charity");
     return {
       data: list.map(({ date, amount, charityWallet }) => ({
-        date: formatDate(date),
+        date: formatDate(date, "YYYY/MM/DD HH:mm:ss Z"),
         charity:
           charities.find((charity) => charity.wallet === charityWallet)?.name ||
           charityWallet,

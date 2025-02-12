@@ -164,6 +164,8 @@ export class UserService extends BaseSwashService<UserServicesConfiguration> {
     });
     const privateKey = decrypt(data, key);
     await this.wallet.assign({ privateKey });
+
+    await this.cache.clearSession(AcceptedAuth.EWT);
   }
 
   public async login(): Promise<void> {

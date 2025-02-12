@@ -107,29 +107,29 @@ export class ApiService {
     delete request.purge;
 
     let response: O | Response;
+    const { method, path, data } = request;
+    const hashKey = `${method}:${path}${data ? `:${hash(HashAlgorithm.SHA256, JSON.stringify(data))}` : ""}`;
+
     if (this.cache && cache && transformer) {
-      this.logger.debug("Using cache for API request");
-      const { method, path, data } = request;
-      const {
-        key = `${method}:${path}${data ? `:${hash(HashAlgorithm.SHA256, JSON.stringify(data))}` : ""}`,
-        ...options
-      } = cache;
-      response = await this.cache.pull<O>(key, options, async () =>
-        this.transform(await this.request(request), transformer),
-      );
+      this.logger.info(`Cache API request for ${hashKey}`);
+      const { key = hashKey, ...options } = cache;
+      response = await this.cache.pull<O>(key, options, async () => {
+        this.logger.info(`API request for ${hashKey}`);
+        return this.transform(await this.request(request), transformer);
+      });
     } else {
-      this.logger.debug("No cache for API request");
+      this.logger.info(`API request for ${hashKey}`);
       response = await this.transform(await this.request(request), transformer);
     }
 
     if (this.cache && purge) {
       for (const key of purge.keys) {
         await this.cache.clearData(key);
-        this.logger.debug("Cleared cache for key");
+        this.logger.debug(`Cleared ${key} cache after ${hashKey}`);
       }
     }
 
-    this.logger.info("API fetch completed");
+    this.logger.info(`API request completed for ${hashKey}`);
     return response;
   }
 }

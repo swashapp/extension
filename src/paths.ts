@@ -5,6 +5,9 @@ export const API_GATEWAY = "https://api.swashapp.io";
 export const ADS_GATEWAY = "https://app.swashapp.io";
 export const STREAM_GATEWAY = "https://stream.swashapp.io";
 
+export const MOBILE_DOWNLOAD_LINK =
+  "https://play.google.com/store/apps/details?id=io.swashapp.mobile";
+
 export const DASHBOARD_PATHS = {
   dashboard: `/`,
 

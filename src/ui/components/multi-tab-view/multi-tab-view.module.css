@@ -1,5 +1,5 @@
 .container {
-  width: 100%;
+  width: auto;
   max-width: max-content;
   padding: 8px;
 
@@ -20,7 +20,7 @@
 
 .item,
 .item.Mui-selected {
-  width: max-content;
+  width: auto;
   min-width: 170px;
   padding: 12px;
 

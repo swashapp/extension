@@ -123,6 +123,9 @@ export const PaymentApi: PaymentServicesConfiguration = {
   donate: {
     method: RequestMethod.POST,
     path: "/payment/v1/auth/donate",
+    purge: {
+      keys: ["balance"],
+    },
   },
   get_donation_history: {
     method: RequestMethod.GET,

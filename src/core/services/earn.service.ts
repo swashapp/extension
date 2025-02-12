@@ -76,7 +76,7 @@ export class EarnService extends BaseSwashService<EarnServicesConfiguration> {
 
     return {
       data: data.map(({ createDate, provider, offerName, amount, status }) => ({
-        date: formatDate(createDate),
+        date: formatDate(createDate, "YYYY/MM/DD HH:mm:ss Z"),
         provider,
         offer: offerName,
         amount: purgeNumber(amount),
