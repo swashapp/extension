@@ -162,7 +162,7 @@ export function History(): ReactNode {
         }
       />
     );
-  }, [data, loading, total, onPageChange, onPageSizeChange, category]);
+  }, [data, loading, total, onPageChange, onPageSizeChange, category, info]);
 
   const tabs = useMemo(() => {
     return [
