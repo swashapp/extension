@@ -109,7 +109,7 @@ export function History(): ReactNode {
     return (
       <DynamicTable
         data={data.map((item) => {
-          if (item.status) {
+          if (item.status && typeof item.status === "string") {
             if (item.txHash && item.network && info) {
               item.status = (
                 <Link
@@ -128,7 +128,6 @@ export function History(): ReactNode {
                   {item.status}
                 </Link>
               );
-              delete item.txHash;
             } else {
               item.status = (
                 <p
@@ -141,6 +140,7 @@ export function History(): ReactNode {
                 </p>
               );
             }
+            delete item.txHash;
           }
           return item;
         })}
