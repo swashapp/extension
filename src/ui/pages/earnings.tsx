@@ -183,6 +183,7 @@ function WithdrawCrypto({
         }}
         setValue={(value) => {
           if (value >= 0 && value <= balance) setAmount(value);
+          else if (value < 0) setAmount(0);
           else setAmount(balance);
         }}
         error={amount < (token?.min || 0) || amount > balance}

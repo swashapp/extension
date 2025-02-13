@@ -10,6 +10,7 @@ import { OngoingDonationRes } from "@/types/api/donation.type";
 import { MultiPageRef } from "@/types/ui.type";
 import { Button } from "@/ui/components/button/button";
 import { Input } from "@/ui/components/input/input";
+import { NumericInput } from "@/ui/components/input/numeric-input";
 import { MultiPageView } from "@/ui/components/multi-page-view/multi-page-view";
 import { closePopup } from "@/ui/components/popup/popup";
 import { Switch } from "@/ui/components/switch/switch";
@@ -159,19 +160,19 @@ export function Donate({
           </div>
         ) : (
           <div className={styles.option}>
-            <Input
+            <NumericInput
               label={"Donation Amount"}
               name={"amount"}
-              value={`${amount}`.replace(/^0\d+/, "")}
-              type={"number"}
+              value={amount}
               inputProps={{
-                step: 0.5,
+                step: 0.25,
                 min: 1,
                 max: balance,
               }}
-              onChange={(e) => {
-                const value = +e.target.value;
-                if (value >= 0) setAmount(value);
+              setValue={(value) => {
+                if (value >= 0 && value <= balance) setAmount(value);
+                else if (value < 0) setAmount(0);
+                else setAmount(balance);
               }}
               error={amount < 0 || amount > balance}
             />

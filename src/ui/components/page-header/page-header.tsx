@@ -32,6 +32,7 @@ export function PageHeader({
               <CopyEndAdornment
                 value={uid}
                 toast={SystemMessage.SUCCESSFULLY_COPIED_WALLET_ADDRESS}
+                className={styles.position}
               />
             </div>
           ) : null}

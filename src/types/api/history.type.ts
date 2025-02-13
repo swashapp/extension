@@ -33,11 +33,16 @@ export type WithdrawHistoryRes = {
   date: number;
   wallet: string;
   amount: string;
+  swashAmount: string;
   targetWallet: string;
   network: string;
   networkId: string;
   token: string;
   tokenId: string;
+  isBlocking: boolean;
+  isError: boolean;
+  status: number;
+  transactionHash: string;
 };
 
 export type EarnHistoryRes = {
@@ -70,6 +75,8 @@ export type WithdrawHistoryTableRes = {
   receiver: string;
   network: string;
   token: string;
+  status: "Failed" | "Success";
+  txHash: string;
 };
 
 export type ReferralHistoryRes = {

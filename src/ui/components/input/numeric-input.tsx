@@ -18,32 +18,49 @@ export function NumericInput({
   errorMessage?: string;
 }): ReactNode {
   const id = `input-${inputProps.name}`;
+  const stepValue = inputProps.inputProps?.step
+    ? parseFloat(inputProps.inputProps.step.toString())
+    : 1;
+
+  const truncateTo4Decimals = (num: number): number =>
+    parseFloat(num.toFixed(4));
+
+  const formatNumber = (num: number): string =>
+    parseFloat(num.toFixed(4)).toString();
+
+  const parseValue = (val: string): number => {
+    const numericString = unit
+      ? val.replace(` ${unit}`, "").trim()
+      : val.trim();
+    const parsed = parseFloat(numericString);
+    return isNaN(parsed) ? 0 : parsed;
+  };
 
   return (
     <Label id={id} text={label}>
       <InputBase
         {...inputProps}
-        value={`${inputProps.value} ${unit}`}
+        value={`${formatNumber(parseFloat(inputProps.value as string))}${
+          unit ? ` ${unit}` : ""
+        }`}
         onChange={(e) => {
-          const value: string = e.target.value;
-          if (unit && value.indexOf(unit) > 0)
-            setValue(parseInt(value.replace(` ${unit}`, "")));
-          else setValue(parseInt(value || "0"));
+          const valueStr: string = e.target.value;
+          const numericValue = parseValue(valueStr);
+          setValue(truncateTo4Decimals(numericValue));
         }}
         onKeyDown={(
           e: KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>,
         ) => {
           if (e.key === "Backspace") {
             e.preventDefault();
-            const value = (inputProps.value as number).toString();
-            console.log("Backspace", value);
+            const valueStr = (inputProps.value as number).toString();
             const currentStr =
-              unit && value.indexOf(unit) > 0
-                ? value.replace(` ${unit}`, "")
-                : value;
+              unit && valueStr.indexOf(unit) > 0
+                ? valueStr.replace(` ${unit}`, "")
+                : valueStr;
             const newStr = currentStr.slice(0, -1);
-            const newVal = newStr === "" ? 0 : parseInt(newStr, 10);
-            setValue(newVal);
+            const newVal = newStr === "" ? 0 : parseFloat(newStr);
+            setValue(truncateTo4Decimals(newVal));
           }
         }}
         className={"input"}
@@ -53,14 +70,18 @@ export function NumericInput({
             {inputProps.endAdornment}
             <NumericEndAdornment
               onSpinUp={() => {
-                const _value = inputProps.value as number;
-                setValue(
-                  _value < Number.MAX_SAFE_INTEGER ? _value + 1 : _value,
-                );
+                const _value = parseFloat(inputProps.value as string);
+                const newValue =
+                  _value < Number.MAX_SAFE_INTEGER
+                    ? _value + stepValue
+                    : _value;
+                setValue(truncateTo4Decimals(newValue));
               }}
               onSpinDown={() => {
-                const _value = inputProps.value as number;
-                setValue(_value > 0 ? _value - 1 : _value);
+                const _value = parseFloat(inputProps.value as string);
+                const newValue =
+                  _value > 0 ? Math.max(0, _value - stepValue) : _value;
+                setValue(truncateTo4Decimals(newValue));
               }}
             />
           </>

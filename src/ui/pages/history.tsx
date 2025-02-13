@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { ReactNode, useCallback, useMemo, useState } from "react";
+import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 
 import {
   HistoryService,
@@ -8,9 +8,11 @@ import {
 } from "@/enums/history.enum";
 import { helper } from "@/helper";
 import { Any } from "@/types/any.type";
+import { WithdrawInfoRes } from "@/types/api/withdraw.type";
 import { SelectItem } from "@/types/ui.type";
 import { DynamicTable } from "@/ui/components/dynamic-table/dynamic-table";
 import { Select } from "@/ui/components/input/select";
+import { Link } from "@/ui/components/link/link";
 import { MultiTabView } from "@/ui/components/multi-tab-view/multi-tab-view";
 import { PageHeader } from "@/ui/components/page-header/page-header";
 import { useErrorHandler } from "@/ui/hooks/use-error-handler";
@@ -32,6 +34,7 @@ const earn = getItems(OfferStatus);
 export function History(): ReactNode {
   const { safeRun } = useErrorHandler();
 
+  const [info, setInfo] = useState<WithdrawInfoRes>();
   const [service, setService] = useState<HistoryService>(
     HistoryService.PAYMENT,
   );
@@ -40,6 +43,14 @@ export function History(): ReactNode {
   const [category, setCategory] = useState<string>(activity[0].value);
   const [data, setData] = useState<Any[]>([]);
   const [total, setTotal] = useState<number>(-1);
+
+  useEffect(() => {
+    if (info) return;
+    safeRun(async () => {
+      const info = await helper("payment").getWithdrawInfo();
+      setInfo(info);
+    });
+  }, [info, safeRun]);
 
   const onPageChange = useCallback(
     async (page: number, pageSize: number) => {
@@ -97,7 +108,42 @@ export function History(): ReactNode {
   const view = useMemo(() => {
     return (
       <DynamicTable
-        data={data}
+        data={data.map((item) => {
+          if (item.status) {
+            if (item.txHash && item.network && info) {
+              item.status = (
+                <Link
+                  url={
+                    info?.networks.find(
+                      (network) => network.name === item.network,
+                    )?.explorer + item.txHash
+                  }
+                  newTab
+                  external
+                  className={clsx(
+                    styles.status,
+                    styles[item.status.toLowerCase()],
+                  )}
+                >
+                  {item.status}
+                </Link>
+              );
+              delete item.txHash;
+            } else {
+              item.status = (
+                <p
+                  className={clsx(
+                    styles.status,
+                    styles[item.status.toLowerCase()],
+                  )}
+                >
+                  {item.status}
+                </p>
+              );
+            }
+          }
+          return item;
+        })}
         loading={loading}
         total={total}
         onPageChange={onPageChange}

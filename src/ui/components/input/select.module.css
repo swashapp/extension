@@ -17,6 +17,10 @@
   transform: translateY(-50%) rotate(0deg);
 }
 
+.menuItem {
+  width: auto;
+}
+
 .value::first-letter,
 .item::first-letter {
   text-transform: capitalize;
@@ -28,6 +32,10 @@
 [data-theme="dark"] .menu {
   background: var(--color-jet-black);
   color: var(--color-light-grey);
+}
+
+[data-theme="dark"] .menuItem:hover {
+  background: var(--color-darkest-grey);
 }
 
 [data-theme="dark"] .icon path {

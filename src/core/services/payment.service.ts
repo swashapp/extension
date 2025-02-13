@@ -234,13 +234,25 @@ export class PaymentService extends BaseSwashService<PaymentServicesConfiguratio
     });
 
     return {
-      data: list.map(({ date, amount, targetWallet, network, token }) => ({
-        date: formatDate(date, "YYYY/MM/DD HH:mm:ss Z"),
-        receiver: targetWallet,
-        network,
-        token,
-        amount: purgeNumber(amount),
-      })),
+      data: list.map(
+        ({
+          date,
+          amount,
+          targetWallet,
+          network,
+          token,
+          isError,
+          transactionHash,
+        }) => ({
+          date: formatDate(date, "YYYY/MM/DD HH:mm:ss Z"),
+          receiver: targetWallet,
+          network,
+          token,
+          amount: purgeNumber(amount),
+          status: isError ? "Failed" : "Success",
+          txHash: transactionHash,
+        }),
+      ),
       total,
     };
   }
