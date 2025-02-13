@@ -15,7 +15,7 @@
   color: var(--color-jet-black) !important;
 }
 
-.error {
+.failed {
   background: var(--color-red);
 }
 
