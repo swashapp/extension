@@ -9,12 +9,14 @@ import CopyIcon from "~/images/icons/copy.svg?react";
 export function CopyEndAdornment({
   value,
   toast = SystemMessage.SUCCESSFULLY_COPIED,
+  className,
 }: {
   value: string;
   toast?: string;
+  className?: string;
 }): ReactNode {
   return (
-    <EndAdornment>
+    <EndAdornment className={className}>
       <CopyToClipboard text={value}>
         <CopyIcon
           className={"pointer"}

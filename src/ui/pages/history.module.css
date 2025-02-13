@@ -6,6 +6,23 @@
   padding: 100px 0;
 }
 
+.status {
+  width: max-content;
+  padding: 6px 14px !important;
+  border-radius: 100px;
+
+  font-size: 14px !important;
+  color: var(--color-jet-black) !important;
+}
+
+.error {
+  background: var(--color-red);
+}
+
+.success {
+  background: var(--color-soft-green);
+}
+
 .cradle {
   width: 100%;
   max-width: 280px;

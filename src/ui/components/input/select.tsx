@@ -73,6 +73,9 @@ export function Select({
         }}
         disabled={disabled}
         input={<InputBase />}
+        classes={{
+          select: "flex align-center",
+        }}
         renderValue={(selectedValue) => {
           const item = items.find((item) => item.value === selectedValue);
 
@@ -95,7 +98,7 @@ export function Select({
           <MenuItem
             key={item.value}
             value={item.value}
-            style={{ width: "auto" }}
+            className={styles.menuItem}
           >
             <div className={"flex col"} style={{ width: "100%" }}>
               <div className={"flex align-center gap8"}>
