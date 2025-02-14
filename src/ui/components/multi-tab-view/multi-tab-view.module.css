@@ -1,6 +1,6 @@
 .container {
   width: auto;
-  max-width: max-content;
+  max-width: 100%;
   padding: 8px;
 
   border: 2px solid var(--color-purple);

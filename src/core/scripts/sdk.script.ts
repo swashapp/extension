@@ -11,7 +11,7 @@ const SdkScript = (function () {
 
   const sendResponse = (event: SdkMessageEvent, data: Any) => {
     (event.source as Window)?.postMessage(
-      { func: `${event.data.func}Resp`, response: data },
+      { __fromCS: true, func: `${event.data.func}Resp`, response: data },
       event.origin,
     );
   };
@@ -25,7 +25,9 @@ const SdkScript = (function () {
   };
 
   const addMessageHandler = () => {
-    window.addEventListener("message", async (event: SdkMessageEvent) => {
+    window.addEventListener("message", async (event: Any) => {
+      if (event.data && event.data.__fromCS) return;
+
       try {
         const data = await sendMessage(event.data);
         sendResponse(event, data);
