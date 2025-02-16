@@ -38,7 +38,7 @@ import { FacebookModule } from "./modules/social/facebook.module";
 import { TwitterModule } from "./modules/social/twitter.module";
 
 export const InitialConfiguration: ConfigurationStorage = {
-  version: "1",
+  version: "2",
 
   apis: {
     ads: AdsApi,
@@ -100,7 +100,7 @@ export const InitialConfiguration: ConfigurationStorage = {
     },
   },
   unsplash: {
-    endpoint: "https://api.unsplash.com/photos/random",
+    endpoint: "https://d34s39bh8oxiy5.cloudfront.net/photos/random",
     count: 20,
     threshold: 3,
   },

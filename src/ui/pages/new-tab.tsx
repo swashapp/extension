@@ -1,6 +1,13 @@
 import { StyledEngineProvider } from "@mui/material";
 import clsx from "clsx";
-import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
+import {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { createRoot } from "react-dom/client";
 
 import { SystemMessage } from "@/enums/message.enum";
@@ -37,6 +44,8 @@ declare global {
   }
 }
 window.helper = helper;
+
+const MAX_RETRIES = 5;
 
 function DateTimeDisplay({ datetime }: { datetime?: NewTabDateTime }) {
   const [now, setNow] = useState<Date>(new Date());
@@ -82,6 +91,7 @@ function DateTimeDisplay({ datetime }: { datetime?: NewTabDateTime }) {
 
 function App(): ReactNode {
   const { safeRun } = useErrorHandler();
+  const retryCountRef = useRef(0);
 
   const [ads] = useState<"full" | "partial" | "none">("none");
 
@@ -162,11 +172,21 @@ function App(): ReactNode {
   );
 
   const updateImage = useCallback(async () => {
-    if (background === "unsplash") {
-      const image = await helper("image").getImageForDisplay();
-      if (!image) setTimeout(updateImage, 500);
+    if (background !== "unsplash") {
+      setImage(undefined);
+      retryCountRef.current = 0;
+      return;
+    }
+
+    const image = await helper("image").getImageForDisplay();
+    if (!image) {
+      if (retryCountRef.current++ === 0) setTimeout(updateImage, 100);
+      else if (retryCountRef.current++ < MAX_RETRIES)
+        setTimeout(updateImage, 250 * Math.pow(2, retryCountRef.current));
+    } else {
       setImage(image);
-    } else setImage(undefined);
+      retryCountRef.current = 0;
+    }
   }, [background]);
 
   const favSites = useMemo(() => {
@@ -212,7 +232,6 @@ function App(): ReactNode {
 
   const customStyles = useMemo(() => {
     if (background === "unsplash") {
-      // setCopyright(response.copyright);
       return {
         backgroundImage: `url("${image?.blob}")`,
       };
