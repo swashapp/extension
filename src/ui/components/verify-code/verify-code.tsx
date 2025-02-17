@@ -60,6 +60,7 @@ export function VerifyCode({
             name={"code"}
             placeholder={"Enter your verification code"}
             value={code}
+            autoFocus={true}
             onChange={(e) => {
               const { value } = e.target;
               const numericValue = value.replace(/[^0-9]/g, "");

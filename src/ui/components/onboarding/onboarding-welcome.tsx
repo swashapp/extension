@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { ReactNode, useContext, useState } from "react";
+import { ReactNode, useCallback, useContext, useState } from "react";
 
 import { ButtonColors } from "@/enums/button.enum";
 import { OnboardingFlows } from "@/enums/onboarding.enum";
@@ -26,6 +26,15 @@ export function OnboardingWelcome(): ReactNode {
   const [masterPass, setMasterPass] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
 
+  const login = useCallback(() => {
+    if (error || !isValidPassword(masterPass)) return;
+
+    setFlow(OnboardingFlows.LOGIN);
+    contextSetEmail(email);
+    setPassword(masterPass);
+    next();
+  }, [contextSetEmail, email, error, masterPass, next, setFlow, setPassword]);
+
   return (
     <OnboardingPage>
       <div className={"flex center"}>
@@ -48,6 +57,7 @@ export function OnboardingWelcome(): ReactNode {
             placeholder={"example@email.com"}
             value={email}
             error={error}
+            autoFocus={true}
             onBlur={() => {
               setError(!isValidEmail(email));
             }}
@@ -65,6 +75,9 @@ export function OnboardingWelcome(): ReactNode {
             onChange={(e) => {
               setMasterPass(e.target.value);
             }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") login();
+            }}
           />
         </div>
         <div className={"flex col gap12"}>
@@ -74,10 +87,7 @@ export function OnboardingWelcome(): ReactNode {
             color={ButtonColors.PRIMARY}
             disabled={error || !isValidPassword(masterPass)}
             onClick={() => {
-              setFlow(OnboardingFlows.LOGIN);
-              contextSetEmail(email);
-              setPassword(masterPass);
-              next();
+              login();
             }}
           />
           <p className={"text-center"}>

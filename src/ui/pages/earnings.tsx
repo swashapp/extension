@@ -181,6 +181,7 @@ function WithdrawCrypto({
           min: Math.min(balance, token?.min || Number.MAX_SAFE_INTEGER),
           max: balance,
         }}
+        autoFocus={true}
         setValue={(value) => {
           if (value >= 0 && value <= balance) setAmount(value);
           else if (value < 0) setAmount(0);

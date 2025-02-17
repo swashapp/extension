@@ -46,6 +46,7 @@ function PrivateKey({
         label={"Enter your private key below: "}
         value={privateKey}
         type={reveal ? "text" : "password"}
+        autoFocus={true}
         endAdornment={
           <ShowEndAdornment
             show={reveal}
