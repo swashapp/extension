@@ -28,52 +28,66 @@ export class ConfigurationManager extends BaseStorageManager<ConfigurationStorag
     return ConfigurationManager.instance;
   }
 
-  private setupUpdaterJob() {
-    const { interval } = this.get("update");
-    setInterval(() => this.update(), interval);
+  public override async init() {
+    await super.init();
+    await this.update(InitialConfiguration);
   }
 
-  private async update() {
-    this.logger.debug("Start configuration update process");
-    if (!this.updater) {
-      this.logger.warn("Updater not defined");
+  private async update(config: ConfigurationStorage) {
+    const { success, error } = ConfigurationStorageSchema.safeParse(config);
+    if (!success) {
+      this.logger.error("Invalid configuration", error);
       return;
     }
-    const { last_revision } = this.get("update");
-    try {
-      const data = await this.updater(last_revision);
-      if (!data?.config) {
-        this.logger.info("No new configuration available");
-        return;
-      }
 
-      if (data?.version !== last_revision) {
-        const update = this.get("update");
-        update.last_revision = data.version;
-        await this.set("update", update);
-        this.logger.debug("Stored updated last_revision");
-      }
-
-      const config = data.config as ConfigurationStorage;
-      if (config.version === this.get("version")) {
-        this.logger.warn("Configuration is already up to date");
-        return;
-      }
-
-      const { success, error } = ConfigurationStorageSchema.safeParse(config);
-      if (!success) {
-        this.logger.error("Invalid configuration", error);
-        return;
-      }
-
-      config.update.last_revision = data.version;
-      await this.coordinator.set("isOutOfDate", true);
-      await this.setAll(config);
-      await this.coordinator.set("isOutOfDate", false);
-      this.logger.info("Configuration updated");
-    } catch (error) {
-      this.logger.error("Configuration update failed", error);
+    if (BigInt(config.version) <= BigInt(this.get("version"))) {
+      this.logger.warn("Configuration is already up to date");
+      return;
     }
+
+    const { last_revision } = this.get("update");
+    config.update.last_revision = last_revision;
+
+    await this.coordinator.set("isOutOfDate", true);
+    await this.setAll(config);
+    await this.coordinator.set("isOutOfDate", false);
+    this.logger.info("Configuration updated");
+  }
+
+  private setupUpdaterJob() {
+    const { interval } = this.get("update");
+
+    setInterval(async () => {
+      this.logger.debug("Start configuration update process");
+      if (!this.updater) {
+        this.logger.warn("Updater not defined");
+        return;
+      }
+
+      const update = this.get("update");
+      try {
+        const data = await this.updater(update.last_revision);
+        if (!data?.config || !data?.version) {
+          this.logger.info("No new configuration available");
+          return;
+        }
+
+        if (BigInt(data.version) > BigInt(update.last_revision)) {
+          update.last_revision = data.version;
+          await this.set("update", update);
+          this.logger.debug("Stored updated last_revision");
+        } else {
+          this.logger.warn(
+            `New revision ${data.version} is not greater than last_revision ${update.last_revision}`,
+          );
+          return;
+        }
+
+        await this.update(data.config);
+      } catch (error) {
+        this.logger.error("Configuration update failed", error);
+      }
+    }, interval);
   }
 
   public setUpdater(

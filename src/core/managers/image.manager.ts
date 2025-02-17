@@ -1,42 +1,36 @@
 import { BaseDatabase } from "@/core/base/database.service";
 import { ImageTables } from "@/core/data/database-tables";
+import { ConfigurationManager } from "@/core/managers/configuration.manager";
 import { UnsplashImage } from "@/types/api/unsplash.type";
 import { ImageRecord } from "@/types/image.type";
-import { UnsplashConfiguration } from "@/types/storage/configuration.type";
 
 export class ImageManager extends BaseDatabase {
   private static instance: ImageManager;
 
-  private readonly endpoint: string;
-  private readonly count: number;
-  private readonly threshold: number;
-
-  private constructor({ endpoint, count, threshold }: UnsplashConfiguration) {
+  private constructor(private configs: ConfigurationManager) {
     super({
       name: "UnsplashImagesDB",
       version: 1,
       tables: ImageTables,
     });
-
-    this.endpoint = endpoint;
-    this.count = count;
-    this.threshold = threshold;
   }
 
   public static async getInstance(
-    options: UnsplashConfiguration,
+    configs: ConfigurationManager,
   ): Promise<ImageManager> {
     if (!ImageManager.instance) {
-      ImageManager.instance = new ImageManager(options);
+      ImageManager.instance = new ImageManager(configs);
       await ImageManager.instance.init();
     }
     return ImageManager.instance;
   }
 
   public async fetchAndStoreImages(): Promise<void> {
+    const { endpoint, count } = this.configs.get("unsplash");
+
     try {
       this.logger.debug("Start fetching images from Unsplash");
-      const response = await fetch(`${this.endpoint}?count=${this.count}`);
+      const response = await fetch(`${endpoint}?count=${count}`);
       if (!response.ok) {
         this.logger.error("Failed to fetch images from Unsplash");
         throw new Error("Error fetching images from Unsplash");
@@ -67,6 +61,7 @@ export class ImageManager extends BaseDatabase {
   }
 
   public async getImageForDisplay(): Promise<ImageRecord | undefined> {
+    const { threshold } = this.configs.get("unsplash");
     try {
       const images: ImageRecord[] = await this.connection.select({
         from: "images",
@@ -79,7 +74,7 @@ export class ImageManager extends BaseDatabase {
       const image = images[0];
       this.logger.debug("Image selected for display");
       await this.removeImage(image.url);
-      if (images.length - 1 < this.threshold) {
+      if (images.length - 1 < threshold) {
         this.logger.debug(
           "Image count below threshold, triggering background fetch",
         );

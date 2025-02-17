@@ -40,7 +40,7 @@ async function bootstrap() {
   const [message, image, cache, wallet, privacy, preferences] =
     await Promise.all([
       MessageManager.getInstance(),
-      ImageManager.getInstance(configs.get("unsplash")),
+      ImageManager.getInstance(configs),
       CacheManager.getInstance(coordinator),
       WalletManager.getInstance(coordinator),
       PrivacyManager.getInstance(coordinator),
