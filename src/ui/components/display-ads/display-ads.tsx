@@ -38,9 +38,8 @@ export function DisplayAds({
     }
   }, [height, width, uuid]);
 
-  if (!uuid) {
-    return <WaitingProgressBar showText={false} />;
-  }
+  if (uuid === "") return null;
+  else if (!uuid) return <WaitingProgressBar showText={false} />;
 
   return (
     <div className={"flex center"}>
