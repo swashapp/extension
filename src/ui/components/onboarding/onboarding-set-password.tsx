@@ -30,6 +30,7 @@ export function OnboardingSetPassword(): ReactNode {
           name={"password"}
           placeholder={"Enter your master password"}
           value={masterPass}
+          autoFocus={true}
           onChange={(e) => {
             setMasterPass(e.target.value);
           }}

@@ -43,6 +43,7 @@ export function OnboardingResetPasswordEmail(): ReactNode {
         value={email}
         error={acceptEmail === false}
         onBlur={isEmailValid}
+        autoFocus={true}
         onChange={(e) => {
           setEmail(e.target.value);
         }}

@@ -169,6 +169,7 @@ export function Donate({
                 min: 1,
                 max: balance,
               }}
+              autoFocus={true}
               setValue={(value) => {
                 if (value >= 0 && value <= balance) setAmount(value);
                 else if (value < 0) setAmount(0);

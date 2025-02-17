@@ -1,5 +1,5 @@
 import { InputProps } from "@mui/material";
-import { KeyboardEvent, ReactNode } from "react";
+import { KeyboardEvent, ReactNode, useCallback } from "react";
 
 import { Label } from "@/ui/components/label/label";
 
@@ -36,6 +36,19 @@ export function NumericInput({
     return isNaN(parsed) ? 0 : parsed;
   };
 
+  const increase = useCallback(() => {
+    const _value = parseFloat(inputProps.value as string);
+    const newValue =
+      _value < Number.MAX_SAFE_INTEGER ? _value + stepValue : _value;
+    setValue(truncateTo4Decimals(newValue));
+  }, [inputProps.value, setValue, stepValue]);
+
+  const decrease = useCallback(() => {
+    const _value = parseFloat(inputProps.value as string);
+    const newValue = _value > 0 ? Math.max(0, _value - stepValue) : _value;
+    setValue(truncateTo4Decimals(newValue));
+  }, [inputProps.value, setValue, stepValue]);
+
   return (
     <Label id={id} text={label}>
       <InputBase
@@ -61,29 +74,15 @@ export function NumericInput({
             const newStr = currentStr.slice(0, -1);
             const newVal = newStr === "" ? 0 : parseFloat(newStr);
             setValue(truncateTo4Decimals(newVal));
-          }
+          } else if (e.key === "ArrowUp") increase();
+          else if (e.key === "ArrowDown") decrease();
         }}
         className={"input"}
         id={id}
         endAdornment={
           <>
             {inputProps.endAdornment}
-            <NumericEndAdornment
-              onSpinUp={() => {
-                const _value = parseFloat(inputProps.value as string);
-                const newValue =
-                  _value < Number.MAX_SAFE_INTEGER
-                    ? _value + stepValue
-                    : _value;
-                setValue(truncateTo4Decimals(newValue));
-              }}
-              onSpinDown={() => {
-                const _value = parseFloat(inputProps.value as string);
-                const newValue =
-                  _value > 0 ? Math.max(0, _value - stepValue) : _value;
-                setValue(truncateTo4Decimals(newValue));
-              }}
-            />
+            <NumericEndAdornment onSpinUp={increase} onSpinDown={decrease} />
           </>
         }
       />

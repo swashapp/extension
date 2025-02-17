@@ -34,6 +34,7 @@ export function OnboardingCheckEmail(): ReactNode {
         placeholder={"example@email.com"}
         value={email}
         error={error}
+        autoFocus={true}
         onBlur={() => {
           setError(!isValidEmail(email));
         }}
