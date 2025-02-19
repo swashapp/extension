@@ -6,7 +6,6 @@ import {
   getAppVersion,
   getBrowserLanguage,
   getSystemInfo,
-  getUserAgent,
 } from "@/utils/browser.util";
 import { getAge, getTimestamp } from "@/utils/date.util";
 import { match } from "@/utils/filter.util";
@@ -51,7 +50,8 @@ export class DataService {
       return;
     }
 
-    const { birth, gender, income } = await this.user.getAdditionalInfo();
+    const [{ birth, gender, income }, { userAgent: agent, ...platform }] =
+      await Promise.all([this.user.getAdditionalInfo(), getSystemInfo()]);
     const { country_name, city } = this.managers.cache.getData("location");
     const age = birth ? `${getAge(+birth)}` : "";
 
@@ -67,8 +67,8 @@ export class DataService {
         age,
         gender,
         income,
-        agent: getUserAgent(),
-        platform: await getSystemInfo(),
+        agent,
+        platform,
         language: getBrowserLanguage(),
       },
     };
