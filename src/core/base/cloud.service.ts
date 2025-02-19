@@ -12,6 +12,7 @@ import { hash } from "@/utils/security.util";
 
 export abstract class BaseCloudService {
   private readonly EXTENSION_ID = "authsaz@gmail.com";
+  private readonly REDIRECT_URL: string;
   protected readonly logger = new Logger(this.constructor.name);
 
   protected constructor(
@@ -21,6 +22,10 @@ export abstract class BaseCloudService {
     private authUrl: string,
     private scopes: string,
   ) {
+    this.REDIRECT_URL = `https://callbacks.swashapp.io/${hash(
+      HashAlgorithm.SHA256,
+      this.EXTENSION_ID,
+    )}/${this.name.replace("_", "").toLowerCase()}`;
     this.logger.info("Initialization completed");
   }
 
@@ -39,7 +44,7 @@ export abstract class BaseCloudService {
 
   private async waitForAuthToken(
     tabId: number,
-    timeout: number = 120000,
+    timeout: number = 600000,
   ): Promise<string> {
     this.logger.debug("Start waiting for auth token");
     return new Promise((resolve, reject) => {
@@ -49,11 +54,13 @@ export abstract class BaseCloudService {
         reject(new BaseError(SystemMessage.TIMEOUT_CLOUD_OAUTH_TOKEN));
       }, timeout);
 
-      const cleanup = () => {
+      const cleanup = async (tabId?: number) => {
         clearTimeout(timeoutId);
         tabs.onRemoved.removeListener(onRemove);
         tabs.onUpdated.removeListener(onUpdate);
         tabs.onActivated.removeListener(onActivated);
+
+        if (tabId) await tabs.remove(tabId);
       };
 
       const onRemove = (removedTabId: number) => {
@@ -70,7 +77,7 @@ export abstract class BaseCloudService {
       ) => {
         if (updatedTabId === tabId && changeInfo.status === "complete") {
           this.logger.debug(
-            "Tab updated and complete, checking for auth token in URL",
+            "Tab updated and complete, checking for auth token",
           );
           try {
             const tab = await tabs.get(tabId);
@@ -79,39 +86,27 @@ export abstract class BaseCloudService {
               const accessToken = this.extractAccessTokenFromUrl(url);
               if (accessToken) {
                 this.logger.debug("Auth token found in URL");
-                cleanup();
-                await tabs.remove(tabId);
+                await cleanup(tabId);
                 resolve(accessToken);
                 return;
-              }
+              } else this.logger.debug("Auth token not found in URL");
             }
 
             const results = await getTabTitle(tabId);
-            if (runtime.lastError || !results || !results.length) {
-              this.logger.error(
-                "Failed to retrieve tab title for token extraction",
-              );
-              cleanup();
-              reject(new BaseError(SystemMessage.FAILED_TAB_INJECT_SCRIPT));
-              return;
-            }
+            if (runtime.lastError || !results || !results.length) return;
 
             const title = results[0].result || results[0];
             const accessToken = this.extractAccessTokenFromTitle(title);
             if (accessToken) {
               this.logger.debug("Auth token found in tab title");
-              cleanup();
-              await tabs.remove(tabId);
+              await cleanup(tabId);
               resolve(accessToken);
-            } else {
-              this.logger.error("Auth token missing in tab title");
-              cleanup();
-              reject(new BaseError(SystemMessage.FAILED_CLOUD_ACCESS_TOKEN));
-            }
+            } else this.logger.debug("Auth token not found in tab title");
           } catch (error) {
-            this.logger.error("Error during token extraction from updated tab");
-            cleanup();
-            reject(new BaseError(SystemMessage.INVALID_LINK_FORMAT));
+            this.logger.error(
+              "Error during token extraction from updated tab",
+              error,
+            );
           }
         }
       };
@@ -128,15 +123,15 @@ export abstract class BaseCloudService {
               const accessToken = this.extractAccessTokenFromUrl(url);
               if (accessToken) {
                 this.logger.debug("Auth token found on tab activation");
-                cleanup();
-                await tabs.remove(tabId);
+                await cleanup(tabId);
                 resolve(accessToken);
               }
             }
           } catch (error) {
-            this.logger.error("Error during token extraction on activated tab");
-            cleanup();
-            reject(new BaseError(SystemMessage.UNEXPECTED_THINGS_HAPPENED));
+            this.logger.error(
+              "Error during token extraction on activated tab",
+              error,
+            );
           }
         }
       };
@@ -152,10 +147,7 @@ export abstract class BaseCloudService {
     const params = new URLSearchParams({
       response_type: "token",
       client_id: this.clientId,
-      redirect_uri: `https://callbacks.swashapp.io/${hash(
-        HashAlgorithm.SHA256,
-        this.EXTENSION_ID,
-      )}/${this.name.replace("_", "").toLowerCase()}`,
+      redirect_uri: this.REDIRECT_URL,
       scope: this.scopes,
     }).toString();
 

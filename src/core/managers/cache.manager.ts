@@ -27,7 +27,7 @@ export class CacheManager extends BaseStorageManager<CacheStorage> {
     return {
       ...cache,
       data: this.serializeTimeBasedCacheMap(cache.data),
-      tokens: this.serializeTimeBasedCacheMap(cache.session),
+      session: this.serializeTimeBasedCacheMap(cache.session),
     };
   }
 
@@ -155,9 +155,9 @@ export class CacheManager extends BaseStorageManager<CacheStorage> {
   }
 
   public async clearSession(key: keyof CacheStorage["session"]) {
-    const tokens = this.get("session");
-    delete tokens[key];
-    await this.set("session", tokens);
+    const session = this.get("session");
+    delete session[key];
+    await this.set("session", session);
     this.logger.debug(`Session cleared for key ${key}`);
   }
 }
