@@ -40,7 +40,7 @@ export async function getSystemInfo() {
     arch: "Unknown",
     osName: PlatformOS.UNKNOWN,
     osVersion: "Unknown",
-    userAgent: navigator.userAgent,
+    userAgent: getUserAgent(),
   };
 
   if (runtime.getPlatformInfo) {
@@ -49,7 +49,7 @@ export async function getSystemInfo() {
     info.osName = os as PlatformOS;
   }
 
-  const userAgent = navigator.userAgent || "Unknown";
+  const userAgent = info.userAgent || "Unknown";
 
   if (info.osName === PlatformOS.UNKNOWN) {
     if (/Windows NT/.test(userAgent)) info.osName = PlatformOS.WINDOWS;
