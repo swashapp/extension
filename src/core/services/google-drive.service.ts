@@ -65,7 +65,7 @@ export class GoogleDriveService extends BaseCloudService {
     body.append("file", file);
     const response = await this.api.fetch({
       method: RequestMethod.POST,
-      path: "/upload/drive/v3/files",
+      path: "/upload/drive/v3/files?uploadType=multipart",
       headers: await this.getAuthorization(),
       data: body,
     });
