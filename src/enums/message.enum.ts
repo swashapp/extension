@@ -17,6 +17,8 @@ export enum SystemMessage {
   NOT_ALLOWED_EMPTY_PASSWORD = "The master password is empty",
   NOT_ALLOWED_REASSIGN_EMAIL = "Email address cannot be changed after registration",
   NOT_ALLOWED_REASSIGN_WALLET = "Wallet address cannot be changed after registration",
+  NOT_AVAILABLE_GIFT_CARD = "There are no gift cards available, please try again later",
+  NOT_ENOUGH_BALANCE_GIFT_CARD = "You don't have enough balance to redeem a gift card",
   NOT_READY_APP = "The app is not ready. Please wait",
   SUCCESSFULLY_ADDED_FAV_SITE = "Favorite site has been added",
   SUCCESSFULLY_ADDED_REFERRAL_LINK = "Referral link has been created",
