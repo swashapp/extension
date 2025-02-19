@@ -45,7 +45,7 @@ import { VerifiedUsersOnly } from "@/ui/components/verification/verified-users-o
 import { DashboardContext } from "@/ui/context/dashboard.context";
 import { useAccountBalance } from "@/ui/hooks/use-account-balance";
 import { useErrorHandler } from "@/ui/hooks/use-error-handler";
-import { isTimeAfter } from "@/utils/date.util";
+import { formatDate, isTimeAfter } from "@/utils/date.util";
 import { purgeNumber, purgeString } from "@/utils/string.util";
 import { isValidWallet } from "@/utils/validator.util";
 import NextIcon from "~/images/icons/arrow-1.svg?react";
@@ -457,15 +457,18 @@ export function Earnings(): ReactNode {
             display: country.name,
           })),
         );
-        setValues(
-          info.priceList
-            .filter(({ swash }) => +swash < balance)
-            .map((price) => ({
-              value: price.dollar,
-              display: `$${price.dollar} / ${purgeNumber(price.swash)} SWASH`,
-            })),
-        );
-        ref.current?.next();
+        const values = info.priceList
+          .filter(({ swash }) => +swash < balance)
+          .map((price) => ({
+            value: price.dollar,
+            display: `$${price.dollar} / ${purgeNumber(price.swash)} SWASH`,
+          }));
+        setValues(values);
+
+        if (values.length > 0) ref.current?.next();
+        else if (info.priceList.length === 0)
+          toastMessage("error", SystemMessage.NOT_AVAILABLE_GIFT_CARD);
+        else toastMessage("error", SystemMessage.NOT_ENOUGH_BALANCE_GIFT_CARD);
       },
       {
         finally: () => {
@@ -697,13 +700,13 @@ export function Earnings(): ReactNode {
                             <div className={"flex justify-between"}>
                               <p>Date</p>
                               <p className={"bold"}>
-                                {new Date(ongoing?.date).toLocaleDateString()}
+                                {formatDate(ongoing?.date, "MMM DD, YYYY")}
                               </p>
                             </div>
                             <div className={"flex justify-between"}>
                               <p>Time</p>
                               <p className={"bold"}>
-                                {new Date(ongoing?.date).toLocaleTimeString()}
+                                {formatDate(ongoing?.date, "HH:mm:ss")}
                               </p>
                             </div>
                             <div className={"flex justify-between"}>
@@ -711,8 +714,18 @@ export function Earnings(): ReactNode {
                               <p className={"bold"}>{ongoing?.network}</p>
                             </div>
                             <div className={"flex justify-between"}>
-                              <p>Currency</p>
+                              <p>Token</p>
                               <p className={"bold"}>{ongoing?.token}</p>
+                            </div>
+                            <div className={"flex justify-between"}>
+                              <p>Amount</p>
+                              <p className={"bold"}>{ongoing?.amount}</p>
+                            </div>
+                            <div className={"flex justify-between"}>
+                              <p>Receiver</p>
+                              <p className={"bold"}>
+                                {purgeString(ongoing?.targetWallet)}
+                              </p>
                             </div>
                             <div className={"flex justify-between"}>
                               <p>TxID</p>
@@ -731,7 +744,7 @@ export function Earnings(): ReactNode {
                                       {purgeString(ongoing?.transactionHash)}
                                     </Link>
                                   ) : (
-                                    ongoing?.transactionHash
+                                    purgeString(ongoing?.transactionHash)
                                   )
                                 ) : (
                                   ""
