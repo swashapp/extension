@@ -24,11 +24,11 @@ export class SdkHandler extends BaseScriptHandler {
   }
 
   async load() {
-    await this.addScriptsListener();
+    await this.registerContentScript();
   }
 
   async unload() {
-    await this.removeScriptsListener();
+    await this.unregisterContentScript();
   }
 
   async getVersion() {

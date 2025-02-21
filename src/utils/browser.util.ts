@@ -101,10 +101,10 @@ export async function openInTab(url: string): Promise<Tabs.Tab> {
 }
 
 export function setBrowserIcon(items: Any): void {
-  if (getManifestVersion() === 2) {
-    browserAction.setIcon(items);
-  } else {
+  if (getManifestVersion() === 3) {
     action.setIcon(items);
+  } else {
+    browserAction.setIcon(items);
   }
 }
 
@@ -114,8 +114,6 @@ export async function executeScript(
 ): Promise<void> {
   if (getManifestVersion() === 3) {
     await scripting.executeScript({
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       injectImmediately: true,
       target: { tabId, allFrames: false },
       files,

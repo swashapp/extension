@@ -1,10 +1,11 @@
-import { tabs, Tabs } from "webextension-polyfill";
+import { scripting, tabs, Tabs } from "webextension-polyfill";
 
-import { executeScript } from "@/utils/browser.util";
+import { executeScript, getManifestVersion } from "@/utils/browser.util";
 import { Logger } from "@/utils/log.util";
 
 export abstract class BaseScriptHandler {
   protected scripts: string[] = [];
+  protected contentScriptId = this.constructor.name;
   protected readonly logger = new Logger(this.constructor.name);
 
   protected constructor() {
@@ -30,17 +31,52 @@ export abstract class BaseScriptHandler {
     }
   }
 
-  protected async addScriptsListener() {
-    if (!tabs.onUpdated.hasListener(this.execute)) {
-      tabs.onUpdated.addListener(this.execute);
-      this.logger.debug("Added script listener");
+  protected async registerContentScript() {
+    if (getManifestVersion() === 3) {
+      if (this.scripts.length === 0) {
+        this.logger.warn("No scripts to register");
+        return;
+      }
+      try {
+        await scripting.registerContentScripts([
+          {
+            id: this.contentScriptId,
+            js: this.scripts,
+            matches: ["http://*/*", "https://*/*"],
+            runAt: "document_start",
+          },
+        ]);
+        this.logger.debug(
+          `Registered content script with id ${this.contentScriptId}`,
+        );
+      } catch (error) {
+        this.logger.error("Content script registration failed", error);
+      }
+    } else {
+      if (!tabs.onUpdated.hasListener(this.execute)) {
+        tabs.onUpdated.addListener(this.execute);
+        this.logger.debug("Added script listener");
+      }
     }
   }
 
-  protected async removeScriptsListener() {
-    if (tabs.onUpdated.hasListener(this.execute)) {
-      tabs.onUpdated.removeListener(this.execute);
-      this.logger.debug("Removed script listener");
+  protected async unregisterContentScript() {
+    if (getManifestVersion() === 3) {
+      try {
+        await scripting.unregisterContentScripts({
+          ids: [this.contentScriptId],
+        });
+        this.logger.debug(
+          `Unregistered content script with id ${this.contentScriptId}`,
+        );
+      } catch (error) {
+        this.logger.error("Content script unregistration failed", error);
+      }
+    } else {
+      if (tabs.onUpdated.hasListener(this.execute)) {
+        tabs.onUpdated.removeListener(this.execute);
+        this.logger.debug("Removed script listener");
+      }
     }
   }
 
