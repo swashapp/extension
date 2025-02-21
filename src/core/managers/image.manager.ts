@@ -26,11 +26,11 @@ export class ImageManager extends BaseDatabase {
   }
 
   public async fetchAndStoreImages(): Promise<void> {
-    const { endpoint, count } = this.configs.get("unsplash");
+    const { endpoint, image } = this.configs.get("unsplash");
 
     try {
       this.logger.debug("Start fetching images from Unsplash");
-      const response = await fetch(`${endpoint}?count=${count}`);
+      const response = await fetch(endpoint);
       if (!response.ok) {
         this.logger.error("Failed to fetch images from Unsplash");
         throw new Error("Error fetching images from Unsplash");
@@ -40,10 +40,12 @@ export class ImageManager extends BaseDatabase {
       const imageRecords: ImageRecord[] = await Promise.all(
         data.map(async (img) => {
           this.logger.debug("Processing an image record");
-          const blob = await this.fetchImageBlob(img.urls.regular);
+          const url = new URL(img.urls.raw);
+          for (const key in image) url.searchParams.append(key, image[key]);
+          const blob = await this.fetchImageBlob(url.toString());
           const base64data = await this.blobToBase64(blob);
           return {
-            url: img.urls.regular,
+            url: url.toString(),
             blob: base64data as string,
             copyright: {
               user: img.user.name,

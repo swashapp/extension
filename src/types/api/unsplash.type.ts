@@ -1,7 +1,7 @@
 export type UnsplashImage = {
   id: string;
   urls: {
-    regular: string;
+    raw: string;
   };
   user: {
     name: string;

@@ -100,9 +100,14 @@ export const InitialConfiguration: ConfigurationStorage = {
     },
   },
   unsplash: {
-    endpoint: "https://d34s39bh8oxiy5.cloudfront.net/photos/random",
-    count: 20,
-    threshold: 3,
+    endpoint:
+      "https://d34s39bh8oxiy5.cloudfront.net/photos/random?count=20&orientation=landscape",
+    threshold: 5,
+    image: {
+      q: "60",
+      w: "1920",
+      fm: "webp",
+    },
   },
   update: {
     interval: 300000,

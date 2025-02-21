@@ -177,8 +177,8 @@ export type ModuleConfiguration = Record<
 
 export const UnsplashConfigurationSchema = z.object({
   endpoint: z.string(),
-  count: z.number(),
   threshold: z.number(),
+  image: z.record(z.string()),
 });
 export type UnsplashConfiguration = z.infer<typeof UnsplashConfigurationSchema>;
 
