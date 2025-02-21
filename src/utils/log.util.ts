@@ -24,7 +24,7 @@ export class Logger {
       return;
     }
     console[level](
-      formatDate(),
+      formatDate(undefined, "DD/MMM/YYYY HH:mm:ss:SSS"),
       `[${level.toUpperCase()}]`,
       `[${this.context}]`,
       ...args,
