@@ -38,8 +38,12 @@ export class BackupService {
 
   public async download() {
     this.logger.debug("Starting backup download process");
-    const backupUrl =
+    let backupUrl =
       `data:${this.DATA_TYPE},` + encodeURIComponent(this.create());
+    if (URL.createObjectURL) {
+      const blob = new Blob([this.create()], { type: this.DATA_TYPE });
+      backupUrl = URL.createObjectURL(blob);
+    }
     const filename = this.generateName();
     await downloads.download({
       url: backupUrl,
@@ -47,6 +51,7 @@ export class BackupService {
       saveAs: true,
     });
     this.logger.info("Backup download completed");
+    setTimeout(() => URL.revokeObjectURL(backupUrl), 1000);
   }
 
   public async uploadToCloud(service: CloudServices): Promise<void> {

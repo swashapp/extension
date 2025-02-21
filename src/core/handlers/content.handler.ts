@@ -14,11 +14,11 @@ export class ContentHandler extends BaseModuleHandler<ModuleHandler.CONTENT> {
   }
 
   public async load() {
-    await this.addScriptsListener();
+    await this.registerContentScript();
   }
 
   public async unload() {
-    await this.removeScriptsListener();
+    await this.unregisterContentScript();
   }
 
   public async getModules(url: string) {
