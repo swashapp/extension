@@ -7,12 +7,12 @@ import styles from "./toast-message.module.css";
 
 const Messages = {
   success: {
-    title: "Success!",
+    title: "Success",
     icon: "/images/icons/success.svg",
     class: `${styles.message} ${styles.success}`,
   },
   error: {
-    title: "Error!",
+    title: "Error",
     icon: "/images/icons/error.svg",
     class: `${styles.message} ${styles.error}`,
   },

@@ -4,6 +4,10 @@
   margin: 0;
 }
 
+.loading {
+  height: 250px;
+}
+
 .menu {
   height: inherit;
   padding: 24px;

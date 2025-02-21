@@ -13,7 +13,7 @@ export function ToastContainer() {
   return (
     <TContainer
       toastClassName={clsx("bg-white", styles.container)}
-      autoClose={5000}
+      autoClose={10000}
       closeButton={true}
       hideProgressBar
       pauseOnHover

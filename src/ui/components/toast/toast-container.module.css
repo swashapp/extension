@@ -15,3 +15,8 @@
   min-height: 56px !important;
   padding: 4px 12px;
 }
+
+/* Dark theme */
+[data-theme="dark"] .container button svg {
+  fill: var(--color-lightest-grey) !important;
+}

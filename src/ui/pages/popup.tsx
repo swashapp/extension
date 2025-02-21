@@ -8,6 +8,7 @@ import { helper } from "@/helper";
 import { INTERNAL_PATHS } from "@/paths";
 import { Any } from "@/types/any.type";
 import { DisplayAds } from "@/ui/components/display-ads/display-ads";
+import { WaitingProgressBar } from "@/ui/components/progress/waiting-progress";
 import { SwashLogo } from "@/ui/components/swash-logo/swash-logo";
 import { Toggle } from "@/ui/components/toggle/toggle";
 import { ThemeProvider } from "@/ui/context/theme.context";
@@ -23,7 +24,6 @@ import styles from "./popup.module.css";
 import "../styles/main.css";
 import "../styles/common.css";
 import "../styles/devices.css";
-import { Logger } from "@/utils/log.util";
 
 declare global {
   interface Window {
@@ -54,6 +54,7 @@ function App() {
   const { balance, balanceInUSD } = useAccountBalance();
 
   const [isReady, setIsReady] = useState<boolean>(false);
+
   const showPageOnTab = useCallback(async (url: string) => {
     await browser.windows.getAll({
       populate: true,
@@ -65,18 +66,42 @@ function App() {
   }, []);
 
   useEffect(() => {
+    let retryCount = 0;
+    const maxRetries = 30;
+
     const checkOnboarding = async () => {
-      const isReady = await helper("coordinator").isReady();
-      if (!isReady) await helper("coordinator").openPendingFlow();
-      setIsReady(isReady);
+      try {
+        const isReady = await helper("coordinator").isReady();
+        if (!isReady) await helper("coordinator").openPendingFlow();
+        setIsReady(isReady);
+      } catch (error) {
+        if (retryCount < maxRetries) {
+          retryCount++;
+          setTimeout(() => {
+            checkOnboarding();
+          }, 100);
+        } else {
+          console.error("Max retries reached. Stopping further attempts.");
+        }
+      }
     };
 
-    checkOnboarding().catch((error) => {
-      Logger.error("Error in useEffect:", error);
-    });
+    checkOnboarding().then();
   }, [showPageOnTab]);
 
-  if (!isReady) return null;
+  if (!isReady)
+    return (
+      <div
+        className={clsx(
+          "bg-white flex col center gap24",
+          styles.container,
+          styles.loading,
+        )}
+      >
+        <WaitingProgressBar showText={false} />
+        <p className={"text-center"}>Please complete your pending flow</p>
+      </div>
+    );
   return (
     <div className={clsx("bg-white", styles.container)}>
       <div className={clsx("flex col", styles.menu)}>
