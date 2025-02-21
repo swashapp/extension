@@ -25,12 +25,12 @@ export abstract class BaseModuleHandler<
   ) {
     super();
 
-    this.logger.debug("Start initializing modules");
+    this.logger.info("Start initializing modules", onDiskModules);
     for (const [category, modules] of Object.entries(onDiskModules)) {
       this.logger.debug(`Processing category ${category}`);
       this.loadCategory(os, category, modules as Record<string, OnDiskModule>);
     }
-    this.logger.info("Module initialization completed");
+    this.logger.info("Module initialization completed", this.modules);
   }
 
   private loadCategory(

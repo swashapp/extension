@@ -125,9 +125,7 @@ export class DataService {
 
   public async sendDelayed(): Promise<void> {
     const age = getTimestamp() - this.managers.preferences.get("delay");
-    this.logger.debug("Fetching delayed messages older than threshold");
     const rows = await this.managers.message.getOlderThan(age);
-    this.logger.debug(`Found ${rows.length} delayed messages`);
     for (const row of rows) {
       const message = { ...row.message };
       delete message.origin;
@@ -135,6 +133,5 @@ export class DataService {
       this.send(message);
     }
     await this.managers.message.removeOlderThan(age);
-    this.logger.debug("Removed delayed messages older than threshold");
   }
 }

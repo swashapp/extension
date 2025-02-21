@@ -24,10 +24,11 @@ import { PaymentService } from "./services/payment.service";
 import { RestoreService } from "./services/restore.service";
 import { UserService } from "./services/user.service";
 
-const logger = new Logger("Main");
-
 let hasRun = false;
+let isReady = false;
 let helpers: Helpers;
+
+const logger = new Logger("Main");
 
 async function bootstrap() {
   if (hasRun) return;
@@ -86,6 +87,7 @@ async function bootstrap() {
 
   configs.setUpdater(user.getAppConfig);
   logger.info("Application requirements set up");
+  isReady = true;
 }
 
 async function onInstall(info: Runtime.OnInstalledDetailsType) {
@@ -141,10 +143,20 @@ runtime.onStartup.addListener(onStartup);
 
 runtime.onMessage.addListener(async (message: HelperMessage) => {
   await bootstrap();
-  if (!Object.keys(helpers).includes(message.obj)) {
-    logger.debug("Message object not found in helpers", message);
-    return true;
+
+  for (let i = 0; i < 10; i++) {
+    if (isReady) break;
+    await new Promise((resolve) => setTimeout(resolve, 150));
   }
+
+  if (!isReady) {
+    logger.warn("Application requirements is not ready");
+    return false;
+  }
+
+  if (!Object.keys(helpers).includes(message.obj)) return true;
+  logger.debug("Received a message", message);
+
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return helpers[message.obj][message.func](...message.params);

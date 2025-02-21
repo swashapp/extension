@@ -3,6 +3,10 @@ import { storage } from "webextension-polyfill";
 import { Any } from "@/types/any.type";
 import { Logger } from "@/utils/log.util";
 
+function copy<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value));
+}
+
 export abstract class BaseStorageManager<T> {
   private cache!: T;
   private readonly name: string;
@@ -34,9 +38,7 @@ export abstract class BaseStorageManager<T> {
     const storedData = await storage.local.get(this.name);
     if (!(this.name in storedData)) {
       this.logger.info(`No storage record, creating new record`);
-      const serialized = this.serialize(value);
-      await storage.local.set({ [this.name]: serialized });
-      this.cache = value;
+      await this.setAll(value);
       this.logger.info("Storage record created");
     } else {
       this.logger.info(`Storage record exists, loading data`);
@@ -48,14 +50,12 @@ export abstract class BaseStorageManager<T> {
   public get<K extends keyof T>(
     key?: T extends string ? undefined : K,
   ): T extends string ? T : T[K] {
-    if (typeof this.cache === "string") {
-      return this.cache as Any;
-    }
-    return this.cache[key as K] as T extends string ? T : T[K];
+    if (typeof this.cache === "string") return this.cache as Any;
+    return copy(this.cache[key as K] as T extends string ? T : T[K]);
   }
 
   public getAll(): T {
-    return this.cache;
+    return copy(this.cache);
   }
 
   public async set<K extends keyof T>(
@@ -64,22 +64,22 @@ export abstract class BaseStorageManager<T> {
   ): Promise<void> {
     if (typeof this.cache === "string") {
       this.logger.debug("Update record");
-      const newCache = keyOrValue as T;
-      await storage.local.set({ [this.name]: this.serialize(newCache) });
-      this.cache = newCache;
+      const data = copy(keyOrValue as T);
+      await storage.local.set({ [this.name]: this.serialize(data) });
+      this.cache = data;
     } else {
       if (value === undefined || value === null) return;
       this.logger.debug(`Update record at key ${String(keyOrValue)}`);
-      const newCache = { ...this.cache, [keyOrValue as K]: value };
-      await storage.local.set({ [this.name]: this.serialize(newCache) });
-      this.cache = newCache;
+      const data = copy({ ...this.cache, [keyOrValue as K]: value });
+      await storage.local.set({ [this.name]: this.serialize(data) });
+      this.cache = this.deserialize(data);
     }
   }
 
   public async setAll(value?: T): Promise<void> {
     if (value === undefined || value === null) return;
-    this.logger.debug("Update storage");
-    await storage.local.set({ [this.name]: this.serialize(value) });
-    this.cache = value;
+    const data = copy(value);
+    await storage.local.set({ [this.name]: this.serialize(data) });
+    this.cache = this.deserialize(data);
   }
 }

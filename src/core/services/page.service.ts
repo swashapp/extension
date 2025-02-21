@@ -91,26 +91,28 @@ export class PageService {
   }
 
   private async launch(): Promise<void> {
-    const modules = this.managers.configs.get("modules");
     const { osName } = await getSystemInfo();
 
     this.temporary[ModuleHandler.ADS] = new AdsHandler(
-      modules,
+      this.managers.configs.get("modules"),
       osName,
       this.managers.preferences,
     );
     this.temporary[ModuleHandler.AJAX] = new AjaxHandler(
-      modules,
+      this.managers.configs.get("modules"),
       osName,
       this.data,
     );
     this.temporary[ModuleHandler.BROWSING] = new BrowsingHandler(
-      modules,
+      this.managers.configs.get("modules"),
       osName,
       this.data,
     );
 
-    this.temporary[ModuleHandler.CONTENT] = new ContentHandler(modules, osName);
+    this.temporary[ModuleHandler.CONTENT] = new ContentHandler(
+      this.managers.configs.get("modules"),
+      osName,
+    );
 
     for (const key in this.temporary) {
       this.logger.debug(`Loading temporary handler: ${key}`);

@@ -188,7 +188,7 @@ export class AjaxHandler extends BaseModuleHandler<ModuleHandler.AJAX> {
         }
       }
     }
-    await this.addScriptsListener();
+    await this.registerContentScript();
   }
 
   public async unload() {
@@ -204,7 +204,7 @@ export class AjaxHandler extends BaseModuleHandler<ModuleHandler.AJAX> {
       }
     }
 
-    await this.removeScriptsListener();
+    await this.unregisterContentScript();
     this.removeTabListeners();
 
     this.enabledCallbacks = {};
