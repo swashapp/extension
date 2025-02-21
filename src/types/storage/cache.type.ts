@@ -33,11 +33,11 @@ export class TimeBasedCache<T> {
     return isTimeAfter(this.expiry);
   }
 
-  toJSON() {
+  static toJSON(obj: TimeBasedCache<Any>): Any {
     return {
-      value: this.value,
-      expiry: this.expiry,
-      volatile: this.volatile,
+      value: obj.value,
+      expiry: obj.expiry,
+      volatile: obj.volatile,
     };
   }
 

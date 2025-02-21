@@ -35,7 +35,7 @@ export class CacheManager extends BaseStorageManager<CacheStorage> {
     const serializedMap: Record<string, Any> = {};
     for (const key in map) {
       if (Object.prototype.hasOwnProperty.call(map, key)) {
-        serializedMap[key] = map[key].toJSON();
+        serializedMap[key] = TimeBasedCache.toJSON(map[key]);
       }
     }
     return serializedMap;
@@ -62,7 +62,7 @@ export class CacheManager extends BaseStorageManager<CacheStorage> {
     const cached = data[key] as TimeBasedCache<T>;
     if (cached && !cached.isExpired) {
       this.logger.info(`Cache hit for ${key}`);
-      this.logger.debug(`Cache value: ${cached.value}`);
+      this.logger.debug("Cache value:", cached.value);
       return cached.value;
     }
 

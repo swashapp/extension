@@ -92,7 +92,7 @@ export class MessageManager extends BaseDatabase {
 
   public async removeOlderThan(time: number): Promise<void> {
     try {
-      await this.connection.remove({
+      const count = await this.connection.remove({
         from: "messages",
         where: {
           timestamp: {
@@ -100,7 +100,7 @@ export class MessageManager extends BaseDatabase {
           },
         },
       });
-      this.logger.debug("Removed messages older than", time);
+      this.logger.debug(`Removed ${count} messages older than`, time);
     } catch (error) {
       this.logger.error(
         "Error removing messages older than specified time",

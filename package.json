@@ -1,6 +1,6 @@
 {
   "name": "swash-extension",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "type": "module",
   "repository": {
     "url": "https://github.com/swashapp/extension.git"
@@ -10,8 +10,8 @@
     "clean:deep": "shx rm -rf dist node_modules/.vite",
     "bundle:dev": "vite dev",
     "bundle:prod": "vite build",
-    "build:firefox:dev": "cross-env TARGET=firefox MANIFEST_VERSION=v2 run-s clean:deep bundle:dev",
-    "build:firefox:prod": "cross-env TARGET=firefox MANIFEST_VERSION=v2 run-s clean:deep bundle:prod",
+    "build:firefox:dev": "cross-env TARGET=firefox MANIFEST_VERSION=v3 run-s clean:deep bundle:dev",
+    "build:firefox:prod": "cross-env TARGET=firefox MANIFEST_VERSION=v3 run-s clean:deep bundle:prod",
     "build:chrome:dev": "cross-env TARGET=chrome MANIFEST_VERSION=v3 run-s clean:deep bundle:dev",
     "build:chrome:prod": "cross-env TARGET=chrome MANIFEST_VERSION=v3 run-s clean:deep bundle:prod",
     "build:dev": "run-s build:chrome:dev",

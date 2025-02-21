@@ -46,8 +46,8 @@ export class AdsHandler extends BaseModuleHandler<ModuleHandler.ADS> {
       await this.checkAndRedirectNewTab(tab);
   }
 
-  protected async addScriptsListener() {
-    await super.addScriptsListener();
+  protected override async registerContentScript() {
+    await super.registerContentScript();
 
     if (!tabs.onCreated.hasListener(this.checkAndRedirectNewTab))
       tabs.onCreated.addListener(this.checkAndRedirectNewTab);
@@ -55,8 +55,8 @@ export class AdsHandler extends BaseModuleHandler<ModuleHandler.ADS> {
       tabs.onUpdated.addListener(this.handleTabUpdated);
   }
 
-  protected async removeScriptsListener() {
-    await super.removeScriptsListener();
+  protected override async unregisterContentScript() {
+    await super.unregisterContentScript();
 
     if (tabs.onCreated.hasListener(this.checkAndRedirectNewTab))
       tabs.onCreated.removeListener(this.checkAndRedirectNewTab);
@@ -65,11 +65,11 @@ export class AdsHandler extends BaseModuleHandler<ModuleHandler.ADS> {
   }
 
   public async load() {
-    await this.addScriptsListener();
+    await this.registerContentScript();
   }
 
   public async unload() {
-    await this.removeScriptsListener();
+    await this.unregisterContentScript();
   }
 
   public async getModules(url: string) {
