@@ -36,6 +36,27 @@ export const MessageTables = [
       },
     },
   },
+  {
+    name: "daily_stats",
+    primaryKey: {
+      keyPath: ["day", "module"],
+      autoIncrement: false,
+    },
+    columns: {
+      day: {
+        notNull: true,
+        dataType: DATA_TYPE.String,
+      },
+      module: {
+        notNull: true,
+        dataType: DATA_TYPE.String,
+      },
+      count: {
+        notNull: true,
+        dataType: DATA_TYPE.Number,
+      },
+    },
+  },
 ];
 
 export const ImageTables = [
