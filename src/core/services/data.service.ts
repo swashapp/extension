@@ -24,6 +24,20 @@ export class DataService {
     protected managers: Managers,
     protected user: UserService,
   ) {
+    this.init = this.init.bind(this);
+    this.onActiveChange = this.onActiveChange.bind(this);
+    this.sendDelayed = this.sendDelayed.bind(this);
+
+    this.init();
+    this.managers.coordinator.subscribe("isOutOfDate", (value, oldValue) => {
+      if (value !== oldValue && !value) this.init();
+    });
+
+    this.onActiveChange(this.managers.coordinator.get("isActive"));
+    this.managers.coordinator.subscribe("isActive", this.onActiveChange);
+  }
+
+  private init() {
     for (const key of Object.values(StreamCategory)) {
       this.streams[key] = new StreamService(
         this.managers.configs.get("apis").streams[
@@ -34,12 +48,6 @@ export class DataService {
       );
       this.logger.info(`Initialization completed for ${key} stream`);
     }
-
-    this.onActiveChange = this.onActiveChange.bind(this);
-    this.sendDelayed = this.sendDelayed.bind(this);
-
-    this.onActiveChange(this.managers.coordinator.get("isActive"));
-    this.managers.coordinator.subscribe("isActive", this.onActiveChange);
   }
 
   public async collect(collected: CollectedMessage): Promise<void> {

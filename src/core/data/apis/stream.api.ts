@@ -3,7 +3,7 @@ import { StreamCategoryLowered } from "@/enums/stream.enum";
 import { STREAM_GATEWAY } from "@/paths";
 import { StreamsServicesConfiguration } from "@/types/storage/configuration.type";
 
-const Base = {
+const base = {
   base: STREAM_GATEWAY,
   timeout: 30000,
 
@@ -14,18 +14,56 @@ const Base = {
       ttl: 540000,
     },
   },
-  publish: {
-    method: RequestMethod.POST,
-    path: "/extension/v1/auth/publish",
-  },
 };
 
 export const StreamApi: StreamsServicesConfiguration = {
-  [StreamCategoryLowered.BEAUTY]: Base,
-  [StreamCategoryLowered.GENERAL]: Base,
-  [StreamCategoryLowered.MUSIC]: Base,
-  [StreamCategoryLowered.NEWS]: Base,
-  [StreamCategoryLowered.SEARCH]: Base,
-  [StreamCategoryLowered.SHOPPING]: Base,
-  [StreamCategoryLowered.SOCIAL]: Base,
+  [StreamCategoryLowered.BEAUTY]: {
+    ...base,
+    publish: {
+      method: RequestMethod.POST,
+      path: `/extension/v1/auth/publish/${StreamCategoryLowered.BEAUTY}`,
+    },
+  },
+  [StreamCategoryLowered.GENERAL]: {
+    ...base,
+    publish: {
+      method: RequestMethod.POST,
+      path: `/extension/v1/auth/publish/${StreamCategoryLowered.GENERAL}`,
+    },
+  },
+  [StreamCategoryLowered.MUSIC]: {
+    ...base,
+    publish: {
+      method: RequestMethod.POST,
+      path: `/extension/v1/auth/publish/${StreamCategoryLowered.MUSIC}`,
+    },
+  },
+  [StreamCategoryLowered.NEWS]: {
+    ...base,
+    publish: {
+      method: RequestMethod.POST,
+      path: `/extension/v1/auth/publish/${StreamCategoryLowered.NEWS}`,
+    },
+  },
+  [StreamCategoryLowered.SEARCH]: {
+    ...base,
+    publish: {
+      method: RequestMethod.POST,
+      path: `/extension/v1/auth/publish/${StreamCategoryLowered.SEARCH}`,
+    },
+  },
+  [StreamCategoryLowered.SHOPPING]: {
+    ...base,
+    publish: {
+      method: RequestMethod.POST,
+      path: `/extension/v1/auth/publish/${StreamCategoryLowered.SHOPPING}`,
+    },
+  },
+  [StreamCategoryLowered.SOCIAL]: {
+    ...base,
+    publish: {
+      method: RequestMethod.POST,
+      path: `/extension/v1/auth/publish/${StreamCategoryLowered.SOCIAL}`,
+    },
+  },
 };
