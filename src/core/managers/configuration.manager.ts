@@ -73,7 +73,7 @@ export class ConfigurationManager extends BaseStorageManager<ConfigurationStorag
         }
 
         if (BigInt(data.version) > BigInt(update.last_revision)) {
-          update.last_revision = data.version;
+          update.last_revision = `${data.version}`;
           await this.set("update", update);
           this.logger.debug("Stored updated last_revision");
         } else {
