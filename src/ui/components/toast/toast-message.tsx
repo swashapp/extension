@@ -18,8 +18,14 @@ const Messages = {
   },
 };
 
-export function toastMessage(type: keyof typeof Messages, content: string) {
-  return toast(
+function Message({
+  type,
+  content,
+}: {
+  type: keyof typeof Messages;
+  content: string;
+}) {
+  return (
     <div
       className={clsx(
         "flex align-center justify-between gap12",
@@ -28,7 +34,7 @@ export function toastMessage(type: keyof typeof Messages, content: string) {
     >
       <div className={"flex col"}>
         <p className={clsx("bold", styles.title)}>{Messages[type].title}</p>
-        <p className={clsx("small", styles.text)}>{formatSentences(content)}</p>
+        <p className={clsx("small", styles.text)}>{content}</p>
       </div>
       <img
         width={32}
@@ -36,6 +42,19 @@ export function toastMessage(type: keyof typeof Messages, content: string) {
         src={Messages[type].icon}
         alt={Messages[type].title}
       />
-    </div>,
+    </div>
   );
+}
+
+export function toastMessage(type: keyof typeof Messages, content: string) {
+  const errors = content.split("\n");
+
+  errors.forEach((error, index) => {
+    toast(
+      <Message
+        type={type}
+        content={index === 0 ? formatSentences(error) : error}
+      />,
+    );
+  });
 }
