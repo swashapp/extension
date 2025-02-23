@@ -37,11 +37,12 @@ export class ImageManager extends BaseDatabase {
       }
       const data: UnsplashImage[] = await response.json();
       this.logger.debug(`Fetched ${data.length} images from Unsplash`);
-      const imageRecords: ImageRecord[] = await Promise.all(
+
+      const results = await Promise.allSettled(
         data.map(async (img) => {
           this.logger.debug("Processing an image record");
           const url = new URL(img.urls.raw);
-          for (const key in image) url.searchParams.append(key, image[key]);
+          url.search = new URLSearchParams(image).toString();
           const blob = await this.fetchImageBlob(url.toString());
           const base64data = await this.blobToBase64(blob);
           return {
@@ -55,8 +56,22 @@ export class ImageManager extends BaseDatabase {
           };
         }),
       );
-      await this.saveImages(imageRecords);
-      this.logger.info(`Fetched and stored ${imageRecords.length} new images`);
+
+      const imageRecords = results
+        .filter(
+          (result): result is PromiseFulfilledResult<ImageRecord> =>
+            result.status === "fulfilled",
+        )
+        .map((result) => result.value);
+
+      if (imageRecords.length === 0) {
+        this.logger.error("No images were successfully fetched");
+      } else {
+        await this.saveImages(imageRecords);
+        this.logger.info(
+          `Fetched and stored ${imageRecords.length} new images`,
+        );
+      }
     } catch (error) {
       this.logger.error("Error fetching and storing images", error);
     }
