@@ -6,6 +6,7 @@ import { ImageRecord } from "@/types/image.type";
 
 export class ImageManager extends BaseDatabase {
   private static instance: ImageManager;
+  private inMemoryImages: ImageRecord[] = [];
 
   private constructor(private configs: ConfigurationManager) {
     super({
@@ -25,12 +26,15 @@ export class ImageManager extends BaseDatabase {
     return ImageManager.instance;
   }
 
-  public async fetchAndStoreImages(): Promise<void> {
+  public async fetchAndStoreImages(fresh: boolean = false): Promise<void> {
     const { endpoint, image } = this.configs.get("unsplash");
+
+    const url = new URL(endpoint);
+    if (fresh) url.searchParams.set("count", "1");
 
     try {
       this.logger.debug("Start fetching images from Unsplash");
-      const response = await fetch(endpoint);
+      const response = await fetch(url.toString());
       if (!response.ok) {
         this.logger.error("Failed to fetch images from Unsplash");
         throw new Error("Error fetching images from Unsplash");
@@ -45,7 +49,7 @@ export class ImageManager extends BaseDatabase {
           url.search = new URLSearchParams(image).toString();
           const blob = await this.fetchImageBlob(url.toString());
           const base64data = await this.blobToBase64(blob);
-          return {
+          return this.saveImage({
             url: url.toString(),
             blob: base64data as string,
             copyright: {
@@ -53,25 +57,14 @@ export class ImageManager extends BaseDatabase {
               profile: img.user.links.html,
               link: img.links.html,
             },
-          };
+          });
         }),
       );
 
-      const imageRecords = results
-        .filter(
-          (result): result is PromiseFulfilledResult<ImageRecord> =>
-            result.status === "fulfilled",
-        )
-        .map((result) => result.value);
-
-      if (imageRecords.length === 0) {
-        this.logger.error("No images were successfully fetched");
-      } else {
-        await this.saveImages(imageRecords);
-        this.logger.info(
-          `Fetched and stored ${imageRecords.length} new images`,
-        );
-      }
+      const records = results.filter((result) => result.status === "fulfilled");
+      if (records.length === 0)
+        this.logger.error("No images were successfully fetched and stored");
+      else this.logger.info(`Fetched and stored ${records.length} new images`);
     } catch (error) {
       this.logger.error("Error fetching and storing images", error);
     }
@@ -79,29 +72,39 @@ export class ImageManager extends BaseDatabase {
 
   public async getImageForDisplay(): Promise<ImageRecord | undefined> {
     const { threshold } = this.configs.get("unsplash");
-    try {
-      const images: ImageRecord[] = await this.connection.select({
-        from: "images",
-      });
-      if (images.length === 0) {
+
+    if (this.inMemoryImages.length === 0) {
+      await this.loadToMemory(threshold);
+
+      if (this.inMemoryImages.length === 0) {
         this.logger.debug("No images found in database, fetching new images");
-        await this.fetchAndStoreImages();
-        return;
+        await this.fetchAndStoreImages(true);
+        await this.loadToMemory(threshold);
       }
-      const image = images[0];
-      this.logger.debug("Image selected for display");
-      await this.removeImage(image.url);
-      if (images.length - 1 < threshold) {
-        this.logger.debug(
-          "Image count below threshold, triggering background fetch",
-        );
-        this.fetchAndStoreImages().then();
-      }
-      return image;
-    } catch (error) {
-      this.logger.error("Error getting image for display", error);
-      return;
     }
+
+    const image = this.inMemoryImages.shift();
+    if (!image) return;
+
+    this.logger.debug("Image selected for display");
+    this.removeImage(image.url)
+      .then(async () => {
+        try {
+          if ((await this.getCount()) < threshold) {
+            this.logger.debug(
+              "Image count below threshold, triggering background fetch",
+            );
+            await this.fetchAndStoreImages();
+          }
+          if (this.inMemoryImages.length < Math.floor(threshold / 2))
+            await this.loadToMemory(threshold);
+        } catch (error) {
+          this.logger.error("Error fetching images", error);
+        }
+      })
+      .catch((err) => this.logger.error("Error removing image", err));
+
+    return image;
   }
 
   private blobToBase64(blob: Blob): Promise<string | ArrayBuffer | null> {
@@ -121,18 +124,18 @@ export class ImageManager extends BaseDatabase {
       throw new Error(`Error fetching Blob for image: ${url}`);
     }
     this.logger.debug("Image blob fetched successfully");
-    return await response.blob();
+    return response.blob();
   }
 
-  private async saveImages(images: ImageRecord[]): Promise<void> {
+  private async saveImage(image: ImageRecord): Promise<void> {
     try {
       await this.connection.insert({
         into: "images",
-        values: images,
+        values: [image],
       });
-      this.logger.info(`${images.length} images saved`);
+      this.logger.info(`Image saved: ${image.url}`);
     } catch (error) {
-      this.logger.error("Error saving images", error);
+      this.logger.error("Error saving image", error);
     }
   }
 
@@ -146,5 +149,18 @@ export class ImageManager extends BaseDatabase {
     } catch (error) {
       this.logger.error("Error removing image", error);
     }
+  }
+
+  private async getCount(): Promise<number> {
+    return this.connection.count({
+      from: "images",
+    });
+  }
+
+  private async loadToMemory(limit: number): Promise<void> {
+    this.inMemoryImages = await this.connection.select<ImageRecord>({
+      from: "images",
+      limit,
+    });
   }
 }

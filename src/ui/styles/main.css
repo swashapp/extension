@@ -199,6 +199,10 @@ a:hover {
   color: var(--color-black);
 }
 
+a:focus-visible {
+  outline: none;
+}
+
 hr {
   display: block;
   height: 1px;
