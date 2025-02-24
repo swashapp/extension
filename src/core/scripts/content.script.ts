@@ -10,9 +10,9 @@ import {
   EventCollectorEvent,
 } from "@/types/handler/content.type";
 import { CollectorBase, InMemoryModules } from "@/types/handler/module.type";
-import { isEmpty } from "@/utils/common.util";
 import { Logger } from "@/utils/log.util";
 import { createMessageHeader } from "@/utils/message.util";
+import { isEmpty } from "@/utils/object.util";
 
 const ContentScript = (() => {
   const callbacks: Record<string, Any> = {};
