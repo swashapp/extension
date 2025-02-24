@@ -2,16 +2,26 @@ import { storage } from "webextension-polyfill";
 
 import { Any } from "@/types/any.type";
 import { Logger } from "@/utils/log.util";
-
-function copy<T>(value: T): T {
-  return JSON.parse(JSON.stringify(value));
-}
+import { copy } from "@/utils/object.util";
 
 export abstract class BaseStorageManager<T> {
-  private cache!: T;
+  private _cache!: T;
   private readonly name: string;
   private readonly initialData: T;
   protected readonly logger = new Logger(this.constructor.name);
+
+  private set cache(value: T) {
+    this._cache = this.deserialize(copy(value));
+  }
+
+  private get cache(): T {
+    return this.deserialize(copy(this._cache));
+  }
+
+  private async write(data: T) {
+    await storage.local.set({ [this.name]: this.serialize(data) });
+    this.cache = data;
+  }
 
   protected constructor(value: T) {
     this.name = this.constructor.name.replace("Manager", "").toLowerCase();
@@ -35,27 +45,28 @@ export abstract class BaseStorageManager<T> {
 
   protected async create(value: T): Promise<void> {
     this.logger.debug(`Fetch local storage data`);
-    const storedData = await storage.local.get(this.name);
-    if (!(this.name in storedData)) {
+    const local = await storage.local.get(this.name);
+    if (!(this.name in local)) {
       this.logger.info(`No storage record, creating new record`);
       await this.setAll(value);
       this.logger.info("Storage record created");
     } else {
       this.logger.info(`Storage record exists, loading data`);
-      const serializedData = storedData[this.name];
-      this.cache = this.deserialize(serializedData);
+      this.cache = local[this.name];
     }
   }
 
   public get<K extends keyof T>(
     key?: T extends string ? undefined : K,
   ): T extends string ? T : T[K] {
-    if (typeof this.cache === "string") return this.cache as Any;
-    return copy(this.cache[key as K] as T extends string ? T : T[K]);
+    const data = this.cache;
+
+    if (typeof data === "string") return data as Any;
+    return data[key as K] as T extends string ? T : T[K];
   }
 
   public getAll(): T {
-    return copy(this.cache);
+    return this.cache;
   }
 
   public async set<K extends keyof T>(
@@ -64,22 +75,16 @@ export abstract class BaseStorageManager<T> {
   ): Promise<void> {
     if (typeof this.cache === "string") {
       this.logger.debug("Update record");
-      const data = copy(keyOrValue as T);
-      await storage.local.set({ [this.name]: this.serialize(data) });
-      this.cache = data;
+      await this.write(keyOrValue as T);
     } else {
       if (value === undefined || value === null) return;
       this.logger.debug(`Update record at key ${String(keyOrValue)}`);
-      const data = copy({ ...this.cache, [keyOrValue as K]: value });
-      await storage.local.set({ [this.name]: this.serialize(data) });
-      this.cache = this.deserialize(data);
+      await this.write({ ...this.cache, [keyOrValue as K]: value });
     }
   }
 
   public async setAll(value?: T): Promise<void> {
     if (value === undefined || value === null) return;
-    const data = copy(value);
-    await storage.local.set({ [this.name]: this.serialize(data) });
-    this.cache = this.deserialize(data);
+    await this.write(value);
   }
 }
