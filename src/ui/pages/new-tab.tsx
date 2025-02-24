@@ -231,7 +231,7 @@ function App(): ReactNode {
   }, [onSiteAdd, onSiteRemove, sites]);
 
   const customStyles = useMemo(() => {
-    if (background === "unsplash") {
+    if (background === "unsplash" && image) {
       return {
         backgroundImage: `url("${image?.blob}")`,
       };
