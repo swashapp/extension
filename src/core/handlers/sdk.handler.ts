@@ -23,15 +23,15 @@ export class SdkHandler extends BaseScriptHandler {
     this.openPopupPage = this.openPopupPage.bind(this);
   }
 
-  async load() {
+  public async load() {
     await this.addScriptsListener();
   }
 
-  async unload() {
+  public async unload() {
     await this.removeScriptsListener();
   }
 
-  async getVersion() {
+  public async getVersion() {
     const info = await getSystemInfo();
     return {
       device: DeviceType.EXTENSION,
@@ -41,11 +41,11 @@ export class SdkHandler extends BaseScriptHandler {
     };
   }
 
-  async openProfilePage() {
+  public async openProfilePage() {
     await openInNewTab(getExtensionURL(INTERNAL_PATHS.profile));
   }
 
-  async openPopupPage() {
+  public async openPopupPage() {
     if (this.popupFlag) {
       this.popupFlag = false;
       const url = getExtensionURL("/ui/popup.html");

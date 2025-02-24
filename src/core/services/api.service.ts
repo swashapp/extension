@@ -91,12 +91,12 @@ export class ApiService {
     else return response;
   }
 
-  async fetch<I, O>(
+  public async fetch<I, O>(
     request: CacheableRequest<I>,
     transformer: (response: Response) => Promise<O>,
   ): Promise<O>;
-  async fetch<I>(request: CacheableRequest<I>): Promise<Response>;
-  async fetch<I, O>(
+  public async fetch<I>(request: CacheableRequest<I>): Promise<Response>;
+  public async fetch<I, O>(
     request: CacheableRequest<I>,
     transformer?: (response: Response) => O,
   ): Promise<O | Response> {

@@ -13,16 +13,6 @@ export class CacheManager extends BaseStorageManager<CacheStorage> {
     super(InitialCache);
   }
 
-  public static async getInstance(
-    coordinator: AppCoordinator,
-  ): Promise<CacheManager> {
-    if (!CacheManager.instance) {
-      CacheManager.instance = new CacheManager(coordinator);
-      await CacheManager.instance.init();
-    }
-    return CacheManager.instance;
-  }
-
   protected serialize(cache: CacheStorage): Any {
     return {
       ...cache,
@@ -81,6 +71,16 @@ export class CacheManager extends BaseStorageManager<CacheStorage> {
     this.logger.debug(`New value: ${value}`);
     await this.setData(key, value, options);
     return value;
+  }
+
+  public static async getInstance(
+    coordinator: AppCoordinator,
+  ): Promise<CacheManager> {
+    if (!CacheManager.instance) {
+      CacheManager.instance = new CacheManager(coordinator);
+      await CacheManager.instance.init();
+    }
+    return CacheManager.instance;
   }
 
   public getData<K extends keyof CacheStorage["data"]>(

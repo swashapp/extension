@@ -23,7 +23,7 @@ export class GoogleDriveService extends BaseCloudService {
     });
   }
 
-  async list(size = 1000) {
+  public async list(size = 1000) {
     this.logger.debug("Listing files from Google Drive");
     const response = await this.api.fetch({
       method: RequestMethod.GET,
@@ -47,7 +47,7 @@ export class GoogleDriveService extends BaseCloudService {
     return files;
   }
 
-  async upload(file: File) {
+  public async upload(file: File) {
     this.logger.debug(`Uploading file ${file.name} to Google Drive`);
     const body = new FormData();
     body.append(
@@ -74,7 +74,7 @@ export class GoogleDriveService extends BaseCloudService {
     return result;
   }
 
-  async download(file: string): Promise<Blob> {
+  public async download(file: string): Promise<Blob> {
     this.logger.debug(`Downloading file ${file} from Google Drive`);
     const response = await this.api.fetch({
       method: RequestMethod.GET,

@@ -17,17 +17,6 @@ export class ConfigurationManager extends BaseStorageManager<ConfigurationStorag
     super(InitialConfiguration);
   }
 
-  public static async getInstance(
-    coordinator: AppCoordinator,
-  ): Promise<ConfigurationManager> {
-    if (!ConfigurationManager.instance) {
-      ConfigurationManager.instance = new ConfigurationManager(coordinator);
-      await ConfigurationManager.instance.init();
-      ConfigurationManager.instance.setupUpdaterJob();
-    }
-    return ConfigurationManager.instance;
-  }
-
   public override async init() {
     await super.init();
     await this.update(InitialConfiguration);
@@ -88,6 +77,17 @@ export class ConfigurationManager extends BaseStorageManager<ConfigurationStorag
         this.logger.error("Configuration update failed", error);
       }
     }, interval);
+  }
+
+  public static async getInstance(
+    coordinator: AppCoordinator,
+  ): Promise<ConfigurationManager> {
+    if (!ConfigurationManager.instance) {
+      ConfigurationManager.instance = new ConfigurationManager(coordinator);
+      await ConfigurationManager.instance.init();
+      ConfigurationManager.instance.setupUpdaterJob();
+    }
+    return ConfigurationManager.instance;
   }
 
   public setUpdater(

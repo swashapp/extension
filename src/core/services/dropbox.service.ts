@@ -28,7 +28,7 @@ export class DropboxService extends BaseCloudService {
     });
   }
 
-  async list(size = 1000) {
+  public async list(size = 1000) {
     this.logger.debug("Listing files from Dropbox");
     const response = await this.api.fetch({
       method: RequestMethod.POST,
@@ -53,7 +53,7 @@ export class DropboxService extends BaseCloudService {
     }));
   }
 
-  async upload(file: File) {
+  public async upload(file: File) {
     this.logger.debug(`Uploading file ${file.name} to Dropbox`);
     const response = await this.contentApi.fetch({
       method: RequestMethod.POST,
@@ -74,7 +74,7 @@ export class DropboxService extends BaseCloudService {
     return result;
   }
 
-  async download(file: string): Promise<Blob> {
+  public async download(file: string): Promise<Blob> {
     this.logger.debug(`Downloading file ${file} from Dropbox`);
     const response = await this.contentApi.fetch({
       method: RequestMethod.POST,

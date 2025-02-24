@@ -24,29 +24,40 @@ export class DataService {
     protected managers: Managers,
     protected user: UserService,
   ) {
-    this.init = this.init.bind(this);
+    this.onOutOfDate = this.onOutOfDate.bind(this);
     this.onActiveChange = this.onActiveChange.bind(this);
     this.sendDelayed = this.sendDelayed.bind(this);
 
-    this.init();
-    this.managers.coordinator.subscribe("isOutOfDate", (value, oldValue) => {
-      if (value !== oldValue && !value) this.init();
-    });
+    const isOutOfDate = this.managers.coordinator.get("isOutOfDate");
+    this.onOutOfDate(isOutOfDate, !isOutOfDate);
+    this.managers.coordinator.subscribe("isOutOfDate", this.onOutOfDate);
 
     this.onActiveChange(this.managers.coordinator.get("isActive"));
     this.managers.coordinator.subscribe("isActive", this.onActiveChange);
   }
 
-  private init() {
-    for (const key of Object.values(StreamCategory)) {
-      this.streams[key] = new StreamService(
-        this.managers.configs.get("apis").streams[
-          key.toLowerCase() as StreamCategoryLowered
-        ],
-        this.managers.wallet,
-        this.managers.cache,
-      );
-      this.logger.info(`Initialization completed for ${key} stream`);
+  private onOutOfDate(value: boolean, oldValue: boolean): void {
+    if (value !== oldValue && !value)
+      for (const key of Object.values(StreamCategory)) {
+        this.streams[key] = new StreamService(
+          this.managers.configs.get("apis").streams[
+            key.toLowerCase() as StreamCategoryLowered
+          ],
+          this.managers.wallet,
+          this.managers.cache,
+        );
+        this.logger.info(`Initialization completed for ${key} stream`);
+      }
+  }
+
+  private onActiveChange(value: boolean): void {
+    clearInterval(this.sendInterval);
+    this.logger.debug("Cleared send interval");
+    if (value) {
+      this.sendInterval = setInterval(this.sendDelayed, 1000);
+      this.logger.info("Send interval started");
+    } else {
+      this.logger.info("Send interval stopped");
     }
   }
 
@@ -109,17 +120,6 @@ export class DataService {
       this.logger.info("Message published to stream");
       await this.managers.message.increment(message.header.module);
       this.logger.debug("Message count incremented");
-    }
-  }
-
-  private onActiveChange(value: boolean): void {
-    clearInterval(this.sendInterval);
-    this.logger.debug("Cleared send interval");
-    if (value) {
-      this.sendInterval = setInterval(this.sendDelayed, 1000);
-      this.logger.info("Send interval started");
-    } else {
-      this.logger.info("Send interval stopped");
     }
   }
 

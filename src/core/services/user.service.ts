@@ -74,7 +74,8 @@ export class UserService extends BaseSwashService<UserServicesConfiguration> {
     this.getAppConfig = this.getAppConfig.bind(this);
 
     coordinator.subscribe("isOutOfDate", (value, oldValue) => {
-      if (value !== oldValue && !value) this.conf = configs.get("apis").user;
+      if (value !== oldValue && !value)
+        this.updateConfig(configs.get("apis").user);
     });
   }
 

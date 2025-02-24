@@ -181,9 +181,7 @@ export abstract class BaseCloudService {
     };
   }
 
-  abstract list(size?: number): Promise<OnlineFile[]>;
-
-  abstract upload(file: File): Promise<void>;
-
-  abstract download(file: string): Promise<Blob>;
+  public abstract list(size?: number): Promise<OnlineFile[]>;
+  public abstract upload(file: File): Promise<void>;
+  public abstract download(file: string): Promise<Blob>;
 }

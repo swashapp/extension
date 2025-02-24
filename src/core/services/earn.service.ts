@@ -19,7 +19,8 @@ export class EarnService extends BaseSwashService<EarnServicesConfiguration> {
     super(configs.get("apis").earn, wallet, cache);
 
     coordinator.subscribe("isOutOfDate", (value, oldValue) => {
-      if (value !== oldValue && !value) this.conf = configs.get("apis").earn;
+      if (value !== oldValue && !value)
+        this.updateConfig(configs.get("apis").earn);
     });
   }
 
