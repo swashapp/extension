@@ -311,7 +311,7 @@ function App(): ReactNode {
             />
           </div>
           <div className={"pointer"}>
-            <img src={"/images/icon/line.svg"} alt={""} />
+            <img src={"/images/icons/line.svg"} alt={""} />
           </div>
           <div
             className={clsx("flex align-center gap12", styles.customize)}

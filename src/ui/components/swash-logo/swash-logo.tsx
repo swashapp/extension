@@ -22,7 +22,7 @@ export function SwashLogo({
 
   return (
     <div className={"flex align-center gap8"}>
-      <Link url={WEBSITE_URLs.home} external className={className}>
+      <Link url={WEBSITE_URLs.home} external newTab className={className}>
         <img className={styles.logo} src={logo} alt={"Swash"} />
       </Link>
       <p className={clsx("small bold", styles.version)}>{getAppVersion()}.</p>
