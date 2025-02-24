@@ -34,19 +34,20 @@ export class PageService {
     }
     this.logger.info("Permanent handlers launched");
 
-    if (this.managers.coordinator.get("isActive"))
-      this.onActiveChange(true).then();
-    this.managers.coordinator.subscribe("isActive", this.onActiveChange);
-
     this.managers.coordinator.subscribe(
       "isOutOfDate",
       async (value, oldValue) => {
         if (value !== oldValue && !value) {
+          this.logger.info("Updating configuration");
           await this.shutdown();
           await this.launch();
+          this.logger.info("Configuration updated");
         }
       },
     );
+
+    this.onActiveChange(this.managers.coordinator.get("isActive")).then();
+    this.managers.coordinator.subscribe("isActive", this.onActiveChange);
 
     this.logger.info("Initialization completed");
 

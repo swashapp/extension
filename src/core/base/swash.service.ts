@@ -11,7 +11,7 @@ import { Logger } from "@/utils/log.util";
 import { swashResponseTransformer } from "@/utils/transformer.util";
 
 export abstract class BaseSwashService<T extends SwashServiceConfiguration> {
-  protected readonly api: ApiService;
+  protected api!: ApiService;
   protected readonly logger = new Logger(this.constructor.name);
 
   protected constructor(
@@ -20,18 +20,29 @@ export abstract class BaseSwashService<T extends SwashServiceConfiguration> {
     protected cache: CacheManager,
   ) {
     this.logger.info("Start initialization");
+    this.init();
+    this.logger.info("Initialization completed");
+  }
+
+  private init() {
     this.api = new ApiService(
-      conf.base,
+      this.conf.base,
       {
         headers: {
           "Content-Type": "application/json",
           "Swash-Extension": `v${getAppVersion()}`,
         },
-        timeout: conf.timeout,
+        timeout: this.conf.timeout,
       },
       this.cache,
     );
-    this.logger.info("Initialization completed");
+  }
+
+  protected updateConfig(config: T) {
+    this.logger.info("Updating configuration");
+    this.conf = config;
+    this.init();
+    this.logger.info("Configuration updated");
   }
 
   protected tokenToString(type: AcceptedAuth, token: string): string {
@@ -40,13 +51,6 @@ export abstract class BaseSwashService<T extends SwashServiceConfiguration> {
 
   protected async fetch<I, O>(request: CacheableRequest<I>) {
     return this.api.fetch<I, O>(request, swashResponseTransformer);
-  }
-
-  public async getServerTimestamp() {
-    const result = await this.fetch<void, GatewaySyncType>({
-      ...this.conf.sync,
-    });
-    return result.timestamp;
   }
 
   protected async generateToken<T extends AcceptedAuth>(
@@ -74,5 +78,12 @@ export abstract class BaseSwashService<T extends SwashServiceConfiguration> {
     }
 
     return this.tokenToString(type, token || "");
+  }
+
+  public async getServerTimestamp() {
+    const result = await this.fetch<void, GatewaySyncType>({
+      ...this.conf.sync,
+    });
+    return result.timestamp;
   }
 }

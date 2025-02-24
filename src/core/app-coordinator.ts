@@ -26,14 +26,6 @@ export class AppCoordinator extends BaseStorageManager<AppStates> {
     });
   }
 
-  public static async getInstance(): Promise<AppCoordinator> {
-    if (!this.instance) {
-      this.instance = new AppCoordinator();
-      await this.instance.init();
-    }
-    return this.instance;
-  }
-
   private notify<K extends keyof AppStates>(
     key: K,
     value: AppStates[K],
@@ -45,6 +37,14 @@ export class AppCoordinator extends BaseStorageManager<AppStates> {
         this.logger.debug(`Notifying ${key} observer`, observer);
         observer(value, oldValue);
       });
+  }
+
+  public static async getInstance(): Promise<AppCoordinator> {
+    if (!this.instance) {
+      this.instance = new AppCoordinator();
+      await this.instance.init();
+    }
+    return this.instance;
   }
 
   public subscribe<K extends keyof AppStates>(

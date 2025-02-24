@@ -16,11 +16,26 @@ async function transformer<T>(response: Response): Promise<T> {
 }
 
 export class AdsService {
-  private readonly api: ApiService;
-  private readonly service: AdsServicesConfiguration;
+  private api!: ApiService;
+  private service!: AdsServicesConfiguration;
   private readonly logger = new Logger(this.constructor.name);
 
   constructor(protected manager: Managers) {
+    this.logger.info("Start initialization");
+    this.updateConfig();
+
+    manager.coordinator.subscribe("isOutOfDate", (value, oldValue) => {
+      if (value !== oldValue && !value) {
+        this.logger.info("Updating configuration");
+        this.updateConfig();
+        this.logger.info("Configuration updated");
+      }
+    });
+
+    this.logger.info("Initialization completed");
+  }
+
+  private updateConfig() {
     this.service = this.manager.configs.get("apis").ads;
     this.api = new ApiService(
       this.service.base,
@@ -32,7 +47,6 @@ export class AdsService {
       },
       this.manager.cache,
     );
-    this.logger.info("Initialization completed");
   }
 
   private async register() {

@@ -8,6 +8,14 @@ import { FilterStorage, PrivacyStorage } from "@/types/storage/privacy.type";
 import { getExtensionURL, setBrowserIcon } from "@/utils/browser.util";
 import { match } from "@/utils/filter.util";
 
+function createFilter(url: string): FilterStorage {
+  return {
+    value: `*://${new URL(url).host}/*`,
+    type: MatchType.Wildcard,
+    immutable: false,
+  };
+}
+
 export class PrivacyManager extends BaseStorageManager<PrivacyStorage> {
   private static instance: PrivacyManager;
 
@@ -19,16 +27,6 @@ export class PrivacyManager extends BaseStorageManager<PrivacyStorage> {
     this.onActiveChange = this.onActiveChange.bind(this);
     this.onTabUpdate = this.onTabUpdate.bind(this);
     this.onTabActivate = this.onTabActivate.bind(this);
-  }
-
-  public static async getInstance(
-    coordinator: AppCoordinator,
-  ): Promise<PrivacyManager> {
-    if (!PrivacyManager.instance) {
-      PrivacyManager.instance = new PrivacyManager(coordinator);
-      await PrivacyManager.instance.init();
-    }
-    return PrivacyManager.instance;
   }
 
   private updateAppIcon(url?: string) {
@@ -81,23 +79,26 @@ export class PrivacyManager extends BaseStorageManager<PrivacyStorage> {
       tabs.onUpdated.addListener(this.onTabUpdate);
       this.logger.debug("Added tab update listener");
     }
+
     if (!tabs.onActivated.hasListener(this.onTabActivate)) {
       tabs.onActivated.addListener(this.onTabActivate);
       this.logger.debug("Added tab activation listener");
     }
+
     const activeTabs = await tabs.query({ active: true, currentWindow: true });
     const activeUrl = activeTabs?.[0]?.url;
     this.updateAppIcon(activeUrl);
     this.logger.info("Initialization completed");
   }
 
-  private createFilter(url: string): FilterStorage {
-    this.logger.debug("Creating filter from url");
-    return {
-      value: `*://${new URL(url).host}/*`,
-      type: MatchType.Wildcard,
-      immutable: false,
-    };
+  public static async getInstance(
+    coordinator: AppCoordinator,
+  ): Promise<PrivacyManager> {
+    if (!PrivacyManager.instance) {
+      PrivacyManager.instance = new PrivacyManager(coordinator);
+      await PrivacyManager.instance.init();
+    }
+    return PrivacyManager.instance;
   }
 
   public getFilters(): string[] {
@@ -109,7 +110,7 @@ export class PrivacyManager extends BaseStorageManager<PrivacyStorage> {
 
   public async addFilter(url: string): Promise<void> {
     this.logger.debug("Adding filter");
-    const filter = this.createFilter(url);
+    const filter = createFilter(url);
     const exists = this.get("filters").some((fl) => fl.value === filter.value);
 
     if (!exists) {
@@ -122,7 +123,7 @@ export class PrivacyManager extends BaseStorageManager<PrivacyStorage> {
 
   public async removeFilter(url: string) {
     this.logger.debug("Removing filter");
-    const filter = this.createFilter(url);
+    const filter = createFilter(url);
     const filters = this.get("filters").filter(
       (fl) =>
         fl.value !== filter.value ||

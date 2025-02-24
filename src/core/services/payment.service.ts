@@ -43,7 +43,8 @@ export class PaymentService extends BaseSwashService<PaymentServicesConfiguratio
     super(configs.get("apis").payment, wallet, cache);
 
     coordinator.subscribe("isOutOfDate", (value, oldValue) => {
-      if (value !== oldValue && !value) this.conf = configs.get("apis").payment;
+      if (value !== oldValue && !value)
+        this.updateConfig(configs.get("apis").payment);
     });
   }
 

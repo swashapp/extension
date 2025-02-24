@@ -28,39 +28,6 @@ export class AjaxHandler extends BaseModuleHandler<ModuleHandler.AJAX> {
     this.record = this.record.bind(this);
   }
 
-  async load() {
-    this.addTabListeners();
-
-    for (const collector of this.modules) {
-      for (const item of collector.items) {
-        if (item.hook === "webRequest") {
-          await this.handleWebRequest(collector, item);
-        }
-      }
-    }
-    await this.addScriptsListener();
-  }
-
-  async unload() {
-    for (const collector of this.modules) {
-      for (const item of collector.items) {
-        const name = `${collector.name}_${item.name}`;
-        const callback = this.callbacks[name];
-        if (callback) {
-          if (item.hook === "webRequest")
-            webRequest.onCompleted.removeListener(callback);
-          delete this.callbacks[name];
-        }
-      }
-    }
-
-    await this.removeScriptsListener();
-    this.removeTabListeners();
-
-    this.enabledCallbacks = {};
-    this.enabledTabs = {};
-  }
-
   private updateTabsStatus(tabId: number, url?: string): void {
     if (url) {
       this.enabledTabs[tabId] = Array.from(this.modules).some((collector) =>
@@ -209,6 +176,39 @@ export class AjaxHandler extends BaseModuleHandler<ModuleHandler.AJAX> {
     tabs.onUpdated.addListener((tabId, changeInfo) => {
       updateTabsStatus(tabId, changeInfo.url);
     });
+  }
+
+  public async load() {
+    this.addTabListeners();
+
+    for (const collector of this.modules) {
+      for (const item of collector.items) {
+        if (item.hook === "webRequest") {
+          await this.handleWebRequest(collector, item);
+        }
+      }
+    }
+    await this.addScriptsListener();
+  }
+
+  public async unload() {
+    for (const collector of this.modules) {
+      for (const item of collector.items) {
+        const name = `${collector.name}_${item.name}`;
+        const callback = this.callbacks[name];
+        if (callback) {
+          if (item.hook === "webRequest")
+            webRequest.onCompleted.removeListener(callback);
+          delete this.callbacks[name];
+        }
+      }
+    }
+
+    await this.removeScriptsListener();
+    this.removeTabListeners();
+
+    this.enabledCallbacks = {};
+    this.enabledTabs = {};
   }
 
   public async getModules(url: string) {

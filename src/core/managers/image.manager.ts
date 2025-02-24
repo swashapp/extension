@@ -4,6 +4,23 @@ import { ConfigurationManager } from "@/core/managers/configuration.manager";
 import { UnsplashImage } from "@/types/api/unsplash.type";
 import { ImageRecord } from "@/types/image.type";
 
+function blobToBase64(blob: Blob): Promise<string | ArrayBuffer | null> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onloadend = () => resolve(reader.result);
+    reader.onerror = reject;
+  });
+}
+
+async function fetchImageBlob(url: string): Promise<Blob> {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Error fetching Blob for image: ${url}`);
+  }
+  return response.blob();
+}
+
 export class ImageManager extends BaseDatabase {
   private static instance: ImageManager;
   private inMemoryImages: ImageRecord[] = [];
@@ -13,6 +30,43 @@ export class ImageManager extends BaseDatabase {
       name: "UnsplashImagesDB",
       version: 1,
       tables: ImageTables,
+    });
+  }
+
+  private async saveImage(image: ImageRecord): Promise<void> {
+    try {
+      await this.connection.insert({
+        into: "images",
+        values: [image],
+      });
+      this.logger.info(`Image saved: ${image.url}`);
+    } catch (error) {
+      this.logger.error("Error saving image", error);
+    }
+  }
+
+  private async removeImage(url: string): Promise<void> {
+    try {
+      await this.connection.remove({
+        from: "images",
+        where: { url },
+      });
+      this.logger.info(`Image removed: ${url}`);
+    } catch (error) {
+      this.logger.error("Error removing image", error);
+    }
+  }
+
+  private async getCount(): Promise<number> {
+    return this.connection.count({
+      from: "images",
+    });
+  }
+
+  private async loadToMemory(limit: number): Promise<void> {
+    this.inMemoryImages = await this.connection.select<ImageRecord>({
+      from: "images",
+      limit,
     });
   }
 
@@ -47,8 +101,8 @@ export class ImageManager extends BaseDatabase {
           this.logger.debug("Processing an image record");
           const url = new URL(img.urls.raw);
           url.search = new URLSearchParams(image).toString();
-          const blob = await this.fetchImageBlob(url.toString());
-          const base64data = await this.blobToBase64(blob);
+          const blob = await fetchImageBlob(url.toString());
+          const base64data = await blobToBase64(blob);
           return this.saveImage({
             url: url.toString(),
             blob: base64data as string,
@@ -105,62 +159,5 @@ export class ImageManager extends BaseDatabase {
       .catch((err) => this.logger.error("Error removing image", err));
 
     return image;
-  }
-
-  private blobToBase64(blob: Blob): Promise<string | ArrayBuffer | null> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(blob);
-      reader.onloadend = () => resolve(reader.result);
-      reader.onerror = reject;
-    });
-  }
-
-  private async fetchImageBlob(url: string): Promise<Blob> {
-    this.logger.debug("Fetching image blob");
-    const response = await fetch(url);
-    if (!response.ok) {
-      this.logger.error(`Failed to fetch blob for image: ${url}`);
-      throw new Error(`Error fetching Blob for image: ${url}`);
-    }
-    this.logger.debug("Image blob fetched successfully");
-    return response.blob();
-  }
-
-  private async saveImage(image: ImageRecord): Promise<void> {
-    try {
-      await this.connection.insert({
-        into: "images",
-        values: [image],
-      });
-      this.logger.info(`Image saved: ${image.url}`);
-    } catch (error) {
-      this.logger.error("Error saving image", error);
-    }
-  }
-
-  private async removeImage(url: string): Promise<void> {
-    try {
-      await this.connection.remove({
-        from: "images",
-        where: { url },
-      });
-      this.logger.info(`Image removed: ${url}`);
-    } catch (error) {
-      this.logger.error("Error removing image", error);
-    }
-  }
-
-  private async getCount(): Promise<number> {
-    return this.connection.count({
-      from: "images",
-    });
-  }
-
-  private async loadToMemory(limit: number): Promise<void> {
-    this.inMemoryImages = await this.connection.select<ImageRecord>({
-      from: "images",
-      limit,
-    });
   }
 }

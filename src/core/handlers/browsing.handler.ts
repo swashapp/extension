@@ -37,85 +37,6 @@ export class BrowsingHandler extends BaseModuleHandler<ModuleHandler.BROWSING> {
     super(ModuleHandler.BROWSING, onDiskModules, os);
   }
 
-  public async load(): Promise<void> {
-    for (const module of this.modules) {
-      for (const item of module.items) {
-        const hook = item.hook ?? "webRequest";
-        const key = `${module.name}_${item.name}`;
-
-        switch (hook) {
-          case "webRequest":
-            this.handleWebRequest(
-              module,
-              item as CollectorBase<WebRequestCollector>,
-              key,
-            );
-            break;
-          case "bookmarks":
-            this.handleBookmarks(
-              module,
-              item as CollectorBase<BookmarkCollector>,
-              key,
-            );
-            break;
-          case "response":
-            this.handleResponse(
-              module,
-              item as CollectorBase<ResponseCollector>,
-              key,
-            );
-            break;
-          default:
-            Logger.warn(`Unknown hook type: ${hook}`);
-        }
-      }
-    }
-  }
-
-  public async unload(): Promise<void> {
-    for (const module of this.modules) {
-      for (const item of module.items) {
-        const hook = item.hook ?? "webRequest";
-        const key = `${module.name}_${item.name}`;
-
-        if (this.callbacks[key]) {
-          switch (hook) {
-            case "webRequest":
-              if (webRequest.onBeforeRequest.hasListener(this.callbacks[key])) {
-                webRequest.onBeforeRequest.removeListener(this.callbacks[key]);
-              }
-              break;
-            case "bookmarks":
-              if (bookmarks.onCreated.hasListener(this.callbacks[key])) {
-                bookmarks.onCreated.removeListener(this.callbacks[key]);
-              }
-              break;
-            case "response":
-              if (
-                webRequest.onHeadersReceived.hasListener(this.callbacks[key])
-              ) {
-                webRequest.onHeadersReceived.removeListener(
-                  this.callbacks[key],
-                );
-              }
-              break;
-            default:
-              Logger.warn(`Unknown hook type: ${hook}`);
-          }
-          delete this.callbacks[key];
-        }
-
-        if (hook === "bookmarks") {
-          const changeKey = `${key}_change`;
-          if (this.callbacks[changeKey]) {
-            bookmarks.onChanged.removeListener(this.callbacks[changeKey]);
-            delete this.callbacks[changeKey];
-          }
-        }
-      }
-    }
-  }
-
   private handleWebRequest(
     module: InMemoryModules<ModuleHandler.BROWSING>,
     item: CollectorBase<WebRequestCollector>,
@@ -411,5 +332,84 @@ export class BrowsingHandler extends BaseModuleHandler<ModuleHandler.BROWSING> {
     }
 
     return null;
+  }
+
+  public async load(): Promise<void> {
+    for (const module of this.modules) {
+      for (const item of module.items) {
+        const hook = item.hook ?? "webRequest";
+        const key = `${module.name}_${item.name}`;
+
+        switch (hook) {
+          case "webRequest":
+            this.handleWebRequest(
+              module,
+              item as CollectorBase<WebRequestCollector>,
+              key,
+            );
+            break;
+          case "bookmarks":
+            this.handleBookmarks(
+              module,
+              item as CollectorBase<BookmarkCollector>,
+              key,
+            );
+            break;
+          case "response":
+            this.handleResponse(
+              module,
+              item as CollectorBase<ResponseCollector>,
+              key,
+            );
+            break;
+          default:
+            Logger.warn(`Unknown hook type: ${hook}`);
+        }
+      }
+    }
+  }
+
+  public async unload(): Promise<void> {
+    for (const module of this.modules) {
+      for (const item of module.items) {
+        const hook = item.hook ?? "webRequest";
+        const key = `${module.name}_${item.name}`;
+
+        if (this.callbacks[key]) {
+          switch (hook) {
+            case "webRequest":
+              if (webRequest.onBeforeRequest.hasListener(this.callbacks[key])) {
+                webRequest.onBeforeRequest.removeListener(this.callbacks[key]);
+              }
+              break;
+            case "bookmarks":
+              if (bookmarks.onCreated.hasListener(this.callbacks[key])) {
+                bookmarks.onCreated.removeListener(this.callbacks[key]);
+              }
+              break;
+            case "response":
+              if (
+                webRequest.onHeadersReceived.hasListener(this.callbacks[key])
+              ) {
+                webRequest.onHeadersReceived.removeListener(
+                  this.callbacks[key],
+                );
+              }
+              break;
+            default:
+              Logger.warn(`Unknown hook type: ${hook}`);
+          }
+          delete this.callbacks[key];
+        }
+
+        if (hook === "bookmarks") {
+          const changeKey = `${key}_change`;
+          if (this.callbacks[changeKey]) {
+            bookmarks.onChanged.removeListener(this.callbacks[changeKey]);
+            delete this.callbacks[changeKey];
+          }
+        }
+      }
+    }
   }
 }

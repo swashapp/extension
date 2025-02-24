@@ -9,18 +9,16 @@ import { Logger } from "@/utils/log.util";
 import { DropboxService } from "./dropbox.service";
 import { GoogleDriveService } from "./google-drive.service";
 
+function generateName(): string {
+  return `Swash-backup-${formatDate(undefined, "YYMMDDHHmm")}.json`;
+}
+
 export class BackupService {
   private readonly DATA_TYPE = "application/json; charset=utf-8";
   private readonly logger = new Logger(this.constructor.name);
 
   constructor(protected managers: Managers) {
     this.logger.info("Backup service initialized");
-  }
-
-  private generateName(): string {
-    const name = `Swash-backup-${formatDate(undefined, "YYMMDDHHmm")}.json`;
-    this.logger.debug("Generated backup filename", name);
-    return name;
   }
 
   private create(): string {
@@ -40,10 +38,9 @@ export class BackupService {
     this.logger.debug("Starting backup download process");
     const backupUrl =
       `data:${this.DATA_TYPE},` + encodeURIComponent(this.create());
-    const filename = this.generateName();
     await downloads.download({
       url: backupUrl,
-      filename,
+      filename: generateName(),
       saveAs: true,
     });
     this.logger.info("Backup download completed");
@@ -70,7 +67,7 @@ export class BackupService {
     }
 
     if (helper) {
-      const backupFile = new File([this.create()], this.generateName(), {
+      const backupFile = new File([this.create()], generateName(), {
         type: this.DATA_TYPE,
       });
       await helper.upload(backupFile);
