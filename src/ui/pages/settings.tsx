@@ -624,10 +624,8 @@ export function Settings(): ReactNode {
                       >
                         <InfoIcon />
                         <p className={"small"}>
-                          Please provide your phone number to verify your
-                          account. You will be able to verify and withdraw when
-                          you have a minimum balance of {verifyThreshold}{" "}
-                          $SWASH.
+                          You will be able to verify and withdraw when you have
+                          a minimum balance of {verifyThreshold} $SWASH.
                         </p>
                       </div>
                     )}
