@@ -33,7 +33,7 @@ export const PaymentApi: PaymentServicesConfiguration = {
     method: RequestMethod.GET,
     path: "/payment/v1/auth/withdraw/info",
     cache: {
-      ttl: 30000,
+      ttl: 300000,
     },
   },
   withdraw_by_crypto: {

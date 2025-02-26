@@ -6,7 +6,9 @@ export type FilterStorage = {
   immutable: boolean;
 };
 
+export type MaskStorage = string;
+
 export type PrivacyStorage = {
   filters: FilterStorage[];
-  masks: string[];
+  masks: MaskStorage[];
 };

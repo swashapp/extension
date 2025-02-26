@@ -5,11 +5,13 @@ import { ObjectType } from "@/enums/object.enum";
 import { HashAlgorithm } from "@/enums/security.enum";
 import { Any } from "@/types/any.type";
 import { CollectedMessage, Message } from "@/types/message.type";
+import { MaskStorage } from "@/types/storage/privacy.type";
+import { Logger } from "@/utils/log.util";
 
 import { uuid } from "./id.util";
 import { hash } from "./security.util";
 
-export function enforcePolicy(message: Message, privacyData: Any): Message {
+export function enforcePolicy(message: Message, masks: MaskStorage[]): Message {
   const data = message.data.out;
   const schems = message.data.schems;
 
@@ -23,7 +25,7 @@ export function enforcePolicy(message: Message, privacyData: Any): Message {
     if (jPointers && jPointers.length > 0) {
       for (const jp of jPointers) {
         let value = JsonPointer.get(message.data.out, jp);
-        value = anonymiseObject(value, schem.type, message, privacyData);
+        value = anonymiseObject(value, schem.type, message, masks);
         JsonPointer.set(data, jp, value);
       }
     }
@@ -66,7 +68,7 @@ function anonymiseObject(
   object: Any,
   objectType: ObjectType,
   message: Message,
-  privacyData: Any,
+  masks: MaskStorage[],
 ) {
   if (!object) return object;
   switch (objectType) {
@@ -81,7 +83,7 @@ function anonymiseObject(
     case ObjectType.Time:
       return anonymiseTime(object, message);
     case ObjectType.Text:
-      return anonymiseText(object, message, privacyData);
+      return anonymiseText(object, message, masks);
     case ObjectType.ID:
       return anonymiseUserId(object, message);
     default:
@@ -141,38 +143,37 @@ function anonymiseTime(time: number, message: Message) {
   }
 }
 
-function anonymiseText(text: string, message: Message, privacyData: Any) {
+function anonymiseText(text: string, message: Message, masks: MaskStorage[]) {
   let retText = JSON.stringify(text);
   switch (message.header.privacyLevel) {
     case 0:
-      for (let i = 0; i < privacyData.length; i++) {
+      Logger.info(masks);
+      for (let i = 0; i < masks.length; i++) {
         retText = retText.replace(
-          new RegExp("\\b" + privacyData[i].value + "\\b", "ig"),
-          new Array(privacyData[i].value.length + 1).join("*"),
+          new RegExp("\\b" + masks[i] + "\\b", "ig"),
+          new Array(masks[i].length + 1).join("*"),
         );
       }
       break;
     case 1:
-      for (let i = 0; i < privacyData.length; i++) {
+      for (let i = 0; i < masks.length; i++) {
         retText = retText.replace(
-          new RegExp("\\b" + privacyData[i].value + "\\b", "ig"),
+          new RegExp("\\b" + masks[i] + "\\b", "ig"),
           "",
         );
       }
       break;
     case 2:
-      for (let i = 0; i < privacyData.length; i++) {
+      for (let i = 0; i < masks.length; i++) {
         retText = retText.replace(
-          new RegExp("\\b" + privacyData[i].value + "\\b", "ig"),
+          new RegExp("\\b" + masks[i] + "\\b", "ig"),
           "",
         );
       }
       break;
     case 3:
-      for (let i = 0; i < privacyData.length; i++) {
-        const res = retText.match(
-          new RegExp("\\b" + privacyData[i].value + "\\b", "ig"),
-        );
+      for (let i = 0; i < masks.length; i++) {
+        const res = retText.match(new RegExp("\\b" + masks[i] + "\\b", "ig"));
         if (res) {
           retText = '""';
           break;
