@@ -88,14 +88,14 @@ export const PaymentApi: PaymentServicesConfiguration = {
     method: RequestMethod.GET,
     path: "/payment/v1/auth/gift-card/info",
     cache: {
-      ttl: 30000,
+      ttl: 300000,
     },
   },
   get_gift_card_products: {
     method: RequestMethod.GET,
     path: "/payment/v1/auth/gift-card/products",
     cache: {
-      ttl: 30000,
+      ttl: 1800000,
     },
   },
   get_vouchers: {
