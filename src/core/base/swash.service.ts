@@ -5,7 +5,7 @@ import { AcceptedAuth } from "@/enums/api.enum";
 import { CacheableRequest } from "@/types/api/request.type";
 import { GatewaySyncType } from "@/types/api/sync.type";
 import { SwashServiceConfiguration } from "@/types/storage/configuration.type";
-import { getAppVersion } from "@/utils/browser.util";
+import { getAppName, getAppVersion } from "@/utils/browser.util";
 import { Base64url } from "@/utils/encoding.util";
 import { Logger } from "@/utils/log.util";
 import { swashResponseTransformer } from "@/utils/transformer.util";
@@ -30,7 +30,7 @@ export abstract class BaseSwashService<T extends SwashServiceConfiguration> {
       {
         headers: {
           "Content-Type": "application/json",
-          "Swash-Extension": `v${getAppVersion()}`,
+          "Swash-App-Data": `${getAppName()} v${getAppVersion()}`,
         },
         timeout: this.conf.timeout,
       },
