@@ -421,6 +421,7 @@ export function Settings(): ReactNode {
   const [privateKey, setPrivateKey] = useState<string>("");
   const [masterPass, setMasterPass] = useState<string>("");
   const [confirmMasterPass, setConfirmMasterPass] = useState<string>("");
+  const [deviceId, setDeviceId] = useState<string>("");
 
   const [loading, setLoading] = useState<string>("");
 
@@ -470,6 +471,13 @@ export function Settings(): ReactNode {
       });
     }
   }, [account.is_verified, safeRun, verifyThreshold]);
+
+  useEffect(() => {
+    if (!privateKey)
+      safeRun(async () => {
+        setDeviceId((await helper("cache").get("device_key")) as string);
+      });
+  }, [privateKey, safeRun]);
 
   const tabs = useMemo(() => {
     return [
@@ -690,6 +698,12 @@ export function Settings(): ReactNode {
                 }
               />
             </div>
+            <div className={clsx("flex gap32", styles.row)}>
+              <div className={"col-10"}>
+                <Input label={"Device ID"} value={deviceId} disabled />
+              </div>{" "}
+              <div className={"col-10"} />
+            </div>
           </div>
         ),
       },
@@ -780,7 +794,7 @@ export function Settings(): ReactNode {
 
   return (
     <>
-      <PageHeader header={"Settings"} uid={account.wallet} />
+      <PageHeader header={"Settings"} />
       <div className={"round bg-white card28"}>
         <MultiTabView tabs={tabs} />
       </div>
