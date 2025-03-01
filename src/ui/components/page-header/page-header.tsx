@@ -1,20 +1,24 @@
 import clsx from "clsx";
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
 
 import { SystemMessage } from "@/enums/message.enum";
 import { CopyEndAdornment } from "@/ui/components/input/end-adornments/copy-end-adornment";
 import { DarkModeToggle } from "@/ui/components/toggle/dark-mode-toggle";
+import { DashboardContext } from "@/ui/context/dashboard.context";
 import { purgeString } from "@/utils/string.util";
 
 import styles from "./page-header.module.css";
 
 export function PageHeader({
   header,
-  uid,
+  uid = true,
 }: {
   header: string;
-  uid?: string;
+  uid?: boolean;
 }): ReactNode {
+  const { account } = useContext(DashboardContext);
+  const wallet = account.wallet;
+
   return (
     <div className={clsx("flex col gap16", styles.container)}>
       <div className={"flex justify-between"}>
@@ -28,9 +32,9 @@ export function PageHeader({
                 styles.desktop,
               )}
             >
-              <p className={"small"}>Your UID: {uid}</p>
+              <p className={"small"}>Your UID: {wallet}</p>
               <CopyEndAdornment
-                value={uid}
+                value={wallet}
                 toast={SystemMessage.SUCCESSFULLY_COPIED_WALLET_ADDRESS}
                 className={styles.position}
               />
@@ -47,9 +51,9 @@ export function PageHeader({
             styles.mobile,
           )}
         >
-          <p className={"small"}>Your UID: {purgeString(uid)}</p>
+          <p className={"small"}>Your UID: {purgeString(wallet)}</p>
           <CopyEndAdornment
-            value={uid}
+            value={wallet}
             toast={SystemMessage.SUCCESSFULLY_COPIED_WALLET_ADDRESS}
           />
         </div>
