@@ -1,10 +1,12 @@
 import { BaseDatabase } from "@/core/base/database.service";
+import { Mutex } from "@/core/base/mutex.lock";
 import { MessageTables } from "@/core/data/database-tables";
 import { Message, MessageRecord } from "@/types/message.type";
 import { getTimestamp } from "@/utils/date.util";
 
 export class MessageManager extends BaseDatabase {
   private static instance: MessageManager;
+  private readonly incrementMutex = new Mutex();
 
   private constructor() {
     super({
@@ -14,11 +16,81 @@ export class MessageManager extends BaseDatabase {
     });
   }
 
+  private async incrementTotalStats(
+    module: string,
+    now: number,
+  ): Promise<void> {
+    try {
+      const updated = await this.connection.update({
+        in: "stats",
+        set: {
+          count: { "+": 1 },
+          last: now,
+        },
+        where: { module: module },
+      });
+      if (updated === 0) {
+        await this.connection.insert({
+          into: "stats",
+          values: [
+            {
+              module: module,
+              count: 1,
+              last: now,
+            },
+          ],
+        });
+      }
+      this.logger.debug(`Updated message stats for module ${module}`);
+    } catch (error) {
+      this.logger.error(
+        `Message stats update failed for module ${module}`,
+        error,
+      );
+    }
+  }
+
+  private async incrementDailyStats(
+    module: string,
+    day: string,
+  ): Promise<void> {
+    try {
+      const updated = await this.connection.update({
+        in: "daily_stats",
+        set: {
+          count: { "+": 1 },
+        },
+        where: {
+          day: day,
+          module: module,
+        },
+      });
+      if (updated === 0) {
+        await this.connection.insert({
+          into: "daily_stats",
+          values: [
+            {
+              day: day,
+              module: module,
+              count: 1,
+            },
+          ],
+        });
+      }
+      this.logger.debug(`Updated daily message stats for module ${module}`);
+    } catch (error) {
+      this.logger.error(
+        `Daily message stats update failed for module ${module}`,
+        error,
+      );
+    }
+  }
+
   public static async getInstance(): Promise<MessageManager> {
     if (!MessageManager.instance) {
       MessageManager.instance = new MessageManager();
       await MessageManager.instance.init();
-      await MessageManager.instance.removeDailyStatsOlderThan(30);
+      MessageManager.instance.removeDailyStatsOlderThan(30).then();
     }
     return MessageManager.instance;
   }
@@ -39,7 +111,7 @@ export class MessageManager extends BaseDatabase {
       this.logger.debug(`Inserted message with id ${ids}`);
       return typeof ids === "number" ? ids : ids.length;
     } catch (error) {
-      this.logger.error("Error inserting message", error);
+      this.logger.error("Message insertion failed", error);
       return;
     }
   }
@@ -55,7 +127,10 @@ export class MessageManager extends BaseDatabase {
         },
       });
     } catch (error) {
-      this.logger.error("Error fetching messages greater than id", error);
+      this.logger.error(
+        `Message fetch for id greater than ${id} failed`,
+        error,
+      );
       return [];
     }
   }
@@ -71,7 +146,7 @@ export class MessageManager extends BaseDatabase {
         },
       });
     } catch (error) {
-      this.logger.error("Error fetching messages older than time", error);
+      this.logger.error(`Message fetch for older than ${time} failed`, error);
       return [];
     }
   }
@@ -86,7 +161,7 @@ export class MessageManager extends BaseDatabase {
       });
       this.logger.debug(`Removed message with id ${id}`);
     } catch (error) {
-      this.logger.error(`Error removing message with id ${id}`, error);
+      this.logger.error(`Message removal for id ${id} failed`, error);
     }
   }
 
@@ -102,68 +177,30 @@ export class MessageManager extends BaseDatabase {
       });
       this.logger.debug(`Removed ${count} messages older than`, time);
     } catch (error) {
-      this.logger.error(
-        "Error removing messages older than specified time",
-        error,
-      );
+      this.logger.error(`Message removal for older than ${time} failed`, error);
     }
   }
 
   public async increment(module: string): Promise<void> {
+    await this.incrementMutex.lock();
     const now = getTimestamp();
     const day = new Date(now).toISOString().substring(0, 10);
     try {
-      const rowsUpdatedOverall = await this.connection.update({
-        in: "stats",
-        set: {
-          count: { "+": 1 },
-          last: now,
-        },
-        where: { module: module },
-      });
-
-      if (rowsUpdatedOverall === 0) {
-        await this.connection.insert({
-          into: "stats",
-          values: [
-            {
-              module: module,
-              count: 1,
-              last: now,
-            },
-          ],
-        });
-      }
-
-      const rowsUpdatedDaily = await this.connection.update({
-        in: "daily_stats",
-        set: {
-          count: { "+": 1 },
-        },
-        where: {
-          day: day,
-          module: module,
-        },
-      });
-
-      if (rowsUpdatedDaily === 0) {
-        await this.connection.insert({
-          into: "daily_stats",
-          values: [
-            {
-              day: day,
-              module: module,
-              count: 1,
-            },
-          ],
-        });
-      }
+      await Promise.all([
+        this.incrementTotalStats(module, now),
+        this.incrementDailyStats(module, day),
+      ]);
 
       this.logger.debug(
-        `Updated message count for module ${module} (overall and daily)`,
+        `Updated message overall and daily stats for module ${module}`,
       );
     } catch (error) {
-      this.logger.error("Error updating message count", error);
+      this.logger.error(
+        `Message overall and daily stats update failed for ${module}`,
+        error,
+      );
+    } finally {
+      this.incrementMutex.unlock();
     }
   }
 
@@ -181,9 +218,9 @@ export class MessageManager extends BaseDatabase {
           },
         },
       });
-      this.logger.debug(`Removed daily_stats records older than ${threshold}`);
+      this.logger.debug(`Removed daily stats records older than ${threshold}`);
     } catch (error) {
-      this.logger.error("Error cleaning old daily_stats", error);
+      this.logger.error("Daily stats removal failed", error);
     }
   }
 }
