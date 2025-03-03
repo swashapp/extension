@@ -121,25 +121,21 @@ export function OnboardingWelcome(): ReactNode {
       </div>
       <div
         className={clsx(
-          "flex justify-between align-center round",
+          "flex justify-between align-center round pointer",
           styles.notice,
         )}
+        onClick={() => {
+          setFlow(OnboardingFlows.REGISTER);
+          contextSetEmail(email);
+          next();
+        }}
       >
         <div className={"flex row align-start gap8"}>
           <InfoIcon className={styles.info} />
           <p>
             Did you register for Swash before 13.02.2025?
             <br />
-            <a
-              onClick={() => {
-                setFlow(OnboardingFlows.REGISTER);
-                contextSetEmail(email);
-                next();
-              }}
-            >
-              Sign up
-            </a>{" "}
-            for the new version instead
+            Sign up for the new version instead
           </p>
         </div>
         <NextIcon className={clsx("rotate90", styles.next)} />
