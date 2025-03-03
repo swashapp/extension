@@ -6,7 +6,6 @@ import { HashAlgorithm } from "@/enums/security.enum";
 import { Any } from "@/types/any.type";
 import { CollectedMessage, Message } from "@/types/message.type";
 import { MaskStorage } from "@/types/storage/privacy.type";
-import { Logger } from "@/utils/log.util";
 
 import { uuid } from "./id.util";
 import { hash } from "./security.util";
@@ -147,7 +146,6 @@ function anonymiseText(text: string, message: Message, masks: MaskStorage[]) {
   let retText = JSON.stringify(text);
   switch (message.header.privacyLevel) {
     case 0:
-      Logger.info(masks);
       for (let i = 0; i < masks.length; i++) {
         retText = retText.replace(
           new RegExp("\\b" + masks[i] + "\\b", "ig"),
