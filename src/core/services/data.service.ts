@@ -61,6 +61,21 @@ export class DataService {
     }
   }
 
+  private async getSessionId(): Promise<string> {
+    let sessionId = this.managers.cache.getSession("data_session_id");
+    if (!sessionId) {
+      this.logger.debug("No session id found, generating new one");
+      sessionId = uuid();
+    }
+    await this.managers.cache.setSession(
+      "data_session_id",
+      sessionId,
+      this.managers.configs.get("apis").streams.session_ttl,
+    );
+
+    return sessionId;
+  }
+
   public async collect(collected: CollectedMessage): Promise<void> {
     this.logger.debug("Collecting message");
     if (!collected.origin) collected.origin = "undetermined";
@@ -69,17 +84,26 @@ export class DataService {
       return;
     }
 
-    const [{ birth, gender, income }, { userAgent: agent, ...platform }] =
-      await Promise.all([this.user.getAdditionalInfo(), getSystemInfo()]);
+    const [
+      { birth, gender, income },
+      { userAgent: agent, ...platform },
+      sessionId,
+    ] = await Promise.all([
+      this.user.getAdditionalInfo(),
+      getSystemInfo(),
+      this.getSessionId(),
+    ]);
     const { country_name, city } = this.managers.cache.getData("location");
     const age = birth ? `${getAge(+birth)}` : "";
 
     const publisherId = this.managers.wallet.getAddress();
     collected.header.version = getAppVersion();
+
     const message: Message = {
       ...collected,
       identity: {
         publisherId,
+        sessionId,
         uid: anonymiseIdentity(publisherId, collected),
         country: country_name,
         city,
@@ -104,18 +128,6 @@ export class DataService {
     } else {
       this.logger.debug("Sending message immediately");
       delete message.origin;
-
-      let sessionId = this.managers.cache.getSession("data_session_id");
-      if (!sessionId) {
-        this.logger.debug("No session id found, generating new one");
-        sessionId = uuid();
-        await this.managers.cache.setSession(
-          "data_session_id",
-          sessionId,
-          3600,
-        );
-      }
-      message.identity.sessionId = sessionId;
       await this.streams[message.header.category].publish(message);
       this.logger.info("Message published to stream");
       await this.managers.message.increment(message.header.module);

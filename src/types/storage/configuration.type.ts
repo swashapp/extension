@@ -97,6 +97,8 @@ export type StreamServicesConfiguration = z.infer<
 >;
 
 export const StreamsServicesConfigurationSchema = z.object({
+  session_ttl: z.number(),
+
   [StreamCategoryLowered.BEAUTY]: StreamServicesConfigurationSchema,
   [StreamCategoryLowered.GENERAL]: StreamServicesConfigurationSchema,
   [StreamCategoryLowered.MUSIC]: StreamServicesConfigurationSchema,
