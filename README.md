@@ -1,6 +1,6 @@
 <div align="center">
     <a href="https://swashapp.io/" target="blank">
-        <img src="https://swashapp.io/images/logo/swash/s-logo.svg" width="80" alt="Swash Logo" />
+        <img src="https://swashapp.io/static/images/logo/swash/s-logo.svg" width="80" alt="Swash Logo" />
     </a>
 </div>
 <div align="center">
@@ -115,6 +115,6 @@ yarn release:firefox
 
 ## Contact
 
-Just email to dev@swashapp.io or get in touch through social media.
+Just email to contact@swashapp.io or get in touch through social media.
 
 © 2025 Swashapp
