@@ -623,10 +623,10 @@ export function Settings(): ReactNode {
                       disabled={!canVerify}
                       onClick={() => setEdit(canVerify)}
                     />
-                    {canVerify ? null : (
+                    {!canVerify ? null : (
                       <div
                         className={clsx(
-                          "bg-pink flex gap8 align-center",
+                          "bg-pink flex gap8 align-center round",
                           styles.error,
                         )}
                       >
@@ -721,7 +721,7 @@ export function Settings(): ReactNode {
                 </p>
                 <div
                   className={clsx(
-                    "bg-soft-yellow flex gap8 align-center",
+                    "bg-soft-yellow flex gap8 align-center round",
                     styles.warning,
                   )}
                 >
@@ -780,6 +780,7 @@ export function Settings(): ReactNode {
     canVerify,
     confirmMasterPass,
     country,
+    deviceId,
     edit,
     isPasswordValid,
     loading,

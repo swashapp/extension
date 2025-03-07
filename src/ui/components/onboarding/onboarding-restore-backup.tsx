@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { ReactNode, useCallback, useContext } from "react";
 
 import { helper } from "@/helper";
@@ -8,6 +9,9 @@ import { OnboardingPage } from "@/ui/components/onboarding/onboarding-page";
 import { closePopup } from "@/ui/components/popup/popup";
 import { OnboardingContext } from "@/ui/context/onboarding.context";
 import { useErrorHandler } from "@/ui/hooks/use-error-handler";
+import InfoIcon from "~/images/icons/hexagon-info.svg?react";
+
+import styles from "./onboarding-restore-backup.module.css";
 
 export function OnboardingRestoreBackup(): ReactNode {
   const { safeRun } = useErrorHandler();
@@ -53,6 +57,15 @@ export function OnboardingRestoreBackup(): ReactNode {
         <p>
           But, don’t worry! If you’ve backed up your account, you can log in
           with one of the options below:
+        </p>
+      </div>
+      <div
+        className={clsx("bg-pink flex gap8 align-center round", styles.error)}
+      >
+        <InfoIcon />
+        <p className={"small"}>
+          If you had an account before February 13, 2025, please register and
+          merge your old account via extension settings.
         </p>
       </div>
       <div className={"flex col gap24"}>

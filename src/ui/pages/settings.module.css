@@ -9,11 +9,15 @@
 .error,
 .warning {
   padding: 8px;
-  border-radius: 100px;
 }
 
 .warning {
   width: max-content;
+}
+
+.error p,
+.warning p {
+  width: calc(100% - 20px);
 }
 
 .box {
@@ -88,12 +92,6 @@
 
   .row > div {
     width: 100%;
-  }
-
-  .warning {
-    border-radius: 12px;
-
-    flex-direction: column !important;
   }
 
   .flow {

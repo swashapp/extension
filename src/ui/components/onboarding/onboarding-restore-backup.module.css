@@ -1,0 +1,7 @@
+.error {
+  padding: 8px;
+}
+
+.error p {
+  width: calc(100% - 20px);
+}
