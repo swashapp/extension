@@ -17,6 +17,8 @@ const base = {
 };
 
 export const StreamApi: StreamsServicesConfiguration = {
+  session_ttl: 600000,
+
   [StreamCategoryLowered.BEAUTY]: {
     ...base,
     publish: {
