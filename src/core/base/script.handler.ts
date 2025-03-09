@@ -1,6 +1,6 @@
-import { scripting, tabs, Tabs } from "webextension-polyfill";
+import { scripting, Tabs } from "webextension-polyfill";
 
-import { executeScript, getManifestVersion } from "@/utils/browser.util";
+import { executeScript } from "@/utils/browser.util";
 import { Logger } from "@/utils/log.util";
 
 export abstract class BaseScriptHandler {
@@ -32,55 +32,41 @@ export abstract class BaseScriptHandler {
   }
 
   protected async registerContentScript() {
-    if (getManifestVersion() === 3) {
-      if (this.scripts.length === 0) {
-        this.logger.warn("No scripts to register");
+    if (this.scripts.length === 0) {
+      this.logger.warn("No scripts to register");
+      return;
+    }
+    try {
+      const script = await scripting.getRegisteredContentScripts({
+        ids: [this.contentScriptId],
+      });
+      if (script.length > 0) {
+        this.logger.warn("Content script already registered");
         return;
       }
-      try {
-        const script = await scripting.getRegisteredContentScripts({
-          ids: [this.contentScriptId],
-        });
-        if (script.length > 0) {
-          this.logger.warn("Content script already registered");
-          return;
-        }
 
-        await scripting.registerContentScripts([
-          {
-            id: this.contentScriptId,
-            js: this.scripts,
-            matches: ["http://*/*", "https://*/*"],
-            runAt: "document_start",
-          },
-        ]);
-        this.logger.info(`Registered content script`);
-      } catch (error) {
-        this.logger.error("Content script registration failed", error);
-      }
-    } else {
-      if (!tabs.onUpdated.hasListener(this.execute)) {
-        tabs.onUpdated.addListener(this.execute);
-        this.logger.info("Added script listener");
-      }
+      await scripting.registerContentScripts([
+        {
+          id: this.contentScriptId,
+          js: this.scripts,
+          matches: ["http://*/*", "https://*/*"],
+          runAt: "document_start",
+        },
+      ]);
+      this.logger.info(`Registered content script`);
+    } catch (error) {
+      this.logger.error("Content script registration failed", error);
     }
   }
 
   protected async unregisterContentScript() {
-    if (getManifestVersion() === 3) {
-      try {
-        await scripting.unregisterContentScripts({
-          ids: [this.contentScriptId],
-        });
-        this.logger.info(`Unregistered content script`);
-      } catch (error) {
-        this.logger.error("Content script unregistration failed", error);
-      }
-    } else {
-      if (tabs.onUpdated.hasListener(this.execute)) {
-        tabs.onUpdated.removeListener(this.execute);
-        this.logger.info("Removed script listener");
-      }
+    try {
+      await scripting.unregisterContentScripts({
+        ids: [this.contentScriptId],
+      });
+      this.logger.info(`Unregistered content script`);
+    } catch (error) {
+      this.logger.error("Content script unregistration failed", error);
     }
   }
 

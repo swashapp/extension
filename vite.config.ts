@@ -6,7 +6,6 @@ import svgr from "vite-plugin-svgr";
 import webExtension, { readJsonFile } from "vite-plugin-web-extension";
 
 const TARGET = process.env.TARGET ?? "chrome";
-const MANIFEST_VERSION = process.env.MANIFEST_VERSION ?? "v3";
 const UselessWarning = "Module level directives cause errors when bundled";
 
 const exTrim = (name: string | undefined) =>
@@ -51,12 +50,11 @@ export default defineConfig({
         const pkg = readJsonFile("package.json");
         const manifest = {
           ...readJsonFile(`manifest/base.json`),
-          ...readJsonFile(`manifest/${MANIFEST_VERSION}/base.json`),
-          ...readJsonFile(`manifest/${MANIFEST_VERSION}/${TARGET}.json`),
+          ...readJsonFile(`manifest/${TARGET}.json`),
         };
         manifest.version = pkg.version;
 
-        console.log(`Created manifest ${MANIFEST_VERSION} for ${TARGET}`);
+        console.log(`Created manifest for ${TARGET}`);
         return manifest;
       },
       webExtConfig: {
