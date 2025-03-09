@@ -1,5 +1,6 @@
 {
   "name": "Swash",
+  "manifest_version": 3,
   "version": "THIS WILL BE REPLACED AUTOMATICALLY BY PACKAGE VERSION ON MANIFEST BUILD",
   "description": "Know your worth. Swash is an earning portal where you can earn for being active and completing tasks online. Try it today.",
   "homepage_url": "https://swashapp.io/",
@@ -8,5 +9,42 @@
     "48": "images/swash/active-48.png",
     "96": "images/swash/active-96.png",
     "128": "images/swash/active-128.png"
+  },
+  "action": {
+    "default_title": "Swash",
+    "default_popup": "ui/popup.html",
+    "default_icon": {
+      "16": "images/swash/active-16.png",
+      "48": "images/swash/active-48.png",
+      "96": "images/swash/active-96.png",
+      "128": "images/swash/active-128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["core/scripts/other/caffeine.script.ts"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["core/scripts/inpage/sdk.script.js"],
+      "matches": ["https://*.swashapp.io/*"]
+    }
+  ],
+  "permissions": [
+    "bookmarks",
+    "clipboardRead",
+    "downloads",
+    "notifications",
+    "scripting",
+    "storage",
+    "tabs",
+    "webRequest"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
   }
 }

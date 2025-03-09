@@ -1,11 +1,4 @@
-import {
-  action,
-  browserAction,
-  runtime,
-  scripting,
-  Tabs,
-  tabs,
-} from "webextension-polyfill";
+import { action, runtime, scripting, Tabs, tabs } from "webextension-polyfill";
 
 import { PlatformOS } from "@/enums/platform.enum";
 import { Any } from "@/types/any.type";
@@ -16,10 +9,6 @@ export function getAppName(): string {
 
 export function getAppVersion(): string {
   return runtime.getManifest().version;
-}
-
-export function getManifestVersion(): number {
-  return runtime.getManifest().manifest_version;
 }
 
 export function getUserAgent(): string {
@@ -101,42 +90,23 @@ export async function openInTab(url: string): Promise<Tabs.Tab> {
 }
 
 export function setBrowserIcon(items: Any): void {
-  if (getManifestVersion() === 3) {
-    action.setIcon(items);
-  } else {
-    browserAction.setIcon(items);
-  }
+  action.setIcon(items);
 }
 
 export async function executeScript(
   tabId: number,
   files: string[],
 ): Promise<void> {
-  if (getManifestVersion() === 3) {
-    await scripting.executeScript({
-      injectImmediately: true,
-      target: { tabId, allFrames: false },
-      files,
-    });
-  } else {
-    for (const file of files)
-      await tabs.executeScript(tabId, {
-        file: file,
-        allFrames: false,
-        runAt: "document_start",
-      });
-  }
+  await scripting.executeScript({
+    injectImmediately: true,
+    target: { tabId, allFrames: false },
+    files,
+  });
 }
 
 export async function getTabTitle(tabId: number): Promise<Any[]> {
-  if (getManifestVersion() === 3) {
-    return scripting.executeScript({
-      target: { tabId: tabId },
-      func: () => document.title,
-    });
-  } else {
-    return tabs.executeScript(tabId, {
-      code: "document.title",
-    });
-  }
+  return scripting.executeScript({
+    target: { tabId: tabId },
+    func: () => document.title,
+  });
 }
