@@ -461,13 +461,10 @@ export function Settings(): ReactNode {
   useEffect(() => {
     if (!verifyThreshold) {
       safeRun(async () => {
-        if (account.is_verified) setCanVerify(true);
-        else {
-          const { result, minAmount } =
-            await helper("payment").getVerifyThreshold();
-          setCanVerify(result);
-          setVerifyThreshold(minAmount);
-        }
+        const { result, minAmount } =
+          await helper("payment").getVerifyThreshold();
+        setCanVerify(result);
+        setVerifyThreshold(minAmount);
       });
     }
   }, [account.is_verified, safeRun, verifyThreshold]);
