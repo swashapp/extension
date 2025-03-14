@@ -467,7 +467,7 @@ export function Settings(): ReactNode {
         setVerifyThreshold(minAmount);
       });
     }
-  }, [account.is_verified, safeRun, verifyThreshold]);
+  }, [safeRun, verifyThreshold]);
 
   useEffect(() => {
     if (!privateKey)
@@ -620,7 +620,7 @@ export function Settings(): ReactNode {
                       disabled={!canVerify}
                       onClick={() => setEdit(canVerify)}
                     />
-                    {!canVerify ? null : (
+                    {canVerify ? null : (
                       <div
                         className={clsx(
                           "bg-pink flex gap8 align-center round",
