@@ -116,10 +116,10 @@ export class ApiService {
       this.logger.info(`Cache API request for ${hashKey}`);
       const { key = hashKey, ...options } = cache;
       try {
-        this.logger.info(`Locking mutex for ${key}`);
+        this.logger.debug(`Locking mutex for ${key}`);
         if (!this.mutexes[key]) this.mutexes[key] = new Mutex();
         await this.mutexes[key].lock();
-        this.logger.info(`Locked mutex for ${key}`);
+        this.logger.debug(`Locked mutex for ${key}`);
 
         response = await this.cache.pull<O>(key, options, async () => {
           this.logger.info(`API request for ${hashKey}`);
@@ -127,7 +127,7 @@ export class ApiService {
         });
       } finally {
         this.mutexes[key].unlock();
-        this.logger.info(`Unlocked mutex for ${key}`);
+        this.logger.debug(`Unlocked mutex for ${key}`);
       }
     } else {
       this.logger.info(`API request for ${hashKey}`);

@@ -21,6 +21,7 @@ export abstract class BaseCloudService {
     private clientId: string,
     private authUrl: string,
     private scopes: string,
+    private ttl: number,
   ) {
     this.REDIRECT_URL = `https://callbacks.swashapp.io/${hash(
       HashAlgorithm.SHA256,
@@ -156,7 +157,7 @@ export abstract class BaseCloudService {
       this.logger.debug("Authentication tab opened successfully");
       const accessToken = await this.waitForAuthToken(tab.id);
       this.logger.debug("Auth token acquired successfully");
-      await this.cache.setSession(this.name, accessToken, 60000);
+      await this.cache.setSession(this.name, accessToken, this.ttl);
       this.logger.info("Session token set in cache");
     } else {
       this.logger.error("Failed to open authentication tab");

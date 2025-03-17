@@ -5,6 +5,7 @@ import { UserServicesConfiguration } from "@/types/storage/configuration.type";
 export const UserApi: UserServicesConfiguration = {
   base: API_GATEWAY,
   timeout: 30000,
+  token_ttl: 60000,
 
   v2_contract_address: "0x15287E573007d5FbD65D87ed46c62Cf4C71Dd66d",
   v3_vault_address: "0x11720DacC6A1DC710865343249d15777D066fF3b",

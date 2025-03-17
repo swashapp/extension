@@ -6,8 +6,6 @@ import { Message } from "@/types/message.type";
 import { StreamServicesConfiguration } from "@/types/storage/configuration.type";
 
 export class StreamService extends BaseSwashService<StreamServicesConfiguration> {
-  private readonly header = "Swash-Session-Token";
-
   constructor(
     config: StreamServicesConfiguration,
     wallet: WalletManager,
@@ -22,7 +20,7 @@ export class StreamService extends BaseSwashService<StreamServicesConfiguration>
 
     const headers: Record<string, string> = {};
     if (token) {
-      headers[this.header] = token;
+      headers[this.conf.token_header] = token;
       this.logger.info("Existing token found for stream");
     }
 
@@ -43,11 +41,14 @@ export class StreamService extends BaseSwashService<StreamServicesConfiguration>
         });
 
         if (resp.status === 200) {
-          await this.cache.setSession(
-            "stream",
-            resp.headers.get(this.header) || "",
-            1,
-          );
+          const header = resp.headers.get(this.conf.token_header);
+          if (header)
+            await this.cache.setSession(
+              "stream",
+              header,
+              this.conf.token_header_ttl,
+            );
+
           this.logger.info("Message published");
           break;
         } else {

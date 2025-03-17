@@ -72,7 +72,7 @@ export abstract class BaseSwashService<T extends SwashServiceConfiguration> {
           timestamp: await this.getServerTimestamp(),
           device_key: this.cache.get("device_key"),
         });
-        await this.cache.setSession(type, token, 60000);
+        await this.cache.setSession(type, token, this.conf.token_ttl);
         this.logger.info("EWT token stored in cache");
       }
     }

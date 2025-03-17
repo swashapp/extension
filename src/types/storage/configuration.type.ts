@@ -26,6 +26,7 @@ export type ApiPathConfiguration = z.infer<typeof ApiPathConfigurationSchema>;
 export const ApiServiceConfigurationSchema = z.object({
   base: z.string(),
   timeout: z.number(),
+  token_ttl: z.number(),
 });
 export type ApiServiceConfiguration = z.infer<
   typeof ApiServiceConfigurationSchema
@@ -90,6 +91,8 @@ export type PaymentServicesConfiguration = z.infer<
 
 export const StreamServicesConfigurationSchema =
   SwashServiceConfigurationSchema.extend({
+    token_header: z.string(),
+    token_header_ttl: z.number(),
     publish: ApiPathConfigurationSchema,
   });
 export type StreamServicesConfiguration = z.infer<
@@ -158,6 +161,7 @@ export const CloudServicesConfigurationSchema = z.object({
   dropbox_client_key: z.string(),
   google_drive_client_key: z.string(),
   timeout: z.number(),
+  token_ttl: z.number(),
 });
 export type CloudServicesConfiguration = z.infer<
   typeof CloudServicesConfigurationSchema

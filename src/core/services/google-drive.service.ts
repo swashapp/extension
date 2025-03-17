@@ -17,6 +17,7 @@ export class GoogleDriveService extends BaseCloudService {
       conf.google_drive_client_key,
       "https://accounts.google.com/o/oauth2/auth",
       "https://www.googleapis.com/auth/drive.file",
+      conf.token_ttl,
     );
     this.api = new ApiService("https://www.googleapis.com", {
       timeout: conf.timeout,
