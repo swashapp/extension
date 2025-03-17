@@ -1,6 +1,6 @@
 import { InputBase as MuiInputBase, InputBaseProps } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 
 import { useTheme } from "@/ui/context/theme.context";
 
@@ -55,9 +55,22 @@ export function InputBase(
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
+  const { autoFocus, ...restProps } = props;
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (autoFocus && inputRef.current) {
+      inputRef.current.focus({ preventScroll: true });
+    }
+  }, [autoFocus]);
+
   return (
-    <div className="flex col gap8">
-      {isDark ? <DarkInput {...props} /> : <LightInput {...props} />}
+    <div className={"flex col gap8"}>
+      {isDark ? (
+        <DarkInput {...restProps} inputRef={inputRef} />
+      ) : (
+        <LightInput {...restProps} inputRef={inputRef} />
+      )}
       {props.error ? (
         <p className="smaller" style={{ color: "var(--color-red)" }}>
           {props.errorMessage ?? (

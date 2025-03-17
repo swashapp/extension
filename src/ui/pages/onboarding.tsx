@@ -288,7 +288,7 @@ export function Onboarding(): ReactNode {
         back: (page = 1) => ref.current?.back(page),
       }}
     >
-      <div className={styles.container}>
+      <div className={clsx("no-overflow", styles.container)}>
         <div className={clsx("flex col", styles.stepper)}>
           <div
             className={clsx("flex justify-between border-box", styles.boxing)}
