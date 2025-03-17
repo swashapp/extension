@@ -2,9 +2,11 @@ import { BaseError } from "@/base-error";
 import { AppCoordinator } from "@/core/app-coordinator";
 import { BaseStorageManager } from "@/core/base/storage.manager";
 import { InitialCache } from "@/core/data/initial-cache";
+import { AcceptedAuth } from "@/enums/api.enum";
 import { SystemMessage } from "@/enums/message.enum";
 import { Any } from "@/types/any.type";
 import { CacheStorage, TimeBasedCache } from "@/types/storage/cache.type";
+import { isUuid } from "@/utils/id.util";
 
 export class CacheManager extends BaseStorageManager<CacheStorage> {
   private static instance: CacheManager;
@@ -61,6 +63,18 @@ export class CacheManager extends BaseStorageManager<CacheStorage> {
       await CacheManager.instance.init();
     }
     return CacheManager.instance;
+  }
+
+  public async setDeviceKey(key: string) {
+    if (this.coordinator.isReady())
+      throw new BaseError(SystemMessage.NOT_ALLOWED_REASSIGN_DEVICE_KEY);
+
+    const oldKey = this.get("device_key");
+    if (!isUuid(key) || key === oldKey) return;
+
+    await this.set("device_key", key);
+    this.logger.info(`Device key changed from ${oldKey} to ${key}`);
+    await this.clearSession(AcceptedAuth.EWT);
   }
 
   public async pull<T>(
@@ -124,12 +138,14 @@ export class CacheManager extends BaseStorageManager<CacheStorage> {
   }
 
   public async setTempEmail(email: string) {
-    if (this.coordinator.isReady()) {
+    if (this.coordinator.isReady())
       throw new BaseError(SystemMessage.NOT_ALLOWED_REASSIGN_EMAIL);
-    }
+
     const account = this.getData("account");
     await this.setData("account", { ...account, email }, { ttl: 0 });
-    this.logger.info("Temporary email set");
+    this.logger.info(
+      `Temporary email changed from ${account.email} to ${email}`,
+    );
   }
 
   public getSession(key: keyof CacheStorage["session"]) {

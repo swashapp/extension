@@ -19,9 +19,11 @@ export function Recaptcha({
   onDataReceived: ({
     token,
     referral,
+    device,
   }: {
     token: string;
     referral: string;
+    device: string;
   }) => void;
 }) {
   const { theme } = useTheme();
@@ -29,7 +31,7 @@ export function Recaptcha({
 
   useEffect(() => {
     window.onmessage = (
-      event: MessageEvent<{ token: string; referral: string }>,
+      event: MessageEvent<{ token: string; referral: string; device: string }>,
     ) => {
       onDataReceived(event.data);
     };

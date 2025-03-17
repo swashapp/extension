@@ -4,7 +4,7 @@ import { Recaptcha } from "@/ui/components/recaptcha/recaptcha";
 import { OnboardingContext } from "@/ui/context/onboarding.context";
 
 export function OnboardingRecaptcha(): ReactNode {
-  const { setChallenge, setReferral, back, next } =
+  const { setChallenge, setReferral, setDeviceKey, back, next } =
     useContext(OnboardingContext);
 
   const onBack = useCallback(() => {
@@ -13,8 +13,17 @@ export function OnboardingRecaptcha(): ReactNode {
   }, [back, setChallenge]);
 
   const onDataReceived = useCallback(
-    ({ token, referral }: { token: string; referral: string }) => {
+    ({
+      token,
+      referral,
+      device,
+    }: {
+      token: string;
+      referral: string;
+      device: string;
+    }) => {
       if (referral) setReferral(referral);
+      if (device) setDeviceKey(device);
       if (token) {
         setChallenge(token);
         next();

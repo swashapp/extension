@@ -15,6 +15,7 @@ export enum SystemMessage {
   INVALID_CLOUD_TYPE = "Cloud type is not valid",
   NOT_ALLOWED_EMPTY_CHALLENGE = "The reCAPTCHA challenge is empty",
   NOT_ALLOWED_EMPTY_PASSWORD = "The master password is empty",
+  NOT_ALLOWED_REASSIGN_DEVICE_KEY = "Device key cannot be changed after login",
   NOT_ALLOWED_REASSIGN_EMAIL = "Email address cannot be changed after registration",
   NOT_ALLOWED_REASSIGN_WALLET = "Wallet address cannot be changed after registration",
   NOT_AVAILABLE_GIFT_CARD = "There are no gift cards available, please try again later",

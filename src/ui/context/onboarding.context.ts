@@ -17,6 +17,7 @@ export const OnboardingContext = createContext<{
   setRequestId: (value: string) => void;
   setChallenge: (value: string) => void;
   setReferral: (value: string) => void;
+  setDeviceKey: (value: string) => void;
   setCode: (value: string) => void;
   resetRequestId: () => void;
 
@@ -37,6 +38,7 @@ export const OnboardingContext = createContext<{
   setRequestId: () => undefined,
   setChallenge: () => undefined,
   setReferral: () => undefined,
+  setDeviceKey: () => undefined,
   setCode: () => undefined,
   resetRequestId: () => undefined,
 
