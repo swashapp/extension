@@ -1,6 +1,7 @@
 import urlJoin from "url-join";
 
 import { BaseError } from "@/base-error";
+import { Mutex } from "@/core/base/mutex.lock";
 import { CacheManager } from "@/core/managers/cache.manager";
 import { ExceptionHandler } from "@/decorators/exception-handler";
 import { RequestMethod } from "@/enums/api.enum";
@@ -18,6 +19,7 @@ import { hash } from "@/utils/security.util";
 @ExceptionHandler()
 export class ApiService {
   private readonly logger = new Logger(this.constructor.name);
+  private readonly mutexes: Record<string, Mutex> = {};
 
   constructor(
     private baseUrl: string,
@@ -113,10 +115,20 @@ export class ApiService {
     if (this.cache && cache && transformer) {
       this.logger.info(`Cache API request for ${hashKey}`);
       const { key = hashKey, ...options } = cache;
-      response = await this.cache.pull<O>(key, options, async () => {
-        this.logger.info(`API request for ${hashKey}`);
-        return this.transform(await this.request(request), transformer);
-      });
+      try {
+        this.logger.info(`Locking mutex for ${key}`);
+        if (!this.mutexes[key]) this.mutexes[key] = new Mutex();
+        await this.mutexes[key].lock();
+        this.logger.info(`Locked mutex for ${key}`);
+
+        response = await this.cache.pull<O>(key, options, async () => {
+          this.logger.info(`API request for ${hashKey}`);
+          return this.transform(await this.request(request), transformer);
+        });
+      } finally {
+        this.mutexes[key].unlock();
+        this.logger.info(`Unlocked mutex for ${key}`);
+      }
     } else {
       this.logger.info(`API request for ${hashKey}`);
       response = await this.transform(await this.request(request), transformer);
