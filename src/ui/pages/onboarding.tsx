@@ -277,6 +277,10 @@ export function Onboarding(): ReactNode {
         setRequestId,
         setChallenge,
         setReferral,
+        setDeviceKey: useCallback(async (deviceKey) => {
+          if (deviceKey)
+            await helper("cache").setDeviceKey(deviceKey.trim().toLowerCase());
+        }, []),
         setCode,
         resetRequestId,
 
