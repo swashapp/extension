@@ -6,6 +6,9 @@ import { StreamsServicesConfiguration } from "@/types/storage/configuration.type
 const base = {
   base: STREAM_GATEWAY,
   timeout: 30000,
+  token_ttl: 60000,
+  token_header: "Swash-Session-Token",
+  token_header_ttl: 3600000,
 
   sync: {
     method: RequestMethod.GET,

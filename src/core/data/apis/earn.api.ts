@@ -5,6 +5,7 @@ import { EarnServicesConfiguration } from "@/types/storage/configuration.type";
 export const EarnApi: EarnServicesConfiguration = {
   base: API_GATEWAY,
   timeout: 30000,
+  token_ttl: 60000,
 
   sync: {
     method: RequestMethod.GET,

@@ -18,6 +18,7 @@ export class DropboxService extends BaseCloudService {
       conf.dropbox_client_key,
       "https://www.dropbox.com/oauth2/authorize",
       "",
+      conf.token_ttl,
     );
 
     this.api = new ApiService("https://api.dropboxapi.com", {

@@ -5,6 +5,7 @@ import { PaymentServicesConfiguration } from "@/types/storage/configuration.type
 export const PaymentApi: PaymentServicesConfiguration = {
   base: API_GATEWAY,
   timeout: 30000,
+  token_ttl: 60000,
 
   sync: {
     method: RequestMethod.GET,

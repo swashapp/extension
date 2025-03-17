@@ -52,6 +52,7 @@ export const InitialConfiguration: ConfigurationStorage = {
     google_drive_client_key:
       "1008037433533-fk4mar25609d75s1jv3pvohgfldtl8rj.apps.googleusercontent.com",
     timeout: 30000,
+    token_ttl: 86400000,
   },
   modules: {
     [StreamCategory.BEAUTY]: {

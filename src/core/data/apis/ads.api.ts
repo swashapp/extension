@@ -5,6 +5,7 @@ import { AdsServicesConfiguration } from "@/types/storage/configuration.type";
 export const AdsApi: AdsServicesConfiguration = {
   base: ADS_GATEWAY,
   timeout: 30000,
+  token_ttl: 60000,
 
   register: {
     method: RequestMethod.POST,
