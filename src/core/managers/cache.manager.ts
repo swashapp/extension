@@ -142,6 +142,8 @@ export class CacheManager extends BaseStorageManager<CacheStorage> {
       throw new BaseError(SystemMessage.NOT_ALLOWED_REASSIGN_EMAIL);
 
     const account = this.getData("account");
+    if (email === account.email) return;
+
     await this.setData("account", { ...account, email }, { ttl: 0 });
     this.logger.info(
       `Temporary email changed from ${account.email} to ${email}`,
