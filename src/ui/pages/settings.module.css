@@ -34,6 +34,12 @@
   min-height: 207px;
 }
 
+.qr {
+  padding: 6px;
+  border-radius: 16px;
+  background: white;
+}
+
 /* Dark theme */
 
 [data-theme="dark"] .icon path {
@@ -83,6 +89,7 @@
 @media only screen and (max-width: 767px) {
   .qr {
     width: min(256px, 100%);
+    border-radius: 8px;
     height: auto;
   }
 
