@@ -38,7 +38,7 @@ import { FacebookModule } from "./modules/social/facebook.module";
 import { TwitterModule } from "./modules/social/twitter.module";
 
 export const InitialConfiguration: ConfigurationStorage = {
-  version: "6",
+  version: "7",
 
   apis: {
     ads: AdsApi,

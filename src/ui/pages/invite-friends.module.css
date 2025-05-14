@@ -12,6 +12,14 @@
   transition: width 0.3s ease-in-out;
 }
 
+.create {
+  color: var(--color-dark-purple);
+}
+
+.first path {
+  stroke: var(--color-dark-purple) !important;
+}
+
 .share {
   width: max-content;
 
@@ -28,22 +36,26 @@
 }
 
 .banner {
-  --color: var(--color-soft-yellow);
   color: var(--color-jet-black);
   height: unset !important;
 }
 
 .banner.banner1 {
-  --color: var(--color-soft-green);
+  --color: var(--color-lightest-grey);
 }
 
 .banner.banner2 {
+  --color: var(--color-soft-green);
+}
+
+.banner.banner3 {
   --color: var(--color-purple);
 }
 
 .image {
-  width: auto;
-  height: 185px;
+  width: 80%;
+  max-width: 250px;
+  height: auto;
 
   margin: auto;
 }
@@ -108,6 +120,15 @@
   stroke: var(--color-light-grey);
 }
 
+[data-theme="dark"] .banner1 {
+  --color: var(--color-jet-black);
+  color: var(--color-light-grey);
+}
+
+[data-theme="dark"] .banner1 .image {
+  mix-blend-mode: difference;
+}
+
 [data-theme="dark"] .links tr:hover td {
   background-color: var(--color-jet-black);
 }
@@ -139,6 +160,7 @@
   .image {
     height: 208px;
     width: auto;
+    max-width: unset;
   }
 }
 

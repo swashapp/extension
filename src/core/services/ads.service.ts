@@ -49,17 +49,36 @@ export class AdsService {
     );
   }
 
-  private async register() {
+  private async findZone(
+    width: number,
+    height: number,
+  ): Promise<{ id: string; uuid?: string } | undefined> {
     this.logger.debug("Registering to ad server");
-    return this.api.fetch<{ address: string }, RegisterAdServerRes>(
-      {
-        ...this.service.register,
-        data: {
-          address: this.manager.wallet.getAddress(),
+
+    if (this.service.use_ad_server) {
+      const info = await this.api.fetch<
+        { address: string },
+        RegisterAdServerRes
+      >(
+        {
+          ...this.service.register,
+          data: {
+            address: this.manager.wallet.getAddress(),
+          },
         },
-      },
-      transformer,
-    );
+        transformer,
+      );
+      return {
+        id: info.foreignId,
+        uuid: info.zones.find(({ name }) => name === `${width}x${height}`)
+          ?.uuid,
+      };
+    } else {
+      return {
+        id: "0x000",
+        uuid: "0x000",
+      };
+    }
   }
 
   public async getAdSlot(width: number, height: number) {
@@ -68,8 +87,7 @@ export class AdsService {
       return { id: "", uuid: undefined };
     }
     this.logger.debug(`Retrieving ad slot for ${width}x${height}`);
-    const info = await this.register();
-    const found = info.zones.find(({ name }) => name === `${width}x${height}`);
+    const found = await this.findZone(width, height);
     if (found) {
       this.logger.debug(`Ad zone found for dimensions ${width}x${height}`);
     } else {
@@ -77,12 +95,14 @@ export class AdsService {
         `No matching ad zone for dimensions ${width}x${height}`,
       );
     }
-    return { id: info.foreignId, uuid: found?.uuid };
+    return found;
   }
 
   public async getAdHash(width: number, height: number): Promise<string> {
     this.logger.debug(`Fetching ad hash for ${width}x${height}`);
     try {
+      if (!this.service.use_ad_server) return "";
+
       const slot = await this.getAdSlot(width, height);
       if (!slot?.uuid) {
         this.logger.debug("Ad slot unavailable, returning empty hash");
