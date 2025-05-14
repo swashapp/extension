@@ -42,6 +42,7 @@ export type SwashServiceConfiguration = z.infer<
 
 export const AdsServicesConfigurationSchema =
   ApiServiceConfigurationSchema.extend({
+    use_ad_server: z.boolean(),
     register: ApiPathConfigurationSchema,
     supply_register: ApiPathConfigurationSchema,
     supply_find: ApiPathConfigurationSchema,

@@ -456,8 +456,23 @@ export function InviteFriends(): ReactNode {
                     });
                   }}
                 >
-                  <p className={"bold"}>Choose another percentage pair</p>
-                  <NextIcon className={clsx("rotate90", styles.next)} />
+                  {summary.default_link ? (
+                    <>
+                      <p className={clsx("bold")}>
+                        Choose another percentage pair
+                      </p>
+                      <NextIcon className={clsx("rotate90", styles.next)} />
+                    </>
+                  ) : (
+                    <>
+                      <p className={clsx("bold", styles.create)}>
+                        Create or set your referral link
+                      </p>
+                      <NextIcon
+                        className={clsx("rotate90", styles.next, styles.first)}
+                      />
+                    </>
+                  )}
                 </div>
               </div>
               <ReferralShare
@@ -513,27 +528,27 @@ export function InviteFriends(): ReactNode {
         ),
       },
     ];
-  }, [summary.default_link?.referral_share, updateSummary]);
+  }, [summary.default_link, updateSummary]);
 
   const banner = useMemo(() => {
     if (tab === 0)
       return {
-        className: "",
-        image: "/images/misc/talk.webp",
+        className: styles.banner1,
+        image: "/images/misc/referral-share.webp",
         title: "Revenue-sharing for you and your friends",
-        text: "Set your % and keep earning with the friends you bring to Swash!",
-        button: SUPPORT_URLS.revenueSharing,
+        text: "Check out the link below for a detailed breakdown on how it all works.",
+        button: WEBSITE_URLs.invite,
       };
     if (tab === 1)
       return {
-        className: styles.banner1,
+        className: styles.banner2,
         image: "/images/misc/cup.webp",
         title: "Win 2000 SWASH for the most monthly referrals",
         text: "Bring the most new users in a month, you’ll receive a 2000 SWASH prize!",
         button: SUPPORT_URLS.monthlyReferral,
       };
     return {
-      className: styles.banner2,
+      className: styles.banner3,
       image: "/images/misc/thumbs-up.webp",
       title: "Time-capped referrals, limited time",
       text: "Earn for every successful referral that you bring to Swash within live campaigns!",
@@ -582,8 +597,8 @@ export function InviteFriends(): ReactNode {
               <div className={"flex col gap12"}>
                 <h6>Earn more by inviting your friends</h6>
                 <p>
-                  Share your referral link to bring your friends to Swash. Live
-                  referral programs will always be shown here.
+                  Share your referral link to bring your friends to Swash. Set
+                  your % and earn endlessly when your friends earn!
                 </p>
               </div>
               <MultiTabView tabs={tabs} onTabChange={setTab} />

@@ -29,7 +29,7 @@ export function OnboardingRecaptcha(): ReactNode {
         next();
       }
     },
-    [next, setChallenge, setReferral],
+    [next, setChallenge, setDeviceKey, setReferral],
   );
 
   return (

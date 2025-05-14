@@ -6,6 +6,7 @@ export const AdsApi: AdsServicesConfiguration = {
   base: ADS_GATEWAY,
   timeout: 30000,
   token_ttl: 60000,
+  use_ad_server: false,
 
   register: {
     method: RequestMethod.POST,

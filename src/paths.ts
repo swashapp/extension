@@ -50,6 +50,7 @@ export const WEBSITE_URLs = {
   download: `${WEBSITE}/download`,
   ecosystem: `${WEBSITE}/ecosystem`,
   faq: `${WEBSITE}/faq`,
+  invite: `${WEBSITE}/invite-friends`,
   media: `${WEBSITE}/media`,
   newsletter: `${WEBSITE}/newsletter`,
   privacy: `${WEBSITE}/privacy-policy`,
