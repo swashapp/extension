@@ -457,12 +457,10 @@ export function Earnings(): ReactNode {
             display: country.name,
           })),
         );
-        const values = info.priceList
-          .filter(({ swash }) => +swash < balance)
-          .map((price) => ({
-            value: price.dollar,
-            display: `$${price.dollar} / ${purgeNumber(price.swash)} SWASH`,
-          }));
+        const values = info.priceList.map((price) => ({
+          value: price.dollar,
+          display: `$${price.dollar} / ${purgeNumber(price.swash)} SWASH`,
+        }));
         setValues(values);
 
         if (values.length > 0) ref.current?.next();
@@ -476,7 +474,7 @@ export function Earnings(): ReactNode {
         },
       },
     );
-  }, [balance, safeRun]);
+  }, [safeRun]);
 
   const onLoadFilteredGiftCard = useCallback(async () => {
     setLoading(true);
@@ -527,6 +525,11 @@ export function Earnings(): ReactNode {
       card.name.toLowerCase().includes(searchText.toLowerCase()),
     );
   }, [cards, searchText]);
+
+  const isBuyable = useMemo(() => {
+    if (voucher) return true;
+    else return !isNaN(balanceInUSD) && +amount < balanceInUSD;
+  }, [amount, balanceInUSD, voucher]);
 
   const tabs = useMemo(() => {
     const tabs = [
@@ -899,8 +902,12 @@ export function Earnings(): ReactNode {
                 </div>
               </div>
               <Button
-                text={"Continue to the gift card checkout"}
-                disabled={!selected}
+                text={
+                  isBuyable
+                    ? "Continue to the gift card checkout"
+                    : "Insufficient balance to checkout"
+                }
+                disabled={!selected || !isBuyable}
                 loading={loading}
                 onClick={onClickPurchaseGiftCard}
               />
