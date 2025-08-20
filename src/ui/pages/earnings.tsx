@@ -154,7 +154,6 @@ function WithdrawCrypto({
           await helper("payment").withdrawByCrypto(
             receiver,
             amount,
-            token.decimals,
             +network.id,
             token.address,
           );
