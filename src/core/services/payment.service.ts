@@ -107,7 +107,6 @@ export class PaymentService extends BaseSwashService<PaymentServicesConfiguratio
   public async withdrawByCrypto(
     receiver: string,
     amount: number,
-    decimal: number,
     networkId: number,
     token: string,
   ): Promise<boolean> {
@@ -131,7 +130,7 @@ export class PaymentService extends BaseSwashService<PaymentServicesConfiguratio
         userSignature: this.wallet.signCheck(
           type,
           receiver,
-          parseUnits(`${amount}`, decimal),
+          parseUnits(`${amount}`, 18),
           networkId,
           token,
           timestamp,
