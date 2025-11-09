@@ -14,6 +14,13 @@ export const EarnApi: EarnServicesConfiguration = {
       ttl: 540000,
     },
   },
+  get_offers: {
+    method: RequestMethod.GET,
+    path: "/earn/v1/auth/earner/offers",
+    cache: {
+      ttl: 180000,
+    },
+  },
   get_offer_url: {
     method: RequestMethod.GET,
     path: "/earn/v1/auth/offer/url",

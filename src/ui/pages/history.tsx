@@ -36,7 +36,7 @@ export function History(): ReactNode {
 
   const [info, setInfo] = useState<WithdrawInfoRes>();
   const [service, setService] = useState<HistoryService>(
-    HistoryService.PAYMENT,
+    HistoryService.PAYMENT
   );
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState<SelectItem[]>(activity);
@@ -63,7 +63,7 @@ export function History(): ReactNode {
             // @ts-expect-error
             category,
             page - 1,
-            pageSize,
+            pageSize
           );
 
           setData(resp.data);
@@ -73,10 +73,10 @@ export function History(): ReactNode {
           finally: () => {
             setLoading(false);
           },
-        },
+        }
       );
     },
-    [category, safeRun, service],
+    [category, safeRun, service]
   );
 
   const onTabChange = useCallback((index: number) => {
@@ -97,7 +97,7 @@ export function History(): ReactNode {
     async (pageSize: number) => {
       await onPageChange(1, pageSize);
     },
-    [onPageChange],
+    [onPageChange]
   );
 
   const onCategoryChange = useCallback((category: string) => {
@@ -109,20 +109,21 @@ export function History(): ReactNode {
     return (
       <DynamicTable
         data={data.map((item) => {
+          console.log("item", item);
           if (item.status && typeof item.status === "string") {
             if (item.txHash && item.network && info) {
               item.status = (
                 <Link
                   url={
                     info?.networks.find(
-                      (network) => network.name === item.network,
+                      (network) => network.name === item.network
                     )?.explorer + item.txHash
                   }
                   newTab
                   external
                   className={clsx(
                     styles.status,
-                    styles[item.status.toLowerCase()],
+                    styles[item.status.toLowerCase()]
                   )}
                 >
                   {item.status}
@@ -133,7 +134,7 @@ export function History(): ReactNode {
                 <p
                   className={clsx(
                     styles.status,
-                    styles[item.status.toLowerCase()],
+                    styles[item.status.toLowerCase()]
                   )}
                 >
                   {item.status}

@@ -15,11 +15,24 @@
   color: var(--color-jet-black) !important;
 }
 
-.failed {
+.pending {
+  background-color: var(--color-soft-yellow);
+}
+
+.terminated,
+.screen_out {
+  background: var(--color-light-grey);
+}
+
+.failed,
+.error,
+.rejected {
   background: var(--color-red);
 }
 
-.success {
+.success,
+.paid,
+.completed {
   background: var(--color-soft-green);
 }
 

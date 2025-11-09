@@ -53,6 +53,7 @@ export type AdsServicesConfiguration = z.infer<
 
 export const EarnServicesConfigurationSchema =
   SwashServiceConfigurationSchema.extend({
+    get_offers: ApiPathConfigurationSchema,
     get_offer_url: ApiPathConfigurationSchema,
     get_history: ApiPathConfigurationSchema,
     get_offer_wall_url: ApiPathConfigurationSchema,

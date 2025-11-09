@@ -24,7 +24,7 @@ const execute = async function (data: HelperMessage) {
 };
 
 (window as Any).swashSdk = {
-  version: 1,
+  version: 1.1,
 
   getStatus: async () => {
     const enabled = (await execute({
@@ -59,6 +59,13 @@ const execute = async function (data: HelperMessage) {
       age: getAge(+info.birth),
       ...info,
     };
+  },
+  getOffers: async () => {
+    return execute({
+      obj: "earn",
+      func: "getOffers",
+      params: [],
+    });
   },
   getOfferUrl: async (provider: string, offerId: string) => {
     return execute({

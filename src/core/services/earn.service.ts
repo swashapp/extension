@@ -8,7 +8,11 @@ import {
   HistoryRes,
   HistoryTableRes,
 } from "@/types/api/history.type";
-import { GetOfferURLReq, GetOfferWallURLReq } from "@/types/api/offer.type";
+import {
+  GetOffersRes,
+  GetOfferURLReq,
+  GetOfferWallURLReq,
+} from "@/types/api/offer.type";
 import { Managers } from "@/types/app.type";
 import { EarnServicesConfiguration } from "@/types/storage/configuration.type";
 import { formatDate } from "@/utils/date.util";
@@ -21,6 +25,15 @@ export class EarnService extends BaseSwashService<EarnServicesConfiguration> {
     coordinator.subscribe("isOutOfDate", (value, oldValue) => {
       if (value !== oldValue && !value)
         this.updateConfig(configs.get("apis").earn);
+    });
+  }
+
+  public async getOffers(): Promise<GetOffersRes> {
+    return this.fetch<void, GetOffersRes>({
+      ...this.conf.get_offers,
+      headers: {
+        Authorization: await this.generateToken(AcceptedAuth.EWT),
+      },
     });
   }
 
@@ -69,10 +82,10 @@ export class EarnService extends BaseSwashService<EarnServicesConfiguration> {
   public async getHistory(
     status: OfferStatus,
     page: number,
-    size: number,
+    size: number
   ): Promise<HistoryTableRes<EarnHistoryTableRes>> {
     const { data, total } = await this.getEarnHistory(
-      status === OfferStatus.ALL ? { page, size } : { status, page, size },
+      status === OfferStatus.ALL ? { page, size } : { status, page, size }
     );
 
     return {
