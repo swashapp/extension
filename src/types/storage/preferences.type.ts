@@ -18,10 +18,16 @@ export type NewTabPreferences = {
   sites: Record<number, NewTabSite>;
 };
 
+export type NotificationPreferences = {
+  token: string;
+  subscribed: boolean;
+};
+
 export type PreferencesStorage = {
   delay: number;
 
   ads: AdsPreferences;
   new_tab: NewTabPreferences;
+  notification: NotificationPreferences;
   charities: string[];
 };

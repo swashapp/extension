@@ -14,15 +14,10 @@ export class ConfigurationManager extends BaseStorageManager<ConfigurationStorag
     | undefined;
 
   private constructor(protected coordinator: AppCoordinator) {
-    super(InitialConfiguration);
+    super(InitialConfiguration, true);
   }
 
-  public override async init() {
-    await super.init();
-    await this.update(InitialConfiguration);
-  }
-
-  private async update(config: ConfigurationStorage) {
+  protected override async update(config: ConfigurationStorage) {
     const { success, error } = ConfigurationStorageSchema.safeParse(config);
     if (!success) {
       this.logger.error("Invalid configuration", error);
@@ -57,7 +52,7 @@ export class ConfigurationManager extends BaseStorageManager<ConfigurationStorag
       try {
         const data = await this.updater(update.last_revision);
         if (!data?.config || !data?.version) {
-          this.logger.info("No new configuration available");
+          this.logger.info("Configuration is up-to-date");
           return;
         }
 
@@ -67,7 +62,7 @@ export class ConfigurationManager extends BaseStorageManager<ConfigurationStorag
           this.logger.debug("Stored updated last_revision");
         } else {
           this.logger.warn(
-            `New revision ${data.version} is not greater than last_revision ${update.last_revision}`,
+            `Local revision (${update.last_revision}) is newer than remote revision (${data.version})`,
           );
           return;
         }

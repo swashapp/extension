@@ -153,6 +153,10 @@ export const UserServicesConfigurationSchema =
     remove_ongoing_donation: ApiPathConfigurationSchema,
 
     get_app_config: ApiPathConfigurationSchema,
+
+    register_notification: ApiPathConfigurationSchema,
+    subscribe_notification: ApiPathConfigurationSchema,
+    unsubscribe_notification: ApiPathConfigurationSchema,
   });
 export type UserServicesConfiguration = z.infer<
   typeof UserServicesConfigurationSchema

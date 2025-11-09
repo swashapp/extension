@@ -1,4 +1,6 @@
-export const InitialPreferences = {
+import { PreferencesStorage } from "@/types/storage/preferences.type";
+
+export const InitialPreferences: PreferencesStorage = {
   delay: 2 * 60 * 1000,
 
   ads: {
@@ -24,6 +26,10 @@ export const InitialPreferences = {
         logo: "https://www.google.com/s2/favicons?sz=64&domain_url=https://swashapp.io",
       },
     },
+  },
+  notification: {
+    token: "",
+    subscribed: false,
   },
   charities: [],
 };

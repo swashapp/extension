@@ -35,6 +35,7 @@ import {
   GetAvailableInfo,
   ModifyAdditionalInfoReq,
 } from "@/types/api/info.type";
+import { NotificationRegistrationDto } from "@/types/api/notification.type";
 import {
   AddReferralLinkReq,
   DefaultReferralLinkReq,
@@ -502,6 +503,38 @@ export class UserService extends BaseSwashService<UserServicesConfiguration> {
         app_name: getAppName(),
         app_version: getAppVersion(),
         last_version,
+      },
+    });
+  }
+
+  public async registerNotification(token: string) {
+    return this.fetch<NotificationRegistrationDto, void>({
+      ...this.conf.register_notification,
+      headers: {
+        Authorization: await this.generateToken(AcceptedAuth.EWT),
+      },
+      data: {
+        token,
+      },
+    });
+  }
+
+  public async subscribeNotification() {
+    return this.fetch<void, void>({
+      ...this.conf.subscribe_notification,
+      headers: {
+        Authorization: await this.generateToken(AcceptedAuth.EWT),
+        "Content-Type": "text/plain",
+      },
+    });
+  }
+
+  public async unsubscribeNotification() {
+    return this.fetch<void, void>({
+      ...this.conf.unsubscribe_notification,
+      headers: {
+        Authorization: await this.generateToken(AcceptedAuth.EWT),
+        "Content-Type": "text/plain",
       },
     });
   }

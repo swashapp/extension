@@ -2,8 +2,10 @@ import { satisfies } from "compare-versions";
 import { Runtime, runtime, storage } from "webextension-polyfill";
 
 import { CloudService } from "@/core/services/cloud.service";
+import { NotificationService } from "@/core/services/notification.service";
 import { AppStages } from "@/enums/app.enum";
 import { OnInstalledReason } from "@/enums/event.enum";
+import { Any } from "@/types/any.type";
 import { HelperMessage, Helpers, Managers } from "@/types/app.type";
 import { Logger } from "@/utils/log.util";
 
@@ -23,6 +25,8 @@ import { PageService } from "./services/page.service";
 import { PaymentService } from "./services/payment.service";
 import { RestoreService } from "./services/restore.service";
 import { UserService } from "./services/user.service";
+
+declare const self: ServiceWorkerGlobalScope;
 
 let hasRun = false;
 let isReady = false;
@@ -69,6 +73,7 @@ async function bootstrap() {
   const restore = new RestoreService(managers);
   const data = new DataService(managers, user);
   const page = new PageService(managers, data);
+  const notification = new NotificationService(managers, user);
 
   helpers = {
     ...managers,
@@ -78,6 +83,7 @@ async function bootstrap() {
       cloud,
       data,
       earn,
+      notification,
       page,
       payment,
       restore,
@@ -138,18 +144,21 @@ async function onStartup() {
   await helpers.cache.clearVolatileData();
 }
 
+async function ensureReady(): Promise<boolean> {
+  await bootstrap();
+
+  const started = Date.now();
+  while (!isReady && Date.now() - started < 5000) {
+    await new Promise((r) => setTimeout(r, 100));
+  }
+  return isReady;
+}
+
 runtime.onInstalled.addListener(onInstall);
 runtime.onStartup.addListener(onStartup);
 
 runtime.onMessage.addListener(async (message: HelperMessage) => {
-  await bootstrap();
-
-  for (let i = 0; i < 10; i++) {
-    if (isReady) break;
-    await new Promise((resolve) => setTimeout(resolve, 150));
-  }
-
-  if (!isReady) {
+  if (!(await ensureReady())) {
     logger.warn("Application requirements is not ready");
     return false;
   }
@@ -160,4 +169,55 @@ runtime.onMessage.addListener(async (message: HelperMessage) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return helpers[message.obj][message.func](...message.params);
+});
+
+self.addEventListener("push", (event: PushEvent) => {
+  logger.info("Received a push message event", event);
+  event.waitUntil(
+    (async (): Promise<void> => {
+      if (!(await ensureReady())) return;
+
+      let payload: Any = {};
+      const text = event.data?.text() ?? "";
+      if (text) {
+        try {
+          payload = JSON.parse(text);
+        } catch {
+          payload = { body: text };
+        }
+      }
+
+      await helpers.notification.handlePush(payload);
+    })()
+  );
+});
+
+self.addEventListener(
+  "pushsubscriptionchange",
+  (event: PushSubscriptionChangeEvent) => {
+    event.waitUntil(
+      (async (): Promise<void> => {
+        if (!(await ensureReady())) return;
+        await helpers.notification.updateToken();
+      })()
+    );
+  }
+);
+
+self.addEventListener("notificationclick", (event: NotificationEvent) => {
+  event.notification.close();
+  event.waitUntil(
+    (async () => {
+      const targetUrl = "/";
+      const all = await self.clients.matchAll({
+        type: "window",
+        includeUncontrolled: true,
+      });
+      const client = all.find((c) =>
+        (c as WindowClient).url.includes(targetUrl)
+      ) as WindowClient | undefined;
+      if (client) return client.focus();
+      return self.clients.openWindow(targetUrl);
+    })()
+  );
 });

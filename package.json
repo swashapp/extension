@@ -1,6 +1,6 @@
 {
   "name": "swash-extension",
-  "version": "3.1.4",
+  "version": "3.2.0",
   "type": "module",
   "repository": {
     "url": "https://github.com/swashapp/extension.git"
@@ -46,6 +46,7 @@
     "cron-parser": "4.9.0",
     "dayjs": "1.11.13",
     "ethers": "6.13.3",
+    "firebase": "12.2.1",
     "jsonpath-plus": "6.0.1",
     "jsonpointer": "5.0.1",
     "jsontokens": "4.0.1",

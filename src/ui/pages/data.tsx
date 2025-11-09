@@ -27,7 +27,7 @@ export function Data(): ReactNode {
   const urlTransformer = useCallback((url: string) => {
     try {
       return new URL(
-        url.startsWith("http") ? url : `https://${url}`,
+        url.startsWith("http") ? url : `https://${url}`
       ).toString();
     } catch (error) {
       return url;
@@ -38,7 +38,7 @@ export function Data(): ReactNode {
     (url: string) => {
       return urlTransformer(url.replace("*://", "").replace("/*", ""));
     },
-    [urlTransformer],
+    [urlTransformer]
   );
 
   const removeMessage = useCallback(
@@ -46,11 +46,11 @@ export function Data(): ReactNode {
       safeRun(async () => {
         await helper("message").remove(record.id);
         setMessages((prevMessages) =>
-          prevMessages.filter((dp) => dp.id !== record.id),
+          prevMessages.filter((dp) => dp.id !== record.id)
         );
       });
     },
-    [safeRun],
+    [safeRun]
   );
 
   const loadMessages = useCallback(async () => {
@@ -58,7 +58,7 @@ export function Data(): ReactNode {
       const records = await helper("message").getGreaterThan(lastMessageId);
 
       const newMessages = records.filter(
-        ({ id }) => !messages.some((dp) => dp.id === id),
+        ({ id }) => !messages.some((dp) => dp.id === id)
       );
 
       if (newMessages.length > 0) {
@@ -254,7 +254,7 @@ export function Data(): ReactNode {
       removeMessage,
       safeRun,
       urlTransformer,
-    ],
+    ]
   );
 
   return (

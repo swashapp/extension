@@ -11,6 +11,6 @@ try {
       prefersDark ? "dark" : "light",
     );
   }
-} catch (e) {
-  console.error("Error setting theme:", e);
+} catch (error) {
+  console.error("Error setting theme:", error);
 }

@@ -156,7 +156,7 @@ export class ImageManager extends BaseDatabase {
           this.logger.error("Error fetching images", error);
         }
       })
-      .catch((err) => this.logger.error("Error removing image", err));
+      .catch((error) => this.logger.error("Error removing image", error));
 
     return image;
   }

@@ -2,12 +2,11 @@ import { storage } from "webextension-polyfill";
 
 import { Any } from "@/types/any.type";
 import { Logger } from "@/utils/log.util";
-import { copy } from "@/utils/object.util";
+import { copy, deepMerge } from "@/utils/object.util";
 
 export abstract class BaseStorageManager<T> {
   private _cache!: T;
   private readonly name: string;
-  private readonly initialData: T;
   protected readonly logger = new Logger(this.constructor.name);
 
   private set cache(value: T) {
@@ -23,9 +22,11 @@ export abstract class BaseStorageManager<T> {
     this.cache = data;
   }
 
-  protected constructor(value: T) {
+  protected constructor(
+    private readonly initialData: T,
+    protected readonly updatable: boolean = false,
+  ) {
     this.name = this.constructor.name.replace("Manager", "").toLowerCase();
-    this.initialData = value;
     this.logger.info("Initialization completed");
   }
 
@@ -53,7 +54,17 @@ export abstract class BaseStorageManager<T> {
     } else {
       this.logger.info(`Storage record exists, loading data`);
       this.cache = local[this.name];
+      if (this.updatable) await this.update(value);
     }
+  }
+
+  protected async update(value: T): Promise<void> {
+    const local = this.cache;
+    const final = deepMerge(value, local);
+    this.logger.debug("Storage local data", local);
+    this.logger.debug("Storage updating data", value);
+    this.logger.info("Storage updated data", final);
+    await this.setAll(final);
   }
 
   public get<K extends keyof T>(

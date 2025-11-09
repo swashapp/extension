@@ -181,4 +181,16 @@ export const UserApi: UserServicesConfiguration = {
       ttl: 86400000,
     },
   },
+  register_notification: {
+    method: RequestMethod.POST,
+    path: "/user/v3/auth/notification/register",
+  },
+  subscribe_notification: {
+    method: RequestMethod.POST,
+    path: "/user/v3/auth/notification/subscribe",
+  },
+  unsubscribe_notification: {
+    method: RequestMethod.POST,
+    path: "/user/v3/auth/notification/unsubscribe",
+  },
 };

@@ -14,7 +14,7 @@ export class PreferenceManager extends BaseStorageManager<PreferencesStorage> {
   private static instance: PreferenceManager;
 
   private constructor(protected coordinator: AppCoordinator) {
-    super(InitialPreferences);
+    super(InitialPreferences, true);
   }
 
   public static async getInstance(
@@ -88,6 +88,16 @@ export class PreferenceManager extends BaseStorageManager<PreferencesStorage> {
     const newtab = this.get("new_tab");
     delete newtab.sites[id];
     await this.set("new_tab", { ...newtab });
+  }
+
+  public async setNotificationToken(token: string) {
+    const notification = this.get("notification");
+    await this.set("notification", { ...notification, token });
+  }
+
+  public async setNotificationSubscribed(subscribed: boolean) {
+    const notification = this.get("notification");
+    await this.set("notification", { ...notification, subscribed });
   }
 
   public getFavoriteCharities() {

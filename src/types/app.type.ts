@@ -11,6 +11,7 @@ import { BackupService } from "@/core/services/backup.service";
 import { CloudService } from "@/core/services/cloud.service";
 import { DataService } from "@/core/services/data.service";
 import { EarnService } from "@/core/services/earn.service";
+import { NotificationService } from "@/core/services/notification.service";
 import { PageService } from "@/core/services/page.service";
 import { PaymentService } from "@/core/services/payment.service";
 import { RestoreService } from "@/core/services/restore.service";
@@ -46,6 +47,7 @@ export type Helpers = {
   cloud: ClassAsyncType<CloudService>;
   earn: ClassAsyncType<EarnService>;
   data: ClassAsyncType<DataService>;
+  notification: ClassAsyncType<NotificationService>;
   page: ClassAsyncType<PageService>;
   payment: ClassAsyncType<PaymentService>;
   restore: ClassAsyncType<RestoreService>;
