@@ -27,18 +27,18 @@ export function Data(): ReactNode {
   const urlTransformer = useCallback((url: string) => {
     try {
       return new URL(
-        url.startsWith("http") ? url : `https://${url}`,
+        url.startsWith("http") ? url : `https://${url}`
       ).toString();
     } catch (error) {
       return url;
     }
   }, []);
 
-  const urlFormater = useCallback(
+  const urlFormatter = useCallback(
     (url: string) => {
       return urlTransformer(url.replace("*://", "").replace("/*", ""));
     },
-    [urlTransformer],
+    [urlTransformer]
   );
 
   const removeMessage = useCallback(
@@ -46,11 +46,11 @@ export function Data(): ReactNode {
       safeRun(async () => {
         await helper("message").remove(record.id);
         setMessages((prevMessages) =>
-          prevMessages.filter((dp) => dp.id !== record.id),
+          prevMessages.filter((dp) => dp.id !== record.id)
         );
       });
     },
-    [safeRun],
+    [safeRun]
   );
 
   const loadMessages = useCallback(async () => {
@@ -58,7 +58,7 @@ export function Data(): ReactNode {
       const records = await helper("message").getGreaterThan(lastMessageId);
 
       const newMessages = records.filter(
-        ({ id }) => !messages.some((dp) => dp.id === id),
+        ({ id }) => !messages.some((dp) => dp.id === id)
       );
 
       if (newMessages.length > 0) {
@@ -77,7 +77,7 @@ export function Data(): ReactNode {
   useEffect(() => {
     safeRun(async () => {
       const delay = (await helper("preferences").get("delay")) as number;
-      setDelay(delay);
+      setDelay(delay / 60000);
     });
 
     safeRun(async () => {
@@ -89,16 +89,16 @@ export function Data(): ReactNode {
   useEffect(() => {
     safeRun(async () => {
       const filters = await helper("privacy").getFilters();
-      setFilters(filters.map((url) => urlFormater(url)));
+      setFilters(filters.map((url) => urlFormatter(url)));
     });
 
     safeRun(async () => {
       const filters = (
         (await helper("preferences").get("ads")) as AdsPreferences
       ).filters.urls;
-      setAdsFilters(filters.map((url) => urlFormater(url)));
+      setAdsFilters(filters.map((url) => urlFormatter(url)));
     });
-  }, [safeRun, urlFormater]);
+  }, [safeRun, urlFormatter]);
 
   const tabs = useMemo(
     () => [
@@ -115,12 +115,14 @@ export function Data(): ReactNode {
             <div>
               <NumericInput
                 label={"Delay my data by"}
-                value={delay / 60000}
+                value={delay}
                 setValue={(value) => {
                   safeRun(async () => {
-                    const _value = (value as number) * 60000;
-                    await helper("preferences").set("delay", _value);
-                    setDelay(_value);
+                    if (value < 0) value = 0;
+                    if (value > 60) value = 60;
+
+                    await helper("preferences").set("delay", value * 60000);
+                    setDelay(value);
                   });
                 }}
                 unit={delay > 1 ? "minutes" : "minute"}
@@ -254,7 +256,7 @@ export function Data(): ReactNode {
       removeMessage,
       safeRun,
       urlTransformer,
-    ],
+    ]
   );
 
   return (

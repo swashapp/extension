@@ -126,6 +126,11 @@ async function onInstall(info: Runtime.OnInstalledDetailsType) {
     } else {
       await bootstrap();
     }
+
+    if (satisfies(previousVersion, "<3.1.5")) {
+      if (((await helpers.preferences.get("delay")) as number) > 3600000)
+        await helpers.preferences.set("delay", 3600000);
+    }
   } else {
     logger.info("Processing browser update flow");
     await bootstrap();

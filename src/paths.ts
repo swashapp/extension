@@ -1,5 +1,5 @@
-export const WEBSITE = "https://swashapp.io";
-export const EARN_WEBSITE = "https://earn.swashapp.io";
+export const WEBSITE = "https://swashapp.io/";
+export const EARN_WEBSITE = "https://earn.swashapp.io/";
 export const SUPPORT_WEBSITE = "https://support.swashapp.io/hc/en-us";
 export const API_GATEWAY = "https://api.swashapp.io";
 export const ADS_GATEWAY = "https://app.swashapp.io";
@@ -36,7 +36,7 @@ export const INTERNAL_PATHS: {
     Object.entries(DASHBOARD_PATHS).map(([key, path]) => [
       key,
       `${dashboard}#${path}`,
-    ]),
+    ])
   ),
   newTab: `ui/new-tab.html`,
   popup: `ui/popup.html`,
