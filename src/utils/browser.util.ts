@@ -1,4 +1,11 @@
-import { action, runtime, scripting, Tabs, tabs } from "webextension-polyfill";
+import {
+  action,
+  notifications,
+  runtime,
+  scripting,
+  Tabs,
+  tabs,
+} from "webextension-polyfill";
 
 import { PlatformOS } from "@/enums/platform.enum";
 import { Any } from "@/types/any.type";
@@ -108,5 +115,30 @@ export async function getTabTitle(tabId: number): Promise<Any[]> {
   return scripting.executeScript({
     target: { tabId: tabId },
     func: () => document.title,
+  });
+}
+
+const Notifications = {
+  success: { icon: "images/swash/active-48.png", title: "You're all set" },
+  error: { icon: "images/swash/error-48.png", title: "Something went wrong" },
+  default: {
+    icon: "images/swash/active-48.png",
+    title: "Notification",
+  },
+};
+
+export function notify(
+  status: keyof typeof Notifications,
+  message: string,
+  title?: string,
+) {
+  const config = Notifications[status];
+
+  notifications.create(`notif-${Date.now()}`, {
+    type: "basic",
+    iconUrl: runtime.getURL(config.icon),
+    title: title ?? config.title,
+    message,
+    priority: status === "error" ? 2 : 1,
   });
 }
