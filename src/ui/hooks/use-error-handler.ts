@@ -19,7 +19,10 @@ export function useErrorHandler() {
         return await func();
       } catch (err: Any) {
         let message: string = SystemMessage.UNEXPECTED_THINGS_HAPPENED;
-        if (err.message) message = err.message;
+        if (err.message)
+          message = (err.message as string)
+            ?.replace("Uncaught Error: ", "")
+            .replace(/^./, (c) => c.toUpperCase());
 
         toastMessage("error", message);
         if (on.failure) await on.failure();

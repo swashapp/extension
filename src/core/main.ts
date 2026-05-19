@@ -4,7 +4,9 @@ import { Runtime, runtime, storage } from "webextension-polyfill";
 import { CloudService } from "@/core/services/cloud.service";
 import { AppStages } from "@/enums/app.enum";
 import { OnInstalledReason } from "@/enums/event.enum";
+import { SystemMessage } from "@/enums/message.enum";
 import { HelperMessage, Helpers, Managers } from "@/types/app.type";
+import { getAppVersion, notify } from "@/utils/browser.util";
 import { Logger } from "@/utils/log.util";
 
 import { AppCoordinator } from "./app-coordinator";
@@ -95,6 +97,11 @@ async function onInstall(info: Runtime.OnInstalledDetailsType) {
     logger.info("Processing installation flow");
     await bootstrap();
     await helpers.coordinator.set("stage", AppStages.ONBOARDING);
+    notify(
+      "default",
+      SystemMessage.WELCOME_TO_INSTALLED_SWASH,
+      "Welcome to Swash 👋",
+    );
   } else if (info.reason === OnInstalledReason.UPDATE) {
     logger.info("Processing extension update flow");
     const previousVersion = info.previousVersion || "0.0.0";
@@ -131,6 +138,11 @@ async function onInstall(info: Runtime.OnInstalledDetailsType) {
       if (((await helpers.preferences.get("delay")) as number) > 3600000)
         await helpers.preferences.set("delay", 3600000);
     }
+    notify(
+      "default",
+      SystemMessage.WELCOME_TO_UPDATED_SWASH,
+      `Swash updated to ${getAppVersion()} 🚀`,
+    );
   } else {
     logger.info("Processing browser update flow");
     await bootstrap();

@@ -44,4 +44,6 @@ export enum SystemMessage {
   TIMEOUT_API_CALL = "The request has timed out. Please try again",
   UNEXPECTED_THINGS_HAPPENED = "Something unexpected happened. Please try again",
   UNSUPPORTED_RESPONSE_TYPE = "Response type is not supported",
+  WELCOME_TO_INSTALLED_SWASH = "Start earning rewards as you browse. The extension runs quietly in the background.",
+  WELCOME_TO_UPDATED_SWASH = "We've made it smoother and more reliable so you can keep earning rewards effortlessly.",
 }
